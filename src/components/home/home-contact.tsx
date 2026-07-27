@@ -1,7 +1,9 @@
 import { useState } from "react"
 import type { FormEvent } from "react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
-import type { HomeContactContent, PillarId } from "@/content"
+import type { ContactInterestId, HomeContactContent } from "@/content"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,6 +12,7 @@ import { cn } from "@/lib/utils"
 import {
   homeCardClassName,
   homeDisplayClassName,
+  homePillClassName,
   homeShellClassName,
 } from "@/components/home/home-styles"
 
@@ -19,19 +22,27 @@ type HomeContactProps = {
 
 type FormStatus = "idle" | "submitting" | "success" | "error"
 
-const fieldClassName =
-  "h-11 rounded-xl border-border bg-background text-sm shadow-none md:text-sm"
+/** Sizing lives in the `xl` control variant; this only carries the card surface. */
+const fieldClassName = "border-border bg-background shadow-none"
 
-const textareaClassName =
-  "min-h-28 rounded-xl border-border bg-background text-sm shadow-none md:text-sm"
+const textareaClassName = "min-h-28 border-border bg-background shadow-none"
 
 const labelClassName = "text-sm font-medium text-foreground"
 
+/** QA: message body `fail` (any case) simulates a delivery error. */
+function shouldSimulateFailure(message: string) {
+  return message.trim().toLowerCase() === "fail"
+}
+
+const DEFAULT_INTEREST: ContactInterestId = "academy"
+
 function HomeContact({ contact }: HomeContactProps) {
   const [status, setStatus] = useState<FormStatus>("idle")
-  const [interest, setInterest] = useState<PillarId>(
-    contact.interestOptions[0]?.value ?? "academy"
+  const [interest, setInterest] = useState<ContactInterestId>(
+    contact.interestOptions[0]?.value ?? DEFAULT_INTEREST
   )
+
+  const busy = status === "submitting"
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -41,11 +52,18 @@ function HomeContact({ contact }: HomeContactProps) {
       return
     }
 
+    const formData = new FormData(form)
+    const message = String(formData.get("message") ?? "")
+
     setStatus("submitting")
     window.setTimeout(() => {
+      if (shouldSimulateFailure(message)) {
+        setStatus("error")
+        return
+      }
       setStatus("success")
       form.reset()
-      setInterest(contact.interestOptions[0]?.value ?? "academy")
+      setInterest(contact.interestOptions[0]?.value ?? DEFAULT_INTEREST)
     }, 400)
   }
 
@@ -72,7 +90,12 @@ function HomeContact({ contact }: HomeContactProps) {
           </p>
         </div>
 
-        <form className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
+        <form
+          className="flex flex-col gap-5"
+          onSubmit={handleSubmit}
+          noValidate
+          aria-busy={busy}
+        >
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="flex flex-col gap-2">
               <Label htmlFor="contact-name" className={labelClassName}>
@@ -84,7 +107,9 @@ function HomeContact({ contact }: HomeContactProps) {
                 required
                 autoComplete="name"
                 placeholder={contact.namePlaceholder}
-                className={fieldClassName}
+                size="xl"
+              className={fieldClassName}
+                disabled={busy}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -98,7 +123,9 @@ function HomeContact({ contact }: HomeContactProps) {
                 required
                 autoComplete="email"
                 placeholder={contact.emailPlaceholder}
-                className={fieldClassName}
+                size="xl"
+              className={fieldClassName}
+                disabled={busy}
               />
             </div>
           </div>
@@ -112,21 +139,24 @@ function HomeContact({ contact }: HomeContactProps) {
               name="company"
               autoComplete="organization"
               placeholder={contact.companyPlaceholder}
+              size="xl"
               className={fieldClassName}
+              disabled={busy}
             />
           </div>
 
-          <fieldset className="flex flex-col gap-3">
+          <fieldset className="flex flex-col gap-3" disabled={busy}>
             <legend className={cn(labelClassName, "mb-2")}>{contact.interestLabel}</legend>
             <div className="flex flex-wrap gap-2">
               {contact.interestOptions.map((option) => (
                 <label
                   key={option.value}
                   className={cn(
-                    "cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+                    "inline-flex min-h-11 cursor-pointer items-center rounded-full border px-4 text-sm font-medium transition-colors",
                     interest === option.value
-                      ? "border-purple bg-background text-graphite"
-                      : "border-border bg-background/70 text-muted-foreground hover:text-foreground"
+                      ? "border-purple bg-background text-foreground"
+                      : "border-border bg-background/70 text-muted-foreground hover:text-foreground",
+                    busy && "pointer-events-none opacity-50"
                   )}
                 >
                   <input
@@ -154,17 +184,22 @@ function HomeContact({ contact }: HomeContactProps) {
               required
               rows={4}
               placeholder={contact.messagePlaceholder}
+              size="xl"
               className={textareaClassName}
+              disabled={busy}
             />
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <Button
               type="submit"
-              disabled={status === "submitting"}
-              className="h-11 rounded-full px-6 text-sm"
+              disabled={busy}
+              className={homePillClassName}
             >
-              {status === "submitting" ? contact.submitting : contact.submit}
+              {busy ? contact.submitting : contact.submit}
+              {busy ? null : (
+                <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+              )}
             </Button>
             {status === "success" ? (
               <p className="text-sm text-foreground" role="status">

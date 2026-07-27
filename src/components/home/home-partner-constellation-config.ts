@@ -57,9 +57,9 @@ export const sizeClassName = {
 } as const
 
 export const fillClassName = [
-  "bg-lavender text-graphite",
-  "bg-purple/40 text-graphite",
-  "bg-graphite/10 text-graphite",
+  "bg-surface-soft text-foreground",
+  "bg-purple/40 text-foreground",
+  "bg-graphite/10 text-foreground",
   "bg-muted text-muted-foreground",
 ] as const
 

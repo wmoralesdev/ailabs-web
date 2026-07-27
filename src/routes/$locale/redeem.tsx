@@ -15,9 +15,9 @@ import { RedeemHeroDesktop } from "@/components/redeem/redeem-hero-desktop"
 import { RedeemHeroMobile } from "@/components/redeem/redeem-hero-mobile"
 import {
   homeDisplayClassName,
-  homeLabelClassName,
   homePillClassName,
 } from "@/components/home/home-styles"
+import { Eyebrow } from "@/components/ui/eyebrow"
 import { Spinner } from "@/components/ui/spinner"
 import { getContent, isLocale } from "@/content"
 import type { Locale, MicrocopyContent, RedeemContent } from "@/content/types"
@@ -66,7 +66,7 @@ export const Route = createFileRoute("/$locale/redeem")({
 
     return {
       meta: [
-        { title: `${productTitle} — ${meta.title}` },
+        { title: `${productTitle} | ${meta.title}` },
         { name: "description", content: meta.description },
         { name: "robots", content: "noindex, nofollow" },
       ],
@@ -77,9 +77,6 @@ export const Route = createFileRoute("/$locale/redeem")({
 
 const revealBaseClassName =
   "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500"
-
-const onDarkLabelClassName =
-  "border-on-dark/25 bg-on-dark/10 text-on-dark inline-flex w-fit items-center rounded-full border px-3 py-1 text-xs font-semibold tracking-wider uppercase backdrop-blur-sm"
 
 function RedeemPage() {
   const { locale, content: siteContent } = Route.useRouteContext()
@@ -247,9 +244,9 @@ function ProductInfo({
             )}
           />
         ))}
-        <span className={onDark ? onDarkLabelClassName : homeLabelClassName}>
+        <Eyebrow tone={onDark ? "onDark" : "default"}>
           {content.eventLabel}
-        </span>
+        </Eyebrow>
       </div>
 
       <h1
@@ -493,9 +490,9 @@ function RedeemHeroShell({
           mediaSrcs={mediaSrcs}
           mediaAlt={mediaAlt}
           qrContent={qrContent}
-          left={left("onLight")}
+          left={left("onDark")}
           right={right("desktop")}
-          leftFooter={leftFooter?.("onLight")}
+          leftFooter={leftFooter?.("onDark")}
         />
       </div>
     </div>

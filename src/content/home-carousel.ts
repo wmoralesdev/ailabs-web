@@ -35,4 +35,11 @@ export const homeCarousel = {
     "/carousel/26.webp",
     "/carousel/27.webp",
   ],
+  /** Campus Leader landing — landscape picks, disjoint from hero strip. */
+  campusLeader: [
+    "/carousel/21.webp",
+    "/carousel/23.webp",
+    "/carousel/26.webp",
+    "/carousel/24.webp",
+  ],
 } as const satisfies Record<string, ReadonlyArray<string>>

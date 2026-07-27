@@ -6,7 +6,7 @@ import { BgStipple } from "@/components/bg/bg-stipple"
 export const Route = createFileRoute("/bg")({
   head: () => ({
     meta: [
-      { title: "Ai Labs — Background" },
+      { title: "Ai Labs: Background" },
       { name: "robots", content: "noindex" },
     ],
   }),

@@ -9,6 +9,7 @@ import {
 import { useTheme } from "@/components/theme-provider"
 import type { Theme } from "@/components/theme-provider"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 type ThemeToggleLabels = {
   cycle: string
@@ -19,6 +20,7 @@ type ThemeToggleLabels = {
 
 type ThemeToggleProps = {
   labels: ThemeToggleLabels
+  className?: string
 }
 
 const THEME_ORDER = ["light", "dark", "system"] as const satisfies readonly Theme[]
@@ -44,7 +46,7 @@ function subscribeToNothing() {
   return () => {}
 }
 
-function ThemeToggle({ labels }: ThemeToggleProps) {
+function ThemeToggle({ labels, className }: ThemeToggleProps) {
   const { theme, setTheme } = useTheme()
   const mounted = useSyncExternalStore(
     subscribeToNothing,
@@ -61,6 +63,7 @@ function ThemeToggle({ labels }: ThemeToggleProps) {
       type="button"
       variant="ghost"
       size="icon-sm"
+      className={cn("min-h-11 min-w-11", className)}
       aria-label={ariaLabel}
       title={ariaLabel}
       onClick={() => setTheme(next)}

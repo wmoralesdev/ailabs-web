@@ -60,17 +60,29 @@ possibly stale value into this file.
 
 ## Current application
 
+- Shared chrome is a fixed, centered floating nav bar (`SiteHeader`): rounded
+  corners (not pill), nav links plus theme and locale. Brand lockup stays
+  page-owned on full-bleed routes (home, redeem, community, campus-leader,
+  lab); other routes get a top-left lockup sibling. Do not embed theme/locale
+  controls in page heroes.
 - `/` redirects from the request language to `/en` or `/es`.
 - The localized home page is implemented in this order: Hero, Trust, About,
   Academy, Agentic, Aperture, and Contact, followed by the shared footer.
+  The home hero is a 50/50 split: left copy (home hero content) and a right
+  canvas text spiral of community words (`TextSpiral`), with GPU spin/ripple.
 - `/en/academy`, `/en/agentic`, and `/en/aperture` (and their Spanish
   equivalents) currently have route metadata but render no page content.
   Do not describe them as shipped pages.
 - `/$locale/redeem` is an authenticated credit-redemption flow backed by
   Clerk, TanStack server functions, Prisma, and PostgreSQL/Neon.
 - `/$locale/community` is a minimal WhatsApp invite landing that reuses the
-  redeem dual-hero chrome (no auth). Community appears in chrome nav, home
-  hero nav, and the footer.
+  redeem dual-hero chrome (no auth). Community appears in chrome nav and the
+  footer.
+- `/$locale/campus-leader` is a public Campus Leader application flow (no
+  auth). Submissions persist via a TanStack server function and Prisma.
+  Cohort open/close is controlled by `campusLeader.applicationsOpen` in
+  content. Footer links to it; accepted-leader directory is not shipped yet.
+  Export applications with `pnpm campus-leader:export` for Notion review.
 - The home contact form currently validates in the browser and simulates a
   successful submission; it is not connected to a delivery backend.
 
@@ -115,8 +127,8 @@ scripts. Do not recreate deleted one-off scripts in this repo.
   loaded locally through Fontsource.
 - Reuse `src/components/ui` and the shared home/chrome utilities. Use
   Hugeicons for interface icons; do not use emoji as UI icons.
-- Keep responsive behavior deliberate. The desktop and mobile home heroes have
-  separate components because their compositions differ materially.
+- Keep responsive behavior deliberate. The home hero stacks on small screens
+  and becomes a true 50/50 split from `lg` up.
 - Keep effects restrained and performant. Prefer transform and opacity for
   motion, and do not add decorative animation that competes with content.
 

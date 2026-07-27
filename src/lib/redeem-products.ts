@@ -32,8 +32,8 @@ const PRODUCT_CONFIG: Record<Product, RedeemProductConfig> = {
     titleKey: "codex",
     logos: [
       {
-        light: "/brand/openai-light.svg",
-        dark: "/brand/openai-dark.svg",
+        light: "/brand/codex.svg",
+        dark: "/brand/codex.svg",
         alt: "Codex",
       },
     ],
@@ -44,8 +44,8 @@ const PRODUCT_CONFIG: Record<Product, RedeemProductConfig> = {
     titleKey: "openai",
     logos: [
       {
-        light: "/brand/openai-light.svg",
-        dark: "/brand/openai-dark.svg",
+        light: "/brand/openai.svg",
+        dark: "/brand/openai.svg",
         alt: "OpenAI",
       },
     ],
@@ -56,13 +56,13 @@ const PRODUCT_CONFIG: Record<Product, RedeemProductConfig> = {
     titleKey: "codexOpenai",
     logos: [
       {
-        light: "/brand/openai-light.svg",
-        dark: "/brand/openai-dark.svg",
+        light: "/brand/codex.svg",
+        dark: "/brand/codex.svg",
         alt: "Codex",
       },
       {
-        light: "/brand/openai-light.svg",
-        dark: "/brand/openai-dark.svg",
+        light: "/brand/openai.svg",
+        dark: "/brand/openai.svg",
         alt: "OpenAI Platform",
       },
     ],

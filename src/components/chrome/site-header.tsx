@@ -3,17 +3,14 @@ import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons"
 
-import type {
-  ChromeContent,
-  Locale,
-  MicrocopyContent,
-} from "@/content"
+import type { ChromeContent, Locale, MicrocopyContent } from "@/content"
 
 import { LOCALES } from "@/content"
+import { getChromeNavItems } from "@/components/chrome/chrome-nav-items"
 import { SiteLogo } from "@/components/chrome/site-logo"
 import { ThemeToggle } from "@/components/chrome/theme-toggle"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { hashFromHref, routeForHref } from "@/lib/locale-links"
+import { hashFromHref } from "@/lib/locale-links"
 import { useScrolled } from "@/lib/use-scrolled"
 import { cn } from "@/lib/utils"
 
@@ -21,117 +18,123 @@ type SiteHeaderProps = {
   locale: Locale
   chrome: ChromeContent
   microcopy: MicrocopyContent
+  /** When true, show a top-left lockup for pages that do not embed their own brand. */
+  showBrandLink?: boolean
 }
 
 const navLinkClassName =
-  "text-foreground/80 hover:text-purple text-sm font-medium underline decoration-transparent decoration-2 underline-offset-8 hover:decoration-purple-soft motion-safe:transition-[color,text-decoration-color] motion-safe:duration-150 motion-reduce:transition-none focus-visible:ring-ring/50 focus-visible:ring-2 focus-visible:outline-none rounded-sm"
+  "inline-flex min-h-10 items-center px-1 text-sm font-medium tracking-wide text-on-dark/70 hover:text-on-dark motion-safe:transition-colors motion-safe:duration-150 motion-reduce:transition-none focus-visible:ring-on-dark/50 focus-visible:ring-2 focus-visible:outline-none rounded-sm"
 
-const activeNavLinkClassName =
-  "text-purple decoration-purple hover:decoration-purple"
+const activeNavLinkClassName = "text-on-dark"
 
-function SiteHeader({ locale, chrome, microcopy }: SiteHeaderProps) {
+const barSurfaceClassName =
+  "rounded-2xl border border-white/12 bg-surface-ink/85 text-on-dark shadow-soft backdrop-blur-md supports-backdrop-filter:bg-surface-ink/70"
+
+const utilityControlClassName =
+  "text-on-dark hover:bg-on-dark/10 hover:text-on-dark"
+
+function SiteHeader({
+  locale,
+  chrome,
+  microcopy,
+  showBrandLink = false,
+}: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const scrolled = useScrolled()
   const otherLocale =
     LOCALES.find((candidate) => candidate !== locale) ?? locale
+  const chromeNavItems = getChromeNavItems(locale, chrome.nav)
   const closeMenu = () => setMenuOpen(false)
+
+  const themeLabels = {
+    cycle: microcopy.themeCycle,
+    toLight: microcopy.themeToLight,
+    toDark: microcopy.themeToDark,
+    toSystem: microcopy.themeToSystem,
+  }
 
   return (
     <header
       data-scrolled={scrolled || menuOpen ? "" : undefined}
-      className={cn(
-        "sticky top-0 z-40 motion-safe:transition-[background-color,box-shadow,backdrop-filter] motion-safe:duration-200 motion-reduce:transition-none",
-        menuOpen
-          ? "bg-background shadow-soft"
-          : scrolled
-            ? "bg-background/80 backdrop-blur-md"
-            : "bg-background"
-      )}
+      className="pointer-events-none fixed inset-x-0 top-0 z-40 pt-[max(0.75rem,env(safe-area-inset-top))]"
     >
       <a
         href="#main"
-        className="bg-background text-foreground focus-visible:ring-ring sr-only rounded-sm px-3 py-2 text-sm font-medium focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2"
+        className="bg-background text-foreground focus-visible:ring-ring pointer-events-auto sr-only rounded-sm px-3 py-2 text-sm font-medium focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2"
       >
         {microcopy.skipToContent}
       </a>
 
-      <div className="page-gutter max-w-content mx-auto flex h-[var(--site-header-height)] items-center justify-between gap-6">
+      {showBrandLink ? (
         <Link
           to="/$locale"
           params={{ locale }}
           aria-label="Ai Labs"
           onClick={closeMenu}
-          className="focus-visible:ring-ring/50 rounded-sm focus-visible:ring-2 focus-visible:outline-none"
+          className="pointer-events-auto focus-visible:ring-ring/50 absolute top-[max(0.75rem,env(safe-area-inset-top))] left-4 z-10 rounded-sm focus-visible:ring-2 focus-visible:outline-none sm:left-6"
         >
-          <SiteLogo variant="lockup" />
+          <SiteLogo variant="lockup" className="h-6 w-auto" />
         </Link>
+      ) : null}
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {chrome.nav.pillars.map((pillar) => (
+      <div className="relative mx-auto flex w-full max-w-fit flex-col items-center px-4">
+        <div
+          className={cn(
+            "pointer-events-auto flex items-center gap-2 px-2 py-1.5 pl-4 sm:gap-3 sm:px-3 sm:pl-5",
+            barSurfaceClassName,
+            scrolled || menuOpen ? "border-white/18 shadow-soft-hover" : null
+          )}
+        >
+          <nav className="hidden items-center gap-5 md:flex" aria-label="Primary">
+            {chromeNavItems.map((item) => {
+              switch (item.kind) {
+                case "section":
+                  return (
+                    <Link
+                      key={item.key}
+                      to="/$locale"
+                      params={{ locale }}
+                      hash={item.hash}
+                      className={navLinkClassName}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                case "route":
+                  return (
+                    <Link
+                      key={item.key}
+                      to={item.to}
+                      params={item.params}
+                      className={navLinkClassName}
+                      activeProps={{ className: activeNavLinkClassName }}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                default: {
+                  const _exhaustive: never = item
+                  return _exhaustive
+                }
+              }
+            })}
             <Link
-              key={pillar.id}
               to="/$locale"
               params={{ locale }}
-              hash={hashFromHref(pillar.href)}
+              hash={hashFromHref(chrome.nav.contact.href)}
               className={navLinkClassName}
             >
-              {pillar.label}
+              {chrome.nav.contact.label}
             </Link>
-          ))}
-          <Link
-            to={routeForHref("/community")}
-            params={{ locale }}
-            className={navLinkClassName}
-            activeProps={{ className: activeNavLinkClassName }}
-          >
-            {chrome.nav.community.label}
-          </Link>
-          <Link
-            to="/$locale"
-            params={{ locale }}
-            hash={hashFromHref(chrome.nav.contact.href)}
-            className={navLinkClassName}
-          >
-            {chrome.nav.contact.label}
-          </Link>
-        </nav>
+          </nav>
 
-        <div className="flex items-center gap-2">
-          <ThemeToggle
-            labels={{
-              cycle: microcopy.themeCycle,
-              toLight: microcopy.themeToLight,
-              toDark: microcopy.themeToDark,
-              toSystem: microcopy.themeToSystem,
-            }}
-          />
-          <Link
-            to="."
-            params={{ locale: otherLocale }}
-            aria-label={microcopy.languageSwitch}
-            className={cn(
-              buttonVariants({ variant: "ghost", size: "sm" }),
-              "text-xs font-semibold tracking-wider uppercase"
-            )}
-          >
-            {microcopy.languageSwitch}
-          </Link>
-          <Link
-            to="/$locale"
-            params={{ locale }}
-            hash={hashFromHref(chrome.nav.cta.href)}
-            className={cn(
-              buttonVariants({ size: "sm" }),
-              "hidden md:inline-flex",
-              "motion-safe:duration-150 motion-safe:hover:-translate-y-px motion-safe:hover:shadow-lift"
-            )}
-          >
-            {chrome.nav.cta.label}
-          </Link>
           <Button
             variant="ghost"
             size="icon-sm"
-            className="md:hidden"
+            className={cn(
+              "min-h-11 min-w-11 md:hidden",
+              utilityControlClassName
+            )}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             aria-label={menuOpen ? microcopy.menuClose : microcopy.menuOpen}
@@ -139,61 +142,88 @@ function SiteHeader({ locale, chrome, microcopy }: SiteHeaderProps) {
           >
             <HugeiconsIcon icon={menuOpen ? Cancel01Icon : Menu01Icon} />
           </Button>
-        </div>
-      </div>
 
-      {menuOpen ? (
-        <nav
-          id="mobile-nav"
-          className="page-gutter bg-background pt-4 pb-6 md:hidden"
-        >
-          <div className="flex flex-col gap-4">
-            {chrome.nav.pillars.map((pillar) => (
-              <Link
-                key={pillar.id}
-                to="/$locale"
-                params={{ locale }}
-                hash={hashFromHref(pillar.href)}
-                onClick={closeMenu}
-                className={cn(navLinkClassName, "text-base")}
-              >
-                {pillar.label}
-              </Link>
-            ))}
+          <div
+            className="bg-on-dark/15 hidden h-5 w-px shrink-0 md:block"
+            aria-hidden
+          />
+
+          <div className="flex items-center gap-0.5">
+            <ThemeToggle
+              labels={themeLabels}
+              className={utilityControlClassName}
+            />
             <Link
-              to={routeForHref("/community")}
-              params={{ locale }}
-              onClick={closeMenu}
-              className={cn(navLinkClassName, "text-base")}
-              activeProps={{ className: activeNavLinkClassName }}
-            >
-              {chrome.nav.community.label}
-            </Link>
-            <Link
-              to="/$locale"
-              params={{ locale }}
-              hash={hashFromHref(chrome.nav.contact.href)}
-              onClick={closeMenu}
-              className={cn(navLinkClassName, "text-base")}
-            >
-              {chrome.nav.contact.label}
-            </Link>
-            <Link
-              to="/$locale"
-              params={{ locale }}
-              hash={hashFromHref(chrome.nav.cta.href)}
-              onClick={closeMenu}
+              to="."
+              params={{ locale: otherLocale }}
+              aria-label={microcopy.languageSwitch}
               className={cn(
-                buttonVariants({ size: "default" }),
-                "mt-2 w-fit",
-                "motion-safe:duration-150 motion-safe:hover:-translate-y-px motion-safe:hover:shadow-lift"
+                buttonVariants({ variant: "ghost", size: "sm" }),
+                "min-h-11 min-w-11 text-xs font-semibold tracking-wider uppercase",
+                utilityControlClassName
               )}
             >
-              {chrome.nav.cta.label}
+              {microcopy.languageSwitch}
             </Link>
           </div>
-        </nav>
-      ) : null}
+        </div>
+
+        {menuOpen ? (
+          <nav
+            id="mobile-nav"
+            className={cn(
+              "pointer-events-auto mt-2 w-[min(calc(100vw-2rem),20rem)] p-3 md:hidden",
+              barSurfaceClassName
+            )}
+          >
+            <div className="flex flex-col gap-1">
+              {chromeNavItems.map((item) => {
+                switch (item.kind) {
+                  case "section":
+                    return (
+                      <Link
+                        key={item.key}
+                        to="/$locale"
+                        params={{ locale }}
+                        hash={item.hash}
+                        onClick={closeMenu}
+                        className={cn(navLinkClassName, "min-h-11 px-3")}
+                      >
+                        {item.label}
+                      </Link>
+                    )
+                  case "route":
+                    return (
+                      <Link
+                        key={item.key}
+                        to={item.to}
+                        params={item.params}
+                        onClick={closeMenu}
+                        className={cn(navLinkClassName, "min-h-11 px-3")}
+                        activeProps={{ className: activeNavLinkClassName }}
+                      >
+                        {item.label}
+                      </Link>
+                    )
+                  default: {
+                    const _exhaustive: never = item
+                    return _exhaustive
+                  }
+                }
+              })}
+              <Link
+                to="/$locale"
+                params={{ locale }}
+                hash={hashFromHref(chrome.nav.contact.href)}
+                onClick={closeMenu}
+                className={cn(navLinkClassName, "min-h-11 px-3")}
+              >
+                {chrome.nav.contact.label}
+              </Link>
+            </div>
+          </nav>
+        ) : null}
+      </div>
     </header>
   )
 }

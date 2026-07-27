@@ -16,10 +16,9 @@ import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as SignUpSplatRouteImport } from './routes/sign-up.$'
 import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
 import { Route as LocaleRedeemRouteImport } from './routes/$locale/redeem'
+import { Route as LocaleLabRouteImport } from './routes/$locale/lab'
 import { Route as LocaleCommunityRouteImport } from './routes/$locale/community'
-import { Route as LocaleApertureRouteImport } from './routes/$locale/aperture'
-import { Route as LocaleAgenticRouteImport } from './routes/$locale/agentic'
-import { Route as LocaleAcademyRouteImport } from './routes/$locale/academy'
+import { Route as LocaleCampusLeaderRouteImport } from './routes/$locale/campus-leader'
 
 const BgRoute = BgRouteImport.update({
   id: '/bg',
@@ -56,24 +55,19 @@ const LocaleRedeemRoute = LocaleRedeemRouteImport.update({
   path: '/redeem',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocaleLabRoute = LocaleLabRouteImport.update({
+  id: '/lab',
+  path: '/lab',
+  getParentRoute: () => LocaleRoute,
+} as any)
 const LocaleCommunityRoute = LocaleCommunityRouteImport.update({
   id: '/community',
   path: '/community',
   getParentRoute: () => LocaleRoute,
 } as any)
-const LocaleApertureRoute = LocaleApertureRouteImport.update({
-  id: '/aperture',
-  path: '/aperture',
-  getParentRoute: () => LocaleRoute,
-} as any)
-const LocaleAgenticRoute = LocaleAgenticRouteImport.update({
-  id: '/agentic',
-  path: '/agentic',
-  getParentRoute: () => LocaleRoute,
-} as any)
-const LocaleAcademyRoute = LocaleAcademyRouteImport.update({
-  id: '/academy',
-  path: '/academy',
+const LocaleCampusLeaderRoute = LocaleCampusLeaderRouteImport.update({
+  id: '/campus-leader',
+  path: '/campus-leader',
   getParentRoute: () => LocaleRoute,
 } as any)
 
@@ -81,10 +75,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
   '/bg': typeof BgRoute
-  '/$locale/academy': typeof LocaleAcademyRoute
-  '/$locale/agentic': typeof LocaleAgenticRoute
-  '/$locale/aperture': typeof LocaleApertureRoute
+  '/$locale/campus-leader': typeof LocaleCampusLeaderRoute
   '/$locale/community': typeof LocaleCommunityRoute
+  '/$locale/lab': typeof LocaleLabRoute
   '/$locale/redeem': typeof LocaleRedeemRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
@@ -93,10 +86,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bg': typeof BgRoute
-  '/$locale/academy': typeof LocaleAcademyRoute
-  '/$locale/agentic': typeof LocaleAgenticRoute
-  '/$locale/aperture': typeof LocaleApertureRoute
+  '/$locale/campus-leader': typeof LocaleCampusLeaderRoute
   '/$locale/community': typeof LocaleCommunityRoute
+  '/$locale/lab': typeof LocaleLabRoute
   '/$locale/redeem': typeof LocaleRedeemRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
@@ -107,10 +99,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
   '/bg': typeof BgRoute
-  '/$locale/academy': typeof LocaleAcademyRoute
-  '/$locale/agentic': typeof LocaleAgenticRoute
-  '/$locale/aperture': typeof LocaleApertureRoute
+  '/$locale/campus-leader': typeof LocaleCampusLeaderRoute
   '/$locale/community': typeof LocaleCommunityRoute
+  '/$locale/lab': typeof LocaleLabRoute
   '/$locale/redeem': typeof LocaleRedeemRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
@@ -122,10 +113,9 @@ export interface FileRouteTypes {
     | '/'
     | '/$locale'
     | '/bg'
-    | '/$locale/academy'
-    | '/$locale/agentic'
-    | '/$locale/aperture'
+    | '/$locale/campus-leader'
     | '/$locale/community'
+    | '/$locale/lab'
     | '/$locale/redeem'
     | '/sign-in/$'
     | '/sign-up/$'
@@ -134,10 +124,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/bg'
-    | '/$locale/academy'
-    | '/$locale/agentic'
-    | '/$locale/aperture'
+    | '/$locale/campus-leader'
     | '/$locale/community'
+    | '/$locale/lab'
     | '/$locale/redeem'
     | '/sign-in/$'
     | '/sign-up/$'
@@ -147,10 +136,9 @@ export interface FileRouteTypes {
     | '/'
     | '/$locale'
     | '/bg'
-    | '/$locale/academy'
-    | '/$locale/agentic'
-    | '/$locale/aperture'
+    | '/$locale/campus-leader'
     | '/$locale/community'
+    | '/$locale/lab'
     | '/$locale/redeem'
     | '/sign-in/$'
     | '/sign-up/$'
@@ -216,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleRedeemRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/lab': {
+      id: '/$locale/lab'
+      path: '/lab'
+      fullPath: '/$locale/lab'
+      preLoaderRoute: typeof LocaleLabRouteImport
+      parentRoute: typeof LocaleRoute
+    }
     '/$locale/community': {
       id: '/$locale/community'
       path: '/community'
@@ -223,44 +218,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleCommunityRouteImport
       parentRoute: typeof LocaleRoute
     }
-    '/$locale/aperture': {
-      id: '/$locale/aperture'
-      path: '/aperture'
-      fullPath: '/$locale/aperture'
-      preLoaderRoute: typeof LocaleApertureRouteImport
-      parentRoute: typeof LocaleRoute
-    }
-    '/$locale/agentic': {
-      id: '/$locale/agentic'
-      path: '/agentic'
-      fullPath: '/$locale/agentic'
-      preLoaderRoute: typeof LocaleAgenticRouteImport
-      parentRoute: typeof LocaleRoute
-    }
-    '/$locale/academy': {
-      id: '/$locale/academy'
-      path: '/academy'
-      fullPath: '/$locale/academy'
-      preLoaderRoute: typeof LocaleAcademyRouteImport
+    '/$locale/campus-leader': {
+      id: '/$locale/campus-leader'
+      path: '/campus-leader'
+      fullPath: '/$locale/campus-leader'
+      preLoaderRoute: typeof LocaleCampusLeaderRouteImport
       parentRoute: typeof LocaleRoute
     }
   }
 }
 
 interface LocaleRouteChildren {
-  LocaleAcademyRoute: typeof LocaleAcademyRoute
-  LocaleAgenticRoute: typeof LocaleAgenticRoute
-  LocaleApertureRoute: typeof LocaleApertureRoute
+  LocaleCampusLeaderRoute: typeof LocaleCampusLeaderRoute
   LocaleCommunityRoute: typeof LocaleCommunityRoute
+  LocaleLabRoute: typeof LocaleLabRoute
   LocaleRedeemRoute: typeof LocaleRedeemRoute
   LocaleIndexRoute: typeof LocaleIndexRoute
 }
 
 const LocaleRouteChildren: LocaleRouteChildren = {
-  LocaleAcademyRoute: LocaleAcademyRoute,
-  LocaleAgenticRoute: LocaleAgenticRoute,
-  LocaleApertureRoute: LocaleApertureRoute,
+  LocaleCampusLeaderRoute: LocaleCampusLeaderRoute,
   LocaleCommunityRoute: LocaleCommunityRoute,
+  LocaleLabRoute: LocaleLabRoute,
   LocaleRedeemRoute: LocaleRedeemRoute,
   LocaleIndexRoute: LocaleIndexRoute,
 }

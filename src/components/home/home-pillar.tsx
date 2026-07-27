@@ -1,25 +1,28 @@
-import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
-
-import type { HomePillarContent } from "@/content"
+import type { HomePillarContent, Locale } from "@/content"
+import { HomeCtaLink } from "@/components/home/home-cta-link"
 import { HomeMediaCarousel } from "@/components/home/home-media-carousel"
 import { cn } from "@/lib/utils"
 import {
   homeCardClassName,
   homeDisplayClassName,
-  homeLabelClassName,
-  homePillClassName,
   homeShellClassName,
 } from "@/components/home/home-styles"
+import { Eyebrow } from "@/components/ui/eyebrow"
 
 type HomePillarProps = {
+  locale: Locale
   pillar: HomePillarContent
   /** Which side the media card sits on at lg+ (drives the zig-zag rhythm). */
   mediaSide: "left" | "right"
   intervalMs?: number
 }
 
-function HomePillar({ pillar, mediaSide, intervalMs = 5200 }: HomePillarProps) {
+function HomePillar({
+  locale,
+  pillar,
+  mediaSide,
+  intervalMs = 5200,
+}: HomePillarProps) {
   const mediaFirst = mediaSide === "left"
 
   const media = (
@@ -46,7 +49,7 @@ function HomePillar({ pillar, mediaSide, intervalMs = 5200 }: HomePillarProps) {
         >
           {pillar.index}
         </span>
-        <span className={homeLabelClassName}>{pillar.eyebrow}</span>
+        <Eyebrow>{pillar.eyebrow}</Eyebrow>
       </div>
 
       <div className="flex flex-col gap-3">
@@ -71,10 +74,7 @@ function HomePillar({ pillar, mediaSide, intervalMs = 5200 }: HomePillarProps) {
         ))}
       </dl>
 
-      <a href={pillar.cta.href} className={cn(homePillClassName, "w-fit")}>
-        {pillar.cta.label}
-        <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-      </a>
+      <HomeCtaLink cta={pillar.cta} locale={locale} />
     </div>
   )
 

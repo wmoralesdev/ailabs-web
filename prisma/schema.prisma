@@ -67,6 +67,7 @@ model PromoCode {
   code         String
   redemptionId String?
   claimedAt    DateTime?
+  allocatedAt  DateTime?
   createdAt    DateTime  @default(now())
 
   event      Event?      @relation(fields: [eventId], references: [id], onDelete: Cascade)
@@ -75,4 +76,30 @@ model PromoCode {
   @@unique([pool, code])
   @@index([eventId, pool, redemptionId])
   @@index([pool, eventId, redemptionId])
+  @@index([pool, allocatedAt])
+}
+
+model CampusLeaderApplication {
+  id             String   @id @default(cuid())
+  cohort         String
+  name           String
+  email          String
+  whatsapp       String
+  campus         String
+  career         String
+  year           String
+  bio            String
+  reach          String
+  aiToday        String
+  whyLeader      String
+  quietRoom      String
+  inviteMessage  String
+  roomPlan       String
+  sessionPrefs   String[]
+  notes          String?
+  createdAt      DateTime @default(now())
+
+  @@index([cohort])
+  @@index([campus, career])
+  @@index([createdAt])
 }

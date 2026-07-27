@@ -56,28 +56,33 @@ export const Route = createFileRoute("/$locale/")({
 
 function HomePage() {
   const { locale, content } = localeRoute.useRouteContext()
-  const { home, chrome, microcopy } = content
+  const { home } = content
 
   return (
     <div className={cn(homeSectionGapClassName, "pb-4")}>
-      <HomeHero
-        locale={locale}
-        hero={home.hero}
-        chrome={chrome}
-        microcopy={microcopy}
-      />
+      <HomeHero locale={locale} content={content} />
       <HomeTrust trust={home.trust} />
       <HomeReveal>
         <HomeAbout about={home.about} />
       </HomeReveal>
       <HomeReveal>
-        <HomePillar pillar={home.academy} mediaSide="right" intervalMs={5200} />
+        <HomePillar
+          locale={locale}
+          pillar={home.academy}
+          mediaSide="right"
+          intervalMs={5200}
+        />
       </HomeReveal>
       <HomeReveal>
-        <HomePillar pillar={home.agentic} mediaSide="left" intervalMs={5800} />
+        <HomePillar
+          locale={locale}
+          pillar={home.agentic}
+          mediaSide="left"
+          intervalMs={5800}
+        />
       </HomeReveal>
       <HomeReveal>
-        <HomeAperture aperture={home.aperture} />
+        <HomeAperture locale={locale} aperture={home.aperture} />
       </HomeReveal>
       <HomeReveal>
         <HomeContact contact={home.contact} />

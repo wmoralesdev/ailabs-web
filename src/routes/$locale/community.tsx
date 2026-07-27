@@ -6,9 +6,9 @@ import { RedeemHeroDesktop } from "@/components/redeem/redeem-hero-desktop"
 import { RedeemHeroMobile } from "@/components/redeem/redeem-hero-mobile"
 import {
   homeDisplayClassName,
-  homeLabelClassName,
   homePillClassName,
 } from "@/components/home/home-styles"
+import { Eyebrow } from "@/components/ui/eyebrow"
 import { getContent, isLocale } from "@/content"
 import type { CommunityContent, Locale, MicrocopyContent } from "@/content/types"
 import { cn } from "@/lib/utils"
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/$locale/community")({
 
     return {
       meta: [
-        { title: `${community.metaTitle} — ${meta.title}` },
+        { title: `${community.metaTitle} | ${meta.title}` },
         { name: "description", content: community.metaDescription },
       ],
     }
@@ -32,9 +32,6 @@ type CommunityHeroTone = "onLight" | "onDark"
 
 const revealBaseClassName =
   "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500"
-
-const onDarkLabelClassName =
-  "border-on-dark/25 bg-on-dark/10 text-on-dark inline-flex w-fit items-center rounded-full border px-3 py-1 text-xs font-semibold tracking-wider uppercase backdrop-blur-sm"
 
 const communityFrostedPanelClassName = cn(
   "rounded-3xl border border-on-dark/15 bg-black/55 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md sm:p-5",
@@ -121,9 +118,9 @@ function CommunityHeroShell({
           mediaSrcs={mediaSrcs}
           mediaAlt={mediaAlt}
           qrContent={qrContent}
-          left={left("onLight")}
+          left={left("onDark")}
           right={right()}
-          leftFooter={leftFooter?.("onLight")}
+          leftFooter={leftFooter?.("onDark")}
         />
       </div>
     </div>
@@ -141,14 +138,12 @@ function CommunityInfo({
 
   return (
     <div className="flex w-full max-w-xl flex-col gap-5 lg:max-w-none">
-      <span
-        className={cn(
-          revealBaseClassName,
-          onDark ? onDarkLabelClassName : homeLabelClassName
-        )}
+      <Eyebrow
+        tone={onDark ? "onDark" : "default"}
+        className={revealBaseClassName}
       >
         {content.label}
-      </span>
+      </Eyebrow>
 
       <h1
         className={cn(

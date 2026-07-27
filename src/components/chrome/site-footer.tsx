@@ -20,7 +20,7 @@ type SiteFooterProps = {
 }
 
 const footerLinkClassName =
-  "text-muted-foreground hover:text-purple text-sm transition-colors focus-visible:ring-ring/50 focus-visible:ring-2 focus-visible:outline-none rounded-sm"
+  "inline-flex min-h-11 items-center text-on-dark/70 hover:text-purple text-sm transition-colors focus-visible:ring-ring/50 focus-visible:ring-2 focus-visible:outline-none rounded-sm"
 
 function FooterLink({ link, locale }: { link: NavItem; locale: Locale }) {
   if (link.href.startsWith("http")) {
@@ -72,21 +72,21 @@ function SiteFooter({ locale, footer }: SiteFooterProps) {
   const columns = footer.columns.filter((column) => column.links.length > 0)
 
   return (
-    <footer className="bg-surface-soft relative overflow-hidden">
+    <footer className="bg-surface-ink relative overflow-hidden">
       <FooterStippleField />
 
       <div className="page-gutter max-w-content section-y relative mx-auto">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-6">
-            <SiteLogo variant="lockup" />
-            <p className="text-foreground mt-4 max-w-sm text-sm">
+            <SiteLogo variant="lockup" onDark />
+            <p className="text-on-dark mt-4 max-w-sm text-sm">
               {footer.brandLine}
             </p>
           </div>
 
           {columns.map((column) => (
             <div key={column.title} className="md:col-span-3">
-              <h2 className="text-foreground text-xs font-semibold tracking-wider uppercase">
+              <h2 className="text-on-dark text-xs font-semibold tracking-wider uppercase">
                 {column.title}
               </h2>
               <ul className="mt-4 flex flex-col gap-3">
@@ -100,8 +100,8 @@ function SiteFooter({ locale, footer }: SiteFooterProps) {
           ))}
         </div>
 
-        <div className="border-border mt-16 border-t pt-6">
-          <p className="text-muted-foreground text-sm">
+        <div className="border-on-dark/15 mt-16 border-t pt-6">
+          <p className="text-on-dark/70 text-sm">
             {formatCopyright(footer.copyright)}
           </p>
         </div>

@@ -1,22 +1,20 @@
-import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
-
-import type { HomeApertureContent } from "@/content"
+import type { HomeApertureContent, Locale } from "@/content"
+import { HomeCtaLink } from "@/components/home/home-cta-link"
 import { HomePartnerMembers } from "@/components/home/home-partner-members"
 import { cn } from "@/lib/utils"
 import {
   homeCardClassName,
   homeDisplayClassName,
-  homeLabelClassName,
-  homePillClassName,
   homeShellClassName,
 } from "@/components/home/home-styles"
+import { Eyebrow } from "@/components/ui/eyebrow"
 
 type HomeApertureProps = {
+  locale: Locale
   aperture: HomeApertureContent
 }
 
-function HomeAperture({ aperture }: HomeApertureProps) {
+function HomeAperture({ locale, aperture }: HomeApertureProps) {
   return (
     <section
       id={aperture.id}
@@ -30,7 +28,7 @@ function HomeAperture({ aperture }: HomeApertureProps) {
           >
             {aperture.index}
           </span>
-          <span className={homeLabelClassName}>{aperture.eyebrow}</span>
+          <Eyebrow>{aperture.eyebrow}</Eyebrow>
         </div>
         <h2 className={cn(homeDisplayClassName, "text-3xl sm:text-4xl md:text-5xl")}>
           {aperture.title}
@@ -83,10 +81,14 @@ function HomeAperture({ aperture }: HomeApertureProps) {
             <p className="text-muted-foreground text-sm font-medium">
               {aperture.attribution}
             </p>
-            <a href={aperture.cta.href} className={cn(homePillClassName, "w-fit")}>
-              {aperture.cta.label}
-              <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-            </a>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+              <HomeCtaLink
+                cta={aperture.partnerCta}
+                locale={locale}
+                variant="quiet"
+              />
+              <HomeCtaLink cta={aperture.cta} locale={locale} />
+            </div>
           </div>
         </article>
       </div>

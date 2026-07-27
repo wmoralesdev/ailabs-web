@@ -13,6 +13,7 @@ import type {
   MicrocopyContent,
 } from "@/content"
 import { LOCALES } from "@/content"
+import { getChromeNavItems } from "@/components/chrome/chrome-nav-items"
 import { SiteLogo } from "@/components/chrome/site-logo"
 import { ThemeToggle } from "@/components/chrome/theme-toggle"
 import { HomeMediaCarousel } from "@/components/home/home-media-carousel"
@@ -25,7 +26,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { routeForHref } from "@/lib/locale-links"
 import { useScrolledPastHero } from "@/hooks/use-scrolled-past-hero"
 import { cn } from "@/lib/utils"
 import {
@@ -59,13 +59,14 @@ function HomeHeroMobile({
   const scrolled = useScrolledPastHero()
   const otherLocale =
     LOCALES.find((candidate) => candidate !== locale) ?? locale
+  const chromeNavItems = getChromeNavItems(locale, chrome.nav)
 
   const closeMenu = () => setMenuOpen(false)
 
   return (
     <div className={cn("relative", className)}>
       <a
-        href="#about"
+        href="#main"
         className="bg-background text-foreground focus-visible:ring-ring sr-only rounded-sm px-3 py-2 text-sm font-medium focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2"
       >
         {microcopy.skipToContent}
@@ -114,7 +115,7 @@ function HomeHeroMobile({
                 aria-label={microcopy.languageSwitch}
                 className={cn(
                   buttonVariants({ variant: "ghost", size: "sm" }),
-                  "text-xs font-semibold tracking-wider uppercase",
+                  "min-h-11 min-w-11 text-xs font-semibold tracking-wider uppercase",
                   scrolled
                     ? ""
                     : "text-on-dark hover:bg-on-dark/10 hover:text-on-dark"
@@ -127,6 +128,7 @@ function HomeHeroMobile({
                   <Button
                     variant="ghost"
                     size="icon-sm"
+                    className="min-h-11 min-w-11"
                     aria-label={
                       menuOpen ? microcopy.menuClose : microcopy.menuOpen
                     }
@@ -156,24 +158,37 @@ function HomeHeroMobile({
             aria-label="Primary"
             className="flex flex-1 flex-col gap-5 px-6 py-8"
           >
-            {chrome.nav.pillars.map((pillar) => (
-              <a
-                key={pillar.id}
-                href={pillar.href}
-                onClick={closeMenu}
-                className={sheetNavLinkClassName}
-              >
-                {pillar.label}
-              </a>
-            ))}
-            <Link
-              to={routeForHref("/community")}
-              params={{ locale }}
-              onClick={closeMenu}
-              className={sheetNavLinkClassName}
-            >
-              {chrome.nav.community.label}
-            </Link>
+            {chromeNavItems.map((item) => {
+              switch (item.kind) {
+                case "section":
+                  return (
+                    <a
+                      key={item.key}
+                      href={item.href}
+                      onClick={closeMenu}
+                      className={sheetNavLinkClassName}
+                    >
+                      {item.label}
+                    </a>
+                  )
+                case "route":
+                  return (
+                    <Link
+                      key={item.key}
+                      to={item.to}
+                      params={item.params}
+                      onClick={closeMenu}
+                      className={sheetNavLinkClassName}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                default: {
+                  const _exhaustive: never = item
+                  return _exhaustive
+                }
+              }
+            })}
             <a
               href={chrome.nav.contact.href}
               onClick={closeMenu}
@@ -194,7 +209,7 @@ function HomeHeroMobile({
       </Sheet>
 
       <section
-        className="bg-graphite relative w-full min-h-[100dvh]"
+        className="bg-surface-ink relative w-full min-h-[100dvh]"
         aria-label={hero.mediaAlt}
       >
         <HomeMediaCarousel
@@ -202,7 +217,7 @@ function HomeHeroMobile({
           alt={hero.mediaAlt}
           intervalMs={4500}
         />
-        <div className="from-graphite via-graphite/60 to-graphite/25 absolute inset-0 z-1 bg-gradient-to-t" />
+        <div className="from-surface-ink via-surface-ink/60 to-surface-ink/25 absolute inset-0 z-1 bg-gradient-to-t" />
 
         <div
           className={cn(
@@ -249,28 +264,11 @@ function HomeHeroMobile({
             </a>
           </div>
 
-          <div
-            className={cn(
-              "flex items-center gap-4",
-              "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:delay-300 motion-safe:duration-500"
-            )}
-          >
-            <div className="flex -space-x-2" aria-hidden>
-              {["A", "L", "S"].map((initial) => (
-                <span
-                  key={initial}
-                  className="border-graphite bg-lavender text-graphite inline-flex size-11 items-center justify-center rounded-full border-2 text-sm font-semibold"
-                >
-                  {initial}
-                </span>
-              ))}
-            </div>
-            <div>
-              <p className="font-display text-on-dark text-2xl font-semibold tracking-tight">
-                {hero.proof.value}
-              </p>
-              <p className="text-on-dark/70 text-sm">{hero.proof.label}</p>
-            </div>
+          <div className="motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:delay-300 motion-safe:duration-500">
+            <p className="font-display text-on-dark text-2xl font-semibold tracking-tight">
+              {hero.proof.value}
+            </p>
+            <p className="text-on-dark/70 text-sm">{hero.proof.label}</p>
           </div>
         </div>
       </section>

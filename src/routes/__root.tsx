@@ -24,9 +24,9 @@ if (import.meta.env.DEV && !import.meta.env.SSR) {
   void import("react-grab")
 }
 
-const SITE_TITLE = "Ai Labs — Adapt, develop, and learn with AI"
+const SITE_TITLE = "Ai Labs: Adapt, develop, and learn with AI"
 const SITE_DESCRIPTION =
-  "Ai Labs is an AI company in El Salvador that helps companies adapt, develop, and learn with AI through Academy, Agentic, and Aperture."
+  "Ai Labs helps companies put AI to work through training, software, and community. Based in El Salvador."
 
 export const Route = createRootRoute({
   head: () => ({
@@ -69,6 +69,7 @@ function RootNotFound() {
   return (
     <main
       id="main"
+      tabIndex={-1}
       className="page-gutter max-w-content section-y mx-auto min-h-dvh"
     >
       <p className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">

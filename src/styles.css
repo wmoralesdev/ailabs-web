@@ -52,6 +52,7 @@
     --color-foreground: var(--foreground);
     --color-background: var(--background);
     --color-surface-soft: var(--surface-soft);
+    --color-surface-ink: var(--surface-ink);
     --color-on-dark: var(--on-dark);
     --color-on-dark-foreground: var(--on-dark-foreground);
 
@@ -83,15 +84,15 @@
     /* Spacing / layout */
     --space-section-y: 4rem;
     --space-gutter: 1.5rem;
-    --max-width: 72rem;
+    --max-width: 90rem;
     --max-width-narrow: 45rem;
-    /* Site chrome — keep in sync with SiteHeader / MainCard */
-    --site-header-height: 4rem;
-    --main-card-margin-top: 0.5rem;
+    /* Site chrome — floating header offset; keep in sync with SiteHeader / MainCard */
+    --site-header-offset: calc(env(safe-area-inset-top, 0px) + 3.75rem);
+    --site-header-height: var(--site-header-offset);
+    --main-card-margin-top: var(--site-header-offset);
     --main-card-margin-bottom: 0.5rem;
     --main-card-min-height: calc(
-        100dvh - var(--site-header-height) - var(--main-card-margin-top) -
-            var(--main-card-margin-bottom)
+        100dvh - var(--main-card-margin-top) - var(--main-card-margin-bottom)
     );
 
     /* Motion */
@@ -135,8 +136,11 @@
     --sidebar-border: var(--brand-border);
     --sidebar-ring: var(--brand-purple);
 
-    /* Soft tinted ground (lavender band, footer) */
+    /* Soft tinted ground (lavender band, soft cards) */
     --surface-soft: var(--brand-lavender);
+
+    /* Always-dark purple-graphite band (footer, hero media panel) */
+    --surface-ink: color-mix(in srgb, var(--brand-purple) 14%, var(--brand-graphite));
 
     /* Fixed contrast for controls sitting on dark bands */
     --on-dark: var(--brand-white);
@@ -150,7 +154,6 @@
 
 @media (min-width: 640px) {
     :root {
-        --main-card-margin-top: 0.75rem;
         --main-card-margin-bottom: 0.75rem;
     }
 }
@@ -159,7 +162,7 @@
     :root {
         --space-section-y: 6rem;
         --space-gutter: 2.5rem;
-        --site-header-height: 4.5rem;
+        --site-header-offset: calc(env(safe-area-inset-top, 0px) + 4.25rem);
     }
 }
 
@@ -305,12 +308,11 @@
     }
 
     /*
-     * Home hero left card — opposite of site theme.
-     * Light site → dark (graphite) tokens; dark site → light (white) tokens.
+     * Home hero content card — always-dark surface-ink band (matches footer).
      * Does not add `.dark` on the node so site-level `dark:` utilities still track html theme.
      */
     .home-hero-invert {
-        --background: var(--brand-graphite);
+        --background: var(--surface-ink);
         --foreground: var(--brand-white);
         --card: color-mix(in srgb, var(--brand-white) 8%, var(--brand-graphite));
         --card-foreground: var(--brand-white);
@@ -325,46 +327,17 @@
         --border: var(--brand-border-dark);
         --input: var(--brand-border-dark);
         --ring: var(--brand-purple-soft);
-        --surface-soft: color-mix(in srgb, var(--brand-purple) 14%, var(--brand-graphite));
+        --surface-soft: var(--surface-ink);
         --shadow-color: color-mix(in srgb, black 40%, transparent);
         --shadow-color-strong: color-mix(in srgb, black 55%, transparent);
         --shadow-glow: color-mix(in srgb, var(--brand-purple) 24%, transparent);
         color-scheme: dark;
     }
 
-    .dark .home-hero-invert {
-        --background: var(--brand-white);
-        --foreground: var(--brand-graphite);
-        --card: var(--brand-white);
-        --card-foreground: var(--brand-graphite);
-        --popover: var(--brand-white);
-        --popover-foreground: var(--brand-graphite);
-        --secondary: var(--brand-white);
-        --secondary-foreground: var(--brand-graphite);
-        --muted: var(--brand-lavender);
-        --muted-foreground: var(--brand-muted);
-        --accent: var(--brand-lavender);
-        --accent-foreground: var(--brand-graphite);
-        --border: var(--brand-border);
-        --input: var(--brand-border);
-        --ring: var(--brand-purple);
-        --surface-soft: var(--brand-lavender);
-        --shadow-color: color-mix(in srgb, var(--brand-graphite) 8%, transparent);
-        --shadow-color-strong: color-mix(in srgb, var(--brand-graphite) 12%, transparent);
-        --shadow-glow: color-mix(in srgb, var(--brand-purple) 32%, transparent);
-        color-scheme: light;
-    }
-
-    /* Corner stipple — solid brand ink; lower peak alpha keeps denser/larger
-       dots subtle on inverted surfaces. */
+    /* Corner stipple — light dots on the always-dark hero content card. */
     .home-hero-stipple-canvas {
         color: var(--brand-white);
         --stipple-opacity: 0.28;
-    }
-
-    .dark .home-hero-stipple-canvas {
-        color: var(--brand-purple);
-        --stipple-opacity: 0.25;
     }
 
     /* Full-viewport presentation background stipple. Brand purple reads on

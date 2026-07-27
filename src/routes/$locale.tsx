@@ -30,31 +30,41 @@ export const Route = createFileRoute("/$locale")({
   notFoundComponent: LocaleNotFound,
 })
 
+function pageOwnsBrand(routeId: string): boolean {
+  return (
+    routeId === "/$locale/" ||
+    routeId === "/$locale/redeem" ||
+    routeId === "/$locale/community" ||
+    routeId === "/$locale/campus-leader" ||
+    routeId === "/$locale/lab"
+  )
+}
+
 function LocaleLayout() {
   const { locale, content } = Route.useRouteContext()
-  const hideChromeHeader = useRouterState({
+  const showBrandLink = useRouterState({
     select: (state) =>
-      state.matches.some(
-        (match) =>
-          match.routeId === "/$locale/" ||
-          match.routeId === "/$locale/redeem" ||
-          match.routeId === "/$locale/community"
-      ),
+      !state.matches.some((match) => pageOwnsBrand(match.routeId)),
+  })
+  const hideChromeFooter = useRouterState({
+    select: (state) =>
+      state.matches.some((match) => match.routeId === "/$locale/lab"),
   })
 
   return (
     <div className={chromeShellClassName}>
-      {hideChromeHeader ? null : (
-        <SiteHeader
-          locale={locale}
-          chrome={content.chrome}
-          microcopy={content.microcopy}
-        />
-      )}
-      <main id="main" className={mainClassName}>
+      <SiteHeader
+        locale={locale}
+        chrome={content.chrome}
+        microcopy={content.microcopy}
+        showBrandLink={showBrandLink}
+      />
+      <main id="main" tabIndex={-1} className={mainClassName}>
         <Outlet />
       </main>
-      <SiteFooter locale={locale} footer={content.chrome.footer} />
+      {hideChromeFooter ? null : (
+        <SiteFooter locale={locale} footer={content.chrome.footer} />
+      )}
     </div>
   )
 }
@@ -111,8 +121,9 @@ function LocaleNotFound() {
         locale={locale}
         chrome={content.chrome}
         microcopy={microcopy}
+        showBrandLink
       />
-      <main id="main" className={mainClassName}>
+      <main id="main" tabIndex={-1} className={mainClassName}>
         {notFoundContent}
       </main>
       <SiteFooter locale={locale} footer={content.chrome.footer} />

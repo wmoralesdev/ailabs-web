@@ -21,9 +21,14 @@ type StippleOrigin = "corner" | "center"
 
 type HomeHeroStippleProps = {
   origin?: StippleOrigin
+  /** Delay before twinkle loop starts (static dots until then). */
+  animationDelayMs?: number
 }
 
-function HomeHeroStipple({ origin = "corner" }: HomeHeroStippleProps) {
+function HomeHeroStipple({
+  origin = "corner",
+  animationDelayMs = 0,
+}: HomeHeroStippleProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -44,6 +49,7 @@ function HomeHeroStipple({ origin = "corner" }: HomeHeroStippleProps) {
     let maxAlpha = 0.28
     let dpr = 1
     let raf = 0
+    let startDelayId = 0
     let start = performance.now()
 
     const readTheme = () => {
@@ -150,12 +156,22 @@ function HomeHeroStipple({ origin = "corner" }: HomeHeroStippleProps) {
 
     const run = () => {
       window.cancelAnimationFrame(raf)
+      window.clearTimeout(startDelayId)
       if (reduceMedia.matches) {
         drawStatic()
         return
       }
-      start = performance.now()
-      raf = window.requestAnimationFrame(frame)
+      // Static until delay elapses so hero card enter isn't stacked with twinkle.
+      drawStatic()
+      const begin = () => {
+        start = performance.now()
+        raf = window.requestAnimationFrame(frame)
+      }
+      if (animationDelayMs > 0) {
+        startDelayId = window.setTimeout(begin, animationDelayMs)
+      } else {
+        begin()
+      }
     }
 
     build()
@@ -183,11 +199,12 @@ function HomeHeroStipple({ origin = "corner" }: HomeHeroStippleProps) {
 
     return () => {
       window.cancelAnimationFrame(raf)
+      window.clearTimeout(startDelayId)
       resizeObserver.disconnect()
       themeObserver.disconnect()
       reduceMedia.removeEventListener("change", onReduceChange)
     }
-  }, [origin])
+  }, [origin, animationDelayMs])
 
   return (
     <canvas

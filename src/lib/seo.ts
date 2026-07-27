@@ -6,7 +6,7 @@ export const SITE_NAME = "Ai Labs"
 export const OG_IMAGE_PATH = "/og-image.png"
 export const OG_IMAGE_URL = `${SITE_URL}${OG_IMAGE_PATH}`
 export const OG_IMAGE_ALT =
-  "Ai Labs — Adapt, develop, and learn with AI. Based in El Salvador."
+  "Ai Labs: Adapt, develop, and learn with AI. Based in El Salvador."
 
 const OG_LOCALE: Record<Locale, string> = {
   en: "en_US",

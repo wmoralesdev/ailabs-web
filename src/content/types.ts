@@ -134,19 +134,124 @@ export type CommunityContent = CampaignQrCopy & {
   steps: ReadonlyArray<CommunityStep>
 }
 
+export type CampusLeaderFieldOption = {
+  value: string
+  label: string
+}
+
+export type CampusLeaderFieldCopy = {
+  label: string
+  placeholder?: string
+  helper?: string
+}
+
+export type CampusLeaderPoint = {
+  title: string
+  body: string
+}
+
+export type CampusLeaderLandingSection = {
+  label: string
+  title: string
+  body?: string
+  items: ReadonlyArray<CampusLeaderPoint>
+}
+
+export type CampusLeaderFitSection = {
+  label: string
+  title: string
+  forTitle: string
+  forItems: ReadonlyArray<string>
+  notTitle: string
+  notItems: ReadonlyArray<string>
+}
+
+export type CampusLeaderMedia = {
+  whatSrc: string
+  whatAlt: string
+  benefitsSrc: string
+  benefitsAlt: string
+}
+
+export type CampusLeaderContent = CampaignQrCopy & {
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  body: string
+  creditsNote: string
+  /** Stored slug, e.g. "aster". */
+  cohort: string
+  /** Flower display name, e.g. "Aster". Same proper noun in EN and ES. */
+  cohortDisplay: string
+  /** Localized word before the flower name, e.g. "Cohort" / "Cohorte". */
+  cohortLabel: string
+  applicationsOpen: boolean
+  closedTitle: string
+  closedBody: string
+  applyCta: string
+  learnCta: string
+  media: CampusLeaderMedia
+  landing: {
+    what: CampusLeaderLandingSection
+    role: CampusLeaderLandingSection
+    benefits: CampusLeaderLandingSection
+    fit: CampusLeaderFitSection
+    ctaBand: {
+      title: string
+      body: string
+      applyCta: string
+    }
+  }
+  formTitle: string
+  formStepLabel: string
+  formNext: string
+  formBack: string
+  formClose: string
+  /** Shown on the fewer side of required vs optional fields. */
+  formOptional: string
+  formRequired: string
+  logisticsLabel: string
+  logisticsIntro: string
+  deeperLabel: string
+  deeperIntro: string
+  roomLabel: string
+  roomIntro: string
+  fields: {
+    name: CampusLeaderFieldCopy
+    email: CampusLeaderFieldCopy
+    whatsapp: CampusLeaderFieldCopy
+    campus: CampusLeaderFieldCopy
+    career: CampusLeaderFieldCopy
+    year: CampusLeaderFieldCopy
+    bio: CampusLeaderFieldCopy
+    reach: CampusLeaderFieldCopy
+    aiToday: CampusLeaderFieldCopy
+    whyLeader: CampusLeaderFieldCopy
+    quietRoom: CampusLeaderFieldCopy
+    inviteMessage: CampusLeaderFieldCopy
+    roomPlan: CampusLeaderFieldCopy
+    sessionPrefs: CampusLeaderFieldCopy
+    notes: CampusLeaderFieldCopy
+  }
+  careerOptions: ReadonlyArray<CampusLeaderFieldOption>
+  /** Values stay language-neutral so exports read the same in EN and ES. */
+  yearOptions: ReadonlyArray<CampusLeaderFieldOption>
+  sessionPrefOptions: ReadonlyArray<CampusLeaderFieldOption>
+  careerHint: string
+  submit: string
+  submitting: string
+  success: string
+  error: string
+  stepIncomplete: string
+}
+
 export type HomeStatIcon = "builders" | "events" | "partners"
 
 export type HomeStat = {
   value: string
   label: string
   icon?: HomeStatIcon
-}
-
-export type HomeHeroBuilder = {
-  name: string
-  initial: string
-  imageSrc?: string
-  imageAlt?: string
 }
 
 export type HomeHeroContent = {
@@ -156,7 +261,6 @@ export type HomeHeroContent = {
   primaryCta: NavItem
   secondaryCta: NavItem
   proof: HomeStat
-  builders: ReadonlyArray<HomeHeroBuilder>
   slides: ReadonlyArray<HomeStat>
   mediaSrcs: ReadonlyArray<string>
   mediaAlt: string
@@ -215,7 +319,7 @@ export type HomePartnerMember = {
   imageAlt?: string
 }
 
-/** Aperture section — the funnel/community pillar (absorbs former Partner + Trust). */
+/** Aperture section: the funnel/community pillar (absorbs former Partner + Trust). */
 export type HomeApertureContent = {
   id: "aperture"
   index: string
@@ -227,11 +331,17 @@ export type HomeApertureContent = {
   attribution: string
   voices: ReadonlyArray<HomePartnerVoice>
   members: ReadonlyArray<HomePartnerMember>
+  /** Builder-facing CTA into the community route. */
   cta: NavItem
+  /** Partner-facing CTA into the contact form's partner interest. */
+  partnerCta: NavItem
 }
 
+/** Contact routing covers the three pillars plus inbound partner requests. */
+export type ContactInterestId = PillarId | "partner"
+
 export type HomeContactInterest = {
-  value: PillarId
+  value: ContactInterestId
   label: string
 }
 
@@ -292,4 +402,5 @@ export type SiteContent = {
   home: HomeContent
   redeem: RedeemContent
   community: CommunityContent
+  campusLeader: CampusLeaderContent
 }

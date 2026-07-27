@@ -73,15 +73,11 @@ function HomeMediaCarousel({
       {logicalCount > 1 ? (
         <div
           className="pointer-events-none absolute inset-x-0 bottom-3 z-20 flex items-center justify-center gap-1.5"
-          role="tablist"
-          aria-label="Slide indicators"
+          aria-hidden="true"
         >
           {images.map((src, slideIndex) => (
             <span
               key={src}
-              role="tab"
-              aria-current={slideIndex === displayIndex ? "true" : undefined}
-              aria-label={`Slide ${slideIndex + 1} of ${logicalCount}`}
               className={cn(
                 "h-1.5 rounded-full",
                 slideIndex === displayIndex

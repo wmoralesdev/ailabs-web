@@ -1,74 +1,133 @@
 import {
   useLayoutEffect,
   useRef,
-  useState,
-  type ComponentType,
+  useState
+  
 } from "react"
+import type {ReactNode} from "react";
 
-import { ClaudeLogo } from "@/components/logos/claude"
-import { CodexLogo } from "@/components/logos/codex"
-import { CursorLogo } from "@/components/logos/cursor"
-import { ElevenlabsLogo } from "@/components/logos/elevenlabs"
 import { MistralLogo } from "@/components/logos/mistral"
 import { NotionLogo } from "@/components/logos/notion"
-import { OpenAILogo } from "@/components/logos/openai"
-import {
-  homeLabelClassName,
-  homeShellClassName,
-} from "@/components/home/home-styles"
+import { homeShellClassName } from "@/components/home/home-styles"
+import { Eyebrow } from "@/components/ui/eyebrow"
 import type { HomeTrustContent, TrustLogoId } from "@/content/types"
 import { cn } from "@/lib/utils"
 
-type ModeLogoProps = {
-  className?: string
-  variant?: "icon" | "wordmark"
-  mode?: "light" | "dark"
-}
-
-const logoClassName = "h-7 w-auto shrink-0 text-foreground"
+const logoClassName = "h-5 w-auto shrink-0"
+const iconLockupClassName = "h-5 w-auto shrink-0 text-foreground"
 
 const trustLogoListClassName =
   "flex shrink-0 items-center gap-10 pr-10 md:gap-14 md:pr-14"
 
-function ThemeAwareLogo({
-  Logo,
+/** Dark-ink asset for light surfaces; light-ink for dark surfaces. */
+function ThemedBrandLogo({
+  lightSrc,
+  darkSrc,
   className,
 }: {
-  Logo: ComponentType<ModeLogoProps>
+  lightSrc: string
+  darkSrc: string
   className?: string
 }) {
   return (
-    <>
-      <Logo
-        className={cn(className, "dark:hidden")}
-        mode="light"
-        variant="icon"
+    <span className="inline-grid">
+      <img
+        src={lightSrc}
+        alt=""
+        className={cn(className, "col-start-1 row-start-1 dark:hidden")}
       />
-      <Logo
-        className={cn(className, "hidden dark:block")}
-        mode="dark"
-        variant="icon"
+      <img
+        src={darkSrc}
+        alt=""
+        className={cn(
+          className,
+          "col-start-1 row-start-1 hidden dark:block"
+        )}
       />
-    </>
+    </span>
   )
 }
 
-function TrustLogoMark({ id }: { id: TrustLogoId }) {
+/**
+ * Single white lockup SVG: invert to black on light surfaces,
+ * keep white on dark.
+ */
+function MonoBrandLogo({
+  src,
+  className,
+}: {
+  src: string
+  className?: string
+}) {
+  return (
+    <img
+      src={src}
+      alt=""
+      className={cn(className, "invert dark:invert-0")}
+    />
+  )
+}
+
+/** Fallback lockup when we only have an Elements isotype. */
+function IconWordLockup({
+  name,
+  children,
+}: {
+  name: string
+  children: ReactNode
+}) {
+  return (
+    <span className="flex items-center gap-2">
+      {children}
+      <span className="text-[15px] font-medium tracking-tight text-foreground">
+        {name}
+      </span>
+    </span>
+  )
+}
+
+function TrustLogoMark({ id, name }: { id: TrustLogoId; name: string }) {
   switch (id) {
     case "cursor":
-      return <CursorLogo className={logoClassName} />
+      return (
+        <ThemedBrandLogo
+          // *-dark = dark ink (for light theme); *-light = light ink (for dark)
+          lightSrc="/brand/cursor-dark.svg"
+          darkSrc="/brand/cursor-light.svg"
+          className={logoClassName}
+        />
+      )
     case "codex":
-      return <ThemeAwareLogo Logo={CodexLogo} className={logoClassName} />
+      // Codex artwork sits shorter in its viewBox than the other lockups.
+      return (
+        <MonoBrandLogo src="/brand/codex.svg" className="h-7 w-auto shrink-0" />
+      )
     case "openai":
-      return <ThemeAwareLogo Logo={OpenAILogo} className={logoClassName} />
+      return <MonoBrandLogo src="/brand/openai.svg" className={logoClassName} />
     case "claude":
-      return <ClaudeLogo className={logoClassName} />
+      return (
+        <ThemedBrandLogo
+          lightSrc="/brand/claude-dark.svg"
+          darkSrc="/brand/claude-light.svg"
+          className={logoClassName}
+        />
+      )
     case "mistral":
-      return <MistralLogo className={logoClassName} />
+      return (
+        <IconWordLockup name={name}>
+          <MistralLogo className={iconLockupClassName} />
+        </IconWordLockup>
+      )
     case "elevenlabs":
-      return <ThemeAwareLogo Logo={ElevenlabsLogo} className={logoClassName} />
+      return (
+        <MonoBrandLogo src="/brand/elevenlabs.svg" className={logoClassName} />
+      )
     case "notion":
-      return <NotionLogo className={logoClassName} />
+      return (
+        <IconWordLockup name={name}>
+          <NotionLogo className={iconLockupClassName} />
+        </IconWordLockup>
+      )
     default: {
       const _exhaustive: never = id
       return _exhaustive
@@ -111,7 +170,7 @@ function TrustLogoList({
         >
           {!ariaHidden ? <span className="sr-only">{logo.name}</span> : null}
           <span aria-hidden="true" className="flex items-center">
-            <TrustLogoMark id={logo.id} />
+            <TrustLogoMark id={logo.id} name={logo.name} />
           </span>
         </li>
       ))}
@@ -155,7 +214,7 @@ function HomeTrust({ trust }: HomeTrustProps) {
       className="py-6 md:py-8"
     >
       <div className={cn(homeShellClassName, "flex flex-col gap-5")}>
-        <p className={homeLabelClassName}>{trust.label}</p>
+        <Eyebrow>{trust.label}</Eyebrow>
         <div ref={marqueeRef} className="home-trust-marquee">
           <ul
             ref={measureRef}
@@ -165,7 +224,7 @@ function HomeTrust({ trust }: HomeTrustProps) {
             {trust.logos.map((logo) => (
               <li key={`measure-${logo.id}`} className="flex items-center">
                 <span className="flex items-center">
-                  <TrustLogoMark id={logo.id} />
+                  <TrustLogoMark id={logo.id} name={logo.name} />
                 </span>
               </li>
             ))}

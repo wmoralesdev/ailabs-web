@@ -6,9 +6,9 @@ import { HomeMediaCarousel } from "@/components/home/home-media-carousel"
 import { cn } from "@/lib/utils"
 import {
   homeCardClassName,
-  homeLabelClassName,
   homeShellClassName,
 } from "@/components/home/home-styles"
+import { Eyebrow } from "@/components/ui/eyebrow"
 
 type HomeAboutProps = {
   about: HomeAboutContent
@@ -17,11 +17,11 @@ type HomeAboutProps = {
 function HomeAbout({ about }: HomeAboutProps) {
   return (
     <section id="about" className={cn(homeShellClassName, "scroll-mt-8")}>
-      <p className={cn(homeLabelClassName, "mb-4 md:mb-6")}>{about.label}</p>
+      <Eyebrow className="mb-4 md:mb-6">{about.label}</Eyebrow>
 
       <div className="grid gap-8 lg:grid-cols-[0.4fr_0.6fr] lg:items-center lg:gap-12">
         <div className="flex flex-col gap-8">
-          <div className="bg-lavender text-graphite inline-flex size-12 items-center justify-center rounded-full">
+          <div className="bg-surface-soft text-foreground inline-flex size-12 items-center justify-center rounded-full">
             <HugeiconsIcon icon={Globe02Icon} strokeWidth={2} className="size-5" />
           </div>
           <p className="text-muted-foreground max-w-md text-base leading-relaxed md:text-lg">
@@ -40,12 +40,12 @@ function HomeAbout({ about }: HomeAboutProps) {
         </div>
 
         <div className="flex flex-col gap-8">
-          <p className="font-display text-foreground text-2xl font-semibold tracking-tight text-balance md:text-3xl lg:text-4xl lg:leading-snug">
+          <h2 className="font-display text-foreground text-2xl font-semibold tracking-tight text-balance md:text-3xl lg:text-4xl lg:leading-snug">
             {about.bold}
-          </p>
+          </h2>
 
           <div className="flex flex-col gap-3">
-            <p className={cn(homeLabelClassName)}>{about.bridgeLabel}</p>
+            <Eyebrow>{about.bridgeLabel}</Eyebrow>
             <dl className="border-border grid gap-x-6 gap-y-3 border-t pt-4 sm:grid-cols-3">
               {about.bridge.map((item) => (
                 <div key={item.title} className="flex flex-col gap-1">
