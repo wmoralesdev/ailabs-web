@@ -85,6 +85,9 @@ model CampusLeaderApplication {
   name           String
   email          String
   whatsapp       String
+  linkedin       String?
+  instagram      String?
+  x              String?
   campus         String
   career         String
   year           String

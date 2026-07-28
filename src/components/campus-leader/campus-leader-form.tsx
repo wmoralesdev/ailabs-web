@@ -12,6 +12,7 @@ import type {
   CampusLeaderFieldOption,
 } from "@/content/types"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Dialog,
   DialogContent,
@@ -19,6 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { ErrorBoundary } from "@/components/ui/error-boundary"
 import { Input } from "@/components/ui/input"
 import {
   InputGroup,
@@ -27,18 +29,16 @@ import {
 } from "@/components/ui/input-group"
 import { Label } from "@/components/ui/label"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select"
 import { Textarea } from "@/components/ui/textarea"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import {
   submitCampusLeaderApplication,
   type CampusLeaderApplicationInput,
 } from "@/server/campus-leader"
+import { isHttpUrl } from "@/lib/http-url"
 import { cn } from "@/lib/utils"
 import { homePillClassName } from "@/components/home/home-styles"
 
@@ -60,10 +60,15 @@ function toLocalDigits(raw: string) {
   return local.slice(0, WHATSAPP_LENGTH)
 }
 
+type SocialField = "instagram" | "linkedin" | "x"
+
 type FormValues = {
   name: string
   email: string
   whatsapp: string
+  instagram: string
+  linkedin: string
+  x: string
   campus: string
   career: string
   year: string
@@ -81,6 +86,9 @@ const EMPTY_VALUES: FormValues = {
   name: "",
   email: "",
   whatsapp: "",
+  instagram: "",
+  linkedin: "",
+  x: "",
   campus: "",
   career: "",
   year: "",
@@ -95,7 +103,7 @@ const EMPTY_VALUES: FormValues = {
 }
 
 const STEP_REQUIRED: Record<number, ReadonlyArray<keyof FormValues>> = {
-  0: ["name", "email", "whatsapp", "campus", "career", "year"],
+  0: ["name", "email", "whatsapp", "instagram", "campus", "career", "year"],
   1: ["bio", "reach", "aiToday", "whyLeader"],
   2: ["quietRoom", "inviteMessage", "roomPlan"],
 }
@@ -125,12 +133,98 @@ function CampusLeaderForm({
   open,
   onOpenChange,
 }: CampusLeaderFormProps) {
+  const [formKey, setFormKey] = useState(0)
+
+  return (
+    <ErrorBoundary
+      key={formKey}
+      resetKeys={[open]}
+      onError={(error, info) => {
+        console.error("Campus Leader form crashed", error, info.componentStack)
+      }}
+      fallback={({ reset }) => (
+        <CampusLeaderFormCrashFallback
+          content={content}
+          open={open}
+          onOpenChange={onOpenChange}
+          onRetry={() => {
+            reset()
+            setFormKey((current) => current + 1)
+          }}
+        />
+      )}
+    >
+      <CampusLeaderFormDialog
+        content={content}
+        open={open}
+        onOpenChange={onOpenChange}
+      />
+    </ErrorBoundary>
+  )
+}
+
+function CampusLeaderFormCrashFallback({
+  content,
+  open,
+  onOpenChange,
+  onRetry,
+}: CampusLeaderFormProps & { onRetry: () => void }) {
+  const titleId = useId()
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent
+        showCloseButton
+        className="flex w-full max-w-[calc(100%-1.5rem)] flex-col gap-0 overflow-hidden p-0 sm:max-w-lg"
+        aria-labelledby={titleId}
+      >
+        <DialogHeader className="border-border shrink-0 space-y-0 border-b px-5 pt-4 pb-5 sm:px-6">
+          <DialogTitle
+            id={titleId}
+            className="text-xl font-semibold tracking-tight"
+          >
+            {content.formCrashTitle}
+          </DialogTitle>
+          <DialogDescription className="text-muted-foreground mt-1.5 text-sm leading-relaxed">
+            {content.error}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 px-5 py-4 sm:px-6">
+          <Button
+            type="button"
+            variant="outline"
+            size="xl"
+            onClick={() => onOpenChange(false)}
+          >
+            {content.formClose}
+          </Button>
+          <Button
+            type="button"
+            size="xl"
+            className={homePillClassName}
+            onClick={onRetry}
+          >
+            {content.formRetry}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function CampusLeaderFormDialog({
+  content,
+  open,
+  onOpenChange,
+}: CampusLeaderFormProps) {
   const titleId = useId()
   const careerSelectId = useId()
   const yearSelectId = useId()
+  const skipInstagramId = useId()
   const [step, setStep] = useState(0)
   const [values, setValues] = useState<FormValues>(EMPTY_VALUES)
   const [sessionPrefs, setSessionPrefs] = useState<string[]>([])
+  const [noInstagram, setNoInstagram] = useState(false)
   const [status, setStatus] = useState<FormStatus>("idle")
   const [stepError, setStepError] = useState(false)
   const busy = status === "submitting"
@@ -143,6 +237,7 @@ function CampusLeaderForm({
     setStep(0)
     setStatus("idle")
     setStepError(false)
+    setNoInstagram(false)
   }, [open])
 
   function updateField<K extends keyof FormValues>(key: K, value: FormValues[K]) {
@@ -150,9 +245,20 @@ function CampusLeaderForm({
     setStepError(false)
   }
 
+  function setInstagramSkip(skip: boolean) {
+    setNoInstagram(skip)
+    setStepError(false)
+    if (skip) {
+      setValues((current) => ({ ...current, instagram: "" }))
+    }
+  }
+
   function isFilled(key: keyof FormValues) {
     if (key === "whatsapp") {
       return values.whatsapp.length === WHATSAPP_LENGTH
+    }
+    if (key === "instagram") {
+      return noInstagram || isHttpUrl(values.instagram)
     }
     return values[key].trim().length > 0
   }
@@ -161,12 +267,30 @@ function CampusLeaderForm({
     return !isFilled(key)
   }
 
+  function hasInvalidOptionalLink(key: Exclude<SocialField, "instagram">) {
+    const trimmed = values[key].trim()
+    return trimmed.length > 0 && !isHttpUrl(trimmed)
+  }
+
+  function stepHasInvalidLinks(index: number) {
+    if (index !== 0) {
+      return false
+    }
+    return (
+      (!noInstagram &&
+        values.instagram.trim().length > 0 &&
+        !isHttpUrl(values.instagram)) ||
+      hasInvalidOptionalLink("linkedin") ||
+      hasInvalidOptionalLink("x")
+    )
+  }
+
   function stepIsComplete(index: number) {
     const keys = STEP_REQUIRED[index]
     if (!keys) {
       return false
     }
-    return keys.every(isFilled)
+    return keys.every(isFilled) && !stepHasInvalidLinks(index)
   }
 
   function goNext() {
@@ -204,6 +328,7 @@ function CampusLeaderForm({
         applicationsOpen: content.applicationsOpen,
         ...values,
         whatsapp: `${WHATSAPP_PREFIX}${values.whatsapp}`,
+        instagram: noInstagram ? undefined : values.instagram,
         sessionPrefs,
       } as CampusLeaderApplicationInput
 
@@ -212,6 +337,7 @@ function CampusLeaderForm({
         setStatus("success")
         setValues(EMPTY_VALUES)
         setSessionPrefs([])
+        setNoInstagram(false)
         return
       }
       setStatus("error")
@@ -315,7 +441,9 @@ function CampusLeaderForm({
                     className="border-destructive/40 bg-destructive/10 text-destructive rounded-lg border px-3 py-2 text-sm"
                     role="alert"
                   >
-                    {content.stepIncomplete}
+                    {stepHasInvalidLinks(step)
+                      ? content.invalidLink
+                      : content.stepIncomplete}
                   </p>
                 ) : null}
 
@@ -389,6 +517,72 @@ function CampusLeaderForm({
                       value={values.year}
                       onChange={(value) => updateField("year", value)}
                       invalid={stepError && isMissing("year")}
+                    />
+                    <div className="flex flex-col gap-2.5 sm:col-span-2">
+                      <FieldShell
+                        id="cl-instagram"
+                        label={fields.instagram.label}
+                        helper={
+                          noInstagram ? undefined : fields.instagram.helper
+                        }
+                      >
+                        <Input
+                          id="cl-instagram"
+                          type="url"
+                          size="xl"
+                          autoComplete="url"
+                          placeholder={fields.instagram.placeholder}
+                          value={values.instagram}
+                          disabled={noInstagram || busy}
+                          aria-invalid={
+                            (stepError &&
+                              !noInstagram &&
+                              (isMissing("instagram") ||
+                                (values.instagram.trim().length > 0 &&
+                                  !isHttpUrl(values.instagram)))) ||
+                            undefined
+                          }
+                          onChange={(event) =>
+                            updateField("instagram", event.target.value)
+                          }
+                        />
+                      </FieldShell>
+                      <label
+                        htmlFor={skipInstagramId}
+                        className="text-muted-foreground flex cursor-pointer items-center gap-2.5 text-sm leading-snug"
+                      >
+                        <Checkbox
+                          id={skipInstagramId}
+                          checked={noInstagram}
+                          disabled={busy}
+                          onCheckedChange={(checked) =>
+                            setInstagramSkip(checked === true)
+                          }
+                        />
+                        <span>{fields.instagram.skipLabel}</span>
+                      </label>
+                    </div>
+                    <Field
+                      id="cl-linkedin"
+                      type="url"
+                      label={fields.linkedin.label}
+                      placeholder={fields.linkedin.placeholder}
+                      autoComplete="url"
+                      value={values.linkedin}
+                      onChange={(value) => updateField("linkedin", value)}
+                      invalid={stepError && hasInvalidOptionalLink("linkedin")}
+                      mark={content.formOptional}
+                    />
+                    <Field
+                      id="cl-x"
+                      type="url"
+                      label={fields.x.label}
+                      placeholder={fields.x.placeholder}
+                      autoComplete="url"
+                      value={values.x}
+                      onChange={(value) => updateField("x", value)}
+                      invalid={stepError && hasInvalidOptionalLink("x")}
+                      mark={content.formOptional}
                     />
                     <Field
                       id="cl-campus"
@@ -728,28 +922,28 @@ function SelectField({
       mark={mark}
       className={className}
     >
-      {/* `items` is what lets the trigger render the label instead of the raw value. */}
-      <Select
-        items={options}
-        value={value || null}
-        onValueChange={(next) => onChange(next ?? "")}
+      {/*
+        Native <select> inside the apply Dialog — Base UI Select portals into a
+        nested modal layer and has known hit-test / dismiss bugs there. A form
+        item click was the reported crash path.
+      */}
+      <NativeSelect
+        id={id}
+        size="xl"
+        className="w-full"
+        value={value}
+        aria-invalid={invalid || undefined}
+        onChange={(event) => onChange(event.target.value)}
       >
-        <SelectTrigger
-          id={id}
-          size="xl"
-          className="w-full"
-          aria-invalid={invalid || undefined}
-        >
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
-        <SelectContent align="start">
-          {options.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+        <NativeSelectOption value="" disabled>
+          {placeholder}
+        </NativeSelectOption>
+        {options.map((option) => (
+          <NativeSelectOption key={option.value} value={option.value}>
+            {option.label}
+          </NativeSelectOption>
+        ))}
+      </NativeSelect>
     </FieldShell>
   )
 }

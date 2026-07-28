@@ -45,7 +45,7 @@ Example: `tmp/campus-leader-aster-2026-07-27T05-36-38.977Z.csv` and `.md`.
 
 ### CSV — the Notion import path
 
-Columns match Notion import: `cohort, status, name, email, whatsapp, campus, career, year, bio, reach, aiToday, whyLeader, quietRoom, inviteMessage, roomPlan, sessionPrefs, notes, credits_status, site_listed` (plus `id`, `createdAt` for ops).
+Columns match Notion import: `cohort, status, name, email, whatsapp, linkedin, instagram, x, campus, career, year, bio, reach, aiToday, whyLeader, quietRoom, inviteMessage, roomPlan, sessionPrefs, notes, credits_status, site_listed` (plus `id`, `createdAt` for ops).
 
 Raw stored values, not display labels: `career` and `year` stay slugs, `whatsapp` keeps its `+503` prefix, `sessionPrefs` is pipe-joined.
 

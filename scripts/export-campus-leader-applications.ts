@@ -13,6 +13,9 @@ type ApplicationRow = {
   name: string
   email: string
   whatsapp: string
+  linkedin: string | null
+  instagram: string | null
+  x: string | null
   campus: string
   career: string
   year: string
@@ -35,6 +38,9 @@ const CSV_HEADER = [
   "name",
   "email",
   "whatsapp",
+  "linkedin",
+  "instagram",
+  "x",
   "campus",
   "career",
   "year",
@@ -203,6 +209,9 @@ function buildCsv(rows: ReadonlyArray<ApplicationRow>): string {
         row.name,
         row.email,
         row.whatsapp,
+        row.linkedin ?? "",
+        row.instagram ?? "",
+        row.x ?? "",
         row.campus,
         row.career,
         row.year,
@@ -277,6 +286,9 @@ function buildMarkdown(
     const summary: ReadonlyArray<[string, string]> = [
       ["Email", mdCell(row.email)],
       ["WhatsApp", mdCell(formatWhatsapp(row.whatsapp))],
+      ["Instagram", mdCell(row.instagram ?? "")],
+      ["LinkedIn", mdCell(row.linkedin ?? "")],
+      ["X", mdCell(row.x ?? "")],
       ["Campus", mdCell(row.campus)],
       ["Career", mdCell(labelFor(CAREER_LABELS, row.career))],
       ["Year", mdCell(labelFor(YEAR_LABELS, row.year))],

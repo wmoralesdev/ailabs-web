@@ -227,6 +227,7 @@ export const en: SiteContent = {
         },
       ],
       eventsLabel: "In the room so far",
+      upcomingLabel: "Coming up",
       nextLabel: "Next",
       seriesLabel: "Recurring series",
       attendanceLabel: "builders",
@@ -528,6 +529,20 @@ export const en: SiteContent = {
         placeholder: "7845 2310",
         helper: "8 digits, El Salvador number",
       },
+      instagram: {
+        label: "Instagram",
+        placeholder: "https://instagram.com/yourhandle",
+        helper: "Profile link — how we find you on campus",
+        skipLabel: "I don’t have Instagram",
+      },
+      linkedin: {
+        label: "LinkedIn",
+        placeholder: "https://linkedin.com/in/yourname",
+      },
+      x: {
+        label: "X",
+        placeholder: "https://x.com/yourhandle",
+      },
       campus: {
         label: "University / campus",
         placeholder: "UCA, Antiguo Cuscatlán",
@@ -606,7 +621,7 @@ export const en: SiteContent = {
       { value: "2", label: "2nd year" },
       { value: "3", label: "3rd year" },
       { value: "4", label: "4th year" },
-      { value: "5+", label: "5th year or beyond" },
+      { value: "5-plus", label: "5th year or beyond" },
       { value: "grad", label: "Recent grad" },
     ],
     sessionPrefOptions: [
@@ -623,6 +638,9 @@ export const en: SiteContent = {
       "Got it. We’ll review for Cohort Aster and reply on WhatsApp.",
     error: "Something went wrong. Try again in a moment.",
     stepIncomplete: "Fill the required fields on this step to continue.",
+    invalidLink: "Use a full link that starts with https://",
+    formCrashTitle: "The form hit an error",
+    formRetry: "Start over",
     qrCta: "QR",
     qrTitle: "Scan to open",
     qrBody: "Scan this code to open this page on another device.",

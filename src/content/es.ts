@@ -227,6 +227,7 @@ export const es: SiteContent = {
         },
       ],
       eventsLabel: "Quiénes han estado en la sala",
+      upcomingLabel: "Próximamente",
       nextLabel: "Próximo",
       seriesLabel: "Serie recurrente",
       attendanceLabel: "builders",
@@ -532,6 +533,20 @@ export const es: SiteContent = {
         placeholder: "7845 2310",
         helper: "8 dígitos, número de El Salvador",
       },
+      instagram: {
+        label: "Instagram",
+        placeholder: "https://instagram.com/tuusuario",
+        helper: "Link del perfil — así te encontramos en el campus",
+        skipLabel: "No tengo Instagram",
+      },
+      linkedin: {
+        label: "LinkedIn",
+        placeholder: "https://linkedin.com/in/tunombre",
+      },
+      x: {
+        label: "X",
+        placeholder: "https://x.com/tuusuario",
+      },
       campus: {
         label: "Universidad / campus",
         placeholder: "UCA, Antiguo Cuscatlán",
@@ -610,7 +625,7 @@ export const es: SiteContent = {
       { value: "2", label: "2do año" },
       { value: "3", label: "3er año" },
       { value: "4", label: "4to año" },
-      { value: "5+", label: "5to año o más" },
+      { value: "5-plus", label: "5to año o más" },
       { value: "grad", label: "Egresado" },
     ],
     sessionPrefOptions: [
@@ -627,6 +642,9 @@ export const es: SiteContent = {
       "Listo. Revisamos la cohorte Aster y respondemos por WhatsApp.",
     error: "Algo falló. Probá de nuevo en un momento.",
     stepIncomplete: "Completá los campos obligatorios de este paso para seguir.",
+    invalidLink: "Usá un link completo que empiece con https://",
+    formCrashTitle: "El formulario falló",
+    formRetry: "Empezar de nuevo",
     qrCta: "QR",
     qrTitle: "Escaneá para abrir",
     qrBody: "Escaneá este código para abrir esta página en otro dispositivo.",

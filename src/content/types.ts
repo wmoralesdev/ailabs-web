@@ -230,6 +230,12 @@ export type CampusLeaderContent = CampaignQrCopy & {
     name: CampusLeaderFieldCopy
     email: CampusLeaderFieldCopy
     whatsapp: CampusLeaderFieldCopy
+    linkedin: CampusLeaderFieldCopy
+    instagram: CampusLeaderFieldCopy & {
+      /** Checkbox label to skip Instagram when they have no account. */
+      skipLabel: string
+    }
+    x: CampusLeaderFieldCopy
     campus: CampusLeaderFieldCopy
     career: CampusLeaderFieldCopy
     year: CampusLeaderFieldCopy
@@ -253,6 +259,11 @@ export type CampusLeaderContent = CampaignQrCopy & {
   success: string
   error: string
   stepIncomplete: string
+  /** Shown when a social field is filled but is not an http(s) URL. */
+  invalidLink: string
+  /** Render-crash fallback title inside the apply dialog. */
+  formCrashTitle: string
+  formRetry: string
 }
 
 export type HomeStatIcon = "builders" | "events" | "partners"
@@ -360,7 +371,7 @@ export type HomeApertureEvent = {
   attendance?: number
   /** Marks a recurring series collapsed into a single row. */
   series?: boolean
-  /** Set on the one upcoming event; drives the marker, date, and link. */
+  /** Set on upcoming events; drives the coming-up card's date block and link. */
   upcoming?: {
     /** `YYYY-MM-DD`, formatted per locale in UTC so SSR and client agree. */
     date: string
@@ -381,7 +392,9 @@ export type HomeApertureContent = {
   /** First voice carries the section's pull quote; the rest feed the hero spiral. */
   voices: readonly [HomePartnerVoice, ...ReadonlyArray<HomePartnerVoice>]
   eventsLabel: string
-  /** Marker on the upcoming row. */
+  /** Column label above the upcoming event cards. */
+  upcomingLabel: string
+  /** Marker on the upcoming card. */
   nextLabel: string
   /** Shown where a collapsed series would otherwise show an edition count. */
   seriesLabel: string

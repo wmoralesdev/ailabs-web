@@ -22,16 +22,30 @@ const metaClassName =
   "font-mono text-[0.7rem] tracking-wider uppercase text-muted-foreground"
 
 const rowClassName =
-  "grid items-baseline gap-x-6 gap-y-1 py-4 sm:grid-cols-[minmax(0,1fr)_auto]"
+  "grid items-baseline gap-x-6 gap-y-1 py-3 sm:grid-cols-[minmax(0,1fr)_auto]"
+
+type UpcomingEvent = HomeApertureEvent & {
+  upcoming: NonNullable<HomeApertureEvent["upcoming"]>
+}
+
+function isUpcoming(event: HomeApertureEvent): event is UpcomingEvent {
+  return event.upcoming !== undefined
+}
 
 /** Fixed to UTC so the server and client format the same day. */
-function formatEventDate(date: string, locale: Locale) {
-  return new Intl.DateTimeFormat(locale, {
-    day: "numeric",
+function eventDateParts(date: string, locale: Locale) {
+  const value = new Date(`${date}T00:00:00Z`)
+  const day = new Intl.DateTimeFormat(locale, {
+    day: "2-digit",
+    timeZone: "UTC",
+  }).format(value)
+  const monthYear = new Intl.DateTimeFormat(locale, {
     month: "short",
     year: "numeric",
     timeZone: "UTC",
-  }).format(new Date(`${date}T00:00:00Z`))
+  }).format(value)
+
+  return { day, monthYear }
 }
 
 function eventMeta(
@@ -52,14 +66,58 @@ function eventMeta(
   if (event.series) {
     parts.push(aperture.seriesLabel)
   }
-  if (event.upcoming) {
-    parts.push(formatEventDate(event.upcoming.date, locale))
-  }
 
   return parts
 }
 
-function HomeApertureEventRow({
+function HomeApertureUpcomingCard({
+  aperture,
+  event,
+  locale,
+}: {
+  aperture: HomeApertureContent
+  event: UpcomingEvent
+  locale: Locale
+}) {
+  const { day, monthYear } = eventDateParts(event.upcoming.date, locale)
+
+  return (
+    <li>
+      <a
+        href={event.upcoming.href}
+        target="_blank"
+        rel="noreferrer"
+        className="group border-border bg-card text-card-foreground focus-visible:ring-ring/50 flex items-center gap-5 rounded-2xl border p-5 focus-visible:ring-2 focus-visible:outline-none sm:p-6"
+      >
+        <span className="border-border flex w-16 shrink-0 flex-col items-center gap-1 rounded-xl border px-2 py-2.5">
+          <span className="font-display text-3xl leading-none font-semibold tracking-tight tabular-nums">
+            {day}
+          </span>
+          <span className={cn(metaClassName, "text-[0.6rem]")}>
+            {monthYear}
+          </span>
+        </span>
+        <span className="flex min-w-0 flex-col gap-1.5">
+          <span className="border-border text-muted-foreground w-fit rounded-full border px-2 py-0.5 font-mono text-[0.6rem] tracking-wider uppercase">
+            {aperture.nextLabel}
+          </span>
+          <span className="flex flex-wrap items-baseline gap-x-2">
+            <span className="font-display text-xl font-semibold tracking-tight group-hover:underline group-hover:decoration-2 sm:text-2xl">
+              {event.name}
+            </span>
+            <HugeiconsIcon
+              icon={ArrowUpRight01Icon}
+              strokeWidth={2}
+              className="text-purple size-4 self-center"
+            />
+          </span>
+        </span>
+      </a>
+    </li>
+  )
+}
+
+function HomeAperturePastEventRow({
   aperture,
   event,
   locale,
@@ -68,32 +126,12 @@ function HomeApertureEventRow({
   event: HomeApertureEvent
   locale: Locale
 }) {
-  const { upcoming } = event
   const meta = eventMeta(event, aperture, locale)
 
-  const body = (
-    <>
-      <span className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
-        {upcoming ? (
-          <span className="border-border text-foreground rounded-full border px-2 py-0.5 font-mono text-[0.6rem] tracking-wider uppercase">
-            {aperture.nextLabel}
-          </span>
-        ) : null}
-        <span
-          className={cn(
-            "font-display text-foreground text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl",
-            upcoming && "group-hover:underline group-hover:decoration-2"
-          )}
-        >
-          {event.name}
-        </span>
-        {upcoming ? (
-          <HugeiconsIcon
-            icon={ArrowUpRight01Icon}
-            strokeWidth={2}
-            className="text-foreground size-4 self-center"
-          />
-        ) : null}
+  return (
+    <li className={rowClassName}>
+      <span className="font-display text-foreground text-lg font-semibold tracking-tight sm:text-xl">
+        {event.name}
       </span>
       <span
         className={cn(
@@ -105,32 +143,37 @@ function HomeApertureEventRow({
           <span key={part}>{part}</span>
         ))}
       </span>
-    </>
-  )
-
-  return (
-    <li>
-      {upcoming ? (
-        <a
-          href={upcoming.href}
-          target="_blank"
-          rel="noreferrer"
-          className={cn(
-            rowClassName,
-            "group focus-visible:ring-ring/50 rounded-sm focus-visible:ring-2 focus-visible:outline-none"
-          )}
-        >
-          {body}
-        </a>
-      ) : (
-        <div className={rowClassName}>{body}</div>
-      )}
     </li>
+  )
+}
+
+function HomeApertureEventLedger({
+  aperture,
+  events,
+  locale,
+}: {
+  aperture: HomeApertureContent
+  events: ReadonlyArray<HomeApertureEvent>
+  locale: Locale
+}) {
+  return (
+    <ul className="border-border divide-border divide-y border-t">
+      {events.map((event) => (
+        <HomeAperturePastEventRow
+          key={event.id}
+          aperture={aperture}
+          event={event}
+          locale={locale}
+        />
+      ))}
+    </ul>
   )
 }
 
 function HomeAperture({ locale, aperture }: HomeApertureProps) {
   const [voice] = aperture.voices
+  const upcomingEvents = aperture.events.filter(isUpcoming)
+  const pastEvents = aperture.events.filter((event) => !isUpcoming(event))
 
   return (
     <section
@@ -202,19 +245,40 @@ function HomeAperture({ locale, aperture }: HomeApertureProps) {
           </figure>
         </div>
 
-        <div className="flex flex-col gap-4">
-          <Eyebrow tone="onDark">{aperture.eventsLabel}</Eyebrow>
-          <ul className="border-border divide-border divide-y border-t">
-            {aperture.events.map((event) => (
-              <HomeApertureEventRow
-                key={event.id}
+        {upcomingEvents.length > 0 ? (
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-14">
+            <div className="flex flex-col gap-4">
+              <Eyebrow tone="onDark">{aperture.upcomingLabel}</Eyebrow>
+              <ul className="flex flex-col gap-4">
+                {upcomingEvents.map((event) => (
+                  <HomeApertureUpcomingCard
+                    key={event.id}
+                    aperture={aperture}
+                    event={event}
+                    locale={locale}
+                  />
+                ))}
+              </ul>
+            </div>
+            <div className="flex flex-col gap-4">
+              <Eyebrow tone="onDark">{aperture.eventsLabel}</Eyebrow>
+              <HomeApertureEventLedger
                 aperture={aperture}
-                event={event}
+                events={pastEvents}
                 locale={locale}
               />
-            ))}
-          </ul>
-        </div>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4">
+            <Eyebrow tone="onDark">{aperture.eventsLabel}</Eyebrow>
+            <HomeApertureEventLedger
+              aperture={aperture}
+              events={aperture.events}
+              locale={locale}
+            />
+          </div>
+        )}
       </div>
     </section>
   )

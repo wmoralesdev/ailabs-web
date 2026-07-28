@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start"
 
+import { isHttpUrl } from "@/lib/http-url"
 import { prisma } from "@/lib/prisma"
 
 export type SubmitCampusLeaderResult =
@@ -32,6 +33,10 @@ export type CampusLeaderApplicationInput = {
   name: string
   email: string
   whatsapp: string
+  linkedin?: string
+  /** Required in the form unless the applicant skips with “no Instagram”. */
+  instagram?: string
+  x?: string
   campus: string
   career: Career
   year: string
@@ -86,6 +91,21 @@ function optionalTrimmedString(
   return trimmed
 }
 
+function optionalHttpUrl(
+  value: unknown,
+  field: string,
+  max: number
+): string | undefined {
+  const trimmed = optionalTrimmedString(value, field, max)
+  if (trimmed === undefined) {
+    return undefined
+  }
+  if (!isHttpUrl(trimmed)) {
+    throw new Error(`Invalid ${field}`)
+  }
+  return trimmed
+}
+
 function isCareer(value: string): value is Career {
   return (CAREER_VALUES as ReadonlyArray<string>).includes(value)
 }
@@ -132,6 +152,9 @@ function parseApplicationInput(data: unknown): CampusLeaderApplicationInput {
     name: requireTrimmedString(record.name, "name", 120),
     email,
     whatsapp: requireTrimmedString(record.whatsapp, "whatsapp", 40),
+    linkedin: optionalHttpUrl(record.linkedin, "linkedin", 300),
+    instagram: optionalHttpUrl(record.instagram, "instagram", 300),
+    x: optionalHttpUrl(record.x, "x", 300),
     campus: requireTrimmedString(record.campus, "campus", 160),
     career: careerRaw,
     year: requireTrimmedString(record.year, "year", 40),
@@ -166,6 +189,9 @@ export const submitCampusLeaderApplication = createServerFn({ method: "POST" })
           name: data.name,
           email: data.email,
           whatsapp: data.whatsapp,
+          linkedin: data.linkedin,
+          instagram: data.instagram,
+          x: data.x,
           campus: data.campus,
           career: data.career,
           year: data.year,
