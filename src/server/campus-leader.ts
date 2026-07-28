@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start"
 
-import { isHttpUrl } from "@/lib/http-url"
+import { toHttpUrl } from "@/lib/http-url"
 import { prisma } from "@/lib/prisma"
 
 export type SubmitCampusLeaderResult =
@@ -94,16 +94,18 @@ function optionalTrimmedString(
 function optionalHttpUrl(
   value: unknown,
   field: string,
-  max: number
+  max: number,
+  options?: { host?: string }
 ): string | undefined {
   const trimmed = optionalTrimmedString(value, field, max)
   if (trimmed === undefined) {
     return undefined
   }
-  if (!isHttpUrl(trimmed)) {
+  const href = toHttpUrl(trimmed, options)
+  if (href === undefined || href.length > max) {
     throw new Error(`Invalid ${field}`)
   }
-  return trimmed
+  return href
 }
 
 function isCareer(value: string): value is Career {
@@ -152,9 +154,13 @@ function parseApplicationInput(data: unknown): CampusLeaderApplicationInput {
     name: requireTrimmedString(record.name, "name", 120),
     email,
     whatsapp: requireTrimmedString(record.whatsapp, "whatsapp", 40),
-    linkedin: optionalHttpUrl(record.linkedin, "linkedin", 300),
-    instagram: optionalHttpUrl(record.instagram, "instagram", 300),
-    x: optionalHttpUrl(record.x, "x", 300),
+    linkedin: optionalHttpUrl(record.linkedin, "linkedin", 300, {
+      host: "linkedin.com/in",
+    }),
+    instagram: optionalHttpUrl(record.instagram, "instagram", 300, {
+      host: "instagram.com",
+    }),
+    x: optionalHttpUrl(record.x, "x", 300, { host: "x.com" }),
     campus: requireTrimmedString(record.campus, "campus", 160),
     career: careerRaw,
     year: requireTrimmedString(record.year, "year", 40),
