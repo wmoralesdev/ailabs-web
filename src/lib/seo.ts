@@ -40,7 +40,7 @@ type HeadMeta = {
 type HeadLink = {
   rel: string
   href: string
-  hreflang?: string
+  hrefLang?: string
   type?: string
   sizes?: string
 }
@@ -94,12 +94,12 @@ export function buildPageMeta({
       ...LOCALES.map((lang) => ({
         rel: "alternate",
         href: absoluteUrl(lang, path),
-        hreflang: lang,
+        hrefLang: lang,
       })),
       {
         rel: "alternate",
         href: absoluteUrl("en", path),
-        hreflang: "x-default",
+        hrefLang: "x-default",
       },
     ],
     scripts: [],

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
-import type { ReactNode } from "react"
+import type { ComponentType, ReactNode } from "react"
 
-import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect"
 import {
   homeBandPaddingClassName,
   homeShellClassName,
@@ -14,6 +13,15 @@ const CANVAS_COLORS: number[][] = [
   [124, 58, 237],
 ]
 
+type CanvasRevealEffectProps = {
+  animationSpeed?: number
+  opacities?: number[]
+  colors?: number[][]
+  containerClassName?: string
+  dotSize?: number
+  showGradient?: boolean
+}
+
 type CanvasRevealBannerProps = {
   id?: string
   className?: string
@@ -24,6 +32,23 @@ type CanvasRevealBannerProps = {
    * left copy column and the action is vertically centered on `md+`.
    */
   action?: ReactNode
+}
+
+function CanvasRevealFallback() {
+  return (
+    <div className="absolute inset-0 bg-linear-to-b from-purple/35 via-background to-background" />
+  )
+}
+
+async function loadCanvasRevealEffect(): Promise<
+  ComponentType<CanvasRevealEffectProps>
+> {
+  if (import.meta.env.SSR) {
+    return CanvasRevealFallback
+  }
+
+  const mod = await import("@/components/ui/canvas-reveal-effect")
+  return mod.CanvasRevealEffect
 }
 
 /**
@@ -39,6 +64,9 @@ function CanvasRevealBanner({
   action,
 }: CanvasRevealBannerProps) {
   const [reduceMotion, setReduceMotion] = useState(true)
+  const [CanvasRevealEffect, setCanvasRevealEffect] = useState<
+    ComponentType<CanvasRevealEffectProps> | null
+  >(null)
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -47,6 +75,21 @@ function CanvasRevealBanner({
     media.addEventListener("change", sync)
     return () => media.removeEventListener("change", sync)
   }, [])
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setCanvasRevealEffect(null)
+      return
+    }
+
+    let active = true
+    void loadCanvasRevealEffect().then((Effect) => {
+      if (active) setCanvasRevealEffect(() => Effect)
+    })
+    return () => {
+      active = false
+    }
+  }, [reduceMotion])
 
   return (
     <section
@@ -58,9 +101,7 @@ function CanvasRevealBanner({
       )}
     >
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        {reduceMotion ? (
-          <div className="absolute inset-0 bg-linear-to-b from-purple/35 via-background to-background" />
-        ) : (
+        {CanvasRevealEffect ? (
           <CanvasRevealEffect
             animationSpeed={3}
             containerClassName="bg-background"
@@ -68,6 +109,8 @@ function CanvasRevealBanner({
             dotSize={2}
             showGradient
           />
+        ) : (
+          <CanvasRevealFallback />
         )}
       </div>
 

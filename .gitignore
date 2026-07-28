@@ -19,3 +19,6 @@ todos.json
 /src/generated/prisma
 .vercel
 /tmp
+
+# clerk configuration (can include secrets)
+/.clerk/
