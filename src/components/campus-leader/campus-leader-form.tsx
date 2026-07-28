@@ -33,12 +33,11 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select"
 import { Textarea } from "@/components/ui/textarea"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import {
   submitCampusLeaderApplication,
   type CampusLeaderApplicationInput,
 } from "@/server/campus-leader"
-import { isHttpUrl } from "@/lib/http-url"
+import { toHttpUrl } from "@/lib/http-url"
 import { cn } from "@/lib/utils"
 import { homePillClassName } from "@/components/home/home-styles"
 
@@ -61,6 +60,16 @@ function toLocalDigits(raw: string) {
 }
 
 type SocialField = "instagram" | "linkedin" | "x"
+
+const SOCIAL_HOSTS: Record<SocialField, string> = {
+  instagram: "instagram.com",
+  linkedin: "linkedin.com/in",
+  x: "x.com",
+}
+
+function socialUrl(key: SocialField, value: string) {
+  return toHttpUrl(value, { host: SOCIAL_HOSTS[key] })
+}
 
 type FormValues = {
   name: string
@@ -258,7 +267,7 @@ function CampusLeaderFormDialog({
       return values.whatsapp.length === WHATSAPP_LENGTH
     }
     if (key === "instagram") {
-      return noInstagram || isHttpUrl(values.instagram)
+      return noInstagram || socialUrl("instagram", values.instagram) !== undefined
     }
     return values[key].trim().length > 0
   }
@@ -269,7 +278,7 @@ function CampusLeaderFormDialog({
 
   function hasInvalidOptionalLink(key: Exclude<SocialField, "instagram">) {
     const trimmed = values[key].trim()
-    return trimmed.length > 0 && !isHttpUrl(trimmed)
+    return trimmed.length > 0 && socialUrl(key, trimmed) === undefined
   }
 
   function stepHasInvalidLinks(index: number) {
@@ -279,7 +288,7 @@ function CampusLeaderFormDialog({
     return (
       (!noInstagram &&
         values.instagram.trim().length > 0 &&
-        !isHttpUrl(values.instagram)) ||
+        socialUrl("instagram", values.instagram) === undefined) ||
       hasInvalidOptionalLink("linkedin") ||
       hasInvalidOptionalLink("x")
     )
@@ -293,18 +302,37 @@ function CampusLeaderFormDialog({
     return keys.every(isFilled) && !stepHasInvalidLinks(index)
   }
 
+  /** Blur before swapping step trees so Dialog focus trap never tracks a dying node. */
+  function releaseFieldFocus() {
+    const active = document.activeElement
+    if (active instanceof HTMLElement && active !== document.body) {
+      active.blur()
+    }
+  }
+
   function goNext() {
     if (!stepIsComplete(step)) {
       setStepError(true)
       return
     }
     setStepError(false)
+    releaseFieldFocus()
     setStep((current) => Math.min(current + 1, TOTAL_STEPS - 1))
   }
 
   function goBack() {
     setStepError(false)
+    releaseFieldFocus()
     setStep((current) => Math.max(current - 1, 0))
+  }
+
+  function toggleSessionPref(value: string) {
+    setSessionPrefs((current) =>
+      current.includes(value)
+        ? current.filter((entry) => entry !== value)
+        : [...current, value]
+    )
+    setStepError(false)
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -328,7 +356,11 @@ function CampusLeaderFormDialog({
         applicationsOpen: content.applicationsOpen,
         ...values,
         whatsapp: `${WHATSAPP_PREFIX}${values.whatsapp}`,
-        instagram: noInstagram ? undefined : values.instagram,
+        instagram: noInstagram
+          ? undefined
+          : socialUrl("instagram", values.instagram),
+        linkedin: socialUrl("linkedin", values.linkedin),
+        x: socialUrl("x", values.x),
         sessionPrefs,
       } as CampusLeaderApplicationInput
 
@@ -539,7 +571,8 @@ function CampusLeaderFormDialog({
                               !noInstagram &&
                               (isMissing("instagram") ||
                                 (values.instagram.trim().length > 0 &&
-                                  !isHttpUrl(values.instagram)))) ||
+                                  socialUrl("instagram", values.instagram) ===
+                                    undefined))) ||
                             undefined
                           }
                           onChange={(event) =>
@@ -683,35 +716,45 @@ function CampusLeaderFormDialog({
                       >
                         {fields.sessionPrefs.label}
                       </FieldLabel>
-                      <ToggleGroup
-                        multiple
-                        variant="outline"
-                        size="xl"
-                        spacing={2}
-                        value={sessionPrefs}
-                        onValueChange={(next) => {
-                          setSessionPrefs(next)
-                          setStepError(false)
-                        }}
-                        className="flex w-full flex-wrap"
+                      {/*
+                        Plain buttons instead of Base UI ToggleGroup: Composite
+                        roving-focus inside Dialog is the same crash class as the
+                        old Select portal (focus trap fights the nested manager).
+                      */}
+                      <div
+                        role="group"
                         aria-label={fields.sessionPrefs.label}
+                        className="flex w-full flex-wrap gap-2"
                       >
-                        {content.sessionPrefOptions.map((option) => (
-                          <ToggleGroupItem
-                            key={option.value}
-                            value={option.value}
-                          >
-                            {sessionPrefs.includes(option.value) ? (
-                              <HugeiconsIcon
-                                icon={Tick02Icon}
-                                strokeWidth={2.5}
-                                className="text-purple size-4"
-                              />
-                            ) : null}
-                            {option.label}
-                          </ToggleGroupItem>
-                        ))}
-                      </ToggleGroup>
+                        {content.sessionPrefOptions.map((option) => {
+                          const selected = sessionPrefs.includes(option.value)
+                          return (
+                            <Button
+                              key={option.value}
+                              type="button"
+                              variant="outline"
+                              size="xl"
+                              aria-pressed={selected}
+                              disabled={busy}
+                              onClick={() => toggleSessionPref(option.value)}
+                              className={cn(
+                                "gap-1.5",
+                                selected &&
+                                  "border-purple/50 bg-purple/10 text-foreground"
+                              )}
+                            >
+                              {selected ? (
+                                <HugeiconsIcon
+                                  icon={Tick02Icon}
+                                  strokeWidth={2.5}
+                                  className="text-purple size-4"
+                                />
+                              ) : null}
+                              {option.label}
+                            </Button>
+                          )
+                        })}
+                      </div>
                     </div>
                     <TextAreaField
                       id="cl-notes"
