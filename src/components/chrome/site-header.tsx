@@ -1,16 +1,16 @@
-import { useState } from "react"
-import { Link } from "@tanstack/react-router"
+import { Fragment, useState } from "react"
+import { Link, useRouterState } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons"
 
 import type { ChromeContent, Locale, MicrocopyContent } from "@/content"
+import type { ChromeNavItem } from "@/components/chrome/chrome-nav-items"
 
 import { LOCALES } from "@/content"
-import { getChromeNavItems } from "@/components/chrome/chrome-nav-items"
+import { getChromeNavGroups } from "@/components/chrome/chrome-nav-items"
 import { SiteLogo } from "@/components/chrome/site-logo"
 import { ThemeToggle } from "@/components/chrome/theme-toggle"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { hashFromHref } from "@/lib/locale-links"
 import { useScrolled } from "@/lib/use-scrolled"
 import { cn } from "@/lib/utils"
 
@@ -33,6 +33,67 @@ const barSurfaceClassName =
 const utilityControlClassName =
   "text-on-dark hover:bg-on-dark/10 hover:text-on-dark"
 
+const navDividerClassName = "bg-on-dark/15 h-5 w-px shrink-0"
+
+function NavDivider({ className }: { className?: string }) {
+  return <div className={cn(navDividerClassName, className)} aria-hidden />
+}
+
+function NavItemLink({
+  item,
+  onHome,
+  locale,
+  className,
+  onNavigate,
+}: {
+  item: ChromeNavItem
+  onHome: boolean
+  locale: Locale
+  className?: string
+  onNavigate?: () => void
+}) {
+  switch (item.kind) {
+    case "section":
+      // Same-page hashes stay plain anchors so the browser can
+      // smooth-scroll without a TanStack navigate cycle.
+      return onHome ? (
+        <a
+          href={item.href}
+          onClick={onNavigate}
+          className={cn(navLinkClassName, className)}
+        >
+          {item.label}
+        </a>
+      ) : (
+        <Link
+          to="/$locale"
+          params={{ locale }}
+          hash={item.hash}
+          onClick={onNavigate}
+          className={cn(navLinkClassName, className)}
+        >
+          {item.label}
+        </Link>
+      )
+    case "route":
+      return (
+        <Link
+          to={item.to}
+          params={item.params}
+          onClick={onNavigate}
+          className={cn(navLinkClassName, className)}
+          activeProps={{ className: activeNavLinkClassName }}
+        >
+          {item.label}
+        </Link>
+      )
+    default: {
+      const _exhaustive: never = item
+      return _exhaustive
+    }
+  }
+}
+
 function SiteHeader({
   locale,
   chrome,
@@ -41,9 +102,13 @@ function SiteHeader({
 }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const scrolled = useScrolled()
+  const onHome = useRouterState({
+    select: (state) =>
+      state.matches.some((match) => match.routeId === "/$locale/"),
+  })
   const otherLocale =
     LOCALES.find((candidate) => candidate !== locale) ?? locale
-  const chromeNavItems = getChromeNavItems(locale, chrome.nav)
+  const navGroups = getChromeNavGroups(locale, chrome.nav, { onHome })
   const closeMenu = () => setMenuOpen(false)
 
   const themeLabels = {
@@ -85,47 +150,22 @@ function SiteHeader({
             scrolled || menuOpen ? "border-white/18 shadow-soft-hover" : null
           )}
         >
-          <nav className="hidden items-center gap-5 md:flex" aria-label="Primary">
-            {chromeNavItems.map((item) => {
-              switch (item.kind) {
-                case "section":
-                  return (
-                    <Link
+          <nav className="hidden items-center gap-3 md:flex" aria-label="Primary">
+            {navGroups.map((group, groupIndex) => (
+              <Fragment key={group.key}>
+                {groupIndex > 0 ? <NavDivider /> : null}
+                <div className="flex items-center gap-5">
+                  {group.items.map((item) => (
+                    <NavItemLink
                       key={item.key}
-                      to="/$locale"
-                      params={{ locale }}
-                      hash={item.hash}
-                      className={navLinkClassName}
-                    >
-                      {item.label}
-                    </Link>
-                  )
-                case "route":
-                  return (
-                    <Link
-                      key={item.key}
-                      to={item.to}
-                      params={item.params}
-                      className={navLinkClassName}
-                      activeProps={{ className: activeNavLinkClassName }}
-                    >
-                      {item.label}
-                    </Link>
-                  )
-                default: {
-                  const _exhaustive: never = item
-                  return _exhaustive
-                }
-              }
-            })}
-            <Link
-              to="/$locale"
-              params={{ locale }}
-              hash={hashFromHref(chrome.nav.contact.href)}
-              className={navLinkClassName}
-            >
-              {chrome.nav.contact.label}
-            </Link>
+                      item={item}
+                      onHome={onHome}
+                      locale={locale}
+                    />
+                  ))}
+                </div>
+              </Fragment>
+            ))}
           </nav>
 
           <Button
@@ -143,10 +183,7 @@ function SiteHeader({
             <HugeiconsIcon icon={menuOpen ? Cancel01Icon : Menu01Icon} />
           </Button>
 
-          <div
-            className="bg-on-dark/15 hidden h-5 w-px shrink-0 md:block"
-            aria-hidden
-          />
+          <NavDivider className="hidden md:block" />
 
           <div className="flex items-center gap-0.5">
             <ThemeToggle
@@ -177,49 +214,26 @@ function SiteHeader({
             )}
           >
             <div className="flex flex-col gap-1">
-              {chromeNavItems.map((item) => {
-                switch (item.kind) {
-                  case "section":
-                    return (
-                      <Link
-                        key={item.key}
-                        to="/$locale"
-                        params={{ locale }}
-                        hash={item.hash}
-                        onClick={closeMenu}
-                        className={cn(navLinkClassName, "min-h-11 px-3")}
-                      >
-                        {item.label}
-                      </Link>
-                    )
-                  case "route":
-                    return (
-                      <Link
-                        key={item.key}
-                        to={item.to}
-                        params={item.params}
-                        onClick={closeMenu}
-                        className={cn(navLinkClassName, "min-h-11 px-3")}
-                        activeProps={{ className: activeNavLinkClassName }}
-                      >
-                        {item.label}
-                      </Link>
-                    )
-                  default: {
-                    const _exhaustive: never = item
-                    return _exhaustive
-                  }
-                }
-              })}
-              <Link
-                to="/$locale"
-                params={{ locale }}
-                hash={hashFromHref(chrome.nav.contact.href)}
-                onClick={closeMenu}
-                className={cn(navLinkClassName, "min-h-11 px-3")}
-              >
-                {chrome.nav.contact.label}
-              </Link>
+              {navGroups.map((group, groupIndex) => (
+                <div key={group.key} className="flex flex-col gap-1">
+                  {groupIndex > 0 ? (
+                    <div
+                      className="bg-on-dark/15 my-1 h-px w-full"
+                      aria-hidden
+                    />
+                  ) : null}
+                  {group.items.map((item) => (
+                    <NavItemLink
+                      key={item.key}
+                      item={item}
+                      onHome={onHome}
+                      locale={locale}
+                      className="min-h-11 px-3"
+                      onNavigate={closeMenu}
+                    />
+                  ))}
+                </div>
+              ))}
             </div>
           </nav>
         ) : null}

@@ -82,7 +82,7 @@ function HomeHeroCopy({
   samePageCtas: boolean
 }) {
   return (
-    <div className="border-border flex min-h-0 w-full flex-col justify-between gap-10 border-b px-6 pt-[calc(var(--site-header-offset)+0.5rem)] pb-8 sm:px-10 sm:pb-10 lg:border-r lg:border-b-0 lg:px-12 lg:pb-12 xl:px-16">
+    <div className="border-border bg-background flex min-h-0 w-full flex-col justify-between gap-10 border-b px-6 pt-[calc(var(--site-header-offset)+0.5rem)] pb-8 sm:px-10 sm:pb-10 lg:border-r lg:border-b-0 lg:px-12 lg:pb-12 xl:px-16">
       <div>
         <Link
           to="/$locale"
@@ -94,7 +94,7 @@ function HomeHeroCopy({
         </Link>
       </div>
 
-      <div className="flex max-w-xl flex-col gap-5 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500">
+      <div className="flex max-w-xl flex-col gap-5">
         <Eyebrow>{hero.label}</Eyebrow>
         <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
           {hero.headline}

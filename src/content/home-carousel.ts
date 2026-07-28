@@ -12,34 +12,31 @@ export const homeCarousel = {
     "/carousel/22.webp",
   ],
   about: [
-    "/carousel/9.webp",
-    "/carousel/18.webp",
-    "/carousel/25.webp",
     "/carousel/1.webp",
     "/carousel/2.webp",
     "/carousel/3.webp",
+    "/carousel/9.webp",
   ],
+  /** Academy — learning in session (workshops, facilitators, focused builds). */
   features: [
     "/carousel/5.webp",
-    "/carousel/6.webp",
-    "/carousel/7.webp",
     "/carousel/8.webp",
     "/carousel/13.webp",
-    "/carousel/17.webp",
+    "/carousel/21.webp",
+    "/carousel/23.webp",
   ],
   trust: [
-    "/carousel/4.webp",
-    "/carousel/21.webp",
-    "/carousel/23.webp",
+    "/carousel/18.webp",
     "/carousel/24.webp",
-    "/carousel/26.webp",
+    "/carousel/25.webp",
     "/carousel/27.webp",
   ],
-  /** Campus Leader landing — landscape picks, disjoint from hero strip. */
+  /** Campus Leader landing — student organizers, campus energy, peer leadership. */
   campusLeader: [
-    "/carousel/21.webp",
-    "/carousel/23.webp",
+    "/carousel/4.webp",
+    "/carousel/17.webp",
+    "/carousel/6.webp",
+    "/carousel/7.webp",
     "/carousel/26.webp",
-    "/carousel/24.webp",
   ],
 } as const satisfies Record<string, ReadonlyArray<string>>

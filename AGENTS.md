@@ -75,9 +75,11 @@ possibly stale value into this file.
   Do not describe them as shipped pages.
 - `/$locale/redeem` is an authenticated credit-redemption flow backed by
   Clerk, TanStack server functions, Prisma, and PostgreSQL/Neon.
-- `/$locale/community` is a minimal WhatsApp invite landing that reuses the
-  redeem dual-hero chrome (no auth). Community appears in chrome nav and the
-  footer.
+- `/$locale/community` is a minimal WhatsApp invite landing (no auth). Like
+  redeem and campus-leader, its hero is the shared campaign split hero
+  (`src/components/campaign/campaign-hero.tsx`): light copy column on the
+  left, ink text-spiral panel on the right. Community appears in chrome nav
+  and the footer.
 - `/$locale/campus-leader` is a public Campus Leader application flow (no
   auth). Submissions persist via a TanStack server function and Prisma.
   Cohort open/close is controlled by `campusLeader.applicationsOpen` in

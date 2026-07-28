@@ -15,20 +15,24 @@ const homeShellClassName = "page-gutter mx-auto w-full max-w-content"
 
 const homeSectionGapClassName = "flex flex-col gap-10 md:gap-14"
 
+/** Full-bleed purple poster band — pair with HomePaperArcs. */
+const homePaperBandClassName = "home-paper-band relative overflow-hidden"
+
+/** Paper sheet that alternates with purple bands below the hero; follows theme. */
+const homePaperSheetClassName = "home-paper-sheet relative"
+
+const homeBandPaddingClassName = "section-y"
+
 const homeDisplayClassName =
   "font-display text-foreground text-4xl font-semibold tracking-tight uppercase sm:text-5xl md:text-6xl"
-
-const homeHeroNavLinkClassName =
-  "inline-flex min-h-11 items-center text-on-dark/85 hover:text-on-dark text-sm font-medium underline decoration-transparent decoration-2 underline-offset-8 hover:decoration-purple-soft motion-safe:transition-[color,text-decoration-color] motion-safe:duration-150 focus-visible:ring-ring/50 rounded-sm focus-visible:ring-2 focus-visible:outline-none"
-
-const homeHeroChromeHeightClassName = "h-14"
 
 export {
   homePillClassName,
   homeCardClassName,
   homeShellClassName,
   homeSectionGapClassName,
+  homePaperBandClassName,
+  homePaperSheetClassName,
+  homeBandPaddingClassName,
   homeDisplayClassName,
-  homeHeroNavLinkClassName,
-  homeHeroChromeHeightClassName,
 }

@@ -2,15 +2,14 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { createFileRoute } from "@tanstack/react-router"
 
-import { RedeemHeroDesktop } from "@/components/redeem/redeem-hero-desktop"
-import { RedeemHeroMobile } from "@/components/redeem/redeem-hero-mobile"
+import { CampaignFactRow } from "@/components/campaign/campaign-fact-row"
+import { CampaignHero } from "@/components/campaign/campaign-hero"
 import {
   homeDisplayClassName,
   homePillClassName,
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { getContent, isLocale } from "@/content"
-import type { CommunityContent, Locale, MicrocopyContent } from "@/content/types"
 import { cn } from "@/lib/utils"
 
 export const Route = createFileRoute("/$locale/community")({
@@ -27,16 +26,6 @@ export const Route = createFileRoute("/$locale/community")({
   },
   component: CommunityPage,
 })
-
-type CommunityHeroTone = "onLight" | "onDark"
-
-const revealBaseClassName =
-  "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500"
-
-const communityFrostedPanelClassName = cn(
-  "rounded-3xl border border-on-dark/15 bg-black/55 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md sm:p-5",
-  "supports-backdrop-filter:bg-black/40"
-)
 
 function WhatsAppMark({ className }: { className?: string }) {
   return (
@@ -55,42 +44,13 @@ function CommunityPage() {
   const { locale, content: siteContent } = Route.useRouteContext()
   const content = siteContent.community
   const { microcopy } = siteContent
-  const mediaSrcs = siteContent.home.hero.mediaSrcs
-  const mediaAlt = siteContent.home.hero.mediaAlt
+  const words = [
+    content.label,
+    content.headline,
+    content.joinCta,
+    ...content.steps.map((step) => step.title),
+  ]
 
-  return (
-    <CommunityHeroShell
-      locale={locale}
-      microcopy={microcopy}
-      mediaSrcs={mediaSrcs}
-      mediaAlt={mediaAlt}
-      qrContent={content}
-      left={(tone) => <CommunityInfo content={content} tone={tone} />}
-      leftFooter={(tone) => <CommunitySteps content={content} tone={tone} />}
-      right={() => <CommunityJoinAction content={content} />}
-    />
-  )
-}
-
-function CommunityHeroShell({
-  locale,
-  microcopy,
-  mediaSrcs,
-  mediaAlt,
-  qrContent,
-  left,
-  right,
-  leftFooter,
-}: {
-  locale: Locale
-  microcopy: MicrocopyContent
-  mediaSrcs: ReadonlyArray<string>
-  mediaAlt: string
-  qrContent: CommunityContent
-  left: (tone: CommunityHeroTone) => React.ReactNode
-  right: () => React.ReactNode
-  leftFooter?: (tone: CommunityHeroTone) => React.ReactNode
-}) {
   return (
     <div className="relative">
       <a
@@ -100,183 +60,45 @@ function CommunityHeroShell({
         {microcopy.skipToContent}
       </a>
       <div id="community-main">
-        <RedeemHeroMobile
-          className="lg:hidden"
+        <CampaignHero
           locale={locale}
-          microcopy={microcopy}
-          mediaSrcs={mediaSrcs}
-          mediaAlt={mediaAlt}
-          qrContent={qrContent}
-          left={left("onDark")}
-          right={right()}
-          leftFooter={leftFooter?.("onDark")}
-        />
-        <RedeemHeroDesktop
-          className="hidden lg:flex"
-          locale={locale}
-          microcopy={microcopy}
-          mediaSrcs={mediaSrcs}
-          mediaAlt={mediaAlt}
-          qrContent={qrContent}
-          left={left("onDark")}
-          right={right()}
-          leftFooter={leftFooter?.("onDark")}
-        />
-      </div>
-    </div>
-  )
-}
-
-function CommunityInfo({
-  content,
-  tone = "onLight",
-}: {
-  content: CommunityContent
-  tone?: CommunityHeroTone
-}) {
-  const onDark = tone === "onDark"
-
-  return (
-    <div className="flex w-full max-w-xl flex-col gap-5 lg:max-w-none">
-      <Eyebrow
-        tone={onDark ? "onDark" : "default"}
-        className={revealBaseClassName}
-      >
-        {content.label}
-      </Eyebrow>
-
-      <h1
-        className={cn(
-          homeDisplayClassName,
-          "text-4xl leading-[0.95] sm:text-5xl md:text-5xl",
-          onDark && "text-on-dark",
-          revealBaseClassName,
-          "motion-safe:delay-75"
-        )}
-      >
-        {content.headline}
-      </h1>
-
-      <p
-        className={cn(
-          "max-w-md text-base leading-relaxed md:text-lg",
-          onDark ? "text-on-dark/80" : "text-muted-foreground",
-          revealBaseClassName,
-          "motion-safe:delay-150"
-        )}
-      >
-        {content.body}
-      </p>
-    </div>
-  )
-}
-
-function CommunityJoinAction({ content }: { content: CommunityContent }) {
-  return (
-    <div className="flex w-full flex-col">
-      <div
-        className={cn(
-          communityFrostedPanelClassName,
-          "flex w-full flex-col gap-3",
-          revealBaseClassName,
-          "motion-safe:delay-150"
-        )}
-      >
-        <p className="text-on-dark/80 text-sm leading-relaxed md:text-base">
-          {content.joinPrompt}
-        </p>
-        <a
-          href={content.joinHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(
-            homePillClassName,
-            "h-12 w-full justify-center gap-2.5 text-base",
-            "motion-safe:active:scale-[0.98]"
-          )}
+          words={words}
+          qrContent={content}
+          footer={
+            <CampaignFactRow
+              label={content.howItWorksLabel}
+              steps={content.steps}
+            />
+          }
         >
-          <WhatsAppMark className="size-5 shrink-0" />
-          {content.joinCta}
-          <HugeiconsIcon
-            icon={ArrowRight01Icon}
-            strokeWidth={2}
-            className="size-4 shrink-0 opacity-80"
-          />
-        </a>
-        <p className="text-on-dark/55 text-center text-xs leading-relaxed tracking-wide">
-          {content.joinHint}
-        </p>
-      </div>
-    </div>
-  )
-}
-
-function CommunitySteps({
-  content,
-  tone = "onLight",
-}: {
-  content: CommunityContent
-  tone?: CommunityHeroTone
-}) {
-  const onDark = tone === "onDark"
-
-  return (
-    <div
-      className={cn(
-        "flex flex-col gap-4 border-t pt-6",
-        onDark ? "border-on-dark/20" : "border-border/60"
-      )}
-    >
-      <p
-        className={cn(
-          "text-xs font-semibold tracking-wider uppercase",
-          onDark ? "text-on-dark/70" : "text-muted-foreground"
-        )}
-      >
-        {content.howItWorksLabel}
-      </p>
-      <ol
-        className={cn(
-          "grid gap-5 sm:grid-cols-3 sm:gap-0 sm:divide-x",
-          onDark ? "sm:divide-on-dark/20" : "sm:divide-border/60"
-        )}
-      >
-        {content.steps.map((step, index) => (
-          <li
-            key={step.title}
-            className="flex flex-col gap-1.5 sm:px-5 sm:first:pl-0 sm:last:pr-0"
-          >
-            <div className="flex items-center gap-2.5">
-              <span
-                className={cn(
-                  "flex size-6 shrink-0 items-center justify-center rounded-full border font-mono text-xs font-semibold",
-                  onDark
-                    ? "border-on-dark/30 bg-on-dark/10 text-on-dark"
-                    : "border-purple/50 bg-purple/10 text-purple"
-                )}
-              >
-                {index + 1}
-              </span>
-              <span
-                className={cn(
-                  "text-sm font-medium",
-                  onDark ? "text-on-dark" : "text-foreground"
-                )}
-              >
-                {step.title}
-              </span>
-            </div>
-            <p
-              className={cn(
-                "text-xs leading-relaxed",
-                onDark ? "text-on-dark/70" : "text-muted-foreground"
-              )}
+          <Eyebrow>{content.label}</Eyebrow>
+          <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
+            {content.headline}
+          </h1>
+          <p className="text-muted-foreground max-w-md text-base leading-relaxed md:text-lg">
+            {content.body}
+          </p>
+          <div className="flex flex-col gap-2 pt-1">
+            <a
+              href={content.joinHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(homePillClassName, "w-fit gap-2.5")}
             >
-              {step.body}
+              <WhatsAppMark className="size-5 shrink-0" />
+              {content.joinCta}
+              <HugeiconsIcon
+                icon={ArrowRight01Icon}
+                strokeWidth={2}
+                className="size-4 shrink-0 opacity-80"
+              />
+            </a>
+            <p className="text-muted-foreground text-xs tracking-wide">
+              {content.joinPrompt} {content.joinHint}
             </p>
-          </li>
-        ))}
-      </ol>
+          </div>
+        </CampaignHero>
+      </div>
     </div>
   )
 }

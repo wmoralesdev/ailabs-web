@@ -8,16 +8,15 @@ import { createFileRoute } from "@tanstack/react-router"
 
 import { CampusLeaderForm } from "@/components/campus-leader/campus-leader-form"
 import { CampusLeaderLanding } from "@/components/campus-leader/campus-leader-landing"
-import { RedeemHeroDesktop } from "@/components/redeem/redeem-hero-desktop"
-import { RedeemHeroMobile } from "@/components/redeem/redeem-hero-mobile"
+import { CampaignHero } from "@/components/campaign/campaign-hero"
 import {
   homeDisplayClassName,
   homePillClassName,
 } from "@/components/home/home-styles"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { getContent, isLocale } from "@/content"
 import type { CampusLeaderContent } from "@/content/types"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 export const Route = createFileRoute("/$locale/campus-leader")({
@@ -35,23 +34,20 @@ export const Route = createFileRoute("/$locale/campus-leader")({
   component: CampusLeaderPage,
 })
 
-type HeroTone = "onLight" | "onDark"
-
-const revealBaseClassName =
-  "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500"
-
-const frostedPanelClassName = cn(
-  "rounded-3xl border border-on-dark/15 bg-black/55 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md sm:p-5",
-  "supports-backdrop-filter:bg-black/40"
-)
-
 function CampusLeaderPage() {
   const { locale, content: siteContent } = Route.useRouteContext()
   const content = siteContent.campusLeader
   const { microcopy } = siteContent
-  const mediaSrcs = siteContent.home.hero.mediaSrcs
-  const mediaAlt = siteContent.home.hero.mediaAlt
   const [applyOpen, setApplyOpen] = useState(false)
+  const words = [
+    content.label,
+    content.headline,
+    `${content.cohortLabel} ${content.cohortDisplay}`,
+    content.applyCta,
+    ...content.landing.what.items.map((item) => item.title),
+    ...content.landing.role.items.map((item) => item.title),
+    ...content.landing.benefits.items.map((item) => item.title),
+  ]
 
   return (
     <div className="relative">
@@ -62,36 +58,22 @@ function CampusLeaderPage() {
         {microcopy.skipToContent}
       </a>
       <div id="campus-leader-main">
-        <RedeemHeroMobile
-          className="lg:hidden"
-          locale={locale}
-          microcopy={microcopy}
-          mediaSrcs={mediaSrcs}
-          mediaAlt={mediaAlt}
-          qrContent={content}
-          left={<CampusLeaderInfo content={content} tone="onDark" />}
-          right={
-            <CampusLeaderHeroAction
-              content={content}
-              onApply={() => setApplyOpen(true)}
-            />
-          }
-        />
-        <RedeemHeroDesktop
-          className="hidden lg:flex"
-          locale={locale}
-          microcopy={microcopy}
-          mediaSrcs={mediaSrcs}
-          mediaAlt={mediaAlt}
-          qrContent={content}
-          left={<CampusLeaderInfo content={content} tone="onDark" />}
-          right={
-            <CampusLeaderHeroAction
-              content={content}
-              onApply={() => setApplyOpen(true)}
-            />
-          }
-        />
+        <CampaignHero locale={locale} words={words} qrContent={content}>
+          <Eyebrow>{content.label}</Eyebrow>
+          <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
+            {content.headline}
+          </h1>
+          <p className="text-muted-foreground max-w-md text-base leading-relaxed md:text-lg">
+            {content.body}
+          </p>
+          <p className="text-muted-foreground font-mono text-xs font-semibold tracking-[0.14em] uppercase">
+            {content.cohortLabel} {content.cohortDisplay}
+          </p>
+          <CampusLeaderHeroAction
+            content={content}
+            onApply={() => setApplyOpen(true)}
+          />
+        </CampaignHero>
       </div>
 
       <CampusLeaderLanding
@@ -108,61 +90,6 @@ function CampusLeaderPage() {
   )
 }
 
-function CampusLeaderInfo({
-  content,
-  tone = "onLight",
-}: {
-  content: CampusLeaderContent
-  tone?: HeroTone
-}) {
-  const onDark = tone === "onDark"
-
-  return (
-    <div className="flex w-full max-w-xl flex-col gap-5 lg:max-w-none">
-      <Eyebrow
-        tone={onDark ? "onDark" : "default"}
-        className={revealBaseClassName}
-      >
-        {content.label}
-      </Eyebrow>
-
-      <h1
-        className={cn(
-          homeDisplayClassName,
-          "text-4xl leading-[0.95] sm:text-5xl md:text-5xl",
-          onDark && "text-on-dark",
-          revealBaseClassName,
-          "motion-safe:delay-75"
-        )}
-      >
-        {content.headline}
-      </h1>
-
-      <p
-        className={cn(
-          "max-w-md text-base leading-relaxed md:text-lg",
-          onDark ? "text-on-dark/80" : "text-muted-foreground",
-          revealBaseClassName,
-          "motion-safe:delay-150"
-        )}
-      >
-        {content.body}
-      </p>
-
-      <p
-        className={cn(
-          "font-mono text-xs font-semibold tracking-[0.14em] uppercase",
-          onDark ? "text-on-dark/60" : "text-muted-foreground",
-          revealBaseClassName,
-          "motion-safe:delay-200"
-        )}
-      >
-        {content.cohortLabel} {content.cohortDisplay}
-      </p>
-    </div>
-  )
-}
-
 function CampusLeaderHeroAction({
   content,
   onApply,
@@ -172,18 +99,11 @@ function CampusLeaderHeroAction({
 }) {
   if (!content.applicationsOpen) {
     return (
-      <div
-        className={cn(
-          frostedPanelClassName,
-          "flex w-full flex-col gap-3",
-          revealBaseClassName,
-          "motion-safe:delay-150"
-        )}
-      >
-        <p className="text-on-dark text-base font-medium leading-relaxed">
+      <div className="border-border bg-card text-card-foreground flex w-full max-w-md flex-col gap-2 rounded-3xl border p-5">
+        <p className="text-base font-medium leading-relaxed">
           {content.closedTitle}
         </p>
-        <p className="text-on-dark/70 text-sm leading-relaxed">
+        <p className="text-muted-foreground text-sm leading-relaxed">
           {content.closedBody}
         </p>
       </div>
@@ -191,37 +111,25 @@ function CampusLeaderHeroAction({
   }
 
   return (
-    <div className="flex w-full flex-col">
-      <div
-        className={cn(
-          frostedPanelClassName,
-          "flex w-full flex-col gap-3",
-          revealBaseClassName,
-          "motion-safe:delay-150"
-        )}
-      >
-        <p className="text-on-dark/80 text-sm leading-relaxed md:text-base">
-          {content.creditsNote}
-        </p>
+    <div className="flex w-full flex-col gap-3 pt-1">
+      <p className="text-muted-foreground max-w-md text-sm leading-relaxed md:text-base">
+        {content.creditsNote}
+      </p>
+      <div className="flex flex-wrap items-center gap-3">
         <Button
           type="button"
           onClick={onApply}
-          className={cn(
-            homePillClassName,
-            "h-12 w-full justify-center gap-2.5 text-base",
-            "motion-safe:active:scale-[0.98]"
-          )}
+          className={cn(homePillClassName, "w-fit")}
         >
           {content.applyCta}
-          <HugeiconsIcon
-            icon={ArrowRight01Icon}
-            strokeWidth={2}
-            className="size-4 shrink-0 opacity-80"
-          />
+          <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
         </Button>
         <a
           href="#campus-leader-program"
-          className="text-on-dark/70 hover:text-on-dark inline-flex min-h-11 items-center justify-center gap-1.5 text-sm font-medium underline-offset-4 transition-colors hover:underline"
+          className={cn(
+            buttonVariants({ variant: "outline", size: "xl" }),
+            "gap-1.5 rounded-full px-5"
+          )}
         >
           {content.learnCta}
           <HugeiconsIcon

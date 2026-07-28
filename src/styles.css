@@ -77,7 +77,7 @@
     --brand-lavender: #ede4ff;
     --brand-graphite: #1a1a1a;
     --brand-muted: #5c5c5c;
-    --brand-white: #ffffff;
+    --brand-white: #fafafa;
     --brand-border: #e8e4f0;
     --brand-border-dark: #44414f;
 
@@ -142,6 +142,13 @@
     /* Always-dark purple-graphite band (footer, hero media panel) */
     --surface-ink: color-mix(in srgb, var(--brand-purple) 14%, var(--brand-graphite));
 
+    /* Poster-weight purple for full-bleed home paper bands */
+    --home-paper-purple: color-mix(
+        in srgb,
+        var(--brand-purple) 72%,
+        var(--brand-graphite) 28%
+    );
+
     /* Fixed contrast for controls sitting on dark bands */
     --on-dark: var(--brand-white);
     --on-dark-foreground: var(--brand-graphite);
@@ -181,7 +188,7 @@
     --muted-foreground: color-mix(in srgb, var(--brand-white) 68%, transparent);
     --accent: color-mix(in srgb, var(--brand-purple) 14%, var(--brand-graphite));
     --accent-foreground: var(--brand-white);
-    --destructive: color-mix(in srgb, #f87171 92%, white);
+    --destructive: color-mix(in srgb, #f87171 92%, var(--brand-white));
     --border: var(--brand-border-dark);
     --input: var(--brand-border-dark);
     --ring: var(--brand-purple-soft);
@@ -218,6 +225,7 @@
     }
     html {
         @apply font-sans;
+        scroll-behavior: smooth;
     }
 }
 
@@ -334,6 +342,61 @@
         color-scheme: dark;
     }
 
+    /*
+     * Full-bleed purple paper band (poster rail). Remaps semantics so
+     * foreground/CTAs/accents read as ink-on-violet; cards stay paper white.
+     */
+    .home-paper-band {
+        --background: var(--home-paper-purple);
+        --foreground: var(--brand-white);
+        --card: var(--brand-white);
+        --card-foreground: var(--brand-graphite);
+        --popover: var(--brand-white);
+        --popover-foreground: var(--brand-graphite);
+        --primary: var(--brand-white);
+        --primary-foreground: var(--brand-graphite);
+        --secondary: color-mix(in srgb, var(--brand-white) 12%, transparent);
+        --secondary-foreground: var(--brand-white);
+        --muted: color-mix(in srgb, var(--brand-white) 12%, transparent);
+        --muted-foreground: color-mix(in srgb, var(--brand-white) 72%, transparent);
+        --accent: color-mix(in srgb, var(--brand-white) 14%, transparent);
+        --accent-foreground: var(--brand-white);
+        --border: color-mix(in srgb, var(--brand-white) 22%, transparent);
+        --input: color-mix(in srgb, var(--brand-white) 22%, transparent);
+        --ring: var(--brand-white);
+        --surface-soft: color-mix(in srgb, var(--brand-white) 14%, transparent);
+        --color-purple: color-mix(in srgb, var(--brand-white) 88%, transparent);
+        --color-purple-soft: color-mix(in srgb, var(--brand-white) 55%, transparent);
+        --shadow-color: color-mix(in srgb, black 18%, transparent);
+        --shadow-color-strong: color-mix(in srgb, black 28%, transparent);
+        --shadow-glow: color-mix(in srgb, var(--brand-white) 18%, transparent);
+        background-color: var(--home-paper-purple);
+        color: var(--brand-white);
+        color-scheme: dark;
+    }
+
+    /* Paper sheet alternating with purple bands — follows page theme (light/dark). */
+    .home-paper-sheet {
+        background-color: var(--background);
+        color: var(--foreground);
+    }
+
+    /* Paper islands on a purple band restore light-surface ink. */
+    .home-paper-band .bg-card {
+        --background: var(--brand-white);
+        --foreground: var(--brand-graphite);
+        --muted-foreground: var(--brand-muted);
+        --border: var(--brand-border);
+        --primary: var(--brand-purple);
+        --primary-foreground: var(--brand-graphite);
+        --ring: var(--brand-purple);
+        --color-purple: var(--brand-purple);
+        --color-purple-soft: var(--brand-purple-soft);
+        background-color: var(--brand-white);
+        color: var(--brand-graphite);
+        color-scheme: light;
+    }
+
     /* Corner stipple — light dots on the always-dark hero content card. */
     .home-hero-stipple-canvas {
         color: var(--brand-white);
@@ -352,134 +415,6 @@
         --stipple-opacity: 0.28;
     }
 
-    .home-partner-avatar,
-    .home-partner-voice {
-        opacity: 0;
-        transform: translateY(0.5rem);
-    }
-
-    .home-partner-avatar {
-        user-select: none;
-        transform-origin: center center;
-    }
-
-    .home-partner-constellation[data-revealed="true"] .home-partner-avatar,
-    .home-partner-constellation[data-revealed="true"] .home-partner-voice {
-        animation: home-partner-enter var(--dur-enter) var(--ease-out) both;
-        animation-delay: calc(var(--i, 0) * 28ms);
-    }
-
-    /* Perpetual bob after enter — transform only; staggered via --i */
-    .home-partner-constellation[data-revealed="true"] .home-partner-avatar {
-        animation:
-            home-partner-enter var(--dur-enter) var(--ease-out) both,
-            home-partner-float 4.8s ease-in-out infinite;
-        animation-delay:
-            calc(var(--i, 0) * 28ms),
-            calc(var(--dur-enter) + var(--i, 0) * 190ms);
-    }
-
-    /*
-     * After enter settles, float only — pausing/clearing float must not
-     * re-run enter (that caused the click opacity flash).
-     */
-    .home-partner-constellation[data-revealed="true"][data-entered="true"]
-        .home-partner-avatar {
-        animation: home-partner-float 4.8s ease-in-out infinite;
-        animation-delay: calc(var(--i, 0) * 190ms);
-        opacity: 1;
-    }
-
-    .home-partner-constellation[data-revealed="true"][data-entered="true"]
-        .home-partner-voice {
-        animation: none;
-        opacity: 1;
-        transform: none;
-    }
-
-    /* Modal-like grow in place — whole bubble scales, float paused */
-    .home-partner-constellation[data-revealed="true"]
-        .home-partner-avatar[data-enlarged="true"] {
-        animation: none;
-        opacity: 1;
-        z-index: 30;
-        transform: scale(var(--home-partner-enlarge, 2.4));
-        transition: transform 360ms cubic-bezier(0.34, 1.2, 0.64, 1);
-        will-change: transform;
-    }
-
-    .home-partner-avatar-face {
-        transform: scale(1);
-    }
-
-    /* Minimal countdown ring — thin purple arc, no track */
-    .home-partner-avatar-timer-progress {
-        stroke: var(--color-purple);
-        stroke-width: 1.5;
-        stroke-linecap: round;
-        stroke-dasharray: 100;
-        stroke-dashoffset: 0;
-        opacity: 0.7;
-        animation: home-partner-timer-ring var(--home-partner-enlarge-ms, 5s)
-            linear forwards;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .home-partner-avatar,
-        .home-partner-voice {
-            opacity: 1;
-            transform: none;
-        }
-
-        .home-partner-constellation[data-revealed="true"] .home-partner-avatar,
-        .home-partner-constellation[data-revealed="true"] .home-partner-voice {
-            animation: none;
-        }
-
-        .home-partner-constellation[data-revealed="true"]
-            .home-partner-avatar[data-enlarged="true"] {
-            transition: none;
-            transform: scale(var(--home-partner-enlarge, 2.4));
-        }
-
-        .home-partner-avatar-timer-progress {
-            animation: none;
-            stroke-dashoffset: 100;
-        }
-    }
-}
-
-@keyframes home-partner-enter {
-    from {
-        opacity: 0;
-        transform: translateY(0.5rem);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes home-partner-float {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-0.35rem);
-    }
-}
-
-@keyframes home-partner-timer-ring {
-    from {
-        stroke-dashoffset: 0;
-    }
-
-    to {
-        stroke-dashoffset: 100;
-    }
 }
 
 @keyframes main-grid-glow {

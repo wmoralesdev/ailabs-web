@@ -11,8 +11,8 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { toast } from "sonner"
 
-import { RedeemHeroDesktop } from "@/components/redeem/redeem-hero-desktop"
-import { RedeemHeroMobile } from "@/components/redeem/redeem-hero-mobile"
+import { CampaignFactRow } from "@/components/campaign/campaign-fact-row"
+import { CampaignHero } from "@/components/campaign/campaign-hero"
 import {
   homeDisplayClassName,
   homePillClassName,
@@ -20,7 +20,7 @@ import {
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Spinner } from "@/components/ui/spinner"
 import { getContent, isLocale } from "@/content"
-import type { Locale, MicrocopyContent, RedeemContent } from "@/content/types"
+import type { Locale, RedeemContent } from "@/content/types"
 import { getRedeemProductConfig } from "@/lib/redeem-products"
 import type { RedeemProductConfig } from "@/lib/redeem-products"
 import { cn } from "@/lib/utils"
@@ -35,9 +35,6 @@ import type {
 type RedeemSearch = {
   code?: string
 }
-
-type RedeemHeroTone = "onLight" | "onDark"
-type RedeemHeroSurface = "mobile" | "desktop"
 
 export const Route = createFileRoute("/$locale/redeem")({
   validateSearch: (search: Record<string, unknown>): RedeemSearch => {
@@ -75,8 +72,22 @@ export const Route = createFileRoute("/$locale/redeem")({
   component: RedeemPage,
 })
 
-const revealBaseClassName =
-  "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500"
+const skipLinkClassName =
+  "bg-background text-foreground focus-visible:ring-ring sr-only rounded-sm px-3 py-2 text-sm font-medium focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2"
+
+function collectRedeemWords(
+  content: RedeemContent,
+  eventName?: string
+): string[] {
+  return [
+    content.eventLabel,
+    ...(eventName ? [eventName] : []),
+    ...Object.values(content.products).map((product) => product.title),
+    content.signInCta,
+    content.claimCta,
+    ...content.steps.map((step) => step.title),
+  ]
+}
 
 function RedeemPage() {
   const { locale, content: siteContent } = Route.useRouteContext()
@@ -85,95 +96,38 @@ function RedeemPage() {
   const content = siteContent.redeem
   const { microcopy } = siteContent
 
-  const mediaSrcs = siteContent.home.hero.mediaSrcs
-  const mediaAlt = siteContent.home.hero.mediaAlt
-
   if (!code) {
     return (
-      <RedeemHeroShell
+      <RedeemStatusHero
         locale={locale}
-        microcopy={microcopy}
-        mediaSrcs={mediaSrcs}
-        mediaAlt={mediaAlt}
-        qrContent={content}
-        left={(tone) => (
-          <StatusPanel
-            title={content.missingCodeTitle}
-            body={content.missingCodeBody}
-            tone={tone}
-          />
-        )}
-        leftFooter={(tone) => (
-          <RedeemFootNote text={content.poweredBy} tone={tone} />
-        )}
-        right={(surface) =>
-          surface === "desktop" ? (
-            <RightStatus
-              title={content.missingCodeTitle}
-              body={content.missingCodeBody}
-            />
-          ) : null
-        }
+        skipToContent={microcopy.skipToContent}
+        content={content}
+        title={content.missingCodeTitle}
+        body={content.missingCodeBody}
       />
     )
   }
 
   if (!event) {
     return (
-      <RedeemHeroShell
+      <RedeemStatusHero
         locale={locale}
-        microcopy={microcopy}
-        mediaSrcs={mediaSrcs}
-        mediaAlt={mediaAlt}
-        qrContent={content}
-        left={(tone) => (
-          <StatusPanel
-            title={content.invalidTitle}
-            body={content.invalidBody}
-            tone={tone}
-          />
-        )}
-        leftFooter={(tone) => (
-          <RedeemFootNote text={content.poweredBy} tone={tone} />
-        )}
-        right={(surface) =>
-          surface === "desktop" ? (
-            <RightStatus
-              title={content.invalidTitle}
-              body={content.invalidBody}
-            />
-          ) : null
-        }
+        skipToContent={microcopy.skipToContent}
+        content={content}
+        title={content.invalidTitle}
+        body={content.invalidBody}
       />
     )
   }
 
   if (!event.active) {
     return (
-      <RedeemHeroShell
+      <RedeemStatusHero
         locale={locale}
-        microcopy={microcopy}
-        mediaSrcs={mediaSrcs}
-        mediaAlt={mediaAlt}
-        qrContent={content}
-        left={(tone) => (
-          <StatusPanel
-            title={content.inactiveTitle}
-            body={content.inactiveBody}
-            tone={tone}
-          />
-        )}
-        leftFooter={(tone) => (
-          <RedeemFootNote text={content.poweredBy} tone={tone} />
-        )}
-        right={(surface) =>
-          surface === "desktop" ? (
-            <RightStatus
-              title={content.inactiveTitle}
-              body={content.inactiveBody}
-            />
-          ) : null
-        }
+        skipToContent={microcopy.skipToContent}
+        content={content}
+        title={content.inactiveTitle}
+        body={content.inactiveBody}
       />
     )
   }
@@ -182,110 +136,112 @@ function RedeemPage() {
   const productCopy = content.products[product.titleKey]
 
   return (
-    <RedeemHeroShell
-      locale={locale}
-      microcopy={microcopy}
-      mediaSrcs={mediaSrcs}
-      mediaAlt={mediaAlt}
-      qrContent={content}
-      left={(tone) => (
-        <ProductInfo
-          content={content}
-          product={product}
-          productCopy={productCopy}
-          eventName={event.name}
-          tone={tone}
-        />
-      )}
-      leftFooter={(tone) => <RedeemSteps content={content} tone={tone} />}
-      right={() => <RedeemAction code={code} content={content} />}
-    />
+    <div className="relative">
+      <a href="#redeem-main" className={skipLinkClassName}>
+        {microcopy.skipToContent}
+      </a>
+      <div id="redeem-main">
+        <CampaignHero
+          fluid
+          locale={locale}
+          words={collectRedeemWords(content, event.name)}
+          qrContent={content}
+          footer={
+            <CampaignFactRow
+              label={content.howItWorksLabel}
+              steps={content.steps}
+            />
+          }
+        >
+          <ProductInfo
+            content={content}
+            product={product}
+            productCopy={productCopy}
+            eventName={event.name}
+          />
+          <RedeemAction code={code} content={content} />
+        </CampaignHero>
+      </div>
+    </div>
   )
 }
 
-const redeemFrostedPanelClassName = cn(
-  "rounded-3xl border border-on-dark/15 bg-black/55 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-md sm:p-6",
-  "supports-backdrop-filter:bg-black/40"
-)
+function RedeemStatusHero({
+  locale,
+  skipToContent,
+  content,
+  title,
+  body,
+}: {
+  locale: Locale
+  skipToContent: string
+  content: RedeemContent
+  title: string
+  body: string
+}) {
+  return (
+    <div className="relative">
+      <a href="#redeem-main" className={skipLinkClassName}>
+        {skipToContent}
+      </a>
+      <div id="redeem-main">
+        <CampaignHero
+          fluid
+          locale={locale}
+          words={collectRedeemWords(content)}
+          qrContent={content}
+          footer={<RedeemFootNote text={content.poweredBy} />}
+        >
+          <h1 className="font-display text-foreground text-3xl font-semibold tracking-tight md:text-4xl">
+            {title}
+          </h1>
+          <p className="text-muted-foreground max-w-md text-base leading-relaxed md:text-lg">
+            {body}
+          </p>
+        </CampaignHero>
+      </div>
+    </div>
+  )
+}
 
 function ProductInfo({
   content,
   product,
   productCopy,
   eventName,
-  tone = "onLight",
 }: {
   content: RedeemContent
   product: RedeemProductConfig
   productCopy: { title: string; blurb: string }
   eventName: string
-  tone?: RedeemHeroTone
 }) {
-  const onDark = tone === "onDark"
-
   return (
-    <div className="flex w-full max-w-xl flex-col gap-5 lg:max-w-none">
-      <div
-        className={cn(
-          revealBaseClassName,
-          "flex flex-wrap items-center gap-x-5 gap-y-3"
-        )}
-      >
+    <>
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
         {product.logos.map((logo) => (
           <img
             key={logo.alt}
             src={logo.dark}
             alt={logo.alt}
-            className={cn(
-              "h-6 w-auto",
-              onDark
-                ? "brightness-0 invert"
-                : "brightness-0 invert dark:invert-0"
-            )}
+            className="h-6 w-auto brightness-0 invert dark:invert-0"
           />
         ))}
-        <Eyebrow tone={onDark ? "onDark" : "default"}>
-          {content.eventLabel}
-        </Eyebrow>
+        <Eyebrow>{content.eventLabel}</Eyebrow>
       </div>
 
-      <h1
-        className={cn(
-          homeDisplayClassName,
-          "text-4xl leading-[0.95] sm:text-5xl md:text-5xl",
-          onDark && "text-on-dark",
-          revealBaseClassName,
-          "motion-safe:delay-75"
-        )}
-      >
+      <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
         {eventName}
       </h1>
 
-      <div
-        className={cn(
-          "flex flex-col gap-2",
-          revealBaseClassName,
-          "motion-safe:delay-150"
-        )}
-      >
-        <p
-          className={cn(
-            "font-display text-lg font-semibold tracking-tight md:text-xl",
-            onDark ? "text-on-dark" : "text-foreground"
-          )}
-        >
+      <div className="flex flex-col gap-2">
+        <p className="font-display text-foreground text-lg font-semibold tracking-tight md:text-xl">
           {productCopy.title}
         </p>
-        <p
-          className={cn(
-            "text-base leading-relaxed md:text-lg",
-            onDark ? "text-on-dark/80" : "text-muted-foreground"
-          )}
-        >
+        <p className="text-muted-foreground max-w-md text-base leading-relaxed md:text-lg">
           {productCopy.blurb}
         </p>
       </div>
-    </div>
+    </>
   )
 }
 
@@ -305,14 +261,14 @@ function RedeemAccountChrome({
     <div className="flex flex-wrap items-center gap-3">
       <UserButton />
       {email ? (
-        <p className="text-on-dark/70 min-w-0 flex-1 truncate text-sm">
+        <p className="text-muted-foreground min-w-0 flex-1 truncate text-sm">
           {content.signedInAs.replace("{email}", email)}
         </p>
       ) : null}
       <SignOutButton redirectUrl={returnUrl}>
         <button
           type="button"
-          className="text-on-dark/70 hover:text-on-dark focus-visible:ring-ring/50 shrink-0 rounded-sm text-sm font-medium underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
+          className="text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 shrink-0 rounded-sm text-sm font-medium underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
         >
           {content.signOutCta}
         </button>
@@ -333,241 +289,43 @@ function RedeemAction({
   })
 
   return (
-    <div className="flex w-full flex-col">
-      <div
-        className={cn(
-          redeemFrostedPanelClassName,
-          "flex w-full flex-col gap-5",
-          revealBaseClassName,
-          "motion-safe:delay-150"
-        )}
-      >
-        <Show when="signed-out">
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-2">
-              <h2 className="font-display text-on-dark text-2xl font-semibold tracking-tight md:text-3xl">
-                {content.signInCta}
-              </h2>
-              <p className="text-on-dark/70 text-sm leading-relaxed md:text-base">
-                {content.signInPrompt}
-              </p>
-            </div>
-            <SignInButton
-              mode="modal"
-              forceRedirectUrl={returnUrl}
-              signUpForceRedirectUrl={returnUrl}
-            >
-              <button type="button" className={cn(homePillClassName, "w-fit")}>
-                {content.signInCta}
-                <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-              </button>
-            </SignInButton>
-          </div>
-        </Show>
-
-        <Show when="signed-in">
-          <RedeemAccountChrome content={content} returnUrl={returnUrl} />
-          <RedeemClaimPanel code={code} content={content} onDark />
-        </Show>
-      </div>
-    </div>
-  )
-}
-
-function RedeemSteps({
-  content,
-  tone = "onLight",
-}: {
-  content: RedeemContent
-  tone?: RedeemHeroTone
-}) {
-  const onDark = tone === "onDark"
-
-  return (
-    <div
-      className={cn(
-        "flex flex-col gap-4 border-t pt-6",
-        onDark ? "border-on-dark/20" : "border-border/60"
-      )}
-    >
-      <p
-        className={cn(
-          "text-xs font-semibold tracking-wider uppercase",
-          onDark ? "text-on-dark/70" : "text-muted-foreground"
-        )}
-      >
-        {content.howItWorksLabel}
-      </p>
-      <ol
-        className={cn(
-          "grid gap-5 sm:grid-cols-3 sm:gap-0 sm:divide-x",
-          onDark ? "sm:divide-on-dark/20" : "sm:divide-border/60"
-        )}
-      >
-        {content.steps.map((step, index) => (
-          <li
-            key={step.title}
-            className="flex flex-col gap-1.5 sm:px-5 sm:first:pl-0 sm:last:pr-0"
-          >
-            <div className="flex items-center gap-2.5">
-              <span
-                className={cn(
-                  "flex size-6 shrink-0 items-center justify-center rounded-full border font-mono text-xs font-semibold",
-                  onDark
-                    ? "border-on-dark/30 bg-on-dark/10 text-on-dark"
-                    : "border-purple/50 bg-purple/10 text-purple"
-                )}
-              >
-                {index + 1}
-              </span>
-              <span
-                className={cn(
-                  "text-sm font-medium",
-                  onDark ? "text-on-dark" : "text-foreground"
-                )}
-              >
-                {step.title}
-              </span>
-            </div>
-            <p
-              className={cn(
-                "text-xs leading-relaxed",
-                onDark ? "text-on-dark/70" : "text-muted-foreground"
-              )}
-            >
-              {step.body}
+    <div className="border-border bg-card text-card-foreground flex w-full flex-col gap-5 rounded-3xl border p-5 sm:p-6">
+      <Show when="signed-out">
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-2">
+            <h2 className="font-display text-foreground text-2xl font-semibold tracking-tight md:text-3xl">
+              {content.signInCta}
+            </h2>
+            <p className="text-muted-foreground text-sm leading-relaxed md:text-base">
+              {content.signInPrompt}
             </p>
-          </li>
-        ))}
-      </ol>
+          </div>
+          <SignInButton
+            mode="modal"
+            forceRedirectUrl={returnUrl}
+            signUpForceRedirectUrl={returnUrl}
+          >
+            <button type="button" className={cn(homePillClassName, "w-fit")}>
+              {content.signInCta}
+              <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+            </button>
+          </SignInButton>
+        </div>
+      </Show>
+
+      <Show when="signed-in">
+        <RedeemAccountChrome content={content} returnUrl={returnUrl} />
+        <RedeemClaimPanel code={code} content={content} />
+      </Show>
     </div>
   )
 }
 
-function RedeemHeroShell({
-  locale,
-  microcopy,
-  mediaSrcs,
-  mediaAlt,
-  qrContent,
-  left,
-  right,
-  leftFooter,
-}: {
-  locale: Locale
-  microcopy: MicrocopyContent
-  mediaSrcs: ReadonlyArray<string>
-  mediaAlt: string
-  qrContent: RedeemContent
-  left: (tone: RedeemHeroTone) => React.ReactNode
-  right: (surface: RedeemHeroSurface) => React.ReactNode
-  leftFooter?: (tone: RedeemHeroTone) => React.ReactNode
-}) {
+function RedeemFootNote({ text }: { text: string }) {
   return (
-    <div className="relative">
-      <a
-        href="#redeem-main"
-        className="bg-background text-foreground focus-visible:ring-ring sr-only rounded-sm px-3 py-2 text-sm font-medium focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2"
-      >
-        {microcopy.skipToContent}
-      </a>
-      <div id="redeem-main">
-        <RedeemHeroMobile
-          className="lg:hidden"
-          locale={locale}
-          microcopy={microcopy}
-          mediaSrcs={mediaSrcs}
-          mediaAlt={mediaAlt}
-          qrContent={qrContent}
-          left={left("onDark")}
-          right={right("mobile")}
-          leftFooter={leftFooter?.("onDark")}
-        />
-        <RedeemHeroDesktop
-          className="hidden lg:flex"
-          locale={locale}
-          microcopy={microcopy}
-          mediaSrcs={mediaSrcs}
-          mediaAlt={mediaAlt}
-          qrContent={qrContent}
-          left={left("onDark")}
-          right={right("desktop")}
-          leftFooter={leftFooter?.("onDark")}
-        />
-      </div>
-    </div>
-  )
-}
-
-function StatusPanel({
-  title,
-  body,
-  tone = "onLight",
-}: {
-  title: string
-  body: string
-  tone?: RedeemHeroTone
-}) {
-  const onDark = tone === "onDark"
-
-  return (
-    <div className="flex max-w-xl flex-col gap-4">
-      <h1
-        className={cn(
-          "font-display text-3xl font-semibold tracking-tight md:text-4xl",
-          onDark ? "text-on-dark" : "text-foreground"
-        )}
-      >
-        {title}
-      </h1>
-      <p
-        className={cn(
-          "max-w-md text-base leading-relaxed md:text-lg",
-          onDark ? "text-on-dark/80" : "text-muted-foreground"
-        )}
-      >
-        {body}
-      </p>
-    </div>
-  )
-}
-
-function RightStatus({ title, body }: { title: string; body: string }) {
-  return (
-    <div className="flex w-full flex-col gap-3">
-      <h2 className="font-display text-on-dark text-2xl font-semibold tracking-tight md:text-3xl">
-        {title}
-      </h2>
-      <p className="text-on-dark/70 text-sm leading-relaxed md:text-base">
-        {body}
-      </p>
-    </div>
-  )
-}
-
-function RedeemFootNote({
-  text,
-  tone = "onLight",
-}: {
-  text: string
-  tone?: RedeemHeroTone
-}) {
-  const onDark = tone === "onDark"
-
-  return (
-    <div
-      className={cn(
-        "flex items-center gap-2 border-t pt-6",
-        onDark ? "border-on-dark/20" : "border-border/60"
-      )}
-    >
+    <div className="border-border flex items-center gap-2 border-t pt-6">
       <span className="bg-purple size-1.5 rounded-full" aria-hidden />
-      <p
-        className={cn(
-          "text-xs font-medium tracking-wide",
-          onDark ? "text-on-dark/70" : "text-muted-foreground"
-        )}
-      >
+      <p className="text-muted-foreground text-xs font-medium tracking-wide">
         {text}
       </p>
     </div>
@@ -577,11 +335,9 @@ function RedeemFootNote({
 function RedeemClaimPanel({
   code,
   content,
-  onDark = false,
 }: {
   code: string
   content: RedeemContent
-  onDark?: boolean
 }) {
   const { user, isLoaded } = useUser()
   const [pending, setPending] = useState(false)
@@ -589,8 +345,6 @@ function RedeemClaimPanel({
   const [result, setResult] = useState<
     RedeemCreditsResult | RedeemStatusResult | null
   >(null)
-
-  const bodyClassName = onDark ? "text-on-dark" : "text-foreground"
 
   useEffect(() => {
     if (!isLoaded) {
@@ -648,7 +402,7 @@ function RedeemClaimPanel({
   if (checking || !isLoaded) {
     return (
       <div className="flex items-center gap-2">
-        <Spinner className={onDark ? "text-on-dark" : undefined} />
+        <Spinner />
       </div>
     )
   }
@@ -657,11 +411,9 @@ function RedeemClaimPanel({
     return (
       <div className="flex flex-col gap-4">
         {result.alreadyRedeemed ? (
-          <p className={cn(bodyClassName, "text-sm")}>
-            {content.alreadyRedeemed}
-          </p>
+          <p className="text-foreground text-sm">{content.alreadyRedeemed}</p>
         ) : null}
-        <CodesList codes={result.codes} content={content} onDark={onDark} />
+        <CodesList codes={result.codes} content={content} />
       </div>
     )
   }
@@ -671,18 +423,13 @@ function RedeemClaimPanel({
       <StatusInline
         title={content.notEligibleTitle}
         body={content.notEligibleBody}
-        onDark={onDark}
       />
     )
   }
 
   if (result?.status === "sold_out") {
     return (
-      <StatusInline
-        title={content.soldOutTitle}
-        body={content.soldOutBody}
-        onDark={onDark}
-      />
+      <StatusInline title={content.soldOutTitle} body={content.soldOutBody} />
     )
   }
 
@@ -691,7 +438,6 @@ function RedeemClaimPanel({
       <StatusInline
         title={content.noVerifiedEmailTitle}
         body={content.noVerifiedEmailBody}
-        onDark={onDark}
       />
     )
   }
@@ -709,7 +455,6 @@ function RedeemClaimPanel({
             ? content.inactiveBody
             : content.invalidBody
         }
-        onDark={onDark}
       />
     )
   }
@@ -745,22 +490,15 @@ function RedeemClaimPanel({
 function CodesList({
   codes,
   content,
-  onDark = false,
 }: {
   codes: RedeemedCode[]
   content: RedeemContent
-  onDark?: boolean
 }) {
   const heading = codes.length === 1 ? content.yourCode : content.yourCodes
 
   return (
     <div className="flex flex-col gap-3">
-      <h2
-        className={cn(
-          "font-display text-lg font-semibold tracking-tight",
-          onDark ? "text-on-dark" : "text-foreground"
-        )}
-      >
+      <h2 className="font-display text-foreground text-lg font-semibold tracking-tight">
         {heading}
       </h2>
       <ul className="flex flex-col gap-2">
@@ -769,27 +507,14 @@ function CodesList({
             key={`${entry.pool}-${entry.code}`}
             className={cn(
               "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4",
-              "lg:rounded-2xl lg:border lg:p-4",
-              onDark
-                ? "lg:border-on-dark/15 lg:bg-on-dark/10 lg:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-                : "lg:bg-background/70 lg:border-border/60"
+              "lg:bg-background/70 lg:border-border/60 lg:rounded-2xl lg:border lg:p-4"
             )}
           >
             <div className="flex min-w-0 flex-1 flex-col gap-1">
-              <span
-                className={cn(
-                  "text-xs font-medium tracking-wide uppercase",
-                  onDark ? "text-on-dark/60" : "text-muted-foreground"
-                )}
-              >
+              <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
                 {content.poolLabels[entry.pool]}
               </span>
-              <code
-                className={cn(
-                  "truncate font-mono text-sm",
-                  onDark ? "text-on-dark" : "text-foreground"
-                )}
-              >
+              <code className="text-foreground truncate font-mono text-sm">
                 {entry.code}
               </code>
             </div>
@@ -884,33 +609,11 @@ function CopyButton({
   )
 }
 
-function StatusInline({
-  title,
-  body,
-  onDark = false,
-}: {
-  title: string
-  body: string
-  onDark?: boolean
-}) {
+function StatusInline({ title, body }: { title: string; body: string }) {
   return (
     <div className="flex flex-col gap-2">
-      <h2
-        className={cn(
-          "font-medium",
-          onDark ? "text-on-dark" : "text-foreground"
-        )}
-      >
-        {title}
-      </h2>
-      <p
-        className={cn(
-          "text-sm",
-          onDark ? "text-on-dark/70" : "text-muted-foreground"
-        )}
-      >
-        {body}
-      </p>
+      <h2 className="text-foreground font-medium">{title}</h2>
+      <p className="text-muted-foreground text-sm">{body}</p>
     </div>
   )
 }

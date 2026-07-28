@@ -7,10 +7,8 @@ import { HomeHero } from "@/components/home/home-hero"
 import { HomePillar } from "@/components/home/home-pillar"
 import { HomeReveal } from "@/components/home/home-reveal"
 import { HomeTrust } from "@/components/home/home-trust"
-import { homeSectionGapClassName } from "@/components/home/home-styles"
 import { getContent, isLocale } from "@/content"
 import { buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
-import { cn } from "@/lib/utils"
 
 const localeRoute = getRouteApi("/$locale")
 
@@ -59,34 +57,38 @@ function HomePage() {
   const { home } = content
 
   return (
-    <div className={cn(homeSectionGapClassName, "pb-4")}>
+    <div>
       <HomeHero locale={locale} content={content} />
-      <HomeTrust trust={home.trust} />
-      <HomeReveal>
-        <HomeAbout about={home.about} />
-      </HomeReveal>
-      <HomeReveal>
-        <HomePillar
-          locale={locale}
-          pillar={home.academy}
-          mediaSide="right"
-          intervalMs={5200}
-        />
-      </HomeReveal>
-      <HomeReveal>
-        <HomePillar
-          locale={locale}
-          pillar={home.agentic}
-          mediaSide="left"
-          intervalMs={5800}
-        />
-      </HomeReveal>
-      <HomeReveal>
-        <HomeAperture locale={locale} aperture={home.aperture} />
-      </HomeReveal>
-      <HomeReveal>
-        <HomeContact contact={home.contact} />
-      </HomeReveal>
+      <div className="flex flex-col">
+        <HomeTrust trust={home.trust} />
+        <HomeReveal>
+          <HomeAbout about={home.about} />
+        </HomeReveal>
+        <HomeReveal>
+          <HomePillar
+            locale={locale}
+            pillar={home.academy}
+            mediaSide="right"
+            band="purple"
+            intervalMs={5200}
+          />
+        </HomeReveal>
+        <HomeReveal>
+          <HomePillar
+            locale={locale}
+            pillar={home.agentic}
+            mediaSide="left"
+            band="paper"
+            intervalMs={5800}
+          />
+        </HomeReveal>
+        <HomeReveal>
+          <HomeAperture locale={locale} aperture={home.aperture} />
+        </HomeReveal>
+        <HomeReveal>
+          <HomeContact contact={home.contact} />
+        </HomeReveal>
+      </div>
     </div>
   )
 }

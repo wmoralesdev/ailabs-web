@@ -10,18 +10,38 @@ export const en: SiteContent = {
   },
   chrome: {
     nav: {
+      home: { label: "Home", href: "/" },
       pillars: [
         { id: "academy", label: "Academy", href: "#academy" },
         { id: "agentic", label: "Agentic", href: "#agentic" },
         { id: "aperture", label: "Aperture", href: "#aperture" },
       ],
       community: { label: "Community", href: "/community" },
+      campusLeader: { label: "Campus Leaders", href: "/campus-leader" },
       contact: { label: "Contact", href: "#contact" },
       cta: { label: "Talk to us", href: "#contact" },
     },
     footer: {
       brandLine:
         "Ai Labs helps companies adapt, develop, and learn with AI.",
+      socials: [
+        {
+          label: "LinkedIn",
+          href: "https://www.linkedin.com/company/ai-labs-sv",
+          icon: "linkedin",
+        },
+        {
+          label: "Instagram",
+          href: "https://www.instagram.com/ailabs_sv/",
+          icon: "instagram",
+        },
+        {
+          label: "TikTok",
+          href: "https://www.tiktok.com/@ailabs_sv",
+          icon: "tiktok",
+        },
+        { label: "X", href: "https://x.com/ailabs_sv", icon: "x" },
+      ],
       columns: [
         {
           title: "Pillars",
@@ -32,16 +52,22 @@ export const en: SiteContent = {
           ],
         },
         {
-          title: "Company",
+          title: "Programs",
           links: [
             { label: "Community", href: "/community" },
             { label: "Campus Leader", href: "/campus-leader" },
+          ],
+        },
+        {
+          title: "Company",
+          links: [
             { label: "Contact", href: "#contact" },
             { label: "ailabs.sv", href: "https://ailabs.sv" },
           ],
         },
       ],
       copyright: "© {year} Ai Labs",
+      locationLine: "Crafted in San Salvador, El Salvador",
     },
   },
   microcopy: {
@@ -60,9 +86,9 @@ export const en: SiteContent = {
   },
   home: {
     hero: {
-      label: "Practical AI",
-      headline: "Adapt, develop, and learn with AI",
-      body: "Academy trains your team, Agentic builds your software, and Aperture puts you next to builders. Based in El Salvador; we work beyond it too.",
+      label: "For companies and builders",
+      headline: "AI your team actually uses",
+      body: "Ai Labs is an AI company based in El Salvador. We teach teams to work with AI, build the software they need, and connect them to the people already doing it.",
       primaryCta: { label: "Talk to us", href: "#contact" },
       secondaryCta: { label: "See the pillars", href: "#academy" },
       proof: { value: "800+", label: "Builders" },
@@ -87,13 +113,13 @@ export const en: SiteContent = {
       ],
     },
     about: {
-      label: "Why companies come",
-      body: "Most teams have already tried the tools on their own. We work with them until the tools are part of how the team builds day to day.",
+      label: "Why companies call us",
+      body: "Most teams have already tried the tools on their own. We stay until the tools change how the team works day to day.",
       stats: [
         { value: "40+", label: "Events hosted" },
         { value: "8", label: "Active partners" },
       ],
-      bold: "Adapt means your team uses the tools on real work. Develop means we build and ship what you need, with you. Learn means the practice holds after we leave.",
+      bold: "Your team learns on your own work, and what we build together stays yours to run after we leave.",
       bridgeLabel: "Where to start",
       bridge: [
         {
@@ -116,7 +142,7 @@ export const en: SiteContent = {
       index: "01",
       eyebrow: "Hands-on training",
       title: "Academy",
-      lead: "Trainings, bootcamps, and residencies where the work is building with the tools.",
+      lead: "Trainings, bootcamps, and residencies where your team spends the whole session building.",
       points: [
         {
           title: "For your team",
@@ -138,9 +164,9 @@ export const en: SiteContent = {
     agentic: {
       id: "agentic",
       index: "02",
-      eyebrow: "Software on demand",
+      eyebrow: "Software and AI workflows",
       title: "Agentic",
-      lead: "We build the product or workflow with you and ship it.",
+      lead: "We build the product or workflow you need and ship it to production with your team.",
       points: [
         {
           title: "Software products",
@@ -151,20 +177,38 @@ export const en: SiteContent = {
           body: "Automation that fits how your team already works.",
         },
         {
-          title: "Built with AI",
-          body: "We build the same way we teach, agentic and hands-on.",
+          title: "How we build",
+          body: "We build with the same tools we teach in Academy.",
         },
       ],
       cta: { label: "Scope a build", href: "#contact" },
-      mediaSrcs: homeCarousel.about,
-      mediaAlt: "Builders shipping software at an Ai Labs session",
+      process: {
+        label: "How an Agentic build runs",
+        steps: [
+          {
+            label: "Scope the build",
+            body: "What’s in, what’s out, what done means.",
+            glyph: "brief",
+          },
+          {
+            label: "Build together",
+            body: "Your team in the room while we write it.",
+            glyph: "bench",
+          },
+          {
+            label: "Ship it live",
+            body: "In your environment, not a demo.",
+            glyph: "live",
+          },
+        ],
+      },
     },
     aperture: {
       id: "aperture",
       index: "03",
       eyebrow: "Partners and community",
       title: "Aperture",
-      lead: "The room around our partner companies and the 800+ builders near them.",
+      lead: "Events, workshops, and a WhatsApp group where 800+ builders and our partner companies end up in the same room.",
       voices: [
         {
           quote: "I learn by building.",
@@ -182,88 +226,73 @@ export const en: SiteContent = {
           role: "Aperture",
         },
       ],
-      members: [
-        { id: "m-01", initial: "M" },
-        { id: "m-02", initial: "R" },
-        { id: "m-03", initial: "A" },
-        { id: "m-04", initial: "L" },
-        { id: "m-05", initial: "S" },
-        { id: "m-06", initial: "D" },
-        { id: "m-07", initial: "C" },
-        { id: "m-08", initial: "J" },
-        { id: "m-09", initial: "E" },
-        { id: "m-10", initial: "N" },
-        { id: "m-11", initial: "V" },
-        { id: "m-12", initial: "K" },
-        { id: "m-13", initial: "P" },
-        { id: "m-14", initial: "T" },
-        { id: "m-15", initial: "B" },
-        { id: "m-16", initial: "G" },
-        { id: "m-17", initial: "H" },
-        { id: "m-18", initial: "F" },
-        { id: "m-19", initial: "W" },
-        { id: "m-20", initial: "Y" },
-        { id: "m-21", initial: "Q" },
-        { id: "m-22", initial: "Z" },
-        { id: "m-23", initial: "U" },
-        { id: "m-24", initial: "I" },
-        { id: "m-25", initial: "O" },
-        { id: "m-26", initial: "X" },
-        { id: "m-27", initial: "A" },
-        { id: "m-28", initial: "S" },
-        { id: "m-29", initial: "M" },
-        { id: "m-30", initial: "R" },
-        { id: "m-31", initial: "L" },
-        { id: "m-32", initial: "D" },
-        { id: "m-33", initial: "C" },
-        { id: "m-34", initial: "N" },
-        { id: "m-35", initial: "J" },
-        { id: "m-36", initial: "E" },
-        { id: "m-37", initial: "P" },
-        { id: "m-38", initial: "V" },
-        { id: "m-39", initial: "T" },
-        { id: "m-40", initial: "K" },
-        { id: "m-41", initial: "B" },
-        { id: "m-42", initial: "G" },
-        { id: "m-43", initial: "H" },
-        { id: "m-44", initial: "F" },
-        { id: "m-45", initial: "W" },
-        { id: "m-46", initial: "Y" },
-        { id: "m-47", initial: "Q" },
-        { id: "m-48", initial: "Z" },
-        { id: "m-49", initial: "U" },
-        { id: "m-50", initial: "I" },
-        { id: "m-51", initial: "O" },
-        { id: "m-52", initial: "X" },
-        { id: "m-53", initial: "M" },
-        { id: "m-54", initial: "A" },
-        { id: "m-55", initial: "R" },
-        { id: "m-56", initial: "S" },
-        { id: "m-57", initial: "L" },
-        { id: "m-58", initial: "D" },
-        { id: "m-59", initial: "C" },
-        { id: "m-60", initial: "N" },
-        { id: "m-61", initial: "J" },
-        { id: "m-62", initial: "E" },
-        { id: "m-63", initial: "P" },
-        { id: "m-64", initial: "V" },
+      eventsLabel: "In the room so far",
+      nextLabel: "Next",
+      seriesLabel: "Recurring series",
+      attendanceLabel: "builders",
+      events: [
+        {
+          id: "hack0-q2my",
+          name: "The Next Craft",
+          upcoming: { date: "2026-08-29", href: "https://luma.com/hack0-q2my" },
+        },
+        {
+          id: "tm16k0kj",
+          name: "Cursor Buildathon 24h",
+          venue: "Universidad Francisco Gavidia",
+          attendance: 208,
+        },
+        {
+          id: "yzoilzlq",
+          name: "OpenAI Build Week",
+          venue: "Presidente Plaza",
+        },
+        {
+          id: "hack0-4d2s",
+          name: "Code Brew El Salvador",
+          venue: "Presidente Plaza",
+        },
+        {
+          id: "625ptozh",
+          name: "Codex Community Build Meetup",
+          venue: "Presidente Plaza",
+        },
+        {
+          id: "cursor-cowork",
+          name: "Cursor Cowork",
+          venue: "San Salvador",
+          series: true,
+        },
+        {
+          id: "cursor-lab",
+          name: "Cursor Lab",
+          venue: "University campuses",
+          series: true,
+        },
+        {
+          id: "zero-to-agent",
+          name: "Zero to Agent",
+          venue: "San Salvador and Guatemala",
+          series: true,
+        },
       ],
       stat: { value: "800+", label: "Builders in the community" },
       quote:
-        "We're ambassadors for the AI companies we partner with. Aperture is that relationship, opened for companies and builders.",
+        "We work directly with the companies behind the tools we teach. Aperture is where that shows up as events, workshops, and introductions.",
       attribution: "Ai Labs",
       cta: { label: "Join the community", href: "/community" },
       partnerCta: { label: "Partner with us", href: "#contact" },
     },
     contact: {
-      title: "Tell us what you need",
-      lead: "Send a note with the problem. We'll follow up.",
+      title: "Got a problem worth talking about?",
+      lead: "Training, a build, or a stuck team. Leave a short note. We read it and reply.",
+      cta: "Leave a note",
       nameLabel: "Name",
-      namePlaceholder: "Rodrigo Cáceres",
+      namePlaceholder: "John Doe",
       emailLabel: "Email",
-      emailPlaceholder: "rodrigo.caceres@miramonte.com.sv",
+      emailPlaceholder: "john.doe@example.com",
       companyLabel: "Company",
-      companyPlaceholder: "Textiles Miramonte",
+      companyPlaceholder: "Example Co",
       interestLabel: "Where should we start?",
       interestOptions: [
         { value: "academy", label: "Academy" },
@@ -371,7 +400,7 @@ export const en: SiteContent = {
   campusLeader: {
     metaTitle: "Campus Leader",
     metaDescription:
-      "Apply as an Ai Labs Campus Leader. One leader per university on campuses in central El Salvador.",
+      "Apply as an Ai Labs Campus Leader. One leader per university on campuses in El Salvador.",
     label: "Campus Leader",
     headline: "Be the leader at your university",
     body: "One leader per university, with official recognition and a say in which workshops reach your campus. Read how it works, then apply in three steps.",
@@ -388,14 +417,14 @@ export const en: SiteContent = {
     media: {
       whatSrc: homeCarousel.campusLeader[0],
       whatAlt: "Students collaborating on laptops during an Ai Labs session",
-      benefitsSrc: homeCarousel.campusLeader[1],
+      benefitsSrcs: homeCarousel.campusLeader,
       benefitsAlt: "A participant working at an Ai Labs workshop desk",
     },
     landing: {
       what: {
         label: "The program",
         title: "What it is",
-        body: "Ai Labs on campus: one leader per university in central El Salvador, chosen by cohort.",
+        body: "Ai Labs on campus: one leader per university in El Salvador, chosen by cohort.",
         items: [
           {
             title: "Any career",
@@ -456,7 +485,7 @@ export const en: SiteContent = {
         title: "Who this is for",
         forTitle: "Yes if you",
         forItems: [
-          "Study at a campus in central El Salvador",
+          "Study at a campus in El Salvador",
           "Can represent your whole university, not just your career",
           "Will help fill a room when a session lands",
           "Want the role and the session that backs it",
@@ -488,10 +517,10 @@ export const en: SiteContent = {
     roomLabel: "When the room goes quiet",
     roomIntro: "How you’d actually get people in seats.",
     fields: {
-      name: { label: "Name", placeholder: "Andrea Marroquín" },
+      name: { label: "Name", placeholder: "John Doe" },
       email: {
         label: "Email",
-        placeholder: "andrea.marroquin@uca.edu.sv",
+        placeholder: "john.doe@university.edu",
         helper: "One you’ll actually check",
       },
       whatsapp: {
@@ -502,7 +531,7 @@ export const en: SiteContent = {
       campus: {
         label: "University / campus",
         placeholder: "UCA, Antiguo Cuscatlán",
-        helper: "Central El Salvador only for Cohort Aster",
+        helper: "El Salvador only for Cohort Aster",
       },
       career: {
         label: "Career",

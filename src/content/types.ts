@@ -15,12 +15,15 @@ export type NavItem = {
 }
 
 export type NavContent = {
+  /** Label for the home route link shown on non-home pages. */
+  home: NavItem
   pillars: ReadonlyArray<{
     id: PillarId
     label: string
     href: string
   }>
   community: NavItem
+  campusLeader: NavItem
   contact: NavItem
   cta: NavItem
 }
@@ -36,10 +39,16 @@ export type FooterColumn = {
   links: ReadonlyArray<NavItem>
 }
 
+export type FooterSocial = NavItem & {
+  icon: "linkedin" | "instagram" | "tiktok" | "x"
+}
+
 export type FooterContent = {
   brandLine: string
+  socials: ReadonlyArray<FooterSocial>
   columns: ReadonlyArray<FooterColumn>
   copyright: string
+  locationLine: string
 }
 
 export type ChromeContent = {
@@ -169,7 +178,7 @@ export type CampusLeaderFitSection = {
 export type CampusLeaderMedia = {
   whatSrc: string
   whatAlt: string
-  benefitsSrc: string
+  benefitsSrcs: ReadonlyArray<string>
   benefitsAlt: string
 }
 
@@ -293,18 +302,43 @@ export type HomePillarPoint = {
   body: string
 }
 
-/** A standalone pillar section (Academy, Agentic). */
-export type HomePillarContent = {
-  id: Extract<PillarId, "academy" | "agentic">
+export type HomeProcessGlyph = "brief" | "bench" | "live"
+
+export type HomeProcessStep = {
+  label: string
+  body: string
+  glyph: HomeProcessGlyph
+}
+
+type HomePillarShared = {
   index: string
   eyebrow: string
   title: string
   lead: string
   points: ReadonlyArray<HomePillarPoint>
   cta: NavItem
+}
+
+/** Academy — curated workshop carousel. */
+export type HomeAcademyPillarContent = HomePillarShared & {
+  id: "academy"
   mediaSrcs: ReadonlyArray<string>
   mediaAlt: string
 }
+
+/** Agentic — process flow diagram (no photo carousel). */
+export type HomeAgenticPillarContent = HomePillarShared & {
+  id: "agentic"
+  process: {
+    label: string
+    steps: readonly [HomeProcessStep, HomeProcessStep, HomeProcessStep]
+  }
+}
+
+/** A standalone pillar section (Academy, Agentic). */
+export type HomePillarContent =
+  | HomeAcademyPillarContent
+  | HomeAgenticPillarContent
 
 export type HomePartnerVoice = {
   quote: string
@@ -312,11 +346,26 @@ export type HomePartnerVoice = {
   role: string
 }
 
-export type HomePartnerMember = {
+/**
+ * One row of the Aperture lineup. Every event so far is in San Salvador, so
+ * rows carry a venue rather than a city.
+ */
+export type HomeApertureEvent = {
+  /** Luma slug where the event has a public page, otherwise a stable key. */
   id: string
-  initial: string
-  imageSrc?: string
-  imageAlt?: string
+  /** Authored to scan in display type — not the raw Luma title. */
+  name: string
+  venue?: string
+  /** Verified headcount. Reserved for standout events; most rows omit it. */
+  attendance?: number
+  /** Marks a recurring series collapsed into a single row. */
+  series?: boolean
+  /** Set on the one upcoming event; drives the marker, date, and link. */
+  upcoming?: {
+    /** `YYYY-MM-DD`, formatted per locale in UTC so SSR and client agree. */
+    date: string
+    href: string
+  }
 }
 
 /** Aperture section: the funnel/community pillar (absorbs former Partner + Trust). */
@@ -329,8 +378,16 @@ export type HomeApertureContent = {
   stat: HomeStat
   quote: string
   attribution: string
-  voices: ReadonlyArray<HomePartnerVoice>
-  members: ReadonlyArray<HomePartnerMember>
+  /** First voice carries the section's pull quote; the rest feed the hero spiral. */
+  voices: readonly [HomePartnerVoice, ...ReadonlyArray<HomePartnerVoice>]
+  eventsLabel: string
+  /** Marker on the upcoming row. */
+  nextLabel: string
+  /** Shown where a collapsed series would otherwise show an edition count. */
+  seriesLabel: string
+  /** Unit after `attendance`, e.g. "208 builders". */
+  attendanceLabel: string
+  events: ReadonlyArray<HomeApertureEvent>
   /** Builder-facing CTA into the community route. */
   cta: NavItem
   /** Partner-facing CTA into the contact form's partner interest. */
@@ -348,6 +405,8 @@ export type HomeContactInterest = {
 export type HomeContactContent = {
   title: string
   lead: string
+  /** Banner CTA that opens the contact form modal. */
+  cta: string
   nameLabel: string
   namePlaceholder: string
   emailLabel: string
@@ -388,8 +447,8 @@ export type HomeContent = {
   hero: HomeHeroContent
   trust: HomeTrustContent
   about: HomeAboutContent
-  academy: HomePillarContent
-  agentic: HomePillarContent
+  academy: HomeAcademyPillarContent
+  agentic: HomeAgenticPillarContent
   aperture: HomeApertureContent
   contact: HomeContactContent
 }

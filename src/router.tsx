@@ -6,6 +6,8 @@ export function getRouter() {
     routeTree,
 
     scrollRestoration: true,
+    // Match CSS smooth scroll when arriving via `Link` + hash from other routes.
+    defaultHashScrollIntoView: { behavior: "smooth", block: "start" },
     defaultPreload: "intent",
     defaultPreloadStaleTime: 0,
   })

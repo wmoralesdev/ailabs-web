@@ -1,57 +1,35 @@
-import {
-  useLayoutEffect,
-  useRef,
-  useState
-  
-} from "react"
-import type {ReactNode} from "react";
+import { useLayoutEffect, useRef, useState } from "react"
+import type { ReactNode } from "react"
 
 import { MistralLogo } from "@/components/logos/mistral"
 import { NotionLogo } from "@/components/logos/notion"
-import { homeShellClassName } from "@/components/home/home-styles"
+import { HomePaperArcs } from "@/components/home/home-paper-arcs"
+import {
+  homePaperBandClassName,
+  homeShellClassName,
+} from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import type { HomeTrustContent, TrustLogoId } from "@/content/types"
 import { cn } from "@/lib/utils"
 
 const logoClassName = "h-5 w-auto shrink-0"
-const iconLockupClassName = "h-5 w-auto shrink-0 text-foreground"
+const iconLockupClassName = "h-5 w-auto shrink-0 text-on-dark"
 
 const trustLogoListClassName =
   "flex shrink-0 items-center gap-10 pr-10 md:gap-14 md:pr-14"
 
-/** Dark-ink asset for light surfaces; light-ink for dark surfaces. */
-function ThemedBrandLogo({
-  lightSrc,
-  darkSrc,
+/** Light-ink asset for the purple paper band. */
+function LightBrandLogo({
+  src,
   className,
 }: {
-  lightSrc: string
-  darkSrc: string
+  src: string
   className?: string
 }) {
-  return (
-    <span className="inline-grid">
-      <img
-        src={lightSrc}
-        alt=""
-        className={cn(className, "col-start-1 row-start-1 dark:hidden")}
-      />
-      <img
-        src={darkSrc}
-        alt=""
-        className={cn(
-          className,
-          "col-start-1 row-start-1 hidden dark:block"
-        )}
-      />
-    </span>
-  )
+  return <img src={src} alt="" className={className} />
 }
 
-/**
- * Single white lockup SVG: invert to black on light surfaces,
- * keep white on dark.
- */
+/** White lockup SVG kept light on the violet band. */
 function MonoBrandLogo({
   src,
   className,
@@ -59,13 +37,7 @@ function MonoBrandLogo({
   src: string
   className?: string
 }) {
-  return (
-    <img
-      src={src}
-      alt=""
-      className={cn(className, "invert dark:invert-0")}
-    />
-  )
+  return <img src={src} alt="" className={className} />
 }
 
 /** Fallback lockup when we only have an Elements isotype. */
@@ -79,7 +51,7 @@ function IconWordLockup({
   return (
     <span className="flex items-center gap-2">
       {children}
-      <span className="text-[15px] font-medium tracking-tight text-foreground">
+      <span className="text-on-dark text-[15px] font-medium tracking-tight">
         {name}
       </span>
     </span>
@@ -90,10 +62,8 @@ function TrustLogoMark({ id, name }: { id: TrustLogoId; name: string }) {
   switch (id) {
     case "cursor":
       return (
-        <ThemedBrandLogo
-          // *-dark = dark ink (for light theme); *-light = light ink (for dark)
-          lightSrc="/brand/cursor-dark.svg"
-          darkSrc="/brand/cursor-light.svg"
+        <LightBrandLogo
+          src="/brand/cursor-light.svg"
           className={logoClassName}
         />
       )
@@ -106,9 +76,8 @@ function TrustLogoMark({ id, name }: { id: TrustLogoId; name: string }) {
       return <MonoBrandLogo src="/brand/openai.svg" className={logoClassName} />
     case "claude":
       return (
-        <ThemedBrandLogo
-          lightSrc="/brand/claude-dark.svg"
-          darkSrc="/brand/claude-light.svg"
+        <LightBrandLogo
+          src="/brand/claude-light.svg"
           className={logoClassName}
         />
       )
@@ -166,7 +135,7 @@ function TrustLogoList({
       {items.map(({ logo, key }) => (
         <li
           key={key}
-          className="flex items-center opacity-55 grayscale transition-opacity motion-safe:hover:opacity-90"
+          className="flex items-center opacity-70 transition-opacity motion-safe:hover:opacity-100"
         >
           {!ariaHidden ? <span className="sr-only">{logo.name}</span> : null}
           <span aria-hidden="true" className="flex items-center">
@@ -211,10 +180,16 @@ function HomeTrust({ trust }: HomeTrustProps) {
     <section
       id="trust"
       aria-label={trust.label}
-      className="py-6 md:py-8"
+      className={cn(homePaperBandClassName, "py-8 md:py-10")}
     >
-      <div className={cn(homeShellClassName, "flex flex-col gap-5")}>
-        <Eyebrow>{trust.label}</Eyebrow>
+      <HomePaperArcs />
+      <div
+        className={cn(
+          homeShellClassName,
+          "relative z-[1] flex flex-col gap-5"
+        )}
+      >
+        <Eyebrow tone="onDark">{trust.label}</Eyebrow>
         <div ref={marqueeRef} className="home-trust-marquee">
           <ul
             ref={measureRef}
