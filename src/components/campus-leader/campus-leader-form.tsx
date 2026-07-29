@@ -33,7 +33,6 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select"
 import { Textarea } from "@/components/ui/textarea"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import {
   submitCampusLeaderApplication,
   type CampusLeaderApplicationInput,
@@ -293,18 +292,37 @@ function CampusLeaderFormDialog({
     return keys.every(isFilled) && !stepHasInvalidLinks(index)
   }
 
+  /** Blur before swapping step trees so Dialog focus trap never tracks a dying node. */
+  function releaseFieldFocus() {
+    const active = document.activeElement
+    if (active instanceof HTMLElement && active !== document.body) {
+      active.blur()
+    }
+  }
+
   function goNext() {
     if (!stepIsComplete(step)) {
       setStepError(true)
       return
     }
     setStepError(false)
+    releaseFieldFocus()
     setStep((current) => Math.min(current + 1, TOTAL_STEPS - 1))
   }
 
   function goBack() {
     setStepError(false)
+    releaseFieldFocus()
     setStep((current) => Math.max(current - 1, 0))
+  }
+
+  function toggleSessionPref(value: string) {
+    setSessionPrefs((current) =>
+      current.includes(value)
+        ? current.filter((entry) => entry !== value)
+        : [...current, value]
+    )
+    setStepError(false)
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -683,35 +701,45 @@ function CampusLeaderFormDialog({
                       >
                         {fields.sessionPrefs.label}
                       </FieldLabel>
-                      <ToggleGroup
-                        multiple
-                        variant="outline"
-                        size="xl"
-                        spacing={2}
-                        value={sessionPrefs}
-                        onValueChange={(next) => {
-                          setSessionPrefs(next)
-                          setStepError(false)
-                        }}
-                        className="flex w-full flex-wrap"
+                      {/*
+                        Plain buttons instead of Base UI ToggleGroup: Composite
+                        roving-focus inside Dialog is the same crash class as the
+                        old Select portal (focus trap fights the nested manager).
+                      */}
+                      <div
+                        role="group"
                         aria-label={fields.sessionPrefs.label}
+                        className="flex w-full flex-wrap gap-2"
                       >
-                        {content.sessionPrefOptions.map((option) => (
-                          <ToggleGroupItem
-                            key={option.value}
-                            value={option.value}
-                          >
-                            {sessionPrefs.includes(option.value) ? (
-                              <HugeiconsIcon
-                                icon={Tick02Icon}
-                                strokeWidth={2.5}
-                                className="text-purple size-4"
-                              />
-                            ) : null}
-                            {option.label}
-                          </ToggleGroupItem>
-                        ))}
-                      </ToggleGroup>
+                        {content.sessionPrefOptions.map((option) => {
+                          const selected = sessionPrefs.includes(option.value)
+                          return (
+                            <Button
+                              key={option.value}
+                              type="button"
+                              variant="outline"
+                              size="xl"
+                              aria-pressed={selected}
+                              disabled={busy}
+                              onClick={() => toggleSessionPref(option.value)}
+                              className={cn(
+                                "gap-1.5",
+                                selected &&
+                                  "border-purple/50 bg-purple/10 text-foreground"
+                              )}
+                            >
+                              {selected ? (
+                                <HugeiconsIcon
+                                  icon={Tick02Icon}
+                                  strokeWidth={2.5}
+                                  className="text-purple size-4"
+                                />
+                              ) : null}
+                              {option.label}
+                            </Button>
+                          )
+                        })}
+                      </div>
                     </div>
                     <TextAreaField
                       id="cl-notes"
