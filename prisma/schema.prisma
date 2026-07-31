@@ -26,6 +26,7 @@ enum Pool {
 model Event {
   id        String   @id @default(cuid())
   name      String
+  slug      String   @unique
   product   Product
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
@@ -68,6 +69,7 @@ model PromoCode {
   redemptionId String?
   claimedAt    DateTime?
   allocatedAt  DateTime?
+  exportedAt   DateTime?
   createdAt    DateTime  @default(now())
 
   event      Event?      @relation(fields: [eventId], references: [id], onDelete: Cascade)
@@ -77,6 +79,7 @@ model PromoCode {
   @@index([eventId, pool, redemptionId])
   @@index([pool, eventId, redemptionId])
   @@index([pool, allocatedAt])
+  @@index([pool, exportedAt])
 }
 
 model CampusLeaderApplication {
@@ -106,3 +109,4 @@ model CampusLeaderApplication {
   @@index([campus, career])
   @@index([createdAt])
 }
+

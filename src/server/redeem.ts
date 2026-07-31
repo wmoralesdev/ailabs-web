@@ -7,6 +7,7 @@ import { normalizeEmail, poolsForProduct } from "@/lib/redeem-products"
 
 export type RedeemEventPublic = {
   id: string
+  slug: string
   name: string
   product: Product
   active: boolean
@@ -77,17 +78,28 @@ function mapCodes(
   return codes.map((entry) => ({ pool: entry.pool, code: entry.code }))
 }
 
+/** Resolve redeem ?code= by slug (preferred) or legacy event id. */
+async function findEventByRedeemCode<T extends object>(
+  code: string,
+  select: T
+) {
+  return prisma.event.findFirst({
+    where: {
+      OR: [{ slug: code }, { id: code }],
+    },
+    select,
+  })
+}
+
 export const getEventByCode = createServerFn({ method: "GET" })
   .validator(codeInput)
   .handler(async ({ data }): Promise<RedeemEventPublic | null> => {
-    const event = await prisma.event.findUnique({
-      where: { id: data.code },
-      select: {
-        id: true,
-        name: true,
-        product: true,
-        active: true,
-      },
+    const event = await findEventByRedeemCode(data.code, {
+      id: true,
+      slug: true,
+      name: true,
+      product: true,
+      active: true,
     })
 
     return event
@@ -101,12 +113,9 @@ export const getRedeemStatus = createServerFn({ method: "GET" })
       return { status: "unauthenticated" }
     }
 
-    const event = await prisma.event.findUnique({
-      where: { id: data.code },
-      select: {
-        id: true,
-        active: true,
-      },
+    const event = await findEventByRedeemCode(data.code, {
+      id: true,
+      active: true,
     })
 
     if (!event) {
@@ -170,13 +179,10 @@ export const redeemCredits = createServerFn({ method: "POST" })
       return { status: "unauthenticated" }
     }
 
-    const event = await prisma.event.findUnique({
-      where: { id: data.code },
-      select: {
-        id: true,
-        product: true,
-        active: true,
-      },
+    const event = await findEventByRedeemCode(data.code, {
+      id: true,
+      product: true,
+      active: true,
     })
 
     if (!event) {
