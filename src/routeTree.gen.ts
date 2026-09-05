@@ -9,25 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as LocaleRouteImport } from './routes/$locale'
+import { Route as SiteRouteImport } from './routes/_site'
 import { Route as BgRouteImport } from './routes/bg'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
-import { Route as LocaleCampusLeaderRouteImport } from './routes/$locale/campus-leader'
-import { Route as LocaleCommunityRouteImport } from './routes/$locale/community'
-import { Route as LocaleLabRouteImport } from './routes/$locale/lab'
-import { Route as LocaleRedeemRouteImport } from './routes/$locale/redeem'
+import { Route as LocaleSplatRouteImport } from './routes/$locale/$'
+import { Route as SiteIndexRouteImport } from './routes/_site/index'
+import { Route as SiteCampusLeaderRouteImport } from './routes/_site/campus-leader'
+import { Route as SiteCommunityRouteImport } from './routes/_site/community'
+import { Route as SiteLabRouteImport } from './routes/_site/lab'
+import { Route as SiteRedeemRouteImport } from './routes/_site/redeem'
 import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
 import { Route as SignUpSplatRouteImport } from './routes/sign-up.$'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LocaleRoute = LocaleRouteImport.update({
   id: '/$locale',
   path: '/$locale',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteRoute = SiteRouteImport.update({
+  id: '/_site',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BgRoute = BgRouteImport.update({
@@ -40,25 +41,35 @@ const LocaleIndexRoute = LocaleIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LocaleRoute,
 } as any)
-const LocaleCampusLeaderRoute = LocaleCampusLeaderRouteImport.update({
+const LocaleSplatRoute = LocaleSplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const SiteIndexRoute = SiteIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteCampusLeaderRoute = SiteCampusLeaderRouteImport.update({
   id: '/campus-leader',
   path: '/campus-leader',
-  getParentRoute: () => LocaleRoute,
+  getParentRoute: () => SiteRoute,
 } as any)
-const LocaleCommunityRoute = LocaleCommunityRouteImport.update({
+const SiteCommunityRoute = SiteCommunityRouteImport.update({
   id: '/community',
   path: '/community',
-  getParentRoute: () => LocaleRoute,
+  getParentRoute: () => SiteRoute,
 } as any)
-const LocaleLabRoute = LocaleLabRouteImport.update({
+const SiteLabRoute = SiteLabRouteImport.update({
   id: '/lab',
   path: '/lab',
-  getParentRoute: () => LocaleRoute,
+  getParentRoute: () => SiteRoute,
 } as any)
-const LocaleRedeemRoute = LocaleRedeemRouteImport.update({
+const SiteRedeemRoute = SiteRedeemRouteImport.update({
   id: '/redeem',
   path: '/redeem',
-  getParentRoute: () => LocaleRoute,
+  getParentRoute: () => SiteRoute,
 } as any)
 const SignInSplatRoute = SignInSplatRouteImport.update({
   id: '/sign-in/$',
@@ -72,82 +83,90 @@ const SignUpSplatRoute = SignUpSplatRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
+  '/': typeof SiteIndexRoute
   '/bg': typeof BgRoute
-  '/$locale/campus-leader': typeof LocaleCampusLeaderRoute
-  '/$locale/community': typeof LocaleCommunityRoute
-  '/$locale/lab': typeof LocaleLabRoute
-  '/$locale/redeem': typeof LocaleRedeemRoute
+  '/$locale/$': typeof LocaleSplatRoute
+  '/campus-leader': typeof SiteCampusLeaderRoute
+  '/community': typeof SiteCommunityRoute
+  '/lab': typeof SiteLabRoute
+  '/redeem': typeof SiteRedeemRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/bg': typeof BgRoute
-  '/$locale/campus-leader': typeof LocaleCampusLeaderRoute
-  '/$locale/community': typeof LocaleCommunityRoute
-  '/$locale/lab': typeof LocaleLabRoute
-  '/$locale/redeem': typeof LocaleRedeemRoute
+  '/$locale/$': typeof LocaleSplatRoute
+  '/campus-leader': typeof SiteCampusLeaderRoute
+  '/community': typeof SiteCommunityRoute
+  '/lab': typeof SiteLabRoute
+  '/redeem': typeof SiteRedeemRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale': typeof LocaleIndexRoute
+  '/': typeof SiteIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
+  '/_site': typeof SiteRouteWithChildren
   '/bg': typeof BgRoute
-  '/$locale/campus-leader': typeof LocaleCampusLeaderRoute
-  '/$locale/community': typeof LocaleCommunityRoute
-  '/$locale/lab': typeof LocaleLabRoute
-  '/$locale/redeem': typeof LocaleRedeemRoute
+  '/$locale/$': typeof LocaleSplatRoute
+  '/_site/campus-leader': typeof SiteCampusLeaderRoute
+  '/_site/community': typeof SiteCommunityRoute
+  '/_site/lab': typeof SiteLabRoute
+  '/_site/redeem': typeof SiteRedeemRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/_site/': typeof SiteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/$locale'
+    | '/'
     | '/bg'
-    | '/$locale/campus-leader'
-    | '/$locale/community'
-    | '/$locale/lab'
-    | '/$locale/redeem'
+    | '/$locale/$'
+    | '/campus-leader'
+    | '/community'
+    | '/lab'
+    | '/redeem'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/bg'
-    | '/$locale/campus-leader'
-    | '/$locale/community'
-    | '/$locale/lab'
-    | '/$locale/redeem'
+    | '/$locale/$'
+    | '/campus-leader'
+    | '/community'
+    | '/lab'
+    | '/redeem'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale'
+    | '/'
   id:
     | '__root__'
-    | '/'
     | '/$locale'
+    | '/_site'
     | '/bg'
-    | '/$locale/campus-leader'
-    | '/$locale/community'
-    | '/$locale/lab'
-    | '/$locale/redeem'
+    | '/$locale/$'
+    | '/_site/campus-leader'
+    | '/_site/community'
+    | '/_site/lab'
+    | '/_site/redeem'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale/'
+    | '/_site/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   LocaleRoute: typeof LocaleRouteWithChildren
+  SiteRoute: typeof SiteRouteWithChildren
   BgRoute: typeof BgRoute
   SignInSplatRoute: typeof SignInSplatRoute
   SignUpSplatRoute: typeof SignUpSplatRoute
@@ -155,18 +174,18 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/$locale': {
       id: '/$locale'
       path: '/$locale'
       fullPath: '/$locale'
       preLoaderRoute: typeof LocaleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_site': {
+      id: '/_site'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof SiteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bg': {
@@ -183,33 +202,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleIndexRouteImport
       parentRoute: typeof LocaleRoute
     }
-    '/$locale/campus-leader': {
-      id: '/$locale/campus-leader'
+    '/$locale/$': {
+      id: '/$locale/$'
+      path: '/$'
+      fullPath: '/$locale/$'
+      preLoaderRoute: typeof LocaleSplatRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/_site/': {
+      id: '/_site/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/campus-leader': {
+      id: '/_site/campus-leader'
       path: '/campus-leader'
-      fullPath: '/$locale/campus-leader'
-      preLoaderRoute: typeof LocaleCampusLeaderRouteImport
-      parentRoute: typeof LocaleRoute
+      fullPath: '/campus-leader'
+      preLoaderRoute: typeof SiteCampusLeaderRouteImport
+      parentRoute: typeof SiteRoute
     }
-    '/$locale/community': {
-      id: '/$locale/community'
+    '/_site/community': {
+      id: '/_site/community'
       path: '/community'
-      fullPath: '/$locale/community'
-      preLoaderRoute: typeof LocaleCommunityRouteImport
-      parentRoute: typeof LocaleRoute
+      fullPath: '/community'
+      preLoaderRoute: typeof SiteCommunityRouteImport
+      parentRoute: typeof SiteRoute
     }
-    '/$locale/lab': {
-      id: '/$locale/lab'
+    '/_site/lab': {
+      id: '/_site/lab'
       path: '/lab'
-      fullPath: '/$locale/lab'
-      preLoaderRoute: typeof LocaleLabRouteImport
-      parentRoute: typeof LocaleRoute
+      fullPath: '/lab'
+      preLoaderRoute: typeof SiteLabRouteImport
+      parentRoute: typeof SiteRoute
     }
-    '/$locale/redeem': {
-      id: '/$locale/redeem'
+    '/_site/redeem': {
+      id: '/_site/redeem'
       path: '/redeem'
-      fullPath: '/$locale/redeem'
-      preLoaderRoute: typeof LocaleRedeemRouteImport
-      parentRoute: typeof LocaleRoute
+      fullPath: '/redeem'
+      preLoaderRoute: typeof SiteRedeemRouteImport
+      parentRoute: typeof SiteRoute
     }
     '/sign-in/$': {
       id: '/sign-in/$'
@@ -229,27 +262,39 @@ declare module '@tanstack/react-router' {
 }
 
 interface LocaleRouteChildren {
-  LocaleCampusLeaderRoute: typeof LocaleCampusLeaderRoute
-  LocaleCommunityRoute: typeof LocaleCommunityRoute
-  LocaleLabRoute: typeof LocaleLabRoute
-  LocaleRedeemRoute: typeof LocaleRedeemRoute
+  LocaleSplatRoute: typeof LocaleSplatRoute
   LocaleIndexRoute: typeof LocaleIndexRoute
 }
 
 const LocaleRouteChildren: LocaleRouteChildren = {
-  LocaleCampusLeaderRoute: LocaleCampusLeaderRoute,
-  LocaleCommunityRoute: LocaleCommunityRoute,
-  LocaleLabRoute: LocaleLabRoute,
-  LocaleRedeemRoute: LocaleRedeemRoute,
+  LocaleSplatRoute: LocaleSplatRoute,
   LocaleIndexRoute: LocaleIndexRoute,
 }
 
 const LocaleRouteWithChildren =
   LocaleRoute._addFileChildren(LocaleRouteChildren)
 
+interface SiteRouteChildren {
+  SiteCampusLeaderRoute: typeof SiteCampusLeaderRoute
+  SiteCommunityRoute: typeof SiteCommunityRoute
+  SiteLabRoute: typeof SiteLabRoute
+  SiteRedeemRoute: typeof SiteRedeemRoute
+  SiteIndexRoute: typeof SiteIndexRoute
+}
+
+const SiteRouteChildren: SiteRouteChildren = {
+  SiteCampusLeaderRoute: SiteCampusLeaderRoute,
+  SiteCommunityRoute: SiteCommunityRoute,
+  SiteLabRoute: SiteLabRoute,
+  SiteRedeemRoute: SiteRedeemRoute,
+  SiteIndexRoute: SiteIndexRoute,
+}
+
+const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   LocaleRoute: LocaleRouteWithChildren,
+  SiteRoute: SiteRouteWithChildren,
   BgRoute: BgRoute,
   SignInSplatRoute: SignInSplatRoute,
   SignUpSplatRoute: SignUpSplatRoute,

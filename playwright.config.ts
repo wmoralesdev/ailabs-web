@@ -19,7 +19,7 @@ export default defineConfig({
   },
   webServer: {
     command: `pnpm dev --port ${port}`,
-    url: `${baseURL}/en/campus-leader`,
+    url: `${baseURL}/campus-leader`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },

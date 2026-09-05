@@ -28,7 +28,7 @@ type SiteFooterProps = {
 const footerLinkClassName =
   "inline-flex min-h-11 items-center rounded-sm text-sm text-on-dark/65 underline-offset-4 transition-colors hover:text-on-dark hover:underline focus-visible:ring-2 focus-visible:ring-on-dark/40 focus-visible:outline-none"
 
-function FooterLink({ link, locale }: { link: NavItem; locale: Locale }) {
+function FooterLink({ link }: { link: NavItem; locale: Locale }) {
   if (link.href.startsWith("http")) {
     return (
       <a
@@ -44,11 +44,7 @@ function FooterLink({ link, locale }: { link: NavItem; locale: Locale }) {
 
   if (isInternalHref(link.href)) {
     return (
-      <Link
-        to={routeForHref(link.href)}
-        params={{ locale }}
-        className={footerLinkClassName}
-      >
+      <Link to={routeForHref(link.href)} className={footerLinkClassName}>
         {link.label}
       </Link>
     )
@@ -57,8 +53,7 @@ function FooterLink({ link, locale }: { link: NavItem; locale: Locale }) {
   if (isHashHref(link.href)) {
     return (
       <Link
-        to="/$locale"
-        params={{ locale }}
+        to="/"
         hash={hashFromHref(link.href)}
         className={footerLinkClassName}
       >

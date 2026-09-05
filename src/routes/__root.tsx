@@ -12,12 +12,8 @@ import { TanStackDevtools } from "@tanstack/react-devtools"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
-import {
-  OG_IMAGE_ALT,
-  OG_IMAGE_URL,
-  SITE_NAME,
-  localeFromPathname,
-} from "@/lib/seo"
+import { resolveLocaleContext } from "@/lib/locale-preference"
+import { OG_IMAGE_ALT, OG_IMAGE_URL, SITE_NAME } from "@/lib/seo"
 import appCss from "../styles.css?url"
 
 if (import.meta.env.DEV && !import.meta.env.SSR) {
@@ -29,6 +25,7 @@ const SITE_DESCRIPTION =
   "Ai Labs helps companies put AI to work through training, software, and community. Based in El Salvador."
 
 export const Route = createRootRoute({
+  beforeLoad: async () => resolveLocaleContext(),
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -70,44 +67,34 @@ function RootNotFound() {
     <main
       id="main"
       tabIndex={-1}
-      className="page-gutter max-w-content section-y mx-auto min-h-dvh"
+      className="page-gutter section-y mx-auto min-h-dvh max-w-content"
     >
-      <p className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+      <p className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
         404
       </p>
       <div className="mt-4 flex flex-col gap-2">
         <h1
           lang="en"
-          className="font-display text-foreground text-4xl font-semibold tracking-tight md:text-5xl"
+          className="font-display text-4xl font-semibold tracking-tight text-foreground md:text-5xl"
         >
           Page not found
         </h1>
-        <p lang="es" className="font-display text-foreground text-2xl font-semibold tracking-tight">
+        <p
+          lang="es"
+          className="font-display text-2xl font-semibold tracking-tight text-foreground"
+        >
           Página no encontrada
         </p>
       </div>
-      <p lang="en" className="text-muted-foreground mt-6 max-w-prose text-lg">
-        That page doesn&rsquo;t exist. Head to the English or Spanish home page.
+      <p lang="en" className="mt-6 max-w-prose text-lg text-muted-foreground">
+        That page doesn&rsquo;t exist. Head back to the home page.
       </p>
-      <p lang="es" className="text-muted-foreground mt-2 max-w-prose text-lg">
-        Esa página no existe. Ve a la página de inicio en inglés o español.
+      <p lang="es" className="mt-2 max-w-prose text-lg text-muted-foreground">
+        Esa página no existe. Vuelve a la página de inicio.
       </p>
       <div className="mt-8 flex flex-wrap gap-4">
-        <Link
-          to="/$locale"
-          params={{ locale: "en" }}
-          lang="en"
-          className={rootNotFoundLinkClassName}
-        >
-          English home
-        </Link>
-        <Link
-          to="/$locale"
-          params={{ locale: "es" }}
-          lang="es"
-          className={rootNotFoundLinkClassName}
-        >
-          Inicio en español
+        <Link to="/" lang="en" className={rootNotFoundLinkClassName}>
+          Home
         </Link>
       </div>
     </main>
@@ -116,7 +103,15 @@ function RootNotFound() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const lang = useRouterState({
-    select: (state) => localeFromPathname(state.location.pathname) ?? "en",
+    select: (state) => {
+      const match = state.matches.find(
+        (entry) =>
+          typeof entry.context === "object" &&
+          "locale" in entry.context
+      )
+      const locale = match?.context.locale
+      return locale === "es" || locale === "en" ? locale : "en"
+    },
   })
 
   return (

@@ -13,13 +13,24 @@ const OG_LOCALE: Record<Locale, string> = {
   es: "es_SV",
 }
 
-export function localizedPath(locale: Locale, path = ""): string {
-  const normalized = path === "/" || path === "" ? "" : path.startsWith("/") ? path : `/${path}`
-  return `/${locale}${normalized}`
+/** Normalize a site path (no locale prefix). */
+export function sitePath(path = ""): string {
+  if (path === "/" || path === "") {
+    return ""
+  }
+  return path.startsWith("/") ? path : `/${path}`
 }
 
-export function absoluteUrl(locale: Locale, path = ""): string {
-  return `${SITE_URL}${localizedPath(locale, path)}`
+/**
+ * @deprecated Locale is cookie-based; paths no longer include `/en` or `/es`.
+ * Kept as an alias of `sitePath` for call-site compatibility.
+ */
+export function localizedPath(_locale: Locale, path = ""): string {
+  return sitePath(path)
+}
+
+export function absoluteUrl(path = ""): string {
+  return `${SITE_URL}${sitePath(path)}`
 }
 
 type BuildPageMetaInput = {
@@ -40,7 +51,7 @@ type HeadMeta = {
 type HeadLink = {
   rel: string
   href: string
-  hreflang?: string
+  hrefLang?: string
   type?: string
   sizes?: string
 }
@@ -62,7 +73,7 @@ export function buildPageMeta({
   title,
   description,
 }: BuildPageMetaInput): PageHead {
-  const url = absoluteUrl(locale, path)
+  const url = absoluteUrl(path)
   const alternateLocale = locale === "en" ? "es" : "en"
 
   return {
@@ -93,13 +104,13 @@ export function buildPageMeta({
       { rel: "canonical", href: url },
       ...LOCALES.map((lang) => ({
         rel: "alternate",
-        href: absoluteUrl(lang, path),
-        hreflang: lang,
+        href: url,
+        hrefLang: lang,
       })),
       {
         rel: "alternate",
-        href: absoluteUrl("en", path),
-        hreflang: "x-default",
+        href: url,
+        hrefLang: "x-default",
       },
     ],
     scripts: [],
@@ -117,7 +128,7 @@ export function buildHomeJsonLd(input: {
   description: string
   pillars: ReadonlyArray<JsonLdPillar>
 }): HeadScript {
-  const url = absoluteUrl(input.locale)
+  const url = absoluteUrl()
   const graph = [
     {
       "@type": "Organization",
@@ -148,12 +159,12 @@ export function buildHomeJsonLd(input: {
       inLanguage: LOCALES,
       potentialAction: {
         "@type": "ReadAction",
-        target: LOCALES.map((lang) => absoluteUrl(lang)),
+        target: url,
       },
     },
     {
       "@type": "WebPage",
-      "@id": `${url}#webpage`,
+      "@id": `${url === SITE_URL ? `${SITE_URL}/` : url}#webpage`,
       url,
       name: input.title,
       description: input.description,
@@ -193,12 +204,4 @@ export function buildHomeJsonLd(input: {
       "@graph": graph,
     }),
   }
-}
-
-export function localeFromPathname(pathname: string): Locale | null {
-  const segment = pathname.split("/").filter(Boolean)[0]
-  if (segment === "en" || segment === "es") {
-    return segment
-  }
-  return null
 }

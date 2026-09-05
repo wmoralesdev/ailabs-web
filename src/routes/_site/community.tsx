@@ -9,13 +9,15 @@ import {
   homePillClassName,
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
-import { getContent, isLocale } from "@/content"
 import { cn } from "@/lib/utils"
 
-export const Route = createFileRoute("/$locale/community")({
-  head: ({ params }) => {
-    const locale = isLocale(params.locale) ? params.locale : "en"
-    const { meta, community } = getContent(locale)
+export const Route = createFileRoute("/_site/community")({
+  loader: ({ context }) => context,
+  head: ({ loaderData }) => {
+    if (!loaderData) {
+      return {}
+    }
+    const { meta, community } = loaderData.content
 
     return {
       meta: [

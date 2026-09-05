@@ -1,10 +1,8 @@
-import { createFileRoute, getRouteApi } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 
 import { LabHero } from "@/components/lab/lab-hero"
 
-const localeRoute = getRouteApi("/$locale")
-
-export const Route = createFileRoute("/$locale/lab")({
+export const Route = createFileRoute("/_site/lab")({
   head: () => ({
     meta: [
       { title: "Lab · Text spiral" },
@@ -15,7 +13,7 @@ export const Route = createFileRoute("/$locale/lab")({
 })
 
 function LabPage() {
-  const { locale, content } = localeRoute.useRouteContext()
+  const { locale, content } = Route.useRouteContext()
 
   return (
     <>

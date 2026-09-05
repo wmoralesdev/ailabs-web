@@ -10,11 +10,7 @@ import {
   homePillClassName,
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
-import type {
-  HomeHeroContent,
-  Locale,
-  SiteContent,
-} from "@/content"
+import type { HomeHeroContent, Locale, SiteContent } from "@/content"
 import { cn } from "@/lib/utils"
 
 type HomeHeroProps = {
@@ -22,7 +18,7 @@ type HomeHeroProps = {
   content: SiteContent
   /**
    * When true (home), hash CTAs stay on-page (`#contact`).
-   * When false (lab preview), hashes resolve to `/{locale}#…`.
+   * When false (lab preview), hashes resolve to `/#…`.
    */
   samePageCtas?: boolean
 }
@@ -41,15 +37,15 @@ function collectSpiralWords(content: SiteContent): string[] {
 }
 
 function resolveCtaHref(
-  locale: Locale,
+  _locale: Locale,
   href: string,
   samePageCtas: boolean
 ): string {
   if (href.startsWith("#")) {
-    return samePageCtas ? href : `/${locale}${href}`
+    return samePageCtas ? href : `/${href}`
   }
   if (href.startsWith("/")) {
-    return `/${locale}${href}`
+    return href
   }
   return href
 }
@@ -60,11 +56,7 @@ function HomeHero({ locale, content, samePageCtas = true }: HomeHeroProps) {
 
   return (
     <section className="bg-background text-foreground grid min-h-dvh grid-cols-1 lg:h-dvh lg:grid-cols-2 lg:overflow-hidden">
-      <HomeHeroCopy
-        locale={locale}
-        hero={hero}
-        samePageCtas={samePageCtas}
-      />
+      <HomeHeroCopy locale={locale} hero={hero} samePageCtas={samePageCtas} />
       <div className="bg-surface-ink relative min-h-[50vh] w-full lg:min-h-0">
         <TextSpiral words={words} className="absolute inset-0 h-full w-full" />
       </div>
@@ -85,8 +77,7 @@ function HomeHeroCopy({
     <div className="border-border bg-background flex min-h-0 w-full flex-col justify-between gap-10 border-b px-6 pt-[calc(var(--site-header-offset)+0.5rem)] pb-8 sm:px-10 sm:pb-10 lg:border-r lg:border-b-0 lg:px-12 lg:pb-12 xl:px-16">
       <div>
         <Link
-          to="/$locale"
-          params={{ locale }}
+          to="/"
           aria-label="Ai Labs"
           className="focus-visible:ring-ring/50 inline-flex rounded-sm focus-visible:ring-2 focus-visible:outline-none"
         >

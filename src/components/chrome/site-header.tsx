@@ -1,5 +1,5 @@
-import { Fragment, useState } from "react"
-import { Link, useRouterState } from "@tanstack/react-router"
+import { Fragment, useState, useTransition } from "react"
+import { Link, useRouter, useRouterState } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons"
 
@@ -11,6 +11,7 @@ import { getChromeNavGroups } from "@/components/chrome/chrome-nav-items"
 import { SiteLogo } from "@/components/chrome/site-logo"
 import { ThemeToggle } from "@/components/chrome/theme-toggle"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { setLocalePreference } from "@/lib/locale-preference"
 import { useScrolled } from "@/lib/use-scrolled"
 import { cn } from "@/lib/utils"
 
@@ -42,13 +43,11 @@ function NavDivider({ className }: { className?: string }) {
 function NavItemLink({
   item,
   onHome,
-  locale,
   className,
   onNavigate,
 }: {
   item: ChromeNavItem
   onHome: boolean
-  locale: Locale
   className?: string
   onNavigate?: () => void
 }) {
@@ -66,8 +65,7 @@ function NavItemLink({
         </a>
       ) : (
         <Link
-          to="/$locale"
-          params={{ locale }}
+          to="/"
           hash={item.hash}
           onClick={onNavigate}
           className={cn(navLinkClassName, className)}
@@ -79,7 +77,6 @@ function NavItemLink({
       return (
         <Link
           to={item.to}
-          params={item.params}
           onClick={onNavigate}
           className={cn(navLinkClassName, className)}
           activeProps={{ className: activeNavLinkClassName }}
@@ -101,15 +98,25 @@ function SiteHeader({
   showBrandLink = false,
 }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
   const scrolled = useScrolled()
   const onHome = useRouterState({
     select: (state) =>
-      state.matches.some((match) => match.routeId === "/$locale/"),
+      state.matches.some((match) => match.routeId === "/_site/"),
   })
   const otherLocale =
     LOCALES.find((candidate) => candidate !== locale) ?? locale
   const navGroups = getChromeNavGroups(locale, chrome.nav, { onHome })
   const closeMenu = () => setMenuOpen(false)
+
+  function switchLocale() {
+    closeMenu()
+    startTransition(async () => {
+      await setLocalePreference({ data: { locale: otherLocale } })
+      await router.invalidate()
+    })
+  }
 
   const themeLabels = {
     cycle: microcopy.themeCycle,
@@ -132,8 +139,7 @@ function SiteHeader({
 
       {showBrandLink ? (
         <Link
-          to="/$locale"
-          params={{ locale }}
+          to="/"
           aria-label="Ai Labs"
           onClick={closeMenu}
           className="pointer-events-auto focus-visible:ring-ring/50 absolute top-[max(0.75rem,env(safe-area-inset-top))] left-4 z-10 rounded-sm focus-visible:ring-2 focus-visible:outline-none sm:left-6"
@@ -150,18 +156,16 @@ function SiteHeader({
             scrolled || menuOpen ? "border-white/18 shadow-soft-hover" : null
           )}
         >
-          <nav className="hidden items-center gap-3 md:flex" aria-label="Primary">
+          <nav
+            className="hidden items-center gap-3 md:flex"
+            aria-label="Primary"
+          >
             {navGroups.map((group, groupIndex) => (
               <Fragment key={group.key}>
                 {groupIndex > 0 ? <NavDivider /> : null}
                 <div className="flex items-center gap-5">
                   {group.items.map((item) => (
-                    <NavItemLink
-                      key={item.key}
-                      item={item}
-                      onHome={onHome}
-                      locale={locale}
-                    />
+                    <NavItemLink key={item.key} item={item} onHome={onHome} />
                   ))}
                 </div>
               </Fragment>
@@ -190,9 +194,10 @@ function SiteHeader({
               labels={themeLabels}
               className={utilityControlClassName}
             />
-            <Link
-              to="."
-              params={{ locale: otherLocale }}
+            <button
+              type="button"
+              onClick={switchLocale}
+              disabled={isPending}
               aria-label={microcopy.languageSwitch}
               className={cn(
                 buttonVariants({ variant: "ghost", size: "sm" }),
@@ -201,7 +206,7 @@ function SiteHeader({
               )}
             >
               {microcopy.languageSwitch}
-            </Link>
+            </button>
           </div>
         </div>
 
@@ -227,7 +232,6 @@ function SiteHeader({
                       key={item.key}
                       item={item}
                       onHome={onHome}
-                      locale={locale}
                       className="min-h-11 px-3"
                       onNavigate={closeMenu}
                     />

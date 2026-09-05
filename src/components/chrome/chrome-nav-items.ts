@@ -1,10 +1,6 @@
 import type { Locale, NavContent } from "@/content"
 import type { InternalRoute } from "@/lib/locale-links"
-import {
-  hashFromHref,
-  isInternalHref,
-  routeForHref,
-} from "@/lib/locale-links"
+import { hashFromHref, isInternalHref, routeForHref } from "@/lib/locale-links"
 
 type ChromeNavSectionItem = {
   key: string
@@ -20,8 +16,7 @@ type ChromeNavRouteItem = {
   key: string
   label: string
   kind: "route"
-  to: InternalRoute | "/$locale"
-  params: { locale: Locale }
+  to: InternalRoute | "/"
 }
 
 type ChromeNavItem = ChromeNavSectionItem | ChromeNavRouteItem
@@ -31,12 +26,11 @@ type ChromeNavGroup = {
   items: ReadonlyArray<ChromeNavItem>
 }
 
-function requireInternalRoute(
-  href: string,
-  field: string
-): InternalRoute {
+function requireInternalRoute(href: string, field: string): InternalRoute {
   if (!isInternalHref(href)) {
-    throw new Error(`chrome.nav.${field}.href must be an internal route, got "${href}"`)
+    throw new Error(
+      `chrome.nav.${field}.href must be an internal route, got "${href}"`
+    )
   }
   return routeForHref(href)
 }
@@ -50,7 +44,7 @@ function requireInternalRoute(
  * Theme/locale controls sit after these groups in the shell.
  */
 function getChromeNavGroups(
-  locale: Locale,
+  _locale: Locale,
   nav: NavContent,
   { onHome }: { onHome: boolean }
 ): ReadonlyArray<ChromeNavGroup> {
@@ -67,7 +61,6 @@ function getChromeNavGroups(
     label: nav.community.label,
     kind: "route",
     to: requireInternalRoute(nav.community.href, "community"),
-    params: { locale },
   }
 
   const campusLeaderItem: ChromeNavItem = {
@@ -75,7 +68,6 @@ function getChromeNavGroups(
     label: nav.campusLeader.label,
     kind: "route",
     to: requireInternalRoute(nav.campusLeader.href, "campusLeader"),
-    params: { locale },
   }
 
   const trailingGroups: ChromeNavGroup[] = [
@@ -108,8 +100,7 @@ function getChromeNavGroups(
           key: "home",
           label: nav.home.label,
           kind: "route",
-          to: "/$locale",
-          params: { locale },
+          to: "/",
         },
       ],
     },
@@ -118,4 +109,9 @@ function getChromeNavGroups(
 }
 
 export { getChromeNavGroups }
-export type { ChromeNavGroup, ChromeNavItem, ChromeNavRouteItem, ChromeNavSectionItem }
+export type {
+  ChromeNavGroup,
+  ChromeNavItem,
+  ChromeNavRouteItem,
+  ChromeNavSectionItem,
+}

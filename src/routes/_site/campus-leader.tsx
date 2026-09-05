@@ -1,9 +1,6 @@
 import { useState } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
-import {
-  ArrowDown01Icon,
-  ArrowRight01Icon,
-} from "@hugeicons/core-free-icons"
+import { ArrowDown01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { createFileRoute } from "@tanstack/react-router"
 
 import { CampusLeaderForm } from "@/components/campus-leader/campus-leader-form"
@@ -15,14 +12,16 @@ import {
 } from "@/components/home/home-styles"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Eyebrow } from "@/components/ui/eyebrow"
-import { getContent, isLocale } from "@/content"
 import type { CampusLeaderContent } from "@/content/types"
 import { cn } from "@/lib/utils"
 
-export const Route = createFileRoute("/$locale/campus-leader")({
-  head: ({ params }) => {
-    const locale = isLocale(params.locale) ? params.locale : "en"
-    const { meta, campusLeader } = getContent(locale)
+export const Route = createFileRoute("/_site/campus-leader")({
+  loader: ({ context }) => context,
+  head: ({ loaderData }) => {
+    if (!loaderData) {
+      return {}
+    }
+    const { meta, campusLeader } = loaderData.content
 
     return {
       meta: [

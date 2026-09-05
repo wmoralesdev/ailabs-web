@@ -3,8 +3,8 @@ import { createFileRoute, redirect } from "@tanstack/react-router"
 import { isLocale } from "@/content"
 import { rememberLocaleFromPrefix } from "@/lib/locale-preference"
 
-/** Legacy `/en` or `/es` → `/`. */
-export const Route = createFileRoute("/$locale/")({
+/** Legacy `/en/community` → `/community`, etc. */
+export const Route = createFileRoute("/$locale/$")({
   beforeLoad: async ({ params, location }) => {
     if (!isLocale(params.locale)) {
       return
@@ -12,8 +12,11 @@ export const Route = createFileRoute("/$locale/")({
 
     await rememberLocaleFromPrefix({ data: { locale: params.locale } })
 
+    const rest = params._splat?.replace(/^\/+|\/+$/g, "") ?? ""
+    const href = rest.length > 0 ? `/${rest}` : "/"
+
     throw redirect({
-      href: `/${location.searchStr}${location.hash ? `#${location.hash}` : ""}`,
+      href: `${href}${location.searchStr}${location.hash ? `#${location.hash}` : ""}`,
       statusCode: 301,
     })
   },

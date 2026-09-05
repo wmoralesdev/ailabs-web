@@ -1,4 +1,5 @@
-import { expect, test, type Locator, type Page } from "@playwright/test"
+import { expect, test } from "@playwright/test"
+import type { Locator, Page } from "@playwright/test"
 
 const CRASH_COPY = /The form hit an error|El formulario falló|Algo salió mal/i
 const STEP_1 = /Step\s*1\s*of\s*3/i
@@ -6,7 +7,7 @@ const STEP_2 = /Step\s*2\s*of\s*3/i
 const STEP_3 = /Step\s*3\s*of\s*3/i
 
 async function openApplyDialog(page: Page) {
-  await page.goto("/en/campus-leader", { waitUntil: "domcontentloaded" })
+  await page.goto("/campus-leader", { waitUntil: "domcontentloaded" })
   // SSR HTML shows Apply before React hydrates — a too-early click is a no-op.
   await page.waitForLoadState("networkidle")
   const apply = page.getByRole("button", { name: /^Apply$/ }).first()

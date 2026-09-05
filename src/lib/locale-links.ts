@@ -1,11 +1,10 @@
 /**
  * Content modules store locale-agnostic path hrefs ("/community") or home
- * section hashes ("#academy"). Path hrefs map to `$locale` route ids; pass
- * `locale` as a param. Hash hrefs scroll to sections on the localized home.
+ * section hashes ("#academy"). Path hrefs map to route ids (no locale segment).
  */
 const INTERNAL_ROUTES = {
-  "/community": "/$locale/community",
-  "/campus-leader": "/$locale/campus-leader",
+  "/community": "/community",
+  "/campus-leader": "/campus-leader",
 } as const
 
 type InternalHref = keyof typeof INTERNAL_ROUTES

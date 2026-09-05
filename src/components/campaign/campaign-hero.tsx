@@ -18,7 +18,7 @@ type CampaignHeroProps = {
 }
 
 function CampaignHero({
-  locale,
+  locale: _locale,
   words,
   qrContent,
   fluid = false,
@@ -35,8 +35,7 @@ function CampaignHero({
       <div className="border-border flex min-h-0 w-full flex-col justify-between gap-10 border-b px-6 pt-[calc(var(--site-header-offset)+0.5rem)] pb-8 sm:px-10 sm:pb-10 lg:border-r lg:border-b-0 lg:px-12 lg:pb-12 xl:px-16">
         <div>
           <Link
-            to="/$locale"
-            params={{ locale }}
+            to="/"
             aria-label="Ai Labs"
             className="focus-visible:ring-ring/50 inline-flex rounded-sm focus-visible:ring-2 focus-visible:outline-none"
           >

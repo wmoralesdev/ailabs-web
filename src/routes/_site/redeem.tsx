@@ -19,7 +19,6 @@ import {
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Spinner } from "@/components/ui/spinner"
-import { getContent, isLocale } from "@/content"
 import type { Locale, RedeemContent } from "@/content/types"
 import { getRedeemProductConfig } from "@/lib/redeem-products"
 import type { RedeemProductConfig } from "@/lib/redeem-products"
@@ -36,7 +35,7 @@ type RedeemSearch = {
   code?: string
 }
 
-export const Route = createFileRoute("/$locale/redeem")({
+export const Route = createFileRoute("/_site/redeem")({
   validateSearch: (search: Record<string, unknown>): RedeemSearch => {
     const code =
       typeof search.code === "string" && search.code.trim().length > 0
@@ -45,17 +44,32 @@ export const Route = createFileRoute("/$locale/redeem")({
     return { code }
   },
   loaderDeps: ({ search }) => ({ code: search.code }),
-  loader: async ({ deps }): Promise<RedeemEventPublic | null> => {
-    if (!deps.code) {
-      return null
+  loader: async ({
+    context,
+    deps,
+  }): Promise<{
+    event: RedeemEventPublic | null
+    locale: typeof context.locale
+    content: typeof context.content
+  }> => {
+    const event = deps.code
+      ? await getEventByCode({ data: { code: deps.code } })
+      : null
+    return {
+      event,
+      locale: context.locale,
+      content: context.content,
     }
-    return getEventByCode({ data: { code: deps.code } })
   },
-  head: ({ params, loaderData }) => {
-    const locale = isLocale(params.locale) ? params.locale : "en"
-    const { meta, redeem } = getContent(locale)
-    const titleBase = loaderData
-      ? getRedeemProductConfig(loaderData.product).titleKey
+  head: ({ loaderData }) => {
+    if (!loaderData) {
+      return {
+        meta: [{ name: "robots", content: "noindex, nofollow" }],
+      }
+    }
+    const { meta, redeem } = loaderData.content
+    const titleBase = loaderData.event
+      ? getRedeemProductConfig(loaderData.event.product).titleKey
       : null
     const productTitle = titleBase
       ? redeem.products[titleBase].title
@@ -92,7 +106,7 @@ function collectRedeemWords(
 function RedeemPage() {
   const { locale, content: siteContent } = Route.useRouteContext()
   const { code } = Route.useSearch()
-  const event = Route.useLoaderData()
+  const { event } = Route.useLoaderData()
   const content = siteContent.redeem
   const { microcopy } = siteContent
 

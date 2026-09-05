@@ -18,13 +18,12 @@ El Salvador. Open beyond.
 
 ## Primary URLs
 
-- English home: https://ailabs.sv/en
-- Spanish home: https://ailabs.sv/es
+- Home (English and Spanish): https://ailabs.sv/
 - Website: https://ailabs.sv
 
 ## Contact
 
-Use the contact form on the home page: https://ailabs.sv/en#contact (English) or https://ailabs.sv/es#contact (Spanish).
+Use the contact form on the home page: https://ailabs.sv/#contact.
 
 ## Optional
 
