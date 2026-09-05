@@ -110,3 +110,17 @@ model CampusLeaderApplication {
   @@index([createdAt])
 }
 
+/// Public inquiries. The client UUID makes retries idempotent.
+model ContactInquiry {
+  id        String   @id @db.Uuid
+  createdAt DateTime @default(now())
+  name      String
+  email     String
+  company   String?
+  interest  String
+  message   String
+  locale    String
+
+  @@index([email, createdAt])
+  @@index([createdAt])
+}

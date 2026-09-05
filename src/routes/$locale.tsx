@@ -8,6 +8,7 @@ import {
 
 import { SiteFooter } from "@/components/chrome/site-footer"
 import { SiteHeader } from "@/components/chrome/site-header"
+import { ContactProvider } from "@/components/contact/contact-provider"
 import { MainCard } from "@/components/chrome/main-card"
 import { getContent, isLocale } from "@/content"
 import type { Locale, MicrocopyContent } from "@/content"
@@ -52,20 +53,22 @@ function LocaleLayout() {
   })
 
   return (
-    <div className={chromeShellClassName}>
-      <SiteHeader
-        locale={locale}
-        chrome={content.chrome}
-        microcopy={content.microcopy}
-        showBrandLink={showBrandLink}
-      />
-      <main id="main" tabIndex={-1} className={mainClassName}>
-        <Outlet />
-      </main>
-      {hideChromeFooter ? null : (
-        <SiteFooter locale={locale} footer={content.chrome.footer} />
-      )}
-    </div>
+    <ContactProvider contact={content.home.contact} locale={locale}>
+      <div className={chromeShellClassName}>
+        <SiteHeader
+          locale={locale}
+          chrome={content.chrome}
+          microcopy={content.microcopy}
+          showBrandLink={showBrandLink}
+        />
+        <main id="main" tabIndex={-1} className={mainClassName}>
+          <Outlet />
+        </main>
+        {hideChromeFooter ? null : (
+          <SiteFooter locale={locale} footer={content.chrome.footer} />
+        )}
+      </div>
+    </ContactProvider>
   )
 }
 

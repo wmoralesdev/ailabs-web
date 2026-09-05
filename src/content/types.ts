@@ -407,8 +407,9 @@ export type HomeApertureContent = {
   partnerCta: NavItem
 }
 
-/** Contact routing covers the three pillars plus inbound partner requests. */
-export type ContactInterestId = PillarId | "partner"
+/** Contact routing follows the consultive outcome or relationship requested. */
+export type ContactInterestId =
+  "discovery" | "enablement" | "implementation" | "partnership"
 
 export type HomeContactInterest = {
   value: ContactInterestId
@@ -434,6 +435,9 @@ export type HomeContactContent = {
   submitting: string
   success: string
   error: string
+  closeLabel: string
+  rateLimited: string
+  invalid: string
 }
 
 /** Tech partner logos shown in the home trust strip. */
