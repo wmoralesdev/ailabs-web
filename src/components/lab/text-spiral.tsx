@@ -52,6 +52,40 @@ const TAU = Math.PI * 2
 const SPARSE_CENTER = (13 * Math.PI) / 12
 const SPARSE_HALF_WIDTH = Math.PI * 0.62
 
+// Two equivalent names restart a CSS animation without a forced layout read.
+const SWELL_KEYFRAMES = ["a", "b"]
+  .map(
+    (name) => `@keyframes lab-ring-swell-${name} {
+${[
+  [0, 0],
+  [0.1, 0.52],
+  [0.2, 0.88],
+  [0.3, 1],
+  [0.42, 0.78],
+  [0.54, 0.56],
+  [0.66, 0.38],
+  [0.77, 0.24],
+  [0.87, 0.13],
+  [0.94, 0.05],
+  [1, 0],
+]
+  .map(
+    ([offset, amplitude]) => `${offset * 100}% {
+  opacity: ${offset === 0 ? "var(--swell-opacity, 1)" : "1"};
+  transform: translate(
+    calc(var(--swell-x, 0px) * ${1 - offset}),
+    calc(var(--swell-y, 0px) * ${1 - offset})
+  ) scale(calc(1 + max(
+    var(--splash, 0.1) * ${amplitude},
+    (var(--swell-scale, 1) - 1) * ${1 - offset}
+  )));
+}`
+  )
+  .join("\n")}
+}`
+  )
+  .join("\n")
+
 const SPIRAL_KEYFRAMES = `
 @keyframes lab-spiral-spin {
   from { transform: rotate(0deg); }
@@ -83,45 +117,7 @@ const SPIRAL_KEYFRAMES = `
     transform: scale(1);
   }
 }
-/* Click swell: opacity pinned at 1 so retriggering never blanks the spiral;
-   scale stays >= 1 (no trampoline undershoot). The envelope is sampled finely
-   and interpolated LINEARLY — per-keyframe easings stall velocity at every
-   boundary (measured: ~50ms near-stops each), which reads as stepping. */
-@keyframes lab-ring-swell {
-  0% {
-    transform: scale(1);
-  }
-  10% {
-    transform: scale(calc(1 + var(--splash, 0.1) * 0.52));
-  }
-  20% {
-    transform: scale(calc(1 + var(--splash, 0.1) * 0.88));
-  }
-  30% {
-    transform: scale(calc(1 + var(--splash, 0.1)));
-  }
-  42% {
-    transform: scale(calc(1 + var(--splash, 0.1) * 0.78));
-  }
-  54% {
-    transform: scale(calc(1 + var(--splash, 0.1) * 0.56));
-  }
-  66% {
-    transform: scale(calc(1 + var(--splash, 0.1) * 0.38));
-  }
-  77% {
-    transform: scale(calc(1 + var(--splash, 0.1) * 0.24));
-  }
-  87% {
-    transform: scale(calc(1 + var(--splash, 0.1) * 0.13));
-  }
-  94% {
-    transform: scale(calc(1 + var(--splash, 0.1) * 0.05));
-  }
-  100% {
-    transform: scale(1);
-  }
-}
+${SWELL_KEYFRAMES}
 @media (prefers-reduced-motion: reduce) {
   @keyframes lab-spiral-spin {
     from { transform: none; }
@@ -131,7 +127,11 @@ const SPIRAL_KEYFRAMES = `
     from { opacity: 1; transform: none; }
     to { opacity: 1; transform: none; }
   }
-  @keyframes lab-ring-swell {
+  @keyframes lab-ring-swell-a {
+    from { transform: none; }
+    to { transform: none; }
+  }
+  @keyframes lab-ring-swell-b {
     from { transform: none; }
     to { transform: none; }
   }
@@ -145,16 +145,24 @@ type Glyph = {
   fontSize: number
 }
 
-type SourceToken =
-  | { type: "word"; text: string }
-  | { type: "sep" }
+type PaintedGlyph = {
+  char: string
+  transform: [number, number, number, number, number, number]
+  bounds: { x: number; y: number; width: number; height: number }
+}
+
+type SourceToken = { type: "word"; text: string } | { type: "sep" }
 
 type RingLayer = {
   ripple: HTMLDivElement
   spin: HTMLDivElement
   canvas: HTMLCanvasElement
   ctx: CanvasRenderingContext2D
-  glyphs: Glyph[]
+  glyphs: PaintedGlyph[]
+  fontSize: number
+  hidden: ReadonlySet<number>
+  left: number
+  top: number
   /** Ring radius in stage px — drives click-wave distance math. */
   radius: number
 }
@@ -167,25 +175,27 @@ type RippleOrigin = {
 type TextSpiralProps = {
   words: ReadonlyArray<string>
   className?: string
+  interactionLabel?: string
 }
 
 /**
  * Concentric text rings as per-ring canvases: CSS spin per ring (odd
  * clockwise / even counter-clockwise) + CSS ripple entrance (compositor /
- * GPU). Sparse ASCII flicker rebakes bitmaps on a slow interval. Honors
+ * GPU). Sparse ASCII flicker redraws only changed glyph regions. Honors
  * prefers-reduced-motion. Hover shows a "click" tip that rides the cursor;
  * click sends a smooth water swell outward from the pointer position.
  */
-function TextSpiral({ words, className }: TextSpiralProps) {
+function TextSpiral({
+  words,
+  className,
+  interactionLabel = "Animate the text spiral",
+}: TextSpiralProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
-  const wordsKey = words.join("\0")
-  const [motionOk, setMotionOk] = useState(() => {
-    if (typeof window === "undefined") {
-      return true
-    }
-    return !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  })
+  const wordsKey = JSON.stringify(words)
+  // Keep the first client render identical to SSR. The existing effect turns
+  // interaction on only after checking the visitor's motion preference.
+  const [motionOk, setMotionOk] = useState(false)
 
   useEffect(() => {
     const reduceMedia = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -207,7 +217,7 @@ function TextSpiral({ words, className }: TextSpiralProps) {
     }
 
     const reduceMedia = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const tokens = buildTokens(words)
+    const tokens = buildTokens(JSON.parse(wordsKey) as string[])
     if (tokens.length === 0) {
       return
     }
@@ -218,23 +228,44 @@ function TextSpiral({ words, className }: TextSpiralProps) {
     let cssWidth = 0
     let cssHeight = 0
     let flickerTimer = 0
-    let swellUntil = 0
+    let resizeFrame = 0
+    let built = false
+    let swellVariant = false
+    let ink = ""
+    let rootWidth = 0
+    let rootHeight = 0
+    let spinElapsed = 0
+    const activeRipples = new Set<HTMLDivElement>()
+    const layoutSamples: number[] = []
     let visible = document.visibilityState !== "hidden"
+    const initialBounds = root.getBoundingClientRect()
+    let inViewport =
+      initialBounds.bottom > 0 &&
+      initialBounds.top < window.innerHeight &&
+      initialBounds.right > 0 &&
+      initialBounds.left < window.innerWidth
 
-    const measureChar = (ctx: CanvasRenderingContext2D, ch: string, size: number) => {
+    const canAnimate = () => visible && inViewport && !reduceMedia.matches
+
+    const charWidths = new Map<string, number>()
+    const measureChar = (
+      ctx: CanvasRenderingContext2D,
+      ch: string,
+      size: number
+    ) => {
+      const key = `${size}:${ch}`
+      const cached = charWidths.get(key)
+      if (cached !== undefined) return cached
       ctx.font = `${size}px ${FONT_STACK}`
       const w = ctx.measureText(ch).width
-      return w > 0 ? w : size * 0.55
+      const width = w > 0 ? w : size * 0.55
+      charWidths.set(key, width)
+      return width
     }
 
     const readColors = () => {
       const styles = getComputedStyle(root)
-      const ink =
-        styles.getPropertyValue("--surface-ink").trim() ||
-        styles.backgroundColor ||
-        "#111111"
-      const onDark = styles.getPropertyValue("--on-dark").trim() || "#fafafa"
-      return { ink, onDark }
+      return styles.getPropertyValue("--on-dark").trim() || "#fafafa"
     }
 
     const clearLayers = () => {
@@ -243,10 +274,11 @@ function TextSpiral({ words, className }: TextSpiralProps) {
       }
       layers = []
       flatGlyphs = []
+      activeRipples.clear()
     }
 
     const applyRipple = (ripple: HTMLDivElement, ringIndex: number) => {
-      if (reduceMedia.matches) {
+      if (reduceMedia.matches || built) {
         ripple.style.opacity = "1"
         ripple.style.transform = "none"
         ripple.style.animation = "none"
@@ -265,10 +297,11 @@ function TextSpiral({ words, className }: TextSpiralProps) {
       // Smooth spring: long ease-out with overshoot baked into keyframes.
       ripple.style.animation = `lab-ring-ripple ${duration}ms cubic-bezier(0.22, 0.61, 0.36, 1) both`
       ripple.style.animationDelay = `${ringIndex * RIPPLE_STAGGER_MS}ms`
+      activeRipples.add(ripple)
     }
 
     const retriggerRipple = (origin: RippleOrigin) => {
-      if (reduceMedia.matches || layers.length === 0) {
+      if (!canAnimate() || layers.length === 0) {
         return
       }
 
@@ -277,7 +310,30 @@ function TextSpiral({ words, className }: TextSpiralProps) {
       const originDist = Math.hypot(origin.x - cx, origin.y - cy)
       const gap = Math.min(cssWidth, cssHeight) * RING_GAP_RATIO
 
-      for (const layer of layers) {
+      // Read every current transform before changing any styles. Compensate
+      // for a new transform origin so repeated clicks keep their position.
+      const starts = layers.map((layer) => {
+        const style = getComputedStyle(layer.ripple)
+        const matrix = new DOMMatrixReadOnly(
+          style.transform === "none" ? undefined : style.transform
+        )
+        const [oldX, oldY] = style.transformOrigin
+          .split(" ")
+          .map(Number.parseFloat)
+        const x = origin.x - layer.left
+        const y = origin.y - layer.top
+        return {
+          x,
+          y,
+          scale: matrix.a,
+          tx: matrix.e + (1 - matrix.a) * (oldX - x),
+          ty: matrix.f + (1 - matrix.a) * (oldY - y),
+          opacity: style.opacity,
+        }
+      })
+      swellVariant = !swellVariant
+
+      for (const [index, layer] of layers.entries()) {
         // Wavefront crosses rings by distance from the click, not ring index;
         // amplitude spreads like a circular water wave (1/sqrt) so the pulse
         // stays visible across the whole canvas instead of dying nearby.
@@ -286,21 +342,25 @@ function TextSpiral({ words, className }: TextSpiralProps) {
         const splash = TAP_SPLASH / Math.sqrt(1 + dist / gap)
 
         const ripple = layer.ripple
-        ripple.style.animation = "none"
-        // Force a style flush so the next animation assignment restarts.
-        void ripple.offsetWidth
-        ripple.style.transformOrigin = `${origin.x}px ${origin.y}px`
+        const start = starts[index]
+        ripple.style.transformOrigin = `${start.x}px ${start.y}px`
         ripple.style.setProperty("--splash", splash.toFixed(4))
-        ripple.style.animation = `lab-ring-swell ${SWELL_DURATION_MS}ms linear both`
+        ripple.style.setProperty("--swell-scale", String(start.scale))
+        ripple.style.setProperty("--swell-x", `${start.tx}px`)
+        ripple.style.setProperty("--swell-y", `${start.ty}px`)
+        ripple.style.setProperty("--swell-opacity", start.opacity)
+        ripple.style.animation = `lab-ring-swell-${swellVariant ? "a" : "b"} ${SWELL_DURATION_MS}ms linear both`
         ripple.style.animationDelay = `${Math.round(delay)}ms`
+        ripple.style.willChange = "transform"
+        activeRipples.add(ripple)
       }
-
-      // Suppress flicker rebakes while the swell runs: their ~90ms canvas
-      // re-raster stalls the renderer mid-wave (measured on the 520ms cadence).
-      swellUntil = performance.now() + SWELL_MAX_DELAY_MS + SWELL_DURATION_MS
+      startFlicker()
     }
 
-    const stagePointFromClient = (clientX: number, clientY: number): RippleOrigin => {
+    const stagePointFromClient = (
+      clientX: number,
+      clientY: number
+    ): RippleOrigin => {
       const rect = stage.getBoundingClientRect()
       return {
         x: clientX - rect.left,
@@ -310,14 +370,14 @@ function TextSpiral({ words, className }: TextSpiralProps) {
 
     const makeRippleShell = () => {
       const shell = document.createElement("div")
-      shell.className = "pointer-events-none absolute inset-0 will-change-transform"
+      shell.className = "pointer-events-none absolute"
       shell.setAttribute("aria-hidden", "true")
       return shell
     }
 
     const makeSpinShell = (ringIndex: number) => {
       const shell = document.createElement("div")
-      shell.className = "pointer-events-none absolute inset-0 will-change-transform"
+      shell.className = "pointer-events-none absolute inset-0"
       shell.setAttribute("aria-hidden", "true")
 
       if (reduceMedia.matches) {
@@ -328,6 +388,7 @@ function TextSpiral({ words, className }: TextSpiralProps) {
         const direction = ringIndex % 2 === 0 ? "normal" : "reverse"
         shell.style.animation = `lab-spiral-spin ${SPIN_DURATION_S}s linear infinite`
         shell.style.animationDirection = direction
+        shell.style.animationDelay = `-${spinElapsed % (SPIN_DURATION_S * 1000)}ms`
       }
 
       return shell
@@ -335,11 +396,12 @@ function TextSpiral({ words, className }: TextSpiralProps) {
 
     const layout = () => {
       clearLayers()
-
-      dpr = Math.min(window.devicePixelRatio || 1, 2)
-      const rect = stage.getBoundingClientRect()
-      cssWidth = Math.max(1, rect.width)
-      cssHeight = Math.max(1, rect.height)
+      charWidths.clear()
+      let sampleIndex = 0
+      const random = () => {
+        const index = sampleIndex++
+        return (layoutSamples[index] ??= Math.random())
+      }
 
       const probe = document.createElement("canvas")
       const probeCtx = probe.getContext("2d")
@@ -350,7 +412,13 @@ function TextSpiral({ words, className }: TextSpiralProps) {
       const minSide = Math.min(cssWidth, cssHeight)
       const baseFontSize =
         Math.max(7, Math.min(10, minSide * 0.011)) * FONT_SCALE
-      const maxRadius = Math.hypot(cssWidth, cssHeight) / 2
+      // Expanding around a point inside the root cannot reveal a ring outside
+      // its diagonal. Keep a conservative margin for rotated glyph ink.
+      const maxRadius = Math.min(
+        Math.hypot(cssWidth, cssHeight) / 2,
+        Math.hypot(rootWidth, rootHeight) / 2 +
+          baseFontSize * MAX_FONT_SCALE * 2
+      )
       const gap = minSide * RING_GAP_RATIO
       // Start one (or more) gap inward so the center gains an extra ring.
       const inner = Math.max(
@@ -375,8 +443,8 @@ function TextSpiral({ words, className }: TextSpiralProps) {
         atRadius: number
       ) => {
         let arc = 0
-        for (let i = 0; i < text.length; i++) {
-          arc += stepFor(text[i] ?? "·", fontSize, atRadius)
+        for (const character of text) {
+          arc += stepFor(character, fontSize, atRadius)
         }
         return arc
       }
@@ -402,7 +470,7 @@ function TextSpiral({ words, className }: TextSpiralProps) {
           guard++ < 4000
         ) {
           const density = textDensityAt(angle, ring)
-          const token = tokens[tokenIndex % tokens.length]!
+          const token = tokens[tokenIndex % tokens.length]
           let ch: string
           let nextTokenIndex = tokenIndex
           let nextCharInWord = charInWord
@@ -421,8 +489,8 @@ function TextSpiral({ words, className }: TextSpiralProps) {
             if (needs > remaining) {
               // Not enough arc left for the whole word; pad with dots.
               ch = WORD_SEP
-            } else if (Math.random() < density) {
-              ch = token.text[0] ?? WORD_SEP
+            } else if (random() < density) {
+              ch = token.text[0]
               nextCharInWord = 1
               if (nextCharInWord >= token.text.length) {
                 nextCharInWord = 0
@@ -432,7 +500,7 @@ function TextSpiral({ words, className }: TextSpiralProps) {
               // Sparse filler between words only.
               ch = WORD_SEP
             }
-          } else if (Math.random() < density) {
+          } else if (random() < density) {
             // Inter-word separator from the token stream.
             ch = WORD_SEP
             nextTokenIndex = tokenIndex + 1
@@ -463,8 +531,15 @@ function TextSpiral({ words, className }: TextSpiralProps) {
         if (ringGlyphs.length > 0) {
           const ringIndex = layers.length
           const canvas = document.createElement("canvas")
-          canvas.width = Math.max(1, Math.round(cssWidth * dpr))
-          canvas.height = Math.max(1, Math.round(cssHeight * dpr))
+          const extent = radius + ringFont * 2
+          // Symmetric, device-pixel aligned cropping preserves the original
+          // raster grid and common rotation center while removing empty pixels.
+          const fullWidth = Math.max(1, Math.round(cssWidth * dpr))
+          const fullHeight = Math.max(1, Math.round(cssHeight * dpr))
+          const insetX = Math.max(0, Math.floor(fullWidth / 2 - extent * dpr))
+          const insetY = Math.max(0, Math.floor(fullHeight / 2 - extent * dpr))
+          canvas.width = fullWidth - insetX * 2
+          canvas.height = fullHeight - insetY * 2
           canvas.setAttribute("aria-hidden", "true")
           canvas.className =
             "pointer-events-none absolute inset-0 h-full w-full max-w-none"
@@ -474,6 +549,16 @@ function TextSpiral({ words, className }: TextSpiralProps) {
           }
 
           const ripple = makeRippleShell()
+          // Keep the original bitmap-to-CSS scale, including fractional stage
+          // sizes. Using 1 / dpr here would subtly shift antialiasing on resize.
+          const pixelWidth = cssWidth / fullWidth
+          const pixelHeight = cssHeight / fullHeight
+          const left = insetX * pixelWidth
+          const top = insetY * pixelHeight
+          ripple.style.left = `${left}px`
+          ripple.style.top = `${top}px`
+          ripple.style.width = `${canvas.width * pixelWidth}px`
+          ripple.style.height = `${canvas.height * pixelHeight}px`
           applyRipple(ripple, ringIndex)
 
           const spin = makeSpinShell(ringIndex)
@@ -481,7 +566,38 @@ function TextSpiral({ words, className }: TextSpiralProps) {
           ripple.appendChild(spin)
           stage.appendChild(ripple)
 
-          layers.push({ ripple, spin, canvas, ctx, glyphs: ringGlyphs, radius })
+          const glyphs = ringGlyphs.map((glyph): PaintedGlyph => {
+            const x =
+              (cssWidth / 2 + Math.cos(glyph.angle) * radius) * dpr - insetX
+            const y =
+              (cssHeight / 2 + Math.sin(glyph.angle) * radius) * dpr - insetY
+            const rotation = glyph.angle + Math.PI / 2
+            const cos = Math.cos(rotation) * dpr
+            const sin = Math.sin(rotation) * dpr
+            const pad = Math.ceil(ringFont * 1.5 * dpr)
+            return {
+              char: glyph.char,
+              transform: [cos, sin, -sin, cos, x, y],
+              bounds: {
+                x: Math.floor(x - pad),
+                y: Math.floor(y - pad),
+                width: pad * 2 + 2,
+                height: pad * 2 + 2,
+              },
+            }
+          })
+          layers.push({
+            ripple,
+            spin,
+            canvas,
+            ctx,
+            glyphs,
+            radius,
+            fontSize: ringFont,
+            hidden: new Set(),
+            left,
+            top,
+          })
 
           for (let i = 0; i < ringGlyphs.length; i++) {
             flatGlyphs.push({
@@ -498,55 +614,58 @@ function TextSpiral({ words, className }: TextSpiralProps) {
       }
     }
 
-    const paintRing = (layer: RingLayer, hidden: ReadonlySet<number>) => {
-      const { onDark } = readColors()
-      const { ctx, glyphs, canvas } = layer
-      ctx.setTransform(1, 0, 0, 1, 0, 0)
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+    const drawGlyph = (layer: RingLayer, glyph: PaintedGlyph) => {
+      layer.ctx.globalAlpha = glyph.char === WORD_SEP ? SEP_ALPHA : 1
+      layer.ctx.setTransform(...glyph.transform)
+      layer.ctx.fillText(glyph.char, 0, 0)
+    }
 
+    const paintRing = (
+      layer: RingLayer,
+      hidden: ReadonlySet<number>,
+      fullPaint = false
+    ) => {
+      const { ctx, glyphs, canvas } = layer
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
-      ctx.fillStyle = onDark
-      ctx.globalAlpha = 1
+      ctx.fillStyle = ink
+      ctx.font = `${layer.fontSize}px ${FONT_STACK}`
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
 
-      const cx = cssWidth / 2
-      const cy = cssHeight / 2
-      let lastFont = -1
-      let lastAlpha = 1
-
-      for (let i = 0; i < glyphs.length; i++) {
-        if (hidden.has(i)) {
-          continue
+      if (fullPaint) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        for (let i = 0; i < glyphs.length; i++) {
+          if (!hidden.has(i)) drawGlyph(layer, glyphs[i])
         }
-
-        const glyph = glyphs[i]
-        if (glyph.fontSize !== lastFont) {
-          ctx.font = `${glyph.fontSize}px ${FONT_STACK}`
-          lastFont = glyph.fontSize
+      } else {
+        const changed = new Set([...layer.hidden, ...hidden])
+        for (const index of changed) {
+          if (layer.hidden.has(index) === hidden.has(index)) continue
+          const bounds = glyphs[index].bounds
+          // The clip also protects neighboring glyphs from accumulating alpha
+          // when they extend beyond the cleared area.
+          ctx.setTransform(1, 0, 0, 1, 0, 0)
+          ctx.save()
+          ctx.beginPath()
+          ctx.rect(bounds.x, bounds.y, bounds.width, bounds.height)
+          ctx.clip()
+          ctx.clearRect(bounds.x, bounds.y, bounds.width, bounds.height)
+          for (let i = 0; i < glyphs.length; i++) {
+            if (hidden.has(i)) continue
+            const other = glyphs[i].bounds
+            if (
+              other.x < bounds.x + bounds.width &&
+              other.x + other.width > bounds.x &&
+              other.y < bounds.y + bounds.height &&
+              other.y + other.height > bounds.y
+            ) {
+              drawGlyph(layer, glyphs[i])
+            }
+          }
+          ctx.restore()
         }
-
-        const alpha = glyph.char === WORD_SEP ? SEP_ALPHA : 1
-        if (alpha !== lastAlpha) {
-          ctx.globalAlpha = alpha
-          lastAlpha = alpha
-        }
-
-        const x = cx + Math.cos(glyph.angle) * glyph.radius
-        const y = cy + Math.sin(glyph.angle) * glyph.radius
-        const rot = glyph.angle + Math.PI / 2
-        const cos = Math.cos(rot)
-        const sin = Math.sin(rot)
-        ctx.setTransform(
-          cos * dpr,
-          sin * dpr,
-          -sin * dpr,
-          cos * dpr,
-          x * dpr,
-          y * dpr
-        )
-        ctx.fillText(glyph.char, 0, 0)
       }
-
+      layer.hidden = hidden
       ctx.globalAlpha = 1
       ctx.setTransform(1, 0, 0, 1, 0, 0)
     }
@@ -573,49 +692,115 @@ function TextSpiral({ words, className }: TextSpiralProps) {
       return byRing
     }
 
-    const paintAll = (hiddenByRing: Map<number, Set<number>>) => {
+    const paintAll = (
+      hiddenByRing: Map<number, Set<number>>,
+      fullPaint = false
+    ) => {
       for (let r = 0; r < layers.length; r++) {
-        paintRing(layers[r], hiddenByRing.get(r) ?? new Set())
+        paintRing(layers[r], hiddenByRing.get(r) ?? new Set(), fullPaint)
       }
     }
 
-    const rebuild = () => {
+    const rebuild = (force = false) => {
+      // Measure before removing layers. ResizeObserver's initial delivery is
+      // normally identical to the first build and must not redraw it.
+      const rect = stage.getBoundingClientRect()
+      const bounds = root.getBoundingClientRect()
+      const nextDpr = Math.min(window.devicePixelRatio || 1, 2)
+      const width = Math.max(1, rect.width)
+      const height = Math.max(1, rect.height)
+      if (
+        !force &&
+        built &&
+        width === cssWidth &&
+        height === cssHeight &&
+        bounds.width === rootWidth &&
+        bounds.height === rootHeight &&
+        dpr === nextDpr
+      ) {
+        return
+      }
+      // Sample the CSS animation itself: wall time would include pauses and
+      // bitmap construction before the browser starts the new animation.
+      const spinAnimation = layers.at(0)?.spin.getAnimations().at(0)
+      if (spinAnimation && typeof spinAnimation.currentTime === "number") {
+        spinElapsed =
+          spinAnimation.currentTime -
+          Number(spinAnimation.effect?.getTiming().delay ?? 0)
+      }
+      cssWidth = width
+      cssHeight = height
+      rootWidth = bounds.width
+      rootHeight = bounds.height
+      dpr = nextDpr
+      ink = readColors()
       layout()
-      paintAll(pickHiddenByRing())
+      paintAll(pickHiddenByRing(), true)
+      built = true
+      syncPlayback()
     }
 
     const onFlicker = () => {
-      if (!visible || reduceMedia.matches || performance.now() < swellUntil) {
+      if (!canAnimate() || activeRipples.size > 0) {
         return
       }
-      paintAll(pickHiddenByRing())
+      const nextInk = readColors()
+      const recolor = nextInk !== ink
+      ink = nextInk
+      paintAll(pickHiddenByRing(), recolor)
     }
 
     const startFlicker = () => {
       window.clearInterval(flickerTimer)
       flickerTimer = 0
-      if (!reduceMedia.matches && visible) {
+      if (canAnimate() && activeRipples.size === 0) {
         flickerTimer = window.setInterval(onFlicker, FLICKER_INTERVAL_MS)
       }
     }
 
+    const syncPlayback = () => {
+      const playing = canAnimate()
+      const state = playing ? "running" : "paused"
+      for (const layer of layers) {
+        layer.spin.style.animationPlayState = state
+        layer.ripple.style.animationPlayState = state
+        layer.spin.style.willChange = playing ? "transform" : "auto"
+        layer.ripple.style.willChange =
+          playing && activeRipples.has(layer.ripple) ? "transform" : "auto"
+      }
+      startFlicker()
+    }
+
     const onResize = () => {
-      rebuild()
+      if (resizeFrame) return
+      resizeFrame = window.requestAnimationFrame(() => {
+        resizeFrame = 0
+        rebuild()
+      })
     }
 
     const onVisibility = () => {
       visible = document.visibilityState !== "hidden"
-      if (visible) {
-        startFlicker()
-      } else {
-        window.clearInterval(flickerTimer)
-        flickerTimer = 0
-      }
+      syncPlayback()
     }
 
     const onMotionChange = () => {
-      rebuild()
-      startFlicker()
+      rebuild(true)
+    }
+
+    const onAnimationEnd = (event: AnimationEvent) => {
+      const ripple = event.target as HTMLDivElement
+      if (
+        !activeRipples.has(ripple) ||
+        event.animationName !== ripple.style.animationName
+      )
+        return
+      activeRipples.delete(ripple)
+      ripple.style.animation = "none"
+      ripple.style.transform = "none"
+      ripple.style.opacity = "1"
+      ripple.style.willChange = "auto"
+      if (activeRipples.size === 0) startFlicker()
     }
 
     const onActivate = (clientX: number, clientY: number) => {
@@ -637,30 +822,47 @@ function TextSpiral({ words, className }: TextSpiralProps) {
         return
       }
       event.preventDefault()
+      if (event.repeat) return
       const rect = stage.getBoundingClientRect()
       onActivate(rect.left + rect.width / 2, rect.top + rect.height / 2)
     }
 
     rebuild()
-    startFlicker()
 
     const observer = new ResizeObserver(onResize)
     observer.observe(root)
+    const viewportObserver =
+      typeof IntersectionObserver === "function"
+        ? new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                inViewport = entry.isIntersecting
+              }
+              syncPlayback()
+            },
+            { threshold: 0 }
+          )
+        : null
+    viewportObserver?.observe(root)
     document.addEventListener("visibilitychange", onVisibility)
     reduceMedia.addEventListener("change", onMotionChange)
     root.addEventListener("click", onClick)
     root.addEventListener("keydown", onKeyDown)
+    stage.addEventListener("animationend", onAnimationEnd)
 
     return () => {
       window.clearInterval(flickerTimer)
+      window.cancelAnimationFrame(resizeFrame)
       observer.disconnect()
+      viewportObserver?.disconnect()
       document.removeEventListener("visibilitychange", onVisibility)
       reduceMedia.removeEventListener("change", onMotionChange)
       root.removeEventListener("click", onClick)
       root.removeEventListener("keydown", onKeyDown)
+      stage.removeEventListener("animationend", onAnimationEnd)
       clearLayers()
     }
-  }, [wordsKey, words])
+  }, [wordsKey])
 
   const chipRef = useRef<HTMLDivElement>(null)
   const chipTimer = useRef(0)
@@ -724,8 +926,9 @@ function TextSpiral({ words, className }: TextSpiralProps) {
   }
 
   const rootClassName = cn(
-    "bg-surface-ink relative flex items-center justify-center overflow-hidden",
-    motionOk && "cursor-pointer",
+    "relative flex items-center justify-center overflow-hidden bg-surface-ink",
+    motionOk &&
+      "cursor-pointer focus-visible:ring-2 focus-visible:ring-on-dark/80 focus-visible:outline-none focus-visible:ring-inset",
     className
   )
 
@@ -734,7 +937,7 @@ function TextSpiral({ words, className }: TextSpiralProps) {
       ref={rootRef}
       role={motionOk ? "button" : undefined}
       tabIndex={motionOk ? 0 : undefined}
-      aria-label={motionOk ? "click" : undefined}
+      aria-label={motionOk ? interactionLabel : undefined}
       className={rootClassName}
       onMouseEnter={motionOk ? onRootEnter : undefined}
       onMouseMove={motionOk ? onRootMove : undefined}
@@ -752,7 +955,7 @@ function TextSpiral({ words, className }: TextSpiralProps) {
         <div
           ref={chipRef}
           aria-hidden
-          className="bg-foreground text-background pointer-events-none absolute top-0 left-0 z-10 rounded-md px-3 py-1.5 text-xs opacity-0 transition-opacity duration-150 will-change-transform"
+          className="pointer-events-none absolute top-0 left-0 z-10 rounded-md bg-foreground px-3 py-1.5 text-xs text-background opacity-0 transition-opacity duration-150"
         >
           CLICK
         </div>
