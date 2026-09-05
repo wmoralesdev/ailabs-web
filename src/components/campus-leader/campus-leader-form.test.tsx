@@ -75,7 +75,10 @@ async function fillStep2(user: UserEvent, dialog: HTMLElement) {
 }
 
 async function fillStep3(user: UserEvent, dialog: HTMLElement) {
-  await user.type(field(dialog, "cl-quietRoom"), "I start with a phone exercise.")
+  await user.type(
+    field(dialog, "cl-quietRoom"),
+    "I start with a phone exercise."
+  )
   await user.type(
     field(dialog, "cl-inviteMessage"),
     "Saturday 9am in B-12. Bring a laptop."
@@ -105,9 +108,7 @@ describe("CampusLeaderForm", () => {
 
   it("advances through all steps and toggles session prefs without crashing", async () => {
     const user = userEvent.setup()
-    render(
-      <CampusLeaderForm content={content} open onOpenChange={vi.fn()} />
-    )
+    render(<CampusLeaderForm content={content} open onOpenChange={vi.fn()} />)
     const dialog = getDialog()
 
     await goToStep3(user, dialog)
@@ -126,9 +127,7 @@ describe("CampusLeaderForm", () => {
 
   it("blocks incomplete step 1 with the incomplete message", async () => {
     const user = userEvent.setup()
-    render(
-      <CampusLeaderForm content={content} open onOpenChange={vi.fn()} />
-    )
+    render(<CampusLeaderForm content={content} open onOpenChange={vi.fn()} />)
     const dialog = getDialog()
 
     await user.click(within(dialog).getByRole("button", { name: /Continue/i }))
@@ -144,9 +143,7 @@ describe("CampusLeaderForm", () => {
 
   it("blocks invalid LinkedIn with the invalid-link message", async () => {
     const user = userEvent.setup()
-    render(
-      <CampusLeaderForm content={content} open onOpenChange={vi.fn()} />
-    )
+    render(<CampusLeaderForm content={content} open onOpenChange={vi.fn()} />)
     const dialog = getDialog()
 
     await fillStep1(user, dialog, { linkedin: "not-a-url" })
@@ -162,9 +159,7 @@ describe("CampusLeaderForm", () => {
 
   it("allows step 1 when Instagram is skipped and LinkedIn/X stay empty", async () => {
     const user = userEvent.setup()
-    render(
-      <CampusLeaderForm content={content} open onOpenChange={vi.fn()} />
-    )
+    render(<CampusLeaderForm content={content} open onOpenChange={vi.fn()} />)
     const dialog = getDialog()
 
     await fillStep1(user, dialog, { skipInstagram: true })
@@ -179,9 +174,7 @@ describe("CampusLeaderForm", () => {
 
   it("keeps step 1 values when going back from step 2", async () => {
     const user = userEvent.setup()
-    render(
-      <CampusLeaderForm content={content} open onOpenChange={vi.fn()} />
-    )
+    render(<CampusLeaderForm content={content} open onOpenChange={vi.fn()} />)
     const dialog = getDialog()
 
     await fillStep1(user, dialog)
@@ -202,9 +195,7 @@ describe("CampusLeaderForm", () => {
 
   it("blocks incomplete final submit on step 3", async () => {
     const user = userEvent.setup()
-    render(
-      <CampusLeaderForm content={content} open onOpenChange={vi.fn()} />
-    )
+    render(<CampusLeaderForm content={content} open onOpenChange={vi.fn()} />)
     const dialog = getDialog()
 
     await goToStep3(user, dialog)
@@ -221,9 +212,7 @@ describe("CampusLeaderForm", () => {
   it("submits a valid application and shows success", async () => {
     submitMock.mockResolvedValue({ status: "ok" })
     const user = userEvent.setup()
-    render(
-      <CampusLeaderForm content={content} open onOpenChange={vi.fn()} />
-    )
+    render(<CampusLeaderForm content={content} open onOpenChange={vi.fn()} />)
     const dialog = getDialog()
 
     await goToStep3(user, dialog)
@@ -257,9 +246,7 @@ describe("CampusLeaderForm", () => {
   it("shows the form error when the server rejects the submit", async () => {
     submitMock.mockResolvedValue({ status: "error" })
     const user = userEvent.setup()
-    render(
-      <CampusLeaderForm content={content} open onOpenChange={vi.fn()} />
-    )
+    render(<CampusLeaderForm content={content} open onOpenChange={vi.fn()} />)
     const dialog = getDialog()
 
     await goToStep3(user, dialog)
@@ -279,9 +266,7 @@ describe("CampusLeaderForm", () => {
   it("omits Instagram from the payload when the skip checkbox is used", async () => {
     submitMock.mockResolvedValue({ status: "ok" })
     const user = userEvent.setup()
-    render(
-      <CampusLeaderForm content={content} open onOpenChange={vi.fn()} />
-    )
+    render(<CampusLeaderForm content={content} open onOpenChange={vi.fn()} />)
     const dialog = getDialog()
 
     await fillStep1(user, dialog, { skipInstagram: true })
@@ -294,8 +279,7 @@ describe("CampusLeaderForm", () => {
     )
 
     const payload = submitMock.mock.calls[0]?.[0]?.data as
-      | { instagram?: string }
-      | undefined
+      { instagram?: string } | undefined
     expect(payload?.instagram).toBeUndefined()
     expect(await within(dialog).findByText(content.success)).toBeTruthy()
   })

@@ -106,8 +106,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     select: (state) => {
       const match = state.matches.find(
         (entry) =>
-          typeof entry.context === "object" &&
-          "locale" in entry.context
+          typeof entry.context === "object" && "locale" in entry.context
       )
       const locale = match?.context.locale
       return locale === "es" || locale === "en" ? locale : "en"

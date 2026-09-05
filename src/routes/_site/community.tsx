@@ -57,7 +57,7 @@ function CommunityPage() {
     <div className="relative">
       <a
         href="#community-main"
-        className="bg-background text-foreground focus-visible:ring-ring sr-only rounded-sm px-3 py-2 text-sm font-medium focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2"
+        className="sr-only rounded-sm bg-background px-3 py-2 text-sm font-medium text-foreground focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2 focus-visible:ring-ring"
       >
         {microcopy.skipToContent}
       </a>
@@ -77,7 +77,7 @@ function CommunityPage() {
           <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
             {content.headline}
           </h1>
-          <p className="text-muted-foreground max-w-md text-base leading-relaxed md:text-lg">
+          <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
             {content.body}
           </p>
           <div className="flex flex-col gap-2 pt-1">
@@ -95,7 +95,7 @@ function CommunityPage() {
                 className="size-4 shrink-0 opacity-80"
               />
             </a>
-            <p className="text-muted-foreground text-xs tracking-wide">
+            <p className="text-xs tracking-wide text-muted-foreground">
               {content.joinPrompt} {content.joinHint}
             </p>
           </div>

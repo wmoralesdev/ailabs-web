@@ -206,10 +206,10 @@ function RedeemStatusHero({
           qrContent={content}
           footer={<RedeemFootNote text={content.poweredBy} />}
         >
-          <h1 className="font-display text-foreground text-3xl font-semibold tracking-tight md:text-4xl">
+          <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
             {title}
           </h1>
-          <p className="text-muted-foreground max-w-md text-base leading-relaxed md:text-lg">
+          <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
             {body}
           </p>
         </CampaignHero>
@@ -255,10 +255,10 @@ function ProductInfo({
       </h1>
 
       <div className="flex flex-col gap-2">
-        <p className="font-display text-foreground text-lg font-semibold tracking-tight md:text-xl">
+        <p className="font-display text-lg font-semibold tracking-tight text-foreground md:text-xl">
           {productCopy.title}
         </p>
-        <p className="text-muted-foreground max-w-md text-base leading-relaxed md:text-lg">
+        <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
           {productCopy.blurb}
         </p>
       </div>
@@ -282,14 +282,14 @@ function RedeemAccountChrome({
     <div className="flex flex-wrap items-center gap-3">
       <UserButton />
       {email ? (
-        <p className="text-muted-foreground min-w-0 flex-1 truncate text-sm">
+        <p className="min-w-0 flex-1 truncate text-sm text-muted-foreground">
           {content.signedInAs.replace("{email}", email)}
         </p>
       ) : null}
       <SignOutButton redirectUrl={returnUrl}>
         <button
           type="button"
-          className="text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 shrink-0 rounded-sm text-sm font-medium underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none"
+          className="shrink-0 rounded-sm text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
         >
           {content.signOutCta}
         </button>
@@ -310,14 +310,14 @@ function RedeemAction({
   })
 
   return (
-    <div className="border-border bg-card text-card-foreground flex w-full flex-col gap-5 rounded-3xl border p-5 sm:p-6">
+    <div className="flex w-full flex-col gap-5 rounded-3xl border border-border bg-card p-5 text-card-foreground sm:p-6">
       <Show when="signed-out">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
-            <h2 className="font-display text-foreground text-2xl font-semibold tracking-tight md:text-3xl">
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
               {content.signInCta}
             </h2>
-            <p className="text-muted-foreground text-sm leading-relaxed md:text-base">
+            <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
               {content.signInPrompt}
             </p>
           </div>
@@ -344,9 +344,9 @@ function RedeemAction({
 
 function RedeemFootNote({ text }: { text: string }) {
   return (
-    <div className="border-border flex items-center gap-2 border-t pt-6">
-      <span className="bg-purple size-1.5 rounded-full" aria-hidden />
-      <p className="text-muted-foreground text-xs font-medium tracking-wide">
+    <div className="flex items-center gap-2 border-t border-border pt-6">
+      <span className="size-1.5 rounded-full bg-purple" aria-hidden />
+      <p className="text-xs font-medium tracking-wide text-muted-foreground">
         {text}
       </p>
     </div>
@@ -432,7 +432,7 @@ function RedeemClaimPanel({
     return (
       <div className="flex flex-col gap-4">
         {result.alreadyRedeemed ? (
-          <p className="text-foreground text-sm">{content.alreadyRedeemed}</p>
+          <p className="text-sm text-foreground">{content.alreadyRedeemed}</p>
         ) : null}
         <CodesList codes={result.codes} content={content} />
       </div>
@@ -519,7 +519,7 @@ function CodesList({
 
   return (
     <div className="flex flex-col gap-3">
-      <h2 className="font-display text-foreground text-lg font-semibold tracking-tight">
+      <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
         {heading}
       </h2>
       <ul className="flex flex-col gap-2">
@@ -528,14 +528,14 @@ function CodesList({
             key={`${entry.pool}-${entry.code}`}
             className={cn(
               "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4",
-              "lg:bg-background/70 lg:border-border/60 lg:rounded-2xl lg:border lg:p-4"
+              "lg:rounded-2xl lg:border lg:border-border/60 lg:bg-background/70 lg:p-4"
             )}
           >
             <div className="flex min-w-0 flex-1 flex-col gap-1">
-              <span className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+              <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
                 {content.poolLabels[entry.pool]}
               </span>
-              <code className="text-foreground truncate font-mono text-sm">
+              <code className="truncate font-mono text-sm text-foreground">
                 {entry.code}
               </code>
             </div>
@@ -633,8 +633,8 @@ function CopyButton({
 function StatusInline({ title, body }: { title: string; body: string }) {
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-foreground font-medium">{title}</h2>
-      <p className="text-muted-foreground text-sm">{body}</p>
+      <h2 className="font-medium text-foreground">{title}</h2>
+      <p className="text-sm text-muted-foreground">{body}</p>
     </div>
   )
 }

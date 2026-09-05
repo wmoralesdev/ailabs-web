@@ -52,7 +52,7 @@ function CampusLeaderPage() {
     <div className="relative">
       <a
         href="#campus-leader-main"
-        className="bg-background text-foreground focus-visible:ring-ring sr-only rounded-sm px-3 py-2 text-sm font-medium focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2"
+        className="sr-only rounded-sm bg-background px-3 py-2 text-sm font-medium text-foreground focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2 focus-visible:ring-ring"
       >
         {microcopy.skipToContent}
       </a>
@@ -62,10 +62,10 @@ function CampusLeaderPage() {
           <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
             {content.headline}
           </h1>
-          <p className="text-muted-foreground max-w-md text-base leading-relaxed md:text-lg">
+          <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
             {content.body}
           </p>
-          <p className="text-muted-foreground font-mono text-xs font-semibold tracking-[0.14em] uppercase">
+          <p className="font-mono text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
             {content.cohortLabel} {content.cohortDisplay}
           </p>
           <CampusLeaderHeroAction
@@ -98,11 +98,11 @@ function CampusLeaderHeroAction({
 }) {
   if (!content.applicationsOpen) {
     return (
-      <div className="border-border bg-card text-card-foreground flex w-full max-w-md flex-col gap-2 rounded-3xl border p-5">
-        <p className="text-base font-medium leading-relaxed">
+      <div className="flex w-full max-w-md flex-col gap-2 rounded-3xl border border-border bg-card p-5 text-card-foreground">
+        <p className="text-base leading-relaxed font-medium">
           {content.closedTitle}
         </p>
-        <p className="text-muted-foreground text-sm leading-relaxed">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           {content.closedBody}
         </p>
       </div>
@@ -111,7 +111,7 @@ function CampusLeaderHeroAction({
 
   return (
     <div className="flex w-full flex-col gap-3 pt-1">
-      <p className="text-muted-foreground max-w-md text-sm leading-relaxed md:text-base">
+      <p className="max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
         {content.creditsNote}
       </p>
       <div className="flex flex-wrap items-center gap-3">
