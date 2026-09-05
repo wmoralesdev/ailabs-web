@@ -1,46 +1,27 @@
-import { useLayoutEffect, useRef, useState } from "react"
-import type { ReactNode } from "react"
+import { useEffect, useRef, useState } from "react"
+import type { CSSProperties, ReactNode } from "react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { PauseIcon, PlayIcon } from "@hugeicons/core-free-icons"
 
 import { MistralLogo } from "@/components/logos/mistral"
 import { NotionLogo } from "@/components/logos/notion"
-import { HomePaperArcs } from "@/components/home/home-paper-arcs"
-import {
-  homePaperBandClassName,
-  homeShellClassName,
-} from "@/components/home/home-styles"
-import { Eyebrow } from "@/components/ui/eyebrow"
+import { homeShellClassName } from "@/components/home/home-styles"
 import type { HomeTrustContent, TrustLogoId } from "@/content/types"
 import { cn } from "@/lib/utils"
 
-const logoClassName = "h-5 w-auto shrink-0"
-const iconLockupClassName = "h-5 w-auto shrink-0 text-on-dark"
+const PIXELS_PER_SECOND = 42
 
-const trustLogoListClassName =
-  "flex shrink-0 items-center gap-10 pr-10 md:gap-14 md:pr-14"
-
-/** Light-ink asset for the purple paper band. */
-function LightBrandLogo({
-  src,
-  className,
-}: {
-  src: string
-  className?: string
-}) {
-  return <img src={src} alt="" className={className} />
+function BrandAsset({ src, codex = false }: { src: string; codex?: boolean }) {
+  return (
+    <img
+      src={src}
+      alt=""
+      className={cn("home-trust-logo", codex && "home-trust-logo-codex")}
+      draggable={false}
+    />
+  )
 }
 
-/** White lockup SVG kept light on the violet band. */
-function MonoBrandLogo({
-  src,
-  className,
-}: {
-  src: string
-  className?: string
-}) {
-  return <img src={src} alt="" className={className} />
-}
-
-/** Fallback lockup when we only have an Elements isotype. */
 function IconWordLockup({
   name,
   children,
@@ -49,96 +30,68 @@ function IconWordLockup({
   children: ReactNode
 }) {
   return (
-    <span className="flex items-center gap-2">
+    <span className="home-trust-lockup">
       {children}
-      <span className="text-on-dark text-[15px] font-medium tracking-tight">
-        {name}
-      </span>
+      <span>{name}</span>
     </span>
   )
 }
 
 function TrustLogoMark({ id, name }: { id: TrustLogoId; name: string }) {
   switch (id) {
-    case "cursor":
-      return (
-        <LightBrandLogo
-          src="/brand/cursor-light.svg"
-          className={logoClassName}
-        />
-      )
+    case "spacexai":
+      return <BrandAsset src="/brand/spacexai-light.svg" />
     case "codex":
-      // Codex artwork sits shorter in its viewBox than the other lockups.
-      return (
-        <MonoBrandLogo src="/brand/codex.svg" className="h-7 w-auto shrink-0" />
-      )
+      return <BrandAsset src="/brand/codex.svg" codex />
     case "openai":
-      return <MonoBrandLogo src="/brand/openai.svg" className={logoClassName} />
+      return <BrandAsset src="/brand/openai.svg" />
     case "claude":
-      return (
-        <LightBrandLogo
-          src="/brand/claude-light.svg"
-          className={logoClassName}
-        />
-      )
+      return <BrandAsset src="/brand/claude-light.svg" />
     case "mistral":
       return (
         <IconWordLockup name={name}>
-          <MistralLogo className={iconLockupClassName} />
+          <MistralLogo className="size-6 shrink-0" />
         </IconWordLockup>
       )
     case "elevenlabs":
-      return (
-        <MonoBrandLogo src="/brand/elevenlabs.svg" className={logoClassName} />
-      )
+      return <BrandAsset src="/brand/elevenlabs.svg" />
     case "notion":
       return (
         <IconWordLockup name={name}>
-          <NotionLogo className={iconLockupClassName} />
+          <NotionLogo className="size-6 shrink-0" />
         </IconWordLockup>
       )
     default: {
-      const _exhaustive: never = id
-      return _exhaustive
+      const exhaustive: never = id
+      return exhaustive
     }
   }
 }
 
 function TrustLogoList({
   logos,
-  keyPrefix,
-  ariaHidden = false,
-  wrap = false,
-  repeat = 1,
+  decorative = false,
+  className,
+  listRef,
+  tabIndex,
 }: {
   logos: HomeTrustContent["logos"]
-  keyPrefix: string
-  ariaHidden?: boolean
-  wrap?: boolean
-  repeat?: number
+  decorative?: boolean
+  className?: string
+  listRef?: React.Ref<HTMLUListElement>
+  tabIndex?: number
 }) {
-  const items = Array.from({ length: repeat }, (_, setIndex) =>
-    logos.map((logo) => ({
-      logo,
-      key: `${keyPrefix}-${setIndex}-${logo.id}`,
-    }))
-  ).flat()
-
   return (
     <ul
-      className={cn(
-        trustLogoListClassName,
-        wrap && "flex-wrap justify-center pr-0 md:pr-0"
-      )}
-      aria-hidden={ariaHidden || undefined}
+      ref={listRef}
+      className={cn("home-trust-logo-list", className)}
+      aria-hidden={decorative || undefined}
+      tabIndex={tabIndex}
     >
-      {items.map(({ logo, key }) => (
-        <li
-          key={key}
-          className="flex items-center opacity-70 transition-opacity motion-safe:hover:opacity-100"
-        >
-          {!ariaHidden ? <span className="sr-only">{logo.name}</span> : null}
-          <span aria-hidden="true" className="flex items-center">
+      {logos.map((logo) => (
+        <li key={logo.id} className="home-trust-logo-slot">
+          {!decorative && <span className="sr-only">{logo.name}</span>}
+          <span aria-hidden="true">
             <TrustLogoMark id={logo.id} name={logo.name} />
           </span>
         </li>
@@ -147,78 +100,128 @@ function TrustLogoList({
   )
 }
 
-type HomeTrustProps = {
-  trust: HomeTrustContent
-}
+type HomeTrustProps = { trust: HomeTrustContent }
 
 function HomeTrust({ trust }: HomeTrustProps) {
   const marqueeRef = useRef<HTMLDivElement>(null)
   const measureRef = useRef<HTMLUListElement>(null)
-  const [setsPerHalf, setSetsPerHalf] = useState(1)
+  const [layout, setLayout] = useState({ sets: 1, duration: 0 })
+  const [motionAllowed, setMotionAllowed] = useState(false)
+  const [environmentPaused, setEnvironmentPaused] = useState(true)
+  const [userPaused, setUserPaused] = useState(false)
+  const ready = motionAllowed && layout.duration > 0
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const marquee = marqueeRef.current
     const measure = measureRef.current
-    if (!marquee || !measure) return
+    if (!marquee || !measure || typeof window.matchMedia !== "function") return
 
-    const update = () => {
-      const setWidth = measure.offsetWidth
-      const containerWidth = marquee.clientWidth
-      if (setWidth <= 0 || containerWidth <= 0) return
-      // Each animated half must be at least as wide as the viewport strip.
-      setSetsPerHalf(Math.max(1, Math.ceil(containerWidth / setWidth)))
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
+    let inViewport = typeof IntersectionObserver !== "function"
+    const syncPlayback = () => {
+      setMotionAllowed(!media.matches)
+      setEnvironmentPaused(!inViewport || document.visibilityState === "hidden")
+    }
+    const measureLayout = () => {
+      const width = measure.getBoundingClientRect().width
+      const viewport = marquee.clientWidth
+      if (width <= 0 || viewport <= 0) return
+      const sets = Math.max(1, Math.ceil(viewport / width))
+      const duration = (width * sets) / PIXELS_PER_SECOND
+      setLayout((previous) =>
+        previous.sets === sets && previous.duration === duration
+          ? previous
+          : { sets, duration }
+      )
     }
 
-    update()
-    const ro = new ResizeObserver(update)
-    ro.observe(marquee)
-    ro.observe(measure)
-    return () => ro.disconnect()
+    measureLayout()
+    syncPlayback()
+    const resizeObserver =
+      typeof ResizeObserver === "function"
+        ? new ResizeObserver(measureLayout)
+        : null
+    resizeObserver?.observe(marquee)
+    resizeObserver?.observe(measure)
+    const viewportObserver =
+      typeof IntersectionObserver === "function"
+        ? new IntersectionObserver((entries) => {
+            inViewport = entries.some((entry) => entry.isIntersecting)
+            syncPlayback()
+          })
+        : null
+    viewportObserver?.observe(marquee)
+    window.addEventListener("resize", measureLayout)
+    document.addEventListener("visibilitychange", syncPlayback)
+    media.addEventListener("change", syncPlayback)
+
+    return () => {
+      resizeObserver?.disconnect()
+      viewportObserver?.disconnect()
+      window.removeEventListener("resize", measureLayout)
+      document.removeEventListener("visibilitychange", syncPlayback)
+      media.removeEventListener("change", syncPlayback)
+    }
   }, [trust.logos])
 
   return (
     <section
       id="trust"
       aria-label={trust.label}
-      className={cn(homePaperBandClassName, "py-8 md:py-10")}
+      className="home-trust py-6 md:py-7"
+      data-ready={ready || undefined}
+      data-paused={userPaused || environmentPaused || undefined}
     >
-      <HomePaperArcs />
-      <div
-        className={cn(
-          homeShellClassName,
-          "relative z-[1] flex flex-col gap-5"
-        )}
-      >
-        <Eyebrow tone="onDark">{trust.label}</Eyebrow>
-        <div ref={marqueeRef} className="home-trust-marquee">
-          <ul
-            ref={measureRef}
-            className={cn(trustLogoListClassName, "home-trust-marquee-measure")}
-            aria-hidden="true"
+      <div className={homeShellClassName}>
+        <div className="flex min-h-11 items-center justify-between gap-4">
+          <p className="max-w-prose text-sm font-medium text-on-dark/85">
+            {trust.label}
+          </p>
+          <button
+            type="button"
+            className="home-trust-control"
+            hidden={!ready}
+            onClick={() => setUserPaused((paused) => !paused)}
+            aria-label={userPaused ? trust.resume : trust.pause}
+            title={userPaused ? trust.resume : trust.pause}
           >
-            {trust.logos.map((logo) => (
-              <li key={`measure-${logo.id}`} className="flex items-center">
-                <span className="flex items-center">
-                  <TrustLogoMark id={logo.id} name={logo.name} />
-                </span>
-              </li>
+            <HugeiconsIcon
+              icon={userPaused ? PlayIcon : PauseIcon}
+              className="size-4"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+        <div ref={marqueeRef} className="home-trust-marquee">
+          <TrustLogoList
+            logos={trust.logos}
+            decorative
+            listRef={measureRef}
+            className="home-trust-marquee-measure"
+          />
+          <TrustLogoList
+            logos={trust.logos}
+            className="home-trust-marquee-static"
+            tabIndex={ready ? -1 : 0}
+          />
+          <div
+            className="home-trust-marquee-track"
+            aria-hidden="true"
+            style={
+              { "--trust-duration": `${layout.duration}s` } as CSSProperties
+            }
+          >
+            {["first", "duplicate"].map((half) => (
+              <div key={half} className="home-trust-marquee-half">
+                {Array.from({ length: layout.sets }, (_, index) => (
+                  <TrustLogoList
+                    key={`${half}-${index}`}
+                    logos={trust.logos}
+                    decorative
+                  />
+                ))}
+              </div>
             ))}
-          </ul>
-          <div className="home-trust-marquee-track">
-            <TrustLogoList
-              logos={trust.logos}
-              keyPrefix="a"
-              repeat={setsPerHalf}
-            />
-            <TrustLogoList
-              logos={trust.logos}
-              keyPrefix="b"
-              ariaHidden
-              repeat={setsPerHalf}
-            />
-          </div>
-          <div className="home-trust-marquee-static">
-            <TrustLogoList logos={trust.logos} keyPrefix="static" wrap />
           </div>
         </div>
       </div>
@@ -227,3 +230,4 @@ function HomeTrust({ trust }: HomeTrustProps) {
 }
 
 export { HomeTrust }
+export type { HomeTrustProps }

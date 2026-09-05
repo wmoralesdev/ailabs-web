@@ -1,18 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router"
 
-import { HomeAbout } from "@/components/home/home-about"
-import { HomeAperture } from "@/components/home/home-aperture"
 import { HomeContact } from "@/components/home/home-contact"
 import { HomeHero } from "@/components/home/home-hero"
-import { HomePillar } from "@/components/home/home-pillar"
-import { HomeReveal } from "@/components/home/home-reveal"
+import { HomeMethod } from "@/components/home/home-method"
+import { HomeServices } from "@/components/home/home-services"
 import { HomeTrust } from "@/components/home/home-trust"
 import { buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
 
 export const Route = createFileRoute("/_site/")({
   loader: ({ context }) => context,
   head: ({ loaderData }) => {
-    if (!loaderData) return {}
+    if (!loaderData) {
+      return {}
+    }
     const { locale, content } = loaderData
     const { meta, home } = content
     const page = buildPageMeta({
@@ -29,18 +29,18 @@ export const Route = createFileRoute("/_site/")({
           locale,
           title: meta.title,
           description: meta.description,
-          pillars: [
+          services: [
             {
-              name: home.academy.title,
-              description: home.academy.lead,
+              name: home.services.title,
+              description: home.services.body,
             },
             {
-              name: home.agentic.title,
-              description: home.agentic.lead,
+              name: home.services.items[0].title,
+              description: home.services.items[0].body,
             },
             {
-              name: home.aperture.title,
-              description: home.aperture.lead,
+              name: home.services.items[1].title,
+              description: home.services.items[1].body,
             },
           ],
         }),
@@ -56,37 +56,11 @@ function HomePage() {
 
   return (
     <div>
-      <HomeHero locale={locale} content={content} />
-      <div className="flex flex-col">
-        <HomeTrust trust={home.trust} />
-        <HomeReveal>
-          <HomeAbout about={home.about} />
-        </HomeReveal>
-        <HomeReveal>
-          <HomePillar
-            locale={locale}
-            pillar={home.academy}
-            mediaSide="right"
-            band="purple"
-            intervalMs={5200}
-          />
-        </HomeReveal>
-        <HomeReveal>
-          <HomePillar
-            locale={locale}
-            pillar={home.agentic}
-            mediaSide="left"
-            band="paper"
-            intervalMs={5800}
-          />
-        </HomeReveal>
-        <HomeReveal>
-          <HomeAperture locale={locale} aperture={home.aperture} />
-        </HomeReveal>
-        <HomeReveal>
-          <HomeContact contact={home.contact} />
-        </HomeReveal>
-      </div>
+      <HomeHero locale={locale} content={content} desktopSpiralOnly />
+      <HomeTrust trust={home.trust} />
+      <HomeServices services={home.services} locale={locale} />
+      <HomeMethod method={home.method} locale={locale} />
+      <HomeContact contact={home.contact} />
     </div>
   )
 }

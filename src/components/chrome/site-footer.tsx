@@ -12,6 +12,7 @@ import type { FooterContent, FooterSocial, Locale, NavItem } from "@/content"
 
 import { formatCopyright } from "@/content"
 import { SiteLogo } from "@/components/chrome/site-logo"
+import { useContact } from "@/components/contact/contact-provider"
 import {
   hashFromHref,
   isHashHref,
@@ -29,6 +30,18 @@ const footerLinkClassName =
   "inline-flex min-h-11 items-center rounded-sm text-sm text-on-dark/65 underline-offset-4 transition-colors hover:text-on-dark hover:underline focus-visible:ring-2 focus-visible:ring-on-dark/40 focus-visible:outline-none"
 
 function FooterLink({ link }: { link: NavItem; locale: Locale }) {
+  const { openContact } = useContact()
+  if (link.href === "#contact") {
+    return (
+      <button
+        type="button"
+        className={footerLinkClassName}
+        onClick={() => openContact(link.contactInterest)}
+      >
+        {link.label}
+      </button>
+    )
+  }
   if (link.href.startsWith("http")) {
     return (
       <a
@@ -101,15 +114,15 @@ function SiteFooter({ locale, footer }: SiteFooterProps) {
   const columns = footer.columns.filter((column) => column.links.length > 0)
 
   return (
-    <footer className="bg-graphite text-on-dark relative overflow-hidden">
+    <footer className="relative overflow-hidden bg-graphite text-on-dark">
       <p
         aria-hidden="true"
-        className="font-display pointer-events-none absolute inset-x-0 bottom-6 select-none text-center text-[clamp(4.5rem,18vw,12rem)] leading-none font-semibold tracking-tight text-on-dark/[0.035] lowercase sm:bottom-8"
+        className="pointer-events-none absolute inset-x-0 bottom-6 text-center font-display text-[clamp(4.5rem,18vw,12rem)] leading-none font-semibold tracking-tight text-on-dark/[0.035] lowercase select-none sm:bottom-8"
       >
         {FOOTER_WATERMARK}
       </p>
 
-      <div className="page-gutter max-w-content section-y relative mx-auto pb-16 sm:pb-20">
+      <div className="page-gutter section-y relative mx-auto max-w-content pb-16 sm:pb-20">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col items-start gap-6 text-left lg:col-span-5">
             <SiteLogo variant="lockup" onDark className="self-start" />
@@ -127,9 +140,13 @@ function SiteFooter({ locale, footer }: SiteFooterProps) {
             ) : null}
           </div>
 
-          <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:col-span-7">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-4">
             {columns.map((column) => (
-              <div key={column.title}>
+              <div
+                key={column.title}
+                id={"id" in column ? column.id : undefined}
+                className="scroll-mt-[calc(var(--site-header-offset)+2rem)]"
+              >
                 <h2 className="text-sm font-semibold text-on-dark">
                   {column.title}
                 </h2>

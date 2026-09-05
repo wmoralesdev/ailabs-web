@@ -1,10 +1,12 @@
+import { Fragment, useRef, useSyncExternalStore } from "react"
 import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
 import { TextSpiral } from "@/components/lab/text-spiral"
 import { SiteLogo } from "@/components/chrome/site-logo"
-import { buttonVariants } from "@/components/ui/button"
+import { useContact } from "@/components/contact/contact-provider"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   homeDisplayClassName,
   homePillClassName,
@@ -12,35 +14,38 @@ import {
 import { Eyebrow } from "@/components/ui/eyebrow"
 import type { HomeHeroContent, Locale, SiteContent } from "@/content"
 import { cn } from "@/lib/utils"
+import { useHomeEntrance } from "@/lib/home-motion"
 
 type HomeHeroProps = {
   locale: Locale
   content: SiteContent
   /**
-   * When true (home), hash CTAs stay on-page (`#contact`).
-   * When false (lab preview), hashes resolve to `/#…`.
+   * When true (home), the secondary hash CTA stays on-page.
+   * When false (lab preview), it resolves to `/#…`.
+   * The primary CTA opens the shared contact dialog in either route.
    */
   samePageCtas?: boolean
+  /** The home uses a compact, typographic hero below the desktop breakpoint. */
+  desktopSpiralOnly?: boolean
 }
 
-function collectSpiralWords(content: SiteContent): string[] {
-  const pillars = content.chrome.nav.pillars.map((pillar) => pillar.label)
-  const voices = content.home.aperture.voices.map((voice) => voice.quote)
-  const communityBits = [
-    content.community.label,
-    content.community.headline,
-    content.home.aperture.stat.label,
-    content.home.aperture.eyebrow,
-  ]
+const DESKTOP_QUERY = "(min-width: 1024px)"
 
-  return [...pillars, ...voices, ...communityBits]
+function subscribeToDesktop(onChange: () => void) {
+  const media = window.matchMedia(DESKTOP_QUERY)
+  media.addEventListener("change", onChange)
+  return () => media.removeEventListener("change", onChange)
 }
 
-function resolveCtaHref(
-  _locale: Locale,
-  href: string,
-  samePageCtas: boolean
-): string {
+function isDesktop() {
+  return window.matchMedia(DESKTOP_QUERY).matches
+}
+
+function serverDesktopSnapshot() {
+  return false
+}
+
+function resolveCtaHref(href: string, samePageCtas: boolean): string {
   if (href.startsWith("#")) {
     return samePageCtas ? href : `/${href}`
   }
@@ -50,77 +55,156 @@ function resolveCtaHref(
   return href
 }
 
-function HomeHero({ locale, content, samePageCtas = true }: HomeHeroProps) {
+function HomeHero({
+  locale,
+  content,
+  samePageCtas = true,
+  desktopSpiralOnly = false,
+}: HomeHeroProps) {
   const hero = content.home.hero
-  const words = collectSpiralWords(content)
+  const root = useRef<HTMLElement>(null)
+  const desktop = useSyncExternalStore(
+    subscribeToDesktop,
+    isDesktop,
+    serverDesktopSnapshot
+  )
+  useHomeEntrance(root, "hero", locale)
 
   return (
-    <section className="bg-background text-foreground grid min-h-dvh grid-cols-1 lg:h-dvh lg:grid-cols-2 lg:overflow-hidden">
-      <HomeHeroCopy locale={locale} hero={hero} samePageCtas={samePageCtas} />
-      <div className="bg-surface-ink relative min-h-[50vh] w-full lg:min-h-0">
-        <TextSpiral words={words} className="absolute inset-0 h-full w-full" />
+    <section
+      ref={root}
+      className={cn(
+        "grid min-h-dvh grid-cols-1 bg-background text-foreground lg:grid-cols-2",
+        desktopSpiralOnly && "min-h-0 lg:min-h-dvh"
+      )}
+    >
+      <HomeHeroCopy
+        hero={hero}
+        samePageCtas={samePageCtas}
+        compactMobile={desktopSpiralOnly}
+      />
+      <div
+        data-home-spiral
+        className={cn(
+          "relative min-h-[50vh] w-full bg-surface-ink lg:min-h-0",
+          desktopSpiralOnly && "hidden lg:block"
+        )}
+      >
+        {(!desktopSpiralOnly || desktop) && (
+          <TextSpiral
+            words={hero.spiralWords}
+            interactionLabel={content.microcopy.textSpiralAction}
+            className="absolute inset-0 h-full w-full"
+          />
+        )}
       </div>
     </section>
   )
 }
 
 function HomeHeroCopy({
-  locale,
   hero,
   samePageCtas,
+  compactMobile,
 }: {
-  locale: Locale
   hero: HomeHeroContent
   samePageCtas: boolean
+  compactMobile: boolean
 }) {
+  const { openContact } = useContact()
+
   return (
-    <div className="border-border bg-background flex min-h-0 w-full flex-col justify-between gap-10 border-b px-6 pt-[calc(var(--site-header-offset)+0.5rem)] pb-8 sm:px-10 sm:pb-10 lg:border-r lg:border-b-0 lg:px-12 lg:pb-12 xl:px-16">
+    <div
+      className={cn(
+        "flex w-full min-w-0 flex-col gap-12 border-b border-border bg-background px-6 pt-[calc(var(--site-header-offset)+0.5rem)] pb-10 sm:px-10 sm:pb-12 lg:border-r lg:border-b-0 lg:px-12 xl:px-16",
+        compactMobile && "max-lg:gap-10 max-lg:pb-12"
+      )}
+    >
       <div>
         <Link
           to="/"
           aria-label="Ai Labs"
-          className="focus-visible:ring-ring/50 inline-flex rounded-sm focus-visible:ring-2 focus-visible:outline-none"
+          className="inline-flex rounded-sm focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
         >
           <SiteLogo variant="lockup" />
         </Link>
       </div>
 
-      <div className="flex max-w-xl flex-col gap-5">
-        <Eyebrow>{hero.label}</Eyebrow>
-        <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
-          {hero.headline}
-        </h1>
-        <p className="text-muted-foreground max-w-md text-base leading-relaxed md:text-lg">
-          {hero.body}
-        </p>
-        <div className="flex flex-wrap items-center gap-3 pt-1">
-          <a
-            href={resolveCtaHref(locale, hero.primaryCta.href, samePageCtas)}
-            className={cn(homePillClassName, "w-fit")}
-          >
-            {hero.primaryCta.label}
-            <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-          </a>
-          <a
-            href={resolveCtaHref(locale, hero.secondaryCta.href, samePageCtas)}
+      <div
+        className={cn(
+          "flex flex-1 flex-col justify-center py-4 lg:py-12",
+          compactMobile && "max-lg:py-0"
+        )}
+      >
+        <div
+          className={cn(
+            "flex max-w-xl flex-col gap-5",
+            compactMobile && "max-lg:max-w-2xl"
+          )}
+        >
+          <div data-home-entrance>
+            <Eyebrow>{hero.label}</Eyebrow>
+          </div>
+          <h1
+            data-home-entrance
             className={cn(
-              buttonVariants({ variant: "outline", size: "xl" }),
-              "rounded-full px-5"
+              homeDisplayClassName,
+              "text-4xl leading-[1.05] normal-case sm:text-5xl md:text-5xl xl:text-6xl",
+              compactMobile &&
+                "max-lg:text-[clamp(2.125rem,9.5vw,3rem)] max-lg:leading-[1.08] max-lg:text-balance"
             )}
           >
-            {hero.secondaryCta.label}
-          </a>
+            {hero.headline.split(" ").map((word, index) => (
+              <Fragment key={`${index}-${word}`}>
+                {index > 0 ? " " : null}
+                <span data-home-word className="inline-block">
+                  {word}
+                </span>
+              </Fragment>
+            ))}
+          </h1>
+          <p
+            data-home-entrance
+            className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg"
+          >
+            {hero.body}
+          </p>
+          <div
+            data-home-entrance
+            className="flex flex-wrap items-center gap-3 pt-1"
+          >
+            <Button
+              type="button"
+              onClick={() => openContact("discovery")}
+              className={cn(
+                homePillClassName,
+                "h-auto min-h-12 w-fit text-left whitespace-normal"
+              )}
+            >
+              {hero.primaryCta.label}
+              <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+            </Button>
+            <a
+              href={resolveCtaHref(hero.secondaryCta.href, samePageCtas)}
+              className={cn(
+                buttonVariants({ variant: "outline", size: "xl" }),
+                "h-auto min-h-12 rounded-full px-5 whitespace-normal",
+                compactMobile &&
+                  "home-action max-lg:gap-2 max-lg:rounded-sm max-lg:border-transparent max-lg:bg-transparent max-lg:px-0 max-lg:text-foreground max-lg:underline-offset-4 max-lg:hover:bg-transparent max-lg:hover:text-purple max-lg:hover:underline dark:max-lg:bg-transparent"
+              )}
+            >
+              {hero.secondaryCta.label}
+              {compactMobile && (
+                <HugeiconsIcon
+                  icon={ArrowRight01Icon}
+                  strokeWidth={2}
+                  className="lg:hidden"
+                />
+              )}
+            </a>
+          </div>
         </div>
       </div>
-
-      <dl className="text-muted-foreground grid grid-cols-3 gap-4 border-t border-border pt-6 font-mono text-[0.65rem] tracking-wider uppercase sm:text-xs">
-        {hero.slides.map((slide) => (
-          <div key={slide.label} className="flex flex-col gap-1">
-            <dt className="text-foreground font-semibold">{slide.value}</dt>
-            <dd>{slide.label}</dd>
-          </div>
-        ))}
-      </dl>
     </div>
   )
 }

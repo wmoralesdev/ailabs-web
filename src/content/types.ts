@@ -12,20 +12,16 @@ export type PageMeta = {
 export type NavItem = {
   label: string
   href: string
+  contactInterest?: ContactInterestId
 }
 
 export type NavContent = {
-  /** Label for the home route link shown on non-home pages. */
-  home: NavItem
-  pillars: ReadonlyArray<{
-    id: PillarId
+  services: NavItem
+  community: {
     label: string
-    href: string
-  }>
-  community: NavItem
-  campusLeader: NavItem
+    items: ReadonlyArray<NavItem>
+  }
   contact: NavItem
-  cta: NavItem
 }
 
 export type CampaignQrCopy = {
@@ -35,6 +31,7 @@ export type CampaignQrCopy = {
 }
 
 export type FooterColumn = {
+  id?: string
   title: string
   links: ReadonlyArray<NavItem>
 }
@@ -57,11 +54,13 @@ export type ChromeContent = {
 }
 
 export type MicrocopyContent = {
+  primaryNavigation: string
   loading: string
   notFoundTitle: string
   notFoundBody: string
   notFoundCtaHome: string
   languageSwitch: string
+  textSpiralAction: string
   skipToContent: string
   menuOpen: string
   menuClose: string
@@ -280,6 +279,8 @@ export type HomeHeroContent = {
   body: string
   primaryCta: NavItem
   secondaryCta: NavItem
+  /** Dedicated source for the canvas text spiral. */
+  spiralWords: ReadonlyArray<string>
   proof: HomeStat
   slides: ReadonlyArray<HomeStat>
   mediaSrcs: ReadonlyArray<string>
@@ -348,8 +349,7 @@ export type HomeAgenticPillarContent = HomePillarShared & {
 
 /** A standalone pillar section (Academy, Agentic). */
 export type HomePillarContent =
-  | HomeAcademyPillarContent
-  | HomeAgenticPillarContent
+  HomeAcademyPillarContent | HomeAgenticPillarContent
 
 export type HomePartnerVoice = {
   quote: string
@@ -379,7 +379,7 @@ export type HomeApertureEvent = {
   }
 }
 
-/** Aperture section: the funnel/community pillar (absorbs former Partner + Trust). */
+/** Aperture section: community, partnerships, events, and evidence. */
 export type HomeApertureContent = {
   id: "aperture"
   index: string
@@ -389,7 +389,7 @@ export type HomeApertureContent = {
   stat: HomeStat
   quote: string
   attribution: string
-  /** First voice carries the section's pull quote; the rest feed the hero spiral. */
+  /** First voice carries the section's pull quote; the rest are testimonials. */
   voices: readonly [HomePartnerVoice, ...ReadonlyArray<HomePartnerVoice>]
   eventsLabel: string
   /** Column label above the upcoming event cards. */
@@ -403,7 +403,7 @@ export type HomeApertureContent = {
   events: ReadonlyArray<HomeApertureEvent>
   /** Builder-facing CTA into the community route. */
   cta: NavItem
-  /** Partner-facing CTA into the contact form's partner interest. */
+  /** Partner-facing CTA into the contact form's partnership interest. */
   partnerCta: NavItem
 }
 
@@ -440,9 +440,33 @@ export type HomeContactContent = {
   invalid: string
 }
 
-/** Tech partner logos shown in the home trust strip. */
+export type HomeServiceItem = {
+  id: "academy" | "agentic"
+  brand: string
+  title: string
+  body: string
+  points: ReadonlyArray<string>
+  cta: string
+  interest: ContactInterestId
+}
+
+export type HomeServicesContent = {
+  label: string
+  title: string
+  body: string
+  items: readonly [HomeServiceItem, HomeServiceItem]
+}
+
+export type HomeMethodContent = {
+  label: string
+  title: string
+  body: string
+  steps: ReadonlyArray<HomeAboutBridgeItem>
+}
+
+/** Technology logos shown in the home trust strip. */
 export type TrustLogoId =
-  | "cursor"
+  | "spacexai"
   | "codex"
   | "openai"
   | "claude"
@@ -457,11 +481,15 @@ export type HomeTrustLogo = {
 
 export type HomeTrustContent = {
   label: string
+  pause: string
+  resume: string
   logos: ReadonlyArray<HomeTrustLogo>
 }
 
 export type HomeContent = {
   hero: HomeHeroContent
+  services: HomeServicesContent
+  method: HomeMethodContent
   trust: HomeTrustContent
   about: HomeAboutContent
   academy: HomeAcademyPillarContent

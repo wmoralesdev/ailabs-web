@@ -101,6 +101,10 @@
     --dur-fast: 160ms;
     --dur-base: 240ms;
     --dur-enter: 600ms;
+    --motion-menu-enter: 200ms;
+    --motion-menu-exit: 150ms;
+    --motion-dialog-enter: 250ms;
+    --motion-dialog-exit: 180ms;
 
     /* shadcn semantic map → brand */
     --background: var(--brand-white);
@@ -434,26 +438,60 @@
     }
 }
 
+/* A measured, constant-speed ambassador strip. Static content is the default. */
 @keyframes home-trust-marquee {
-    from {
-        transform: translateX(0);
-    }
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
 
-    to {
-        transform: translateX(-50%);
-    }
+.home-trust {
+    color: var(--on-dark);
+    background: color-mix(in srgb, var(--brand-purple) 28%, var(--brand-graphite));
 }
 
 .home-trust-marquee {
     position: relative;
+    min-height: 4.5rem;
     overflow: hidden;
-    mask-image: linear-gradient(
-        to right,
-        transparent,
-        #000 8%,
-        #000 92%,
-        transparent
-    );
+}
+
+.home-trust-logo-list {
+    display: flex;
+    width: max-content;
+    flex-shrink: 0;
+    align-items: center;
+    gap: clamp(2rem, 3vw, 3rem);
+    padding-right: clamp(2rem, 3vw, 3rem);
+}
+
+.home-trust-logo-slot {
+    display: flex;
+    width: 8.5rem;
+    height: 4.5rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-trust-logo {
+    display: block;
+    width: auto;
+    max-width: 8.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+}
+
+.home-trust-logo-codex {
+    height: 2rem;
+}
+
+.home-trust-lockup {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
 }
 
 .home-trust-marquee-measure {
@@ -464,21 +502,154 @@
 
 .home-trust-marquee-track {
     display: none;
+    width: max-content;
+    animation-play-state: paused;
+}
+
+.home-trust-marquee-half {
+    display: flex;
+    flex-shrink: 0;
 }
 
 .home-trust-marquee-static {
-    display: block;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--on-dark) 35%, transparent) transparent;
+}
+
+.home-trust-marquee-static:focus-visible {
+    outline: 2px solid var(--on-dark);
+    outline-offset: -2px;
+}
+
+.home-trust-control {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid color-mix(in srgb, var(--on-dark) 35%, transparent);
+    border-radius: 50%;
+    color: var(--on-dark);
+    background: transparent;
+    transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.home-trust-control[hidden] { display: none; }
+
+.home-trust-control:focus-visible {
+    outline: 2px solid var(--on-dark);
+    outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .home-trust-control:hover {
+        background: color-mix(in srgb, var(--on-dark) 12%, transparent);
+    }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .home-trust-marquee-track {
-        display: flex;
-        width: max-content;
-        animation: home-trust-marquee 40s linear infinite;
+    .home-trust[data-ready] .home-trust-marquee {
+        mask-image: linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
     }
 
-    .home-trust-marquee-static {
-        display: none;
+    .home-trust[data-ready] .home-trust-marquee-track {
+        display: flex;
+        animation: home-trust-marquee var(--trust-duration) linear infinite;
+        will-change: transform;
+    }
+
+    .home-trust[data-ready][data-paused] .home-trust-marquee-track {
+        animation-play-state: paused;
+        will-change: auto;
+    }
+
+    .home-trust[data-ready] .home-trust-marquee-static {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+}
+
+/* Interruptible surface motion. Base UI owns focus, presence and placement. */
+.site-community-menu,
+.contact-dialog,
+.contact-overlay {
+    animation: none;
+    opacity: 1;
+    transition-property: opacity, scale;
+    transition-timing-function: var(--ease-out);
+}
+
+.site-community-menu {
+    scale: 1;
+    transform-origin: var(--transform-origin);
+    transition-duration: var(--motion-menu-enter);
+}
+
+.site-community-menu[data-starting-style],
+.site-community-menu[data-ending-style] {
+    opacity: 0;
+    scale: 0.97;
+}
+
+.site-community-menu[data-ending-style] {
+    transition-duration: var(--motion-menu-exit);
+}
+
+.contact-dialog {
+    scale: 1;
+    transform-origin: center;
+    transition-duration: var(--motion-dialog-enter);
+}
+
+.contact-overlay {
+    transition-duration: var(--motion-dialog-enter);
+}
+
+.contact-dialog[data-starting-style],
+.contact-dialog[data-ending-style] {
+    opacity: 0;
+    scale: 0.98;
+}
+
+.contact-overlay[data-starting-style],
+.contact-overlay[data-ending-style] {
+    opacity: 0;
+}
+
+.contact-dialog[data-ending-style],
+.contact-overlay[data-ending-style] {
+    transition-duration: var(--motion-dialog-exit);
+}
+
+.home-action > svg {
+    transition: transform var(--dur-fast) var(--ease-out);
+}
+
+[data-home-visual] [data-visual-node] > svg {
+    transition: transform var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .home-action:hover > svg {
+        transform: translateX(4px);
+    }
+
+    #services article:hover [data-visual-node]:last-child > svg {
+        transform: translateY(-4px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-community-menu,
+    .contact-dialog {
+        scale: 1 !important;
     }
 }
 

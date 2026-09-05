@@ -6,7 +6,7 @@ export const SITE_NAME = "Ai Labs"
 export const OG_IMAGE_PATH = "/og-image.png"
 export const OG_IMAGE_URL = `${SITE_URL}${OG_IMAGE_PATH}`
 export const OG_IMAGE_ALT =
-  "Ai Labs: Adapt, develop, and learn with AI. Based in El Salvador."
+  "Ai Labs: AI consulting, business automation and practical education."
 
 const OG_LOCALE: Record<Locale, string> = {
   en: "en_US",
@@ -117,7 +117,7 @@ export function buildPageMeta({
   }
 }
 
-type JsonLdPillar = {
+type JsonLdService = {
   name: string
   description: string
 }
@@ -126,7 +126,7 @@ export function buildHomeJsonLd(input: {
   locale: Locale
   title: string
   description: string
-  pillars: ReadonlyArray<JsonLdPillar>
+  services: readonly [JsonLdService, JsonLdService, JsonLdService]
 }): HeadScript {
   const url = absoluteUrl()
   const graph = [
@@ -179,14 +179,14 @@ export function buildHomeJsonLd(input: {
     {
       "@type": "OfferCatalog",
       "@id": `${SITE_URL}/#offer-catalog`,
-      name: "Ai Labs pillars",
-      itemListElement: input.pillars.map((pillar, index) => ({
+      name: "Ai Labs services",
+      itemListElement: input.services.map((service, index) => ({
         "@type": "Offer",
         position: index + 1,
         itemOffered: {
           "@type": "Service",
-          name: pillar.name,
-          description: pillar.description,
+          name: service.name,
+          description: service.description,
           provider: { "@id": `${SITE_URL}/#organization` },
           areaServed: {
             "@type": "Country",

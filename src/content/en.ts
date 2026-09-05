@@ -4,26 +4,37 @@ import type { SiteContent } from "./types"
 export const en: SiteContent = {
   locale: "en",
   meta: {
-    title: "Ai Labs: Adapt, develop, and learn with AI",
+    title: "Ai Labs | AI consulting, automation and practical education",
     description:
-      "Ai Labs helps companies put AI to work through training, software, and community. Based in El Salvador.",
+      "AI consulting, business automation and practical education for teams and professionals. Based in El Salvador.",
   },
   chrome: {
     nav: {
-      home: { label: "Home", href: "/" },
-      pillars: [
-        { id: "academy", label: "Academy", href: "#academy" },
-        { id: "agentic", label: "Agentic", href: "#agentic" },
-        { id: "aperture", label: "Aperture", href: "#aperture" },
-      ],
-      community: { label: "Community", href: "/community" },
-      campusLeader: { label: "Campus Leaders", href: "/campus-leader" },
-      contact: { label: "Contact", href: "#contact" },
-      cta: { label: "Talk to us", href: "#contact" },
+      services: {
+        label: "Services",
+        href: "#services",
+      },
+      community: {
+        label: "Community",
+        items: [
+          {
+            label: "Join the community",
+            href: "/community",
+          },
+          {
+            label: "Campus Leaders",
+            href: "/campus-leader",
+          },
+        ],
+      },
+      contact: {
+        label: "Let’s talk",
+        href: "#contact",
+      },
     },
     footer: {
       brandLine:
-        "Ai Labs helps companies adapt, develop, and learn with AI.",
+        "AI consulting, business automation and practical education for teams and professionals.",
       socials: [
         {
           label: "LinkedIn",
@@ -44,25 +55,52 @@ export const en: SiteContent = {
       ],
       columns: [
         {
-          title: "Pillars",
+          title: "Services",
           links: [
-            { label: "Academy", href: "#academy" },
-            { label: "Agentic", href: "#agentic" },
-            { label: "Aperture", href: "#aperture" },
+            {
+              label: "AI consulting",
+              href: "#services",
+            },
+            {
+              label: "Practical education",
+              href: "#academy",
+            },
+            {
+              label: "Business automation",
+              href: "#agentic",
+            },
+            {
+              label: "How we work",
+              href: "#about",
+            },
           ],
         },
         {
-          title: "Programs",
+          id: "aperture",
+          title: "Community",
           links: [
-            { label: "Community", href: "/community" },
-            { label: "Campus Leader", href: "/campus-leader" },
+            {
+              label: "Join the community",
+              href: "/community",
+            },
+            {
+              label: "Campus Leaders",
+              href: "/campus-leader",
+            },
           ],
         },
         {
-          title: "Company",
+          title: "Ai Labs",
           links: [
-            { label: "Contact", href: "#contact" },
-            { label: "ailabs.sv", href: "https://ailabs.sv" },
+            {
+              label: "Let’s talk",
+              href: "#contact",
+            },
+            {
+              label: "Explore a partnership",
+              href: "#contact",
+              contactInterest: "partnership",
+            },
           ],
         },
       ],
@@ -71,11 +109,13 @@ export const en: SiteContent = {
     },
   },
   microcopy: {
+    primaryNavigation: "Primary navigation",
     loading: "Loading…",
     notFoundTitle: "Page not found",
     notFoundBody: "That page doesn't exist. Head home or talk to us.",
     notFoundCtaHome: "Back home",
     languageSwitch: "ES",
+    textSpiralAction: "Animate the text spiral",
     skipToContent: "Skip to content",
     menuOpen: "Open menu",
     menuClose: "Close menu",
@@ -86,11 +126,21 @@ export const en: SiteContent = {
   },
   home: {
     hero: {
-      label: "For companies and builders",
-      headline: "AI your team actually uses",
-      body: "Ai Labs is an AI company based in El Salvador. We teach teams to work with AI, build the software they need, and connect them to the people already doing it.",
-      primaryCta: { label: "Talk to us", href: "#contact" },
-      secondaryCta: { label: "See the pillars", href: "#academy" },
+      label: "AI LABS · EL SALVADOR",
+      headline: "AI consulting, business automation and practical education.",
+      body: "For teams and professionals.",
+      primaryCta: { label: "Let’s talk", href: "#contact" },
+      secondaryCta: { label: "Explore services", href: "#services" },
+      spiralWords: [
+        "Processes",
+        "Teams",
+        "Sales",
+        "Operations",
+        "Judgment",
+        "Workflows",
+        "Implementation",
+        "Support",
+      ],
       proof: { value: "800+", label: "Builders" },
       slides: [
         { value: "800+", label: "Builders", icon: "builders" },
@@ -100,10 +150,64 @@ export const en: SiteContent = {
       mediaSrcs: homeCarousel.hero,
       mediaAlt: "Ai Labs community session",
     },
+    services: {
+      label: "Our services",
+      title: "AI consulting",
+      body: "We look at how you work, identify where AI can help and decide what to tackle first. From there, we help you learn or build the workflow with you.",
+      items: [
+        {
+          id: "academy",
+          brand: "Academy",
+          title: "Learn to apply AI in your work.",
+          body: "Practical education for professionals and teams, built around the tasks you want to improve.",
+          points: [
+            "Practice with work you recognize.",
+            "Learn when to use AI and how to review its output.",
+            "Build skills you can use on your own.",
+          ],
+          cta: "I want to learn",
+          interest: "enablement",
+        },
+        {
+          id: "agentic",
+          brand: "Agentic",
+          title: "Make your processes work better.",
+          body: "We design and implement workflows around your operation, connecting your tools and the people who use them.",
+          points: [
+            "Reduce repetitive steps and connect information.",
+            "Keep human review where it is needed.",
+            "Receive documentation and a handover to your team.",
+          ],
+          cta: "Improve a process",
+          interest: "implementation",
+        },
+      ],
+    },
+    method: {
+      label: "How we work",
+      title: "First, understand the work.",
+      body: "For consulting and implementation, we start with the need and agree on a useful next step. You can also come directly to learn.",
+      steps: [
+        {
+          title: "Understand",
+          body: "We look at how the work happens today, who is involved and where it gets stuck.",
+        },
+        {
+          title: "Prioritize",
+          body: "We choose an opportunity and agree on scope and how to assess improvement.",
+        },
+        {
+          title: "Put it into practice",
+          body: "We prepare the team or implement the workflow, with the review and documentation it needs.",
+        },
+      ],
+    },
     trust: {
-      label: "Partners we run programs with",
+      label: "Part of ambassador programs",
+      pause: "Pause logos",
+      resume: "Resume logos",
       logos: [
-        { id: "cursor", name: "Cursor" },
+        { id: "spacexai", name: "SpaceXAI" },
         { id: "codex", name: "Codex" },
         { id: "openai", name: "OpenAI" },
         { id: "claude", name: "Claude" },
@@ -113,23 +217,26 @@ export const en: SiteContent = {
       ],
     },
     about: {
-      label: "Why companies call us",
-      body: "Most teams have already tried the tools on their own. We stay until the tools change how the team works day to day.",
+      label: "The process before the tool",
+      body: "We first understand the work as it happens today, identify friction, and decide what AI should assist, what to automate, and what should remain human.",
       stats: [
         { value: "40+", label: "Events hosted" },
         { value: "8", label: "Active partners" },
       ],
-      bold: "Your team learns on your own work, and what we build together stays yours to run after we leave.",
-      bridgeLabel: "Where to start",
+      bold: "We choose a concrete path and leave your team with judgment, documentation, and the ability to operate it—not just a demonstration.",
+      bridgeLabel: "Process consulting and prioritization",
       bridge: [
         {
-          title: "Academy",
-          body: "Trainings, bootcamps, residencies.",
+          title: "Understand",
+          body: "We map the process, people, inputs, decisions, and friction.",
         },
-        { title: "Agentic", body: "Products and workflows." },
         {
-          title: "Aperture",
-          body: "Partners and community.",
+          title: "Prioritize",
+          body: "We evaluate the opportunity, impact, risk, and a realistic scope.",
+        },
+        {
+          title: "Put it into practice",
+          body: "We prepare the team or design and implement the workflow with them.",
         },
       ],
       mediaSrcs: homeCarousel.about,
@@ -140,64 +247,64 @@ export const en: SiteContent = {
     academy: {
       id: "academy",
       index: "01",
-      eyebrow: "Hands-on training",
-      title: "Academy",
-      lead: "Trainings, bootcamps, and residencies where your team spends the whole session building.",
+      eyebrow: "ACADEMY · TEAM ENABLEMENT",
+      title: "We prepare your team to put the improvement into practice",
+      lead: "We start with the prioritized process and work through the team’s real cases in clear language for business roles until they can apply and operate the improvement.",
       points: [
         {
-          title: "For your team",
-          body: "Company programs so adoption isn't left to a few champions.",
+          title: "Built around their process",
+          body: "Practice starts with the tasks, decisions, and friction the team faces every day.",
         },
         {
-          title: "As a consultancy",
-          body: "We scope and run the whole program with you.",
+          title: "Practice with judgment",
+          body: "We translate AI so the team understands when to use it, how to review it, and how to operate it.",
         },
         {
-          title: "Open sessions",
-          body: "Public workshops and bootcamps if you're learning on your own.",
+          title: "Complementary formats",
+          body: "We also run public workshops and bootcamps for people learning on their own.",
         },
       ],
-      cta: { label: "Train my team", href: "#contact" },
+      cta: { label: "Prepare my team", href: "#contact" },
       mediaSrcs: homeCarousel.features,
       mediaAlt: "Hands-on workshop at Ai Labs",
     },
     agentic: {
       id: "agentic",
       index: "02",
-      eyebrow: "Software and AI workflows",
-      title: "Agentic",
-      lead: "We build the product or workflow you need and ship it to production with your team.",
+      eyebrow: "AGENTIC · WORKFLOW DESIGN AND IMPLEMENTATION",
+      title: "We design and implement the workflow with you",
+      lead: "We start with the prioritized process and design a workflow that fits how the team works today, including the integrations and human review it needs.",
       points: [
         {
-          title: "Software products",
-          body: "From first version to production, shaped around your problem.",
+          title: "Fit with the process",
+          body: "The workflow respects the tools, data, and responsibilities already in place.",
         },
         {
-          title: "AI workflows",
-          body: "Automation that fits how your team already works.",
+          title: "Human review",
+          body: "We define where AI assists, what gets automated, and which decisions stay with the team.",
         },
         {
-          title: "How we build",
-          body: "We build with the same tools we teach in Academy.",
+          title: "Operational handoff",
+          body: "We deliver the workflow, integrations, and documentation so the team can operate it.",
         },
       ],
-      cta: { label: "Scope a build", href: "#contact" },
+      cta: { label: "Review a process", href: "#contact" },
       process: {
-        label: "How an Agentic build runs",
+        label: "How we implement a workflow",
         steps: [
           {
-            label: "Scope the build",
-            body: "What’s in, what’s out, what done means.",
+            label: "Understand the process",
+            body: "We map inputs, decisions, friction, and the expected outcome.",
             glyph: "brief",
           },
           {
-            label: "Build together",
-            body: "Your team in the room while we write it.",
+            label: "Design the intervention",
+            body: "We define what to assist, automate, or keep human.",
             glyph: "bench",
           },
           {
-            label: "Ship it live",
-            body: "In your environment, not a demo.",
+            label: "Implement and transfer",
+            body: "We integrate, document, and leave the team ready to operate it.",
             glyph: "live",
           },
         ],
@@ -206,9 +313,9 @@ export const en: SiteContent = {
     aperture: {
       id: "aperture",
       index: "03",
-      eyebrow: "Partners and community",
+      eyebrow: "APERTURE · COMMUNITY AND EVIDENCE",
       title: "Aperture",
-      lead: "Events, workshops, and a WhatsApp group where 800+ builders and our partner companies end up in the same room.",
+      lead: "Our community, partnerships, and events keep us close to the people building with these tools and show the work in practice.",
       voices: [
         {
           quote: "I learn by building.",
@@ -235,7 +342,6 @@ export const en: SiteContent = {
         {
           id: "hack0-q2my",
           name: "The Next Craft",
-          upcoming: { date: "2026-08-29", href: "https://luma.com/hack0-q2my" },
         },
         {
           id: "tm16k0kj",
@@ -279,10 +385,10 @@ export const en: SiteContent = {
       ],
       stat: { value: "800+", label: "Builders in the community" },
       quote:
-        "We work directly with the companies behind the tools we teach. Aperture is where that shows up as events, workshops, and introductions.",
+        "Aperture brings together community, partnerships, and events that show how people build and learn with these tools.",
       attribution: "Ai Labs",
       cta: { label: "Join the community", href: "/community" },
-      partnerCta: { label: "Partner with us", href: "#contact" },
+      partnerCta: { label: "Explore a partnership", href: "#contact" },
     },
     contact: {
       title: "How can we help?",
@@ -531,7 +637,8 @@ export const en: SiteContent = {
     logisticsLabel: "Basics",
     logisticsIntro: "Who you are and where you’d represent Ai Labs.",
     deeperLabel: "Who you are",
-    deeperIntro: "A bit past the résumé line: how you show up with peers and AI.",
+    deeperIntro:
+      "A bit past the résumé line: how you show up with peers and AI.",
     roomLabel: "When the room goes quiet",
     roomIntro: "How you’d actually get people in seats.",
     fields: {
@@ -651,8 +758,7 @@ export const en: SiteContent = {
       "If your university already has a leader this cohort, we waitlist or defer you to the next one.",
     submit: "Send application",
     submitting: "Sending…",
-    success:
-      "Got it. We’ll review for Cohort Aster and reply on WhatsApp.",
+    success: "Got it. We’ll review for Cohort Aster and reply on WhatsApp.",
     error: "Something went wrong. Try again in a moment.",
     stepIncomplete: "Fill the required fields on this step to continue.",
     invalidLink: "Use a full link that starts with https://",

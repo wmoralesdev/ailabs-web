@@ -4,6 +4,7 @@ import { SiteLogo } from "@/components/chrome/site-logo"
 import { TextSpiral } from "@/components/lab/text-spiral"
 import { RedeemQrModal } from "@/components/redeem/redeem-qr-modal"
 import type { CampaignQrCopy, Locale } from "@/content/types"
+import { getContent } from "@/content"
 import { cn } from "@/lib/utils"
 
 type CampaignHeroProps = {
@@ -18,7 +19,7 @@ type CampaignHeroProps = {
 }
 
 function CampaignHero({
-  locale: _locale,
+  locale,
   words,
   qrContent,
   fluid = false,
@@ -28,16 +29,16 @@ function CampaignHero({
   return (
     <section
       className={cn(
-        "bg-background text-foreground grid min-h-dvh grid-cols-1 lg:grid-cols-2",
+        "grid min-h-dvh grid-cols-1 bg-background text-foreground lg:grid-cols-2",
         !fluid && "lg:h-dvh lg:overflow-hidden"
       )}
     >
-      <div className="border-border flex min-h-0 w-full flex-col justify-between gap-10 border-b px-6 pt-[calc(var(--site-header-offset)+0.5rem)] pb-8 sm:px-10 sm:pb-10 lg:border-r lg:border-b-0 lg:px-12 lg:pb-12 xl:px-16">
+      <div className="flex min-h-0 w-full flex-col justify-between gap-10 border-b border-border px-6 pt-[calc(var(--site-header-offset)+0.5rem)] pb-8 sm:px-10 sm:pb-10 lg:border-r lg:border-b-0 lg:px-12 lg:pb-12 xl:px-16">
         <div>
           <Link
             to="/"
             aria-label="Ai Labs"
-            className="focus-visible:ring-ring/50 inline-flex rounded-sm focus-visible:ring-2 focus-visible:outline-none"
+            className="inline-flex rounded-sm focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
           >
             <SiteLogo variant="lockup" />
           </Link>
@@ -55,8 +56,12 @@ function CampaignHero({
         {footer}
       </div>
 
-      <div className="bg-surface-ink relative min-h-[50vh] w-full lg:min-h-0">
-        <TextSpiral words={words} className="absolute inset-0 h-full w-full" />
+      <div className="relative min-h-[50vh] w-full bg-surface-ink lg:min-h-0">
+        <TextSpiral
+          words={words}
+          interactionLabel={getContent(locale).microcopy.textSpiralAction}
+          className="absolute inset-0 h-full w-full"
+        />
         {qrContent ? (
           <div className="absolute top-4 right-4 z-10 sm:right-6 lg:top-[calc(var(--site-header-offset)+0.5rem)] lg:right-8">
             <RedeemQrModal content={qrContent} onDark />

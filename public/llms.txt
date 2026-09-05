@@ -1,29 +1,30 @@
 # Ai Labs
 
-> Ai Labs is an AI company based in El Salvador that helps companies adapt, develop, and learn with AI.
+> AI consulting, business automation and practical education for teams and professionals. Based in El Salvador.
 
-## What we do
+## Services
 
-Ai Labs works through three pillars:
+Ai Labs helps teams understand their work, identify where AI can help and prioritize a concrete next step.
 
-- **Academy** — Practical AI teaching through consultancies, workshops, bootcamps, and programs.
-- **Agentic** — Software, workflows, and automation built with AI.
-- **Aperture** — Community and partner programs that connect people, companies, and relevant opportunities.
+- **Academy** — Practical education for professionals and teams, with work-based practice and criteria for reviewing AI output. Individuals can come directly to learn.
+- **Agentic** — Workflow design and implementation, including integrations, human review, documentation and handover.
 
-Community supports all three pillars. The offer is practical and grounded in real work — not AI as magic, and not guaranteed third-party outcomes.
+Consulting and implementation follow three steps: understand, prioritize and put into practice. Scope and outcomes are agreed around the need. Consulting prices and packages are not published.
 
-## Location
-
-El Salvador. Open beyond.
+**Aperture** brings together community, events and partnerships. It is accessible through Community and the footer.
 
 ## Primary URLs
 
-- Home (English and Spanish): https://ailabs.sv/
-- Website: https://ailabs.sv
+- Website and services: https://ailabs.sv/#services
+- How we work: https://ailabs.sv/#about
+- Community: https://ailabs.sv/community
+- Campus Leaders: https://ailabs.sv/campus-leader
+
+English or Spanish is chosen via cookie or Accept-Language; language is not part of the URL.
 
 ## Contact
 
-Use the contact form on the home page: https://ailabs.sv/#contact.
+Use “Let’s talk” in the navigation or the contact section at https://ailabs.sv/#contact. The form accepts consulting, education, implementation and partnership inquiries; a company is optional.
 
 ## Optional
 

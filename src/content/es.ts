@@ -4,26 +4,37 @@ import type { SiteContent } from "./types"
 export const es: SiteContent = {
   locale: "es",
   meta: {
-    title: "Ai Labs: Adáptate, desarrolla y aprende con IA",
+    title: "Ai Labs | Consultoría en IA, automatización y formación práctica",
     description:
-      "Ai Labs ayuda a las empresas a poner la IA a trabajar con formación, software y comunidad. Desde El Salvador.",
+      "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Desde El Salvador.",
   },
   chrome: {
     nav: {
-      home: { label: "Inicio", href: "/" },
-      pillars: [
-        { id: "academy", label: "Academy", href: "#academy" },
-        { id: "agentic", label: "Agentic", href: "#agentic" },
-        { id: "aperture", label: "Aperture", href: "#aperture" },
-      ],
-      community: { label: "Comunidad", href: "/community" },
-      campusLeader: { label: "Líderes campus", href: "/campus-leader" },
-      contact: { label: "Contacto", href: "#contact" },
-      cta: { label: "Hablemos", href: "#contact" },
+      services: {
+        label: "Servicios",
+        href: "#services",
+      },
+      community: {
+        label: "Comunidad",
+        items: [
+          {
+            label: "Unirme a la comunidad",
+            href: "/community",
+          },
+          {
+            label: "Campus Leaders",
+            href: "/campus-leader",
+          },
+        ],
+      },
+      contact: {
+        label: "Hablemos",
+        href: "#contact",
+      },
     },
     footer: {
       brandLine:
-        "Ai Labs ayuda a las empresas a adaptarse, desarrollar y aprender con IA.",
+        "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales.",
       socials: [
         {
           label: "LinkedIn",
@@ -44,25 +55,52 @@ export const es: SiteContent = {
       ],
       columns: [
         {
-          title: "Pilares",
+          title: "Servicios",
           links: [
-            { label: "Academy", href: "#academy" },
-            { label: "Agentic", href: "#agentic" },
-            { label: "Aperture", href: "#aperture" },
+            {
+              label: "Consultoría en IA",
+              href: "#services",
+            },
+            {
+              label: "Formación práctica",
+              href: "#academy",
+            },
+            {
+              label: "Automatización de procesos",
+              href: "#agentic",
+            },
+            {
+              label: "Cómo trabajamos",
+              href: "#about",
+            },
           ],
         },
         {
-          title: "Programas",
+          id: "aperture",
+          title: "Comunidad",
           links: [
-            { label: "Comunidad", href: "/community" },
-            { label: "Campus Leader", href: "/campus-leader" },
+            {
+              label: "Unirme a la comunidad",
+              href: "/community",
+            },
+            {
+              label: "Campus Leaders",
+              href: "/campus-leader",
+            },
           ],
         },
         {
-          title: "Compañía",
+          title: "Ai Labs",
           links: [
-            { label: "Contacto", href: "#contact" },
-            { label: "ailabs.sv", href: "https://ailabs.sv" },
+            {
+              label: "Hablemos",
+              href: "#contact",
+            },
+            {
+              label: "Explorar una alianza",
+              href: "#contact",
+              contactInterest: "partnership",
+            },
           ],
         },
       ],
@@ -71,11 +109,13 @@ export const es: SiteContent = {
     },
   },
   microcopy: {
+    primaryNavigation: "Navegación principal",
     loading: "Cargando…",
     notFoundTitle: "Página no encontrada",
     notFoundBody: "Esa página no existe. Vuelve al inicio o háblanos.",
     notFoundCtaHome: "Ir al inicio",
     languageSwitch: "EN",
+    textSpiralAction: "Animar la espiral de texto",
     skipToContent: "Saltar al contenido",
     menuOpen: "Abrir menú",
     menuClose: "Cerrar menú",
@@ -86,11 +126,22 @@ export const es: SiteContent = {
   },
   home: {
     hero: {
-      label: "Para empresas y builders",
-      headline: "IA que tu equipo sí usa",
-      body: "Ai Labs es una empresa de IA con base en El Salvador. Enseñamos a los equipos a trabajar con IA, construimos el software que necesitan y los conectamos con quienes ya lo hacen.",
+      label: "AI LABS · EL SALVADOR",
+      headline:
+        "Consultoría en IA, automatización de procesos y formación práctica.",
+      body: "Para equipos y profesionales.",
       primaryCta: { label: "Hablemos", href: "#contact" },
-      secondaryCta: { label: "Conoce los pilares", href: "#academy" },
+      secondaryCta: { label: "Explorar servicios", href: "#services" },
+      spiralWords: [
+        "Procesos",
+        "Equipos",
+        "Ventas",
+        "Operaciones",
+        "Criterio",
+        "Flujos",
+        "Implementación",
+        "Acompañamiento",
+      ],
       proof: { value: "800+", label: "Builders" },
       slides: [
         { value: "800+", label: "Builders", icon: "builders" },
@@ -100,10 +151,64 @@ export const es: SiteContent = {
       mediaSrcs: homeCarousel.hero,
       mediaAlt: "Sesión de comunidad de Ai Labs",
     },
+    services: {
+      label: "Nuestros servicios",
+      title: "Consultoría en IA",
+      body: "Revisamos cómo trabajás, identificamos dónde puede ayudar la IA y decidimos por dónde empezar. Después te ayudamos a aprender o implementamos el flujo con vos.",
+      items: [
+        {
+          id: "academy",
+          brand: "Academy",
+          title: "Aprendé a aplicar IA en tu trabajo.",
+          body: "Formación práctica para profesionales y equipos, a partir de las tareas que querés mejorar.",
+          points: [
+            "Practicá con trabajo que conocés.",
+            "Aprendé cuándo usar IA y cómo revisar sus resultados.",
+            "Desarrollá criterio para aplicarla por tu cuenta.",
+          ],
+          cta: "Quiero aprender",
+          interest: "enablement",
+        },
+        {
+          id: "agentic",
+          brand: "Agentic",
+          title: "Hacé que tus procesos funcionen mejor.",
+          body: "Diseñamos e implementamos flujos para tu operación, conectando tus herramientas y a las personas que las usan.",
+          points: [
+            "Reducí pasos repetitivos y conectá información.",
+            "Conservá la revisión humana donde hace falta.",
+            "Recibí documentación y transferencia al equipo.",
+          ],
+          cta: "Quiero mejorar un proceso",
+          interest: "implementation",
+        },
+      ],
+    },
+    method: {
+      label: "Cómo trabajamos",
+      title: "Primero, entendamos el trabajo.",
+      body: "En consultoría e implementación, partimos de la necesidad y acordamos un siguiente paso útil. También podés venir directamente a aprender.",
+      steps: [
+        {
+          title: "Entender",
+          body: "Revisamos cómo se hace el trabajo hoy, quién participa y dónde se traba.",
+        },
+        {
+          title: "Priorizar",
+          body: "Elegimos una oportunidad y acordamos el alcance y cómo valorar la mejora.",
+        },
+        {
+          title: "Poner en práctica",
+          body: "Preparamos al equipo o implementamos el flujo, con la revisión y documentación que necesita.",
+        },
+      ],
+    },
     trust: {
-      label: "Partners con los que hacemos programas",
+      label: "Somos parte de programas de embajadores",
+      pause: "Pausar logos",
+      resume: "Reanudar logos",
       logos: [
-        { id: "cursor", name: "Cursor" },
+        { id: "spacexai", name: "SpaceXAI" },
         { id: "codex", name: "Codex" },
         { id: "openai", name: "OpenAI" },
         { id: "claude", name: "Claude" },
@@ -113,23 +218,26 @@ export const es: SiteContent = {
       ],
     },
     about: {
-      label: "Por qué nos llaman las empresas",
-      body: "La mayoría de los equipos ya probó las herramientas por su cuenta. Nos quedamos hasta que las herramientas cambian cómo trabaja el equipo día a día.",
+      label: "El proceso antes que la herramienta",
+      body: "Primero entendemos cómo ocurre el trabajo hoy, identificamos la fricción y decidimos qué conviene asistir con IA, automatizar o mantener humano.",
       stats: [
         { value: "40+", label: "Eventos realizados" },
         { value: "8", label: "Partners activos" },
       ],
-      bold: "Tu equipo aprende con su propio trabajo, y lo que construimos juntos queda tuyo para operarlo cuando nos vamos.",
-      bridgeLabel: "Por dónde empezar",
+      bold: "Elegimos una ruta concreta y dejamos criterio, documentación y capacidad operativa; no solo una demostración.",
+      bridgeLabel: "Consultoría y priorización del proceso",
       bridge: [
         {
-          title: "Academy",
-          body: "Formaciones, bootcamps, residencias.",
+          title: "Entender",
+          body: "Mapeamos el proceso, las personas, las entradas, las decisiones y la fricción.",
         },
-        { title: "Agentic", body: "Productos y flujos." },
         {
-          title: "Aperture",
-          body: "Partners y comunidad.",
+          title: "Priorizar",
+          body: "Evaluamos la oportunidad, el impacto, el riesgo y un alcance realista.",
+        },
+        {
+          title: "Ponerlo en práctica",
+          body: "Preparamos al equipo o diseñamos e implementamos el flujo con él.",
         },
       ],
       mediaSrcs: homeCarousel.about,
@@ -140,64 +248,64 @@ export const es: SiteContent = {
     academy: {
       id: "academy",
       index: "01",
-      eyebrow: "Formación práctica",
-      title: "Academy",
-      lead: "Formaciones, bootcamps y residencias donde tu equipo pasa toda la sesión construyendo.",
+      eyebrow: "ACADEMY · PREPARACIÓN DEL EQUIPO",
+      title: "Preparamos a tu equipo para aplicar la mejora",
+      lead: "Partimos del proceso priorizado y trabajamos con los casos reales del equipo, en lenguaje claro para perfiles de negocio, hasta que pueda aplicar y operar la mejora.",
       points: [
         {
-          title: "Para tu equipo",
-          body: "Programas para la empresa, para que la adopción no quede en unos pocos.",
+          title: "Sobre su proceso",
+          body: "La práctica parte de las tareas, decisiones y fricciones que el equipo enfrenta cada día.",
         },
         {
-          title: "Como consultoría",
-          body: "Diseñamos y corremos todo el programa contigo.",
+          title: "Con práctica y criterio",
+          body: "Traducimos la IA para que el equipo entienda cuándo usarla, cómo revisarla y cómo operarla.",
         },
         {
-          title: "Sesiones abiertas",
-          body: "Talleres y bootcamps públicos si aprendes por tu cuenta.",
+          title: "Formatos complementarios",
+          body: "También abrimos talleres y bootcamps públicos para quienes aprenden por su cuenta.",
         },
       ],
-      cta: { label: "Formar a mi equipo", href: "#contact" },
+      cta: { label: "Preparar a mi equipo", href: "#contact" },
       mediaSrcs: homeCarousel.features,
       mediaAlt: "Taller práctico en Ai Labs",
     },
     agentic: {
       id: "agentic",
       index: "02",
-      eyebrow: "Software y flujos con IA",
-      title: "Agentic",
-      lead: "Construimos el producto o el flujo que necesitas y lo llevamos a producción con tu equipo.",
+      eyebrow: "AGENTIC · DISEÑO E IMPLEMENTACIÓN",
+      title: "Diseñamos e implementamos el flujo con ustedes",
+      lead: "Partimos del proceso priorizado y diseñamos un flujo que encaja con la forma actual de trabajar, con las integraciones y revisiones humanas que necesita.",
       points: [
         {
-          title: "Productos de software",
-          body: "De la primera versión a producción, alrededor de tu problema.",
+          title: "Encaje con el proceso",
+          body: "El flujo respeta las herramientas, los datos y las responsabilidades que ya existen.",
         },
         {
-          title: "Flujos con IA",
-          body: "Automatización que encaja con cómo ya trabaja tu equipo.",
+          title: "Revisión humana",
+          body: "Definimos dónde la IA asiste, qué se automatiza y qué decisiones siguen en manos del equipo.",
         },
         {
-          title: "Cómo construimos",
-          body: "Construimos con las mismas herramientas que enseñamos en Academy.",
+          title: "Transferencia operativa",
+          body: "Entregamos el flujo, las integraciones y la documentación para que el equipo pueda operarlo.",
         },
       ],
-      cta: { label: "Definir un proyecto", href: "#contact" },
+      cta: { label: "Revisar un proceso", href: "#contact" },
       process: {
-        label: "Cómo corre un build de Agentic",
+        label: "Cómo implementamos un flujo",
         steps: [
           {
-            label: "Definir el proyecto",
-            body: "Qué entra, qué no, qué significa listo.",
+            label: "Entender el proceso",
+            body: "Mapeamos entradas, decisiones, fricción y el resultado esperado.",
             glyph: "brief",
           },
           {
-            label: "Construir juntos",
-            body: "Tu equipo en la sala mientras lo escribimos.",
+            label: "Diseñar la intervención",
+            body: "Definimos qué asistir, automatizar o mantener humano.",
             glyph: "bench",
           },
           {
-            label: "Dejarlo en vivo",
-            body: "En tu entorno, no un demo.",
+            label: "Implementar y transferir",
+            body: "Integramos, documentamos y dejamos al equipo listo para operar.",
             glyph: "live",
           },
         ],
@@ -206,9 +314,9 @@ export const es: SiteContent = {
     aperture: {
       id: "aperture",
       index: "03",
-      eyebrow: "Partners y comunidad",
+      eyebrow: "APERTURE · COMUNIDAD Y EVIDENCIA",
       title: "Aperture",
-      lead: "Eventos, talleres y un grupo de WhatsApp donde 800+ builders y nuestras empresas partner terminan en la misma sala.",
+      lead: "La comunidad, las alianzas y los eventos nos mantienen cerca de quienes construyen con estas herramientas y muestran el trabajo en práctica.",
       voices: [
         {
           quote: "Aprendo construyendo.",
@@ -221,7 +329,8 @@ export const es: SiteContent = {
           role: "Academy",
         },
         {
-          quote: "Buena gente, eventos reales y un amor compartido por la tech.",
+          quote:
+            "Buena gente, eventos reales y un amor compartido por la tech.",
           name: "Kharen, Estudiante de Diseño",
           role: "Aperture",
         },
@@ -235,7 +344,6 @@ export const es: SiteContent = {
         {
           id: "hack0-q2my",
           name: "The Next Craft",
-          upcoming: { date: "2026-08-29", href: "https://luma.com/hack0-q2my" },
         },
         {
           id: "tm16k0kj",
@@ -279,10 +387,10 @@ export const es: SiteContent = {
       ],
       stat: { value: "800+", label: "Builders en la comunidad" },
       quote:
-        "Trabajamos directamente con las empresas detrás de las herramientas que enseñamos. Aperture es donde eso se vuelve eventos, talleres y contactos.",
+        "Aperture reúne comunidad, alianzas y eventos que muestran cómo se construye y se aprende con estas herramientas.",
       attribution: "Ai Labs",
       cta: { label: "Unirme a la comunidad", href: "/community" },
-      partnerCta: { label: "Ser partner", href: "#contact" },
+      partnerCta: { label: "Explorar una alianza", href: "#contact" },
     },
     contact: {
       title: "¿Cómo podemos ayudarte?",
@@ -384,13 +492,11 @@ export const es: SiteContent = {
       },
       openai: {
         title: "Créditos de OpenAI Platform",
-        blurb:
-          "Canjea tu código de OpenAI Platform de este evento de Ai Labs.",
+        blurb: "Canjea tu código de OpenAI Platform de este evento de Ai Labs.",
       },
       codexOpenai: {
         title: "Créditos de Codex + OpenAI Platform",
-        blurb:
-          "Canjea tus códigos de Codex y OpenAI Platform de este evento.",
+        blurb: "Canjea tus códigos de Codex y OpenAI Platform de este evento.",
       },
     },
   },
@@ -654,10 +760,10 @@ export const es: SiteContent = {
       "Si tu universidad ya tiene líder en esta cohorte, te ponemos en lista de espera o lo dejamos para la siguiente.",
     submit: "Enviar aplicación",
     submitting: "Enviando…",
-    success:
-      "Listo. Revisamos la cohorte Aster y respondemos por WhatsApp.",
+    success: "Listo. Revisamos la cohorte Aster y respondemos por WhatsApp.",
     error: "Algo falló. Probá de nuevo en un momento.",
-    stepIncomplete: "Completá los campos obligatorios de este paso para seguir.",
+    stepIncomplete:
+      "Completá los campos obligatorios de este paso para seguir.",
     invalidLink: "Usá un link completo que empiece con https://",
     formCrashTitle: "El formulario falló",
     formRetry: "Empezar de nuevo",

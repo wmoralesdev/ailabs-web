@@ -3,8 +3,8 @@ import { buttonVariants } from "@/components/ui/button"
 
 const homePillClassName = cn(
   buttonVariants({ variant: "default", size: "xl" }),
-  "rounded-full px-5",
-  "motion-safe:duration-150 motion-safe:hover:-translate-y-px motion-safe:hover:shadow-lift",
+  "home-action rounded-full px-5 transition-[color,background-color,border-color,box-shadow,transform]",
+  "motion-safe:hover:shadow-lift motion-safe:duration-150 motion-safe:hover:-translate-y-px",
   "motion-safe:active:scale-[0.98]"
 )
 
