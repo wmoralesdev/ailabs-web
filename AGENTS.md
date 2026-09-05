@@ -23,18 +23,22 @@ invariant changes. Do not add another root source-of-truth Markdown file.
 
 ## Product
 
-Ai Labs helps companies adapt, develop, and learn with AI. It is based in El
-Salvador and works through three pillars:
+Ai Labs offers AI consulting, business automation, and practical education for
+teams and professionals, based in El Salvador. It helps commercial,
+management, and operations teams improve real processes. Consulting starts by
+understanding the current process and prioritizing one concrete opportunity,
+then follows one of two delivery routes:
 
-- **Academy** — practical AI teaching through consultancies, workshops, and
-  programs.
-- **Agentic** — software, workflows, and automation built with AI.
-- **Aperture** — community and partner programs that connect people,
-  companies, and relevant opportunities.
+- **Academy** — practical education for professionals and teams. Individuals
+  can come directly to learn; a company or prior consulting purchase is not required.
+- **Agentic** — design and implement the workflow with the team, including
+  integrations, human review, documentation, and transfer.
 
-Community supports all three pillars; it is not a fourth product line. Keep the
-offer practical and grounded in real work. Never sell AI as magic or imply
-guaranteed access, credits, partnerships, or third-party outcomes.
+**Aperture** is community evidence, not a third commercial offer. It connects
+people, companies, events, and relevant opportunities and keeps Ai Labs close
+to people building with these tools. Keep the offer practical and grounded in
+real work. Never sell AI as magic or imply guaranteed access, credits,
+partnerships, or third-party outcomes.
 
 Metrics, program names, partner relationships, credits, and credentials can
 change. Verify them before adding or changing public claims; do not copy a
@@ -44,9 +48,12 @@ possibly stale value into this file.
 
 - The written name is **Ai Labs**. Use **Ai /abs** only as an intentional visual
   lockup, never as the default name in prose, metadata, or speech.
-- Pillar names remain Academy, Agentic, and Aperture in English and Spanish.
-  Translate their descriptions and surrounding copy.
-- Voice is clear, direct, concise, and builder-to-builder. Prefer concrete
+- Academy, Agentic, and Aperture remain brand names in English and Spanish.
+  Lead with the customer outcome: understand and prioritize the process, then
+  prepare the team or implement the workflow. Translate descriptions and
+  surrounding copy.
+- Do not associate the word "Labs" with experiments.
+- Voice is clear, direct, concise, and understandable to business roles. Prefer concrete
   teaching, software, event, and community proof over AI-industry hype.
 - Avoid inflated language such as "revolutionary," "unlock the future,"
   "empower," or unsupported "leading ecosystem" claims.
@@ -63,30 +70,48 @@ possibly stale value into this file.
 - Shared chrome is a fixed, centered floating nav bar (`SiteHeader`): rounded
   corners (not pill), nav links plus theme and locale. Brand lockup stays
   page-owned on full-bleed routes (home, redeem, community, campus-leader,
-  lab); other routes get a top-left lockup sibling. Do not embed theme/locale
-  controls in page heroes.
-- `/` redirects from the request language to `/en` or `/es`.
-- The localized home page is implemented in this order: Hero, Trust, About,
-  Academy, Agentic, Aperture, and Contact, followed by the shared footer.
-  The home hero is a 50/50 split: left copy (home hero content) and a right
-  canvas text spiral of community words (`TextSpiral`), with GPU spin/ripple.
-- `/en/academy`, `/en/agentic`, and `/en/aperture` (and their Spanish
-  equivalents) currently have route metadata but render no page content.
-  Do not describe them as shipped pages.
-- `/$locale/redeem` is an authenticated credit-redemption flow backed by
-  Clerk, TanStack server functions, Prisma, and PostgreSQL/Neon.
-- `/$locale/community` is a minimal WhatsApp invite landing (no auth). Like
-  redeem and campus-leader, its hero is the shared campaign split hero
+  lab, event microsites); other routes get a top-left lockup sibling. Do not
+  embed theme/locale controls in page heroes.
+- Locale is not in the URL. Prefer the `ailabs-locale` cookie, then
+  `Accept-Language`, then `en`. Legacy `/en/*` and `/es/*` permanently
+  redirect to the unprefixed path and set the cookie. Language toggle updates
+  the cookie and reloads route context.
+- The home page (`/`) follows Hero, Ambassador marquee, Services, Method, and Contact, followed by
+  the shared footer. Services combines Academy and Agentic; community is
+  accessible through chrome. The seven existing ambassador-program logos return
+  beneath the hero at the owner's request. Describe that relationship, not a
+  customer list or a guarantee from those companies. Do not restore photo bands or metrics
+  from unused legacy content. The navbar is Services, grouped Community, and
+  Let's talk; mobile navigation is used below 1024px.
+  From 1024px, the home hero is a 50/50 split: left copy and a right text
+  spiral sourced from `hero.spiralWords` (`TextSpiral`). Below 1024px, the
+  home has a compact typographic hero with natural height, balanced headline,
+  primary button and secondary text link with an arrow, followed by the logos.
+  The spiral is unmounted on mobile, not replaced with another decoration.
+  `/lab` and campaign heroes keep their existing spiral layouts.
+- Academy / Agentic / Aperture standalone marketing routes are not shipped
+  pages.
+- `/redeem` is an authenticated credit-redemption flow backed by Clerk,
+  TanStack server functions, Prisma, and PostgreSQL/Neon.
+- `/community` is a minimal WhatsApp invite landing (no auth). Like redeem
+  and campus-leader, its hero is the shared campaign split hero
   (`src/components/campaign/campaign-hero.tsx`): light copy column on the
   left, ink text-spiral panel on the right. Community appears in chrome nav
   and the footer.
-- `/$locale/campus-leader` is a public Campus Leader application flow (no
-  auth). Submissions persist via a TanStack server function and Prisma.
-  Cohort open/close is controlled by `campusLeader.applicationsOpen` in
-  content. Footer links to it; accepted-leader directory is not shipped yet.
-  Export applications with `pnpm campus-leader:export` for Notion review.
-- The home contact form currently validates in the browser and simulates a
-  successful submission; it is not connected to a delivery backend.
+- `/campus-leader` is a public Campus Leader application flow (no auth).
+  Submissions persist via a TanStack server function and Prisma. Cohort
+  open/close is controlled by `campusLeader.applicationsOpen` in content.
+  Footer links to it; accepted-leader directory is not shipped yet. Export
+  applications with `pnpm campus-leader:export` for Notion review.
+- `/events/$slug` hosts per-event microsites with their own layouts. Shipped
+  events: `/events/modo-fundador` (founders, USD 50, Wompi) and
+  `/events/get-competitive-quick` (students / remote seekers, USD 25, Wompi;
+  date/venue TBD mid-August).
+- Contact is a shared dialog opened directly by chrome and service CTAs, with
+  the intended interest preselected. A successful response means the inquiry
+  was persisted in PostgreSQL/Neon. The owner reads inquiries directly from the
+  database; email delivery is deliberately out of scope. Never reintroduce
+  simulated success or promise a response time that has not been agreed.
 
 ## Stack
 
@@ -125,12 +150,13 @@ scripts. Do not recreate deleted one-off scripts in this repo.
 - Preserve the established light, dark, and system theme behavior.
 - Use semantic classes and existing CSS variables. Do not create a parallel
   palette or hard-code brand colors inside components.
-- Display type is Bricolage Grotesque; body and UI type is DM Sans. Both are
-  loaded locally through Fontsource.
+- Display type is Alan Sans; body and UI type is DM Sans. Both are loaded
+  locally through Fontsource.
 - Reuse `src/components/ui` and the shared home/chrome utilities. Use
   Hugeicons for interface icons; do not use emoji as UI icons.
-- Keep responsive behavior deliberate. The home hero stacks on small screens
-  and becomes a true 50/50 split from `lg` up.
+- Keep responsive behavior deliberate. The home hero is typographic below
+  `lg` and becomes a true 50/50 split with TextSpiral from `lg` up. Let mobile
+  text and zoom grow naturally; do not restore a viewport-height minimum.
 - Keep effects restrained and performant. Prefer transform and opacity for
   motion, and do not add decorative animation that competes with content.
 
@@ -144,6 +170,48 @@ scripts. Do not recreate deleted one-off scripts in this repo.
 - Every nonessential motion path must honor `prefers-reduced-motion`.
 - Avoid hiding server-rendered content by default; reveal behavior must fail
   open if JavaScript or observers do not run.
+
+## Design skills and motion direction
+
+- Project skills and their references live in `.agents/skills`; provenance is
+  recorded in `skills-lock.json` and each skill's `ORIGIN.json`. Read the skill
+  needed for the current stage, rather than combining every stylistic default.
+- Taste and frontend-design guide composition; UI/UX Pro Max checks interaction,
+  responsive layout and accessibility; Emil guides motion craft and review;
+  GreenSock guides GSAP implementation and cleanup.
+- The approved brand, copy and this repository's stack take precedence over
+  generic skill defaults about fonts, palettes, generated imagery, headline
+  line limits, Motion, Next.js or critique quotas. Review demonstrated problems
+  judiciously and also acknowledge what works.
+- Motion is editorial, fluid and perceptible: a coordinated word-by-word
+  hero entrance (700ms, up to 28px), service entrances (600ms,
+  up to 24px), and short diagrams that assemble as they enter their own viewport.
+  Method icons enter once while its text and the footer remain still. Use
+  `src/lib/home-motion.ts` for entrance timings and
+  `src/styles.css` for surface/state tokens.
+- GSAP and `@gsap/react` own coordinated entrances; CSS owns small state changes.
+  TextSpiral keeps its own engine and pauses outside the viewport or in hidden
+  tabs. Do not let two engines control the same transform.
+- The ambassador marquee moves linearly at 42px/s. Provide a pause control,
+  pause outside the viewport and in hidden tabs, and show a static accessible
+  list with reduced motion or without JavaScript. Keep decorative copies out
+  of the accessibility tree.
+- Keep native scrolling, immediate access to copy/CTAs, reduced-motion support,
+  and cleanup of listeners, observers, timers and animation contexts. Test at
+  normal speed as well as with captures; passing a build is not visual approval.
+
+## Contact operations
+
+- Apply the additive SQL in `prisma/sql/20260905-contact-inquiry.sql` once to
+  the selected database before releasing contact. There is no migration
+  baseline: never use reset or broad db push to install this table.
+- Inquiries live in `ContactInquiry` in the existing PostgreSQL/Neon database.
+  Read them through the database console or `pnpm db:studio`; there is no
+  separate inbox, notification queue, mail provider or Convex deployment.
+- Keep validation, origin protection, the submission UUID and transactional
+  admission limits. An unsuccessful save preserves the visitor's draft.
+- Launch acceptance requires a real stored inquiry and a successful browser
+  receipt. Use clearly marked synthetic details for verification.
 
 ## Engineering workflow
 

@@ -13,6 +13,9 @@ dist-ssr
 __unconfig*
 todos.json
 
+# Internal commercial numbers — this GitHub repo is public
+docs/internal/*.local.md
+
 # typescript
 *.tsbuildinfo
 
