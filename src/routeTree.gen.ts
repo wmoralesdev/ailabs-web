@@ -21,6 +21,10 @@ import { Route as SiteLabRouteImport } from './routes/_site/lab'
 import { Route as SiteRedeemRouteImport } from './routes/_site/redeem'
 import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
 import { Route as SignUpSplatRouteImport } from './routes/sign-up.$'
+import { Route as SiteEventsSlugRouteImport } from './routes/_site/events/$slug'
+import { Route as ApiWebhooksWompiRouteImport } from './routes/api/webhooks/wompi'
+import { Route as SiteEventsSlugIndexRouteImport } from './routes/_site/events/$slug.index'
+import { Route as SiteEventsSlugSuccessRouteImport } from './routes/_site/events/$slug.success'
 
 const LocaleRoute = LocaleRouteImport.update({
   id: '/$locale',
@@ -81,6 +85,26 @@ const SignUpSplatRoute = SignUpSplatRouteImport.update({
   path: '/sign-up/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SiteEventsSlugRoute = SiteEventsSlugRouteImport.update({
+  id: '/events/$slug',
+  path: '/events/$slug',
+  getParentRoute: () => SiteRoute,
+} as any)
+const ApiWebhooksWompiRoute = ApiWebhooksWompiRouteImport.update({
+  id: '/api/webhooks/wompi',
+  path: '/api/webhooks/wompi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteEventsSlugIndexRoute = SiteEventsSlugIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SiteEventsSlugRoute,
+} as any)
+const SiteEventsSlugSuccessRoute = SiteEventsSlugSuccessRouteImport.update({
+  id: '/success',
+  path: '/success',
+  getParentRoute: () => SiteEventsSlugRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/$locale': typeof LocaleRouteWithChildren
@@ -94,6 +118,10 @@ export interface FileRoutesByFullPath {
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/events/$slug': typeof SiteEventsSlugRouteWithChildren
+  '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
+  '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
+  '/events/$slug/': typeof SiteEventsSlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/bg': typeof BgRoute
@@ -106,6 +134,9 @@ export interface FileRoutesByTo {
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale': typeof LocaleIndexRoute
   '/': typeof SiteIndexRoute
+  '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
+  '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
+  '/events/$slug': typeof SiteEventsSlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -121,6 +152,10 @@ export interface FileRoutesById {
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
   '/_site/': typeof SiteIndexRoute
+  '/_site/events/$slug': typeof SiteEventsSlugRouteWithChildren
+  '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
+  '/_site/events/$slug/success': typeof SiteEventsSlugSuccessRoute
+  '/_site/events/$slug/': typeof SiteEventsSlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -136,6 +171,10 @@ export interface FileRouteTypes {
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale/'
+    | '/events/$slug'
+    | '/api/webhooks/wompi'
+    | '/events/$slug/success'
+    | '/events/$slug/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/bg'
@@ -148,6 +187,9 @@ export interface FileRouteTypes {
     | '/sign-up/$'
     | '/$locale'
     | '/'
+    | '/api/webhooks/wompi'
+    | '/events/$slug/success'
+    | '/events/$slug'
   id:
     | '__root__'
     | '/$locale'
@@ -162,6 +204,10 @@ export interface FileRouteTypes {
     | '/sign-up/$'
     | '/$locale/'
     | '/_site/'
+    | '/_site/events/$slug'
+    | '/api/webhooks/wompi'
+    | '/_site/events/$slug/success'
+    | '/_site/events/$slug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -170,6 +216,7 @@ export interface RootRouteChildren {
   BgRoute: typeof BgRoute
   SignInSplatRoute: typeof SignInSplatRoute
   SignUpSplatRoute: typeof SignUpSplatRoute
+  ApiWebhooksWompiRoute: typeof ApiWebhooksWompiRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -258,6 +305,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignUpSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_site/events/$slug': {
+      id: '/_site/events/$slug'
+      path: '/events/$slug'
+      fullPath: '/events/$slug'
+      preLoaderRoute: typeof SiteEventsSlugRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/api/webhooks/wompi': {
+      id: '/api/webhooks/wompi'
+      path: '/api/webhooks/wompi'
+      fullPath: '/api/webhooks/wompi'
+      preLoaderRoute: typeof ApiWebhooksWompiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_site/events/$slug/': {
+      id: '/_site/events/$slug/'
+      path: '/'
+      fullPath: '/events/$slug/'
+      preLoaderRoute: typeof SiteEventsSlugIndexRouteImport
+      parentRoute: typeof SiteEventsSlugRoute
+    }
+    '/_site/events/$slug/success': {
+      id: '/_site/events/$slug/success'
+      path: '/success'
+      fullPath: '/events/$slug/success'
+      preLoaderRoute: typeof SiteEventsSlugSuccessRouteImport
+      parentRoute: typeof SiteEventsSlugRoute
+    }
   }
 }
 
@@ -274,12 +349,27 @@ const LocaleRouteChildren: LocaleRouteChildren = {
 const LocaleRouteWithChildren =
   LocaleRoute._addFileChildren(LocaleRouteChildren)
 
+interface SiteEventsSlugRouteChildren {
+  SiteEventsSlugSuccessRoute: typeof SiteEventsSlugSuccessRoute
+  SiteEventsSlugIndexRoute: typeof SiteEventsSlugIndexRoute
+}
+
+const SiteEventsSlugRouteChildren: SiteEventsSlugRouteChildren = {
+  SiteEventsSlugSuccessRoute: SiteEventsSlugSuccessRoute,
+  SiteEventsSlugIndexRoute: SiteEventsSlugIndexRoute,
+}
+
+const SiteEventsSlugRouteWithChildren = SiteEventsSlugRoute._addFileChildren(
+  SiteEventsSlugRouteChildren,
+)
+
 interface SiteRouteChildren {
   SiteCampusLeaderRoute: typeof SiteCampusLeaderRoute
   SiteCommunityRoute: typeof SiteCommunityRoute
   SiteLabRoute: typeof SiteLabRoute
   SiteRedeemRoute: typeof SiteRedeemRoute
   SiteIndexRoute: typeof SiteIndexRoute
+  SiteEventsSlugRoute: typeof SiteEventsSlugRouteWithChildren
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
@@ -288,6 +378,7 @@ const SiteRouteChildren: SiteRouteChildren = {
   SiteLabRoute: SiteLabRoute,
   SiteRedeemRoute: SiteRedeemRoute,
   SiteIndexRoute: SiteIndexRoute,
+  SiteEventsSlugRoute: SiteEventsSlugRouteWithChildren,
 }
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
@@ -298,6 +389,7 @@ const rootRouteChildren: RootRouteChildren = {
   BgRoute: BgRoute,
   SignInSplatRoute: SignInSplatRoute,
   SignUpSplatRoute: SignUpSplatRoute,
+  ApiWebhooksWompiRoute: ApiWebhooksWompiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

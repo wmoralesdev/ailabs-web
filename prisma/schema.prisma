@@ -110,6 +110,52 @@ model CampusLeaderApplication {
   @@index([createdAt])
 }
 
+/// Ticketed public workshops (separate from credit-redeem Event).
+model Workshop {
+  id         String   @id @default(cuid())
+  slug       String   @unique
+  title      String
+  priceCents Int
+  currency   String   @default("USD")
+  capacity   Int
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  registrations WorkshopRegistration[]
+}
+
+enum WorkshopRegistrationStatus {
+  PENDING
+  PAID
+  FAILED
+  EXPIRED
+}
+
+model WorkshopRegistration {
+  id                         String                     @id @default(cuid())
+  workshopId                 String
+  name                       String
+  email                      String
+  whatsapp                   String
+  status                     WorkshopRegistrationStatus @default(PENDING)
+  /// Commerce id sent to Wompi as identificadorEnlaceComercio.
+  commerceLinkId             String                     @unique
+  wompiEnlaceId              Int?
+  wompiTransactionId         String?
+  wompiAuthorizationCode     String?
+  checkoutUrl                String?
+  paidAt                     DateTime?
+  createdAt                  DateTime                   @default(now())
+  updatedAt                  DateTime                   @updatedAt
+
+  workshop Workshop @relation(fields: [workshopId], references: [id], onDelete: Cascade)
+
+  @@unique([workshopId, email])
+  @@index([workshopId, status])
+  @@index([status, createdAt])
+}
+
 /// Public inquiries. The client UUID makes retries idempotent.
 model ContactInquiry {
   id        String   @id @db.Uuid

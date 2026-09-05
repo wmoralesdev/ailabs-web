@@ -24,6 +24,13 @@ type CanvasRevealBannerProps = {
    * left copy column and the action is vertically centered on `md+`.
    */
   action?: ReactNode
+  /**
+   * Replaces the home shell (max-width + gutter). Pages on their own grid pass
+   * their container here so the band aligns with the sections above it —
+   * `contentClassName` can't do this because the shell's custom `page-gutter`
+   * and `max-w-content` utilities aren't resolvable by tailwind-merge.
+   */
+  shellClassName?: string
 }
 
 /**
@@ -37,6 +44,7 @@ function CanvasRevealBanner({
   contentClassName,
   children,
   action,
+  shellClassName = homeShellClassName,
 }: CanvasRevealBannerProps) {
   const [reduceMotion, setReduceMotion] = useState(true)
 
@@ -73,7 +81,7 @@ function CanvasRevealBanner({
 
       <div
         className={cn(
-          homeShellClassName,
+          shellClassName,
           "relative z-1",
           action
             ? "flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between md:gap-10"
@@ -83,7 +91,7 @@ function CanvasRevealBanner({
       >
         {action ? (
           <>
-            <div className="flex min-w-0 max-w-xl flex-col gap-4 md:gap-5">
+            <div className="flex max-w-xl min-w-0 flex-col gap-4 md:gap-5">
               {children}
             </div>
             <div className="shrink-0 self-start md:self-center">{action}</div>

@@ -24,7 +24,8 @@ function pageOwnsBrand(routeId: string): boolean {
     routeId === "/_site/redeem" ||
     routeId === "/_site/community" ||
     routeId === "/_site/campus-leader" ||
-    routeId === "/_site/lab"
+    routeId === "/_site/lab" ||
+    routeId.startsWith("/_site/events")
   )
 }
 

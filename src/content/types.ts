@@ -44,6 +44,8 @@ export type FooterContent = {
   brandLine: string
   socials: ReadonlyArray<FooterSocial>
   columns: ReadonlyArray<FooterColumn>
+  /** Heading for the dynamic upcoming-events column; omitted when empty. */
+  eventsTitle: string
   copyright: string
   locationLine: string
 }

@@ -13,6 +13,7 @@ import type { FooterContent, FooterSocial, Locale, NavItem } from "@/content"
 import { formatCopyright } from "@/content"
 import { SiteLogo } from "@/components/chrome/site-logo"
 import { useContact } from "@/components/contact/contact-provider"
+import { listUpcomingWorkshops } from "@/events/registry"
 import {
   hashFromHref,
   isHashHref,
@@ -52,6 +53,19 @@ function FooterLink({ link }: { link: NavItem; locale: Locale }) {
       >
         {link.label}
       </a>
+    )
+  }
+
+  const eventMatch = /^\/events\/([^/]+)$/.exec(link.href)
+  if (eventMatch?.[1]) {
+    return (
+      <Link
+        to="/events/$slug"
+        params={{ slug: eventMatch[1] }}
+        className={footerLinkClassName}
+      >
+        {link.label}
+      </Link>
     )
   }
 
@@ -111,7 +125,24 @@ function SocialLink({ social }: { social: FooterSocial }) {
 const FOOTER_WATERMARK = "get curious"
 
 function SiteFooter({ locale, footer }: SiteFooterProps) {
-  const columns = footer.columns.filter((column) => column.links.length > 0)
+  // Promote only events with a confirmed date. TBD event pages stay accessible.
+  const upcoming = listUpcomingWorkshops().filter(
+    (workshop) => workshop.endsOn !== null
+  )
+  const columns = [
+    ...footer.columns,
+    ...(upcoming.length > 0
+      ? [
+          {
+            title: footer.eventsTitle,
+            links: upcoming.map((workshop) => ({
+              label: workshop.title,
+              href: `/events/${workshop.slug}`,
+            })),
+          },
+        ]
+      : []),
+  ].filter((column) => column.links.length > 0)
 
   return (
     <footer className="relative overflow-hidden bg-graphite text-on-dark">

@@ -104,6 +104,7 @@ export const en: SiteContent = {
           ],
         },
       ],
+      eventsTitle: "Events",
       copyright: "© {year} Ai Labs",
       locationLine: "Crafted in San Salvador, El Salvador",
     },

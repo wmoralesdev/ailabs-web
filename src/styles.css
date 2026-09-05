@@ -385,6 +385,38 @@
         color: var(--foreground);
     }
 
+    /*
+     * Theme-invariant paper island. For cards sitting on a surface that is
+     * violet in both themes (event pass faces): following the page theme would
+     * turn the card into a dark hole on an unchanged violet field.
+     */
+    .surface-paper {
+        --background: var(--brand-white);
+        --foreground: var(--brand-graphite);
+        --card: var(--brand-white);
+        --card-foreground: var(--brand-graphite);
+        --popover: var(--brand-white);
+        --popover-foreground: var(--brand-graphite);
+        --muted: var(--brand-lavender);
+        --muted-foreground: var(--brand-muted);
+        --accent: var(--brand-lavender);
+        --accent-foreground: var(--brand-graphite);
+        --primary: var(--brand-purple);
+        --primary-foreground: var(--brand-graphite);
+        --secondary: var(--brand-white);
+        --secondary-foreground: var(--brand-graphite);
+        --destructive: #c2410c;
+        --border: var(--brand-border);
+        --input: var(--brand-border);
+        --ring: var(--brand-purple);
+        --shadow-color: color-mix(in srgb, var(--brand-graphite) 14%, transparent);
+        --shadow-color-strong: color-mix(in srgb, var(--brand-graphite) 22%, transparent);
+        --shadow-glow: color-mix(in srgb, var(--brand-graphite) 18%, transparent);
+        background-color: var(--brand-white);
+        color: var(--brand-graphite);
+        color-scheme: light;
+    }
+
     /* Paper islands on a purple band restore light-surface ink. */
     .home-paper-band .bg-card {
         --background: var(--brand-white);
