@@ -2,14 +2,14 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@clerk/ui/themes/shadcn.css";
-@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/alan-sans";
 @import "@fontsource-variable/dm-sans";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
     --font-heading: var(--font-display);
-    --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Alan Sans Variable", ui-sans-serif, system-ui, sans-serif;
     --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
 
     --color-purple: var(--brand-purple);
