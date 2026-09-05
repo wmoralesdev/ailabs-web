@@ -1,0 +1,10 @@
+{
+  "source": "anthropics/skills",
+  "sourceUrl": "https://github.com/anthropics/skills",
+  "ref": "41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f",
+  "skillPath": "skills/frontend-design/SKILL.md",
+  "upstreamSkillSha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+  "licensePath": "skills/frontend-design/LICENSE.txt",
+  "localLicensePath": "LICENSE.txt",
+  "localAdaptations": []
+}

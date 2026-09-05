@@ -1,0 +1,10 @@
+{
+  "source": "emilkowalski/skills",
+  "sourceUrl": "https://github.com/emilkowalski/skills",
+  "ref": "d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7",
+  "skillPath": "skills/find-animation-opportunities/SKILL.md",
+  "upstreamSkillSha256": "91c1243164057fbf824088d12faea937878a757a7ac653e8288b775e8b27b882",
+  "licensePath": "LICENSE",
+  "localLicensePath": "LICENSE",
+  "localAdaptations": []
+}

@@ -1,0 +1,10 @@
+{
+  "source": "greensock/gsap-skills",
+  "sourceUrl": "https://github.com/greensock/gsap-skills",
+  "ref": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+  "skillPath": "skills/gsap-scrolltrigger/SKILL.md",
+  "upstreamSkillSha256": "9351b6666a4749c0740406ea363aaccb99a087ff45cc5e8b99a0f367facf3ef4",
+  "licensePath": "LICENSE",
+  "localLicensePath": "LICENSE",
+  "localAdaptations": []
+}

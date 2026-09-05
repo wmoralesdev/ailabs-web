@@ -1,6 +1,13 @@
 {
   "version": 1,
   "skills": {
+    "animate": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "skillPath": "skills/animate/SKILL.md",
+      "ref": "d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7",
+      "computedHash": "fe894a2217116667df32fa472b9703d2e1ff696c0c029371534ba36a07738a95"
+    },
     "clerk": {
       "source": "clerk/skills",
       "sourceType": "github",
@@ -55,11 +62,88 @@
       "skillPath": "skills/features/clerk-webhooks/SKILL.md",
       "computedHash": "de12deda380be19d32d62c4106a6b78736cd4d9cc6dd5b214f6039853ad89e54"
     },
+    "design-taste-frontend": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "ref": "ccbc15639c97057cbfcf32ecebc38ef716e4bb37",
+      "computedHash": "b0b2d43c4e25c9d41ca945f3160160551b3bb81039b27c0484b67ca756ced180"
+    },
+    "emil-design-eng": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "skillPath": "skills/emil-design-eng/SKILL.md",
+      "ref": "d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7",
+      "computedHash": "b08aef6002afb66e035add9ab3cab429e7a8303cdfa6f8cb5ba1989ed1ee8cf5"
+    },
+    "find-animation-opportunities": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-animation-opportunities/SKILL.md",
+      "ref": "d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7",
+      "computedHash": "c908095d0a56f72ca3b191247fca45dd5f27ae6cb680abd5fca0b6f78d79c9ca"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "ref": "41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f",
+      "computedHash": "49c1eab9332aa6a89f84ad8f0cb39dfa2a8230e396cfe3098478e223bff1af49"
+    },
+    "gsap-core": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-core/SKILL.md",
+      "ref": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "computedHash": "9e126cca2d391224552ba4058fbaf86f62338b62fb7ef8e7cdab04ab538e2b14"
+    },
+    "gsap-performance": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-performance/SKILL.md",
+      "ref": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "computedHash": "d94c4c2389e69cce38023c5eb0d466fc9678897d0b2a7d51610230fe34c0f30c"
+    },
+    "gsap-react": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-react/SKILL.md",
+      "ref": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "computedHash": "198963e26659fe2109a375de89ddfa1532712034f3da56eefd17d1df6631bd61"
+    },
+    "gsap-scrolltrigger": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-scrolltrigger/SKILL.md",
+      "ref": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "computedHash": "c84d8cbe21ad36f07a0976150282e39fbf520ece929f234c9ff3621ce12795e7"
+    },
+    "gsap-timeline": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-timeline/SKILL.md",
+      "ref": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "computedHash": "d8e4ceb30fd5121ff874d397474a76e016a0354fb8f041ffb24e7115dafd7063"
+    },
+    "review-animations": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "skillPath": "skills/review-animations/SKILL.md",
+      "ref": "d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7",
+      "computedHash": "0cc7323b8c84632a33df9548cac82eaf5accf4595bdfe6ab390719ef6523773d"
+    },
     "tech-logos": {
       "source": "crafter-station/elements",
       "sourceType": "github",
       "skillPath": ".claude/skills/tech-logos/SKILL.md",
       "computedHash": "ca694c639a242fc347cafc3759f83f3f294fd2464d6039509e8977c6941d4d6a"
+    },
+    "ui-ux-pro-max": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "ref": "f3ac195224eac1eb0dfe1a3059c2a6add78ffbe3",
+      "computedHash": "53fb3fd3af6e83edb5ae16c1d3b777a119e005664d8a9f90024651905af32178"
     }
   }
 }
