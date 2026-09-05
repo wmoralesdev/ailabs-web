@@ -233,12 +233,19 @@ function ProductInfo({
     <>
       <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
         {product.logos.map((logo) => (
-          <img
-            key={logo.alt}
-            src={logo.dark}
-            alt={logo.alt}
-            className="h-6 w-auto brightness-0 invert dark:invert-0"
-          />
+          <span key={logo.alt} className="contents">
+            <img
+              src={logo.dark}
+              alt={logo.alt}
+              className="h-6 w-auto dark:hidden"
+            />
+            <img
+              src={logo.light}
+              alt=""
+              aria-hidden
+              className="hidden h-6 w-auto dark:block"
+            />
+          </span>
         ))}
         <Eyebrow>{content.eventLabel}</Eyebrow>
       </div>
