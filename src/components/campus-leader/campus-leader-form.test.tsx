@@ -293,7 +293,9 @@ describe("CampusLeaderForm", () => {
       within(dialog).getByRole("button", { name: content.submit })
     )
 
-    const payload = submitMock.mock.calls[0]?.[0]?.data
+    const payload = submitMock.mock.calls[0]?.[0]?.data as
+      | { instagram?: string }
+      | undefined
     expect(payload?.instagram).toBeUndefined()
     expect(await within(dialog).findByText(content.success)).toBeTruthy()
   })
