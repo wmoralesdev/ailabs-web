@@ -70,6 +70,7 @@ model PromoCode {
   claimedAt    DateTime?
   allocatedAt  DateTime?
   exportedAt   DateTime?
+  deletedAt    DateTime?
   createdAt    DateTime  @default(now())
 
   event      Event?      @relation(fields: [eventId], references: [id], onDelete: Cascade)
@@ -80,6 +81,7 @@ model PromoCode {
   @@index([pool, eventId, redemptionId])
   @@index([pool, allocatedAt])
   @@index([pool, exportedAt])
+  @@index([pool, deletedAt])
 }
 
 model CampusLeaderApplication {

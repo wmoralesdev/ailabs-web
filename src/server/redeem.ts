@@ -262,6 +262,7 @@ export const redeemCredits = createServerFn({ method: "POST" })
                 "eventId" = ${event.id}
                 AND pool = ${pool}::"Pool"
                 AND "redemptionId" IS NULL
+                AND "deletedAt" IS NULL
               ORDER BY id
               LIMIT 1
               FOR UPDATE SKIP LOCKED
