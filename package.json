@@ -25,6 +25,7 @@
     "db:migrate:status": "prisma migrate status",
     "db:drift": "prisma migrate diff --from-config-datasource --to-schema prisma/schema.prisma --exit-code",
     "dev:seed": "tsx scripts/dev-seed.ts",
+    "aperture:reserve": "tsx scripts/aperture-reserve-member.ts",
     "campus-leader:export": "tsx scripts/export-campus-leader-applications.ts"
   },
   "dependencies": {

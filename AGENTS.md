@@ -216,7 +216,11 @@ scripts. Do not recreate deleted one-off scripts in this repo.
   `pnpm db:migrate:deploy` using `DIRECT_URL`, before the code that needs them
   lands. The Vercel build does not migrate. `pnpm db:drift` must exit 0 after.
 - `pnpm dev:seed` fills a disposable `lane_*` or `dev*` database with synthetic
-  events and codes. It refuses any other database name.
+  events, codes, and members. It refuses any other database name.
+- Aperture member numbers are allocated as `MAX + 1` under a transaction
+  advisory lock, so never delete a `Member` row or insert one by hand: either
+  reuses or gaps a number. Team numbers 0 to 4 come only from
+  `pnpm aperture:reserve`.
 
 ## Contact operations
 

@@ -2,6 +2,7 @@ import "dotenv/config"
 import { pathToFileURL } from "node:url"
 
 import type { PrismaClient } from "../src/generated/prisma/client"
+import { claimMembership } from "../src/server/aperture/member-store"
 import { createScriptPrisma, databaseName } from "./lib/script-prisma"
 
 const SEED_DATABASE_PREFIXES = ["lane_", "dev"]
@@ -70,6 +71,71 @@ async function seedEvents(prisma: PrismaClient, emails: ReadonlyArray<string>) {
   }
 }
 
+const SEED_ROLES = [
+  "FOUNDER",
+  "DEVELOPER",
+  "DESIGNER",
+  "OPERATOR",
+  "STUDENT",
+] as const
+const SEED_COUNTRIES = ["SV", "GT", "HN", "MX", "US", "CR"] as const
+const SEED_UP_FOR = [
+  [],
+  ["COFOUNDING"],
+  ["FREELANCE", "COLLABORATING"],
+  ["HIRING"],
+  ["MENTORING"],
+] as const
+export const SEED_MEMBER_COUNT = 30
+
+export function seedMemberEmail(index: number): string {
+  return `seed${index}@example.com`
+}
+
+/** Thirty members with varied roles, countries, and profiles for directory checks. */
+async function seedMembers(prisma: PrismaClient) {
+  const lane = await prisma.event.findUnique({ where: { slug: "lane-event" } })
+  for (let i = 0; i < SEED_MEMBER_COUNT; i++) {
+    const username = `seed_builder_${String(i).padStart(2, "0")}`
+    const complete = i % 2 === 0
+    await claimMembership(prisma, {
+      clerkUserId: `seed_user_${i}`,
+      profile: {
+        username,
+        displayName: `Seed Builder ${i}`,
+        headline: `${SEED_ROLES[i % SEED_ROLES.length]} building with AI tools`,
+        bio: complete
+          ? "Synthetic member for verification. Builds internal tools and teaches teams to review AI output."
+          : null,
+        countryCode: SEED_COUNTRIES[i % SEED_COUNTRIES.length],
+        city: complete ? "San Salvador" : null,
+        role: SEED_ROLES[i % SEED_ROLES.length],
+        upFor: [...SEED_UP_FOR[i % SEED_UP_FOR.length]],
+        showEvents: i % 3 === 0,
+        linkedinUrl: complete
+          ? `https://www.linkedin.com/in/${username}`
+          : null,
+        xUrl: null,
+        githubUrl: i % 4 === 0 ? `https://github.com/${username}` : null,
+        websiteUrl: null,
+        instagramUrl: null,
+      },
+      verifiedEmails: [seedMemberEmail(i)],
+      avatarUrl: null,
+      consent: { version: "seed", locale: "en", marketing: false },
+    })
+    if (lane && i % 3 === 0) {
+      await prisma.eligibleEmail.upsert({
+        where: {
+          eventId_email: { eventId: lane.id, email: seedMemberEmail(i) },
+        },
+        update: {},
+        create: { eventId: lane.id, email: seedMemberEmail(i) },
+      })
+    }
+  }
+}
+
 export function parseLane(argv: ReadonlyArray<string>): number {
   const raw = argv.find((arg) => arg.startsWith("--lane="))
   const lane = raw ? Number(raw.slice("--lane=".length)) : 1
@@ -89,10 +155,13 @@ async function main() {
   const prisma = createScriptPrisma(url)
   try {
     await seedEvents(prisma, [laneEmail(lane)])
+    await seedMembers(prisma)
     const counts = {
       events: await prisma.event.count(),
       eligibleEmails: await prisma.eligibleEmail.count(),
       promoCodes: await prisma.promoCode.count(),
+      members: await prisma.member.count(),
+      profiles: await prisma.profile.count(),
     }
     console.log(`Seeded ${databaseName(url)} for ${laneEmail(lane)}`)
     console.log(JSON.stringify(counts))
