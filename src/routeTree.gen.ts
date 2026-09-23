@@ -24,6 +24,7 @@ import { Route as SiteTermsRouteImport } from './routes/_site/terms'
 import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
 import { Route as SignUpSplatRouteImport } from './routes/sign-up.$'
 import { Route as SiteEventsSlugRouteImport } from './routes/_site/events/$slug'
+import { Route as ApiWebhooksClerkRouteImport } from './routes/api/webhooks/clerk'
 import { Route as ApiWebhooksWompiRouteImport } from './routes/api/webhooks/wompi'
 import { Route as SiteEventsSlugIndexRouteImport } from './routes/_site/events/$slug.index'
 import { Route as SiteEventsSlugSuccessRouteImport } from './routes/_site/events/$slug.success'
@@ -102,6 +103,11 @@ const SiteEventsSlugRoute = SiteEventsSlugRouteImport.update({
   path: '/events/$slug',
   getParentRoute: () => SiteRoute,
 } as any)
+const ApiWebhooksClerkRoute = ApiWebhooksClerkRouteImport.update({
+  id: '/api/webhooks/clerk',
+  path: '/api/webhooks/clerk',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiWebhooksWompiRoute = ApiWebhooksWompiRouteImport.update({
   id: '/api/webhooks/wompi',
   path: '/api/webhooks/wompi',
@@ -133,6 +139,7 @@ export interface FileRoutesByFullPath {
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
   '/events/$slug': typeof SiteEventsSlugRouteWithChildren
+  '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/events/$slug/': typeof SiteEventsSlugIndexRoute
@@ -150,6 +157,7 @@ export interface FileRoutesByTo {
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale': typeof LocaleIndexRoute
   '/': typeof SiteIndexRoute
+  '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/events/$slug': typeof SiteEventsSlugIndexRoute
@@ -171,6 +179,7 @@ export interface FileRoutesById {
   '/$locale/': typeof LocaleIndexRoute
   '/_site/': typeof SiteIndexRoute
   '/_site/events/$slug': typeof SiteEventsSlugRouteWithChildren
+  '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/_site/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/_site/events/$slug/': typeof SiteEventsSlugIndexRoute
@@ -192,6 +201,7 @@ export interface FileRouteTypes {
     | '/sign-up/$'
     | '/$locale/'
     | '/events/$slug'
+    | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/events/$slug/success'
     | '/events/$slug/'
@@ -209,6 +219,7 @@ export interface FileRouteTypes {
     | '/sign-up/$'
     | '/$locale'
     | '/'
+    | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/events/$slug/success'
     | '/events/$slug'
@@ -229,6 +240,7 @@ export interface FileRouteTypes {
     | '/$locale/'
     | '/_site/'
     | '/_site/events/$slug'
+    | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/_site/events/$slug/success'
     | '/_site/events/$slug/'
@@ -240,6 +252,7 @@ export interface RootRouteChildren {
   BgRoute: typeof BgRoute
   SignInSplatRoute: typeof SignInSplatRoute
   SignUpSplatRoute: typeof SignUpSplatRoute
+  ApiWebhooksClerkRoute: typeof ApiWebhooksClerkRoute
   ApiWebhooksWompiRoute: typeof ApiWebhooksWompiRoute
 }
 
@@ -350,6 +363,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteEventsSlugRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/api/webhooks/clerk': {
+      id: '/api/webhooks/clerk'
+      path: '/api/webhooks/clerk'
+      fullPath: '/api/webhooks/clerk'
+      preLoaderRoute: typeof ApiWebhooksClerkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/webhooks/wompi': {
       id: '/api/webhooks/wompi'
       path: '/api/webhooks/wompi'
@@ -431,6 +451,7 @@ const rootRouteChildren: RootRouteChildren = {
   BgRoute: BgRoute,
   SignInSplatRoute: SignInSplatRoute,
   SignUpSplatRoute: SignUpSplatRoute,
+  ApiWebhooksClerkRoute: ApiWebhooksClerkRoute,
   ApiWebhooksWompiRoute: ApiWebhooksWompiRoute,
 }
 export const routeTree = rootRouteImport
