@@ -38,6 +38,8 @@ type BuildPageMetaInput = {
   path?: string
   title: string
   description: string
+  /** Private, unfinished, or thin pages stay out of search results. */
+  noindex?: boolean
 }
 
 type HeadMeta = {
@@ -72,6 +74,7 @@ export function buildPageMeta({
   path = "",
   title,
   description,
+  noindex = false,
 }: BuildPageMetaInput): PageHead {
   const url = absoluteUrl(path)
   const alternateLocale = locale === "en" ? "es" : "en"
@@ -80,6 +83,7 @@ export function buildPageMeta({
     meta: [
       { title },
       { name: "description", content: description },
+      ...(noindex ? [{ name: "robots", content: "noindex, nofollow" }] : []),
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: SITE_NAME },
       { property: "og:title", content: title },
