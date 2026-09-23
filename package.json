@@ -23,6 +23,7 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "db:migrate:status": "prisma migrate status",
     "db:drift": "prisma migrate diff --from-config-datasource --to-schema prisma/schema.prisma --exit-code",
+    "dev:seed": "tsx scripts/dev-seed.ts",
     "campus-leader:export": "tsx scripts/export-campus-leader-applications.ts"
   },
   "dependencies": {
