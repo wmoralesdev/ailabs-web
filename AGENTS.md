@@ -200,11 +200,26 @@ scripts. Do not recreate deleted one-off scripts in this repo.
   and cleanup of listeners, observers, timers and animation contexts. Test at
   normal speed as well as with captures; passing a build is not visual approval.
 
+## Database migrations
+
+- This repository owns every migration for the shared Neon database, including
+  the credit tables `ailabs-cli` reads. `ailabs-cli` never runs `migrate dev`;
+  it refreshes its own schema with `prisma db pull`.
+- `prisma/migrations/20260923000000_baseline` records every table that existed
+  before migrations moved here. Production marks it applied with
+  `prisma migrate resolve --applied`; its older `ailabs-cli` rows in
+  `_prisma_migrations` are harmless and stay.
+- Create migrations with `pnpm db:migrate:dev --name <change>` against a
+  disposable database and `SHADOW_DATABASE_URL`. Never hand-write migration
+  SQL, never `db push`, and never `migrate reset` a shared database.
+- Production migrations are additive and run by the owner with
+  `pnpm db:migrate:deploy` using `DIRECT_URL`, before the code that needs them
+  lands. The Vercel build does not migrate. `pnpm db:drift` must exit 0 after.
+- `pnpm dev:seed` fills a disposable `lane_*` or `dev*` database with synthetic
+  events and codes. It refuses any other database name.
+
 ## Contact operations
 
-- Apply the additive SQL in `prisma/sql/20260905-contact-inquiry.sql` once to
-  the selected database before releasing contact. There is no migration
-  baseline: never use reset or broad db push to install this table.
 - Inquiries live in `ContactInquiry` in the existing PostgreSQL/Neon database.
   Read them through the database console or `pnpm db:studio`; there is no
   separate inbox, notification queue, mail provider or Convex deployment.

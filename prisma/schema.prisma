@@ -30,10 +30,14 @@ model Event {
   product   Product
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
+  /// Panel tombstone. active is also false for compatibility with public redemption.
+  deletedAt DateTime?
 
   eligibleEmails EligibleEmail[]
   promoCodes     PromoCode[]
   redemptions    Redemption[]
+
+  @@index([deletedAt, createdAt])
 }
 
 model EligibleEmail {
@@ -82,6 +86,24 @@ model PromoCode {
   @@index([pool, allocatedAt])
   @@index([pool, exportedAt])
   @@index([pool, deletedAt])
+}
+
+/// Private administrative operations; no change to public redemption models.
+model CreditOperation {
+  id        String   @id @db.Uuid
+  ownerId   String
+  kind      String
+  pool      Pool
+  eventId   String?
+  status    String   @default("pending")
+  request   Json
+  result    Json     @default("{}")
+  version   Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([pool, createdAt])
+  @@index([ownerId])
 }
 
 model CampusLeaderApplication {
