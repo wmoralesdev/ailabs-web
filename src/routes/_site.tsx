@@ -53,7 +53,11 @@ function SiteLayout() {
           <Outlet />
         </main>
         {hideChromeFooter ? null : (
-          <SiteFooter locale={locale} footer={content.chrome.footer} />
+          <SiteFooter
+            locale={locale}
+            footer={content.chrome.footer}
+            legalPublished={content.legal.status === "published"}
+          />
         )}
       </div>
     </ContactProvider>

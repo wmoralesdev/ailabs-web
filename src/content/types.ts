@@ -44,6 +44,8 @@ export type FooterContent = {
   brandLine: string
   socials: ReadonlyArray<FooterSocial>
   columns: ReadonlyArray<FooterColumn>
+  /** Terms and Privacy links; the footer hides them while the text is a draft. */
+  legalLinks: ReadonlyArray<NavItem>
   /** Heading for the dynamic upcoming-events column; omitted when empty. */
   eventsTitle: string
   copyright: string
@@ -500,6 +502,38 @@ export type HomeContent = {
   contact: HomeContactContent
 }
 
+export type LegalSection = {
+  /** Anchor id, identical in every locale. */
+  id: string
+  heading: string
+  paragraphs: ReadonlyArray<string>
+}
+
+export type LegalDocument = {
+  title: string
+  metaDescription: string
+  intro: string
+  sections: ReadonlyArray<LegalSection>
+}
+
+export type LegalStatus = "draft" | "published"
+
+export type LegalContent = {
+  /** Consents record `version`; join stays closed in production while this is a draft. */
+  status: LegalStatus
+  version: string
+  /** `YYYY-MM-DD`, formatted per locale in UTC. */
+  updatedOn: string
+  draftNotice: string
+  /** `{version}` is replaced. */
+  versionLabel: string
+  /** `{date}` is replaced. */
+  updatedLabel: string
+  contentsLabel: string
+  terms: LegalDocument
+  privacy: LegalDocument
+}
+
 export type SiteContent = {
   locale: Locale
   meta: PageMeta
@@ -509,4 +543,5 @@ export type SiteContent = {
   redeem: RedeemContent
   community: CommunityContent
   campusLeader: CampusLeaderContent
+  legal: LegalContent
 }

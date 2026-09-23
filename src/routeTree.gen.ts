@@ -18,7 +18,9 @@ import { Route as SiteIndexRouteImport } from './routes/_site/index'
 import { Route as SiteCampusLeaderRouteImport } from './routes/_site/campus-leader'
 import { Route as SiteCommunityRouteImport } from './routes/_site/community'
 import { Route as SiteLabRouteImport } from './routes/_site/lab'
+import { Route as SitePrivacyRouteImport } from './routes/_site/privacy'
 import { Route as SiteRedeemRouteImport } from './routes/_site/redeem'
+import { Route as SiteTermsRouteImport } from './routes/_site/terms'
 import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
 import { Route as SignUpSplatRouteImport } from './routes/sign-up.$'
 import { Route as SiteEventsSlugRouteImport } from './routes/_site/events/$slug'
@@ -70,9 +72,19 @@ const SiteLabRoute = SiteLabRouteImport.update({
   path: '/lab',
   getParentRoute: () => SiteRoute,
 } as any)
+const SitePrivacyRoute = SitePrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteRedeemRoute = SiteRedeemRouteImport.update({
   id: '/redeem',
   path: '/redeem',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteTermsRoute = SiteTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => SiteRoute,
 } as any)
 const SignInSplatRoute = SignInSplatRouteImport.update({
@@ -114,7 +126,9 @@ export interface FileRoutesByFullPath {
   '/campus-leader': typeof SiteCampusLeaderRoute
   '/community': typeof SiteCommunityRoute
   '/lab': typeof SiteLabRoute
+  '/privacy': typeof SitePrivacyRoute
   '/redeem': typeof SiteRedeemRoute
+  '/terms': typeof SiteTermsRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
@@ -129,7 +143,9 @@ export interface FileRoutesByTo {
   '/campus-leader': typeof SiteCampusLeaderRoute
   '/community': typeof SiteCommunityRoute
   '/lab': typeof SiteLabRoute
+  '/privacy': typeof SitePrivacyRoute
   '/redeem': typeof SiteRedeemRoute
+  '/terms': typeof SiteTermsRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale': typeof LocaleIndexRoute
@@ -147,7 +163,9 @@ export interface FileRoutesById {
   '/_site/campus-leader': typeof SiteCampusLeaderRoute
   '/_site/community': typeof SiteCommunityRoute
   '/_site/lab': typeof SiteLabRoute
+  '/_site/privacy': typeof SitePrivacyRoute
   '/_site/redeem': typeof SiteRedeemRoute
+  '/_site/terms': typeof SiteTermsRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
@@ -167,7 +185,9 @@ export interface FileRouteTypes {
     | '/campus-leader'
     | '/community'
     | '/lab'
+    | '/privacy'
     | '/redeem'
+    | '/terms'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale/'
@@ -182,7 +202,9 @@ export interface FileRouteTypes {
     | '/campus-leader'
     | '/community'
     | '/lab'
+    | '/privacy'
     | '/redeem'
+    | '/terms'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale'
@@ -199,7 +221,9 @@ export interface FileRouteTypes {
     | '/_site/campus-leader'
     | '/_site/community'
     | '/_site/lab'
+    | '/_site/privacy'
     | '/_site/redeem'
+    | '/_site/terms'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale/'
@@ -284,11 +308,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteLabRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/privacy': {
+      id: '/_site/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof SitePrivacyRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/redeem': {
       id: '/_site/redeem'
       path: '/redeem'
       fullPath: '/redeem'
       preLoaderRoute: typeof SiteRedeemRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/terms': {
+      id: '/_site/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof SiteTermsRouteImport
       parentRoute: typeof SiteRoute
     }
     '/sign-in/$': {
@@ -367,7 +405,9 @@ interface SiteRouteChildren {
   SiteCampusLeaderRoute: typeof SiteCampusLeaderRoute
   SiteCommunityRoute: typeof SiteCommunityRoute
   SiteLabRoute: typeof SiteLabRoute
+  SitePrivacyRoute: typeof SitePrivacyRoute
   SiteRedeemRoute: typeof SiteRedeemRoute
+  SiteTermsRoute: typeof SiteTermsRoute
   SiteIndexRoute: typeof SiteIndexRoute
   SiteEventsSlugRoute: typeof SiteEventsSlugRouteWithChildren
 }
@@ -376,7 +416,9 @@ const SiteRouteChildren: SiteRouteChildren = {
   SiteCampusLeaderRoute: SiteCampusLeaderRoute,
   SiteCommunityRoute: SiteCommunityRoute,
   SiteLabRoute: SiteLabRoute,
+  SitePrivacyRoute: SitePrivacyRoute,
   SiteRedeemRoute: SiteRedeemRoute,
+  SiteTermsRoute: SiteTermsRoute,
   SiteIndexRoute: SiteIndexRoute,
   SiteEventsSlugRoute: SiteEventsSlugRouteWithChildren,
 }

@@ -1,4 +1,5 @@
 import { homeCarousel } from "./home-carousel"
+import { legalEs } from "./legal-es"
 import type { SiteContent } from "./types"
 
 export const es: SiteContent = {
@@ -103,6 +104,10 @@ export const es: SiteContent = {
             },
           ],
         },
+      ],
+      legalLinks: [
+        { label: "Términos", href: "/terms" },
+        { label: "Privacidad", href: "/privacy" },
       ],
       eventsTitle: "Eventos",
       copyright: "© {year} Ai Labs",
@@ -772,4 +777,5 @@ export const es: SiteContent = {
     qrTitle: "Escaneá para abrir",
     qrBody: "Escaneá este código para abrir esta página en otro dispositivo.",
   },
+  legal: legalEs,
 }

@@ -1,4 +1,5 @@
 import { homeCarousel } from "./home-carousel"
+import { legalEn } from "./legal-en"
 import type { SiteContent } from "./types"
 
 export const en: SiteContent = {
@@ -103,6 +104,10 @@ export const en: SiteContent = {
             },
           ],
         },
+      ],
+      legalLinks: [
+        { label: "Terms", href: "/terms" },
+        { label: "Privacy", href: "/privacy" },
       ],
       eventsTitle: "Events",
       copyright: "© {year} Ai Labs",
@@ -769,4 +774,5 @@ export const en: SiteContent = {
     qrTitle: "Scan to open",
     qrBody: "Scan this code to open this page on another device.",
   },
+  legal: legalEn,
 }
