@@ -2,6 +2,7 @@
 
 import { Fragment } from "react"
 import type { ReactNode } from "react"
+import { Link } from "@tanstack/react-router"
 
 import { MeSettings } from "@/components/aperture/me-settings"
 import type {
@@ -40,6 +41,13 @@ export function MeDashboardView({
         <p className="text-base text-muted-foreground">
           @{dashboard.username} · {dashboard.profile.headline}
         </p>
+        <Link
+          to="/u/$username"
+          params={{ username: dashboard.username }}
+          className="w-fit text-sm font-medium text-foreground underline underline-offset-4"
+        >
+          /u/{dashboard.username}
+        </Link>
       </header>
 
       <MeList

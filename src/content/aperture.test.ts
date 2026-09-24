@@ -22,4 +22,13 @@ describe("aperture join copy", () => {
       Object.keys(en.aperture.me.fields)
     )
   })
+
+  it("keeps directory and profile keys in parity", () => {
+    expect(Object.keys(es.aperture.directory)).toEqual(
+      Object.keys(en.aperture.directory)
+    )
+    expect(Object.keys(es.aperture.profile)).toEqual(
+      Object.keys(en.aperture.profile)
+    )
+  })
 })

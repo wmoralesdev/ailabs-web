@@ -11,6 +11,7 @@ describe("public home content", () => {
       expect(nav.community.items.map(({ to }) => to)).toEqual([
         "/community",
         "/campus-leader",
+        "/aperture",
       ])
       expect(
         content.chrome.footer.columns
@@ -25,6 +26,7 @@ describe("public home content", () => {
           "#contact",
           "/community",
           "/campus-leader",
+          "/aperture",
         ])
       )
     }

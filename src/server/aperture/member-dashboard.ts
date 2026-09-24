@@ -100,7 +100,7 @@ async function latestMarketing(
   return row?.granted === true
 }
 
-async function eventsForEmails(
+export async function eventsForEmails(
   db: PrismaClient,
   emails: ReadonlyArray<string>
 ): Promise<MeEvent[]> {

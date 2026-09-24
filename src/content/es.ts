@@ -26,6 +26,10 @@ export const es: SiteContent = {
             label: "Campus Leaders",
             href: "/campus-leader",
           },
+          {
+            label: "Miembros de Aperture",
+            href: "/aperture",
+          },
         ],
       },
       contact: {
@@ -87,6 +91,10 @@ export const es: SiteContent = {
             {
               label: "Campus Leaders",
               href: "/campus-leader",
+            },
+            {
+              label: "Miembros de Aperture",
+              href: "/aperture",
             },
           ],
         },
@@ -940,6 +948,26 @@ export const es: SiteContent = {
         CODEX: "Codex",
         OPENAI: "OpenAI Platform",
       },
+    },
+    directory: {
+      metaTitle: "Miembros de Aperture",
+      metaDescription:
+        "Perfiles públicos de builders de Aperture en la comunidad de Ai Labs.",
+      label: "Aperture",
+      headline: "Miembros",
+      body: "Gente construyendo con estas herramientas. Cada perfil tiene un número permanente.",
+      empty: "Todavía no hay perfiles públicos.",
+      joinCta: "Reclamá tu número",
+    },
+    profile: {
+      metaTitle: "Perfil de Aperture",
+      metaTitleNamed: "{name} · Aperture",
+      metaDescription: "Un perfil público de builder en Aperture.",
+      metaDescriptionNamed: "{name} — {headline}",
+      notFoundTitle: "Perfil no encontrado",
+      notFoundBody: "Ese usuario no es miembro de Aperture.",
+      eventsTitle: "Eventos",
+      linksTitle: "Enlaces",
     },
   },
 }

@@ -648,9 +648,34 @@ export type ApertureMeContent = {
   }
 }
 
+export type ApertureDirectoryContent = {
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  body: string
+  empty: string
+  joinCta: string
+}
+
+export type ApertureProfileContent = {
+  metaTitle: string
+  /** `{name}` is replaced. */
+  metaTitleNamed: string
+  metaDescription: string
+  /** `{name}` and `{headline}` are replaced. */
+  metaDescriptionNamed: string
+  notFoundTitle: string
+  notFoundBody: string
+  eventsTitle: string
+  linksTitle: string
+}
+
 export type ApertureContent = {
   join: ApertureJoinContent
   me: ApertureMeContent
+  directory: ApertureDirectoryContent
+  profile: ApertureProfileContent
 }
 
 export type SiteContent = {

@@ -26,6 +26,10 @@ export const en: SiteContent = {
             label: "Campus Leaders",
             href: "/campus-leader",
           },
+          {
+            label: "Aperture members",
+            href: "/aperture",
+          },
         ],
       },
       contact: {
@@ -87,6 +91,10 @@ export const en: SiteContent = {
             {
               label: "Campus Leaders",
               href: "/campus-leader",
+            },
+            {
+              label: "Aperture members",
+              href: "/aperture",
             },
           ],
         },
@@ -935,6 +943,26 @@ export const en: SiteContent = {
         CODEX: "Codex",
         OPENAI: "OpenAI Platform",
       },
+    },
+    directory: {
+      metaTitle: "Aperture members",
+      metaDescription:
+        "Public Aperture builder profiles from the Ai Labs community.",
+      label: "Aperture",
+      headline: "Members",
+      body: "People building with these tools. Each profile has a permanent number.",
+      empty: "No public profiles yet.",
+      joinCta: "Claim your number",
+    },
+    profile: {
+      metaTitle: "Aperture profile",
+      metaTitleNamed: "{name} · Aperture",
+      metaDescription: "A public Aperture builder profile.",
+      metaDescriptionNamed: "{name} — {headline}",
+      notFoundTitle: "Profile not found",
+      notFoundBody: "That username is not an Aperture member.",
+      eventsTitle: "Events",
+      linksTitle: "Links",
     },
   },
 }
