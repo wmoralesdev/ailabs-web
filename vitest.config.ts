@@ -11,6 +11,11 @@ export default defineConfig({
     // Avoid Vite FS watchers that hit EMFILE under the full app plugin graph.
     watch: false,
     fileParallelism: false,
-    exclude: ["**/node_modules/**", "**/e2e/**", "**/*.spec.ts"],
+    exclude: [
+      "**/node_modules/**",
+      "**/e2e/**",
+      "**/*.spec.ts",
+      "**/*.db.test.ts",
+    ],
   },
 })

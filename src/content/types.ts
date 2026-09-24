@@ -44,6 +44,8 @@ export type FooterContent = {
   brandLine: string
   socials: ReadonlyArray<FooterSocial>
   columns: ReadonlyArray<FooterColumn>
+  /** Terms and Privacy links; the footer hides them while the text is a draft. */
+  legalLinks: ReadonlyArray<NavItem>
   /** Heading for the dynamic upcoming-events column; omitted when empty. */
   eventsTitle: string
   copyright: string
@@ -112,6 +114,10 @@ export type RedeemContent = CampaignQrCopy & {
   noVerifiedEmailBody: string
   missingCodeTitle: string
   missingCodeBody: string
+  /** Shown after codes when the signed-in visitor is not yet a member. */
+  joinNudgeTitle: string
+  joinNudgeBody: string
+  joinNudgeCta: string
   poolLabels: {
     CURSOR: string
     CODEX: string
@@ -500,6 +506,214 @@ export type HomeContent = {
   contact: HomeContactContent
 }
 
+export type LegalSection = {
+  /** Anchor id, identical in every locale. */
+  id: string
+  heading: string
+  paragraphs: ReadonlyArray<string>
+}
+
+export type LegalDocument = {
+  title: string
+  metaDescription: string
+  intro: string
+  sections: ReadonlyArray<LegalSection>
+}
+
+export type LegalStatus = "draft" | "published"
+
+export type LegalContent = {
+  /** Consents record `version`; join stays closed in production while this is a draft. */
+  status: LegalStatus
+  version: string
+  /** `YYYY-MM-DD`, formatted per locale in UTC. */
+  updatedOn: string
+  draftNotice: string
+  /** `{version}` is replaced. */
+  versionLabel: string
+  /** `{date}` is replaced. */
+  updatedLabel: string
+  contentsLabel: string
+  terms: LegalDocument
+  privacy: LegalDocument
+}
+
+export type ApertureMemberRole =
+  "FOUNDER" | "DEVELOPER" | "DESIGNER" | "OPERATOR" | "STUDENT"
+
+export type ApertureUpFor =
+  "COFOUNDING" | "FREELANCE" | "HIRING" | "MENTORING" | "COLLABORATING"
+
+export type ApertureFieldError =
+  "required" | "too_long" | "invalid" | "reserved" | "taken"
+
+export type ApertureJoinField = {
+  label: string
+  placeholder?: string
+  helper?: string
+}
+
+export type ApertureJoinContent = CampaignQrCopy & {
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  body: string
+  signInPrompt: string
+  signInCta: string
+  signOutCta: string
+  signedInAs: string
+  submit: string
+  submitting: string
+  closedTitle: string
+  closedBody: string
+  retiredTitle: string
+  retiredBody: string
+  existingTitle: string
+  /** `{number}` is replaced. */
+  existingBody: string
+  noVerifiedEmailTitle: string
+  noVerifiedEmailBody: string
+  error: string
+  usernameAvailable: string
+  usernameChecking: string
+  fields: {
+    username: ApertureJoinField
+    displayName: ApertureJoinField
+    headline: ApertureJoinField
+    country: ApertureJoinField
+    role: ApertureJoinField
+    upFor: ApertureJoinField
+  }
+  roleOptions: Record<ApertureMemberRole, string>
+  upForOptions: Record<ApertureUpFor, string>
+  fieldErrors: Record<ApertureFieldError, string>
+  /** `{terms}` and `{privacy}` are replaced with links. */
+  legalAccept: string
+  legalTerms: string
+  legalPrivacy: string
+  ageAccept: string
+  newsletterAccept: string
+  revealTitle: string
+  /** `{number}` is replaced. */
+  revealBody: string
+  revealCta: string
+}
+
+export type ApertureMeContent = {
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  /** `{number}` is replaced. */
+  numberLabel: string
+  signInPrompt: string
+  signInCta: string
+  signOutCta: string
+  signedInAs: string
+  joinCta: string
+  noMemberTitle: string
+  noMemberBody: string
+  retiredTitle: string
+  retiredBody: string
+  eventsTitle: string
+  eventsEmpty: string
+  creditsTitle: string
+  creditsEmpty: string
+  /** `{date}` is replaced. */
+  expiresLabel: string
+  settingsTitle: string
+  save: string
+  saving: string
+  saved: string
+  error: string
+  newsletterLabel: string
+  showEventsLabel: string
+  showEventsHelper: string
+  /** `{date}` is replaced. */
+  usernameCooldown: string
+  fields: {
+    bio: ApertureJoinField
+    city: ApertureJoinField
+    linkedin: ApertureJoinField
+    x: ApertureJoinField
+    github: ApertureJoinField
+    website: ApertureJoinField
+    instagram: ApertureJoinField
+    title: ApertureJoinField
+    summary: ApertureJoinField
+    url: ApertureJoinField
+    repoUrl: ApertureJoinField
+  }
+  poolLabels: {
+    CURSOR: string
+    CODEX: string
+    OPENAI: string
+  }
+  shareCta: string
+  projectsTitle: string
+  projectsEmpty: string
+  projectsHelper: string
+  addProject: string
+  editProject: string
+  saveProject: string
+  cancelProject: string
+  deleteProject: string
+  builtWithTitle: string
+  builtWithHelper: string
+  addTool: string
+  removeTool: string
+  toolNameLabel: string
+  percentLabel: string
+  publishedLabel: string
+  imageLabel: string
+  imageHelper: string
+  imageUnavailable: string
+  removeImage: string
+  projectLimit: string
+  projectErrors: {
+    required: string
+    too_long: string
+    invalid: string
+    sum: string
+  }
+}
+
+export type ApertureDirectoryContent = {
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  body: string
+  empty: string
+  joinCta: string
+}
+
+export type ApertureProfileContent = {
+  metaTitle: string
+  /** `{name}` is replaced. */
+  metaTitleNamed: string
+  metaDescription: string
+  /** `{name}` and `{headline}` are replaced. */
+  metaDescriptionNamed: string
+  notFoundTitle: string
+  notFoundBody: string
+  eventsTitle: string
+  linksTitle: string
+  projectsTitle: string
+  builtWithDisclaimer: string
+  shareCta: string
+  /** `{name}` and `{number}` are replaced. */
+  shareCardAlt: string
+}
+
+export type ApertureContent = {
+  join: ApertureJoinContent
+  me: ApertureMeContent
+  directory: ApertureDirectoryContent
+  profile: ApertureProfileContent
+}
+
 export type SiteContent = {
   locale: Locale
   meta: PageMeta
@@ -509,4 +723,6 @@ export type SiteContent = {
   redeem: RedeemContent
   community: CommunityContent
   campusLeader: CampusLeaderContent
+  legal: LegalContent
+  aperture: ApertureContent
 }

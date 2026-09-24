@@ -24,16 +24,23 @@ enum Pool {
 }
 
 model Event {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
-  slug      String   @unique
+  slug      String    @unique
   product   Product
-  active    Boolean  @default(true)
-  createdAt DateTime @default(now())
+  active    Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  /// Panel tombstone. active is also false for compatibility with public redemption.
+  deletedAt DateTime?
+  /// Filled by the owner; members see no date while it is empty.
+  startsAt  DateTime?
+  venue     String?
 
   eligibleEmails EligibleEmail[]
   promoCodes     PromoCode[]
   redemptions    Redemption[]
+
+  @@index([deletedAt, createdAt])
 }
 
 model EligibleEmail {
@@ -45,6 +52,7 @@ model EligibleEmail {
 
   @@unique([eventId, email])
   @@index([eventId])
+  @@index([email])
 }
 
 model Redemption {
@@ -70,6 +78,9 @@ model PromoCode {
   claimedAt    DateTime?
   allocatedAt  DateTime?
   exportedAt   DateTime?
+  deletedAt    DateTime?
+  /// Provider expiry for this code. Members see no date while it is empty.
+  expiresAt    DateTime?
   createdAt    DateTime  @default(now())
 
   event      Event?      @relation(fields: [eventId], references: [id], onDelete: Cascade)
@@ -80,30 +91,50 @@ model PromoCode {
   @@index([pool, eventId, redemptionId])
   @@index([pool, allocatedAt])
   @@index([pool, exportedAt])
+  @@index([pool, deletedAt])
+  @@index([redemptionId])
+}
+
+/// Private administrative operations; no change to public redemption models.
+model CreditOperation {
+  id        String   @id @db.Uuid
+  ownerId   String
+  kind      String
+  pool      Pool
+  eventId   String?
+  status    String   @default("pending")
+  request   Json
+  result    Json     @default("{}")
+  version   Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([pool, createdAt])
+  @@index([ownerId])
 }
 
 model CampusLeaderApplication {
-  id             String   @id @default(cuid())
-  cohort         String
-  name           String
-  email          String
-  whatsapp       String
-  linkedin       String?
-  instagram      String?
-  x              String?
-  campus         String
-  career         String
-  year           String
-  bio            String
-  reach          String
-  aiToday        String
-  whyLeader      String
-  quietRoom      String
-  inviteMessage  String
-  roomPlan       String
-  sessionPrefs   String[]
-  notes          String?
-  createdAt      DateTime @default(now())
+  id            String   @id @default(cuid())
+  cohort        String
+  name          String
+  email         String
+  whatsapp      String
+  linkedin      String?
+  instagram     String?
+  x             String?
+  campus        String
+  career        String
+  year          String
+  bio           String
+  reach         String
+  aiToday       String
+  whyLeader     String
+  quietRoom     String
+  inviteMessage String
+  roomPlan      String
+  sessionPrefs  String[]
+  notes         String?
+  createdAt     DateTime @default(now())
 
   @@index([cohort])
   @@index([campus, career])
@@ -133,21 +164,21 @@ enum WorkshopRegistrationStatus {
 }
 
 model WorkshopRegistration {
-  id                         String                     @id @default(cuid())
-  workshopId                 String
-  name                       String
-  email                      String
-  whatsapp                   String
-  status                     WorkshopRegistrationStatus @default(PENDING)
+  id                     String                     @id @default(cuid())
+  workshopId             String
+  name                   String
+  email                  String
+  whatsapp               String
+  status                 WorkshopRegistrationStatus @default(PENDING)
   /// Commerce id sent to Wompi as identificadorEnlaceComercio.
-  commerceLinkId             String                     @unique
-  wompiEnlaceId              Int?
-  wompiTransactionId         String?
-  wompiAuthorizationCode     String?
-  checkoutUrl                String?
-  paidAt                     DateTime?
-  createdAt                  DateTime                   @default(now())
-  updatedAt                  DateTime                   @updatedAt
+  commerceLinkId         String                     @unique
+  wompiEnlaceId          Int?
+  wompiTransactionId     String?
+  wompiAuthorizationCode String?
+  checkoutUrl            String?
+  paidAt                 DateTime?
+  createdAt              DateTime                   @default(now())
+  updatedAt              DateTime                   @updatedAt
 
   workshop Workshop @relation(fields: [workshopId], references: [id], onDelete: Cascade)
 
@@ -169,4 +200,130 @@ model ContactInquiry {
 
   @@index([email, createdAt])
   @@index([createdAt])
+}
+
+enum MemberRole {
+  FOUNDER
+  DEVELOPER
+  DESIGNER
+  OPERATOR
+  STUDENT
+}
+
+enum UpFor {
+  COFOUNDING
+  FREELANCE
+  HIRING
+  MENTORING
+  COLLABORATING
+}
+
+enum ConsentKind {
+  TERMS
+  PRIVACY
+  AGE_DECLARATION
+  MARKETING
+}
+
+/// Aperture membership. The number is permanent: 0 to 4 come only from the
+/// reserve script, public claims start at 5, and a retired row is never deleted.
+model Member {
+  number      Int       @id
+  clerkUserId String    @unique
+  createdAt   DateTime  @default(now())
+  retiredAt   DateTime?
+
+  profile  Profile?
+  emails   MemberEmail[]
+  consents Consent[]
+  projects Project[]
+}
+
+/// Public profile. Deleted when the member retires.
+model Profile {
+  memberNumber      Int        @id
+  username          String     @unique
+  displayName       String
+  headline          String
+  bio               String?
+  countryCode       String
+  city              String?
+  role              MemberRole
+  upFor             UpFor[]
+  linkedinUrl       String?
+  xUrl              String?
+  githubUrl         String?
+  websiteUrl        String?
+  instagramUrl      String?
+  avatarUrl         String?
+  showEvents        Boolean    @default(false)
+  usernameChangedAt DateTime?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  member Member @relation(fields: [memberNumber], references: [number], onDelete: Cascade)
+
+  @@index([role])
+  @@index([countryCode])
+}
+
+/// Verified Clerk addresses, matched against EligibleEmail for a member's events.
+model MemberEmail {
+  email        String @id
+  memberNumber Int
+
+  member Member @relation(fields: [memberNumber], references: [number], onDelete: Cascade)
+
+  @@index([memberNumber])
+}
+
+/// Append-only. The current state of a kind is its latest row.
+model Consent {
+  id           String      @id @default(cuid())
+  memberNumber Int
+  kind         ConsentKind
+  granted      Boolean
+  version      String
+  locale       String
+  createdAt    DateTime    @default(now())
+
+  member Member @relation(fields: [memberNumber], references: [number])
+
+  @@index([memberNumber, kind, createdAt])
+}
+
+/// Self-published work on a public profile. Deleted when the member retires.
+model Project {
+  id           String    @id @default(cuid())
+  memberNumber Int
+  slug         String
+  title        String
+  summary      String
+  url          String?
+  repoUrl      String?
+  imageKey     String?
+  published    Boolean   @default(true)
+  hiddenAt     DateTime?
+  sortOrder    Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  member    Member             @relation(fields: [memberNumber], references: [number], onDelete: Cascade)
+  builtWith ProjectBuiltWith[]
+
+  @@unique([memberNumber, slug])
+  @@index([memberNumber, sortOrder])
+}
+
+/// Self-reported tool share. Percents on a project must sum to 100.
+model ProjectBuiltWith {
+  id        String @id @default(cuid())
+  projectId String
+  name      String
+  percent   Int
+  sortOrder Int    @default(0)
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, sortOrder])
 }

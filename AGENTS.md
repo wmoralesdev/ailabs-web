@@ -93,6 +93,17 @@ possibly stale value into this file.
   pages.
 - `/redeem` is an authenticated credit-redemption flow backed by Clerk,
   TanStack server functions, Prisma, and PostgreSQL/Neon.
+- `/aperture/join` is the authenticated Aperture claim flow. Join stays
+  closed in production unless `APERTURE_JOIN=open` and the legal text is
+  published. `APERTURE_JOIN=preview` opens the form only outside
+  production. A successful claim allocates a permanent member number.
+- `/me` is the private member dashboard: events linked to verified emails,
+  credit codes and expiry, and profile settings. It stays noindex.
+- `/u/$username` is the public builder profile. `/aperture` lists members.
+  Public events appear only when the member turns `showEvents` on.
+  Published projects show a self-reported built-with breakdown.
+  Project images are stored in Cloudflare R2 when those credentials are set.
+  `/api/og/u/$username` renders the member share card used as the profile OG image.
 - `/community` is a minimal WhatsApp invite landing (no auth). Like redeem
   and campus-leader, its hero is the shared campaign split hero
   (`src/components/campaign/campaign-hero.tsx`): light copy column on the
@@ -200,11 +211,33 @@ scripts. Do not recreate deleted one-off scripts in this repo.
   and cleanup of listeners, observers, timers and animation contexts. Test at
   normal speed as well as with captures; passing a build is not visual approval.
 
+## Database migrations
+
+- This repository owns every migration for the shared Neon database, including
+  the credit tables `ailabs-cli` reads. `ailabs-cli` never runs `migrate dev`;
+  it refreshes its own schema with `prisma db pull`.
+- `prisma/migrations/20260923000000_baseline` records every table that existed
+  before migrations moved here. Production marks it applied with
+  `prisma migrate resolve --applied`; its older `ailabs-cli` rows in
+  `_prisma_migrations` are harmless and stay.
+- Create migrations with `pnpm db:migrate:dev --name <change>` against a
+  disposable database and `SHADOW_DATABASE_URL`. Never hand-write migration
+  SQL, never `db push`, and never `migrate reset` a shared database.
+- Production migrations are additive and run by the owner with
+  `pnpm db:migrate:deploy` using `DIRECT_URL`, before the code that needs them
+  lands. The Vercel build does not migrate. `pnpm db:drift` must exit 0 after.
+- `pnpm dev:seed` fills a disposable `lane_*` or `dev*` database with synthetic
+  events, codes, and members. It refuses any other database name.
+- Aperture member numbers are allocated as `MAX + 1` under a transaction
+  advisory lock, so never delete a `Member` row or insert one by hand: either
+  reuses or gaps a number. Team numbers 0 to 4 come only from
+  `pnpm aperture:reserve`. Clerk `user.updated` and `user.deleted` events at
+  `/api/webhooks/clerk` refresh emails and avatars for existing members and
+  retire deleted users; a number is never reused. Join at `/aperture/join`
+  is gated by `APERTURE_JOIN` and required Terms, Privacy, and 18+ consent.
+
 ## Contact operations
 
-- Apply the additive SQL in `prisma/sql/20260905-contact-inquiry.sql` once to
-  the selected database before releasing contact. There is no migration
-  baseline: never use reset or broad db push to install this table.
 - Inquiries live in `ContactInquiry` in the existing PostgreSQL/Neon database.
   Read them through the database console or `pnpm db:studio`; there is no
   separate inbox, notification queue, mail provider or Convex deployment.

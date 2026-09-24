@@ -24,6 +24,7 @@ import {
 type SiteFooterProps = {
   locale: Locale
   footer: FooterContent
+  legalPublished: boolean
 }
 
 /** Always-dark footer: graphite + on-dark only — no theme or purple tokens. */
@@ -124,7 +125,7 @@ function SocialLink({ social }: { social: FooterSocial }) {
 /** Decorative watermark — brand phrase, not localized UI copy. */
 const FOOTER_WATERMARK = "get curious"
 
-function SiteFooter({ locale, footer }: SiteFooterProps) {
+function SiteFooter({ locale, footer, legalPublished }: SiteFooterProps) {
   // Promote only events with a confirmed date. TBD event pages stay accessible.
   const upcoming = listUpcomingWorkshops().filter(
     (workshop) => workshop.endsOn !== null
@@ -194,9 +195,20 @@ function SiteFooter({ locale, footer }: SiteFooterProps) {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-on-dark/12 pt-6">
-          <p className="text-sm text-on-dark/55">
-            {formatCopyright(footer.copyright)}
-          </p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
+            <p className="text-sm text-on-dark/55">
+              {formatCopyright(footer.copyright)}
+            </p>
+            {legalPublished ? (
+              <ul className="flex flex-wrap items-center gap-x-5">
+                {footer.legalLinks.map((link) => (
+                  <li key={link.href}>
+                    <FooterLink link={link} locale={locale} />
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
           <p className="flex items-center gap-2 text-sm text-on-dark/55">
             <HugeiconsIcon
               icon={Location01Icon}

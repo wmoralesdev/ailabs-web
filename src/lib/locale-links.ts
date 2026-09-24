@@ -5,6 +5,11 @@
 const INTERNAL_ROUTES = {
   "/community": "/community",
   "/campus-leader": "/campus-leader",
+  "/aperture": "/aperture",
+  "/aperture/join": "/aperture/join",
+  "/me": "/me",
+  "/terms": "/terms",
+  "/privacy": "/privacy",
 } as const
 
 type InternalHref = keyof typeof INTERNAL_ROUTES

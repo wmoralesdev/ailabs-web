@@ -24,6 +24,7 @@ function pageOwnsBrand(routeId: string): boolean {
     routeId === "/_site/redeem" ||
     routeId === "/_site/community" ||
     routeId === "/_site/campus-leader" ||
+    routeId === "/_site/aperture/join" ||
     routeId === "/_site/lab" ||
     routeId.startsWith("/_site/events")
   )
@@ -53,7 +54,11 @@ function SiteLayout() {
           <Outlet />
         </main>
         {hideChromeFooter ? null : (
-          <SiteFooter locale={locale} footer={content.chrome.footer} />
+          <SiteFooter
+            locale={locale}
+            footer={content.chrome.footer}
+            legalPublished={content.legal.status === "published"}
+          />
         )}
       </div>
     </ContactProvider>

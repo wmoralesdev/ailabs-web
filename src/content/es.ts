@@ -1,4 +1,5 @@
 import { homeCarousel } from "./home-carousel"
+import { legalEs } from "./legal-es"
 import type { SiteContent } from "./types"
 
 export const es: SiteContent = {
@@ -24,6 +25,10 @@ export const es: SiteContent = {
           {
             label: "Campus Leaders",
             href: "/campus-leader",
+          },
+          {
+            label: "Miembros de Aperture",
+            href: "/aperture",
           },
         ],
       },
@@ -87,6 +92,10 @@ export const es: SiteContent = {
               label: "Campus Leaders",
               href: "/campus-leader",
             },
+            {
+              label: "Miembros de Aperture",
+              href: "/aperture",
+            },
           ],
         },
         {
@@ -103,6 +112,10 @@ export const es: SiteContent = {
             },
           ],
         },
+      ],
+      legalLinks: [
+        { label: "Términos", href: "/terms" },
+        { label: "Privacidad", href: "/privacy" },
       ],
       eventsTitle: "Eventos",
       copyright: "© {year} Ai Labs",
@@ -474,6 +487,10 @@ export const es: SiteContent = {
       "Tu cuenta necesita un correo verificado antes de canjear créditos.",
     missingCodeTitle: "Falta el código",
     missingCodeBody: "Abre el enlace completo que incluye ?code=…",
+    joinNudgeTitle: "Aperture",
+    joinNudgeBody:
+      "Reclamá un número de miembro permanente y un perfil público de builder.",
+    joinNudgeCta: "Unirme a Aperture",
     qrCta: "QR",
     qrTitle: "Escanea para abrir",
     qrBody: "Escanea este código para abrir esta página en otro dispositivo.",
@@ -771,5 +788,237 @@ export const es: SiteContent = {
     qrCta: "QR",
     qrTitle: "Escaneá para abrir",
     qrBody: "Escaneá este código para abrir esta página en otro dispositivo.",
+  },
+  legal: legalEs,
+  aperture: {
+    join: {
+      metaTitle: "Unirme a Aperture",
+      metaDescription:
+        "Reclamá un número de miembro permanente de Aperture y un perfil público corto.",
+      label: "Aperture",
+      headline: "Reclamá tu número de miembro",
+      body: "Un perfil público corto y un número permanente. Los números se asignan en orden y no se reutilizan.",
+      signInPrompt:
+        "Iniciá sesión para reclamar tu número. Usá un correo verificado.",
+      signInCta: "Iniciar sesión para unirme",
+      signOutCta: "Cerrar sesión",
+      signedInAs: "Sesión iniciada como {email}",
+      submit: "Reclamar mi número",
+      submitting: "Reclamando…",
+      closedTitle: "El registro está cerrado",
+      closedBody: "Aperture no está aceptando miembros nuevos por ahora.",
+      retiredTitle: "Esta cuenta se cerró",
+      retiredBody:
+        "Tu número de miembro queda retirado y no se puede volver a reclamar.",
+      existingTitle: "Ya tenés un número",
+      existingBody: "Tu número es #{number}.",
+      noVerifiedEmailTitle: "Verificá tu correo",
+      noVerifiedEmailBody:
+        "Tu cuenta necesita un correo verificado antes de unirte a Aperture.",
+      error: "Algo falló. Probá de nuevo en un momento.",
+      usernameAvailable: "Disponible",
+      usernameChecking: "Revisando…",
+      fields: {
+        username: {
+          label: "Usuario",
+          placeholder: "walter",
+          helper: "3–20 letras, números o guiones bajos.",
+        },
+        displayName: {
+          label: "Nombre para mostrar",
+          placeholder: "Walter Morales",
+        },
+        headline: {
+          label: "Titular",
+          placeholder: "Founder trabajando en IA aplicada",
+          helper: "Qué hacés, en una línea.",
+        },
+        country: {
+          label: "País",
+          placeholder: "Elegí un país",
+        },
+        role: {
+          label: "Rol",
+          placeholder: "Elegí un rol",
+        },
+        upFor: {
+          label: "Me apunto a",
+          helper: "Opcional. En qué te pueden escribir.",
+        },
+      },
+      roleOptions: {
+        FOUNDER: "Founder",
+        DEVELOPER: "Developer",
+        DESIGNER: "Diseñador",
+        OPERATOR: "Operaciones",
+        STUDENT: "Estudiante",
+      },
+      upForOptions: {
+        COFOUNDING: "Cofundar",
+        FREELANCE: "Freelance",
+        HIRING: "Contratar",
+        MENTORING: "Mentorear",
+        COLLABORATING: "Colaborar",
+      },
+      fieldErrors: {
+        required: "Este campo es obligatorio.",
+        too_long: "Es demasiado largo.",
+        invalid: "Revisá este valor.",
+        reserved: "Ese usuario está reservado.",
+        taken: "Ese usuario ya está en uso.",
+      },
+      legalAccept: "Acepto los {terms} y la {privacy}.",
+      legalTerms: "Términos de uso",
+      legalPrivacy: "Política de privacidad",
+      ageAccept: "Tengo 18 años o más.",
+      newsletterAccept: "Quiero recibir el boletín de Aperture. Es opcional.",
+      revealTitle: "Ya estás dentro",
+      revealBody: "Tu número es #{number}.",
+      revealCta: "Ir a tu panel",
+      qrCta: "QR",
+      qrTitle: "Escaneá para abrir",
+      qrBody: "Escaneá este código para abrir esta página en otro dispositivo.",
+    },
+    me: {
+      metaTitle: "Tu perfil de Aperture",
+      metaDescription:
+        "Tu panel privado de Aperture: número de miembro, eventos, créditos y ajustes.",
+      label: "Aperture",
+      headline: "Tu panel",
+      numberLabel: "Miembro #{number}",
+      signInPrompt: "Iniciá sesión para ver tu número, eventos y créditos.",
+      signInCta: "Iniciar sesión",
+      signOutCta: "Cerrar sesión",
+      signedInAs: "Sesión iniciada como {email}",
+      joinCta: "Reclamá tu número",
+      noMemberTitle: "Todavía no sos miembro",
+      noMemberBody: "Reclamá un número permanente para abrir tu panel.",
+      retiredTitle: "Esta cuenta se cerró",
+      retiredBody:
+        "Tu número de miembro queda retirado. Ya no se muestran eventos ni créditos.",
+      eventsTitle: "Eventos",
+      eventsEmpty:
+        "Todavía no hay eventos de Ai Labs ligados a tus correos verificados.",
+      creditsTitle: "Créditos",
+      creditsEmpty: "Todavía no canjeaste créditos.",
+      expiresLabel: "Vence {date}",
+      settingsTitle: "Ajustes del perfil",
+      save: "Guardar cambios",
+      saving: "Guardando…",
+      saved: "Guardado",
+      error: "Algo falló. Probá de nuevo en un momento.",
+      newsletterLabel: "Quiero recibir el boletín de Aperture.",
+      showEventsLabel: "Mostrar mis eventos en el perfil público",
+      showEventsHelper:
+        "Solo los eventos ya ligados a tus correos verificados. Apagado por defecto.",
+      usernameCooldown: "Podés cambiar tu usuario de nuevo el {date}.",
+      fields: {
+        bio: {
+          label: "Bio",
+          placeholder: "Qué estás construyendo, en unas líneas.",
+          helper: "Hasta 280 caracteres. Se ve en tu perfil público.",
+        },
+        city: {
+          label: "Ciudad",
+          placeholder: "San Salvador",
+        },
+        linkedin: {
+          label: "LinkedIn",
+          placeholder: "https://linkedin.com/in/tunombre",
+        },
+        x: {
+          label: "X",
+          placeholder: "https://x.com/tuusuario",
+        },
+        github: {
+          label: "GitHub",
+          placeholder: "https://github.com/tuusuario",
+        },
+        website: {
+          label: "Sitio",
+          placeholder: "https://ejemplo.com",
+        },
+        instagram: {
+          label: "Instagram",
+          placeholder: "https://instagram.com/tuusuario",
+        },
+        title: {
+          label: "Título",
+          placeholder: "Lane notes",
+        },
+        summary: {
+          label: "Resumen",
+          placeholder: "Qué hace, en unas líneas.",
+          helper: "Hasta 280 caracteres.",
+        },
+        url: {
+          label: "URL del proyecto",
+          placeholder: "https://ejemplo.com",
+        },
+        repoUrl: {
+          label: "Repositorio",
+          placeholder: "https://github.com/vos/proyecto",
+        },
+      },
+      poolLabels: {
+        CURSOR: "Cursor",
+        CODEX: "Codex",
+        OPENAI: "OpenAI Platform",
+      },
+      shareCta: "Abrir tarjeta para compartir",
+      projectsTitle: "Proyectos",
+      projectsEmpty: "Todavía no publicaste un proyecto.",
+      projectsHelper:
+        "Mostrá trabajo que construiste. El desglose de built-with lo reportás vos.",
+      addProject: "Agregar un proyecto",
+      editProject: "Editar",
+      saveProject: "Guardar proyecto",
+      cancelProject: "Cancelar",
+      deleteProject: "Quitar",
+      builtWithTitle: "Hecho con",
+      builtWithHelper: "Autodeclarado. Las partes tienen que sumar 100.",
+      addTool: "Agregar una herramienta",
+      removeTool: "Quitar",
+      toolNameLabel: "Herramienta",
+      percentLabel: "%",
+      publishedLabel: "Mostrar en mi perfil público",
+      imageLabel: "Imagen",
+      imageHelper: "JPEG, PNG o WebP. Hasta 2 MB.",
+      imageUnavailable:
+        "La carga de imágenes no está configurada en este entorno.",
+      removeImage: "Quitar imagen",
+      projectLimit: "Podés publicar hasta 12 proyectos.",
+      projectErrors: {
+        required: "Este campo es obligatorio.",
+        too_long: "Esto es demasiado largo.",
+        invalid: "Revisá este valor.",
+        sum: "Las partes de built-with tienen que sumar 100.",
+      },
+    },
+    directory: {
+      metaTitle: "Miembros de Aperture",
+      metaDescription:
+        "Perfiles públicos de builders de Aperture en la comunidad de Ai Labs.",
+      label: "Aperture",
+      headline: "Miembros",
+      body: "Gente construyendo con estas herramientas. Cada perfil tiene un número permanente.",
+      empty: "Todavía no hay perfiles públicos.",
+      joinCta: "Reclamá tu número",
+    },
+    profile: {
+      metaTitle: "Perfil de Aperture",
+      metaTitleNamed: "{name} · Aperture",
+      metaDescription: "Un perfil público de builder en Aperture.",
+      metaDescriptionNamed: "{name} — {headline}",
+      notFoundTitle: "Perfil no encontrado",
+      notFoundBody: "Ese usuario no es miembro de Aperture.",
+      eventsTitle: "Eventos",
+      linksTitle: "Enlaces",
+      projectsTitle: "Proyectos",
+      builtWithDisclaimer:
+        "Lo reporta quien lo hizo. Ai Labs no verifica este desglose, y no implica que una empresa de herramientas avale el proyecto.",
+      shareCta: "Abrir tarjeta para compartir",
+      shareCardAlt: "{name} · Miembro de Aperture #{number}",
+    },
   },
 }

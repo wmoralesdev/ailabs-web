@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 
-import { buildHomeJsonLd } from "@/lib/seo"
+import { buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
 
 type ServiceOffer = {
   "@type": string
@@ -73,5 +73,36 @@ describe("buildHomeJsonLd", () => {
       offeredServices.map(({ name, description }) => ({ name, description }))
     ).toEqual(services)
     expect(JSON.stringify(offeredServices)).not.toMatch(/aperture/i)
+  })
+})
+
+describe("buildPageMeta", () => {
+  it("adds a robots noindex tag only when asked", () => {
+    const base = { locale: "en" as const, title: "Terms", description: "d" }
+    const robots = (noindex?: boolean) =>
+      buildPageMeta({ ...base, noindex }).meta.filter(
+        (tag) => tag.name === "robots"
+      )
+
+    expect(robots()).toEqual([])
+    expect(robots(true)).toEqual([
+      { name: "robots", content: "noindex, nofollow" },
+    ])
+  })
+
+  it("uses a custom share image when provided", () => {
+    const meta = buildPageMeta({
+      locale: "en",
+      path: "/u/walter",
+      title: "Walter",
+      description: "Building",
+      image: {
+        url: "https://ailabs.sv/api/og/u/walter",
+        alt: "Walter · Aperture member #005",
+      },
+    }).meta
+    expect(meta.find((tag) => tag.property === "og:image")?.content).toBe(
+      "https://ailabs.sv/api/og/u/walter"
+    )
   })
 })
