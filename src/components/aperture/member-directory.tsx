@@ -150,11 +150,13 @@ export function MemberDirectory({
 
           <p
             aria-live="polite"
-            className="text-sm text-muted-foreground tabular-nums"
+            className="text-sm text-muted-foreground tabular-nums empty:hidden"
           >
-            {content.resultsCount
-              .replace("{count}", String(visible.length))
-              .replace("{total}", String(members.length))}
+            {filtered
+              ? content.resultsCount
+                  .replace("{count}", String(visible.length))
+                  .replace("{total}", String(members.length))
+              : null}
           </p>
 
           {visible.length === 0 ? (
@@ -203,7 +205,7 @@ function MemberRow({
     <Link
       to="/u/$username"
       params={{ username: member.username }}
-      className="group flex items-center gap-3 rounded-2xl border border-border bg-card py-2.5 pr-4 pl-2.5 text-card-foreground transition-colors duration-150 hover:border-primary/60 hover:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+      className="group flex min-h-15 items-center gap-3 rounded-2xl bg-card py-2.5 pr-4 pl-2.5 text-card-foreground ring-1 ring-transparent transition-[box-shadow,background-color] duration-150 hover:ring-border focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
     >
       <MemberAvatar name={member.displayName} src={member.avatarUrl} />
       <span className="flex min-w-0 flex-1 flex-col">
@@ -216,7 +218,7 @@ function MemberRow({
           {countryName(member.countryCode, locale)}
         </span>
       </span>
-      <span className="shrink-0 font-display text-sm font-semibold text-muted-foreground tabular-nums transition-colors group-hover:text-foreground">
+      <span className="shrink-0 text-xs font-medium text-muted-foreground tabular-nums transition-colors group-hover:text-foreground">
         #{formatMemberNumber(member.number)}
       </span>
     </Link>

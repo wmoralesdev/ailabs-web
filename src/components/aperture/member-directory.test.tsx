@@ -91,6 +91,7 @@ describe("MemberDirectory", () => {
     fireEvent.click(
       screen.getByRole("button", { name: en.aperture.directory.clearFilters })
     )
-    expect(screen.getByText("2 of 2")).toBeTruthy()
+    expect(screen.getByText("Ana Peña")).toBeTruthy()
+    expect(screen.queryByText("2 of 2")).toBeNull()
   })
 })
