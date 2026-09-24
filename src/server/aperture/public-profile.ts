@@ -9,6 +9,11 @@ import { PROFILE_LINK_FIELDS } from "@/lib/aperture/profile-input"
 import { parseUsername } from "@/lib/aperture/username"
 import type { MeEvent } from "@/server/aperture/member-dashboard"
 import { eventsForEmails } from "@/server/aperture/member-dashboard"
+import type { PublicProject } from "@/server/aperture/project-store"
+import {
+  listMemberProjects,
+  toPublicProjects,
+} from "@/server/aperture/project-store"
 
 export type PublicProfile = {
   number: number
@@ -23,6 +28,7 @@ export type PublicProfile = {
   avatarUrl: string | null
   links: ReadonlyArray<{ field: ProfileLinkField; href: string }>
   events: MeEvent[]
+  projects: PublicProject[]
 }
 
 export type DirectoryMember = {
@@ -63,12 +69,15 @@ export async function loadPublicProfile(
   if (!profile || profile.member.retiredAt) {
     return null
   }
-  const events = profile.showEvents
-    ? await eventsForEmails(
-        db,
-        profile.member.emails.map((row) => row.email)
-      )
-    : []
+  const [events, projects] = await Promise.all([
+    profile.showEvents
+      ? eventsForEmails(
+          db,
+          profile.member.emails.map((row) => row.email)
+        )
+      : Promise.resolve([]),
+    listMemberProjects(db, profile.memberNumber, true).then(toPublicProjects),
+  ])
   return {
     number: profile.memberNumber,
     username: profile.username,
@@ -85,6 +94,7 @@ export async function loadPublicProfile(
       return href ? [{ field, href }] : []
     }),
     events,
+    projects,
   }
 }
 

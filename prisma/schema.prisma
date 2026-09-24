@@ -236,6 +236,7 @@ model Member {
   profile  Profile?
   emails   MemberEmail[]
   consents Consent[]
+  projects Project[]
 }
 
 /// Public profile. Deleted when the member retires.
@@ -289,4 +290,39 @@ model Consent {
   member Member @relation(fields: [memberNumber], references: [number])
 
   @@index([memberNumber, kind, createdAt])
+}
+
+/// Self-published work on a public profile. Deleted when the member retires.
+model Project {
+  id           String    @id @default(cuid())
+  memberNumber Int
+  slug         String
+  title        String
+  summary      String
+  url          String?
+  repoUrl      String?
+  published    Boolean   @default(true)
+  hiddenAt     DateTime?
+  sortOrder    Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  member    Member             @relation(fields: [memberNumber], references: [number], onDelete: Cascade)
+  builtWith ProjectBuiltWith[]
+
+  @@unique([memberNumber, slug])
+  @@index([memberNumber, sortOrder])
+}
+
+/// Self-reported tool share. Percents on a project must sum to 100.
+model ProjectBuiltWith {
+  id        String @id @default(cuid())
+  projectId String
+  name      String
+  percent   Int
+  sortOrder Int    @default(0)
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, sortOrder])
 }

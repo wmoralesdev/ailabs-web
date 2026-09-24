@@ -30,5 +30,8 @@ describe("aperture join copy", () => {
     expect(Object.keys(es.aperture.profile)).toEqual(
       Object.keys(en.aperture.profile)
     )
+    expect(Object.keys(es.aperture.me.projectErrors)).toEqual(
+      Object.keys(en.aperture.me.projectErrors)
+    )
   })
 })

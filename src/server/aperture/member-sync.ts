@@ -101,6 +101,7 @@ export async function retireMember(
     }
     await tx.profile.deleteMany({ where: { memberNumber: member.number } })
     await tx.memberEmail.deleteMany({ where: { memberNumber: member.number } })
+    await tx.project.deleteMany({ where: { memberNumber: member.number } })
     if (member.retiredAt) {
       return { status: "already_retired", number: member.number }
     }

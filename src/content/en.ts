@@ -937,11 +937,51 @@ export const en: SiteContent = {
           label: "Instagram",
           placeholder: "https://instagram.com/yourhandle",
         },
+        title: {
+          label: "Title",
+          placeholder: "Lane notes",
+        },
+        summary: {
+          label: "Summary",
+          placeholder: "What it does, in a few lines.",
+          helper: "Up to 280 characters.",
+        },
+        url: {
+          label: "Project URL",
+          placeholder: "https://example.com",
+        },
+        repoUrl: {
+          label: "Repository",
+          placeholder: "https://github.com/you/project",
+        },
       },
       poolLabels: {
         CURSOR: "Cursor",
         CODEX: "Codex",
         OPENAI: "OpenAI Platform",
+      },
+      projectsTitle: "Projects",
+      projectsEmpty: "You have not published a project yet.",
+      projectsHelper:
+        "Show work you built. The built-with split is yours to report.",
+      addProject: "Add a project",
+      editProject: "Edit",
+      saveProject: "Save project",
+      cancelProject: "Cancel",
+      deleteProject: "Remove",
+      builtWithTitle: "Built with",
+      builtWithHelper: "Self-reported. Shares must add up to 100.",
+      addTool: "Add a tool",
+      removeTool: "Remove",
+      toolNameLabel: "Tool",
+      percentLabel: "%",
+      publishedLabel: "Show on my public profile",
+      projectLimit: "You can publish up to 12 projects.",
+      projectErrors: {
+        required: "This field is required.",
+        too_long: "This is too long.",
+        invalid: "Check this value.",
+        sum: "The built-with shares must add up to 100.",
       },
     },
     directory: {
@@ -963,6 +1003,9 @@ export const en: SiteContent = {
       notFoundBody: "That username is not an Aperture member.",
       eventsTitle: "Events",
       linksTitle: "Links",
+      projectsTitle: "Projects",
+      builtWithDisclaimer:
+        "Reported by the maker. Ai Labs does not verify this breakdown, and it does not mean a tool company endorses the project.",
     },
   },
 }

@@ -4,6 +4,7 @@ import { Fragment } from "react"
 import type { ReactNode } from "react"
 import { Link } from "@tanstack/react-router"
 
+import { MeProjects } from "@/components/aperture/me-projects"
 import { MeSettings } from "@/components/aperture/me-settings"
 import type {
   ApertureJoinContent,
@@ -66,6 +67,12 @@ export function MeDashboardView({
         render={(credit) => (
           <CreditRow credit={credit} content={content} locale={locale} />
         )}
+      />
+
+      <MeProjects
+        dashboard={dashboard}
+        content={content}
+        onDashboard={onDashboard}
       />
 
       <MeSettings

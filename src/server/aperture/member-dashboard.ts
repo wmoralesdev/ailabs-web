@@ -8,6 +8,8 @@ import type {
   ProfileFieldErrors,
 } from "@/lib/aperture/profile-input"
 import { nextUsernameChange } from "@/lib/aperture/username"
+import type { MeProject } from "@/server/aperture/project-store"
+import { listMemberProjects } from "@/server/aperture/project-store"
 import { lookupUsername } from "@/server/aperture/username-lookup"
 
 export type MeEvent = {
@@ -34,6 +36,7 @@ export type MeDashboard = {
   usernameAvailableAt: string | null
   events: MeEvent[]
   credits: MeCredit[]
+  projects: MeProject[]
 }
 
 export type LoadMeResult =
@@ -192,10 +195,11 @@ async function dashboardOf(
       select: { email: true },
     })
   ).map((row) => row.email)
-  const [newsletter, events, credits] = await Promise.all([
+  const [newsletter, events, credits, projects] = await Promise.all([
     latestMarketing(db, memberNumber),
     eventsForEmails(db, emails),
     creditsForEmails(db, emails),
+    listMemberProjects(db, memberNumber),
   ])
   return {
     number: memberNumber,
@@ -207,6 +211,7 @@ async function dashboardOf(
     ),
     events,
     credits,
+    projects,
   }
 }
 

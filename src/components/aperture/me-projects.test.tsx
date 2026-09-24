@@ -1,23 +1,14 @@
-import type { ReactNode } from "react"
 import { describe, expect, it, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 
 import { en } from "@/content/en"
 import type { MeDashboard } from "@/server/aperture/me"
-import { MeDashboardView } from "./me-dashboard"
+import { MeProjects } from "./me-projects"
 
 vi.mock("@/server/aperture/me", () => ({
-  updateMeProfile: vi.fn(),
-  updateMeNewsletter: vi.fn(),
   createMeProject: vi.fn(),
   updateMeProject: vi.fn(),
   deleteMeProject: vi.fn(),
-}))
-
-vi.mock("@tanstack/react-router", () => ({
-  Link: ({ children, to }: { children: ReactNode; to: string }) => (
-    <a href={to}>{children}</a>
-  ),
 }))
 
 const dashboard: MeDashboard = {
@@ -46,25 +37,18 @@ const dashboard: MeDashboard = {
   projects: [],
 }
 
-describe("MeDashboardView", () => {
-  it("shows the member number and empty events and credits", () => {
+describe("MeProjects", () => {
+  it("shows the empty state and add control", () => {
     render(
-      <MeDashboardView
+      <MeProjects
         dashboard={dashboard}
-        join={en.aperture.join}
         content={en.aperture.me}
-        locale="en"
         onDashboard={() => undefined}
       />
     )
-
-    expect(screen.getByText("Member #005")).toBeTruthy()
-    expect(screen.getByRole("link", { name: "/u/walter" })).toBeTruthy()
-    expect(screen.getByText(en.aperture.me.eventsEmpty)).toBeTruthy()
-    expect(screen.getByText(en.aperture.me.creditsEmpty)).toBeTruthy()
     expect(screen.getByText(en.aperture.me.projectsEmpty)).toBeTruthy()
     expect(
-      screen.getByRole("button", { name: en.aperture.me.save })
+      screen.getByRole("button", { name: en.aperture.me.addProject })
     ).toBeTruthy()
   })
 })

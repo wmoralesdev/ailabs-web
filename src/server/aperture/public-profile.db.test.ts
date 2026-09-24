@@ -3,6 +3,7 @@ import { afterAll, beforeEach, describe, expect, it } from "vitest"
 import type { ProfileDraft } from "@/lib/aperture/profile-input"
 import { createTestPrisma, resetMembers } from "@/test/db"
 import { claimMembership } from "./member-store"
+import { createProject } from "./project-store"
 import { retireMember } from "./member-sync"
 import { listDirectoryMembers, loadPublicProfile } from "./public-profile"
 
@@ -59,6 +60,7 @@ describe("loadPublicProfile", () => {
     expect(profile?.links).toEqual([
       { field: "linkedinUrl", href: "https://linkedin.com/in/walter" },
     ])
+    expect(profile?.projects).toEqual([])
     expect(JSON.stringify(profile)).not.toContain("walter@example.com")
     expect(await loadPublicProfile(prisma, "missing")).toBeNull()
   })
@@ -91,6 +93,37 @@ describe("loadPublicProfile", () => {
     })
     const hidden = await loadPublicProfile(prisma, "walter")
     expect(hidden?.events).toEqual([])
+  })
+
+  it("shows published projects and hides drafts", async () => {
+    await claimMembership(prisma, {
+      clerkUserId: "user_a",
+      profile: draft("walter"),
+      verifiedEmails: ["walter@example.com"],
+      avatarUrl: null,
+      consent: { version: "2026-10-draft", locale: "en", marketing: false },
+    })
+    await createProject(prisma, "user_a", {
+      title: "Lane notes",
+      summary: "A notes app for builders.",
+      url: "https://example.com",
+      repoUrl: null,
+      published: true,
+      builtWith: [{ name: "Cursor", percent: 100 }],
+    })
+    await createProject(prisma, "user_a", {
+      title: "Draft",
+      summary: "Not public yet.",
+      url: null,
+      repoUrl: null,
+      published: false,
+      builtWith: [{ name: "Claude", percent: 100 }],
+    })
+
+    const profile = await loadPublicProfile(prisma, "walter")
+    expect(profile?.projects.map((project) => project.title)).toEqual([
+      "Lane notes",
+    ])
   })
 
   it("hides retired members", async () => {

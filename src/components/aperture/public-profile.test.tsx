@@ -26,6 +26,20 @@ const profile: PublicProfile = {
       venue: "San Salvador",
     },
   ],
+  projects: [
+    {
+      id: "proj_1",
+      slug: "lane-notes",
+      title: "Lane notes",
+      summary: "A notes app for builders.",
+      url: "https://example.com",
+      repoUrl: null,
+      builtWith: [
+        { name: "Cursor", percent: 70 },
+        { name: "Claude", percent: 30 },
+      ],
+    },
+  ],
 }
 
 describe("PublicProfileView", () => {
@@ -43,6 +57,8 @@ describe("PublicProfileView", () => {
     expect(screen.getByText("#005")).toBeTruthy()
     expect(screen.getByText("Walter Morales")).toBeTruthy()
     expect(screen.getByRole("link", { name: "LinkedIn" })).toBeTruthy()
+    expect(screen.getByText("Lane notes")).toBeTruthy()
+    expect(screen.getByText("Cursor 70%")).toBeTruthy()
     expect(screen.getByText("Builders Night")).toBeTruthy()
     expect(screen.queryByText("walter@example.com")).toBeNull()
   })

@@ -640,11 +640,37 @@ export type ApertureMeContent = {
     github: ApertureJoinField
     website: ApertureJoinField
     instagram: ApertureJoinField
+    title: ApertureJoinField
+    summary: ApertureJoinField
+    url: ApertureJoinField
+    repoUrl: ApertureJoinField
   }
   poolLabels: {
     CURSOR: string
     CODEX: string
     OPENAI: string
+  }
+  projectsTitle: string
+  projectsEmpty: string
+  projectsHelper: string
+  addProject: string
+  editProject: string
+  saveProject: string
+  cancelProject: string
+  deleteProject: string
+  builtWithTitle: string
+  builtWithHelper: string
+  addTool: string
+  removeTool: string
+  toolNameLabel: string
+  percentLabel: string
+  publishedLabel: string
+  projectLimit: string
+  projectErrors: {
+    required: string
+    too_long: string
+    invalid: string
+    sum: string
   }
 }
 
@@ -669,6 +695,8 @@ export type ApertureProfileContent = {
   notFoundBody: string
   eventsTitle: string
   linksTitle: string
+  projectsTitle: string
+  builtWithDisclaimer: string
 }
 
 export type ApertureContent = {

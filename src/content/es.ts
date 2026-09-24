@@ -942,11 +942,51 @@ export const es: SiteContent = {
           label: "Instagram",
           placeholder: "https://instagram.com/tuusuario",
         },
+        title: {
+          label: "Título",
+          placeholder: "Lane notes",
+        },
+        summary: {
+          label: "Resumen",
+          placeholder: "Qué hace, en unas líneas.",
+          helper: "Hasta 280 caracteres.",
+        },
+        url: {
+          label: "URL del proyecto",
+          placeholder: "https://ejemplo.com",
+        },
+        repoUrl: {
+          label: "Repositorio",
+          placeholder: "https://github.com/vos/proyecto",
+        },
       },
       poolLabels: {
         CURSOR: "Cursor",
         CODEX: "Codex",
         OPENAI: "OpenAI Platform",
+      },
+      projectsTitle: "Proyectos",
+      projectsEmpty: "Todavía no publicaste un proyecto.",
+      projectsHelper:
+        "Mostrá trabajo que construiste. El desglose de built-with lo reportás vos.",
+      addProject: "Agregar un proyecto",
+      editProject: "Editar",
+      saveProject: "Guardar proyecto",
+      cancelProject: "Cancelar",
+      deleteProject: "Quitar",
+      builtWithTitle: "Hecho con",
+      builtWithHelper: "Autodeclarado. Las partes tienen que sumar 100.",
+      addTool: "Agregar una herramienta",
+      removeTool: "Quitar",
+      toolNameLabel: "Herramienta",
+      percentLabel: "%",
+      publishedLabel: "Mostrar en mi perfil público",
+      projectLimit: "Podés publicar hasta 12 proyectos.",
+      projectErrors: {
+        required: "Este campo es obligatorio.",
+        too_long: "Esto es demasiado largo.",
+        invalid: "Revisá este valor.",
+        sum: "Las partes de built-with tienen que sumar 100.",
       },
     },
     directory: {
@@ -968,6 +1008,9 @@ export const es: SiteContent = {
       notFoundBody: "Ese usuario no es miembro de Aperture.",
       eventsTitle: "Eventos",
       linksTitle: "Enlaces",
+      projectsTitle: "Proyectos",
+      builtWithDisclaimer:
+        "Lo reporta quien lo hizo. Ai Labs no verifica este desglose, y no implica que una empresa de herramientas avale el proyecto.",
     },
   },
 }

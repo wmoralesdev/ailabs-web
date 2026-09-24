@@ -7,6 +7,7 @@ import type {
 import { countryName } from "@/lib/aperture/countries"
 import { formatMeDate } from "@/lib/aperture/me-date"
 import { formatMemberNumber } from "@/lib/aperture/member-number"
+import { BuiltWithBar } from "@/components/aperture/built-with-bar"
 import type { PublicProfile } from "@/server/aperture/public"
 
 const LINK_LABEL: Record<
@@ -102,6 +103,55 @@ export function PublicProfileView({
               </li>
             ))}
           </ul>
+        </section>
+      ) : null}
+
+      {profile.projects.length > 0 ? (
+        <section className="flex flex-col gap-4">
+          <h2 className="font-display text-xl font-semibold tracking-tight">
+            {content.projectsTitle}
+          </h2>
+          <ul className="flex flex-col gap-4">
+            {profile.projects.map((project) => (
+              <li
+                key={project.id}
+                className="flex flex-col gap-3 rounded-2xl border border-border/60 bg-background/70 p-4"
+              >
+                <div className="flex flex-col gap-1">
+                  <p className="font-medium text-foreground">{project.title}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {project.summary}
+                  </p>
+                </div>
+                <BuiltWithBar parts={project.builtWith} />
+                <div className="flex flex-wrap gap-3">
+                  {project.url ? (
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-foreground underline underline-offset-4"
+                    >
+                      {me.fields.url.label}
+                    </a>
+                  ) : null}
+                  {project.repoUrl ? (
+                    <a
+                      href={project.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-foreground underline underline-offset-4"
+                    >
+                      {me.fields.repoUrl.label}
+                    </a>
+                  ) : null}
+                </div>
+              </li>
+            ))}
+          </ul>
+          <p className="text-xs text-muted-foreground">
+            {content.builtWithDisclaimer}
+          </p>
         </section>
       ) : null}
 
