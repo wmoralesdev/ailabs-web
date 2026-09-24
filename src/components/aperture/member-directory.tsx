@@ -4,20 +4,12 @@ import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   ArrowRight01Icon,
-  Location01Icon,
   Search01Icon,
   UserSearch01Icon,
 } from "@hugeicons/core-free-icons"
 
-import {
-  ApertureHero,
-  ApertureNumeral,
-} from "@/components/aperture/aperture-hero"
 import { MemberAvatar } from "@/components/aperture/member-avatar"
-import {
-  homeDisplayClassName,
-  homePillClassName,
-} from "@/components/home/home-styles"
+import { homePillClassName } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import {
   InputGroup,
@@ -84,27 +76,30 @@ export function MemberDirectory({
   const filtered = Boolean(query.trim()) || role !== null
 
   return (
-    <div className="flex flex-col gap-8 md:gap-10">
-      <ApertureHero
-        aside={
-          <ApertureNumeral
-            value={String(members.length)}
-            label={content.countLabel}
-          />
-        }
-      >
-        <Eyebrow>{content.label}</Eyebrow>
-        <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
-          {content.headline}
-        </h1>
-        <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-          {content.body}
-        </p>
-        <Link to="/aperture/join" className={cn(homePillClassName, "w-fit")}>
-          {content.joinCta}
-          <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-        </Link>
-      </ApertureHero>
+    <div className="flex flex-col gap-8">
+      <header className="flex flex-col gap-6 px-1 pt-4 md:flex-row md:items-end md:justify-between md:gap-10 md:pt-8">
+        <div className="flex max-w-2xl flex-col gap-3">
+          <Eyebrow>{content.label}</Eyebrow>
+          <h1 className="font-display text-4xl leading-none font-semibold tracking-tight text-foreground sm:text-5xl">
+            {content.headline}
+          </h1>
+          <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+            {content.body}
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+          <p className="flex items-baseline gap-2 text-sm text-muted-foreground">
+            <span className="font-display text-3xl leading-none font-semibold text-foreground tabular-nums">
+              {members.length}
+            </span>
+            {content.countLabel}
+          </p>
+          <Link to="/aperture/join" className={homePillClassName}>
+            {content.joinCta}
+            <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+          </Link>
+        </div>
+      </header>
 
       {members.length === 0 ? (
         <EmptyState title={content.empty} />
@@ -181,10 +176,10 @@ export function MemberDirectory({
               ) : null}
             </EmptyState>
           ) : (
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+            <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {visible.map((member) => (
-                <li key={member.username}>
-                  <MemberCard member={member} join={join} locale={locale} />
+                <li key={member.username} className="min-w-0">
+                  <MemberRow member={member} join={join} locale={locale} />
                 </li>
               ))}
             </ul>
@@ -195,7 +190,7 @@ export function MemberDirectory({
   )
 }
 
-function MemberCard({
+function MemberRow({
   member,
   join,
   locale,
@@ -208,40 +203,22 @@ function MemberCard({
     <Link
       to="/u/$username"
       params={{ username: member.username }}
-      className="group hover:shadow-lift flex h-full flex-col gap-5 rounded-3xl border border-border bg-card p-5 text-card-foreground transition-[border-color,box-shadow,transform] duration-150 hover:border-primary/60 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none motion-safe:hover:-translate-y-0.5 sm:p-6"
+      className="group flex items-center gap-3 rounded-2xl border border-border bg-card py-2.5 pr-4 pl-2.5 text-card-foreground transition-colors duration-150 hover:border-primary/60 hover:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
     >
-      <div className="flex items-start justify-between gap-3">
-        <MemberAvatar name={member.displayName} src={member.avatarUrl} />
-        <span className="font-display text-2xl leading-none font-semibold tracking-tight text-muted-foreground tabular-nums transition-colors group-hover:text-foreground">
-          #{formatMemberNumber(member.number)}
-        </span>
-      </div>
-      <div className="flex min-w-0 flex-col gap-1">
-        <p className="truncate font-display text-lg leading-tight font-semibold tracking-tight">
+      <MemberAvatar name={member.displayName} src={member.avatarUrl} />
+      <span className="flex min-w-0 flex-1 flex-col">
+        <span className="truncate text-sm font-semibold text-foreground">
           {member.displayName}
-        </p>
-        <p className="truncate text-sm text-muted-foreground">
-          @{member.username}
-        </p>
-      </div>
-      <p className="line-clamp-2 text-sm leading-relaxed text-foreground">
-        {member.headline}
-      </p>
-      <div className="mt-auto flex items-center justify-between gap-3 border-t border-border pt-4 text-xs">
-        <span className="rounded-full bg-muted px-2.5 py-1 font-medium text-foreground">
+        </span>
+        <span className="truncate text-xs text-muted-foreground">
           {join.roleOptions[member.role]}
+          <span aria-hidden="true"> · </span>
+          {countryName(member.countryCode, locale)}
         </span>
-        <span className="inline-flex min-w-0 items-center gap-1 text-muted-foreground">
-          <HugeiconsIcon
-            icon={Location01Icon}
-            strokeWidth={2}
-            className="size-3.5 shrink-0"
-          />
-          <span className="truncate">
-            {countryName(member.countryCode, locale)}
-          </span>
-        </span>
-      </div>
+      </span>
+      <span className="shrink-0 font-display text-sm font-semibold text-muted-foreground tabular-nums transition-colors group-hover:text-foreground">
+        #{formatMemberNumber(member.number)}
+      </span>
     </Link>
   )
 }
