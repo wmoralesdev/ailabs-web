@@ -965,6 +965,7 @@ export const es: SiteContent = {
         CODEX: "Codex",
         OPENAI: "OpenAI Platform",
       },
+      shareCta: "Abrir tarjeta para compartir",
       projectsTitle: "Proyectos",
       projectsEmpty: "Todavía no publicaste un proyecto.",
       projectsHelper:
@@ -1016,6 +1017,8 @@ export const es: SiteContent = {
       projectsTitle: "Proyectos",
       builtWithDisclaimer:
         "Lo reporta quien lo hizo. Ai Labs no verifica este desglose, y no implica que una empresa de herramientas avale el proyecto.",
+      shareCta: "Abrir tarjeta para compartir",
+      shareCardAlt: "{name} · Miembro de Aperture #{number}",
     },
   },
 }

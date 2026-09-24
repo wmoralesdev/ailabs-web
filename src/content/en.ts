@@ -960,6 +960,7 @@ export const en: SiteContent = {
         CODEX: "Codex",
         OPENAI: "OpenAI Platform",
       },
+      shareCta: "Open share card",
       projectsTitle: "Projects",
       projectsEmpty: "You have not published a project yet.",
       projectsHelper:
@@ -1010,6 +1011,8 @@ export const en: SiteContent = {
       projectsTitle: "Projects",
       builtWithDisclaimer:
         "Reported by the maker. Ai Labs does not verify this breakdown, and it does not mean a tool company endorses the project.",
+      shareCta: "Open share card",
+      shareCardAlt: "{name} · Aperture member #{number}",
     },
   },
 }

@@ -650,6 +650,7 @@ export type ApertureMeContent = {
     CODEX: string
     OPENAI: string
   }
+  shareCta: string
   projectsTitle: string
   projectsEmpty: string
   projectsHelper: string
@@ -701,6 +702,9 @@ export type ApertureProfileContent = {
   linksTitle: string
   projectsTitle: string
   builtWithDisclaimer: string
+  shareCta: string
+  /** `{name}` and `{number}` are replaced. */
+  shareCardAlt: string
 }
 
 export type ApertureContent = {

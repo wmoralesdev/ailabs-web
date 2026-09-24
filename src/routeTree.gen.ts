@@ -32,6 +32,7 @@ import { Route as ApiWebhooksClerkRouteImport } from './routes/api/webhooks/cler
 import { Route as ApiWebhooksWompiRouteImport } from './routes/api/webhooks/wompi'
 import { Route as SiteEventsSlugIndexRouteImport } from './routes/_site/events/$slug.index'
 import { Route as SiteEventsSlugSuccessRouteImport } from './routes/_site/events/$slug.success'
+import { Route as ApiOgUUsernameRouteImport } from './routes/api/og/u.$username'
 
 const LocaleRoute = LocaleRouteImport.update({
   id: '/$locale',
@@ -147,6 +148,11 @@ const SiteEventsSlugSuccessRoute = SiteEventsSlugSuccessRouteImport.update({
   path: '/success',
   getParentRoute: () => SiteEventsSlugRoute,
 } as any)
+const ApiOgUUsernameRoute = ApiOgUUsernameRouteImport.update({
+  id: '/api/og/u/$username',
+  path: '/api/og/u/$username',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/$locale': typeof LocaleRouteWithChildren
@@ -170,6 +176,7 @@ export interface FileRoutesByFullPath {
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/aperture/': typeof SiteApertureIndexRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
+  '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/events/$slug/': typeof SiteEventsSlugIndexRoute
 }
 export interface FileRoutesByTo {
@@ -192,6 +199,7 @@ export interface FileRoutesByTo {
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/aperture': typeof SiteApertureIndexRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
+  '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/events/$slug': typeof SiteEventsSlugIndexRoute
 }
 export interface FileRoutesById {
@@ -218,6 +226,7 @@ export interface FileRoutesById {
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/_site/aperture/': typeof SiteApertureIndexRoute
   '/_site/events/$slug/success': typeof SiteEventsSlugSuccessRoute
+  '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/_site/events/$slug/': typeof SiteEventsSlugIndexRoute
 }
 export interface FileRouteTypes {
@@ -244,6 +253,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/wompi'
     | '/aperture/'
     | '/events/$slug/success'
+    | '/api/og/u/$username'
     | '/events/$slug/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -266,6 +276,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/wompi'
     | '/aperture'
     | '/events/$slug/success'
+    | '/api/og/u/$username'
     | '/events/$slug'
   id:
     | '__root__'
@@ -291,6 +302,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/wompi'
     | '/_site/aperture/'
     | '/_site/events/$slug/success'
+    | '/api/og/u/$username'
     | '/_site/events/$slug/'
   fileRoutesById: FileRoutesById
 }
@@ -302,6 +314,7 @@ export interface RootRouteChildren {
   SignUpSplatRoute: typeof SignUpSplatRoute
   ApiWebhooksClerkRoute: typeof ApiWebhooksClerkRoute
   ApiWebhooksWompiRoute: typeof ApiWebhooksWompiRoute
+  ApiOgUUsernameRoute: typeof ApiOgUUsernameRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -467,6 +480,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteEventsSlugSuccessRouteImport
       parentRoute: typeof SiteEventsSlugRoute
     }
+    '/api/og/u/$username': {
+      id: '/api/og/u/$username'
+      path: '/api/og/u/$username'
+      fullPath: '/api/og/u/$username'
+      preLoaderRoute: typeof ApiOgUUsernameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -537,6 +557,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignUpSplatRoute: SignUpSplatRoute,
   ApiWebhooksClerkRoute: ApiWebhooksClerkRoute,
   ApiWebhooksWompiRoute: ApiWebhooksWompiRoute,
+  ApiOgUUsernameRoute: ApiOgUUsernameRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -40,6 +40,10 @@ type BuildPageMetaInput = {
   description: string
   /** Private, unfinished, or thin pages stay out of search results. */
   noindex?: boolean
+  image?: {
+    url: string
+    alt: string
+  }
 }
 
 type HeadMeta = {
@@ -75,9 +79,12 @@ export function buildPageMeta({
   title,
   description,
   noindex = false,
+  image,
 }: BuildPageMetaInput): PageHead {
   const url = absoluteUrl(path)
   const alternateLocale = locale === "en" ? "es" : "en"
+  const imageUrl = image?.url ?? OG_IMAGE_URL
+  const imageAlt = image?.alt ?? OG_IMAGE_ALT
 
   return {
     meta: [
@@ -94,15 +101,15 @@ export function buildPageMeta({
         property: "og:locale:alternate",
         content: OG_LOCALE[alternateLocale],
       },
-      { property: "og:image", content: OG_IMAGE_URL },
-      { property: "og:image:alt", content: OG_IMAGE_ALT },
+      { property: "og:image", content: imageUrl },
+      { property: "og:image:alt", content: imageAlt },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
-      { name: "twitter:image", content: OG_IMAGE_URL },
-      { name: "twitter:image:alt", content: OG_IMAGE_ALT },
+      { name: "twitter:image", content: imageUrl },
+      { name: "twitter:image:alt", content: imageAlt },
     ],
     links: [
       { rel: "canonical", href: url },

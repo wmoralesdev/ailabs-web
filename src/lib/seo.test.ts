@@ -89,4 +89,20 @@ describe("buildPageMeta", () => {
       { name: "robots", content: "noindex, nofollow" },
     ])
   })
+
+  it("uses a custom share image when provided", () => {
+    const meta = buildPageMeta({
+      locale: "en",
+      path: "/u/walter",
+      title: "Walter",
+      description: "Building",
+      image: {
+        url: "https://ailabs.sv/api/og/u/walter",
+        alt: "Walter · Aperture member #005",
+      },
+    }).meta
+    expect(meta.find((tag) => tag.property === "og:image")?.content).toBe(
+      "https://ailabs.sv/api/og/u/walter"
+    )
+  })
 })

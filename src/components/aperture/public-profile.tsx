@@ -7,6 +7,7 @@ import type {
 import { countryName } from "@/lib/aperture/countries"
 import { formatMeDate } from "@/lib/aperture/me-date"
 import { formatMemberNumber } from "@/lib/aperture/member-number"
+import { shareCardPath } from "@/lib/aperture/share-card"
 import { BuiltWithBar } from "@/components/aperture/built-with-bar"
 import type { PublicProfile } from "@/server/aperture/public"
 
@@ -62,6 +63,14 @@ export function PublicProfileView({
           {location ? (
             <p className="text-sm text-muted-foreground">{location}</p>
           ) : null}
+          <a
+            href={shareCardPath(profile.username)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-fit text-sm font-medium text-foreground underline underline-offset-4"
+          >
+            {content.shareCta}
+          </a>
         </div>
       </header>
 

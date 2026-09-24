@@ -57,6 +57,9 @@ describe("PublicProfileView", () => {
 
     expect(screen.getByText("#005")).toBeTruthy()
     expect(screen.getByText("Walter Morales")).toBeTruthy()
+    expect(
+      screen.getByRole("link", { name: en.aperture.profile.shareCta })
+    ).toBeTruthy()
     expect(screen.getByRole("link", { name: "LinkedIn" })).toBeTruthy()
     expect(screen.getByText("Lane notes")).toBeTruthy()
     expect(screen.getByText("Cursor 70%")).toBeTruthy()

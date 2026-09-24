@@ -12,6 +12,7 @@ import type {
   Locale,
 } from "@/content/types"
 import { formatMemberNumber } from "@/lib/aperture/member-number"
+import { shareCardPath } from "@/lib/aperture/share-card"
 import { formatMeDate } from "@/lib/aperture/me-date"
 import type { MeCredit, MeDashboard, MeEvent } from "@/server/aperture/me"
 
@@ -42,13 +43,23 @@ export function MeDashboardView({
         <p className="text-base text-muted-foreground">
           @{dashboard.username} · {dashboard.profile.headline}
         </p>
-        <Link
-          to="/u/$username"
-          params={{ username: dashboard.username }}
-          className="w-fit text-sm font-medium text-foreground underline underline-offset-4"
-        >
-          /u/{dashboard.username}
-        </Link>
+        <div className="flex flex-wrap gap-4">
+          <Link
+            to="/u/$username"
+            params={{ username: dashboard.username }}
+            className="w-fit text-sm font-medium text-foreground underline underline-offset-4"
+          >
+            /u/{dashboard.username}
+          </Link>
+          <a
+            href={shareCardPath(dashboard.username)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-fit text-sm font-medium text-foreground underline underline-offset-4"
+          >
+            {content.shareCta}
+          </a>
+        </div>
       </header>
 
       <MeList

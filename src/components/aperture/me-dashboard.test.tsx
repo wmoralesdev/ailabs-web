@@ -61,6 +61,9 @@ describe("MeDashboardView", () => {
 
     expect(screen.getByText("Member #005")).toBeTruthy()
     expect(screen.getByRole("link", { name: "/u/walter" })).toBeTruthy()
+    expect(
+      screen.getByRole("link", { name: en.aperture.me.shareCta })
+    ).toBeTruthy()
     expect(screen.getByText(en.aperture.me.eventsEmpty)).toBeTruthy()
     expect(screen.getByText(en.aperture.me.creditsEmpty)).toBeTruthy()
     expect(screen.getByText(en.aperture.me.projectsEmpty)).toBeTruthy()

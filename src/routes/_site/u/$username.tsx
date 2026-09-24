@@ -2,7 +2,12 @@ import { createFileRoute } from "@tanstack/react-router"
 
 import { PublicProfileView } from "@/components/aperture/public-profile"
 import { MainCard } from "@/components/chrome/main-card"
-import { buildPageMeta } from "@/lib/seo"
+import {
+  shareCardAlt,
+  shareCardModel,
+  shareCardPath,
+} from "@/lib/aperture/share-card"
+import { absoluteUrl, buildPageMeta } from "@/lib/seo"
 import { getPublicProfile } from "@/server/aperture/public"
 
 export const Route = createFileRoute("/_site/u/$username")({
@@ -26,6 +31,7 @@ export const Route = createFileRoute("/_site/u/$username")({
         noindex: true,
       })
     }
+    const card = shareCardModel(profile)
     return buildPageMeta({
       locale,
       path: `/u/${profile.username}`,
@@ -33,6 +39,10 @@ export const Route = createFileRoute("/_site/u/$username")({
       description: copy.metaDescriptionNamed
         .replace("{name}", profile.displayName)
         .replace("{headline}", profile.headline),
+      image: {
+        url: absoluteUrl(shareCardPath(profile.username)),
+        alt: shareCardAlt(copy.shareCardAlt, card),
+      },
     })
   },
   component: PublicProfilePage,

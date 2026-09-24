@@ -103,6 +103,7 @@ possibly stale value into this file.
   Public events appear only when the member turns `showEvents` on.
   Published projects show a self-reported built-with breakdown.
   Project images are stored in Cloudflare R2 when those credentials are set.
+  `/api/og/u/$username` renders the member share card used as the profile OG image.
 - `/community` is a minimal WhatsApp invite landing (no auth). Like redeem
   and campus-leader, its hero is the shared campaign split hero
   (`src/components/campaign/campaign-hero.tsx`): light copy column on the
