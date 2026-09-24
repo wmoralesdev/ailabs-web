@@ -13,7 +13,7 @@ function initials(name: string): string {
 const SIZE_CLASS = {
   sm: "size-10 rounded-full text-sm",
   portrait:
-    "size-32 rounded-[1.75rem] text-4xl shadow-lift ring-4 ring-foreground/10 sm:size-40 sm:text-5xl lg:size-52 lg:rounded-[2.25rem] lg:text-6xl xl:size-56",
+    "size-32 rounded-3xl text-4xl sm:size-40 sm:text-5xl lg:size-52 lg:text-6xl xl:size-56",
 } as const
 
 export function MemberAvatar({

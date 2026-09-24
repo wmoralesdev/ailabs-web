@@ -4,6 +4,15 @@ const apertureShellClassName =
 const aperturePanelClassName =
   "flex flex-col gap-4 rounded-3xl border border-border bg-card p-6 text-card-foreground"
 
+/** Unboxed side section: a hairline and a heading instead of a card. */
+const apertureSectionClassName = "flex flex-col gap-4 border-t border-border pt-5"
+
+const apertureSectionTitleClassName =
+  "font-display text-base font-semibold tracking-tight text-foreground"
+
+const apertureTextLinkClassName =
+  "inline-flex min-h-10 w-fit items-center gap-1.5 rounded-sm text-sm font-medium text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+
 const apertureQuietLinkClassName =
   "inline-flex w-fit items-center gap-1.5 rounded-sm text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
 
@@ -17,6 +26,9 @@ const apertureChoiceChipClassName =
 export {
   apertureShellClassName,
   aperturePanelClassName,
+  apertureSectionClassName,
+  apertureSectionTitleClassName,
+  apertureTextLinkClassName,
   apertureQuietLinkClassName,
   apertureOutlinePillClassName,
   apertureChoiceChipClassName,

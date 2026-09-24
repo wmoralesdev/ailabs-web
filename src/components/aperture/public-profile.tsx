@@ -4,7 +4,6 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import {
   ArrowLeft01Icon,
   ArrowUpRight01Icon,
-  Calendar03Icon,
   GithubIcon,
   Globe02Icon,
   InstagramIcon,
@@ -15,11 +14,12 @@ import {
   SourceCodeIcon,
 } from "@hugeicons/core-free-icons"
 
-import { ApertureHero } from "@/components/aperture/aperture-hero"
 import {
   apertureOutlinePillClassName,
-  aperturePanelClassName,
   apertureQuietLinkClassName,
+  apertureSectionClassName,
+  apertureSectionTitleClassName,
+  apertureTextLinkClassName,
 } from "@/components/aperture/aperture-styles"
 import { BuiltWithBar } from "@/components/aperture/built-with-bar"
 import { MemberAvatar } from "@/components/aperture/member-avatar"
@@ -54,9 +54,6 @@ const LINK_ICON: Record<LinkField, typeof Globe02Icon> = {
   instagramUrl: InstagramIcon,
 }
 
-const projectActionClassName =
-  "inline-flex min-h-10 flex-1 items-center justify-center gap-1.5 rounded-full border border-border px-3.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/30 hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-
 function displayHref(href: string): string {
   try {
     const url = new URL(href)
@@ -67,20 +64,16 @@ function displayHref(href: string): string {
   }
 }
 
-function ProfilePanel({
+function ProfileSection({
   title,
   children,
-  className,
 }: {
   title: string
   children: ReactNode
-  className?: string
 }) {
   return (
-    <section className={cn(aperturePanelClassName, className)}>
-      <h2 className="font-display text-lg font-semibold tracking-tight">
-        {title}
-      </h2>
+    <section className={apertureSectionClassName}>
+      <h2 className={apertureSectionTitleClassName}>{title}</h2>
       {children}
     </section>
   )
@@ -103,81 +96,71 @@ export function PublicProfileView({
     .filter(Boolean)
     .join(", ")
 
-  const hasAside =
-    profile.upFor.length > 0 ||
-    profile.links.length > 0 ||
-    profile.events.length > 0
-  const aside = (
-    <>
-      {profile.upFor.length > 0 ? (
-        <ProfilePanel title={content.upForTitle}>
-          <ul className="flex flex-wrap gap-2">
-            {profile.upFor.map((option) => (
-              <li
-                key={option}
-                className="rounded-full bg-muted px-3 py-1.5 text-sm font-medium text-foreground"
+  const asideSections = [
+    profile.upFor.length > 0 ? (
+      <ProfileSection key="up-for" title={content.upForTitle}>
+        <ul className="flex flex-wrap gap-2">
+          {profile.upFor.map((option) => (
+            <li
+              key={option}
+              className="rounded-full bg-muted px-3 py-1.5 text-sm font-medium text-foreground"
+            >
+              {join.upForOptions[option]}
+            </li>
+          ))}
+        </ul>
+      </ProfileSection>
+    ) : null,
+    profile.links.length > 0 ? (
+      <ProfileSection key="links" title={content.linksTitle}>
+        <ul className="-mx-2 flex flex-col">
+          {profile.links.map((link) => (
+            <li key={link.field}>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex min-h-12 items-center gap-3 rounded-xl px-2 py-1.5 transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
               >
-                {join.upForOptions[option]}
-              </li>
-            ))}
-          </ul>
-        </ProfilePanel>
-      ) : null}
-
-      {profile.links.length > 0 ? (
-        <ProfilePanel title={content.linksTitle}>
-          <ul className="-mx-2 flex flex-col">
-            {profile.links.map((link) => (
-              <li key={link.field}>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-2xl p-2 transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-                >
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-border bg-background text-foreground">
-                    <HugeiconsIcon
-                      icon={LINK_ICON[link.field]}
-                      strokeWidth={1.8}
-                      className="size-4.5"
-                    />
+                <HugeiconsIcon
+                  icon={LINK_ICON[link.field]}
+                  strokeWidth={1.8}
+                  className="size-5 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground"
+                />
+                <span className="flex min-w-0 flex-1 flex-col">
+                  <span className="text-sm font-medium text-foreground">
+                    {me.fields[LINK_LABEL[link.field]].label}
                   </span>
-                  <span className="flex min-w-0 flex-1 flex-col">
-                    <span className="text-sm font-medium text-foreground">
-                      {me.fields[LINK_LABEL[link.field]].label}
-                    </span>
-                    <span className="truncate text-xs text-muted-foreground">
-                      {displayHref(link.href)}
-                    </span>
+                  <span className="truncate text-xs text-muted-foreground">
+                    {displayHref(link.href)}
                   </span>
-                  <HugeiconsIcon
-                    icon={ArrowUpRight01Icon}
-                    strokeWidth={2}
-                    className="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground"
-                  />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </ProfilePanel>
-      ) : null}
-
-      {profile.events.length > 0 ? (
-        <ProfilePanel title={content.eventsTitle}>
-          <ul className="flex flex-col gap-3">
-            {profile.events.map((event) => (
-              <EventItem key={event.id} event={event} locale={locale} />
-            ))}
-          </ul>
-        </ProfilePanel>
-      ) : null}
-    </>
-  )
+                </span>
+                <HugeiconsIcon
+                  icon={ArrowUpRight01Icon}
+                  strokeWidth={2}
+                  className="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground"
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </ProfileSection>
+    ) : null,
+    profile.events.length > 0 ? (
+      <ProfileSection key="events" title={content.eventsTitle}>
+        <ul className="flex flex-col gap-4">
+          {profile.events.map((event) => (
+            <EventItem key={event.id} event={event} locale={locale} />
+          ))}
+        </ul>
+      </ProfileSection>
+    ) : null,
+  ].filter(Boolean)
 
   return (
-    <article className="flex flex-col gap-6 md:gap-8">
-      <ApertureHero>
-        <div className="flex flex-wrap items-center justify-between gap-3">
+    <article className="flex flex-col gap-10 px-1 pt-2 md:gap-14 md:px-4 md:pt-6">
+      <header className="flex flex-col gap-8">
+        <div className="flex items-center justify-between gap-3">
           <Link to="/aperture" className={apertureQuietLinkClassName}>
             <HugeiconsIcon
               icon={ArrowLeft01Icon}
@@ -186,48 +169,46 @@ export function PublicProfileView({
             />
             {content.backToDirectory}
           </Link>
-          <p className="inline-flex items-baseline gap-2 rounded-full border border-border px-3.5 py-1.5 text-sm text-muted-foreground">
-            {content.memberLabel}
+          <p className="text-sm text-muted-foreground">
+            {content.memberLabel}{" "}
             <span className="font-display font-semibold text-foreground tabular-nums">
               #{formatMemberNumber(profile.number)}
             </span>
           </p>
         </div>
-        <div className="flex flex-col gap-6 pt-2 md:flex-row md:items-start md:gap-10">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8 lg:gap-12">
           <MemberAvatar
             name={profile.displayName}
             src={profile.avatarUrl}
             size="portrait"
           />
-          <div className="flex min-w-0 flex-1 flex-col gap-4">
-            <div className="flex flex-col gap-1.5">
-              <h1 className="font-display text-4xl leading-[1.02] font-semibold tracking-tight text-balance break-words sm:text-5xl lg:text-6xl">
+          <div className="flex min-w-0 flex-1 flex-col gap-5 sm:pt-2">
+            <div className="flex flex-col gap-2">
+              <h1 className="font-display text-4xl leading-[1.05] font-semibold tracking-tight text-balance break-words text-foreground sm:text-5xl lg:text-6xl">
                 {profile.displayName}
               </h1>
-              <p className="text-base text-muted-foreground">
-                @{profile.username}
+              <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                <span>@{profile.username}</span>
+                <span className="font-medium text-foreground">
+                  {join.roleOptions[profile.role]}
+                </span>
+                {location ? (
+                  <span className="inline-flex items-center gap-1.5">
+                    <HugeiconsIcon
+                      icon={Location01Icon}
+                      strokeWidth={2}
+                      className="size-4 shrink-0"
+                    />
+                    {location}
+                  </span>
+                ) : null}
               </p>
             </div>
-            <p className="max-w-2xl text-lg leading-relaxed text-foreground md:text-xl">
+            <p className="max-w-[60ch] text-lg leading-relaxed text-foreground md:text-xl">
               {profile.headline}
             </p>
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
-              <span className="rounded-full bg-foreground/10 px-3 py-1 font-medium text-foreground">
-                {join.roleOptions[profile.role]}
-              </span>
-              {location ? (
-                <span className="inline-flex items-center gap-1.5">
-                  <HugeiconsIcon
-                    icon={Location01Icon}
-                    strokeWidth={2}
-                    className="size-4 shrink-0"
-                  />
-                  {location}
-                </span>
-              ) : null}
-            </div>
             {profile.bio ? (
-              <p className="max-w-2xl text-base leading-relaxed whitespace-pre-line text-muted-foreground">
+              <p className="max-w-[65ch] text-base leading-relaxed whitespace-pre-line text-muted-foreground">
                 {profile.bio}
               </p>
             ) : null}
@@ -235,7 +216,7 @@ export function PublicProfileView({
               href={shareCardPath(profile.username)}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(apertureOutlinePillClassName, "mt-1")}
+              className={apertureOutlinePillClassName}
             >
               <HugeiconsIcon
                 icon={Share08Icon}
@@ -246,17 +227,24 @@ export function PublicProfileView({
             </a>
           </div>
         </div>
-      </ApertureHero>
+      </header>
 
       {profile.projects.length > 0 ? (
-        <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] xl:grid-cols-[minmax(0,1fr)_24rem]">
+        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14 xl:grid-cols-[minmax(0,1fr)_22rem]">
           <ProjectsSection profile={profile} content={content} />
-          <div className="flex flex-col gap-6">{aside}</div>
+          {asideSections.length > 0 ? (
+            <aside className="flex flex-col gap-8">{asideSections}</aside>
+          ) : null}
         </div>
-      ) : hasAside ? (
-        <div className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {aside}
-        </div>
+      ) : asideSections.length > 0 ? (
+        <aside
+          className={cn(
+            "grid items-start gap-8 md:grid-cols-2 md:gap-10",
+            asideSections.length > 2 && "xl:grid-cols-3"
+          )}
+        >
+          {asideSections}
+        </aside>
       ) : null}
     </article>
   )
@@ -270,141 +258,85 @@ function ProjectsSection({
   content: ApertureProfileContent
 }) {
   return (
-    <section className="flex min-w-0 flex-col gap-4">
-      <h2 className="px-1 font-display text-2xl font-semibold tracking-tight text-foreground">
+    <section className="flex min-w-0 flex-col">
+      <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
         {content.projectsTitle}
       </h2>
-      <ul className="grid gap-4 md:grid-cols-2">
-        {profile.projects.map((project, index) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            content={content}
-            featured={index === 0}
-          />
+      <ul className="mt-2 flex flex-col divide-y divide-border">
+        {profile.projects.map((project) => (
+          <ProjectItem key={project.id} project={project} content={content} />
         ))}
       </ul>
-      <p className="px-1 text-xs leading-relaxed text-muted-foreground">
+      <p className="border-t border-border pt-4 text-xs leading-relaxed text-muted-foreground">
         {content.builtWithDisclaimer}
       </p>
     </section>
   )
 }
 
-function ProjectMonogram({ title }: { title: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-muted font-display text-lg font-semibold text-foreground select-none"
-    >
-      {title.trim().charAt(0).toUpperCase()}
-    </span>
-  )
-}
-
-function ProjectCard({
+function ProjectItem({
   project,
   content,
-  featured,
 }: {
   project: PublicProfile["projects"][number]
   content: ApertureProfileContent
-  featured: boolean
 }) {
-  const hasImage = Boolean(project.imageUrl)
-  const header = (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-3">
-        {hasImage ? null : <ProjectMonogram title={project.title} />}
-        <h3
-          className={cn(
-            "font-display leading-tight font-semibold tracking-tight",
-            featured ? "text-2xl" : "text-xl"
-          )}
-        >
+  return (
+    <li className="grid gap-5 py-7 md:grid-cols-[minmax(0,1fr)_15rem] md:gap-10">
+      <div className="flex min-w-0 flex-col gap-3">
+        {project.imageUrl ? (
+          <div className="relative mb-2 aspect-video w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-muted">
+            <img
+              src={project.imageUrl}
+              alt=""
+              loading="lazy"
+              className="absolute inset-0 size-full object-cover"
+            />
+          </div>
+        ) : null}
+        <h3 className="font-display text-xl leading-tight font-semibold tracking-tight text-foreground">
           {project.title}
         </h3>
+        <p className="max-w-[60ch] text-sm leading-relaxed text-muted-foreground md:text-base">
+          {project.summary}
+        </p>
+        {project.url || project.repoUrl ? (
+          <div className="flex flex-wrap gap-x-6">
+            {project.url ? (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={apertureTextLinkClassName}
+              >
+                {content.projectLinkCta}
+                <HugeiconsIcon
+                  icon={ArrowUpRight01Icon}
+                  strokeWidth={2}
+                  className="size-4"
+                />
+              </a>
+            ) : null}
+            {project.repoUrl ? (
+              <a
+                href={project.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={apertureTextLinkClassName}
+              >
+                <HugeiconsIcon
+                  icon={SourceCodeIcon}
+                  strokeWidth={2}
+                  className="size-4"
+                />
+                {content.repoLinkCta}
+              </a>
+            ) : null}
+          </div>
+        ) : null}
       </div>
-      <p className="text-sm leading-relaxed text-muted-foreground">
-        {project.summary}
-      </p>
-    </div>
-  )
-  const details = (
-    <div className="flex flex-col gap-5">
-      <BuiltWithBar parts={project.builtWith} title={content.builtWithTitle} />
-      {project.url || project.repoUrl ? (
-        <div className="flex gap-2">
-          {project.url ? (
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={projectActionClassName}
-            >
-              {content.projectLinkCta}
-              <HugeiconsIcon
-                icon={ArrowUpRight01Icon}
-                strokeWidth={2}
-                className="size-4"
-              />
-            </a>
-          ) : null}
-          {project.repoUrl ? (
-            <a
-              href={project.repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={projectActionClassName}
-            >
-              <HugeiconsIcon
-                icon={SourceCodeIcon}
-                strokeWidth={2}
-                className="size-4"
-              />
-              {content.repoLinkCta}
-            </a>
-          ) : null}
-        </div>
-      ) : null}
-    </div>
-  )
-
-  return (
-    <li
-      className={cn(
-        "flex flex-col overflow-hidden rounded-3xl border border-border bg-card text-card-foreground",
-        featured && "md:col-span-2",
-        featured &&
-          hasImage &&
-          "md:grid md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
-      )}
-    >
-      {project.imageUrl ? (
-        <div
-          className={cn(
-            "relative aspect-video border-b border-border",
-            featured && "md:aspect-auto md:min-h-64 md:border-r md:border-b-0"
-          )}
-        >
-          <img
-            src={project.imageUrl}
-            alt=""
-            loading="lazy"
-            className="absolute inset-0 size-full object-cover"
-          />
-        </div>
-      ) : null}
-      <div
-        className={cn(
-          "flex flex-1 flex-col justify-between gap-5 p-6",
-          featured &&
-            !hasImage &&
-            "md:grid md:grid-cols-2 md:items-start md:gap-10"
-        )}
-      >
-        {header}
-        {details}
+      <div className="md:pt-1">
+        <BuiltWithBar parts={project.builtWith} title={content.builtWithTitle} />
       </div>
     </li>
   )
@@ -423,24 +355,13 @@ function EventItem({
   ].filter(Boolean)
 
   return (
-    <li className="flex items-start gap-3">
-      <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground">
-        <HugeiconsIcon
-          icon={Calendar03Icon}
-          strokeWidth={1.8}
-          className="size-4.5"
-        />
-      </span>
-      <span className="flex min-w-0 flex-col pt-0.5">
-        <span className="text-sm font-medium text-foreground">
-          {event.name}
+    <li className="flex min-w-0 flex-col gap-0.5">
+      <span className="text-sm font-medium text-foreground">{event.name}</span>
+      {detail.length > 0 ? (
+        <span className="text-xs text-muted-foreground tabular-nums">
+          {detail.join(", ")}
         </span>
-        {detail.length > 0 ? (
-          <span className="text-xs text-muted-foreground">
-            {detail.join(", ")}
-          </span>
-        ) : null}
-      </span>
+      ) : null}
     </li>
   )
 }
