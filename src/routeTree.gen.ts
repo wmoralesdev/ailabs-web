@@ -18,6 +18,7 @@ import { Route as SiteIndexRouteImport } from './routes/_site/index'
 import { Route as SiteCampusLeaderRouteImport } from './routes/_site/campus-leader'
 import { Route as SiteCommunityRouteImport } from './routes/_site/community'
 import { Route as SiteLabRouteImport } from './routes/_site/lab'
+import { Route as SiteMeRouteImport } from './routes/_site/me'
 import { Route as SitePrivacyRouteImport } from './routes/_site/privacy'
 import { Route as SiteRedeemRouteImport } from './routes/_site/redeem'
 import { Route as SiteTermsRouteImport } from './routes/_site/terms'
@@ -72,6 +73,11 @@ const SiteCommunityRoute = SiteCommunityRouteImport.update({
 const SiteLabRoute = SiteLabRouteImport.update({
   id: '/lab',
   path: '/lab',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteMeRoute = SiteMeRouteImport.update({
+  id: '/me',
+  path: '/me',
   getParentRoute: () => SiteRoute,
 } as any)
 const SitePrivacyRoute = SitePrivacyRouteImport.update({
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/campus-leader': typeof SiteCampusLeaderRoute
   '/community': typeof SiteCommunityRoute
   '/lab': typeof SiteLabRoute
+  '/me': typeof SiteMeRoute
   '/privacy': typeof SitePrivacyRoute
   '/redeem': typeof SiteRedeemRoute
   '/terms': typeof SiteTermsRoute
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/campus-leader': typeof SiteCampusLeaderRoute
   '/community': typeof SiteCommunityRoute
   '/lab': typeof SiteLabRoute
+  '/me': typeof SiteMeRoute
   '/privacy': typeof SitePrivacyRoute
   '/redeem': typeof SiteRedeemRoute
   '/terms': typeof SiteTermsRoute
@@ -179,6 +187,7 @@ export interface FileRoutesById {
   '/_site/campus-leader': typeof SiteCampusLeaderRoute
   '/_site/community': typeof SiteCommunityRoute
   '/_site/lab': typeof SiteLabRoute
+  '/_site/me': typeof SiteMeRoute
   '/_site/privacy': typeof SitePrivacyRoute
   '/_site/redeem': typeof SiteRedeemRoute
   '/_site/terms': typeof SiteTermsRoute
@@ -203,6 +212,7 @@ export interface FileRouteTypes {
     | '/campus-leader'
     | '/community'
     | '/lab'
+    | '/me'
     | '/privacy'
     | '/redeem'
     | '/terms'
@@ -222,6 +232,7 @@ export interface FileRouteTypes {
     | '/campus-leader'
     | '/community'
     | '/lab'
+    | '/me'
     | '/privacy'
     | '/redeem'
     | '/terms'
@@ -243,6 +254,7 @@ export interface FileRouteTypes {
     | '/_site/campus-leader'
     | '/_site/community'
     | '/_site/lab'
+    | '/_site/me'
     | '/_site/privacy'
     | '/_site/redeem'
     | '/_site/terms'
@@ -331,6 +343,13 @@ declare module '@tanstack/react-router' {
       path: '/lab'
       fullPath: '/lab'
       preLoaderRoute: typeof SiteLabRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/me': {
+      id: '/_site/me'
+      path: '/me'
+      fullPath: '/me'
+      preLoaderRoute: typeof SiteMeRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/privacy': {
@@ -444,6 +463,7 @@ interface SiteRouteChildren {
   SiteCampusLeaderRoute: typeof SiteCampusLeaderRoute
   SiteCommunityRoute: typeof SiteCommunityRoute
   SiteLabRoute: typeof SiteLabRoute
+  SiteMeRoute: typeof SiteMeRoute
   SitePrivacyRoute: typeof SitePrivacyRoute
   SiteRedeemRoute: typeof SiteRedeemRoute
   SiteTermsRoute: typeof SiteTermsRoute
@@ -456,6 +476,7 @@ const SiteRouteChildren: SiteRouteChildren = {
   SiteCampusLeaderRoute: SiteCampusLeaderRoute,
   SiteCommunityRoute: SiteCommunityRoute,
   SiteLabRoute: SiteLabRoute,
+  SiteMeRoute: SiteMeRoute,
   SitePrivacyRoute: SitePrivacyRoute,
   SiteRedeemRoute: SiteRedeemRoute,
   SiteTermsRoute: SiteTermsRoute,

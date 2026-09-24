@@ -97,6 +97,8 @@ possibly stale value into this file.
   closed in production unless `APERTURE_JOIN=open` and the legal text is
   published. `APERTURE_JOIN=preview` opens the form only outside
   production. A successful claim allocates a permanent member number.
+- `/me` is the private member dashboard: events linked to verified emails,
+  credit codes and expiry, and profile settings. It stays noindex.
 - `/community` is a minimal WhatsApp invite landing (no auth). Like redeem
   and campus-leader, its hero is the shared campaign split hero
   (`src/components/campaign/campaign-hero.tsx`): light copy column on the

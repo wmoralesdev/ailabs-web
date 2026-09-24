@@ -40,11 +40,7 @@ export type ProfileDraft = {
 export type ProfileField = keyof ProfileDraft
 
 export type ProfileFieldError =
-  | "required"
-  | "too_long"
-  | "invalid"
-  | "reserved"
-  | "taken"
+  "required" | "too_long" | "invalid" | "reserved" | "taken"
 
 export type ProfileFieldErrors = Partial<
   Record<ProfileField, ProfileFieldError>
@@ -62,7 +58,7 @@ export type ProfileInput = Partial<
   showEvents?: boolean
 }
 
-function isMemberRole(value: string): value is MemberRole {
+export function isMemberRole(value: string): value is MemberRole {
   return (MEMBER_ROLES as ReadonlyArray<string>).includes(value)
 }
 

@@ -600,8 +600,57 @@ export type ApertureJoinContent = CampaignQrCopy & {
   revealCta: string
 }
 
+export type ApertureMeContent = {
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  /** `{number}` is replaced. */
+  numberLabel: string
+  signInPrompt: string
+  signInCta: string
+  signOutCta: string
+  signedInAs: string
+  joinCta: string
+  noMemberTitle: string
+  noMemberBody: string
+  retiredTitle: string
+  retiredBody: string
+  eventsTitle: string
+  eventsEmpty: string
+  creditsTitle: string
+  creditsEmpty: string
+  /** `{date}` is replaced. */
+  expiresLabel: string
+  settingsTitle: string
+  save: string
+  saving: string
+  saved: string
+  error: string
+  newsletterLabel: string
+  showEventsLabel: string
+  showEventsHelper: string
+  /** `{date}` is replaced. */
+  usernameCooldown: string
+  fields: {
+    bio: ApertureJoinField
+    city: ApertureJoinField
+    linkedin: ApertureJoinField
+    x: ApertureJoinField
+    github: ApertureJoinField
+    website: ApertureJoinField
+    instagram: ApertureJoinField
+  }
+  poolLabels: {
+    CURSOR: string
+    CODEX: string
+    OPENAI: string
+  }
+}
+
 export type ApertureContent = {
   join: ApertureJoinContent
+  me: ApertureMeContent
 }
 
 export type SiteContent = {

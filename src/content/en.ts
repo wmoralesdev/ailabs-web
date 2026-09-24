@@ -867,5 +867,74 @@ export const en: SiteContent = {
       qrTitle: "Scan to open",
       qrBody: "Scan this code to open this page on another device.",
     },
+    me: {
+      metaTitle: "Your Aperture profile",
+      metaDescription:
+        "Your private Aperture dashboard: member number, events, credits, and settings.",
+      label: "Aperture",
+      headline: "Your dashboard",
+      numberLabel: "Member #{number}",
+      signInPrompt: "Sign in to see your number, events, and credits.",
+      signInCta: "Sign in",
+      signOutCta: "Sign out",
+      signedInAs: "Signed in as {email}",
+      joinCta: "Claim your number",
+      noMemberTitle: "You are not a member yet",
+      noMemberBody: "Claim a permanent number to open your dashboard.",
+      retiredTitle: "This account was closed",
+      retiredBody:
+        "Your member number stays retired. Events and credits are no longer shown.",
+      eventsTitle: "Events",
+      eventsEmpty: "No Ai Labs events are linked to your verified emails yet.",
+      creditsTitle: "Credits",
+      creditsEmpty: "You have not claimed credits yet.",
+      expiresLabel: "Expires {date}",
+      settingsTitle: "Profile settings",
+      save: "Save changes",
+      saving: "Saving…",
+      saved: "Saved",
+      error: "Something went wrong. Try again in a moment.",
+      newsletterLabel: "Send me the Aperture newsletter.",
+      showEventsLabel: "Show my events on my public profile",
+      showEventsHelper:
+        "Only events already linked to your verified emails. Off by default.",
+      usernameCooldown: "You can change your username again on {date}.",
+      fields: {
+        bio: {
+          label: "Bio",
+          placeholder: "What you are building, in a few lines.",
+          helper: "Up to 280 characters. Shown on your public profile.",
+        },
+        city: {
+          label: "City",
+          placeholder: "San Salvador",
+        },
+        linkedin: {
+          label: "LinkedIn",
+          placeholder: "https://linkedin.com/in/yourname",
+        },
+        x: {
+          label: "X",
+          placeholder: "https://x.com/yourhandle",
+        },
+        github: {
+          label: "GitHub",
+          placeholder: "https://github.com/yourhandle",
+        },
+        website: {
+          label: "Website",
+          placeholder: "https://example.com",
+        },
+        instagram: {
+          label: "Instagram",
+          placeholder: "https://instagram.com/yourhandle",
+        },
+      },
+      poolLabels: {
+        CURSOR: "Cursor",
+        CODEX: "Codex",
+        OPENAI: "OpenAI Platform",
+      },
+    },
   },
 }

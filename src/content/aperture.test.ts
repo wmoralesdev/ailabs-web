@@ -16,4 +16,10 @@ describe("aperture join copy", () => {
       Object.keys(en.aperture.join.upForOptions)
     )
   })
+
+  it("keeps dashboard field keys in parity", () => {
+    expect(Object.keys(es.aperture.me.fields)).toEqual(
+      Object.keys(en.aperture.me.fields)
+    )
+  })
 })

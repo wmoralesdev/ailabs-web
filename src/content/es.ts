@@ -871,5 +871,75 @@ export const es: SiteContent = {
       qrTitle: "Escaneá para abrir",
       qrBody: "Escaneá este código para abrir esta página en otro dispositivo.",
     },
+    me: {
+      metaTitle: "Tu perfil de Aperture",
+      metaDescription:
+        "Tu panel privado de Aperture: número de miembro, eventos, créditos y ajustes.",
+      label: "Aperture",
+      headline: "Tu panel",
+      numberLabel: "Miembro #{number}",
+      signInPrompt: "Iniciá sesión para ver tu número, eventos y créditos.",
+      signInCta: "Iniciar sesión",
+      signOutCta: "Cerrar sesión",
+      signedInAs: "Sesión iniciada como {email}",
+      joinCta: "Reclamá tu número",
+      noMemberTitle: "Todavía no sos miembro",
+      noMemberBody: "Reclamá un número permanente para abrir tu panel.",
+      retiredTitle: "Esta cuenta se cerró",
+      retiredBody:
+        "Tu número de miembro queda retirado. Ya no se muestran eventos ni créditos.",
+      eventsTitle: "Eventos",
+      eventsEmpty:
+        "Todavía no hay eventos de Ai Labs ligados a tus correos verificados.",
+      creditsTitle: "Créditos",
+      creditsEmpty: "Todavía no canjeaste créditos.",
+      expiresLabel: "Vence {date}",
+      settingsTitle: "Ajustes del perfil",
+      save: "Guardar cambios",
+      saving: "Guardando…",
+      saved: "Guardado",
+      error: "Algo falló. Probá de nuevo en un momento.",
+      newsletterLabel: "Quiero recibir el boletín de Aperture.",
+      showEventsLabel: "Mostrar mis eventos en el perfil público",
+      showEventsHelper:
+        "Solo los eventos ya ligados a tus correos verificados. Apagado por defecto.",
+      usernameCooldown: "Podés cambiar tu usuario de nuevo el {date}.",
+      fields: {
+        bio: {
+          label: "Bio",
+          placeholder: "Qué estás construyendo, en unas líneas.",
+          helper: "Hasta 280 caracteres. Se ve en tu perfil público.",
+        },
+        city: {
+          label: "Ciudad",
+          placeholder: "San Salvador",
+        },
+        linkedin: {
+          label: "LinkedIn",
+          placeholder: "https://linkedin.com/in/tunombre",
+        },
+        x: {
+          label: "X",
+          placeholder: "https://x.com/tuusuario",
+        },
+        github: {
+          label: "GitHub",
+          placeholder: "https://github.com/tuusuario",
+        },
+        website: {
+          label: "Sitio",
+          placeholder: "https://ejemplo.com",
+        },
+        instagram: {
+          label: "Instagram",
+          placeholder: "https://instagram.com/tuusuario",
+        },
+      },
+      poolLabels: {
+        CURSOR: "Cursor",
+        CODEX: "Codex",
+        OPENAI: "OpenAI Platform",
+      },
+    },
   },
 }
