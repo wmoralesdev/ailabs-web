@@ -30,7 +30,7 @@ function DirectoryPage() {
   const { locale, content, members } = Route.useLoaderData()
 
   return (
-    <MainCard>
+    <MainCard textured={false}>
       <div className={apertureShellClassName}>
         <MemberDirectory
           members={members}

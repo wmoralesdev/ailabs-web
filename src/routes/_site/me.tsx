@@ -52,7 +52,7 @@ function MePage() {
   const { microcopy } = siteContent
 
   return (
-    <MainCard>
+    <MainCard textured={false}>
       <div
         className={cn(apertureShellClassName, "relative flex flex-col gap-6")}
       >

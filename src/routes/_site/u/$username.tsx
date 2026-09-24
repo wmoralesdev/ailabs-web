@@ -58,7 +58,7 @@ function PublicProfilePage() {
   const copy = content.aperture.profile
 
   return (
-    <MainCard>
+    <MainCard textured={false}>
       <div className={apertureShellClassName}>
         {profile ? (
           <PublicProfileView

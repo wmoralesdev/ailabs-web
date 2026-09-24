@@ -19,16 +19,17 @@ export function ApertureHero({
   return (
     <section
       className={cn(
-        "home-hero-invert relative isolate overflow-hidden rounded-[2rem] border border-border bg-surface-ink text-foreground",
+        "home-hero-invert overflow-hidden rounded-[2rem] border border-border bg-surface-ink text-foreground",
         className
       )}
     >
-      <div
-        aria-hidden="true"
-        className="aperture-stipple pointer-events-none absolute inset-0 -z-10"
-      />
       <div className="flex flex-col gap-8 p-6 sm:p-10 lg:flex-row lg:items-end lg:justify-between lg:gap-12 lg:p-14">
-        <div className="flex min-w-0 flex-col gap-5 lg:max-w-2xl">
+        <div
+          className={cn(
+            "flex min-w-0 flex-1 flex-col gap-5",
+            aside && "lg:max-w-2xl"
+          )}
+        >
           {children}
         </div>
         {aside ? (
