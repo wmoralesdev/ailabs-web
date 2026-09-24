@@ -4,11 +4,13 @@ import {
   PROJECT_LIMITS,
   slugFromTitle,
 } from "@/lib/aperture/project-input"
+import { isOwnedProjectImageKey } from "@/lib/aperture/project-image"
 import type {
   BuiltWithPart,
   ProjectDraft,
   ProjectFieldErrors,
 } from "@/lib/aperture/project-input"
+import { deleteProjectImage, publicProjectImageUrl } from "@/server/aperture/r2"
 
 export type MeProject = {
   id: string
@@ -17,11 +19,13 @@ export type MeProject = {
   summary: string
   url: string | null
   repoUrl: string | null
+  imageKey: string | null
+  imageUrl: string | null
   published: boolean
   builtWith: BuiltWithPart[]
 }
 
-export type PublicProject = Omit<MeProject, "published">
+export type PublicProject = Omit<MeProject, "published" | "imageKey">
 
 export type WriteProjectResult =
   | { status: "ok"; project: MeProject }
@@ -38,6 +42,7 @@ function mapProject(row: {
   summary: string
   url: string | null
   repoUrl: string | null
+  imageKey: string | null
   published: boolean
   builtWith: Array<{ name: string; percent: number }>
 }): MeProject {
@@ -48,12 +53,29 @@ function mapProject(row: {
     summary: row.summary,
     url: row.url,
     repoUrl: row.repoUrl,
+    imageKey: row.imageKey,
+    imageUrl: publicProjectImageUrl(row.imageKey),
     published: row.published,
     builtWith: row.builtWith.map((part) => ({
       name: part.name,
       percent: part.percent,
     })),
   }
+}
+
+function ownedImageKey(
+  memberNumber: number,
+  imageKey: string | null,
+  errors: ProjectFieldErrors
+): string | null {
+  if (!imageKey) {
+    return null
+  }
+  if (!isOwnedProjectImageKey(imageKey, memberNumber)) {
+    errors.imageKey = "invalid"
+    return null
+  }
+  return imageKey
 }
 
 async function nextSlug(
@@ -135,6 +157,15 @@ export async function createProject(
   if (count >= PROJECT_LIMITS.maxProjects) {
     return { status: "limit" }
   }
+  const imageErrors: ProjectFieldErrors = {}
+  const imageKey = ownedImageKey(
+    member.number,
+    parsed.draft.imageKey,
+    imageErrors
+  )
+  if (imageErrors.imageKey) {
+    return { status: "invalid", fieldErrors: imageErrors }
+  }
   const slug = await nextSlug(db, member.number, parsed.draft.title)
   const created = await db.project.create({
     data: {
@@ -144,6 +175,7 @@ export async function createProject(
       summary: parsed.draft.summary,
       url: parsed.draft.url,
       repoUrl: parsed.draft.repoUrl,
+      imageKey,
       published: parsed.draft.published,
       sortOrder: count,
       builtWith: {
@@ -175,10 +207,19 @@ export async function updateProject(
   }
   const existing = await db.project.findFirst({
     where: { id: projectId, memberNumber: member.number },
-    select: { id: true, slug: true, title: true },
+    select: { id: true, slug: true, title: true, imageKey: true },
   })
   if (!existing) {
     return { status: "not_found" }
+  }
+  const imageErrors: ProjectFieldErrors = {}
+  const imageKey = ownedImageKey(
+    member.number,
+    parsed.draft.imageKey,
+    imageErrors
+  )
+  if (imageErrors.imageKey) {
+    return { status: "invalid", fieldErrors: imageErrors }
   }
   const slug =
     existing.title === parsed.draft.title
@@ -194,6 +235,7 @@ export async function updateProject(
         summary: parsed.draft.summary,
         url: parsed.draft.url,
         repoUrl: parsed.draft.repoUrl,
+        imageKey,
         published: parsed.draft.published,
         builtWith: {
           create: parsed.draft.builtWith.map((part, index) => ({
@@ -206,6 +248,9 @@ export async function updateProject(
       include: { builtWith: { orderBy: { sortOrder: "asc" } } },
     })
   })
+  if (existing.imageKey && existing.imageKey !== imageKey) {
+    await deleteProjectImage(existing.imageKey)
+  }
   return { status: "ok", project: mapProject(updated) }
 }
 
@@ -220,7 +265,7 @@ export async function deleteProject(
   }
   const existing = await db.project.findFirst({
     where: { id: projectId, memberNumber: member.number },
-    select: { id: true },
+    select: { id: true, imageKey: true },
   })
   if (!existing) {
     return { status: "not_found" }
@@ -229,13 +274,16 @@ export async function deleteProject(
     where: { id: existing.id },
     include: { builtWith: { orderBy: { sortOrder: "asc" } } },
   })
+  await deleteProjectImage(existing.imageKey)
   return { status: "ok", project: mapProject(deleted) }
 }
 
 export function toPublicProjects(projects: MeProject[]): PublicProject[] {
   return projects
     .filter((project) => project.published)
-    .map(({ published: _published, ...project }) => project)
+    .map(
+      ({ published: _published, imageKey: _imageKey, ...project }) => project
+    )
 }
 
 export type { ProjectDraft }

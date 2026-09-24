@@ -665,6 +665,10 @@ export type ApertureMeContent = {
   toolNameLabel: string
   percentLabel: string
   publishedLabel: string
+  imageLabel: string
+  imageHelper: string
+  imageUnavailable: string
+  removeImage: string
   projectLimit: string
   projectErrors: {
     required: string

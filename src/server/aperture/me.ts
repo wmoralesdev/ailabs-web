@@ -20,6 +20,7 @@ import {
   updateProject,
 } from "@/server/aperture/project-store"
 import type { WriteProjectResult } from "@/server/aperture/project-store"
+import { presignProjectImagePut } from "@/server/aperture/r2"
 
 export type { LoadMeResult, SaveNewsletterResult, SaveProfileResult }
 export type {
@@ -138,6 +139,59 @@ export const updateMeProject = createServerFn({ method: "POST" })
     return dashboardAfterWrite(
       userId,
       await updateProject(prisma, userId, data.id, data.project)
+    )
+  })
+
+function imageUploadInput(data: unknown): {
+  contentType: string
+  byteLength: number
+} {
+  if (typeof data !== "object" || data === null) {
+    throw new Error("Invalid image")
+  }
+  if (!("contentType" in data) || typeof data.contentType !== "string") {
+    throw new Error("Invalid image")
+  }
+  if (!("byteLength" in data) || typeof data.byteLength !== "number") {
+    throw new Error("Invalid image")
+  }
+  return { contentType: data.contentType, byteLength: data.byteLength }
+}
+
+export type ProjectImageUploadResult =
+  | { status: "ok"; uploadUrl: string; key: string; publicUrl: string }
+  | { status: "unavailable" }
+  | { status: "invalid" }
+  | { status: "unauthenticated" }
+  | { status: "no_member" }
+  | { status: "retired" }
+
+export const createMeProjectImageUpload = createServerFn({ method: "POST" })
+  .validator(imageUploadInput)
+  .handler(async ({ data }): Promise<ProjectImageUploadResult> => {
+    const userId = await requireUserId()
+    if (!userId) {
+      return { status: "unauthenticated" }
+    }
+    const member = await prisma.member.findUnique({
+      where: { clerkUserId: userId },
+      select: {
+        number: true,
+        retiredAt: true,
+        profile: { select: { username: true } },
+      },
+    })
+    if (!member) {
+      return { status: "no_member" }
+    }
+    if (member.retiredAt || !member.profile) {
+      return member.retiredAt ? { status: "retired" } : { status: "no_member" }
+    }
+    return presignProjectImagePut(
+      member.number,
+      data.contentType,
+      data.byteLength,
+      crypto.randomUUID().replaceAll("-", "")
     )
   })
 

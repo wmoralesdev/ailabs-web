@@ -117,6 +117,13 @@ export function PublicProfileView({
                 key={project.id}
                 className="flex flex-col gap-3 rounded-2xl border border-border/60 bg-background/70 p-4"
               >
+                {project.imageUrl ? (
+                  <img
+                    src={project.imageUrl}
+                    alt=""
+                    className="h-44 w-full rounded-xl border border-border object-cover"
+                  />
+                ) : null}
                 <div className="flex flex-col gap-1">
                   <p className="font-medium text-foreground">{project.title}</p>
                   <p className="text-sm text-muted-foreground">

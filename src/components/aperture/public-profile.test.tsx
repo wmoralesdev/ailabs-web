@@ -34,6 +34,7 @@ const profile: PublicProfile = {
       summary: "A notes app for builders.",
       url: "https://example.com",
       repoUrl: null,
+      imageUrl: null,
       builtWith: [
         { name: "Cursor", percent: 70 },
         { name: "Claude", percent: 30 },

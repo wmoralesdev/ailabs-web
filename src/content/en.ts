@@ -976,6 +976,10 @@ export const en: SiteContent = {
       toolNameLabel: "Tool",
       percentLabel: "%",
       publishedLabel: "Show on my public profile",
+      imageLabel: "Image",
+      imageHelper: "JPEG, PNG, or WebP. Up to 2 MB.",
+      imageUnavailable: "Image upload is not configured on this environment.",
+      removeImage: "Remove image",
       projectLimit: "You can publish up to 12 projects.",
       projectErrors: {
         required: "This field is required.",

@@ -37,6 +37,7 @@ const projectInput = {
   summary: "A notes app for builders.",
   url: "https://example.com",
   repoUrl: null,
+  imageKey: null,
   published: true,
   builtWith: [
     { name: "Cursor", percent: 70 },

@@ -108,6 +108,7 @@ describe("loadPublicProfile", () => {
       summary: "A notes app for builders.",
       url: "https://example.com",
       repoUrl: null,
+      imageKey: null,
       published: true,
       builtWith: [{ name: "Cursor", percent: 100 }],
     })
@@ -116,6 +117,7 @@ describe("loadPublicProfile", () => {
       summary: "Not public yet.",
       url: null,
       repoUrl: null,
+      imageKey: null,
       published: false,
       builtWith: [{ name: "Claude", percent: 100 }],
     })

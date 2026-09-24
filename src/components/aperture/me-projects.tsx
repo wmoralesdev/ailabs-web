@@ -26,6 +26,7 @@ import type {
 import { cn } from "@/lib/utils"
 import {
   createMeProject,
+  createMeProjectImageUpload,
   deleteMeProject,
   updateMeProject,
 } from "@/server/aperture/me"
@@ -37,6 +38,7 @@ function emptyDraft(): ProjectDraft {
     summary: "",
     url: null,
     repoUrl: null,
+    imageKey: null,
     published: true,
     builtWith: [{ name: "", percent: 100 }],
   }
@@ -48,6 +50,7 @@ function draftFromProject(project: MeProject): ProjectDraft {
     summary: project.summary,
     url: project.url,
     repoUrl: project.repoUrl,
+    imageKey: project.imageKey,
     published: project.published,
     builtWith: project.builtWith,
   }
@@ -92,6 +95,7 @@ export function MeProjects({
                 <ProjectEditor
                   content={content}
                   initial={draftFromProject(project)}
+                  imageUrl={project.imageUrl}
                   projectId={project.id}
                   onCancel={() => setEditingId(null)}
                   onDashboard={(next) => {
@@ -105,6 +109,13 @@ export function MeProjects({
                 key={project.id}
                 className="flex flex-col gap-2 rounded-2xl border border-border/60 bg-background/70 p-4"
               >
+                {project.imageUrl ? (
+                  <img
+                    src={project.imageUrl}
+                    alt=""
+                    className="h-28 w-full rounded-xl border border-border object-cover"
+                  />
+                ) : null}
                 <p className="font-medium text-foreground">{project.title}</p>
                 <p className="text-sm text-muted-foreground">
                   {project.summary}
@@ -162,12 +173,14 @@ export function MeProjects({
 function ProjectEditor({
   content,
   initial,
+  imageUrl,
   projectId,
   onCancel,
   onDashboard,
 }: {
   content: ApertureMeContent
   initial: ProjectDraft
+  imageUrl?: string | null
   projectId?: string
   onCancel: () => void
   onDashboard: (dashboard: MeDashboard) => void
@@ -176,6 +189,8 @@ function ProjectEditor({
   const [fieldErrors, setFieldErrors] = useState<ProjectFieldErrors>({})
   const [formError, setFormError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
+  const [file, setFile] = useState<File | null>(null)
+  const [preview, setPreview] = useState<string | null>(imageUrl ?? null)
 
   function setPart(index: number, next: BuiltWithPart) {
     setValues((current) => ({
@@ -186,16 +201,47 @@ function ProjectEditor({
     }))
   }
 
+  async function uploadIfNeeded(): Promise<ProjectDraft | null> {
+    if (!file) {
+      return values
+    }
+    const signed = await createMeProjectImageUpload({
+      data: { contentType: file.type, byteLength: file.size },
+    })
+    if (signed.status === "unavailable") {
+      setFormError(content.imageUnavailable)
+      return null
+    }
+    if (signed.status !== "ok") {
+      setFieldErrors({ imageKey: "invalid" })
+      return null
+    }
+    const put = await fetch(signed.uploadUrl, {
+      method: "PUT",
+      headers: { "Content-Type": file.type },
+      body: file,
+    })
+    if (!put.ok) {
+      setFormError(content.error)
+      return null
+    }
+    return { ...values, imageKey: signed.key }
+  }
+
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setFormError(null)
     setPending(true)
     try {
+      const payload = await uploadIfNeeded()
+      if (!payload) {
+        return
+      }
       const result = projectId
         ? await updateMeProject({
-            data: { id: projectId, project: values },
+            data: { id: projectId, project: payload },
           })
-        : await createMeProject({ data: values })
+        : await createMeProject({ data: payload })
       switch (result.status) {
         case "ok":
           onDashboard(result.dashboard)
@@ -309,6 +355,44 @@ function ProjectEditor({
             }
           />
           <FieldError>{errorText(content, fieldErrors.repoUrl)}</FieldError>
+        </Field>
+
+        <Field data-invalid={Boolean(fieldErrors.imageKey) || undefined}>
+          <FieldLabel htmlFor="project-image">{content.imageLabel}</FieldLabel>
+          {preview ? (
+            <img
+              src={preview}
+              alt=""
+              className="h-36 w-full rounded-xl border border-border object-cover"
+            />
+          ) : null}
+          <Input
+            id="project-image"
+            size="xl"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            aria-invalid={Boolean(fieldErrors.imageKey) || undefined}
+            onChange={(event) => {
+              const next = event.target.files?.[0] ?? null
+              setFile(next)
+              setPreview(next ? URL.createObjectURL(next) : preview)
+            }}
+          />
+          <FieldDescription>{content.imageHelper}</FieldDescription>
+          {values.imageKey || preview ? (
+            <button
+              type="button"
+              className="w-fit text-sm font-medium text-foreground underline underline-offset-4"
+              onClick={() => {
+                setFile(null)
+                setPreview(null)
+                setValues((current) => ({ ...current, imageKey: null }))
+              }}
+            >
+              {content.removeImage}
+            </button>
+          ) : null}
+          <FieldError>{errorText(content, fieldErrors.imageKey)}</FieldError>
         </Field>
 
         <Field data-invalid={Boolean(fieldErrors.builtWith) || undefined}>

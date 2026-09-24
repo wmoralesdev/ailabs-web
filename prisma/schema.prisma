@@ -301,6 +301,7 @@ model Project {
   summary      String
   url          String?
   repoUrl      String?
+  imageKey     String?
   published    Boolean   @default(true)
   hiddenAt     DateTime?
   sortOrder    Int       @default(0)

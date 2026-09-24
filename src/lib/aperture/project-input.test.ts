@@ -7,6 +7,7 @@ const valid = {
   summary: "A notes app for builders.",
   url: "https://example.com",
   repoUrl: null,
+  imageKey: null,
   published: true,
   builtWith: [
     { name: "Cursor", percent: 70 },
@@ -43,6 +44,12 @@ describe("parseProjectInput", () => {
     expect(parseProjectInput({ ...valid, url: "not-a-url" })).toMatchObject({
       ok: false,
       fieldErrors: { url: "invalid" },
+    })
+    expect(
+      parseProjectInput({ ...valid, imageKey: "../secret.png" })
+    ).toMatchObject({
+      ok: false,
+      fieldErrors: { imageKey: "invalid" },
     })
   })
 })

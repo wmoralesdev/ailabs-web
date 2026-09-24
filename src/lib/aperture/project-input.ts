@@ -1,3 +1,4 @@
+import { parseProjectImageKey } from "@/lib/aperture/project-image"
 import { isHttpUrl } from "@/lib/http-url"
 
 export const PROJECT_LIMITS = {
@@ -20,6 +21,7 @@ export type ProjectDraft = {
   summary: string
   url: string | null
   repoUrl: string | null
+  imageKey: string | null
   published: boolean
   builtWith: BuiltWithPart[]
 }
@@ -155,6 +157,7 @@ export function parseProjectInput(input: unknown): ProjectInputResult {
   }
   const url = optionalUrl(data.url, "url", errors)
   const repoUrl = optionalUrl(data.repoUrl, "repoUrl", errors)
+  const imageKey = optionalImageKey(data.imageKey, errors)
   const published = typeof data.published === "boolean" ? data.published : true
   const builtWith = parseBuiltWith(data.builtWith, errors)
   if (Object.keys(errors).length > 0) {
@@ -162,6 +165,20 @@ export function parseProjectInput(input: unknown): ProjectInputResult {
   }
   return {
     ok: true,
-    draft: { title, summary, url, repoUrl, published, builtWith },
+    draft: { title, summary, url, repoUrl, imageKey, published, builtWith },
   }
+}
+
+function optionalImageKey(
+  value: unknown,
+  errors: ProjectFieldErrors
+): string | null {
+  if (value == null || value === "") {
+    return null
+  }
+  if (typeof value !== "string" || !parseProjectImageKey(value)) {
+    errors.imageKey = "invalid"
+    return null
+  }
+  return value
 }

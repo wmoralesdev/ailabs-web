@@ -7,6 +7,7 @@ import { MeProjects } from "./me-projects"
 
 vi.mock("@/server/aperture/me", () => ({
   createMeProject: vi.fn(),
+  createMeProjectImageUpload: vi.fn(),
   updateMeProject: vi.fn(),
   deleteMeProject: vi.fn(),
 }))

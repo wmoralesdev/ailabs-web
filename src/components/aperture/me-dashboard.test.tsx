@@ -10,6 +10,7 @@ vi.mock("@/server/aperture/me", () => ({
   updateMeProfile: vi.fn(),
   updateMeNewsletter: vi.fn(),
   createMeProject: vi.fn(),
+  createMeProjectImageUpload: vi.fn(),
   updateMeProject: vi.fn(),
   deleteMeProject: vi.fn(),
 }))

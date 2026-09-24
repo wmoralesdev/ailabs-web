@@ -981,6 +981,11 @@ export const es: SiteContent = {
       toolNameLabel: "Herramienta",
       percentLabel: "%",
       publishedLabel: "Mostrar en mi perfil público",
+      imageLabel: "Imagen",
+      imageHelper: "JPEG, PNG o WebP. Hasta 2 MB.",
+      imageUnavailable:
+        "La carga de imágenes no está configurada en este entorno.",
+      removeImage: "Quitar imagen",
       projectLimit: "Podés publicar hasta 12 proyectos.",
       projectErrors: {
         required: "Este campo es obligatorio.",
