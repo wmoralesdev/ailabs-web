@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import type { FormEvent } from "react"
+import type { FormEvent, ReactNode } from "react"
 
 import { apertureChoiceChipClassName } from "@/components/aperture/aperture-styles"
 import { homePillClassName } from "@/components/home/home-styles"
@@ -146,13 +146,14 @@ export function MeSettings({
 
   return (
     <form
-      className="flex flex-col gap-6"
+      className="flex flex-col gap-8"
       onSubmit={(event) => void onSubmit(event)}
     >
-      <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
+      <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
         {content.settingsTitle}
       </h2>
-      <FieldGroup>
+
+      <SettingsGroup legend={content.settingsGroups.profile}>
         <Field data-invalid={Boolean(fieldErrors.username) || undefined}>
           <FieldLabel htmlFor="me-username">
             {join.fields.username.label}
@@ -184,7 +185,10 @@ export function MeSettings({
           <FieldError>{errorText(join, fieldErrors.displayName)}</FieldError>
         </Field>
 
-        <Field data-invalid={Boolean(fieldErrors.headline) || undefined}>
+        <Field
+          className="md:col-span-2"
+          data-invalid={Boolean(fieldErrors.headline) || undefined}
+        >
           <FieldLabel htmlFor="me-headline">
             {join.fields.headline.label}
           </FieldLabel>
@@ -198,7 +202,10 @@ export function MeSettings({
           <FieldError>{errorText(join, fieldErrors.headline)}</FieldError>
         </Field>
 
-        <Field data-invalid={Boolean(fieldErrors.bio) || undefined}>
+        <Field
+          className="md:col-span-2"
+          data-invalid={Boolean(fieldErrors.bio) || undefined}
+        >
           <FieldLabel htmlFor="me-bio">{content.fields.bio.label}</FieldLabel>
           <Textarea
             id="me-bio"
@@ -211,7 +218,9 @@ export function MeSettings({
           <FieldDescription>{content.fields.bio.helper}</FieldDescription>
           <FieldError>{errorText(join, fieldErrors.bio)}</FieldError>
         </Field>
+      </SettingsGroup>
 
+      <SettingsGroup legend={content.settingsGroups.location} columns={3}>
         <Field data-invalid={Boolean(fieldErrors.countryCode) || undefined}>
           <FieldLabel htmlFor="me-country">
             {join.fields.country.label}
@@ -270,8 +279,10 @@ export function MeSettings({
           <FieldError>{errorText(join, fieldErrors.role)}</FieldError>
         </Field>
 
-        <FieldSet>
-          <FieldLegend>{join.fields.upFor.label}</FieldLegend>
+        <FieldSet className="md:col-span-2 lg:col-span-3">
+          <FieldLegend variant="label" className="mb-0 text-sm">
+            {join.fields.upFor.label}
+          </FieldLegend>
           <div className="flex flex-wrap gap-2">
             {UP_FOR_OPTIONS.map((option) => (
               <label
@@ -297,7 +308,9 @@ export function MeSettings({
             ))}
           </div>
         </FieldSet>
+      </SettingsGroup>
 
+      <SettingsGroup legend={content.settingsGroups.links}>
         {(
           [
             ["linkedinUrl", "linkedin"],
@@ -326,7 +339,9 @@ export function MeSettings({
             <FieldError>{errorText(join, fieldErrors[key])}</FieldError>
           </Field>
         ))}
+      </SettingsGroup>
 
+      <SettingsGroup legend={content.settingsGroups.visibility} columns={1}>
         <label
           htmlFor="me-show-events"
           className="flex cursor-pointer items-start gap-2.5 text-sm leading-snug"
@@ -359,11 +374,11 @@ export function MeSettings({
           />
           <span>{content.newsletterLabel}</span>
         </label>
-      </FieldGroup>
+      </SettingsGroup>
 
       {formError ? <FieldError>{formError}</FieldError> : null}
 
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3 border-t border-border pt-6">
         <button
           type="submit"
           className={cn(homePillClassName, "w-fit")}
@@ -379,9 +394,38 @@ export function MeSettings({
           )}
         </button>
         {saved ? (
-          <p className="text-sm text-muted-foreground">{content.saved}</p>
+          <p role="status" className="text-sm text-muted-foreground">
+            {content.saved}
+          </p>
         ) : null}
       </div>
     </form>
+  )
+}
+
+function SettingsGroup({
+  legend,
+  columns = 2,
+  children,
+}: {
+  legend: string
+  /** 1 stacks the controls; 3 fits short fields on one row from `lg`. */
+  columns?: 1 | 2 | 3
+  children: ReactNode
+}) {
+  return (
+    <FieldSet className="gap-5 border-t border-border pt-6">
+      <FieldLegend className="mb-0 font-display text-base font-semibold tracking-tight text-foreground">
+        {legend}
+      </FieldLegend>
+      <FieldGroup
+        className={cn(
+          columns > 1 && "grid gap-x-6 gap-y-5 md:grid-cols-2",
+          columns === 3 && "lg:grid-cols-3"
+        )}
+      >
+        {children}
+      </FieldGroup>
+    </FieldSet>
   )
 }

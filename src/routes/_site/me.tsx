@@ -10,7 +10,6 @@ import { createFileRoute, Link, useRouterState } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
-import { ApertureHero } from "@/components/aperture/aperture-hero"
 import { apertureShellClassName } from "@/components/aperture/aperture-styles"
 import { MeDashboardView } from "@/components/aperture/me-dashboard"
 import { MainCard } from "@/components/chrome/main-card"
@@ -19,7 +18,7 @@ import {
   homePillClassName,
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
-import { Spinner } from "@/components/ui/spinner"
+import { Skeleton } from "@/components/ui/skeleton"
 import type { ApertureMeContent } from "@/content/types"
 import { buildPageMeta } from "@/lib/seo"
 import { cn } from "@/lib/utils"
@@ -81,7 +80,7 @@ function SignedOutPanel({ content }: { content: ApertureMeContent }) {
   })
 
   return (
-    <ApertureHero>
+    <section className="flex flex-col gap-5 px-1 pt-6 pb-10 md:px-4 md:pt-12 md:pb-20">
       <Eyebrow>{content.label}</Eyebrow>
       <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
         {content.headline}
@@ -99,7 +98,7 @@ function SignedOutPanel({ content }: { content: ApertureMeContent }) {
           <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
         </button>
       </SignInButton>
-    </ApertureHero>
+    </section>
   )
 }
 
@@ -159,9 +158,7 @@ function SignedInPanel() {
       </div>
 
       {!isLoaded || !state ? (
-        <div className="flex min-h-[40vh] items-center justify-center rounded-[2rem] border border-border bg-card">
-          <Spinner />
-        </div>
+        <DashboardSkeleton />
       ) : dashboard ? (
         <MeDashboardView
           dashboard={dashboard}
@@ -173,6 +170,37 @@ function SignedInPanel() {
       ) : (
         <StatusPanel state={state} content={content} />
       )}
+    </div>
+  )
+}
+
+function DashboardSkeleton() {
+  return (
+    <div
+      aria-busy="true"
+      className="flex flex-col gap-10 px-1 pt-2 md:gap-14 md:px-4 md:pt-4"
+    >
+      <div className="flex flex-col gap-4">
+        <Skeleton className="h-3 w-28" />
+        <Skeleton className="h-11 w-72 max-w-full rounded-xl" />
+        <Skeleton className="h-5 w-96 max-w-full" />
+        <div className="flex gap-3">
+          <Skeleton className="h-11 w-44 rounded-full" />
+          <Skeleton className="h-11 w-40 rounded-full" />
+        </div>
+      </div>
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14">
+        <div className="flex flex-col gap-4">
+          <Skeleton className="h-7 w-32 rounded-lg" />
+          <Skeleton className="h-24 w-full rounded-2xl" />
+          <Skeleton className="h-24 w-full rounded-2xl" />
+        </div>
+        <div className="flex flex-col gap-4">
+          <Skeleton className="h-5 w-20" />
+          <Skeleton className="h-10 w-full rounded-xl" />
+          <Skeleton className="h-10 w-full rounded-xl" />
+        </div>
+      </div>
     </div>
   )
 }

@@ -623,6 +623,13 @@ export type ApertureMeContent = {
   /** `{date}` is replaced. */
   expiresLabel: string
   settingsTitle: string
+  settingsGroups: {
+    profile: string
+    location: string
+    links: string
+    visibility: string
+  }
+  viewProfileCta: string
   save: string
   saving: string
   saved: string

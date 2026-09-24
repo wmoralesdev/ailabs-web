@@ -60,7 +60,7 @@ describe("MeDashboardView", () => {
     )
 
     expect(screen.getByText("Member #005")).toBeTruthy()
-    expect(screen.getByRole("link", { name: "/u/walter" })).toBeTruthy()
+    expect(screen.getByRole("link", { name: en.aperture.me.viewProfileCta })).toBeTruthy()
     expect(
       screen.getByRole("link", { name: en.aperture.me.shareCta })
     ).toBeTruthy()
