@@ -7,10 +7,16 @@ import type { PrismaClient } from "../../generated/prisma/client"
 import { normalizeEmail } from "@/lib/redeem-products"
 import { replaceMemberEmails } from "./member-store"
 
-type UserJSON = Extract<
-  UserWebhookEvent,
-  { type: "user.created" | "user.updated" }
->["data"]
+/** The Clerk fields Aperture reads. Full UserJSON satisfies this. */
+export type ClerkUserPayload = {
+  id: string
+  email_addresses: ReadonlyArray<{
+    email_address: string
+    verification: { status: string } | null
+  }>
+  has_image: boolean
+  image_url: string
+}
 
 /** The Clerk facts Aperture keeps, parsed once at the webhook or API boundary. */
 export type ClerkUserSnapshot = {
@@ -36,7 +42,9 @@ export function verifiedEmailsOf(
   ]
 }
 
-export function snapshotFromUserJSON(user: UserJSON): ClerkUserSnapshot {
+export function snapshotFromUserJSON(
+  user: ClerkUserPayload
+): ClerkUserSnapshot {
   return {
     clerkUserId: user.id,
     verifiedEmails: verifiedEmailsOf(
@@ -126,9 +134,7 @@ function isUserEvent(event: WebhookEvent): event is UserWebhookEvent {
 }
 
 export type ClerkEventResult =
-  | SyncResult
-  | RetireResult
-  | { status: "ignored"; type: string }
+  SyncResult | RetireResult | { status: "ignored"; type: string }
 
 export async function handleClerkEvent(
   db: PrismaClient,

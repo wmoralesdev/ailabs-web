@@ -220,7 +220,9 @@ scripts. Do not recreate deleted one-off scripts in this repo.
 - Aperture member numbers are allocated as `MAX + 1` under a transaction
   advisory lock, so never delete a `Member` row or insert one by hand: either
   reuses or gaps a number. Team numbers 0 to 4 come only from
-  `pnpm aperture:reserve`.
+  `pnpm aperture:reserve`. Clerk `user.updated` and `user.deleted` events at
+  `/api/webhooks/clerk` refresh emails and avatars for existing members and
+  retire deleted users; a number is never reused.
 
 ## Contact operations
 
