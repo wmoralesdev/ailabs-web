@@ -3,9 +3,19 @@
 import { Fragment } from "react"
 import type { ReactNode } from "react"
 import { Link } from "@tanstack/react-router"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { ArrowRight01Icon, Share08Icon } from "@hugeicons/core-free-icons"
 
+import {
+  apertureOutlinePillClassName,
+  aperturePanelClassName,
+  apertureSectionClassName,
+  apertureSectionTitleClassName,
+} from "@/components/aperture/aperture-styles"
 import { MeProjects } from "@/components/aperture/me-projects"
 import { MeSettings } from "@/components/aperture/me-settings"
+import { homePillClassName } from "@/components/home/home-styles"
+import { Eyebrow } from "@/components/ui/eyebrow"
 import type {
   ApertureJoinContent,
   ApertureMeContent,
@@ -14,6 +24,7 @@ import type {
 import { formatMemberNumber } from "@/lib/aperture/member-number"
 import { shareCardPath } from "@/lib/aperture/share-card"
 import { formatMeDate } from "@/lib/aperture/me-date"
+import { cn } from "@/lib/utils"
 import type { MeCredit, MeDashboard, MeEvent } from "@/server/aperture/me"
 
 export function MeDashboardView({
@@ -32,67 +43,78 @@ export function MeDashboardView({
   const number = formatMemberNumber(dashboard.number)
 
   return (
-    <div className="flex flex-col gap-10">
-      <header className="flex flex-col gap-2">
-        <p className="font-mono text-sm font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-          {content.numberLabel.replace("{number}", number)}
+    <div className="flex flex-col gap-10 px-1 md:gap-14 md:px-4">
+      <header className="flex flex-col gap-5 pt-2 md:pt-4">
+        <Eyebrow>{content.numberLabel.replace("{number}", number)}</Eyebrow>
+        <div className="flex flex-col gap-2">
+          <h1 className="font-display text-4xl leading-[1.05] font-semibold tracking-tight break-words text-foreground sm:text-5xl">
+            {dashboard.profile.displayName}
+          </h1>
+          <p className="text-sm text-muted-foreground">@{dashboard.username}</p>
+        </div>
+        <p className="max-w-[60ch] text-lg leading-relaxed text-foreground">
+          {dashboard.profile.headline}
         </p>
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-          {dashboard.profile.displayName}
-        </h1>
-        <p className="text-base text-muted-foreground">
-          @{dashboard.username} · {dashboard.profile.headline}
-        </p>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-3">
           <Link
             to="/u/$username"
             params={{ username: dashboard.username }}
-            className="w-fit text-sm font-medium text-foreground underline underline-offset-4"
+            className={cn(homePillClassName, "w-fit")}
           >
-            /u/{dashboard.username}
+            {content.viewProfileCta}
+            <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
           </Link>
           <a
             href={shareCardPath(dashboard.username)}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-fit text-sm font-medium text-foreground underline underline-offset-4"
+            className={apertureOutlinePillClassName}
           >
+            <HugeiconsIcon
+              icon={Share08Icon}
+              strokeWidth={2}
+              className="size-4"
+            />
             {content.shareCta}
           </a>
         </div>
       </header>
 
-      <MeList
-        title={content.eventsTitle}
-        empty={content.eventsEmpty}
-        items={dashboard.events}
-        itemKey={(event) => event.id}
-        render={(event) => <EventRow event={event} locale={locale} />}
-      />
+      <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14 xl:grid-cols-[minmax(0,1fr)_22rem]">
+        <MeProjects
+          dashboard={dashboard}
+          content={content}
+          onDashboard={onDashboard}
+        />
+        <aside className="flex flex-col gap-8">
+          <MeList
+            title={content.eventsTitle}
+            empty={content.eventsEmpty}
+            items={dashboard.events}
+            itemKey={(event) => event.id}
+            render={(event) => <EventRow event={event} locale={locale} />}
+          />
+          <MeList
+            title={content.creditsTitle}
+            empty={content.creditsEmpty}
+            items={dashboard.credits}
+            itemKey={(credit) => `${credit.pool}-${credit.code}`}
+            render={(credit) => (
+              <CreditRow credit={credit} content={content} locale={locale} />
+            )}
+          />
+        </aside>
+      </div>
 
-      <MeList
-        title={content.creditsTitle}
-        empty={content.creditsEmpty}
-        items={dashboard.credits}
-        itemKey={(credit) => `${credit.pool}-${credit.code}`}
-        render={(credit) => (
-          <CreditRow credit={credit} content={content} locale={locale} />
-        )}
-      />
-
-      <MeProjects
-        dashboard={dashboard}
-        content={content}
-        onDashboard={onDashboard}
-      />
-
-      <MeSettings
-        dashboard={dashboard}
-        join={join}
-        content={content}
-        locale={locale}
-        onDashboard={onDashboard}
-      />
+      <div className={cn(aperturePanelClassName, "p-6 md:p-10")}>
+        <MeSettings
+          dashboard={dashboard}
+          join={join}
+          content={content}
+          locale={locale}
+          onDashboard={onDashboard}
+        />
+      </div>
     </div>
   )
 }
@@ -111,14 +133,12 @@ function MeList<TItem>({
   render: (item: TItem) => ReactNode
 }) {
   return (
-    <section className="flex flex-col gap-3">
-      <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-        {title}
-      </h2>
+    <section className={apertureSectionClassName}>
+      <h2 className={apertureSectionTitleClassName}>{title}</h2>
       {items.length === 0 ? (
-        <p className="text-sm text-muted-foreground">{empty}</p>
+        <p className="text-sm leading-relaxed text-muted-foreground">{empty}</p>
       ) : (
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-4">
           {items.map((item) => (
             <Fragment key={itemKey(item)}>{render(item)}</Fragment>
           ))}
@@ -129,17 +149,19 @@ function MeList<TItem>({
 }
 
 function EventRow({ event, locale }: { event: MeEvent; locale: Locale }) {
+  const detail = [
+    event.startsAt ? formatMeDate(event.startsAt, locale) : null,
+    event.venue,
+  ].filter(Boolean)
+
   return (
-    <li className="rounded-2xl border border-border/60 bg-background/70 p-4">
-      <p className="font-medium text-foreground">{event.name}</p>
-      <p className="text-sm text-muted-foreground">
-        {[
-          event.startsAt ? formatMeDate(event.startsAt, locale) : null,
-          event.venue,
-        ]
-          .filter(Boolean)
-          .join(" · ")}
-      </p>
+    <li className="flex min-w-0 flex-col gap-0.5">
+      <span className="text-sm font-medium text-foreground">{event.name}</span>
+      {detail.length > 0 ? (
+        <span className="text-xs text-muted-foreground tabular-nums">
+          {detail.join(", ")}
+        </span>
+      ) : null}
     </li>
   )
 }
@@ -154,25 +176,21 @@ function CreditRow({
   locale: Locale
 }) {
   return (
-    <li className="flex flex-col gap-1 rounded-2xl border border-border/60 bg-background/70 p-4 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex min-w-0 flex-col gap-1">
-        <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-          {content.poolLabels[credit.pool]}
-        </span>
-        <code className="truncate font-mono text-sm text-foreground">
-          {credit.code}
-        </code>
-        <span className="text-sm text-muted-foreground">
-          {credit.eventName}
-        </span>
-      </div>
+    <li className="flex min-w-0 flex-col gap-1.5 rounded-2xl bg-card p-4 ring-1 ring-border">
+      <span className="text-xs font-medium text-muted-foreground">
+        {content.poolLabels[credit.pool]}
+      </span>
+      <code className="truncate font-mono text-sm font-semibold text-foreground select-all">
+        {credit.code}
+      </code>
+      <span className="text-sm text-muted-foreground">{credit.eventName}</span>
       {credit.expiresAt ? (
-        <p className="text-sm text-muted-foreground">
+        <span className="text-xs text-muted-foreground tabular-nums">
           {content.expiresLabel.replace(
             "{date}",
             formatMeDate(credit.expiresAt, locale)
           )}
-        </p>
+        </span>
       ) : null}
     </li>
   )

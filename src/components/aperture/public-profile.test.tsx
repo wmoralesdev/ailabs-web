@@ -1,9 +1,16 @@
-import { describe, expect, it } from "vitest"
+import type { ReactNode } from "react"
+import { describe, expect, it, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
 
 import { en } from "@/content/en"
 import type { PublicProfile } from "@/server/aperture/public"
 import { PublicProfileView } from "./public-profile"
+
+vi.mock("@tanstack/react-router", () => ({
+  Link: ({ children, to }: { children: ReactNode; to: string }) => (
+    <a href={to}>{children}</a>
+  ),
+}))
 
 const profile: PublicProfile = {
   number: 5,
@@ -60,9 +67,15 @@ describe("PublicProfileView", () => {
     expect(
       screen.getByRole("link", { name: en.aperture.profile.shareCta })
     ).toBeTruthy()
-    expect(screen.getByRole("link", { name: "LinkedIn" })).toBeTruthy()
+    expect(
+      screen.getByRole("link", { name: /LinkedIn.*linkedin\.com\/in\/walter/ })
+    ).toBeTruthy()
+    expect(
+      screen.getByRole("link", { name: en.aperture.profile.backToDirectory })
+    ).toBeTruthy()
     expect(screen.getByText("Lane notes")).toBeTruthy()
-    expect(screen.getByText("Cursor 70%")).toBeTruthy()
+    const cursor = screen.getByText("Cursor").closest("li")
+    expect(cursor?.textContent).toBe("Cursor70%")
     expect(screen.getByText("Builders Night")).toBeTruthy()
     expect(screen.queryByText("walter@example.com")).toBeNull()
   })

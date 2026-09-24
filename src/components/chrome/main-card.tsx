@@ -7,6 +7,8 @@ const mainCardClassName =
 type MainCardProps = {
   children: React.ReactNode
   className?: string
+  /** Aperture pages opt out of the dotted grid. */
+  textured?: boolean
 }
 
 /**
@@ -14,10 +16,10 @@ type MainCardProps = {
  * pages so content (e.g. marketing sections) can render below it, outside the
  * card and its texture.
  */
-function MainCard({ children, className }: MainCardProps) {
+function MainCard({ children, className, textured = true }: MainCardProps) {
   return (
     <div className={cn(mainCardClassName, className)}>
-      <MainGridBackground />
+      {textured ? <MainGridBackground /> : null}
       <div className="relative z-10 flex min-h-full w-full flex-1 flex-col">
         {children}
       </div>

@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router"
 
 import { MemberDirectory } from "@/components/aperture/member-directory"
+import { apertureShellClassName } from "@/components/aperture/aperture-styles"
 import { MainCard } from "@/components/chrome/main-card"
-import { Eyebrow } from "@/components/ui/eyebrow"
 import { buildPageMeta } from "@/lib/seo"
 import { listApertureMembers } from "@/server/aperture/public"
 
@@ -30,9 +30,8 @@ function DirectoryPage() {
   const { locale, content, members } = Route.useLoaderData()
 
   return (
-    <MainCard>
-      <div className="page-gutter section-y mx-auto flex w-full max-w-content flex-col gap-8">
-        <Eyebrow>{content.aperture.directory.label}</Eyebrow>
+    <MainCard textured={false}>
+      <div className={apertureShellClassName}>
         <MemberDirectory
           members={members}
           join={content.aperture.join}

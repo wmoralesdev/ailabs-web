@@ -3,6 +3,7 @@
 import { useState } from "react"
 import type { FormEvent } from "react"
 
+import { BuiltWithBar } from "@/components/aperture/built-with-bar"
 import { homePillClassName } from "@/components/home/home-styles"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -31,6 +32,9 @@ import {
   updateMeProject,
 } from "@/server/aperture/me"
 import type { MeDashboard, MeProject } from "@/server/aperture/me"
+
+const projectActionClassName =
+  "inline-flex min-h-10 items-center rounded-full border border-border px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted disabled:opacity-60 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
 
 function emptyDraft(): ProjectDraft {
   return {
@@ -73,11 +77,12 @@ export function MeProjects({
   onDashboard: (dashboard: MeDashboard) => void
 }) {
   const [editingId, setEditingId] = useState<string | "new" | null>(null)
+  const withImages = dashboard.projects.some((project) => project.imageUrl)
 
   return (
-    <section className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
-        <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
+    <section className="flex min-w-0 flex-col gap-5">
+      <div className="flex flex-col gap-1.5">
+        <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
           {content.projectsTitle}
         </h2>
         <p className="text-sm text-muted-foreground">
@@ -86,12 +91,14 @@ export function MeProjects({
       </div>
 
       {dashboard.projects.length === 0 && editingId !== "new" ? (
-        <p className="text-sm text-muted-foreground">{content.projectsEmpty}</p>
+        <p className="rounded-2xl border border-dashed border-border px-4 py-5 text-sm leading-relaxed text-muted-foreground">
+          {content.projectsEmpty}
+        </p>
       ) : (
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-col divide-y divide-border border-y border-border">
           {dashboard.projects.map((project) =>
             editingId === project.id ? (
-              <li key={project.id}>
+              <li key={project.id} className="py-5">
                 <ProjectEditor
                   content={content}
                   initial={draftFromProject(project)}
@@ -107,37 +114,50 @@ export function MeProjects({
             ) : (
               <li
                 key={project.id}
-                className="flex flex-col gap-2 rounded-2xl border border-border/60 bg-background/70 p-4"
+                className={cn(
+                  "grid gap-4 py-5 md:gap-6",
+                  withImages
+                    ? "sm:grid-cols-[8rem_minmax(0,1fr)] md:grid-cols-[8rem_minmax(0,1fr)_13rem]"
+                    : "md:grid-cols-[minmax(0,1fr)_13rem]"
+                )}
               >
                 {project.imageUrl ? (
                   <img
                     src={project.imageUrl}
                     alt=""
-                    className="h-28 w-full rounded-xl border border-border object-cover"
+                    className="aspect-video w-full rounded-xl border border-border object-cover"
                   />
+                ) : withImages ? (
+                  <span aria-hidden="true" className="hidden sm:block" />
                 ) : null}
-                <p className="font-medium text-foreground">{project.title}</p>
-                <p className="text-sm text-muted-foreground">
-                  {project.summary}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {project.builtWith
-                    .map((part) => `${part.name} ${part.percent}%`)
-                    .join(" · ")}
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    className="text-sm font-medium text-foreground underline underline-offset-4"
-                    onClick={() => setEditingId(project.id)}
-                  >
-                    {content.editProject}
-                  </button>
-                  <DeleteButton
-                    projectId={project.id}
-                    content={content}
-                    onDashboard={onDashboard}
-                  />
+                <div className="flex min-w-0 flex-col gap-3">
+                  <div className="flex flex-col gap-1">
+                    <p className="font-display text-base font-semibold tracking-tight text-foreground">
+                      {project.title}
+                    </p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {project.summary}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      className={projectActionClassName}
+                      onClick={() => setEditingId(project.id)}
+                    >
+                      {content.editProject}
+                    </button>
+                    <DeleteButton
+                      projectId={project.id}
+                      content={content}
+                      onDashboard={onDashboard}
+                    />
+                  </div>
+                </div>
+                <div
+                  className={cn(withImages && "sm:col-start-2 md:col-start-auto")}
+                >
+                  <BuiltWithBar parts={project.builtWith} />
                 </div>
               </li>
             )
@@ -191,6 +211,9 @@ function ProjectEditor({
   const [pending, setPending] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(imageUrl ?? null)
+  const previewParts = values.builtWith.filter(
+    (part) => part.name.trim() && part.percent > 0
+  )
 
   function setPart(index: number, next: BuiltWithPart) {
     setValues((current) => ({
@@ -272,7 +295,7 @@ function ProjectEditor({
 
   return (
     <form
-      className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-5"
+      className="flex flex-col gap-4 rounded-2xl border border-border bg-background p-5"
       onSubmit={(event) => void onSubmit(event)}
     >
       <FieldGroup>
@@ -442,6 +465,11 @@ function ProjectEditor({
               </li>
             ))}
           </ul>
+          {previewParts.length > 0 ? (
+            <div className="rounded-xl bg-muted/50 p-3">
+              <BuiltWithBar parts={previewParts} />
+            </div>
+          ) : null}
           {values.builtWith.length < PROJECT_LIMITS.maxParts ? (
             <button
               type="button"
@@ -531,7 +559,7 @@ function DeleteButton({
   return (
     <button
       type="button"
-      className="text-sm font-medium text-muted-foreground underline underline-offset-4"
+      className={cn(projectActionClassName, "text-muted-foreground")}
       disabled={pending}
       onClick={() => void onDelete()}
     >

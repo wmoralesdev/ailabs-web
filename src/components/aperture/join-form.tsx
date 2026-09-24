@@ -6,6 +6,7 @@ import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
+import { apertureChoiceChipClassName } from "@/components/aperture/aperture-styles"
 import { homePillClassName } from "@/components/home/home-styles"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -273,40 +274,44 @@ export function JoinForm({
       onSubmit={(event) => void onSubmit(event)}
     >
       <FieldGroup>
-        <Field data-invalid={Boolean(fieldErrors.username) || undefined}>
-          <FieldLabel htmlFor="join-username">
-            {content.fields.username.label}
-          </FieldLabel>
-          <Input
-            id="join-username"
-            size="xl"
-            autoComplete="username"
-            placeholder={content.fields.username.placeholder}
-            value={values.username}
-            aria-invalid={Boolean(fieldErrors.username) || undefined}
-            onChange={(event) => update("username", event.target.value)}
-          />
-          <FieldDescription>
-            {usernameStatus ?? content.fields.username.helper}
-          </FieldDescription>
-          <FieldError>{usernameError}</FieldError>
-        </Field>
+        <div className="grid gap-6 sm:grid-cols-2 sm:gap-4">
+          <Field data-invalid={Boolean(fieldErrors.username) || undefined}>
+            <FieldLabel htmlFor="join-username">
+              {content.fields.username.label}
+            </FieldLabel>
+            <Input
+              id="join-username"
+              size="xl"
+              autoComplete="username"
+              placeholder={content.fields.username.placeholder}
+              value={values.username}
+              aria-invalid={Boolean(fieldErrors.username) || undefined}
+              onChange={(event) => update("username", event.target.value)}
+            />
+            <FieldDescription>
+              {usernameStatus ?? content.fields.username.helper}
+            </FieldDescription>
+            <FieldError>{usernameError}</FieldError>
+          </Field>
 
-        <Field data-invalid={Boolean(fieldErrors.displayName) || undefined}>
-          <FieldLabel htmlFor="join-display-name">
-            {content.fields.displayName.label}
-          </FieldLabel>
-          <Input
-            id="join-display-name"
-            size="xl"
-            autoComplete="name"
-            placeholder={content.fields.displayName.placeholder}
-            value={values.displayName}
-            aria-invalid={Boolean(fieldErrors.displayName) || undefined}
-            onChange={(event) => update("displayName", event.target.value)}
-          />
-          <FieldError>{errorText(content, fieldErrors.displayName)}</FieldError>
-        </Field>
+          <Field data-invalid={Boolean(fieldErrors.displayName) || undefined}>
+            <FieldLabel htmlFor="join-display-name">
+              {content.fields.displayName.label}
+            </FieldLabel>
+            <Input
+              id="join-display-name"
+              size="xl"
+              autoComplete="name"
+              placeholder={content.fields.displayName.placeholder}
+              value={values.displayName}
+              aria-invalid={Boolean(fieldErrors.displayName) || undefined}
+              onChange={(event) => update("displayName", event.target.value)}
+            />
+            <FieldError>
+              {errorText(content, fieldErrors.displayName)}
+            </FieldError>
+          </Field>
+        </div>
 
         <Field data-invalid={Boolean(fieldErrors.headline) || undefined}>
           <FieldLabel htmlFor="join-headline">
@@ -324,63 +329,67 @@ export function JoinForm({
           <FieldError>{errorText(content, fieldErrors.headline)}</FieldError>
         </Field>
 
-        <Field data-invalid={Boolean(fieldErrors.countryCode) || undefined}>
-          <FieldLabel htmlFor="join-country">
-            {content.fields.country.label}
-          </FieldLabel>
-          <NativeSelect
-            id="join-country"
-            size="xl"
-            className="w-full"
-            value={values.countryCode}
-            aria-invalid={Boolean(fieldErrors.countryCode) || undefined}
-            onChange={(event) => update("countryCode", event.target.value)}
-          >
-            <NativeSelectOption value="" disabled>
-              {content.fields.country.placeholder}
-            </NativeSelectOption>
-            {countries.map((country) => (
-              <NativeSelectOption key={country.code} value={country.code}>
-                {country.name}
+        <div className="grid gap-6 sm:grid-cols-2 sm:gap-4">
+          <Field data-invalid={Boolean(fieldErrors.countryCode) || undefined}>
+            <FieldLabel htmlFor="join-country">
+              {content.fields.country.label}
+            </FieldLabel>
+            <NativeSelect
+              id="join-country"
+              size="xl"
+              className="w-full"
+              value={values.countryCode}
+              aria-invalid={Boolean(fieldErrors.countryCode) || undefined}
+              onChange={(event) => update("countryCode", event.target.value)}
+            >
+              <NativeSelectOption value="" disabled>
+                {content.fields.country.placeholder}
               </NativeSelectOption>
-            ))}
-          </NativeSelect>
-          <FieldError>{errorText(content, fieldErrors.countryCode)}</FieldError>
-        </Field>
+              {countries.map((country) => (
+                <NativeSelectOption key={country.code} value={country.code}>
+                  {country.name}
+                </NativeSelectOption>
+              ))}
+            </NativeSelect>
+            <FieldError>
+              {errorText(content, fieldErrors.countryCode)}
+            </FieldError>
+          </Field>
 
-        <Field data-invalid={Boolean(fieldErrors.role) || undefined}>
-          <FieldLabel htmlFor="join-role">
-            {content.fields.role.label}
-          </FieldLabel>
-          <NativeSelect
-            id="join-role"
-            size="xl"
-            className="w-full"
-            value={values.role}
-            aria-invalid={Boolean(fieldErrors.role) || undefined}
-            onChange={(event) => update("role", event.target.value)}
-          >
-            <NativeSelectOption value="" disabled>
-              {content.fields.role.placeholder}
-            </NativeSelectOption>
-            {MEMBER_ROLES.map((role) => (
-              <NativeSelectOption key={role} value={role}>
-                {content.roleOptions[role]}
+          <Field data-invalid={Boolean(fieldErrors.role) || undefined}>
+            <FieldLabel htmlFor="join-role">
+              {content.fields.role.label}
+            </FieldLabel>
+            <NativeSelect
+              id="join-role"
+              size="xl"
+              className="w-full"
+              value={values.role}
+              aria-invalid={Boolean(fieldErrors.role) || undefined}
+              onChange={(event) => update("role", event.target.value)}
+            >
+              <NativeSelectOption value="" disabled>
+                {content.fields.role.placeholder}
               </NativeSelectOption>
-            ))}
-          </NativeSelect>
-          <FieldError>{errorText(content, fieldErrors.role)}</FieldError>
-        </Field>
+              {MEMBER_ROLES.map((role) => (
+                <NativeSelectOption key={role} value={role}>
+                  {content.roleOptions[role]}
+                </NativeSelectOption>
+              ))}
+            </NativeSelect>
+            <FieldError>{errorText(content, fieldErrors.role)}</FieldError>
+          </Field>
+        </div>
 
         <FieldSet>
           <FieldLegend>{content.fields.upFor.label}</FieldLegend>
           <FieldDescription>{content.fields.upFor.helper}</FieldDescription>
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-wrap gap-2">
             {UP_FOR_OPTIONS.map((option) => (
               <label
                 key={option}
                 htmlFor={`join-up-for-${option.toLowerCase()}`}
-                className="flex cursor-pointer items-center gap-2.5 text-sm leading-snug text-foreground"
+                className={apertureChoiceChipClassName}
               >
                 <Checkbox
                   id={`join-up-for-${option.toLowerCase()}`}
@@ -396,8 +405,8 @@ export function JoinForm({
           </div>
         </FieldSet>
 
-        <FieldSet>
-          <div className="flex flex-col gap-3">
+        <FieldSet className="rounded-2xl border border-border bg-muted/40 p-4 sm:p-5">
+          <div className="flex flex-col gap-3.5">
             <label
               htmlFor="join-legal"
               className="flex cursor-pointer items-start gap-2.5 text-sm leading-snug text-foreground"

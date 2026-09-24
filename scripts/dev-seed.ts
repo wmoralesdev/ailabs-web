@@ -3,7 +3,9 @@ import { pathToFileURL } from "node:url"
 
 import type { PrismaClient } from "../src/generated/prisma/client"
 import { claimMembership } from "../src/server/aperture/member-store"
+import { createProject } from "../src/server/aperture/project-store"
 import { createScriptPrisma, databaseName } from "./lib/script-prisma"
+import { SEED_MEMBERS } from "./lib/seed-members"
 
 const SEED_DATABASE_PREFIXES = ["lane_", "dev"]
 
@@ -25,6 +27,8 @@ type SeedEvent = {
   slug: string
   name: string
   codes: ReadonlyArray<{ code: string; deleted?: boolean }>
+  startsAt?: string
+  venue?: string
 }
 
 const SEED_EVENTS: ReadonlyArray<SeedEvent> = [
@@ -41,13 +45,60 @@ const SEED_EVENTS: ReadonlyArray<SeedEvent> = [
   },
 ]
 
+/** Past events for member profiles; the lane address is not eligible. */
+const PROFILE_EVENTS: ReadonlyArray<SeedEvent> = [
+  {
+    slug: "lane-agents-workshop",
+    name: "Lane Agents Workshop",
+    codes: [],
+    startsAt: "2026-05-14T23:00:00Z",
+    venue: "Lane Hub, San Salvador",
+  },
+  {
+    slug: "lane-demo-day",
+    name: "Lane Demo Day",
+    codes: [],
+    startsAt: "2026-06-20T22:00:00Z",
+    venue: "Lane Hub, San Salvador",
+  },
+  {
+    slug: "lane-ops-clinic",
+    name: "Lane Operations Clinic",
+    codes: [],
+    startsAt: "2026-07-09T00:00:00Z",
+  },
+  {
+    slug: "lane-founders-dinner",
+    name: "Lane Founders Dinner",
+    codes: [],
+    startsAt: "2026-08-27T01:00:00Z",
+    venue: "Antiguo Cuscatlán",
+  },
+]
+
+async function upsertSeedEvent(prisma: PrismaClient, seed: SeedEvent) {
+  const schedule = {
+    startsAt: seed.startsAt ? new Date(seed.startsAt) : null,
+    venue: seed.venue ?? null,
+  }
+  return prisma.event.upsert({
+    where: { slug: seed.slug },
+    update: seed.startsAt ? schedule : {},
+    create: {
+      slug: seed.slug,
+      name: seed.name,
+      product: "CURSOR",
+      ...schedule,
+    },
+  })
+}
+
 async function seedEvents(prisma: PrismaClient, emails: ReadonlyArray<string>) {
+  for (const seed of PROFILE_EVENTS) {
+    await upsertSeedEvent(prisma, seed)
+  }
   for (const seed of SEED_EVENTS) {
-    const event = await prisma.event.upsert({
-      where: { slug: seed.slug },
-      update: {},
-      create: { slug: seed.slug, name: seed.name, product: "CURSOR" },
-    })
+    const event = await upsertSeedEvent(prisma, seed)
     for (const email of emails) {
       await prisma.eligibleEmail.upsert({
         where: { eventId_email: { eventId: event.id, email } },
@@ -71,67 +122,58 @@ async function seedEvents(prisma: PrismaClient, emails: ReadonlyArray<string>) {
   }
 }
 
-const SEED_ROLES = [
-  "FOUNDER",
-  "DEVELOPER",
-  "DESIGNER",
-  "OPERATOR",
-  "STUDENT",
-] as const
-const SEED_COUNTRIES = ["SV", "GT", "HN", "MX", "US", "CR"] as const
-const SEED_UP_FOR = [
-  [],
-  ["COFOUNDING"],
-  ["FREELANCE", "COLLABORATING"],
-  ["HIRING"],
-  ["MENTORING"],
-] as const
-export const SEED_MEMBER_COUNT = 30
-
 export function seedMemberEmail(index: number): string {
   return `seed${index}@example.com`
 }
 
-/** Thirty members with varied roles, countries, and profiles for directory checks. */
+function seedClerkUserId(index: number): string {
+  return `seed_user_${index}`
+}
+
+/** Profiles with photos, long and empty fields, projects, and event history. */
 async function seedMembers(prisma: PrismaClient) {
-  const lane = await prisma.event.findUnique({ where: { slug: "lane-event" } })
-  for (let i = 0; i < SEED_MEMBER_COUNT; i++) {
-    const username = `seed_builder_${String(i).padStart(2, "0")}`
-    const complete = i % 2 === 0
-    await claimMembership(prisma, {
-      clerkUserId: `seed_user_${i}`,
-      profile: {
-        username,
-        displayName: `Seed Builder ${i}`,
-        headline: `${SEED_ROLES[i % SEED_ROLES.length]} building with AI tools`,
-        bio: complete
-          ? "Synthetic member for verification. Builds internal tools and teaches teams to review AI output."
-          : null,
-        countryCode: SEED_COUNTRIES[i % SEED_COUNTRIES.length],
-        city: complete ? "San Salvador" : null,
-        role: SEED_ROLES[i % SEED_ROLES.length],
-        upFor: [...SEED_UP_FOR[i % SEED_UP_FOR.length]],
-        showEvents: i % 3 === 0,
-        linkedinUrl: complete
-          ? `https://www.linkedin.com/in/${username}`
-          : null,
-        xUrl: null,
-        githubUrl: i % 4 === 0 ? `https://github.com/${username}` : null,
-        websiteUrl: null,
-        instagramUrl: null,
-      },
-      verifiedEmails: [seedMemberEmail(i)],
-      avatarUrl: null,
+  const events = await prisma.event.findMany({
+    where: {
+      slug: { in: [...SEED_EVENTS, ...PROFILE_EVENTS].map((e) => e.slug) },
+    },
+    select: { id: true, slug: true },
+  })
+  const eventIds = new Map(events.map((event) => [event.slug, event.id]))
+  for (const [index, member] of SEED_MEMBERS.entries()) {
+    const clerkUserId = seedClerkUserId(index)
+    const email = seedMemberEmail(index)
+    const claim = await claimMembership(prisma, {
+      clerkUserId,
+      profile: member.profile,
+      verifiedEmails: [email],
+      avatarUrl: member.avatarUrl,
       consent: { version: "seed", locale: "en", marketing: false },
     })
-    if (lane && i % 3 === 0) {
+    for (const slug of member.events) {
+      const eventId = eventIds.get(slug)
+      if (!eventId) {
+        continue
+      }
       await prisma.eligibleEmail.upsert({
-        where: {
-          eventId_email: { eventId: lane.id, email: seedMemberEmail(i) },
-        },
+        where: { eventId_email: { eventId, email } },
         update: {},
-        create: { eventId: lane.id, email: seedMemberEmail(i) },
+        create: { eventId, email },
       })
+    }
+    if (claim.status !== "claimed") {
+      continue
+    }
+    for (const project of member.projects) {
+      const result = await createProject(prisma, clerkUserId, {
+        ...project,
+        imageKey: null,
+        published: true,
+      })
+      if (result.status !== "ok") {
+        throw new Error(
+          `Seed project "${project.title}" was rejected: ${result.status}`
+        )
+      }
     }
   }
 }
@@ -162,6 +204,7 @@ async function main() {
       promoCodes: await prisma.promoCode.count(),
       members: await prisma.member.count(),
       profiles: await prisma.profile.count(),
+      projects: await prisma.project.count(),
     }
     console.log(`Seeded ${databaseName(url)} for ${laneEmail(lane)}`)
     console.log(JSON.stringify(counts))

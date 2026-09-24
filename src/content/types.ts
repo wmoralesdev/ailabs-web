@@ -623,6 +623,13 @@ export type ApertureMeContent = {
   /** `{date}` is replaced. */
   expiresLabel: string
   settingsTitle: string
+  settingsGroups: {
+    profile: string
+    location: string
+    links: string
+    visibility: string
+  }
+  viewProfileCta: string
   save: string
   saving: string
   saved: string
@@ -687,6 +694,15 @@ export type ApertureDirectoryContent = {
   body: string
   empty: string
   joinCta: string
+  countLabel: string
+  searchLabel: string
+  searchPlaceholder: string
+  roleFilterLabel: string
+  allRoles: string
+  /** `{count}` and `{total}` are replaced. */
+  resultsCount: string
+  noResults: string
+  clearFilters: string
 }
 
 export type ApertureProfileContent = {
@@ -698,9 +714,15 @@ export type ApertureProfileContent = {
   metaDescriptionNamed: string
   notFoundTitle: string
   notFoundBody: string
+  backToDirectory: string
+  memberLabel: string
+  upForTitle: string
   eventsTitle: string
   linksTitle: string
   projectsTitle: string
+  builtWithTitle: string
+  projectLinkCta: string
+  repoLinkCta: string
   builtWithDisclaimer: string
   shareCta: string
   /** `{name}` and `{number}` are replaced. */
