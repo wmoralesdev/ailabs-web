@@ -1,6 +1,36 @@
 import { describe, expect, it } from "vitest"
 
 import { assertSeedTarget, laneEmail, parseLane } from "./dev-seed"
+import { SEED_MEMBERS } from "./lib/seed-members"
+import { parseProfileInput } from "../src/lib/aperture/profile-input"
+import { parseProjectInput } from "../src/lib/aperture/project-input"
+
+describe("seed members", () => {
+  it("pass the same validation as the join and project forms", () => {
+    for (const { profile, projects } of SEED_MEMBERS) {
+      const input = Object.fromEntries(
+        Object.entries(profile).map(([key, value]) => [key, value ?? ""])
+      )
+      const parsed = parseProfileInput(input)
+      expect(parsed.ok ? {} : parsed.fieldErrors, profile.username).toEqual({})
+      for (const project of projects) {
+        const result = parseProjectInput({
+          ...project,
+          imageKey: null,
+          published: true,
+        })
+        expect(result.ok ? {} : result.fieldErrors, project.title).toEqual({})
+      }
+    }
+  })
+
+  it("use unique usernames and give most members a photo", () => {
+    const usernames = new Set(SEED_MEMBERS.map((m) => m.profile.username))
+    expect(usernames.size).toBe(SEED_MEMBERS.length)
+    const withPhoto = SEED_MEMBERS.filter((m) => m.avatarUrl).length
+    expect(withPhoto / SEED_MEMBERS.length).toBeGreaterThan(0.8)
+  })
+})
 
 describe("dev seed guard", () => {
   it("accepts disposable lane and dev databases", () => {
