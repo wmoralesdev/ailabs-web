@@ -709,7 +709,6 @@ export type ApertureProfileContent = {
   notFoundBody: string
   backToDirectory: string
   memberLabel: string
-  aboutTitle: string
   upForTitle: string
   eventsTitle: string
   linksTitle: string

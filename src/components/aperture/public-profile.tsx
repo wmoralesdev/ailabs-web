@@ -15,10 +15,7 @@ import {
   SourceCodeIcon,
 } from "@hugeicons/core-free-icons"
 
-import {
-  ApertureHero,
-  ApertureNumeral,
-} from "@/components/aperture/aperture-hero"
+import { ApertureHero } from "@/components/aperture/aperture-hero"
 import {
   apertureOutlinePillClassName,
   aperturePanelClassName,
@@ -57,8 +54,8 @@ const LINK_ICON: Record<LinkField, typeof Globe02Icon> = {
   instagramUrl: InstagramIcon,
 }
 
-const smallPillClassName =
-  "inline-flex min-h-9 items-center gap-1.5 rounded-full border border-border px-3.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/30 hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+const projectActionClassName =
+  "inline-flex min-h-10 flex-1 items-center justify-center gap-1.5 rounded-full border border-border px-3.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/30 hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
 
 function displayHref(href: string): string {
   try {
@@ -105,8 +102,11 @@ export function PublicProfileView({
   const location = [profile.city, countryName(profile.countryCode, locale)]
     .filter(Boolean)
     .join(", ")
-  const hasMain = Boolean(profile.bio) || profile.projects.length > 0
 
+  const hasAside =
+    profile.upFor.length > 0 ||
+    profile.links.length > 0 ||
+    profile.events.length > 0
   const aside = (
     <>
       {profile.upFor.length > 0 ? (
@@ -176,91 +176,88 @@ export function PublicProfileView({
 
   return (
     <article className="flex flex-col gap-6 md:gap-8">
-      <ApertureHero
-        aside={
-          <ApertureNumeral
-            value={`#${formatMemberNumber(profile.number)}`}
-            label={content.memberLabel}
-          />
-        }
-      >
-        <Link to="/aperture" className={apertureQuietLinkClassName}>
-          <HugeiconsIcon
-            icon={ArrowLeft01Icon}
-            strokeWidth={2}
-            className="size-4"
-          />
-          {content.backToDirectory}
-        </Link>
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
+      <ApertureHero>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <Link to="/aperture" className={apertureQuietLinkClassName}>
+            <HugeiconsIcon
+              icon={ArrowLeft01Icon}
+              strokeWidth={2}
+              className="size-4"
+            />
+            {content.backToDirectory}
+          </Link>
+          <p className="inline-flex items-baseline gap-2 rounded-full border border-border px-3.5 py-1.5 text-sm text-muted-foreground">
+            {content.memberLabel}
+            <span className="font-display font-semibold text-foreground tabular-nums">
+              #{formatMemberNumber(profile.number)}
+            </span>
+          </p>
+        </div>
+        <div className="flex flex-col gap-6 pt-2 md:flex-row md:items-start md:gap-10">
           <MemberAvatar
             name={profile.displayName}
             src={profile.avatarUrl}
-            size="lg"
+            size="portrait"
           />
-          <div className="flex min-w-0 flex-col gap-1">
-            <h1 className="font-display text-4xl leading-[1.02] font-semibold tracking-tight break-words sm:text-5xl lg:text-6xl">
-              {profile.displayName}
-            </h1>
-            <p className="text-base text-muted-foreground">
-              @{profile.username}
+          <div className="flex min-w-0 flex-1 flex-col gap-4">
+            <div className="flex flex-col gap-1.5">
+              <h1 className="font-display text-4xl leading-[1.02] font-semibold tracking-tight text-balance break-words sm:text-5xl lg:text-6xl">
+                {profile.displayName}
+              </h1>
+              <p className="text-base text-muted-foreground">
+                @{profile.username}
+              </p>
+            </div>
+            <p className="max-w-2xl text-lg leading-relaxed text-foreground md:text-xl">
+              {profile.headline}
             </p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+              <span className="rounded-full bg-foreground/10 px-3 py-1 font-medium text-foreground">
+                {join.roleOptions[profile.role]}
+              </span>
+              {location ? (
+                <span className="inline-flex items-center gap-1.5">
+                  <HugeiconsIcon
+                    icon={Location01Icon}
+                    strokeWidth={2}
+                    className="size-4 shrink-0"
+                  />
+                  {location}
+                </span>
+              ) : null}
+            </div>
+            {profile.bio ? (
+              <p className="max-w-2xl text-base leading-relaxed whitespace-pre-line text-muted-foreground">
+                {profile.bio}
+              </p>
+            ) : null}
+            <a
+              href={shareCardPath(profile.username)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(apertureOutlinePillClassName, "mt-1")}
+            >
+              <HugeiconsIcon
+                icon={Share08Icon}
+                strokeWidth={2}
+                className="size-4"
+              />
+              {content.shareCta}
+            </a>
           </div>
         </div>
-        <p className="max-w-xl text-lg leading-relaxed text-foreground md:text-xl">
-          {profile.headline}
-        </p>
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
-          <span className="rounded-full bg-foreground/10 px-3 py-1 font-medium text-foreground">
-            {join.roleOptions[profile.role]}
-          </span>
-          {location ? (
-            <span className="inline-flex items-center gap-1.5">
-              <HugeiconsIcon
-                icon={Location01Icon}
-                strokeWidth={2}
-                className="size-4 shrink-0"
-              />
-              {location}
-            </span>
-          ) : null}
-        </div>
-        <a
-          href={shareCardPath(profile.username)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={apertureOutlinePillClassName}
-        >
-          <HugeiconsIcon
-            icon={Share08Icon}
-            strokeWidth={2}
-            className="size-4"
-          />
-          {content.shareCta}
-        </a>
       </ApertureHero>
 
-      {hasMain ? (
+      {profile.projects.length > 0 ? (
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] xl:grid-cols-[minmax(0,1fr)_24rem]">
-          <div className="flex min-w-0 flex-col gap-6">
-            {profile.bio ? (
-              <ProfilePanel title={content.aboutTitle}>
-                <p className="max-w-prose text-base leading-relaxed whitespace-pre-line text-foreground">
-                  {profile.bio}
-                </p>
-              </ProfilePanel>
-            ) : null}
-            {profile.projects.length > 0 ? (
-              <ProjectsSection profile={profile} content={content} />
-            ) : null}
-          </div>
+          <ProjectsSection profile={profile} content={content} />
           <div className="flex flex-col gap-6">{aside}</div>
         </div>
-      ) : (
+      ) : hasAside ? (
         <div className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-3">
           {aside}
         </div>
-      )}
+      ) : null}
     </article>
   )
 }
@@ -273,79 +270,143 @@ function ProjectsSection({
   content: ApertureProfileContent
 }) {
   return (
-    <section className="flex flex-col gap-4">
+    <section className="flex min-w-0 flex-col gap-4">
       <h2 className="px-1 font-display text-2xl font-semibold tracking-tight text-foreground">
         {content.projectsTitle}
       </h2>
       <ul className="grid gap-4 md:grid-cols-2">
-        {profile.projects.map((project) => (
-          <li
+        {profile.projects.map((project, index) => (
+          <ProjectCard
             key={project.id}
-            className="flex flex-col overflow-hidden rounded-3xl border border-border bg-card text-card-foreground"
-          >
-            {project.imageUrl ? (
-              <img
-                src={project.imageUrl}
-                alt=""
-                loading="lazy"
-                className="aspect-video w-full border-b border-border object-cover"
-              />
-            ) : null}
-            <div className="flex flex-1 flex-col gap-5 p-6">
-              <div className="flex flex-col gap-2">
-                <h3 className="font-display text-xl leading-tight font-semibold tracking-tight">
-                  {project.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {project.summary}
-                </p>
-              </div>
-              <BuiltWithBar
-                parts={project.builtWith}
-                title={content.builtWithTitle}
-              />
-              {project.url || project.repoUrl ? (
-                <div className="mt-auto flex flex-wrap gap-2 pt-1">
-                  {project.url ? (
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={smallPillClassName}
-                    >
-                      {content.projectLinkCta}
-                      <HugeiconsIcon
-                        icon={ArrowUpRight01Icon}
-                        strokeWidth={2}
-                        className="size-4"
-                      />
-                    </a>
-                  ) : null}
-                  {project.repoUrl ? (
-                    <a
-                      href={project.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={smallPillClassName}
-                    >
-                      <HugeiconsIcon
-                        icon={SourceCodeIcon}
-                        strokeWidth={2}
-                        className="size-4"
-                      />
-                      {content.repoLinkCta}
-                    </a>
-                  ) : null}
-                </div>
-              ) : null}
-            </div>
-          </li>
+            project={project}
+            content={content}
+            featured={index === 0}
+          />
         ))}
       </ul>
       <p className="px-1 text-xs leading-relaxed text-muted-foreground">
         {content.builtWithDisclaimer}
       </p>
     </section>
+  )
+}
+
+function ProjectMonogram({ title }: { title: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-muted font-display text-lg font-semibold text-foreground select-none"
+    >
+      {title.trim().charAt(0).toUpperCase()}
+    </span>
+  )
+}
+
+function ProjectCard({
+  project,
+  content,
+  featured,
+}: {
+  project: PublicProfile["projects"][number]
+  content: ApertureProfileContent
+  featured: boolean
+}) {
+  const hasImage = Boolean(project.imageUrl)
+  const header = (
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center gap-3">
+        {hasImage ? null : <ProjectMonogram title={project.title} />}
+        <h3
+          className={cn(
+            "font-display leading-tight font-semibold tracking-tight",
+            featured ? "text-2xl" : "text-xl"
+          )}
+        >
+          {project.title}
+        </h3>
+      </div>
+      <p className="text-sm leading-relaxed text-muted-foreground">
+        {project.summary}
+      </p>
+    </div>
+  )
+  const details = (
+    <div className="flex flex-col gap-5">
+      <BuiltWithBar parts={project.builtWith} title={content.builtWithTitle} />
+      {project.url || project.repoUrl ? (
+        <div className="flex gap-2">
+          {project.url ? (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={projectActionClassName}
+            >
+              {content.projectLinkCta}
+              <HugeiconsIcon
+                icon={ArrowUpRight01Icon}
+                strokeWidth={2}
+                className="size-4"
+              />
+            </a>
+          ) : null}
+          {project.repoUrl ? (
+            <a
+              href={project.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={projectActionClassName}
+            >
+              <HugeiconsIcon
+                icon={SourceCodeIcon}
+                strokeWidth={2}
+                className="size-4"
+              />
+              {content.repoLinkCta}
+            </a>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
+  )
+
+  return (
+    <li
+      className={cn(
+        "flex flex-col overflow-hidden rounded-3xl border border-border bg-card text-card-foreground",
+        featured && "md:col-span-2",
+        featured &&
+          hasImage &&
+          "md:grid md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
+      )}
+    >
+      {project.imageUrl ? (
+        <div
+          className={cn(
+            "relative aspect-video border-b border-border",
+            featured && "md:aspect-auto md:min-h-64 md:border-r md:border-b-0"
+          )}
+        >
+          <img
+            src={project.imageUrl}
+            alt=""
+            loading="lazy"
+            className="absolute inset-0 size-full object-cover"
+          />
+        </div>
+      ) : null}
+      <div
+        className={cn(
+          "flex flex-1 flex-col justify-between gap-5 p-6",
+          featured &&
+            !hasImage &&
+            "md:grid md:grid-cols-2 md:items-start md:gap-10"
+        )}
+      >
+        {header}
+        {details}
+      </div>
+    </li>
   )
 }
 

@@ -1022,7 +1022,6 @@ export const es: SiteContent = {
       notFoundBody: "Ese usuario no es miembro de Aperture.",
       backToDirectory: "Todos los miembros",
       memberLabel: "Miembro de Aperture",
-      aboutTitle: "Acerca de",
       upForTitle: "Disponible para",
       eventsTitle: "Eventos",
       linksTitle: "Enlaces",

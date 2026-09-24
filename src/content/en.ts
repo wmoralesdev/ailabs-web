@@ -1016,7 +1016,6 @@ export const en: SiteContent = {
       notFoundBody: "That username is not an Aperture member.",
       backToDirectory: "All members",
       memberLabel: "Aperture member",
-      aboutTitle: "About",
       upForTitle: "Open to",
       eventsTitle: "Events",
       linksTitle: "Links",
