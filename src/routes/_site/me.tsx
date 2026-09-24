@@ -10,9 +10,14 @@ import { createFileRoute, Link, useRouterState } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
+import { ApertureHero } from "@/components/aperture/aperture-hero"
+import { apertureShellClassName } from "@/components/aperture/aperture-styles"
 import { MeDashboardView } from "@/components/aperture/me-dashboard"
 import { MainCard } from "@/components/chrome/main-card"
-import { homePillClassName } from "@/components/home/home-styles"
+import {
+  homeDisplayClassName,
+  homePillClassName,
+} from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Spinner } from "@/components/ui/spinner"
 import type { ApertureMeContent } from "@/content/types"
@@ -48,15 +53,16 @@ function MePage() {
 
   return (
     <MainCard>
-      <div className="page-gutter section-y mx-auto flex w-full max-w-content flex-col gap-8">
+      <div
+        className={cn(apertureShellClassName, "relative flex flex-col gap-6")}
+      >
         <a
           href="#aperture-me-main"
           className="sr-only rounded-sm bg-background px-3 py-2 text-sm font-medium text-foreground focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2 focus-visible:ring-ring"
         >
           {microcopy.skipToContent}
         </a>
-        <div id="aperture-me-main" className="flex flex-col gap-8">
-          <Eyebrow>{content.label}</Eyebrow>
+        <div id="aperture-me-main" className="flex flex-col gap-6">
           <Show when="signed-out">
             <SignedOutPanel content={content} />
           </Show>
@@ -75,11 +81,12 @@ function SignedOutPanel({ content }: { content: ApertureMeContent }) {
   })
 
   return (
-    <div className="flex max-w-lg flex-col gap-5">
-      <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+    <ApertureHero>
+      <Eyebrow>{content.label}</Eyebrow>
+      <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
         {content.headline}
       </h1>
-      <p className="text-base leading-relaxed text-muted-foreground">
+      <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
         {content.signInPrompt}
       </p>
       <SignInButton
@@ -92,7 +99,7 @@ function SignedOutPanel({ content }: { content: ApertureMeContent }) {
           <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
         </button>
       </SignInButton>
-    </div>
+    </ApertureHero>
   )
 }
 
@@ -133,8 +140,8 @@ function SignedInPanel() {
     user?.emailAddresses[0]?.emailAddress
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex flex-wrap items-center gap-3">
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-wrap items-center gap-3 rounded-full border border-border bg-card py-2 pr-5 pl-2">
         <UserButton />
         {email ? (
           <p className="min-w-0 flex-1 truncate text-sm text-muted-foreground">
@@ -152,7 +159,9 @@ function SignedInPanel() {
       </div>
 
       {!isLoaded || !state ? (
-        <Spinner />
+        <div className="flex min-h-[40vh] items-center justify-center rounded-[2rem] border border-border bg-card">
+          <Spinner />
+        </div>
       ) : dashboard ? (
         <MeDashboardView
           dashboard={dashboard}
@@ -168,6 +177,9 @@ function SignedInPanel() {
   )
 }
 
+const statusCardClassName =
+  "flex min-h-[40vh] flex-col items-center justify-center gap-4 rounded-[2rem] border border-dashed border-border bg-card/60 px-6 py-14 text-center"
+
 function StatusPanel({
   state,
   content,
@@ -177,22 +189,24 @@ function StatusPanel({
 }) {
   if (state.status === "retired") {
     return (
-      <div className="flex flex-col gap-2">
+      <div className={statusCardClassName}>
         <h1 className="font-display text-3xl font-semibold tracking-tight">
           {content.retiredTitle}
         </h1>
-        <p className="text-base text-muted-foreground">{content.retiredBody}</p>
+        <p className="max-w-md text-base text-muted-foreground">
+          {content.retiredBody}
+        </p>
       </div>
     )
   }
 
   if (state.status === "no_member") {
     return (
-      <div className="flex flex-col gap-4">
+      <div className={statusCardClassName}>
         <h1 className="font-display text-3xl font-semibold tracking-tight">
           {content.noMemberTitle}
         </h1>
-        <p className="text-base text-muted-foreground">
+        <p className="max-w-md text-base text-muted-foreground">
           {content.noMemberBody}
         </p>
         <Link to="/aperture/join" className={cn(homePillClassName, "w-fit")}>

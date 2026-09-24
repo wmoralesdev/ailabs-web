@@ -3,6 +3,7 @@
 import { useState } from "react"
 import type { FormEvent } from "react"
 
+import { apertureChoiceChipClassName } from "@/components/aperture/aperture-styles"
 import { homePillClassName } from "@/components/home/home-styles"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -148,7 +149,7 @@ export function MeSettings({
       className="flex flex-col gap-6"
       onSubmit={(event) => void onSubmit(event)}
     >
-      <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
+      <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
         {content.settingsTitle}
       </h2>
       <FieldGroup>
@@ -271,12 +272,12 @@ export function MeSettings({
 
         <FieldSet>
           <FieldLegend>{join.fields.upFor.label}</FieldLegend>
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-wrap gap-2">
             {UP_FOR_OPTIONS.map((option) => (
               <label
                 key={option}
                 htmlFor={`me-up-for-${option.toLowerCase()}`}
-                className="flex cursor-pointer items-center gap-2.5 text-sm leading-snug"
+                className={apertureChoiceChipClassName}
               >
                 <Checkbox
                   id={`me-up-for-${option.toLowerCase()}`}

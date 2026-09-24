@@ -319,6 +319,25 @@
         opacity: 0.16;
     }
 
+    /* Static corner stipple for Aperture ink cards. CSS-only so it costs no
+       frame budget and renders without JavaScript. */
+    .aperture-stipple {
+        background-image:
+            radial-gradient(
+                color-mix(in srgb, var(--brand-purple-soft) 55%, transparent) 1.25px,
+                transparent 1.5px
+            ),
+            radial-gradient(
+                ellipse 70% 90% at 100% 0%,
+                color-mix(in srgb, var(--brand-purple) 22%, transparent),
+                transparent 70%
+            );
+        background-size:
+            10px 10px,
+            100% 100%;
+        mask-image: radial-gradient(ellipse 75% 110% at 100% 0%, black 10%, transparent 72%);
+    }
+
     /*
      * Home hero content card — always-dark surface-ink band (matches footer).
      * Does not add `.dark` on the node so site-level `dark:` utilities still track html theme.

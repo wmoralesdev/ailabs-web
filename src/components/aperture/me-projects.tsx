@@ -3,6 +3,7 @@
 import { useState } from "react"
 import type { FormEvent } from "react"
 
+import { BuiltWithBar } from "@/components/aperture/built-with-bar"
 import { homePillClassName } from "@/components/home/home-styles"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -77,7 +78,7 @@ export function MeProjects({
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
+        <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
           {content.projectsTitle}
         </h2>
         <p className="text-sm text-muted-foreground">
@@ -86,9 +87,11 @@ export function MeProjects({
       </div>
 
       {dashboard.projects.length === 0 && editingId !== "new" ? (
-        <p className="text-sm text-muted-foreground">{content.projectsEmpty}</p>
+        <p className="rounded-2xl border border-dashed border-border px-4 py-5 text-sm leading-relaxed text-muted-foreground">
+          {content.projectsEmpty}
+        </p>
       ) : (
-        <ul className="flex flex-col gap-3">
+        <ul className="grid gap-3 md:grid-cols-2">
           {dashboard.projects.map((project) =>
             editingId === project.id ? (
               <li key={project.id}>
@@ -107,25 +110,25 @@ export function MeProjects({
             ) : (
               <li
                 key={project.id}
-                className="flex flex-col gap-2 rounded-2xl border border-border/60 bg-background/70 p-4"
+                className="flex flex-col gap-4 overflow-hidden rounded-2xl border border-border bg-background p-4"
               >
                 {project.imageUrl ? (
                   <img
                     src={project.imageUrl}
                     alt=""
-                    className="h-28 w-full rounded-xl border border-border object-cover"
+                    className="aspect-video w-full rounded-xl border border-border object-cover"
                   />
                 ) : null}
-                <p className="font-medium text-foreground">{project.title}</p>
-                <p className="text-sm text-muted-foreground">
-                  {project.summary}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {project.builtWith
-                    .map((part) => `${part.name} ${part.percent}%`)
-                    .join(" · ")}
-                </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-col gap-1">
+                  <p className="font-display text-base font-semibold tracking-tight text-foreground">
+                    {project.title}
+                  </p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {project.summary}
+                  </p>
+                </div>
+                <BuiltWithBar parts={project.builtWith} />
+                <div className="mt-auto flex flex-wrap gap-3">
                   <button
                     type="button"
                     className="text-sm font-medium text-foreground underline underline-offset-4"

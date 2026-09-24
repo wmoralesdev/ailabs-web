@@ -687,6 +687,15 @@ export type ApertureDirectoryContent = {
   body: string
   empty: string
   joinCta: string
+  countLabel: string
+  searchLabel: string
+  searchPlaceholder: string
+  roleFilterLabel: string
+  allRoles: string
+  /** `{count}` and `{total}` are replaced. */
+  resultsCount: string
+  noResults: string
+  clearFilters: string
 }
 
 export type ApertureProfileContent = {
@@ -698,9 +707,16 @@ export type ApertureProfileContent = {
   metaDescriptionNamed: string
   notFoundTitle: string
   notFoundBody: string
+  backToDirectory: string
+  memberLabel: string
+  aboutTitle: string
+  upForTitle: string
   eventsTitle: string
   linksTitle: string
   projectsTitle: string
+  builtWithTitle: string
+  projectLinkCta: string
+  repoLinkCta: string
   builtWithDisclaimer: string
   shareCta: string
   /** `{name}` and `{number}` are replaced. */
