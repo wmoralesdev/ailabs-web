@@ -194,6 +194,9 @@ function ProjectEditor({
   const [pending, setPending] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(imageUrl ?? null)
+  const previewParts = values.builtWith.filter(
+    (part) => part.name.trim() && part.percent > 0
+  )
 
   function setPart(index: number, next: BuiltWithPart) {
     setValues((current) => ({
@@ -275,7 +278,7 @@ function ProjectEditor({
 
   return (
     <form
-      className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-5"
+      className="flex flex-col gap-4 rounded-2xl border border-border bg-background p-5"
       onSubmit={(event) => void onSubmit(event)}
     >
       <FieldGroup>
@@ -445,6 +448,11 @@ function ProjectEditor({
               </li>
             ))}
           </ul>
+          {previewParts.length > 0 ? (
+            <div className="rounded-xl bg-muted/50 p-3">
+              <BuiltWithBar parts={previewParts} />
+            </div>
+          ) : null}
           {values.builtWith.length < PROJECT_LIMITS.maxParts ? (
             <button
               type="button"
