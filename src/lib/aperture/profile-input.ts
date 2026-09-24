@@ -39,7 +39,12 @@ export type ProfileDraft = {
 
 export type ProfileField = keyof ProfileDraft
 
-export type ProfileFieldError = "required" | "too_long" | "invalid" | "reserved"
+export type ProfileFieldError =
+  | "required"
+  | "too_long"
+  | "invalid"
+  | "reserved"
+  | "taken"
 
 export type ProfileFieldErrors = Partial<
   Record<ProfileField, ProfileFieldError>

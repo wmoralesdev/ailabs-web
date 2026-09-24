@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { cleanup, render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
+import type { ReactNode } from "react"
 
 import { en } from "@/content/en"
 import { claimApertureMembership, checkUsername } from "@/server/aperture/claim"
@@ -11,21 +12,11 @@ vi.mock("@/server/aperture/claim", () => ({
   checkUsername: vi.fn(),
 }))
 
-vi.mock("@tanstack/react-router", async () => {
-  const actual = await vi.importActual<typeof import("@tanstack/react-router")>(
-    "@tanstack/react-router"
-  )
-  return {
-    ...actual,
-    Link: ({
-      children,
-      to,
-    }: {
-      children: import("react").ReactNode
-      to: string
-    }) => <a href={to}>{children}</a>,
-  }
-})
+vi.mock("@tanstack/react-router", () => ({
+  Link: ({ children, to }: { children: ReactNode; to: string }) => (
+    <a href={to}>{children}</a>
+  ),
+}))
 
 const claimMock = vi.mocked(claimApertureMembership)
 const checkMock = vi.mocked(checkUsername)

@@ -1,8 +1,9 @@
-import { isLocale, type Locale } from "@/content"
-import {
-  parseProfileInput,
-  type ProfileDraft,
-  type ProfileFieldErrors,
+import { isLocale } from "@/content"
+import type { Locale } from "@/content"
+import { parseProfileInput } from "@/lib/aperture/profile-input"
+import type {
+  ProfileDraft,
+  ProfileFieldErrors,
 } from "@/lib/aperture/profile-input"
 
 export type ClaimFormResult =

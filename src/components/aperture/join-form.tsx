@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState, type FormEvent } from "react"
+import { useEffect, useState } from "react"
+import type { FormEvent } from "react"
 import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
@@ -22,11 +23,10 @@ import { Spinner } from "@/components/ui/spinner"
 import type { ApertureJoinContent, Locale } from "@/content/types"
 import { parseClaimForm } from "@/lib/aperture/claim-input"
 import { countryOptions } from "@/lib/aperture/countries"
-import {
-  MEMBER_ROLES,
-  UP_FOR_OPTIONS,
-  type ProfileFieldError,
-  type ProfileFieldErrors,
+import { MEMBER_ROLES, UP_FOR_OPTIONS } from "@/lib/aperture/profile-input"
+import type {
+  ProfileFieldError,
+  ProfileFieldErrors,
 } from "@/lib/aperture/profile-input"
 import { cn } from "@/lib/utils"
 import { checkUsername, claimApertureMembership } from "@/server/aperture/claim"
@@ -159,9 +159,9 @@ export function JoinForm({
     }
   }, [values.username])
 
-  function update<K extends keyof JoinFormValues>(
-    key: K,
-    value: JoinFormValues[K]
+  function update<TField extends keyof JoinFormValues>(
+    key: TField,
+    value: JoinFormValues[TField]
   ) {
     setValues((current) => ({ ...current, [key]: value }))
     if (key in fieldErrors) {

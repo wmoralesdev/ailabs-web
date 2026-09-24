@@ -7,10 +7,8 @@ import { currentJoinState } from "@/lib/aperture/join-mode"
 import { prisma } from "@/lib/prisma"
 import { claimMembership } from "@/server/aperture/member-store"
 import { verifiedEmailsOf } from "@/server/aperture/member-sync"
-import {
-  lookupUsername,
-  type UsernameCheck,
-} from "@/server/aperture/username-lookup"
+import { lookupUsername } from "@/server/aperture/username-lookup"
+import type { UsernameCheck } from "@/server/aperture/username-lookup"
 import type { ProfileFieldErrors } from "@/lib/aperture/profile-input"
 
 export type { UsernameCheck }
@@ -40,15 +38,14 @@ export type ClaimMembershipResult =
   | { status: "invalid"; fieldErrors: ProfileFieldErrors }
 
 function usernameInput(data: unknown): { username: string } {
-  if (
-    typeof data !== "object" ||
-    data === null ||
-    !("username" in data) ||
-    typeof (data as { username: unknown }).username !== "string"
-  ) {
+  if (typeof data !== "object" || data === null || !("username" in data)) {
     throw new Error("Invalid username")
   }
-  return { username: (data as { username: string }).username }
+  const username = data.username
+  if (typeof username !== "string") {
+    throw new Error("Invalid username")
+  }
+  return { username }
 }
 
 function clerkDisplayName(user: {
