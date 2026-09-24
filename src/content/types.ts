@@ -114,6 +114,10 @@ export type RedeemContent = CampaignQrCopy & {
   noVerifiedEmailBody: string
   missingCodeTitle: string
   missingCodeBody: string
+  /** Shown after codes when the signed-in visitor is not yet a member. */
+  joinNudgeTitle: string
+  joinNudgeBody: string
+  joinNudgeCta: string
   poolLabels: {
     CURSOR: string
     CODEX: string
@@ -534,6 +538,72 @@ export type LegalContent = {
   privacy: LegalDocument
 }
 
+export type ApertureMemberRole =
+  "FOUNDER" | "DEVELOPER" | "DESIGNER" | "OPERATOR" | "STUDENT"
+
+export type ApertureUpFor =
+  "COFOUNDING" | "FREELANCE" | "HIRING" | "MENTORING" | "COLLABORATING"
+
+export type ApertureFieldError =
+  "required" | "too_long" | "invalid" | "reserved" | "taken"
+
+export type ApertureJoinField = {
+  label: string
+  placeholder?: string
+  helper?: string
+}
+
+export type ApertureJoinContent = CampaignQrCopy & {
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  body: string
+  signInPrompt: string
+  signInCta: string
+  signOutCta: string
+  signedInAs: string
+  submit: string
+  submitting: string
+  closedTitle: string
+  closedBody: string
+  retiredTitle: string
+  retiredBody: string
+  existingTitle: string
+  /** `{number}` is replaced. */
+  existingBody: string
+  noVerifiedEmailTitle: string
+  noVerifiedEmailBody: string
+  error: string
+  usernameAvailable: string
+  usernameChecking: string
+  fields: {
+    username: ApertureJoinField
+    displayName: ApertureJoinField
+    headline: ApertureJoinField
+    country: ApertureJoinField
+    role: ApertureJoinField
+    upFor: ApertureJoinField
+  }
+  roleOptions: Record<ApertureMemberRole, string>
+  upForOptions: Record<ApertureUpFor, string>
+  fieldErrors: Record<ApertureFieldError, string>
+  /** `{terms}` and `{privacy}` are replaced with links. */
+  legalAccept: string
+  legalTerms: string
+  legalPrivacy: string
+  ageAccept: string
+  newsletterAccept: string
+  revealTitle: string
+  /** `{number}` is replaced. */
+  revealBody: string
+  revealCta: string
+}
+
+export type ApertureContent = {
+  join: ApertureJoinContent
+}
+
 export type SiteContent = {
   locale: Locale
   meta: PageMeta
@@ -544,4 +614,5 @@ export type SiteContent = {
   community: CommunityContent
   campusLeader: CampusLeaderContent
   legal: LegalContent
+  aperture: ApertureContent
 }

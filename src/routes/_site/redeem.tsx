@@ -6,7 +6,7 @@ import {
   UserButton,
   useUser,
 } from "@clerk/tanstack-react-start"
-import { createFileRoute, useRouterState } from "@tanstack/react-router"
+import { createFileRoute, Link, useRouterState } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { toast } from "sonner"
@@ -23,6 +23,8 @@ import type { Locale, RedeemContent } from "@/content/types"
 import { getRedeemProductConfig } from "@/lib/redeem-products"
 import type { RedeemProductConfig } from "@/lib/redeem-products"
 import { cn } from "@/lib/utils"
+import { getMembershipHint } from "@/server/aperture/claim"
+import type { MembershipHint } from "@/server/aperture/claim"
 import { getEventByCode, getRedeemStatus, redeemCredits } from "@/server/redeem"
 import type {
   RedeemCreditsResult,
@@ -435,6 +437,7 @@ function RedeemClaimPanel({
           <p className="text-sm text-foreground">{content.alreadyRedeemed}</p>
         ) : null}
         <CodesList codes={result.codes} content={content} />
+        <JoinNudge content={content} />
       </div>
     )
   }
@@ -504,6 +507,49 @@ function RedeemClaimPanel({
           </>
         )}
       </button>
+    </div>
+  )
+}
+
+function JoinNudge({ content }: { content: RedeemContent }) {
+  const [hint, setHint] = useState<MembershipHint | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    void getMembershipHint()
+      .then((next) => {
+        if (!cancelled) {
+          setHint(next)
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setHint(null)
+        }
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  if (hint?.status !== "guest") {
+    return null
+  }
+
+  return (
+    <div className="flex flex-col gap-1 border-t border-border/60 pt-4">
+      <p className="text-sm font-medium text-foreground">
+        {content.joinNudgeTitle}
+      </p>
+      <p className="text-sm text-muted-foreground">
+        {content.joinNudgeBody}{" "}
+        <Link
+          to="/aperture/join"
+          className="font-medium text-foreground underline underline-offset-4 hover:text-foreground"
+        >
+          {content.joinNudgeCta}
+        </Link>
+      </p>
     </div>
   )
 }

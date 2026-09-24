@@ -93,6 +93,10 @@ possibly stale value into this file.
   pages.
 - `/redeem` is an authenticated credit-redemption flow backed by Clerk,
   TanStack server functions, Prisma, and PostgreSQL/Neon.
+- `/aperture/join` is the authenticated Aperture claim flow. Join stays
+  closed in production unless `APERTURE_JOIN=open` and the legal text is
+  published. `APERTURE_JOIN=preview` opens the form only outside
+  production. A successful claim allocates a permanent member number.
 - `/community` is a minimal WhatsApp invite landing (no auth). Like redeem
   and campus-leader, its hero is the shared campaign split hero
   (`src/components/campaign/campaign-hero.tsx`): light copy column on the
@@ -222,7 +226,8 @@ scripts. Do not recreate deleted one-off scripts in this repo.
   reuses or gaps a number. Team numbers 0 to 4 come only from
   `pnpm aperture:reserve`. Clerk `user.updated` and `user.deleted` events at
   `/api/webhooks/clerk` refresh emails and avatars for existing members and
-  retire deleted users; a number is never reused.
+  retire deleted users; a number is never reused. Join at `/aperture/join`
+  is gated by `APERTURE_JOIN` and required Terms, Privacy, and 18+ consent.
 
 ## Contact operations
 

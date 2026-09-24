@@ -23,6 +23,7 @@ import { Route as SiteRedeemRouteImport } from './routes/_site/redeem'
 import { Route as SiteTermsRouteImport } from './routes/_site/terms'
 import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
 import { Route as SignUpSplatRouteImport } from './routes/sign-up.$'
+import { Route as SiteApertureJoinRouteImport } from './routes/_site/aperture/join'
 import { Route as SiteEventsSlugRouteImport } from './routes/_site/events/$slug'
 import { Route as ApiWebhooksClerkRouteImport } from './routes/api/webhooks/clerk'
 import { Route as ApiWebhooksWompiRouteImport } from './routes/api/webhooks/wompi'
@@ -98,6 +99,11 @@ const SignUpSplatRoute = SignUpSplatRouteImport.update({
   path: '/sign-up/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SiteApertureJoinRoute = SiteApertureJoinRouteImport.update({
+  id: '/aperture/join',
+  path: '/aperture/join',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteEventsSlugRoute = SiteEventsSlugRouteImport.update({
   id: '/events/$slug',
   path: '/events/$slug',
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/aperture/join': typeof SiteApertureJoinRoute
   '/events/$slug': typeof SiteEventsSlugRouteWithChildren
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale': typeof LocaleIndexRoute
   '/': typeof SiteIndexRoute
+  '/aperture/join': typeof SiteApertureJoinRoute
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
@@ -178,6 +186,7 @@ export interface FileRoutesById {
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
   '/_site/': typeof SiteIndexRoute
+  '/_site/aperture/join': typeof SiteApertureJoinRoute
   '/_site/events/$slug': typeof SiteEventsSlugRouteWithChildren
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
@@ -200,6 +209,7 @@ export interface FileRouteTypes {
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale/'
+    | '/aperture/join'
     | '/events/$slug'
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
@@ -219,6 +229,7 @@ export interface FileRouteTypes {
     | '/sign-up/$'
     | '/$locale'
     | '/'
+    | '/aperture/join'
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/events/$slug/success'
@@ -239,6 +250,7 @@ export interface FileRouteTypes {
     | '/sign-up/$'
     | '/$locale/'
     | '/_site/'
+    | '/_site/aperture/join'
     | '/_site/events/$slug'
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
@@ -356,6 +368,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignUpSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_site/aperture/join': {
+      id: '/_site/aperture/join'
+      path: '/aperture/join'
+      fullPath: '/aperture/join'
+      preLoaderRoute: typeof SiteApertureJoinRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/events/$slug': {
       id: '/_site/events/$slug'
       path: '/events/$slug'
@@ -429,6 +448,7 @@ interface SiteRouteChildren {
   SiteRedeemRoute: typeof SiteRedeemRoute
   SiteTermsRoute: typeof SiteTermsRoute
   SiteIndexRoute: typeof SiteIndexRoute
+  SiteApertureJoinRoute: typeof SiteApertureJoinRoute
   SiteEventsSlugRoute: typeof SiteEventsSlugRouteWithChildren
 }
 
@@ -440,6 +460,7 @@ const SiteRouteChildren: SiteRouteChildren = {
   SiteRedeemRoute: SiteRedeemRoute,
   SiteTermsRoute: SiteTermsRoute,
   SiteIndexRoute: SiteIndexRoute,
+  SiteApertureJoinRoute: SiteApertureJoinRoute,
   SiteEventsSlugRoute: SiteEventsSlugRouteWithChildren,
 }
 
