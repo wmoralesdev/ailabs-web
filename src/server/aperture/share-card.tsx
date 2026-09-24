@@ -11,6 +11,32 @@ const PAPER = "#fafafa"
 const INK = "#1a1a1a"
 const MUTED = "#5c5c5c"
 
+function Words({ text, gap }: { text: string; gap: number }) {
+  if (typeof text !== "string") {
+    throw new Error("Share-card text must be a string")
+  }
+  if (!Number.isFinite(gap) || gap < 0) {
+    throw new Error("Share-card word gap must be a non-negative number")
+  }
+  const words = text.split(/\s+/).filter(Boolean)
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap,
+      }}
+    >
+      {words.map((word, index) => (
+        <span key={`${index}-${word}`} style={{ display: "flex" }}>
+          {word}
+        </span>
+      ))}
+    </div>
+  )
+}
+
 function fontBuffer(dataUrl: string): ArrayBuffer {
   const comma = dataUrl.indexOf(",")
   if (comma < 0 || !dataUrl.startsWith("data:")) {
@@ -48,10 +74,10 @@ function loadFonts() {
   ]
 }
 
-export async function renderShareCardPng(
+export async function renderShareCardSvg(
   model: ShareCardModel
-): Promise<Uint8Array> {
-  const svg = await satori(
+): Promise<string> {
+  return satori(
     <div
       style={{
         width: "100%",
@@ -67,28 +93,33 @@ export async function renderShareCardPng(
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div
           style={{
+            display: "flex",
             fontFamily: "DM Sans",
             fontSize: 22,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
             color: MUTED,
+            whiteSpace: "pre",
           }}
         >
           Aperture
         </div>
         <div
           style={{
+            display: "flex",
             fontFamily: "DM Sans",
             fontSize: 64,
             fontWeight: 600,
             letterSpacing: "0.08em",
             marginTop: 20,
+            whiteSpace: "pre",
           }}
         >
           {`#${model.number}`}
         </div>
         <div
           style={{
+            display: "flex",
             fontFamily: "Alan Sans",
             fontSize: 68,
             fontWeight: 600,
@@ -96,17 +127,18 @@ export async function renderShareCardPng(
             marginTop: 28,
           }}
         >
-          {model.displayName}
+          <Words text={model.displayName} gap={18} />
         </div>
         <div
           style={{
+            display: "flex",
             fontFamily: "DM Sans",
             fontSize: 32,
             color: MUTED,
             marginTop: 16,
           }}
         >
-          {model.headline}
+          <Words text={model.headline} gap={10} />
         </div>
       </div>
       <div
@@ -118,8 +150,10 @@ export async function renderShareCardPng(
           color: MUTED,
         }}
       >
-        <span>{`@${model.username}`}</span>
-        <span>Ai Labs</span>
+        <span style={{ display: "flex", whiteSpace: "pre" }}>
+          {`@${model.username}`}
+        </span>
+        <Words text="Ai Labs" gap={8} />
       </div>
     </div>,
     {
@@ -128,6 +162,12 @@ export async function renderShareCardPng(
       fonts: loadFonts(),
     }
   )
+}
+
+export async function renderShareCardPng(
+  model: ShareCardModel
+): Promise<Uint8Array> {
+  const svg = await renderShareCardSvg(model)
   return new Resvg(svg, {
     fitTo: { mode: "width", value: SHARE_CARD_WIDTH },
   })
