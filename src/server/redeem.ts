@@ -72,10 +72,32 @@ async function getVerifiedEmail(userId: string): Promise<string | null> {
   return normalizeEmail(verified.emailAddress)
 }
 
+function cursorReferralUrl(code: string): string {
+  const trimmed = code.trim()
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed
+  }
+  return `https://cursor.com/referral?code=${encodeURIComponent(trimmed)}`
+}
+
+function presentCode(entry: { pool: Pool; code: string }): RedeemedCode {
+  switch (entry.pool) {
+    case "CURSOR":
+      return { pool: entry.pool, code: cursorReferralUrl(entry.code) }
+    case "CODEX":
+    case "OPENAI":
+      return { pool: entry.pool, code: entry.code }
+    default: {
+      const unknown: never = entry.pool
+      return unknown
+    }
+  }
+}
+
 function mapCodes(
   codes: Array<{ pool: Pool; code: string }>
 ): RedeemedCode[] {
-  return codes.map((entry) => ({ pool: entry.pool, code: entry.code }))
+  return codes.map(presentCode)
 }
 
 /** Resolve redeem ?code= by slug (preferred) or legacy event id. */
@@ -275,7 +297,7 @@ export const redeemCredits = createServerFn({ method: "POST" })
             throw new SoldOutError()
           }
 
-          claimed.push({ pool: row.pool, code: row.code })
+          claimed.push(presentCode(row))
         }
 
         return claimed
