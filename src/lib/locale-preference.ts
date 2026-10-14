@@ -17,16 +17,6 @@ export type LocaleContext = {
   content: SiteContent
 }
 
-export function isLocaleContext(value: unknown): value is LocaleContext {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    "locale" in value &&
-    "content" in value &&
-    (value.locale === "en" || value.locale === "es")
-  )
-}
-
 function writeLocaleCookie(locale: Locale): void {
   setCookie(LOCALE_COOKIE, locale, {
     path: "/",
@@ -36,8 +26,8 @@ function writeLocaleCookie(locale: Locale): void {
 }
 
 /**
- * Resolve UI locale: cookie → Accept-Language → `es`.
- * Persist the resolved locale when the cookie was missing.
+ * Resolve UI locale: cookie → Accept-Language → `en`.
+ * Optionally persist the resolved locale when the cookie was missing.
  */
 export const resolveLocaleContext = createServerFn({ method: "GET" }).handler(
   async (): Promise<LocaleContext> => {

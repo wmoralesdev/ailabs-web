@@ -147,4 +147,4 @@ Disallow: /*/academy
 Disallow: /*/agentic
 Disallow: /*/aperture
 
-Sitemap: https://www.ailabs.sv/sitemap.xml
+Sitemap: https://ailabs.sv/sitemap.xml

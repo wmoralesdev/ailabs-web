@@ -1,6 +1,5 @@
 import { homeCarousel } from "./home-carousel"
 import { legalEs } from "./legal-es"
-import { pagesEs } from "./pages-es"
 import type { SiteContent } from "./types"
 
 export const es: SiteContent = {
@@ -19,26 +18,6 @@ export const es: SiteContent = {
       community: {
         label: "Comunidad",
         items: [
-          {
-            label: "Comunidad de IA en El Salvador",
-            href: "/comunidad-de-ia-el-salvador",
-          },
-          {
-            label: "Eventos tech en El Salvador",
-            href: "/eventos",
-          },
-          {
-            label: "Comunidad de IA en Centroamérica",
-            href: "/comunidad-de-ia-centroamerica",
-          },
-          {
-            label: "Eventos tech en Centroamérica",
-            href: "/eventos-tech-centroamerica",
-          },
-          {
-            label: "Consultoría de IA en Centroamérica",
-            href: "/consultoria-de-ia-centroamerica",
-          },
           {
             label: "Unirme a la comunidad",
             href: "/community",
@@ -84,20 +63,16 @@ export const es: SiteContent = {
           title: "Servicios",
           links: [
             {
-              label: "Consultoría de IA en El Salvador",
-              href: "/consultoria-de-ia",
+              label: "Consultoría en IA",
+              href: "#services",
             },
             {
-              label: "Capacitación para equipos",
-              href: "/capacitacion-ia",
+              label: "Formación práctica",
+              href: "#academy",
             },
             {
               label: "Automatización de procesos",
-              href: "/automatizacion-con-ia",
-            },
-            {
-              label: "Consultoría de IA en Centroamérica",
-              href: "/consultoria-de-ia-centroamerica",
+              href: "#agentic",
             },
             {
               label: "Cómo trabajamos",
@@ -109,14 +84,6 @@ export const es: SiteContent = {
           id: "aperture",
           title: "Comunidad",
           links: [
-            {
-              label: "Comunidad de IA en El Salvador",
-              href: "/comunidad-de-ia-el-salvador",
-            },
-            {
-              label: "Comunidad de IA en Centroamérica",
-              href: "/comunidad-de-ia-centroamerica",
-            },
             {
               label: "Unirme a la comunidad",
               href: "/community",
@@ -134,18 +101,6 @@ export const es: SiteContent = {
         {
           title: "Ai Labs",
           links: [
-            {
-              label: "Eventos tech en El Salvador",
-              href: "/eventos",
-            },
-            {
-              label: "Eventos tech en Centroamérica",
-              href: "/eventos-tech-centroamerica",
-            },
-            {
-              label: "Enlaces oficiales",
-              href: "/enlaces",
-            },
             {
               label: "Hablemos",
               href: "#contact",
@@ -214,8 +169,6 @@ export const es: SiteContent = {
       label: "Nuestros servicios",
       title: "Consultoría en IA",
       body: "Revisamos cómo trabajás, identificamos dónde puede ayudar la IA y decidimos por dónde empezar. Después te ayudamos a aprender o implementamos el flujo con vos.",
-      pageLabel: "Consultoría de IA en El Salvador",
-      pageHref: "/consultoria-de-ia",
       items: [
         {
           id: "academy",
@@ -228,8 +181,6 @@ export const es: SiteContent = {
             "Desarrollá criterio para aplicarla por tu cuenta.",
           ],
           cta: "Quiero aprender",
-          pageLabel: "Capacitación para equipos",
-          pageHref: "/capacitacion-ia",
           interest: "enablement",
         },
         {
@@ -243,8 +194,6 @@ export const es: SiteContent = {
             "Recibí documentación y transferencia al equipo.",
           ],
           cta: "Quiero mejorar un proceso",
-          pageLabel: "Automatización de procesos",
-          pageHref: "/automatizacion-con-ia",
           interest: "implementation",
         },
       ],
@@ -265,24 +214,6 @@ export const es: SiteContent = {
         {
           title: "Poner en práctica",
           body: "Preparamos al equipo o implementamos el flujo, con la revisión y documentación que necesita.",
-        },
-      ],
-      eventsLink: {
-        label: "Eventos tech en El Salvador",
-        href: "/eventos",
-      },
-      sideLinks: [
-        {
-          label: "Comunidad de IA en El Salvador",
-          href: "/comunidad-de-ia-el-salvador",
-        },
-        {
-          label: "Consultoría de IA en Centroamérica",
-          href: "/consultoria-de-ia-centroamerica",
-        },
-        {
-          label: "Eventos tech en Centroamérica",
-          href: "/eventos-tech-centroamerica",
         },
       ],
     },
@@ -517,7 +448,6 @@ export const es: SiteContent = {
       invalid: "Revisá los datos e intentá de nuevo.",
     },
   },
-  pages: pagesEs,
   redeem: {
     metaTitle: "Canjear créditos",
     eventLabel: "Evento",

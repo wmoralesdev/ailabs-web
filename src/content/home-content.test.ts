@@ -8,72 +8,28 @@ describe("public home content", () => {
     for (const content of [en, es]) {
       const nav = getChromeNavItems(content.chrome.nav)
       expect(nav.services.href).toBe("#services")
+      expect(nav.community.items.map(({ to }) => to)).toEqual([
+        "/community",
+        "/campus-leader",
+        "/aperture",
+      ])
+      expect(
+        content.chrome.footer.columns
+          .flatMap(({ links }) => links)
+          .map(({ href }) => href)
+      ).toEqual(
+        expect.arrayContaining([
+          "#services",
+          "#academy",
+          "#agentic",
+          "#about",
+          "#contact",
+          "/community",
+          "/campus-leader",
+          "/aperture",
+        ])
+      )
     }
-
-    expect(
-      getChromeNavItems(es.chrome.nav).community.items.map(({ to }) => to)
-    ).toEqual([
-      "/comunidad-de-ia-el-salvador",
-      "/eventos",
-      "/comunidad-de-ia-centroamerica",
-      "/eventos-tech-centroamerica",
-      "/consultoria-de-ia-centroamerica",
-      "/community",
-      "/campus-leader",
-      "/aperture",
-    ])
-    expect(
-      getChromeNavItems(en.chrome.nav).community.items.map(({ to }) => to)
-    ).toEqual([
-      "/ai-community-el-salvador",
-      "/tech-events-el-salvador",
-      "/ai-community-central-america",
-      "/tech-events-central-america",
-      "/ai-consulting-central-america",
-      "/community",
-      "/campus-leader",
-      "/aperture",
-    ])
-
-    const hrefs = (content: typeof es) =>
-      content.chrome.footer.columns
-        .flatMap(({ links }) => links)
-        .map(({ href }) => href)
-
-    expect(hrefs(es)).toEqual(
-      expect.arrayContaining([
-        "/consultoria-de-ia",
-        "/capacitacion-ia",
-        "/automatizacion-con-ia",
-        "/consultoria-de-ia-centroamerica",
-        "/comunidad-de-ia-el-salvador",
-        "/eventos",
-        "/eventos-tech-centroamerica",
-        "/enlaces",
-        "#about",
-        "#contact",
-        "/community",
-        "/campus-leader",
-        "/aperture",
-      ])
-    )
-    expect(hrefs(en)).toEqual(
-      expect.arrayContaining([
-        "/ai-consulting-el-salvador",
-        "/ai-training-el-salvador",
-        "/ai-automation-el-salvador",
-        "/ai-consulting-central-america",
-        "/ai-community-el-salvador",
-        "/tech-events-el-salvador",
-        "/tech-events-central-america",
-        "/enlaces",
-        "#about",
-        "#contact",
-        "/community",
-        "/campus-leader",
-        "/aperture",
-      ])
-    )
   })
 
   it("routes both delivery options to an existing inquiry interest", () => {

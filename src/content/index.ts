@@ -1,7 +1,7 @@
 import { en } from "./en"
 import { es } from "./es"
-import { LOCALES } from "./types"
-import type { Locale, SiteContent } from "./types"
+import { LOCALES   } from "./types"
+import type {Locale, SiteContent} from "./types";
 
 export { LOCALES, type Locale, type SiteContent }
 export type * from "./types"
@@ -20,14 +20,13 @@ export function getContent(locale: Locale): SiteContent {
 }
 
 /**
- * Prefer the language the header ranks higher. Missing, empty, or unrecognized
- * headers fall back to Spanish: that is the document crawlers should index.
+ * Prefer `es` when Accept-Language ranks Spanish above English; otherwise `en`.
  */
 export function localeFromAcceptLanguage(
   header: string | null | undefined
 ): Locale {
-  if (!header?.trim()) {
-    return "es"
+  if (!header) {
+    return "en"
   }
 
   const preferences = header
@@ -51,20 +50,17 @@ export function localeFromAcceptLanguage(
     .sort((a, b) => b.q - a.q)
 
   for (const { tag } of preferences) {
+    if (tag === "*" || tag.startsWith("en")) {
+      return "en"
+    }
     if (tag.startsWith("es")) {
       return "es"
     }
-    if (tag.startsWith("en")) {
-      return "en"
-    }
   }
 
-  return "es"
+  return "en"
 }
 
-export function formatCopyright(
-  template: string,
-  year = new Date().getFullYear()
-) {
+export function formatCopyright(template: string, year = new Date().getFullYear()) {
   return template.replace("{year}", String(year))
 }
