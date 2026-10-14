@@ -457,6 +457,7 @@ export type HomeServiceItem = {
   cta: string
   /** Link to the indexable page for this service. */
   pageLabel: string
+  pageHref: string
   interest: ContactInterestId
 }
 
@@ -466,6 +467,7 @@ export type HomeServicesContent = {
   body: string
   /** Link to the consulting page, not the homepage anchor. */
   pageLabel: string
+  pageHref: string
   items: readonly [HomeServiceItem, HomeServiceItem]
 }
 
@@ -475,6 +477,7 @@ export type HomeMethodContent = {
   body: string
   steps: ReadonlyArray<HomeAboutBridgeItem>
   eventsLink: NavItem
+  sideLinks: ReadonlyArray<NavItem>
 }
 
 /** Technology logos shown in the home trust strip. */
@@ -724,18 +727,29 @@ export type MarketingSection = {
   paragraphs: ReadonlyArray<string>
 }
 
-export type MarketingPage = {
-  /** Stable path. The same in English and Spanish until each language has its own URL. */
+export type LandingAreaType = "Country" | "AdministrativeArea"
+
+export type LandingKind = "service" | "event" | "community"
+
+/** Fields every language-locked landing page shares. */
+export type LandingMeta = {
   path: string
   metaTitle: string
   metaDescription: string
-  /** Name used in Organization services. Not a regional claim. */
   schemaName: string
+  areaName: string
+  areaType: LandingAreaType
+  kind: LandingKind
+}
+
+export type MarketingPage = LandingMeta & {
   eyebrow: string
   title: string
   lead: string
   sections: ReadonlyArray<MarketingSection>
   cta: string
+  /** When set, the button goes here instead of opening the contact dialog. */
+  ctaHref?: string
   interest: ContactInterestId
   relatedLabel: string
   related: ReadonlyArray<NavItem>
@@ -748,17 +762,18 @@ export type ProofEvent = {
   linkLabel?: string
 }
 
-export type EventsPage = {
-  path: "/eventos"
-  metaTitle: string
-  metaDescription: string
+export type EventsPage = LandingMeta & {
   eyebrow: string
   title: string
   lead: string
+  /** Extra framing so a regional page is not a copy of the El Salvador list. */
+  intro?: ReadonlyArray<string>
   upcomingLabel: string
   pastLabel: string
   upcoming: ReadonlyArray<ProofEvent>
   past: ReadonlyArray<ProofEvent>
+  relatedLabel?: string
+  related?: ReadonlyArray<NavItem>
 }
 
 export type OfficialProfile = {
@@ -783,6 +798,10 @@ export type PublicPages = {
   automation: MarketingPage
   events: EventsPage
   links: LinksPage
+  community: MarketingPage
+  communityRegion: MarketingPage
+  eventsRegion: EventsPage
+  consultingRegion: MarketingPage
 }
 
 export type SiteContent = {

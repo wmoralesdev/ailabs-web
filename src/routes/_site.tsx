@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/chrome/site-footer"
 import { SiteHeader } from "@/components/chrome/site-header"
 import { ContactProvider } from "@/components/contact/contact-provider"
 import { MainCard } from "@/components/chrome/main-card"
+import { isLocaleContext } from "@/lib/locale-preference"
 
 const chromeShellClassName = "flex min-h-dvh flex-col"
 const mainClassName = "flex flex-1 flex-col"
@@ -31,7 +32,18 @@ function pageOwnsBrand(routeId: string): boolean {
 }
 
 function SiteLayout() {
-  const { locale, content } = Route.useRouteContext()
+  const fallback = Route.useRouteContext()
+  const { locale, content } = useRouterState({
+    select: (state) => {
+      for (let index = state.matches.length - 1; index >= 0; index -= 1) {
+        const context = state.matches[index]?.context
+        if (isLocaleContext(context)) {
+          return context
+        }
+      }
+      return fallback
+    },
+  })
   const showBrandLink = useRouterState({
     select: (state) =>
       !state.matches.some((match) => pageOwnsBrand(match.routeId)),

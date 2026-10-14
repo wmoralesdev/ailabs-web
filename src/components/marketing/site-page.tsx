@@ -113,13 +113,22 @@ function MarketingPageView({ page }: { page: MarketingPage }) {
             </section>
           ))}
         </div>
-        <Button
-          type="button"
-          onClick={() => openContact(page.interest)}
-          className={cn(homePillClassName, "mt-12 h-auto min-h-12 w-fit")}
-        >
-          {page.cta}
-        </Button>
+        {page.ctaHref && isInternalHref(page.ctaHref) ? (
+          <Link
+            to={routeForHref(page.ctaHref)}
+            className={cn(homePillClassName, "mt-12 h-auto min-h-12 w-fit")}
+          >
+            {page.cta}
+          </Link>
+        ) : (
+          <Button
+            type="button"
+            onClick={() => openContact(page.interest)}
+            className={cn(homePillClassName, "mt-12 h-auto min-h-12 w-fit")}
+          >
+            {page.cta}
+          </Button>
+        )}
         <RelatedLinks label={page.relatedLabel} links={page.related} />
       </article>
     </MainCard>
@@ -138,9 +147,20 @@ function EventsPageView({ page }: { page: EventsPage }) {
           <p className="text-lg leading-relaxed text-muted-foreground">
             {page.lead}
           </p>
+          {page.intro?.map((paragraph) => (
+            <p
+              key={paragraph}
+              className="text-base leading-relaxed text-muted-foreground"
+            >
+              {paragraph}
+            </p>
+          ))}
         </header>
         <EventGroup label={page.upcomingLabel} events={page.upcoming} />
         <EventGroup label={page.pastLabel} events={page.past} />
+        {page.related && page.relatedLabel ? (
+          <RelatedLinks label={page.relatedLabel} links={page.related} />
+        ) : null}
       </article>
     </MainCard>
   )

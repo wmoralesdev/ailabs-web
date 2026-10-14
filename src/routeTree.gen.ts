@@ -15,14 +15,24 @@ import { Route as BgRouteImport } from './routes/bg'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as LocaleSplatRouteImport } from './routes/$locale/$'
 import { Route as SiteIndexRouteImport } from './routes/_site/index'
+import { Route as SiteAiAutomationElSalvadorRouteImport } from './routes/_site/ai-automation-el-salvador'
+import { Route as SiteAiCommunityCentralAmericaRouteImport } from './routes/_site/ai-community-central-america'
+import { Route as SiteAiCommunityElSalvadorRouteImport } from './routes/_site/ai-community-el-salvador'
+import { Route as SiteAiConsultingCentralAmericaRouteImport } from './routes/_site/ai-consulting-central-america'
+import { Route as SiteAiConsultingElSalvadorRouteImport } from './routes/_site/ai-consulting-el-salvador'
+import { Route as SiteAiTrainingElSalvadorRouteImport } from './routes/_site/ai-training-el-salvador'
 import { Route as SiteAutomatizacionConIaRouteImport } from './routes/_site/automatizacion-con-ia'
 import { Route as SiteBlogRouteImport } from './routes/_site/blog'
 import { Route as SiteCampusLeaderRouteImport } from './routes/_site/campus-leader'
 import { Route as SiteCapacitacionIaRouteImport } from './routes/_site/capacitacion-ia'
 import { Route as SiteCommunityRouteImport } from './routes/_site/community'
+import { Route as SiteComunidadDeIaCentroamericaRouteImport } from './routes/_site/comunidad-de-ia-centroamerica'
+import { Route as SiteComunidadDeIaElSalvadorRouteImport } from './routes/_site/comunidad-de-ia-el-salvador'
 import { Route as SiteConsultoriaDeIaRouteImport } from './routes/_site/consultoria-de-ia'
+import { Route as SiteConsultoriaDeIaCentroamericaRouteImport } from './routes/_site/consultoria-de-ia-centroamerica'
 import { Route as SiteEnlacesRouteImport } from './routes/_site/enlaces'
 import { Route as SiteEventosRouteImport } from './routes/_site/eventos'
+import { Route as SiteEventosTechCentroamericaRouteImport } from './routes/_site/eventos-tech-centroamerica'
 import { Route as SiteLabRouteImport } from './routes/_site/lab'
 import { Route as SiteLinksRouteImport } from './routes/_site/links'
 import { Route as SiteMeRouteImport } from './routes/_site/me'
@@ -30,6 +40,8 @@ import { Route as SitePartnersRouteImport } from './routes/_site/partners'
 import { Route as SitePrivacyRouteImport } from './routes/_site/privacy'
 import { Route as SiteRedeemRouteImport } from './routes/_site/redeem'
 import { Route as SiteShowcaseRouteImport } from './routes/_site/showcase'
+import { Route as SiteTechEventsCentralAmericaRouteImport } from './routes/_site/tech-events-central-america'
+import { Route as SiteTechEventsElSalvadorRouteImport } from './routes/_site/tech-events-el-salvador'
 import { Route as SiteTermsRouteImport } from './routes/_site/terms'
 import { Route as SiteWorkWithUsRouteImport } from './routes/_site/work-with-us'
 import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
@@ -74,6 +86,42 @@ const SiteIndexRoute = SiteIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteAiAutomationElSalvadorRoute =
+  SiteAiAutomationElSalvadorRouteImport.update({
+    id: '/ai-automation-el-salvador',
+    path: '/ai-automation-el-salvador',
+    getParentRoute: () => SiteRoute,
+  } as any)
+const SiteAiCommunityCentralAmericaRoute =
+  SiteAiCommunityCentralAmericaRouteImport.update({
+    id: '/ai-community-central-america',
+    path: '/ai-community-central-america',
+    getParentRoute: () => SiteRoute,
+  } as any)
+const SiteAiCommunityElSalvadorRoute =
+  SiteAiCommunityElSalvadorRouteImport.update({
+    id: '/ai-community-el-salvador',
+    path: '/ai-community-el-salvador',
+    getParentRoute: () => SiteRoute,
+  } as any)
+const SiteAiConsultingCentralAmericaRoute =
+  SiteAiConsultingCentralAmericaRouteImport.update({
+    id: '/ai-consulting-central-america',
+    path: '/ai-consulting-central-america',
+    getParentRoute: () => SiteRoute,
+  } as any)
+const SiteAiConsultingElSalvadorRoute =
+  SiteAiConsultingElSalvadorRouteImport.update({
+    id: '/ai-consulting-el-salvador',
+    path: '/ai-consulting-el-salvador',
+    getParentRoute: () => SiteRoute,
+  } as any)
+const SiteAiTrainingElSalvadorRoute =
+  SiteAiTrainingElSalvadorRouteImport.update({
+    id: '/ai-training-el-salvador',
+    path: '/ai-training-el-salvador',
+    getParentRoute: () => SiteRoute,
+  } as any)
 const SiteAutomatizacionConIaRoute = SiteAutomatizacionConIaRouteImport.update({
   id: '/automatizacion-con-ia',
   path: '/automatizacion-con-ia',
@@ -99,11 +147,29 @@ const SiteCommunityRoute = SiteCommunityRouteImport.update({
   path: '/community',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteComunidadDeIaCentroamericaRoute =
+  SiteComunidadDeIaCentroamericaRouteImport.update({
+    id: '/comunidad-de-ia-centroamerica',
+    path: '/comunidad-de-ia-centroamerica',
+    getParentRoute: () => SiteRoute,
+  } as any)
+const SiteComunidadDeIaElSalvadorRoute =
+  SiteComunidadDeIaElSalvadorRouteImport.update({
+    id: '/comunidad-de-ia-el-salvador',
+    path: '/comunidad-de-ia-el-salvador',
+    getParentRoute: () => SiteRoute,
+  } as any)
 const SiteConsultoriaDeIaRoute = SiteConsultoriaDeIaRouteImport.update({
   id: '/consultoria-de-ia',
   path: '/consultoria-de-ia',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteConsultoriaDeIaCentroamericaRoute =
+  SiteConsultoriaDeIaCentroamericaRouteImport.update({
+    id: '/consultoria-de-ia-centroamerica',
+    path: '/consultoria-de-ia-centroamerica',
+    getParentRoute: () => SiteRoute,
+  } as any)
 const SiteEnlacesRoute = SiteEnlacesRouteImport.update({
   id: '/enlaces',
   path: '/enlaces',
@@ -114,6 +180,12 @@ const SiteEventosRoute = SiteEventosRouteImport.update({
   path: '/eventos',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteEventosTechCentroamericaRoute =
+  SiteEventosTechCentroamericaRouteImport.update({
+    id: '/eventos-tech-centroamerica',
+    path: '/eventos-tech-centroamerica',
+    getParentRoute: () => SiteRoute,
+  } as any)
 const SiteLabRoute = SiteLabRouteImport.update({
   id: '/lab',
   path: '/lab',
@@ -149,6 +221,18 @@ const SiteShowcaseRoute = SiteShowcaseRouteImport.update({
   path: '/showcase',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteTechEventsCentralAmericaRoute =
+  SiteTechEventsCentralAmericaRouteImport.update({
+    id: '/tech-events-central-america',
+    path: '/tech-events-central-america',
+    getParentRoute: () => SiteRoute,
+  } as any)
+const SiteTechEventsElSalvadorRoute =
+  SiteTechEventsElSalvadorRouteImport.update({
+    id: '/tech-events-el-salvador',
+    path: '/tech-events-el-salvador',
+    getParentRoute: () => SiteRoute,
+  } as any)
 const SiteTermsRoute = SiteTermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -225,14 +309,24 @@ export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/bg': typeof BgRoute
   '/$locale/$': typeof LocaleSplatRoute
+  '/ai-automation-el-salvador': typeof SiteAiAutomationElSalvadorRoute
+  '/ai-community-central-america': typeof SiteAiCommunityCentralAmericaRoute
+  '/ai-community-el-salvador': typeof SiteAiCommunityElSalvadorRoute
+  '/ai-consulting-central-america': typeof SiteAiConsultingCentralAmericaRoute
+  '/ai-consulting-el-salvador': typeof SiteAiConsultingElSalvadorRoute
+  '/ai-training-el-salvador': typeof SiteAiTrainingElSalvadorRoute
   '/automatizacion-con-ia': typeof SiteAutomatizacionConIaRoute
   '/blog': typeof SiteBlogRoute
   '/campus-leader': typeof SiteCampusLeaderRoute
   '/capacitacion-ia': typeof SiteCapacitacionIaRoute
   '/community': typeof SiteCommunityRoute
+  '/comunidad-de-ia-centroamerica': typeof SiteComunidadDeIaCentroamericaRoute
+  '/comunidad-de-ia-el-salvador': typeof SiteComunidadDeIaElSalvadorRoute
   '/consultoria-de-ia': typeof SiteConsultoriaDeIaRoute
+  '/consultoria-de-ia-centroamerica': typeof SiteConsultoriaDeIaCentroamericaRoute
   '/enlaces': typeof SiteEnlacesRoute
   '/eventos': typeof SiteEventosRoute
+  '/eventos-tech-centroamerica': typeof SiteEventosTechCentroamericaRoute
   '/lab': typeof SiteLabRoute
   '/links': typeof SiteLinksRoute
   '/me': typeof SiteMeRoute
@@ -240,6 +334,8 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof SitePrivacyRoute
   '/redeem': typeof SiteRedeemRoute
   '/showcase': typeof SiteShowcaseRoute
+  '/tech-events-central-america': typeof SiteTechEventsCentralAmericaRoute
+  '/tech-events-el-salvador': typeof SiteTechEventsElSalvadorRoute
   '/terms': typeof SiteTermsRoute
   '/work-with-us': typeof SiteWorkWithUsRoute
   '/sign-in/$': typeof SignInSplatRoute
@@ -259,14 +355,24 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/bg': typeof BgRoute
   '/$locale/$': typeof LocaleSplatRoute
+  '/ai-automation-el-salvador': typeof SiteAiAutomationElSalvadorRoute
+  '/ai-community-central-america': typeof SiteAiCommunityCentralAmericaRoute
+  '/ai-community-el-salvador': typeof SiteAiCommunityElSalvadorRoute
+  '/ai-consulting-central-america': typeof SiteAiConsultingCentralAmericaRoute
+  '/ai-consulting-el-salvador': typeof SiteAiConsultingElSalvadorRoute
+  '/ai-training-el-salvador': typeof SiteAiTrainingElSalvadorRoute
   '/automatizacion-con-ia': typeof SiteAutomatizacionConIaRoute
   '/blog': typeof SiteBlogRoute
   '/campus-leader': typeof SiteCampusLeaderRoute
   '/capacitacion-ia': typeof SiteCapacitacionIaRoute
   '/community': typeof SiteCommunityRoute
+  '/comunidad-de-ia-centroamerica': typeof SiteComunidadDeIaCentroamericaRoute
+  '/comunidad-de-ia-el-salvador': typeof SiteComunidadDeIaElSalvadorRoute
   '/consultoria-de-ia': typeof SiteConsultoriaDeIaRoute
+  '/consultoria-de-ia-centroamerica': typeof SiteConsultoriaDeIaCentroamericaRoute
   '/enlaces': typeof SiteEnlacesRoute
   '/eventos': typeof SiteEventosRoute
+  '/eventos-tech-centroamerica': typeof SiteEventosTechCentroamericaRoute
   '/lab': typeof SiteLabRoute
   '/links': typeof SiteLinksRoute
   '/me': typeof SiteMeRoute
@@ -274,6 +380,8 @@ export interface FileRoutesByTo {
   '/privacy': typeof SitePrivacyRoute
   '/redeem': typeof SiteRedeemRoute
   '/showcase': typeof SiteShowcaseRoute
+  '/tech-events-central-america': typeof SiteTechEventsCentralAmericaRoute
+  '/tech-events-el-salvador': typeof SiteTechEventsElSalvadorRoute
   '/terms': typeof SiteTermsRoute
   '/work-with-us': typeof SiteWorkWithUsRoute
   '/sign-in/$': typeof SignInSplatRoute
@@ -296,14 +404,24 @@ export interface FileRoutesById {
   '/_site': typeof SiteRouteWithChildren
   '/bg': typeof BgRoute
   '/$locale/$': typeof LocaleSplatRoute
+  '/_site/ai-automation-el-salvador': typeof SiteAiAutomationElSalvadorRoute
+  '/_site/ai-community-central-america': typeof SiteAiCommunityCentralAmericaRoute
+  '/_site/ai-community-el-salvador': typeof SiteAiCommunityElSalvadorRoute
+  '/_site/ai-consulting-central-america': typeof SiteAiConsultingCentralAmericaRoute
+  '/_site/ai-consulting-el-salvador': typeof SiteAiConsultingElSalvadorRoute
+  '/_site/ai-training-el-salvador': typeof SiteAiTrainingElSalvadorRoute
   '/_site/automatizacion-con-ia': typeof SiteAutomatizacionConIaRoute
   '/_site/blog': typeof SiteBlogRoute
   '/_site/campus-leader': typeof SiteCampusLeaderRoute
   '/_site/capacitacion-ia': typeof SiteCapacitacionIaRoute
   '/_site/community': typeof SiteCommunityRoute
+  '/_site/comunidad-de-ia-centroamerica': typeof SiteComunidadDeIaCentroamericaRoute
+  '/_site/comunidad-de-ia-el-salvador': typeof SiteComunidadDeIaElSalvadorRoute
   '/_site/consultoria-de-ia': typeof SiteConsultoriaDeIaRoute
+  '/_site/consultoria-de-ia-centroamerica': typeof SiteConsultoriaDeIaCentroamericaRoute
   '/_site/enlaces': typeof SiteEnlacesRoute
   '/_site/eventos': typeof SiteEventosRoute
+  '/_site/eventos-tech-centroamerica': typeof SiteEventosTechCentroamericaRoute
   '/_site/lab': typeof SiteLabRoute
   '/_site/links': typeof SiteLinksRoute
   '/_site/me': typeof SiteMeRoute
@@ -311,6 +429,8 @@ export interface FileRoutesById {
   '/_site/privacy': typeof SitePrivacyRoute
   '/_site/redeem': typeof SiteRedeemRoute
   '/_site/showcase': typeof SiteShowcaseRoute
+  '/_site/tech-events-central-america': typeof SiteTechEventsCentralAmericaRoute
+  '/_site/tech-events-el-salvador': typeof SiteTechEventsElSalvadorRoute
   '/_site/terms': typeof SiteTermsRoute
   '/_site/work-with-us': typeof SiteWorkWithUsRoute
   '/sign-in/$': typeof SignInSplatRoute
@@ -335,14 +455,24 @@ export interface FileRouteTypes {
     | '/'
     | '/bg'
     | '/$locale/$'
+    | '/ai-automation-el-salvador'
+    | '/ai-community-central-america'
+    | '/ai-community-el-salvador'
+    | '/ai-consulting-central-america'
+    | '/ai-consulting-el-salvador'
+    | '/ai-training-el-salvador'
     | '/automatizacion-con-ia'
     | '/blog'
     | '/campus-leader'
     | '/capacitacion-ia'
     | '/community'
+    | '/comunidad-de-ia-centroamerica'
+    | '/comunidad-de-ia-el-salvador'
     | '/consultoria-de-ia'
+    | '/consultoria-de-ia-centroamerica'
     | '/enlaces'
     | '/eventos'
+    | '/eventos-tech-centroamerica'
     | '/lab'
     | '/links'
     | '/me'
@@ -350,6 +480,8 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/redeem'
     | '/showcase'
+    | '/tech-events-central-america'
+    | '/tech-events-el-salvador'
     | '/terms'
     | '/work-with-us'
     | '/sign-in/$'
@@ -369,14 +501,24 @@ export interface FileRouteTypes {
   to:
     | '/bg'
     | '/$locale/$'
+    | '/ai-automation-el-salvador'
+    | '/ai-community-central-america'
+    | '/ai-community-el-salvador'
+    | '/ai-consulting-central-america'
+    | '/ai-consulting-el-salvador'
+    | '/ai-training-el-salvador'
     | '/automatizacion-con-ia'
     | '/blog'
     | '/campus-leader'
     | '/capacitacion-ia'
     | '/community'
+    | '/comunidad-de-ia-centroamerica'
+    | '/comunidad-de-ia-el-salvador'
     | '/consultoria-de-ia'
+    | '/consultoria-de-ia-centroamerica'
     | '/enlaces'
     | '/eventos'
+    | '/eventos-tech-centroamerica'
     | '/lab'
     | '/links'
     | '/me'
@@ -384,6 +526,8 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/redeem'
     | '/showcase'
+    | '/tech-events-central-america'
+    | '/tech-events-el-salvador'
     | '/terms'
     | '/work-with-us'
     | '/sign-in/$'
@@ -405,14 +549,24 @@ export interface FileRouteTypes {
     | '/_site'
     | '/bg'
     | '/$locale/$'
+    | '/_site/ai-automation-el-salvador'
+    | '/_site/ai-community-central-america'
+    | '/_site/ai-community-el-salvador'
+    | '/_site/ai-consulting-central-america'
+    | '/_site/ai-consulting-el-salvador'
+    | '/_site/ai-training-el-salvador'
     | '/_site/automatizacion-con-ia'
     | '/_site/blog'
     | '/_site/campus-leader'
     | '/_site/capacitacion-ia'
     | '/_site/community'
+    | '/_site/comunidad-de-ia-centroamerica'
+    | '/_site/comunidad-de-ia-el-salvador'
     | '/_site/consultoria-de-ia'
+    | '/_site/consultoria-de-ia-centroamerica'
     | '/_site/enlaces'
     | '/_site/eventos'
+    | '/_site/eventos-tech-centroamerica'
     | '/_site/lab'
     | '/_site/links'
     | '/_site/me'
@@ -420,6 +574,8 @@ export interface FileRouteTypes {
     | '/_site/privacy'
     | '/_site/redeem'
     | '/_site/showcase'
+    | '/_site/tech-events-central-america'
+    | '/_site/tech-events-el-salvador'
     | '/_site/terms'
     | '/_site/work-with-us'
     | '/sign-in/$'
@@ -493,6 +649,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteIndexRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/ai-automation-el-salvador': {
+      id: '/_site/ai-automation-el-salvador'
+      path: '/ai-automation-el-salvador'
+      fullPath: '/ai-automation-el-salvador'
+      preLoaderRoute: typeof SiteAiAutomationElSalvadorRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/ai-community-central-america': {
+      id: '/_site/ai-community-central-america'
+      path: '/ai-community-central-america'
+      fullPath: '/ai-community-central-america'
+      preLoaderRoute: typeof SiteAiCommunityCentralAmericaRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/ai-community-el-salvador': {
+      id: '/_site/ai-community-el-salvador'
+      path: '/ai-community-el-salvador'
+      fullPath: '/ai-community-el-salvador'
+      preLoaderRoute: typeof SiteAiCommunityElSalvadorRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/ai-consulting-central-america': {
+      id: '/_site/ai-consulting-central-america'
+      path: '/ai-consulting-central-america'
+      fullPath: '/ai-consulting-central-america'
+      preLoaderRoute: typeof SiteAiConsultingCentralAmericaRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/ai-consulting-el-salvador': {
+      id: '/_site/ai-consulting-el-salvador'
+      path: '/ai-consulting-el-salvador'
+      fullPath: '/ai-consulting-el-salvador'
+      preLoaderRoute: typeof SiteAiConsultingElSalvadorRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/ai-training-el-salvador': {
+      id: '/_site/ai-training-el-salvador'
+      path: '/ai-training-el-salvador'
+      fullPath: '/ai-training-el-salvador'
+      preLoaderRoute: typeof SiteAiTrainingElSalvadorRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/automatizacion-con-ia': {
       id: '/_site/automatizacion-con-ia'
       path: '/automatizacion-con-ia'
@@ -528,11 +726,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteCommunityRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/comunidad-de-ia-centroamerica': {
+      id: '/_site/comunidad-de-ia-centroamerica'
+      path: '/comunidad-de-ia-centroamerica'
+      fullPath: '/comunidad-de-ia-centroamerica'
+      preLoaderRoute: typeof SiteComunidadDeIaCentroamericaRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/comunidad-de-ia-el-salvador': {
+      id: '/_site/comunidad-de-ia-el-salvador'
+      path: '/comunidad-de-ia-el-salvador'
+      fullPath: '/comunidad-de-ia-el-salvador'
+      preLoaderRoute: typeof SiteComunidadDeIaElSalvadorRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/consultoria-de-ia': {
       id: '/_site/consultoria-de-ia'
       path: '/consultoria-de-ia'
       fullPath: '/consultoria-de-ia'
       preLoaderRoute: typeof SiteConsultoriaDeIaRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/consultoria-de-ia-centroamerica': {
+      id: '/_site/consultoria-de-ia-centroamerica'
+      path: '/consultoria-de-ia-centroamerica'
+      fullPath: '/consultoria-de-ia-centroamerica'
+      preLoaderRoute: typeof SiteConsultoriaDeIaCentroamericaRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/enlaces': {
@@ -547,6 +766,13 @@ declare module '@tanstack/react-router' {
       path: '/eventos'
       fullPath: '/eventos'
       preLoaderRoute: typeof SiteEventosRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/eventos-tech-centroamerica': {
+      id: '/_site/eventos-tech-centroamerica'
+      path: '/eventos-tech-centroamerica'
+      fullPath: '/eventos-tech-centroamerica'
+      preLoaderRoute: typeof SiteEventosTechCentroamericaRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/lab': {
@@ -596,6 +822,20 @@ declare module '@tanstack/react-router' {
       path: '/showcase'
       fullPath: '/showcase'
       preLoaderRoute: typeof SiteShowcaseRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/tech-events-central-america': {
+      id: '/_site/tech-events-central-america'
+      path: '/tech-events-central-america'
+      fullPath: '/tech-events-central-america'
+      preLoaderRoute: typeof SiteTechEventsCentralAmericaRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/tech-events-el-salvador': {
+      id: '/_site/tech-events-el-salvador'
+      path: '/tech-events-el-salvador'
+      fullPath: '/tech-events-el-salvador'
+      preLoaderRoute: typeof SiteTechEventsElSalvadorRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/terms': {
@@ -727,14 +967,24 @@ const SiteEventsSlugRouteWithChildren = SiteEventsSlugRoute._addFileChildren(
 )
 
 interface SiteRouteChildren {
+  SiteAiAutomationElSalvadorRoute: typeof SiteAiAutomationElSalvadorRoute
+  SiteAiCommunityCentralAmericaRoute: typeof SiteAiCommunityCentralAmericaRoute
+  SiteAiCommunityElSalvadorRoute: typeof SiteAiCommunityElSalvadorRoute
+  SiteAiConsultingCentralAmericaRoute: typeof SiteAiConsultingCentralAmericaRoute
+  SiteAiConsultingElSalvadorRoute: typeof SiteAiConsultingElSalvadorRoute
+  SiteAiTrainingElSalvadorRoute: typeof SiteAiTrainingElSalvadorRoute
   SiteAutomatizacionConIaRoute: typeof SiteAutomatizacionConIaRoute
   SiteBlogRoute: typeof SiteBlogRoute
   SiteCampusLeaderRoute: typeof SiteCampusLeaderRoute
   SiteCapacitacionIaRoute: typeof SiteCapacitacionIaRoute
   SiteCommunityRoute: typeof SiteCommunityRoute
+  SiteComunidadDeIaCentroamericaRoute: typeof SiteComunidadDeIaCentroamericaRoute
+  SiteComunidadDeIaElSalvadorRoute: typeof SiteComunidadDeIaElSalvadorRoute
   SiteConsultoriaDeIaRoute: typeof SiteConsultoriaDeIaRoute
+  SiteConsultoriaDeIaCentroamericaRoute: typeof SiteConsultoriaDeIaCentroamericaRoute
   SiteEnlacesRoute: typeof SiteEnlacesRoute
   SiteEventosRoute: typeof SiteEventosRoute
+  SiteEventosTechCentroamericaRoute: typeof SiteEventosTechCentroamericaRoute
   SiteLabRoute: typeof SiteLabRoute
   SiteLinksRoute: typeof SiteLinksRoute
   SiteMeRoute: typeof SiteMeRoute
@@ -742,6 +992,8 @@ interface SiteRouteChildren {
   SitePrivacyRoute: typeof SitePrivacyRoute
   SiteRedeemRoute: typeof SiteRedeemRoute
   SiteShowcaseRoute: typeof SiteShowcaseRoute
+  SiteTechEventsCentralAmericaRoute: typeof SiteTechEventsCentralAmericaRoute
+  SiteTechEventsElSalvadorRoute: typeof SiteTechEventsElSalvadorRoute
   SiteTermsRoute: typeof SiteTermsRoute
   SiteWorkWithUsRoute: typeof SiteWorkWithUsRoute
   SiteIndexRoute: typeof SiteIndexRoute
@@ -753,14 +1005,24 @@ interface SiteRouteChildren {
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
+  SiteAiAutomationElSalvadorRoute: SiteAiAutomationElSalvadorRoute,
+  SiteAiCommunityCentralAmericaRoute: SiteAiCommunityCentralAmericaRoute,
+  SiteAiCommunityElSalvadorRoute: SiteAiCommunityElSalvadorRoute,
+  SiteAiConsultingCentralAmericaRoute: SiteAiConsultingCentralAmericaRoute,
+  SiteAiConsultingElSalvadorRoute: SiteAiConsultingElSalvadorRoute,
+  SiteAiTrainingElSalvadorRoute: SiteAiTrainingElSalvadorRoute,
   SiteAutomatizacionConIaRoute: SiteAutomatizacionConIaRoute,
   SiteBlogRoute: SiteBlogRoute,
   SiteCampusLeaderRoute: SiteCampusLeaderRoute,
   SiteCapacitacionIaRoute: SiteCapacitacionIaRoute,
   SiteCommunityRoute: SiteCommunityRoute,
+  SiteComunidadDeIaCentroamericaRoute: SiteComunidadDeIaCentroamericaRoute,
+  SiteComunidadDeIaElSalvadorRoute: SiteComunidadDeIaElSalvadorRoute,
   SiteConsultoriaDeIaRoute: SiteConsultoriaDeIaRoute,
+  SiteConsultoriaDeIaCentroamericaRoute: SiteConsultoriaDeIaCentroamericaRoute,
   SiteEnlacesRoute: SiteEnlacesRoute,
   SiteEventosRoute: SiteEventosRoute,
+  SiteEventosTechCentroamericaRoute: SiteEventosTechCentroamericaRoute,
   SiteLabRoute: SiteLabRoute,
   SiteLinksRoute: SiteLinksRoute,
   SiteMeRoute: SiteMeRoute,
@@ -768,6 +1030,8 @@ const SiteRouteChildren: SiteRouteChildren = {
   SitePrivacyRoute: SitePrivacyRoute,
   SiteRedeemRoute: SiteRedeemRoute,
   SiteShowcaseRoute: SiteShowcaseRoute,
+  SiteTechEventsCentralAmericaRoute: SiteTechEventsCentralAmericaRoute,
+  SiteTechEventsElSalvadorRoute: SiteTechEventsElSalvadorRoute,
   SiteTermsRoute: SiteTermsRoute,
   SiteWorkWithUsRoute: SiteWorkWithUsRoute,
   SiteIndexRoute: SiteIndexRoute,

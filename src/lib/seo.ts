@@ -1,4 +1,4 @@
-import type { Locale } from "@/content"
+import type { LandingMeta, Locale } from "@/content"
 
 /** Host that returns 200. The apex 308s here. */
 export const SITE_URL = "https://www.ailabs.sv"
@@ -58,6 +58,11 @@ type BuildPageMetaInput = {
   description: string
   /** Private, unfinished, or thin pages stay out of search results. */
   noindex?: boolean
+  /**
+   * Emit hreflang only when both languages have their own 200 URL.
+   * `es` is x-default.
+   */
+  alternates?: { es: string; en: string }
   image?: {
     url: string
     alt: string
@@ -97,11 +102,32 @@ export function buildPageMeta({
   title,
   description,
   noindex = false,
+  alternates,
   image,
 }: BuildPageMetaInput): PageHead {
   const url = absoluteUrl(path)
   const imageUrl = image?.url ?? OG_IMAGE_URL
   const imageAlt = image?.alt ?? OG_IMAGE_ALT_BY_LOCALE[locale]
+  const otherLocale = locale === "es" ? "en" : "es"
+  const alternateLinks: HeadLink[] = alternates
+    ? [
+        {
+          rel: "alternate",
+          hrefLang: "es",
+          href: absoluteUrl(alternates.es),
+        },
+        {
+          rel: "alternate",
+          hrefLang: "en",
+          href: absoluteUrl(alternates.en),
+        },
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: absoluteUrl(alternates.es),
+        },
+      ]
+    : []
 
   return {
     meta: [
@@ -114,6 +140,14 @@ export function buildPageMeta({
       { property: "og:description", content: description },
       { property: "og:url", content: url },
       { property: "og:locale", content: OG_LOCALE[locale] },
+      ...(alternates
+        ? [
+            {
+              property: "og:locale:alternate",
+              content: OG_LOCALE[otherLocale],
+            },
+          ]
+        : []),
       { property: "og:image", content: imageUrl },
       { property: "og:image:alt", content: imageAlt },
       { property: "og:image:width", content: "1200" },
@@ -124,8 +158,78 @@ export function buildPageMeta({
       { name: "twitter:image", content: imageUrl },
       { name: "twitter:image:alt", content: imageAlt },
     ],
-    links: [{ rel: "canonical", href: url }],
+    links: [{ rel: "canonical", href: url }, ...alternateLinks],
     scripts: [],
+  }
+}
+
+const DEVDAY_EVENT = {
+  "@type": "Event",
+  name: "DevDay. San Salvador",
+  startDate: "2026-10-24T15:00:00-06:00",
+  endDate: "2026-10-24T19:00:00-06:00",
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  eventStatus: "https://schema.org/EventScheduled",
+  inLanguage: "es",
+  url: "https://devday.ailabs.sv/",
+  location: {
+    "@type": "Place",
+    name: "BINAES",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "San Salvador",
+      addressCountry: "SV",
+    },
+  },
+  organizer: { "@id": `${SITE_URL}/#organization` },
+} as const
+
+/** JSON-LD for one language-locked landing page. Does not redefine the homepage area. */
+export function buildLandingJsonLd(input: {
+  locale: Locale
+  page: LandingMeta
+}): HeadScript {
+  const url = absoluteUrl(input.page.path)
+  const organizationId = `${SITE_URL}/#organization`
+  const areaServed = {
+    "@type": input.page.areaType,
+    name: input.page.areaName,
+  }
+  const graph: Array<Record<string, unknown>> = [
+    {
+      "@type": "WebPage",
+      "@id": `${url}#webpage`,
+      url,
+      name: input.page.metaTitle,
+      description: input.page.metaDescription,
+      inLanguage: input.locale,
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      about: { "@id": organizationId },
+      spatialCoverage: areaServed,
+    },
+  ]
+
+  if (input.page.kind === "service") {
+    graph.push({
+      "@type": "Service",
+      name: input.page.schemaName,
+      description: input.page.metaDescription,
+      url,
+      provider: { "@id": organizationId },
+      areaServed,
+    })
+  }
+
+  if (input.page.kind === "event") {
+    graph.push({ ...DEVDAY_EVENT })
+  }
+
+  return {
+    type: "application/ld+json",
+    children: JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": graph,
+    }),
   }
 }
 

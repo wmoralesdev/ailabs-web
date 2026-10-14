@@ -1,26 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router"
 
 import { MarketingPageView } from "@/components/marketing/site-page"
-import { buildPageMeta } from "@/lib/seo"
+import { getContent } from "@/content"
+import { landingHead, lockedLocale } from "@/lib/locked-page"
 
 export const Route = createFileRoute("/_site/automatizacion-con-ia")({
-  loader: ({ context }) => context,
-  head: ({ loaderData }) => {
-    if (!loaderData) {
-      return {}
-    }
-    const page = loaderData.content.pages.automation
-    return buildPageMeta({
-      locale: loaderData.locale,
-      path: page.path,
-      title: page.metaTitle,
-      description: page.metaDescription,
-    })
-  },
-  component: AutomationPage,
+  beforeLoad: () => lockedLocale("es"),
+  loader: () => getContent("es").pages.automation,
+  head: ({ loaderData }) => (loaderData ? landingHead("es", loaderData) : {}),
+  component: Page,
 })
 
-function AutomationPage() {
-  const { content } = Route.useRouteContext()
-  return <MarketingPageView page={content.pages.automation} />
+function Page() {
+  return <MarketingPageView page={Route.useLoaderData()} />
 }

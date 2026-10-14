@@ -20,6 +20,26 @@ export const en: SiteContent = {
         label: "Community",
         items: [
           {
+            label: "AI community in El Salvador",
+            href: "/ai-community-el-salvador",
+          },
+          {
+            label: "Tech events in El Salvador",
+            href: "/tech-events-el-salvador",
+          },
+          {
+            label: "AI community in Central America",
+            href: "/ai-community-central-america",
+          },
+          {
+            label: "Tech events in Central America",
+            href: "/tech-events-central-america",
+          },
+          {
+            label: "AI consulting in Central America",
+            href: "/ai-consulting-central-america",
+          },
+          {
             label: "Join the community",
             href: "/community",
           },
@@ -65,15 +85,19 @@ export const en: SiteContent = {
           links: [
             {
               label: "AI consulting in El Salvador",
-              href: "/consultoria-de-ia",
+              href: "/ai-consulting-el-salvador",
             },
             {
               label: "AI training for teams",
-              href: "/capacitacion-ia",
+              href: "/ai-training-el-salvador",
             },
             {
-              label: "Process automation",
-              href: "/automatizacion-con-ia",
+              label: "AI automation",
+              href: "/ai-automation-el-salvador",
+            },
+            {
+              label: "AI consulting in Central America",
+              href: "/ai-consulting-central-america",
             },
             {
               label: "How we work",
@@ -85,6 +109,14 @@ export const en: SiteContent = {
           id: "aperture",
           title: "Community",
           links: [
+            {
+              label: "AI community in El Salvador",
+              href: "/ai-community-el-salvador",
+            },
+            {
+              label: "AI community in Central America",
+              href: "/ai-community-central-america",
+            },
             {
               label: "Join the community",
               href: "/community",
@@ -103,8 +135,12 @@ export const en: SiteContent = {
           title: "Ai Labs",
           links: [
             {
-              label: "Events in San Salvador",
-              href: "/eventos",
+              label: "Tech events in El Salvador",
+              href: "/tech-events-el-salvador",
+            },
+            {
+              label: "Tech events in Central America",
+              href: "/tech-events-central-america",
             },
             {
               label: "Official links",
@@ -178,6 +214,7 @@ export const en: SiteContent = {
       title: "AI consulting",
       body: "We look at how you work, identify where AI can help and decide what to tackle first. From there, we help you learn or build the workflow with you.",
       pageLabel: "AI consulting in El Salvador",
+      pageHref: "/ai-consulting-el-salvador",
       items: [
         {
           id: "academy",
@@ -191,6 +228,7 @@ export const en: SiteContent = {
           ],
           cta: "I want to learn",
           pageLabel: "AI training for teams",
+          pageHref: "/ai-training-el-salvador",
           interest: "enablement",
         },
         {
@@ -204,7 +242,8 @@ export const en: SiteContent = {
             "Receive documentation and a handover to your team.",
           ],
           cta: "Improve a process",
-          pageLabel: "Process automation",
+          pageLabel: "AI automation",
+          pageHref: "/ai-automation-el-salvador",
           interest: "implementation",
         },
       ],
@@ -228,9 +267,23 @@ export const en: SiteContent = {
         },
       ],
       eventsLink: {
-        label: "Events in San Salvador",
-        href: "/eventos",
+        label: "Tech events in El Salvador",
+        href: "/tech-events-el-salvador",
       },
+      sideLinks: [
+        {
+          label: "AI community in El Salvador",
+          href: "/ai-community-el-salvador",
+        },
+        {
+          label: "AI consulting in Central America",
+          href: "/ai-consulting-central-america",
+        },
+        {
+          label: "Tech events in Central America",
+          href: "/tech-events-central-america",
+        },
+      ],
     },
     trust: {
       label: "Part of ambassador programs",

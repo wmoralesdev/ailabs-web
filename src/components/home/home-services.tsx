@@ -10,11 +10,39 @@ import { Eyebrow } from "@/components/ui/eyebrow"
 import { homePillClassName, homeShellClassName } from "./home-styles"
 import { HomeServiceVisual } from "./home-service-visual"
 import { useHomeEntrance } from "@/lib/home-motion"
+import { isInternalHref, routeForHref } from "@/lib/locale-links"
 import { cn } from "@/lib/utils"
 
 type HomeServicesProps = {
   services: HomeServicesContent
   locale: Locale
+}
+
+const serviceLinkClassName =
+  "inline-flex min-h-11 items-center text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+
+function ServicePageLink({
+  href,
+  className = serviceLinkClassName,
+  children,
+}: {
+  href: string
+  className?: string
+  children: React.ReactNode
+}) {
+  if (!isInternalHref(href)) {
+    return (
+      <a href={href} className={className}>
+        {children}
+      </a>
+    )
+  }
+
+  return (
+    <Link to={routeForHref(href)} className={className}>
+      {children}
+    </Link>
+  )
 }
 
 function HomeServices({ services, locale }: HomeServicesProps) {
@@ -44,12 +72,9 @@ function HomeServices({ services, locale }: HomeServicesProps) {
             <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
               {services.body}
             </p>
-            <Link
-              to="/consultoria-de-ia"
-              className="inline-flex min-h-11 items-center text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-            >
+            <ServicePageLink href={services.pageHref}>
               {services.pageLabel}
-            </Link>
+            </ServicePageLink>
           </div>
         </div>
 
@@ -101,16 +126,12 @@ function HomeServices({ services, locale }: HomeServicesProps) {
                   {service.cta}
                   <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
                 </Button>
-                <Link
-                  to={
-                    service.id === "academy"
-                      ? "/capacitacion-ia"
-                      : "/automatizacion-con-ia"
-                  }
+                <ServicePageLink
+                  href={service.pageHref}
                   className="mt-3 inline-flex min-h-11 items-center text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
                 >
                   {service.pageLabel}
-                </Link>
+                </ServicePageLink>
               </div>
             </article>
           ))}

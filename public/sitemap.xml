@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.ailabs.sv/</loc>
     <changefreq>weekly</changefreq>
@@ -7,21 +7,129 @@
   </url>
   <url>
     <loc>https://www.ailabs.sv/consultoria-de-ia</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/consultoria-de-ia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-consulting-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/consultoria-de-ia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/ai-consulting-el-salvador</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/consultoria-de-ia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-consulting-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/consultoria-de-ia"/>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.ailabs.sv/capacitacion-ia</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/capacitacion-ia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-training-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/capacitacion-ia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/ai-training-el-salvador</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/capacitacion-ia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-training-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/capacitacion-ia"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.ailabs.sv/automatizacion-con-ia</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/automatizacion-con-ia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-automation-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/automatizacion-con-ia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/ai-automation-el-salvador</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/automatizacion-con-ia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-automation-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/automatizacion-con-ia"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.ailabs.sv/eventos</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/eventos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/tech-events-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/eventos"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/tech-events-el-salvador</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/eventos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/tech-events-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/eventos"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/comunidad-de-ia-el-salvador</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/comunidad-de-ia-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-community-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/comunidad-de-ia-el-salvador"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/ai-community-el-salvador</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/comunidad-de-ia-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-community-el-salvador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/comunidad-de-ia-el-salvador"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/comunidad-de-ia-centroamerica</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/comunidad-de-ia-centroamerica"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-community-central-america"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/comunidad-de-ia-centroamerica"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/ai-community-central-america</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/comunidad-de-ia-centroamerica"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-community-central-america"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/comunidad-de-ia-centroamerica"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/eventos-tech-centroamerica</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/eventos-tech-centroamerica"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/tech-events-central-america"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/eventos-tech-centroamerica"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/tech-events-central-america</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/eventos-tech-centroamerica"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/tech-events-central-america"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/eventos-tech-centroamerica"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/consultoria-de-ia-centroamerica</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/consultoria-de-ia-centroamerica"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-consulting-central-america"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/consultoria-de-ia-centroamerica"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/ai-consulting-central-america</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/consultoria-de-ia-centroamerica"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/ai-consulting-central-america"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/consultoria-de-ia-centroamerica"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

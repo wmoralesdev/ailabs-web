@@ -20,6 +20,26 @@ export const es: SiteContent = {
         label: "Comunidad",
         items: [
           {
+            label: "Comunidad de IA en El Salvador",
+            href: "/comunidad-de-ia-el-salvador",
+          },
+          {
+            label: "Eventos tech en El Salvador",
+            href: "/eventos",
+          },
+          {
+            label: "Comunidad de IA en Centroamérica",
+            href: "/comunidad-de-ia-centroamerica",
+          },
+          {
+            label: "Eventos tech en Centroamérica",
+            href: "/eventos-tech-centroamerica",
+          },
+          {
+            label: "Consultoría de IA en Centroamérica",
+            href: "/consultoria-de-ia-centroamerica",
+          },
+          {
             label: "Unirme a la comunidad",
             href: "/community",
           },
@@ -76,6 +96,10 @@ export const es: SiteContent = {
               href: "/automatizacion-con-ia",
             },
             {
+              label: "Consultoría de IA en Centroamérica",
+              href: "/consultoria-de-ia-centroamerica",
+            },
+            {
               label: "Cómo trabajamos",
               href: "#about",
             },
@@ -85,6 +109,14 @@ export const es: SiteContent = {
           id: "aperture",
           title: "Comunidad",
           links: [
+            {
+              label: "Comunidad de IA en El Salvador",
+              href: "/comunidad-de-ia-el-salvador",
+            },
+            {
+              label: "Comunidad de IA en Centroamérica",
+              href: "/comunidad-de-ia-centroamerica",
+            },
             {
               label: "Unirme a la comunidad",
               href: "/community",
@@ -103,8 +135,12 @@ export const es: SiteContent = {
           title: "Ai Labs",
           links: [
             {
-              label: "Eventos en San Salvador",
+              label: "Eventos tech en El Salvador",
               href: "/eventos",
+            },
+            {
+              label: "Eventos tech en Centroamérica",
+              href: "/eventos-tech-centroamerica",
             },
             {
               label: "Enlaces oficiales",
@@ -179,6 +215,7 @@ export const es: SiteContent = {
       title: "Consultoría en IA",
       body: "Revisamos cómo trabajás, identificamos dónde puede ayudar la IA y decidimos por dónde empezar. Después te ayudamos a aprender o implementamos el flujo con vos.",
       pageLabel: "Consultoría de IA en El Salvador",
+      pageHref: "/consultoria-de-ia",
       items: [
         {
           id: "academy",
@@ -192,6 +229,7 @@ export const es: SiteContent = {
           ],
           cta: "Quiero aprender",
           pageLabel: "Capacitación para equipos",
+          pageHref: "/capacitacion-ia",
           interest: "enablement",
         },
         {
@@ -206,6 +244,7 @@ export const es: SiteContent = {
           ],
           cta: "Quiero mejorar un proceso",
           pageLabel: "Automatización de procesos",
+          pageHref: "/automatizacion-con-ia",
           interest: "implementation",
         },
       ],
@@ -229,9 +268,23 @@ export const es: SiteContent = {
         },
       ],
       eventsLink: {
-        label: "Eventos en San Salvador",
+        label: "Eventos tech en El Salvador",
         href: "/eventos",
       },
+      sideLinks: [
+        {
+          label: "Comunidad de IA en El Salvador",
+          href: "/comunidad-de-ia-el-salvador",
+        },
+        {
+          label: "Consultoría de IA en Centroamérica",
+          href: "/consultoria-de-ia-centroamerica",
+        },
+        {
+          label: "Eventos tech en Centroamérica",
+          href: "/eventos-tech-centroamerica",
+        },
+      ],
     },
     trust: {
       label: "Somos parte de programas de embajadores",

@@ -17,6 +17,16 @@ export type LocaleContext = {
   content: SiteContent
 }
 
+export function isLocaleContext(value: unknown): value is LocaleContext {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "locale" in value &&
+    "content" in value &&
+    (value.locale === "en" || value.locale === "es")
+  )
+}
+
 function writeLocaleCookie(locale: Locale): void {
   setCookie(LOCALE_COOKIE, locale, {
     path: "/",

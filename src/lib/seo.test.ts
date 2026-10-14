@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest"
 
-import { ORGANIZATION_SAME_AS, buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
+import {
+  ORGANIZATION_SAME_AS,
+  buildHomeJsonLd,
+  buildLandingJsonLd,
+  buildPageMeta,
+} from "@/lib/seo"
 
 type ServiceOffer = {
   "@type": string
@@ -129,6 +134,77 @@ describe("buildPageMeta", () => {
     expect(head.meta.find((tag) => tag.property === "og:url")?.content).toBe(
       "https://www.ailabs.sv/consultoria-de-ia"
     )
+  })
+
+  it("emits hreflang only when both language URLs exist", () => {
+    const head = buildPageMeta({
+      locale: "en",
+      path: "/ai-consulting-el-salvador",
+      title: "AI consulting in El Salvador | Ai Labs",
+      description: "From San Salvador.",
+      alternates: {
+        es: "/consultoria-de-ia",
+        en: "/ai-consulting-el-salvador",
+      },
+    })
+    expect(head.links).toEqual([
+      {
+        rel: "canonical",
+        href: "https://www.ailabs.sv/ai-consulting-el-salvador",
+      },
+      {
+        rel: "alternate",
+        hrefLang: "es",
+        href: "https://www.ailabs.sv/consultoria-de-ia",
+      },
+      {
+        rel: "alternate",
+        hrefLang: "en",
+        href: "https://www.ailabs.sv/ai-consulting-el-salvador",
+      },
+      {
+        rel: "alternate",
+        hrefLang: "x-default",
+        href: "https://www.ailabs.sv/consultoria-de-ia",
+      },
+    ])
+    expect(
+      head.meta.find((tag) => tag.property === "og:locale:alternate")?.content
+    ).toBe("es_SV")
+  })
+
+  it("puts Central America on the regional service, not Latin America", () => {
+    const script = buildLandingJsonLd({
+      locale: "en",
+      page: {
+        path: "/ai-consulting-central-america",
+        metaTitle: "AI consulting in Central America | Ai Labs",
+        metaDescription: "From San Salvador.",
+        schemaName: "AI consulting in Central America",
+        areaName: "Central America",
+        areaType: "AdministrativeArea",
+        kind: "service",
+      },
+    })
+    const document = JSON.parse(script.children) as {
+      "@graph": Array<{
+        "@type": string
+        areaServed?: { "@type": string; name: string }
+        spatialCoverage?: { name: string }
+      }>
+    }
+    const service = document["@graph"].find(
+      (node) => node["@type"] === "Service"
+    )
+    expect(service?.areaServed).toEqual({
+      "@type": "AdministrativeArea",
+      name: "Central America",
+    })
+    expect(JSON.stringify(document)).not.toMatch(/latin america/i)
+    expect(
+      document["@graph"].find((node) => node["@type"] === "WebPage")
+        ?.spatialCoverage?.name
+    ).toBe("Central America")
   })
 
   it("uses a custom share image when provided", () => {

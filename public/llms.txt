@@ -6,27 +6,37 @@
 
 El sitio canónico es https://www.ailabs.sv/. https://ailabs.sv redirige ahí.
 
-Si la petición no trae `Accept-Language`, el HTML sale en español. Una preferencia explícita de inglés, o la cookie `ailabs-locale`, muestra el inglés en la misma URL. Todavía no hay una URL distinta por idioma, así que el sitio no publica `hreflang`.
+La página de inicio sigue la cookie `ailabs-locale`, después `Accept-Language`, y si no hay idioma cae en español. Las páginas de abajo tienen una URL en español y otra en inglés. Cada una responde 200 en su idioma. `hreflang` solo une esas parejas. `/enlaces` queda en español.
 
-## Páginas
+## El Salvador
+
+- Consultoría: https://www.ailabs.sv/consultoria-de-ia y https://www.ailabs.sv/ai-consulting-el-salvador
+- Capacitación: https://www.ailabs.sv/capacitacion-ia y https://www.ailabs.sv/ai-training-el-salvador
+- Automatización: https://www.ailabs.sv/automatizacion-con-ia y https://www.ailabs.sv/ai-automation-el-salvador
+- Comunidad de IA: https://www.ailabs.sv/comunidad-de-ia-el-salvador y https://www.ailabs.sv/ai-community-el-salvador
+- Eventos tech: https://www.ailabs.sv/eventos y https://www.ailabs.sv/tech-events-el-salvador
+
+## Centroamérica
+
+La base es San Salvador. Fuera de El Salvador, lo publicado es la serie Zero to Agent en Guatemala. No hay oficinas ni eventos en otros países.
+
+- Comunidad: https://www.ailabs.sv/comunidad-de-ia-centroamerica y https://www.ailabs.sv/ai-community-central-america
+- Eventos: https://www.ailabs.sv/eventos-tech-centroamerica y https://www.ailabs.sv/tech-events-central-america
+- Consultoría: https://www.ailabs.sv/consultoria-de-ia-centroamerica y https://www.ailabs.sv/ai-consulting-central-america
+
+## Otras páginas
 
 - Inicio: https://www.ailabs.sv/
-- Consultoría de IA en El Salvador: https://www.ailabs.sv/consultoria-de-ia
-- Capacitación en inteligencia artificial para equipos: https://www.ailabs.sv/capacitacion-ia
-- Automatización de procesos con inteligencia artificial: https://www.ailabs.sv/automatizacion-con-ia
-- Eventos en San Salvador: https://www.ailabs.sv/eventos
+- Invitación de WhatsApp: https://www.ailabs.sv/community
 - Enlaces oficiales: https://www.ailabs.sv/enlaces
-- Comunidad: https://www.ailabs.sv/community
 - Campus Leaders: https://www.ailabs.sv/campus-leader
-- DevDay (subdominio): https://devday.ailabs.sv/
+- DevDay: https://devday.ailabs.sv/
 
-La consultoría, la capacitación y la automatización se acuerdan desde San Salvador. El área publicada es El Salvador. Guatemala aparece solo en eventos que ya ocurrieron ahí, en la página de eventos.
-
-No se publican precios de consultoría. No hay lista de clientes ni métricas de asistencia en esas páginas.
+No se publican precios de consultoría, lista de clientes ni cifras de asistencia en esas páginas. El área de la página de inicio sigue siendo El Salvador.
 
 ## Contacto
 
-«Hablemos» en la navegación, o la sección de contacto en https://www.ailabs.sv/#contact.
+«Hablemos» en la navegación, o https://www.ailabs.sv/#contact.
 
 ## Perfiles
 

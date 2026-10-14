@@ -12,7 +12,10 @@ import { TanStackDevtools } from "@tanstack/react-devtools"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
-import { resolveLocaleContext } from "@/lib/locale-preference"
+import {
+  isLocaleContext,
+  resolveLocaleContext,
+} from "@/lib/locale-preference"
 import { OG_IMAGE_ALT, OG_IMAGE_URL, SITE_NAME } from "@/lib/seo"
 import appCss from "../styles.css?url"
 
@@ -109,12 +112,13 @@ function RootNotFound() {
 function RootDocument({ children }: { children: React.ReactNode }) {
   const lang = useRouterState({
     select: (state) => {
-      const match = state.matches.find(
-        (entry) =>
-          typeof entry.context === "object" && "locale" in entry.context
-      )
-      const locale = match?.context.locale
-      return locale === "es" || locale === "en" ? locale : "es"
+      for (let index = state.matches.length - 1; index >= 0; index -= 1) {
+        const context = state.matches[index]?.context
+        if (isLocaleContext(context)) {
+          return context.locale
+        }
+      }
+      return "es" as const
     },
   })
 
