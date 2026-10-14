@@ -9,6 +9,7 @@ import {
   homePillClassName,
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
+import { buildFaqJsonLd, buildPageMeta, SITE_NAME } from "@/lib/seo"
 import { cn } from "@/lib/utils"
 
 export const Route = createFileRoute("/_site/community")({
@@ -17,12 +18,21 @@ export const Route = createFileRoute("/_site/community")({
     if (!loaderData) {
       return {}
     }
-    const { meta, community } = loaderData.content
+    const { locale, content } = loaderData
+    const { community } = content
+    const page = buildPageMeta({
+      locale,
+      path: "/community",
+      title: `${community.metaTitle} | ${SITE_NAME}`,
+      description: community.metaDescription,
+    })
 
     return {
-      meta: [
-        { title: `${community.metaTitle} | ${meta.title}` },
-        { name: "description", content: community.metaDescription },
+      ...page,
+      scripts: [
+        buildFaqJsonLd([
+          { question: community.headline, answer: community.body },
+        ]),
       ],
     }
   },

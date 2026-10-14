@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest"
 
-import { buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
+import {
+  ORGANIZATION_SAME_AS,
+  buildFaqJsonLd,
+  buildHomeJsonLd,
+  buildPageMeta,
+} from "@/lib/seo"
 
 type ServiceOffer = {
   "@type": string
@@ -73,6 +78,26 @@ describe("buildHomeJsonLd", () => {
       offeredServices.map(({ name, description }) => ({ name, description }))
     ).toEqual(services)
     expect(JSON.stringify(offeredServices)).not.toMatch(/aperture/i)
+
+    const serialized = JSON.stringify(document)
+    expect(serialized).not.toMatch(
+      /latinoam[eé]rica|latin america|centroam[eé]rica|central america/i
+    )
+    const organization = document["@graph"].find(
+      (node) => node["@type"] === "Organization"
+    ) as
+      | {
+          sameAs?: string[]
+          areaServed?: { name?: string }
+          address?: { addressLocality?: string; addressCountry?: string }
+        }
+      | undefined
+    expect(organization?.sameAs).toEqual([...ORGANIZATION_SAME_AS])
+    expect(organization?.areaServed?.name).toBe("El Salvador")
+    expect(organization?.address).toMatchObject({
+      addressLocality: "San Salvador",
+      addressCountry: "SV",
+    })
   })
 })
 
@@ -87,6 +112,56 @@ describe("buildPageMeta", () => {
     expect(robots()).toEqual([])
     expect(robots(true)).toEqual([
       { name: "robots", content: "noindex, nofollow" },
+    ])
+  })
+
+  it("canonicalizes on www and does not emit hreflang", () => {
+    const head = buildPageMeta({
+      locale: "es",
+      path: "/community",
+      title: "Comunidad de WhatsApp | Ai Labs",
+      description: "Comunidad en El Salvador.",
+    })
+    expect(head.links).toEqual([
+      {
+        rel: "canonical",
+        href: "https://www.ailabs.sv/community",
+      },
+    ])
+    expect(head.links.some((link) => link.hrefLang)).toBe(false)
+    expect(head.meta.find((tag) => tag.property === "og:url")?.content).toBe(
+      "https://www.ailabs.sv/community"
+    )
+    expect(
+      buildPageMeta({
+        locale: "es",
+        title: "Inicio",
+        description: "Ai Labs",
+      }).links[0]?.href
+    ).toBe("https://www.ailabs.sv/")
+  })
+
+  it("publishes only the questions it is given", () => {
+    const script = buildFaqJsonLd([
+      {
+        question: "¿Qué es la consultoría en IA?",
+        answer: "Revisamos cómo se trabaja.",
+      },
+    ])
+    const document = JSON.parse(script.children) as {
+      "@type": string
+      mainEntity: Array<{ name: string; acceptedAnswer: { text: string } }>
+    }
+    expect(document["@type"]).toBe("FAQPage")
+    expect(document.mainEntity).toEqual([
+      {
+        "@type": "Question",
+        name: "¿Qué es la consultoría en IA?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Revisamos cómo se trabaja.",
+        },
+      },
     ])
   })
 

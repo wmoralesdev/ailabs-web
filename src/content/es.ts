@@ -7,7 +7,7 @@ export const es: SiteContent = {
   meta: {
     title: "Ai Labs | Consultoría en IA, automatización y formación práctica",
     description:
-      "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Desde El Salvador.",
+      "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador.",
   },
   chrome: {
     nav: {
@@ -143,7 +143,7 @@ export const es: SiteContent = {
       label: "AI LABS · EL SALVADOR",
       headline:
         "Consultoría en IA, automatización de procesos y formación práctica.",
-      body: "Para equipos y profesionales.",
+      body: "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador.",
       primaryCta: { label: "Hablemos", href: "#contact" },
       secondaryCta: { label: "Explorar servicios", href: "#services" },
       spiralWords: [
@@ -167,13 +167,15 @@ export const es: SiteContent = {
     },
     services: {
       label: "Nuestros servicios",
-      title: "Consultoría en IA",
+      title: "¿Qué es la consultoría en IA?",
+      offerName: "Consultoría en IA",
       body: "Revisamos cómo trabajás, identificamos dónde puede ayudar la IA y decidimos por dónde empezar. Después te ayudamos a aprender o implementamos el flujo con vos.",
       items: [
         {
           id: "academy",
           brand: "Academy",
-          title: "Aprendé a aplicar IA en tu trabajo.",
+          title: "¿Cómo aprendés a aplicar IA en tu trabajo?",
+          offerName: "Aprendé a aplicar IA en tu trabajo.",
           body: "Formación práctica para profesionales y equipos, a partir de las tareas que querés mejorar.",
           points: [
             "Practicá con trabajo que conocés.",
@@ -186,7 +188,8 @@ export const es: SiteContent = {
         {
           id: "agentic",
           brand: "Agentic",
-          title: "Hacé que tus procesos funcionen mejor.",
+          title: "¿Cómo hacés que tus procesos funcionen mejor?",
+          offerName: "Hacé que tus procesos funcionen mejor.",
           body: "Diseñamos e implementamos flujos para tu operación, conectando tus herramientas y a las personas que las usan.",
           points: [
             "Reducí pasos repetitivos y conectá información.",
@@ -200,8 +203,8 @@ export const es: SiteContent = {
     },
     method: {
       label: "Cómo trabajamos",
-      title: "Primero, entendamos el trabajo.",
-      body: "En consultoría e implementación, partimos de la necesidad y acordamos un siguiente paso útil. También podés venir directamente a aprender.",
+      title: "¿Por dónde empezamos?",
+      body: "Primero, entendamos el trabajo. En consultoría e implementación, partimos de la necesidad y acordamos un siguiente paso útil. También podés venir directamente a aprender.",
       steps: [
         {
           title: "Entender",
@@ -519,12 +522,12 @@ export const es: SiteContent = {
     },
   },
   community: {
-    metaTitle: "Únete a la comunidad",
+    metaTitle: "Comunidad de WhatsApp",
     metaDescription:
-      "Comunidad de WhatsApp de Ai Labs en El Salvador: eventos, talleres y builders.",
+      "La comunidad de WhatsApp de Ai Labs en El Salvador es el canal del día a día para eventos, talleres y gente construyendo con IA.",
     label: "Comunidad",
-    headline: "Únete a la comunidad de WhatsApp de Ai Labs",
-    body: "El canal del día a día para eventos, talleres y gente construyendo con IA.",
+    headline: "¿Cómo me uno a la comunidad de WhatsApp de Ai Labs?",
+    body: "La comunidad de WhatsApp de Ai Labs en El Salvador es el canal del día a día para eventos, talleres y gente construyendo con IA.",
     joinPrompt: "Unirte es gratis.",
     joinCta: "Unirme en WhatsApp",
     joinHint: "Abre WhatsApp · puede pedir aprobación",
@@ -545,10 +548,10 @@ export const es: SiteContent = {
   campusLeader: {
     metaTitle: "Campus Leader",
     metaDescription:
-      "Aplicá como Ai Labs Campus Leader. Un líder por universidad en campus de El Salvador.",
+      "Un Campus Leader de Ai Labs es un líder por universidad en campus de El Salvador, con reconocimiento oficial y voz en qué talleres llegan al campus.",
     label: "Campus Leader",
-    headline: "Sé el líder de tu universidad",
-    body: "Un líder por universidad, con reconocimiento oficial y voz en qué talleres llegan a tu campus. Mirá cómo funciona y aplicá en tres pasos.",
+    headline: "¿Qué es un Campus Leader?",
+    body: "Un Campus Leader de Ai Labs es un líder por universidad en campus de El Salvador, con reconocimiento oficial y voz en qué talleres llegan al campus.",
     creditsNote:
       "Los líderes aceptados reciben créditos de las herramientas con las que trabajamos. Los montos quedan entre nosotros.",
     cohort: "aster",
@@ -568,7 +571,7 @@ export const es: SiteContent = {
     landing: {
       what: {
         label: "El programa",
-        title: "Qué es",
+        title: "¿Qué es el programa?",
         body: "Ai Labs en el campus: un líder por universidad de El Salvador, elegido por cohorte.",
         items: [
           {
@@ -587,7 +590,7 @@ export const es: SiteContent = {
       },
       role: {
         label: "El cargo",
-        title: "Qué hace un Campus Leader",
+        title: "¿Qué hace un Campus Leader?",
         items: [
           {
             title: "Representás tu universidad",
@@ -605,7 +608,7 @@ export const es: SiteContent = {
       },
       benefits: {
         label: "El intercambio",
-        title: "Qué recibís",
+        title: "¿Qué recibís?",
         items: [
           {
             title: "Reconocimiento oficial",
@@ -627,7 +630,7 @@ export const es: SiteContent = {
       },
       fit: {
         label: "Encaje",
-        title: "Para quién es",
+        title: "¿Para quién es?",
         forTitle: "Sí si",
         forItems: [
           "Estudiás en un campus de El Salvador",
@@ -998,10 +1001,10 @@ export const es: SiteContent = {
     directory: {
       metaTitle: "Miembros de Aperture",
       metaDescription:
-        "Perfiles públicos de builders de Aperture en la comunidad de Ai Labs.",
+        "Los miembros de Aperture son perfiles públicos de builders en la comunidad de Ai Labs. Cada perfil tiene un número permanente.",
       label: "Aperture",
-      headline: "Miembros",
-      body: "Gente construyendo con estas herramientas. Cada perfil tiene un número permanente.",
+      headline: "¿Quiénes son los miembros de Aperture?",
+      body: "Los miembros de Aperture son perfiles públicos de builders en la comunidad de Ai Labs. Cada perfil tiene un número permanente.",
       empty: "Todavía no hay perfiles públicos.",
       joinCta: "Reclamá tu número",
     },

@@ -1,12 +1,26 @@
 import type { Locale } from "@/content"
-import { LOCALES } from "@/content"
 
-export const SITE_URL = "https://ailabs.sv"
+/** Host that returns the public site. Canonical URLs use www. */
+export const SITE_URL = "https://www.ailabs.sv"
 export const SITE_NAME = "Ai Labs"
 export const OG_IMAGE_PATH = "/og-image.png"
 export const OG_IMAGE_URL = `${SITE_URL}${OG_IMAGE_PATH}`
-export const OG_IMAGE_ALT =
-  "Ai Labs: AI consulting, business automation and practical education."
+
+/** Profiles the footer already publishes. */
+export const ORGANIZATION_SAME_AS = [
+  "https://www.linkedin.com/company/ai-labs-sv",
+  "https://x.com/ailabs_sv",
+  "https://www.instagram.com/ailabs_sv/",
+  "https://www.tiktok.com/@ailabs_sv",
+] as const
+
+const OG_IMAGE_ALT_BY_LOCALE: Record<Locale, string> = {
+  en: "Ai Labs: AI consulting, business automation and practical education.",
+  es: "Ai Labs: consultoría en IA, automatización y formación práctica.",
+}
+
+/** Fallback alt for the document shell. Crawlers without a language get Spanish. */
+export const OG_IMAGE_ALT = OG_IMAGE_ALT_BY_LOCALE.es
 
 const OG_LOCALE: Record<Locale, string> = {
   en: "en_US",
@@ -30,7 +44,8 @@ export function localizedPath(_locale: Locale, path = ""): string {
 }
 
 export function absoluteUrl(path = ""): string {
-  return `${SITE_URL}${sitePath(path)}`
+  const normalized = sitePath(path)
+  return normalized ? `${SITE_URL}${normalized}` : `${SITE_URL}/`
 }
 
 type BuildPageMetaInput = {
@@ -73,6 +88,11 @@ export type PageHead = {
   scripts: HeadScript[]
 }
 
+export type FaqItem = {
+  question: string
+  answer: string
+}
+
 export function buildPageMeta({
   locale,
   path = "",
@@ -82,9 +102,8 @@ export function buildPageMeta({
   image,
 }: BuildPageMetaInput): PageHead {
   const url = absoluteUrl(path)
-  const alternateLocale = locale === "en" ? "es" : "en"
   const imageUrl = image?.url ?? OG_IMAGE_URL
-  const imageAlt = image?.alt ?? OG_IMAGE_ALT
+  const imageAlt = image?.alt ?? OG_IMAGE_ALT_BY_LOCALE[locale]
 
   return {
     meta: [
@@ -97,10 +116,6 @@ export function buildPageMeta({
       { property: "og:description", content: description },
       { property: "og:url", content: url },
       { property: "og:locale", content: OG_LOCALE[locale] },
-      {
-        property: "og:locale:alternate",
-        content: OG_LOCALE[alternateLocale],
-      },
       { property: "og:image", content: imageUrl },
       { property: "og:image:alt", content: imageAlt },
       { property: "og:image:width", content: "1200" },
@@ -111,20 +126,26 @@ export function buildPageMeta({
       { name: "twitter:image", content: imageUrl },
       { name: "twitter:image:alt", content: imageAlt },
     ],
-    links: [
-      { rel: "canonical", href: url },
-      ...LOCALES.map((lang) => ({
-        rel: "alternate",
-        href: url,
-        hrefLang: lang,
-      })),
-      {
-        rel: "alternate",
-        href: url,
-        hrefLang: "x-default",
-      },
-    ],
+    links: [{ rel: "canonical", href: url }],
     scripts: [],
+  }
+}
+
+export function buildFaqJsonLd(items: readonly FaqItem[]): HeadScript {
+  return {
+    type: "application/ld+json",
+    children: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: items.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    }),
   }
 }
 
@@ -140,34 +161,37 @@ export function buildHomeJsonLd(input: {
   services: readonly [JsonLdService, JsonLdService, JsonLdService]
 }): HeadScript {
   const url = absoluteUrl()
+  const organizationId = `${url}#organization`
   const graph = [
     {
       "@type": "Organization",
-      "@id": `${SITE_URL}/#organization`,
+      "@id": organizationId,
       name: SITE_NAME,
-      url: SITE_URL,
+      url,
       logo: {
         "@type": "ImageObject",
         url: `${SITE_URL}/brand/ailabs-ico.svg`,
       },
       description: input.description,
+      sameAs: [...ORGANIZATION_SAME_AS],
       areaServed: {
         "@type": "Country",
         name: "El Salvador",
       },
       address: {
         "@type": "PostalAddress",
+        addressLocality: "San Salvador",
         addressCountry: "SV",
       },
     },
     {
       "@type": "WebSite",
-      "@id": `${SITE_URL}/#website`,
-      url: SITE_URL,
+      "@id": `${url}#website`,
+      url,
       name: SITE_NAME,
       description: input.description,
-      publisher: { "@id": `${SITE_URL}/#organization` },
-      inLanguage: LOCALES,
+      publisher: { "@id": organizationId },
+      inLanguage: input.locale,
       potentialAction: {
         "@type": "ReadAction",
         target: url,
@@ -175,12 +199,12 @@ export function buildHomeJsonLd(input: {
     },
     {
       "@type": "WebPage",
-      "@id": `${url === SITE_URL ? `${SITE_URL}/` : url}#webpage`,
+      "@id": `${url}#webpage`,
       url,
       name: input.title,
       description: input.description,
-      isPartOf: { "@id": `${SITE_URL}/#website` },
-      about: { "@id": `${SITE_URL}/#organization` },
+      isPartOf: { "@id": `${url}#website` },
+      about: { "@id": organizationId },
       inLanguage: input.locale,
       primaryImageOfPage: {
         "@type": "ImageObject",
@@ -189,7 +213,7 @@ export function buildHomeJsonLd(input: {
     },
     {
       "@type": "OfferCatalog",
-      "@id": `${SITE_URL}/#offer-catalog`,
+      "@id": `${url}#offer-catalog`,
       name: "Ai Labs services",
       itemListElement: input.services.map((service, index) => ({
         "@type": "Offer",
@@ -198,7 +222,7 @@ export function buildHomeJsonLd(input: {
           "@type": "Service",
           name: service.name,
           description: service.description,
-          provider: { "@id": `${SITE_URL}/#organization` },
+          provider: { "@id": organizationId },
           areaServed: {
             "@type": "Country",
             name: "El Salvador",

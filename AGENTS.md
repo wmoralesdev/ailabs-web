@@ -73,7 +73,8 @@ possibly stale value into this file.
   lab, event microsites); other routes get a top-left lockup sibling. Do not
   embed theme/locale controls in page heroes.
 - Locale is not in the URL. Prefer the `ailabs-locale` cookie, then
-  `Accept-Language`, then `en`. Legacy `/en/*` and `/es/*` permanently
+  `Accept-Language`, then `es` when the header is missing or unrecognized.
+  An explicit English preference still wins. Legacy `/en/*` and `/es/*` permanently
   redirect to the unprefixed path and set the cookie. Language toggle updates
   the cookie and reloads route context.
 - The home page (`/`) follows Hero, Ambassador marquee, Services, Method, and Contact, followed by

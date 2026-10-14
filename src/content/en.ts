@@ -7,7 +7,7 @@ export const en: SiteContent = {
   meta: {
     title: "Ai Labs | AI consulting, automation and practical education",
     description:
-      "AI consulting, business automation and practical education for teams and professionals. Based in El Salvador.",
+      "AI consulting, business automation and practical education for teams and professionals. Crafted in San Salvador, El Salvador.",
   },
   chrome: {
     nav: {
@@ -142,7 +142,7 @@ export const en: SiteContent = {
     hero: {
       label: "AI LABS · EL SALVADOR",
       headline: "AI consulting, business automation and practical education.",
-      body: "For teams and professionals.",
+      body: "AI consulting, business automation and practical education for teams and professionals. Crafted in San Salvador, El Salvador.",
       primaryCta: { label: "Let’s talk", href: "#contact" },
       secondaryCta: { label: "Explore services", href: "#services" },
       spiralWords: [
@@ -166,13 +166,15 @@ export const en: SiteContent = {
     },
     services: {
       label: "Our services",
-      title: "AI consulting",
+      title: "What does AI consulting include?",
+      offerName: "AI consulting",
       body: "We look at how you work, identify where AI can help and decide what to tackle first. From there, we help you learn or build the workflow with you.",
       items: [
         {
           id: "academy",
           brand: "Academy",
-          title: "Learn to apply AI in your work.",
+          title: "How do you learn to apply AI in your work?",
+          offerName: "Learn to apply AI in your work.",
           body: "Practical education for professionals and teams, built around the tasks you want to improve.",
           points: [
             "Practice with work you recognize.",
@@ -185,7 +187,8 @@ export const en: SiteContent = {
         {
           id: "agentic",
           brand: "Agentic",
-          title: "Make your processes work better.",
+          title: "How do you make your processes work better?",
+          offerName: "Make your processes work better.",
           body: "We design and implement workflows around your operation, connecting your tools and the people who use them.",
           points: [
             "Reduce repetitive steps and connect information.",
@@ -199,8 +202,8 @@ export const en: SiteContent = {
     },
     method: {
       label: "How we work",
-      title: "First, understand the work.",
-      body: "For consulting and implementation, we start with the need and agree on a useful next step. You can also come directly to learn.",
+      title: "Where do we start?",
+      body: "First, understand the work. For consulting and implementation, we start with the need and agree on a useful next step. You can also come directly to learn.",
       steps: [
         {
           title: "Understand",
@@ -519,12 +522,12 @@ export const en: SiteContent = {
     },
   },
   community: {
-    metaTitle: "Join the community",
+    metaTitle: "WhatsApp community",
     metaDescription:
-      "Ai Labs WhatsApp community in El Salvador: events, workshops, and builders.",
+      "The Ai Labs WhatsApp community in El Salvador is the day-to-day channel for events, workshops, and people building with AI.",
     label: "Community",
-    headline: "Join the Ai Labs WhatsApp community",
-    body: "The day-to-day channel for events, workshops, and people building with AI.",
+    headline: "How do I join the Ai Labs WhatsApp community?",
+    body: "The Ai Labs WhatsApp community in El Salvador is the day-to-day channel for events, workshops, and people building with AI.",
     joinPrompt: "Free to join.",
     joinCta: "Join on WhatsApp",
     joinHint: "Opens WhatsApp · request may need approval",
@@ -542,10 +545,10 @@ export const en: SiteContent = {
   campusLeader: {
     metaTitle: "Campus Leader",
     metaDescription:
-      "Apply as an Ai Labs Campus Leader. One leader per university on campuses in El Salvador.",
+      "An Ai Labs Campus Leader is one leader per university on campuses in El Salvador, with official recognition and a say in which workshops reach campus.",
     label: "Campus Leader",
-    headline: "Be the leader at your university",
-    body: "One leader per university, with official recognition and a say in which workshops reach your campus. Read how it works, then apply in three steps.",
+    headline: "What is a Campus Leader?",
+    body: "An Ai Labs Campus Leader is one leader per university on campuses in El Salvador, with official recognition and a say in which workshops reach campus.",
     creditsNote:
       "Accepted leaders get credits for the tools we work with. Amounts stay between us.",
     cohort: "aster",
@@ -565,7 +568,7 @@ export const en: SiteContent = {
     landing: {
       what: {
         label: "The program",
-        title: "What it is",
+        title: "What is the program?",
         body: "Ai Labs on campus: one leader per university in El Salvador, chosen by cohort.",
         items: [
           {
@@ -584,7 +587,7 @@ export const en: SiteContent = {
       },
       role: {
         label: "The role",
-        title: "What a Campus Leader does",
+        title: "What does a Campus Leader do?",
         items: [
           {
             title: "You represent your university",
@@ -602,7 +605,7 @@ export const en: SiteContent = {
       },
       benefits: {
         label: "The exchange",
-        title: "What you get",
+        title: "What do you get?",
         items: [
           {
             title: "Official recognition",
@@ -624,7 +627,7 @@ export const en: SiteContent = {
       },
       fit: {
         label: "Fit",
-        title: "Who this is for",
+        title: "Who is this for?",
         forTitle: "Yes if you",
         forItems: [
           "Study at a campus in El Salvador",
@@ -992,10 +995,10 @@ export const en: SiteContent = {
     directory: {
       metaTitle: "Aperture members",
       metaDescription:
-        "Public Aperture builder profiles from the Ai Labs community.",
+        "Aperture members are public builder profiles from the Ai Labs community. Each profile has a permanent number.",
       label: "Aperture",
-      headline: "Members",
-      body: "People building with these tools. Each profile has a permanent number.",
+      headline: "Who are the Aperture members?",
+      body: "Aperture members are public builder profiles from the Ai Labs community. Each profile has a permanent number.",
       empty: "No public profiles yet.",
       joinCta: "Claim your number",
     },

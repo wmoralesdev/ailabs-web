@@ -149,7 +149,7 @@ const es: ModoFundadorContent = {
     "Taller presencial 4h para fundadores y dueños. Dirige tu empresa y tu equipo con Claude. San Salvador · 15 ago 2026 · USD 50.",
   eyebrow: ["Taller en vivo", "con Claude"],
   title: ["Modo", "Fundador"],
-  deck: "Dirige tu empresa y tu equipo con Claude, conectado a lo que ya usas.",
+  deck: "Taller presencial de 4 horas en San Salvador para fundadores y dueños. Dirige tu empresa y tu equipo con Claude, conectado a lo que ya usas.",
   sellLead:
     "Taller presencial 4h para fundadores y dueños. Prompting, modos, co-work, MCPs y skills para operar el día a día. Cupo ~20.",
   tagsLabel: "Lo que cubrimos",
@@ -177,13 +177,13 @@ const es: ModoFundadorContent = {
     { label: "Formato", value: "Presencial", icon: "format" },
     { label: "Cupo", value: "20 lugares", icon: "seats" },
   ],
-  promiseTitle: "La promesa",
+  promiseTitle: "¿Qué promete el taller?",
   promise:
     "Sales con un sistema para usar Claude en decisiones, planificación, seguimiento y administración diaria.",
   programFrame:
     "Primer taller del programa Claude para emprendedores. Validamos demanda con trabajo real.",
   proof: {
-    title: "Cómo lo hacemos",
+    title: "¿Cómo es la sala?",
     points: [
       {
         label: "Sala pequeña",
@@ -202,18 +202,18 @@ const es: ModoFundadorContent = {
       },
     ],
   },
-  forWhomTitle: "Para quién",
+  forWhomTitle: "¿Para quién es?",
   forWhom: [
     "Fundadores y dueños que deciden ventas, marketing, ops o finanzas",
     "Emprendedores que quieren operar con Claude sin volverse técnicos",
     "Quienes ya probaron IA y necesitan un sistema para el día a día",
   ],
-  notForWhomTitle: "No es para",
+  notForWhomTitle: "¿Para quién no es?",
   notForWhom: [
     "Campañas de marketing o sales playbooks a profundidad",
     "Automatización técnica avanzada (hay otros talleres del programa)",
   ],
-  deliverablesTitle: "Qué te llevas",
+  deliverablesTitle: "¿Qué te llevas?",
   deliverables: [
     {
       title: "Perfil de contexto de tu empresa",
@@ -236,7 +236,7 @@ const es: ModoFundadorContent = {
       icon: "meetings",
     },
   ],
-  requirementsTitle: "Qué traer",
+  requirementsTitle: "¿Qué hay que traer?",
   requirements: [
     {
       label: "Laptop cargada",
@@ -259,7 +259,7 @@ const es: ModoFundadorContent = {
       icon: "level",
     },
   ],
-  agendaTitle: "El día",
+  agendaTitle: "¿Cómo es el día?",
   agendaNote:
     "Cuatro horas con dos breaks. Los bloques largos son de práctica, no de presentación.",
   agendaOutputLabel: "Te llevas",
@@ -378,7 +378,7 @@ const en: ModoFundadorContent = {
     "4-hour in-person workshop for founders and owners. Run your company and team with Claude. San Salvador · Aug 15, 2026 · USD 50.",
   eyebrow: ["Live workshop", "with Claude"],
   title: ["Modo", "Fundador"],
-  deck: "Run your company and team with Claude, connected to what you already use.",
+  deck: "A 4-hour in-person workshop in San Salvador for founders and owners. Run your company and team with Claude, connected to what you already use.",
   sellLead:
     "4-hour in-person workshop for founders and owners. Prompting, modes, co-work, MCPs, and skills for running the day to day. About 20 seats.",
   tagsLabel: "What we cover",
@@ -406,13 +406,13 @@ const en: ModoFundadorContent = {
     { label: "Format", value: "In person", icon: "format" },
     { label: "Seats", value: "20 seats", icon: "seats" },
   ],
-  promiseTitle: "The promise",
+  promiseTitle: "What does the workshop promise?",
   promise:
     "You leave with a system to use Claude for decisions, planning, follow-up, and day-to-day ops.",
   programFrame:
     "First workshop in the Claude-for-founders program. We validate demand with real work.",
   proof: {
-    title: "How we run it",
+    title: "What is the room like?",
     points: [
       {
         label: "Small room",
@@ -431,18 +431,18 @@ const en: ModoFundadorContent = {
       },
     ],
   },
-  forWhomTitle: "Who it's for",
+  forWhomTitle: "Who is it for?",
   forWhom: [
     "Founders and owners who decide sales, marketing, ops, or finance",
     "Builders who want to operate with Claude without going deep-technical",
     "People who tried AI and need a system for the workweek",
   ],
-  notForWhomTitle: "Not for",
+  notForWhomTitle: "Who is it not for?",
   notForWhom: [
     "Deep marketing campaigns or sales playbooks",
     "Advanced technical automation (other workshops in the program)",
   ],
-  deliverablesTitle: "What you leave with",
+  deliverablesTitle: "What do you leave with?",
   deliverables: [
     {
       title: "Company context profile",
@@ -465,7 +465,7 @@ const en: ModoFundadorContent = {
       icon: "meetings",
     },
   ],
-  requirementsTitle: "Bring",
+  requirementsTitle: "What should you bring?",
   requirements: [
     {
       label: "Charged laptop",
@@ -488,7 +488,7 @@ const en: ModoFundadorContent = {
       icon: "level",
     },
   ],
-  agendaTitle: "The day",
+  agendaTitle: "What does the day look like?",
   agendaNote:
     "Four hours with two breaks. The long blocks are hands-on, not slides.",
   agendaOutputLabel: "You leave with",

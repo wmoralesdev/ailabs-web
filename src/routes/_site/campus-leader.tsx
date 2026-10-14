@@ -13,6 +13,7 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import type { CampusLeaderContent } from "@/content/types"
+import { buildFaqJsonLd, buildPageMeta, SITE_NAME } from "@/lib/seo"
 import { cn } from "@/lib/utils"
 
 export const Route = createFileRoute("/_site/campus-leader")({
@@ -21,12 +22,49 @@ export const Route = createFileRoute("/_site/campus-leader")({
     if (!loaderData) {
       return {}
     }
-    const { meta, campusLeader } = loaderData.content
+    const { locale, content } = loaderData
+    const { campusLeader } = content
+    const page = buildPageMeta({
+      locale,
+      path: "/campus-leader",
+      title: `${campusLeader.metaTitle} | ${SITE_NAME}`,
+      description: campusLeader.metaDescription,
+    })
+    const { landing } = campusLeader
 
     return {
-      meta: [
-        { title: `${campusLeader.metaTitle} | ${meta.title}` },
-        { name: "description", content: campusLeader.metaDescription },
+      ...page,
+      scripts: [
+        buildFaqJsonLd([
+          { question: campusLeader.headline, answer: campusLeader.body },
+          {
+            question: landing.what.title,
+            answer: [
+              landing.what.body,
+              ...landing.what.items.map(
+                (item) => `${item.title}. ${item.body}`
+              ),
+            ]
+              .filter(Boolean)
+              .join(" "),
+          },
+          {
+            question: landing.role.title,
+            answer: landing.role.items
+              .map((item) => `${item.title}. ${item.body}`)
+              .join(" "),
+          },
+          {
+            question: landing.benefits.title,
+            answer: landing.benefits.items
+              .map((item) => `${item.title}. ${item.body}`)
+              .join(" "),
+          },
+          {
+            question: landing.fit.title,
+            answer: `${landing.fit.forTitle}: ${landing.fit.forItems.join(". ")}. ${landing.fit.notTitle}: ${landing.fit.notItems.join(". ")}.`,
+          },
+        ]),
       ],
     }
   },

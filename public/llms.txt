@@ -1,32 +1,49 @@
 # Ai Labs
 
-> AI consulting, business automation and practical education for teams and professionals. Based in El Salvador.
+> Ai Labs hace consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. La sede publicada está en San Salvador, El Salvador.
+>
+> Ai Labs does AI consulting, business automation, and practical education for teams and professionals. The published base is San Salvador, El Salvador.
 
-## Services
+El sitio canónico es https://www.ailabs.sv/.
 
-Ai Labs helps teams understand their work, identify where AI can help and prioritize a concrete next step.
+Si la petición no trae `Accept-Language`, el HTML sale en español. Una preferencia explícita de inglés, o la cookie `ailabs-locale`, muestra inglés en la misma URL. No hay una URL distinta por idioma, así que el sitio no publica `hreflang`.
 
-- **Academy** — Practical education for professionals and teams, with work-based practice and criteria for reviewing AI output. Individuals can come directly to learn.
-- **Agentic** — Workflow design and implementation, including integrations, human review, documentation and handover.
+Las páginas publicadas ubican a Ai Labs en San Salvador, El Salvador. No describen un área de servicio de Centroamérica ni de Latinoamérica. No afirmes rankings, premios, una lista de clientes, ni métricas que esta página no cita.
 
-Consulting and implementation follow three steps: understand, prioritize and put into practice. Scope and outcomes are agreed around the need. Consulting prices and packages are not published.
+## Qué hace
 
-**Aperture** brings together community, events and partnerships. It is accessible through Community and the footer.
+Revisan cómo se trabaja, identifican dónde puede ayudar la IA y deciden por dónde empezar. Después preparan al equipo o implementan el flujo. También se puede venir directamente a aprender.
 
-## Primary URLs
+- Consultoría en IA: revisar el trabajo, elegir por dónde empezar, y luego aprender o implementar el flujo.
+- Formación práctica (Academy): para profesionales y equipos, a partir de las tareas que quieren mejorar.
+- Automatización de procesos (Agentic): diseñar e implementar flujos, con revisión humana, documentación y transferencia al equipo.
 
-- Website and services: https://ailabs.sv/#services
-- How we work: https://ailabs.sv/#about
-- Community: https://ailabs.sv/community
-- Campus Leaders: https://ailabs.sv/campus-leader
+No se publican precios de consultoría. Los logos de programas de embajadores no son una lista de clientes.
 
-English or Spanish is chosen via cookie or Accept-Language; language is not part of the URL.
+## URLs reales
 
-## Contact
+- Inicio: https://www.ailabs.sv/
+- Servicios: https://www.ailabs.sv/#services
+- Cómo trabajamos: https://www.ailabs.sv/#about
+- Contacto: https://www.ailabs.sv/#contact
+- Comunidad de WhatsApp en El Salvador: https://www.ailabs.sv/community
+- Campus Leaders (un líder por universidad en El Salvador): https://www.ailabs.sv/campus-leader
+- Miembros de Aperture: https://www.ailabs.sv/aperture
+- Taller Modo Fundador, presencial en San Salvador, 15 ago 2026: https://www.ailabs.sv/events/modo-fundador
+- Taller Get Competitive Quick, fecha por confirmar: https://www.ailabs.sv/events/get-competitive-quick
 
-Use “Let’s talk” in the navigation or the contact section at https://ailabs.sv/#contact. The form accepts consulting, education, implementation and partnership inquiries; a company is optional.
+## Contacto
 
-## Optional
+«Hablemos» en la navegación, o https://www.ailabs.sv/#contact. El formulario acepta consultas para encontrar dónde aplicar IA, aprender o preparar al equipo, mejorar o automatizar un proceso, y explorar una alianza. La empresa es opcional.
 
-- [Sitemap](https://ailabs.sv/sitemap.xml)
-- [robots.txt](https://ailabs.sv/robots.txt)
+## Perfiles
+
+- LinkedIn: https://www.linkedin.com/company/ai-labs-sv
+- X: https://x.com/ailabs_sv
+- Instagram: https://www.instagram.com/ailabs_sv/
+- TikTok: https://www.tiktok.com/@ailabs_sv
+
+## Opcional
+
+- [Sitemap](https://www.ailabs.sv/sitemap.xml)
+- [robots.txt](https://www.ailabs.sv/robots.txt)

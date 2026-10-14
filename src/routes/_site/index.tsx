@@ -5,7 +5,7 @@ import { HomeHero } from "@/components/home/home-hero"
 import { HomeMethod } from "@/components/home/home-method"
 import { HomeServices } from "@/components/home/home-services"
 import { HomeTrust } from "@/components/home/home-trust"
-import { buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
+import { buildFaqJsonLd, buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
 
 export const Route = createFileRoute("/_site/")({
   loader: ({ context }) => context,
@@ -31,19 +31,32 @@ export const Route = createFileRoute("/_site/")({
           description: meta.description,
           services: [
             {
-              name: home.services.title,
+              name: home.services.offerName,
               description: home.services.body,
             },
             {
-              name: home.services.items[0].title,
+              name: home.services.items[0].offerName,
               description: home.services.items[0].body,
             },
             {
-              name: home.services.items[1].title,
+              name: home.services.items[1].offerName,
               description: home.services.items[1].body,
             },
           ],
         }),
+        buildFaqJsonLd([
+          { question: home.services.title, answer: home.services.body },
+          {
+            question: home.services.items[0].title,
+            answer: home.services.items[0].body,
+          },
+          {
+            question: home.services.items[1].title,
+            answer: home.services.items[1].body,
+          },
+          { question: home.method.title, answer: home.method.body },
+          { question: home.contact.title, answer: home.contact.lead },
+        ]),
       ],
     }
   },
