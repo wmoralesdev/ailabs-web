@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   SearchFocusIcon,
@@ -47,6 +48,12 @@ function HomeMethod({ method, locale }: HomeMethodProps) {
             <p className="max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
               {method.body}
             </p>
+            <Link
+              to="/eventos"
+              className="inline-flex min-h-11 w-fit items-center text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+            >
+              {method.eventsLink.label}
+            </Link>
           </div>
 
           <ol className="flex flex-col divide-y divide-border border-t border-border">

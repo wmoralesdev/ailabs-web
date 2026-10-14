@@ -1,5 +1,6 @@
 import { homeCarousel } from "./home-carousel"
 import { legalEs } from "./legal-es"
+import { pagesEs } from "./pages-es"
 import type { SiteContent } from "./types"
 
 export const es: SiteContent = {
@@ -63,16 +64,16 @@ export const es: SiteContent = {
           title: "Servicios",
           links: [
             {
-              label: "Consultoría en IA",
-              href: "#services",
+              label: "Consultoría de IA en El Salvador",
+              href: "/consultoria-de-ia",
             },
             {
-              label: "Formación práctica",
-              href: "#academy",
+              label: "Capacitación para equipos",
+              href: "/capacitacion-ia",
             },
             {
               label: "Automatización de procesos",
-              href: "#agentic",
+              href: "/automatizacion-con-ia",
             },
             {
               label: "Cómo trabajamos",
@@ -101,6 +102,14 @@ export const es: SiteContent = {
         {
           title: "Ai Labs",
           links: [
+            {
+              label: "Eventos en San Salvador",
+              href: "/eventos",
+            },
+            {
+              label: "Enlaces oficiales",
+              href: "/enlaces",
+            },
             {
               label: "Hablemos",
               href: "#contact",
@@ -169,6 +178,7 @@ export const es: SiteContent = {
       label: "Nuestros servicios",
       title: "Consultoría en IA",
       body: "Revisamos cómo trabajás, identificamos dónde puede ayudar la IA y decidimos por dónde empezar. Después te ayudamos a aprender o implementamos el flujo con vos.",
+      pageLabel: "Consultoría de IA en El Salvador",
       items: [
         {
           id: "academy",
@@ -181,6 +191,7 @@ export const es: SiteContent = {
             "Desarrollá criterio para aplicarla por tu cuenta.",
           ],
           cta: "Quiero aprender",
+          pageLabel: "Capacitación para equipos",
           interest: "enablement",
         },
         {
@@ -194,6 +205,7 @@ export const es: SiteContent = {
             "Recibí documentación y transferencia al equipo.",
           ],
           cta: "Quiero mejorar un proceso",
+          pageLabel: "Automatización de procesos",
           interest: "implementation",
         },
       ],
@@ -216,6 +228,10 @@ export const es: SiteContent = {
           body: "Preparamos al equipo o implementamos el flujo, con la revisión y documentación que necesita.",
         },
       ],
+      eventsLink: {
+        label: "Eventos en San Salvador",
+        href: "/eventos",
+      },
     },
     trust: {
       label: "Somos parte de programas de embajadores",
@@ -448,6 +464,7 @@ export const es: SiteContent = {
       invalid: "Revisá los datos e intentá de nuevo.",
     },
   },
+  pages: pagesEs,
   redeem: {
     metaTitle: "Canjear créditos",
     eventLabel: "Evento",

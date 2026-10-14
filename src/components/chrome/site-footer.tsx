@@ -162,7 +162,7 @@ function SiteFooter({ locale, footer, legalPublished }: SiteFooterProps) {
               {footer.brandLine}
             </p>
             {footer.socials.length > 0 ? (
-              <ul className="flex flex-wrap items-center gap-2.5">
+              <ul id="redes" className="flex flex-wrap items-center gap-2.5">
                 {footer.socials.map((social) => (
                   <li key={social.href}>
                     <SocialLink social={social} />

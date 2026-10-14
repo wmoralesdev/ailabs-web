@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
@@ -39,9 +40,17 @@ function HomeServices({ services, locale }: HomeServicesProps) {
               {services.title}
             </h2>
           </div>
-          <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            {services.body}
-          </p>
+          <div className="flex max-w-xl flex-col items-start gap-2">
+            <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+              {services.body}
+            </p>
+            <Link
+              to="/consultoria-de-ia"
+              className="inline-flex min-h-11 items-center text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+            >
+              {services.pageLabel}
+            </Link>
+          </div>
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-5 lg:mt-12 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-0">
@@ -92,6 +101,16 @@ function HomeServices({ services, locale }: HomeServicesProps) {
                   {service.cta}
                   <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
                 </Button>
+                <Link
+                  to={
+                    service.id === "academy"
+                      ? "/capacitacion-ia"
+                      : "/automatizacion-con-ia"
+                  }
+                  className="mt-3 inline-flex min-h-11 items-center text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+                >
+                  {service.pageLabel}
+                </Link>
               </div>
             </article>
           ))}

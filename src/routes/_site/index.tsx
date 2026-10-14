@@ -14,7 +14,7 @@ export const Route = createFileRoute("/_site/")({
       return {}
     }
     const { locale, content } = loaderData
-    const { meta, home } = content
+    const { meta } = content
     const page = buildPageMeta({
       locale,
       title: meta.title,
@@ -31,16 +31,19 @@ export const Route = createFileRoute("/_site/")({
           description: meta.description,
           services: [
             {
-              name: home.services.title,
-              description: home.services.body,
+              name: content.pages.consulting.schemaName,
+              description: content.pages.consulting.lead,
+              path: content.pages.consulting.path,
             },
             {
-              name: home.services.items[0].title,
-              description: home.services.items[0].body,
+              name: content.pages.training.schemaName,
+              description: content.pages.training.lead,
+              path: content.pages.training.path,
             },
             {
-              name: home.services.items[1].title,
-              description: home.services.items[1].body,
+              name: content.pages.automation.schemaName,
+              description: content.pages.automation.lead,
+              path: content.pages.automation.path,
             },
           ],
         }),

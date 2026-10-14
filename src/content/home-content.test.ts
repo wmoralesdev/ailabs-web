@@ -19,9 +19,11 @@ describe("public home content", () => {
           .map(({ href }) => href)
       ).toEqual(
         expect.arrayContaining([
-          "#services",
-          "#academy",
-          "#agentic",
+          "/consultoria-de-ia",
+          "/capacitacion-ia",
+          "/automatizacion-con-ia",
+          "/eventos",
+          "/enlaces",
           "#about",
           "#contact",
           "/community",

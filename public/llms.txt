@@ -1,32 +1,41 @@
 # Ai Labs
 
-> AI consulting, business automation and practical education for teams and professionals. Based in El Salvador.
+> Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Desde San Salvador, El Salvador.
+>
+> AI consulting, process automation, and practical training for teams and professionals. From San Salvador, El Salvador.
 
-## Services
+El sitio canónico es https://www.ailabs.sv/. https://ailabs.sv redirige ahí.
 
-Ai Labs helps teams understand their work, identify where AI can help and prioritize a concrete next step.
+Si la petición no trae `Accept-Language`, el HTML sale en español. Una preferencia explícita de inglés, o la cookie `ailabs-locale`, muestra el inglés en la misma URL. Todavía no hay una URL distinta por idioma, así que el sitio no publica `hreflang`.
 
-- **Academy** — Practical education for professionals and teams, with work-based practice and criteria for reviewing AI output. Individuals can come directly to learn.
-- **Agentic** — Workflow design and implementation, including integrations, human review, documentation and handover.
+## Páginas
 
-Consulting and implementation follow three steps: understand, prioritize and put into practice. Scope and outcomes are agreed around the need. Consulting prices and packages are not published.
+- Inicio: https://www.ailabs.sv/
+- Consultoría de IA en El Salvador: https://www.ailabs.sv/consultoria-de-ia
+- Capacitación en inteligencia artificial para equipos: https://www.ailabs.sv/capacitacion-ia
+- Automatización de procesos con inteligencia artificial: https://www.ailabs.sv/automatizacion-con-ia
+- Eventos en San Salvador: https://www.ailabs.sv/eventos
+- Enlaces oficiales: https://www.ailabs.sv/enlaces
+- Comunidad: https://www.ailabs.sv/community
+- Campus Leaders: https://www.ailabs.sv/campus-leader
+- DevDay (subdominio): https://devday.ailabs.sv/
 
-**Aperture** brings together community, events and partnerships. It is accessible through Community and the footer.
+La consultoría, la capacitación y la automatización se acuerdan desde San Salvador. El área publicada es El Salvador. Guatemala aparece solo en eventos que ya ocurrieron ahí, en la página de eventos.
 
-## Primary URLs
+No se publican precios de consultoría. No hay lista de clientes ni métricas de asistencia en esas páginas.
 
-- Website and services: https://ailabs.sv/#services
-- How we work: https://ailabs.sv/#about
-- Community: https://ailabs.sv/community
-- Campus Leaders: https://ailabs.sv/campus-leader
+## Contacto
 
-English or Spanish is chosen via cookie or Accept-Language; language is not part of the URL.
+«Hablemos» en la navegación, o la sección de contacto en https://www.ailabs.sv/#contact.
 
-## Contact
+## Perfiles
 
-Use “Let’s talk” in the navigation or the contact section at https://ailabs.sv/#contact. The form accepts consulting, education, implementation and partnership inquiries; a company is optional.
+- LinkedIn: https://www.linkedin.com/company/ai-labs-sv
+- X: https://x.com/ailabs_sv
+- Instagram: https://www.instagram.com/ailabs_sv/
+- TikTok: https://www.tiktok.com/@ailabs_sv
 
-## Optional
+## Opcional
 
-- [Sitemap](https://ailabs.sv/sitemap.xml)
-- [robots.txt](https://ailabs.sv/robots.txt)
+- [Sitemap](https://www.ailabs.sv/sitemap.xml)
+- [robots.txt](https://www.ailabs.sv/robots.txt)

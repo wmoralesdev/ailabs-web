@@ -73,9 +73,10 @@ possibly stale value into this file.
   lab, event microsites); other routes get a top-left lockup sibling. Do not
   embed theme/locale controls in page heroes.
 - Locale is not in the URL. Prefer the `ailabs-locale` cookie, then
-  `Accept-Language`, then `en`. Legacy `/en/*` and `/es/*` permanently
-  redirect to the unprefixed path and set the cookie. Language toggle updates
-  the cookie and reloads route context.
+  `Accept-Language`, then `es`. A request with no language header is Spanish.
+  Legacy `/en/*` and `/es/*` permanently redirect to the unprefixed path and
+  set the cookie. Language toggle updates the cookie and reloads route context.
+  Do not emit `hreflang` while English and Spanish share one URL.
 - The home page (`/`) follows Hero, Ambassador marquee, Services, Method, and Contact, followed by
   the shared footer. Services combines Academy and Agentic; community is
   accessible through chrome. The seven existing ambassador-program logos return
@@ -89,8 +90,11 @@ possibly stale value into this file.
   primary button and secondary text link with an arrow, followed by the logos.
   The spiral is unmounted on mobile, not replaced with another decoration.
   `/lab` and campaign heroes keep their existing spiral layouts.
-- Academy / Agentic / Aperture standalone marketing routes are not shipped
-  pages.
+- Indexable offer pages are `/consultoria-de-ia`, `/capacitacion-ia`, and
+  `/automatizacion-con-ia`. `/eventos` lists gatherings already published on
+  the site. `/enlaces` lists the official profiles. Academy and Agentic stay
+  line names; `/academy` and `/agentic` are not routes. Do not add attendance
+  figures, clients, or countries that are not already in the published copy.
 - `/redeem` is an authenticated credit-redemption flow backed by Clerk,
   TanStack server functions, Prisma, and PostgreSQL/Neon.
 - `/aperture/join` is the authenticated Aperture claim flow. Join stays

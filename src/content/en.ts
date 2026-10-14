@@ -1,5 +1,6 @@
 import { homeCarousel } from "./home-carousel"
 import { legalEn } from "./legal-en"
+import { pagesEn } from "./pages-en"
 import type { SiteContent } from "./types"
 
 export const en: SiteContent = {
@@ -63,16 +64,16 @@ export const en: SiteContent = {
           title: "Services",
           links: [
             {
-              label: "AI consulting",
-              href: "#services",
+              label: "AI consulting in El Salvador",
+              href: "/consultoria-de-ia",
             },
             {
-              label: "Practical education",
-              href: "#academy",
+              label: "AI training for teams",
+              href: "/capacitacion-ia",
             },
             {
-              label: "Business automation",
-              href: "#agentic",
+              label: "Process automation",
+              href: "/automatizacion-con-ia",
             },
             {
               label: "How we work",
@@ -101,6 +102,14 @@ export const en: SiteContent = {
         {
           title: "Ai Labs",
           links: [
+            {
+              label: "Events in San Salvador",
+              href: "/eventos",
+            },
+            {
+              label: "Official links",
+              href: "/enlaces",
+            },
             {
               label: "Let’s talk",
               href: "#contact",
@@ -168,6 +177,7 @@ export const en: SiteContent = {
       label: "Our services",
       title: "AI consulting",
       body: "We look at how you work, identify where AI can help and decide what to tackle first. From there, we help you learn or build the workflow with you.",
+      pageLabel: "AI consulting in El Salvador",
       items: [
         {
           id: "academy",
@@ -180,6 +190,7 @@ export const en: SiteContent = {
             "Build skills you can use on your own.",
           ],
           cta: "I want to learn",
+          pageLabel: "AI training for teams",
           interest: "enablement",
         },
         {
@@ -193,6 +204,7 @@ export const en: SiteContent = {
             "Receive documentation and a handover to your team.",
           ],
           cta: "Improve a process",
+          pageLabel: "Process automation",
           interest: "implementation",
         },
       ],
@@ -215,6 +227,10 @@ export const en: SiteContent = {
           body: "We prepare the team or implement the workflow, with the review and documentation it needs.",
         },
       ],
+      eventsLink: {
+        label: "Events in San Salvador",
+        href: "/eventos",
+      },
     },
     trust: {
       label: "Part of ambassador programs",
@@ -447,6 +463,7 @@ export const en: SiteContent = {
       invalid: "Check your details and try again.",
     },
   },
+  pages: pagesEn,
   redeem: {
     metaTitle: "Redeem credits",
     eventLabel: "Event",

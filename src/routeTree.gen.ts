@@ -15,17 +15,28 @@ import { Route as BgRouteImport } from './routes/bg'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as LocaleSplatRouteImport } from './routes/$locale/$'
 import { Route as SiteIndexRouteImport } from './routes/_site/index'
+import { Route as SiteAutomatizacionConIaRouteImport } from './routes/_site/automatizacion-con-ia'
+import { Route as SiteBlogRouteImport } from './routes/_site/blog'
 import { Route as SiteCampusLeaderRouteImport } from './routes/_site/campus-leader'
+import { Route as SiteCapacitacionIaRouteImport } from './routes/_site/capacitacion-ia'
 import { Route as SiteCommunityRouteImport } from './routes/_site/community'
+import { Route as SiteConsultoriaDeIaRouteImport } from './routes/_site/consultoria-de-ia'
+import { Route as SiteEnlacesRouteImport } from './routes/_site/enlaces'
+import { Route as SiteEventosRouteImport } from './routes/_site/eventos'
 import { Route as SiteLabRouteImport } from './routes/_site/lab'
+import { Route as SiteLinksRouteImport } from './routes/_site/links'
 import { Route as SiteMeRouteImport } from './routes/_site/me'
+import { Route as SitePartnersRouteImport } from './routes/_site/partners'
 import { Route as SitePrivacyRouteImport } from './routes/_site/privacy'
 import { Route as SiteRedeemRouteImport } from './routes/_site/redeem'
+import { Route as SiteShowcaseRouteImport } from './routes/_site/showcase'
 import { Route as SiteTermsRouteImport } from './routes/_site/terms'
+import { Route as SiteWorkWithUsRouteImport } from './routes/_site/work-with-us'
 import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
 import { Route as SignUpSplatRouteImport } from './routes/sign-up.$'
 import { Route as SiteApertureIndexRouteImport } from './routes/_site/aperture/index'
 import { Route as SiteApertureJoinRouteImport } from './routes/_site/aperture/join'
+import { Route as SiteEventsIndexRouteImport } from './routes/_site/events/index'
 import { Route as SiteEventsSlugRouteImport } from './routes/_site/events/$slug'
 import { Route as SiteUUsernameRouteImport } from './routes/_site/u/$username'
 import { Route as ApiWebhooksClerkRouteImport } from './routes/api/webhooks/clerk'
@@ -63,9 +74,24 @@ const SiteIndexRoute = SiteIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteAutomatizacionConIaRoute = SiteAutomatizacionConIaRouteImport.update({
+  id: '/automatizacion-con-ia',
+  path: '/automatizacion-con-ia',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteBlogRoute = SiteBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteCampusLeaderRoute = SiteCampusLeaderRouteImport.update({
   id: '/campus-leader',
   path: '/campus-leader',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteCapacitacionIaRoute = SiteCapacitacionIaRouteImport.update({
+  id: '/capacitacion-ia',
+  path: '/capacitacion-ia',
   getParentRoute: () => SiteRoute,
 } as any)
 const SiteCommunityRoute = SiteCommunityRouteImport.update({
@@ -73,14 +99,39 @@ const SiteCommunityRoute = SiteCommunityRouteImport.update({
   path: '/community',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteConsultoriaDeIaRoute = SiteConsultoriaDeIaRouteImport.update({
+  id: '/consultoria-de-ia',
+  path: '/consultoria-de-ia',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteEnlacesRoute = SiteEnlacesRouteImport.update({
+  id: '/enlaces',
+  path: '/enlaces',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteEventosRoute = SiteEventosRouteImport.update({
+  id: '/eventos',
+  path: '/eventos',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteLabRoute = SiteLabRouteImport.update({
   id: '/lab',
   path: '/lab',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteLinksRoute = SiteLinksRouteImport.update({
+  id: '/links',
+  path: '/links',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteMeRoute = SiteMeRouteImport.update({
   id: '/me',
   path: '/me',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SitePartnersRoute = SitePartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
   getParentRoute: () => SiteRoute,
 } as any)
 const SitePrivacyRoute = SitePrivacyRouteImport.update({
@@ -93,9 +144,19 @@ const SiteRedeemRoute = SiteRedeemRouteImport.update({
   path: '/redeem',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteShowcaseRoute = SiteShowcaseRouteImport.update({
+  id: '/showcase',
+  path: '/showcase',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteTermsRoute = SiteTermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteWorkWithUsRoute = SiteWorkWithUsRouteImport.update({
+  id: '/work-with-us',
+  path: '/work-with-us',
   getParentRoute: () => SiteRoute,
 } as any)
 const SignInSplatRoute = SignInSplatRouteImport.update({
@@ -116,6 +177,11 @@ const SiteApertureIndexRoute = SiteApertureIndexRouteImport.update({
 const SiteApertureJoinRoute = SiteApertureJoinRouteImport.update({
   id: '/aperture/join',
   path: '/aperture/join',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteEventsIndexRoute = SiteEventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
   getParentRoute: () => SiteRoute,
 } as any)
 const SiteEventsSlugRoute = SiteEventsSlugRouteImport.update({
@@ -159,13 +225,23 @@ export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/bg': typeof BgRoute
   '/$locale/$': typeof LocaleSplatRoute
+  '/automatizacion-con-ia': typeof SiteAutomatizacionConIaRoute
+  '/blog': typeof SiteBlogRoute
   '/campus-leader': typeof SiteCampusLeaderRoute
+  '/capacitacion-ia': typeof SiteCapacitacionIaRoute
   '/community': typeof SiteCommunityRoute
+  '/consultoria-de-ia': typeof SiteConsultoriaDeIaRoute
+  '/enlaces': typeof SiteEnlacesRoute
+  '/eventos': typeof SiteEventosRoute
   '/lab': typeof SiteLabRoute
+  '/links': typeof SiteLinksRoute
   '/me': typeof SiteMeRoute
+  '/partners': typeof SitePartnersRoute
   '/privacy': typeof SitePrivacyRoute
   '/redeem': typeof SiteRedeemRoute
+  '/showcase': typeof SiteShowcaseRoute
   '/terms': typeof SiteTermsRoute
+  '/work-with-us': typeof SiteWorkWithUsRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
@@ -175,6 +251,7 @@ export interface FileRoutesByFullPath {
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/aperture/': typeof SiteApertureIndexRoute
+  '/events/': typeof SiteEventsIndexRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/events/$slug/': typeof SiteEventsSlugIndexRoute
@@ -182,13 +259,23 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/bg': typeof BgRoute
   '/$locale/$': typeof LocaleSplatRoute
+  '/automatizacion-con-ia': typeof SiteAutomatizacionConIaRoute
+  '/blog': typeof SiteBlogRoute
   '/campus-leader': typeof SiteCampusLeaderRoute
+  '/capacitacion-ia': typeof SiteCapacitacionIaRoute
   '/community': typeof SiteCommunityRoute
+  '/consultoria-de-ia': typeof SiteConsultoriaDeIaRoute
+  '/enlaces': typeof SiteEnlacesRoute
+  '/eventos': typeof SiteEventosRoute
   '/lab': typeof SiteLabRoute
+  '/links': typeof SiteLinksRoute
   '/me': typeof SiteMeRoute
+  '/partners': typeof SitePartnersRoute
   '/privacy': typeof SitePrivacyRoute
   '/redeem': typeof SiteRedeemRoute
+  '/showcase': typeof SiteShowcaseRoute
   '/terms': typeof SiteTermsRoute
+  '/work-with-us': typeof SiteWorkWithUsRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale': typeof LocaleIndexRoute
@@ -198,6 +285,7 @@ export interface FileRoutesByTo {
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/aperture': typeof SiteApertureIndexRoute
+  '/events': typeof SiteEventsIndexRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/events/$slug': typeof SiteEventsSlugIndexRoute
@@ -208,13 +296,23 @@ export interface FileRoutesById {
   '/_site': typeof SiteRouteWithChildren
   '/bg': typeof BgRoute
   '/$locale/$': typeof LocaleSplatRoute
+  '/_site/automatizacion-con-ia': typeof SiteAutomatizacionConIaRoute
+  '/_site/blog': typeof SiteBlogRoute
   '/_site/campus-leader': typeof SiteCampusLeaderRoute
+  '/_site/capacitacion-ia': typeof SiteCapacitacionIaRoute
   '/_site/community': typeof SiteCommunityRoute
+  '/_site/consultoria-de-ia': typeof SiteConsultoriaDeIaRoute
+  '/_site/enlaces': typeof SiteEnlacesRoute
+  '/_site/eventos': typeof SiteEventosRoute
   '/_site/lab': typeof SiteLabRoute
+  '/_site/links': typeof SiteLinksRoute
   '/_site/me': typeof SiteMeRoute
+  '/_site/partners': typeof SitePartnersRoute
   '/_site/privacy': typeof SitePrivacyRoute
   '/_site/redeem': typeof SiteRedeemRoute
+  '/_site/showcase': typeof SiteShowcaseRoute
   '/_site/terms': typeof SiteTermsRoute
+  '/_site/work-with-us': typeof SiteWorkWithUsRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
@@ -225,6 +323,7 @@ export interface FileRoutesById {
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/_site/aperture/': typeof SiteApertureIndexRoute
+  '/_site/events/': typeof SiteEventsIndexRoute
   '/_site/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/_site/events/$slug/': typeof SiteEventsSlugIndexRoute
@@ -236,13 +335,23 @@ export interface FileRouteTypes {
     | '/'
     | '/bg'
     | '/$locale/$'
+    | '/automatizacion-con-ia'
+    | '/blog'
     | '/campus-leader'
+    | '/capacitacion-ia'
     | '/community'
+    | '/consultoria-de-ia'
+    | '/enlaces'
+    | '/eventos'
     | '/lab'
+    | '/links'
     | '/me'
+    | '/partners'
     | '/privacy'
     | '/redeem'
+    | '/showcase'
     | '/terms'
+    | '/work-with-us'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale/'
@@ -252,6 +361,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/aperture/'
+    | '/events/'
     | '/events/$slug/success'
     | '/api/og/u/$username'
     | '/events/$slug/'
@@ -259,13 +369,23 @@ export interface FileRouteTypes {
   to:
     | '/bg'
     | '/$locale/$'
+    | '/automatizacion-con-ia'
+    | '/blog'
     | '/campus-leader'
+    | '/capacitacion-ia'
     | '/community'
+    | '/consultoria-de-ia'
+    | '/enlaces'
+    | '/eventos'
     | '/lab'
+    | '/links'
     | '/me'
+    | '/partners'
     | '/privacy'
     | '/redeem'
+    | '/showcase'
     | '/terms'
+    | '/work-with-us'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale'
@@ -275,6 +395,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/aperture'
+    | '/events'
     | '/events/$slug/success'
     | '/api/og/u/$username'
     | '/events/$slug'
@@ -284,13 +405,23 @@ export interface FileRouteTypes {
     | '/_site'
     | '/bg'
     | '/$locale/$'
+    | '/_site/automatizacion-con-ia'
+    | '/_site/blog'
     | '/_site/campus-leader'
+    | '/_site/capacitacion-ia'
     | '/_site/community'
+    | '/_site/consultoria-de-ia'
+    | '/_site/enlaces'
+    | '/_site/eventos'
     | '/_site/lab'
+    | '/_site/links'
     | '/_site/me'
+    | '/_site/partners'
     | '/_site/privacy'
     | '/_site/redeem'
+    | '/_site/showcase'
     | '/_site/terms'
+    | '/_site/work-with-us'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale/'
@@ -301,6 +432,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/_site/aperture/'
+    | '/_site/events/'
     | '/_site/events/$slug/success'
     | '/api/og/u/$username'
     | '/_site/events/$slug/'
@@ -361,11 +493,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteIndexRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/automatizacion-con-ia': {
+      id: '/_site/automatizacion-con-ia'
+      path: '/automatizacion-con-ia'
+      fullPath: '/automatizacion-con-ia'
+      preLoaderRoute: typeof SiteAutomatizacionConIaRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/blog': {
+      id: '/_site/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof SiteBlogRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/campus-leader': {
       id: '/_site/campus-leader'
       path: '/campus-leader'
       fullPath: '/campus-leader'
       preLoaderRoute: typeof SiteCampusLeaderRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/capacitacion-ia': {
+      id: '/_site/capacitacion-ia'
+      path: '/capacitacion-ia'
+      fullPath: '/capacitacion-ia'
+      preLoaderRoute: typeof SiteCapacitacionIaRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/community': {
@@ -375,6 +528,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteCommunityRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/consultoria-de-ia': {
+      id: '/_site/consultoria-de-ia'
+      path: '/consultoria-de-ia'
+      fullPath: '/consultoria-de-ia'
+      preLoaderRoute: typeof SiteConsultoriaDeIaRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/enlaces': {
+      id: '/_site/enlaces'
+      path: '/enlaces'
+      fullPath: '/enlaces'
+      preLoaderRoute: typeof SiteEnlacesRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/eventos': {
+      id: '/_site/eventos'
+      path: '/eventos'
+      fullPath: '/eventos'
+      preLoaderRoute: typeof SiteEventosRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/lab': {
       id: '/_site/lab'
       path: '/lab'
@@ -382,11 +556,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteLabRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/links': {
+      id: '/_site/links'
+      path: '/links'
+      fullPath: '/links'
+      preLoaderRoute: typeof SiteLinksRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/me': {
       id: '/_site/me'
       path: '/me'
       fullPath: '/me'
       preLoaderRoute: typeof SiteMeRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/partners': {
+      id: '/_site/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof SitePartnersRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/privacy': {
@@ -403,11 +591,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteRedeemRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/showcase': {
+      id: '/_site/showcase'
+      path: '/showcase'
+      fullPath: '/showcase'
+      preLoaderRoute: typeof SiteShowcaseRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/terms': {
       id: '/_site/terms'
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof SiteTermsRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/work-with-us': {
+      id: '/_site/work-with-us'
+      path: '/work-with-us'
+      fullPath: '/work-with-us'
+      preLoaderRoute: typeof SiteWorkWithUsRouteImport
       parentRoute: typeof SiteRoute
     }
     '/sign-in/$': {
@@ -436,6 +638,13 @@ declare module '@tanstack/react-router' {
       path: '/aperture/join'
       fullPath: '/aperture/join'
       preLoaderRoute: typeof SiteApertureJoinRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/events/': {
+      id: '/_site/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof SiteEventsIndexRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/events/$slug': {
@@ -518,33 +727,55 @@ const SiteEventsSlugRouteWithChildren = SiteEventsSlugRoute._addFileChildren(
 )
 
 interface SiteRouteChildren {
+  SiteAutomatizacionConIaRoute: typeof SiteAutomatizacionConIaRoute
+  SiteBlogRoute: typeof SiteBlogRoute
   SiteCampusLeaderRoute: typeof SiteCampusLeaderRoute
+  SiteCapacitacionIaRoute: typeof SiteCapacitacionIaRoute
   SiteCommunityRoute: typeof SiteCommunityRoute
+  SiteConsultoriaDeIaRoute: typeof SiteConsultoriaDeIaRoute
+  SiteEnlacesRoute: typeof SiteEnlacesRoute
+  SiteEventosRoute: typeof SiteEventosRoute
   SiteLabRoute: typeof SiteLabRoute
+  SiteLinksRoute: typeof SiteLinksRoute
   SiteMeRoute: typeof SiteMeRoute
+  SitePartnersRoute: typeof SitePartnersRoute
   SitePrivacyRoute: typeof SitePrivacyRoute
   SiteRedeemRoute: typeof SiteRedeemRoute
+  SiteShowcaseRoute: typeof SiteShowcaseRoute
   SiteTermsRoute: typeof SiteTermsRoute
+  SiteWorkWithUsRoute: typeof SiteWorkWithUsRoute
   SiteIndexRoute: typeof SiteIndexRoute
   SiteApertureJoinRoute: typeof SiteApertureJoinRoute
   SiteEventsSlugRoute: typeof SiteEventsSlugRouteWithChildren
   SiteUUsernameRoute: typeof SiteUUsernameRoute
   SiteApertureIndexRoute: typeof SiteApertureIndexRoute
+  SiteEventsIndexRoute: typeof SiteEventsIndexRoute
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
+  SiteAutomatizacionConIaRoute: SiteAutomatizacionConIaRoute,
+  SiteBlogRoute: SiteBlogRoute,
   SiteCampusLeaderRoute: SiteCampusLeaderRoute,
+  SiteCapacitacionIaRoute: SiteCapacitacionIaRoute,
   SiteCommunityRoute: SiteCommunityRoute,
+  SiteConsultoriaDeIaRoute: SiteConsultoriaDeIaRoute,
+  SiteEnlacesRoute: SiteEnlacesRoute,
+  SiteEventosRoute: SiteEventosRoute,
   SiteLabRoute: SiteLabRoute,
+  SiteLinksRoute: SiteLinksRoute,
   SiteMeRoute: SiteMeRoute,
+  SitePartnersRoute: SitePartnersRoute,
   SitePrivacyRoute: SitePrivacyRoute,
   SiteRedeemRoute: SiteRedeemRoute,
+  SiteShowcaseRoute: SiteShowcaseRoute,
   SiteTermsRoute: SiteTermsRoute,
+  SiteWorkWithUsRoute: SiteWorkWithUsRoute,
   SiteIndexRoute: SiteIndexRoute,
   SiteApertureJoinRoute: SiteApertureJoinRoute,
   SiteEventsSlugRoute: SiteEventsSlugRouteWithChildren,
   SiteUUsernameRoute: SiteUUsernameRoute,
   SiteApertureIndexRoute: SiteApertureIndexRoute,
+  SiteEventsIndexRoute: SiteEventsIndexRoute,
 }
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)

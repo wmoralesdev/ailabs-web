@@ -455,6 +455,8 @@ export type HomeServiceItem = {
   body: string
   points: ReadonlyArray<string>
   cta: string
+  /** Link to the indexable page for this service. */
+  pageLabel: string
   interest: ContactInterestId
 }
 
@@ -462,6 +464,8 @@ export type HomeServicesContent = {
   label: string
   title: string
   body: string
+  /** Link to the consulting page, not the homepage anchor. */
+  pageLabel: string
   items: readonly [HomeServiceItem, HomeServiceItem]
 }
 
@@ -470,6 +474,7 @@ export type HomeMethodContent = {
   title: string
   body: string
   steps: ReadonlyArray<HomeAboutBridgeItem>
+  eventsLink: NavItem
 }
 
 /** Technology logos shown in the home trust strip. */
@@ -714,12 +719,79 @@ export type ApertureContent = {
   profile: ApertureProfileContent
 }
 
+export type MarketingSection = {
+  heading: string
+  paragraphs: ReadonlyArray<string>
+}
+
+export type MarketingPage = {
+  /** Stable path. The same in English and Spanish until each language has its own URL. */
+  path: string
+  metaTitle: string
+  metaDescription: string
+  /** Name used in Organization services. Not a regional claim. */
+  schemaName: string
+  eyebrow: string
+  title: string
+  lead: string
+  sections: ReadonlyArray<MarketingSection>
+  cta: string
+  interest: ContactInterestId
+  relatedLabel: string
+  related: ReadonlyArray<NavItem>
+}
+
+export type ProofEvent = {
+  name: string
+  detail: string
+  href?: string
+  linkLabel?: string
+}
+
+export type EventsPage = {
+  path: "/eventos"
+  metaTitle: string
+  metaDescription: string
+  eyebrow: string
+  title: string
+  lead: string
+  upcomingLabel: string
+  pastLabel: string
+  upcoming: ReadonlyArray<ProofEvent>
+  past: ReadonlyArray<ProofEvent>
+}
+
+export type OfficialProfile = {
+  label: string
+  href: string
+  detail: string
+}
+
+export type LinksPage = {
+  path: "/enlaces"
+  metaTitle: string
+  metaDescription: string
+  eyebrow: string
+  title: string
+  lead: string
+  links: ReadonlyArray<OfficialProfile>
+}
+
+export type PublicPages = {
+  consulting: MarketingPage
+  training: MarketingPage
+  automation: MarketingPage
+  events: EventsPage
+  links: LinksPage
+}
+
 export type SiteContent = {
   locale: Locale
   meta: PageMeta
   chrome: ChromeContent
   microcopy: MicrocopyContent
   home: HomeContent
+  pages: PublicPages
   redeem: RedeemContent
   community: CommunityContent
   campusLeader: CampusLeaderContent
