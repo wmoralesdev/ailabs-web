@@ -1,5 +1,4 @@
 import { useRef } from "react"
-import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
@@ -10,39 +9,11 @@ import { Eyebrow } from "@/components/ui/eyebrow"
 import { homePillClassName, homeShellClassName } from "./home-styles"
 import { HomeServiceVisual } from "./home-service-visual"
 import { useHomeEntrance } from "@/lib/home-motion"
-import { isInternalHref, routeForHref } from "@/lib/locale-links"
 import { cn } from "@/lib/utils"
 
 type HomeServicesProps = {
   services: HomeServicesContent
   locale: Locale
-}
-
-const serviceLinkClassName =
-  "inline-flex min-h-11 items-center text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-
-function ServicePageLink({
-  href,
-  className = serviceLinkClassName,
-  children,
-}: {
-  href: string
-  className?: string
-  children: React.ReactNode
-}) {
-  if (!isInternalHref(href)) {
-    return (
-      <a href={href} className={className}>
-        {children}
-      </a>
-    )
-  }
-
-  return (
-    <Link to={routeForHref(href)} className={className}>
-      {children}
-    </Link>
-  )
 }
 
 function HomeServices({ services, locale }: HomeServicesProps) {
@@ -68,14 +39,9 @@ function HomeServices({ services, locale }: HomeServicesProps) {
               {services.title}
             </h2>
           </div>
-          <div className="flex max-w-xl flex-col items-start gap-2">
-            <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-              {services.body}
-            </p>
-            <ServicePageLink href={services.pageHref}>
-              {services.pageLabel}
-            </ServicePageLink>
-          </div>
+          <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            {services.body}
+          </p>
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-5 lg:mt-12 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-0">
@@ -126,12 +92,6 @@ function HomeServices({ services, locale }: HomeServicesProps) {
                   {service.cta}
                   <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
                 </Button>
-                <ServicePageLink
-                  href={service.pageHref}
-                  className="mt-3 inline-flex min-h-11 items-center text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-                >
-                  {service.pageLabel}
-                </ServicePageLink>
               </div>
             </article>
           ))}

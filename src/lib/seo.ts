@@ -1,29 +1,12 @@
-import type { LandingMeta, Locale } from "@/content"
+import type { Locale } from "@/content"
+import { LOCALES } from "@/content"
 
-/** Host that returns 200. The apex 308s here. */
-export const SITE_URL = "https://www.ailabs.sv"
+export const SITE_URL = "https://ailabs.sv"
 export const SITE_NAME = "Ai Labs"
 export const OG_IMAGE_PATH = "/og-image.png"
 export const OG_IMAGE_URL = `${SITE_URL}${OG_IMAGE_PATH}`
-
-/**
- * Profiles the site already publishes. TikTok is included because the footer
- * treats it as an official profile.
- */
-export const ORGANIZATION_SAME_AS = [
-  "https://www.linkedin.com/company/ai-labs-sv",
-  "https://x.com/ailabs_sv",
-  "https://www.instagram.com/ailabs_sv/",
-  "https://www.tiktok.com/@ailabs_sv",
-] as const
-
-const OG_IMAGE_ALT_BY_LOCALE: Record<Locale, string> = {
-  en: "Ai Labs: AI consulting, business automation and practical education.",
-  es: "Ai Labs: consultoría en IA, automatización y formación práctica.",
-}
-
-/** Fallback alt for the document shell. Crawlers without a language get Spanish. */
-export const OG_IMAGE_ALT = OG_IMAGE_ALT_BY_LOCALE.es
+export const OG_IMAGE_ALT =
+  "Ai Labs: AI consulting, business automation and practical education."
 
 const OG_LOCALE: Record<Locale, string> = {
   en: "en_US",
@@ -47,8 +30,7 @@ export function localizedPath(_locale: Locale, path = ""): string {
 }
 
 export function absoluteUrl(path = ""): string {
-  const normalized = sitePath(path)
-  return normalized ? `${SITE_URL}${normalized}` : `${SITE_URL}/`
+  return `${SITE_URL}${sitePath(path)}`
 }
 
 type BuildPageMetaInput = {
@@ -58,11 +40,6 @@ type BuildPageMetaInput = {
   description: string
   /** Private, unfinished, or thin pages stay out of search results. */
   noindex?: boolean
-  /**
-   * Emit hreflang only when both languages have their own 200 URL.
-   * `es` is x-default.
-   */
-  alternates?: { es: string; en: string }
   image?: {
     url: string
     alt: string
@@ -102,32 +79,12 @@ export function buildPageMeta({
   title,
   description,
   noindex = false,
-  alternates,
   image,
 }: BuildPageMetaInput): PageHead {
   const url = absoluteUrl(path)
+  const alternateLocale = locale === "en" ? "es" : "en"
   const imageUrl = image?.url ?? OG_IMAGE_URL
-  const imageAlt = image?.alt ?? OG_IMAGE_ALT_BY_LOCALE[locale]
-  const otherLocale = locale === "es" ? "en" : "es"
-  const alternateLinks: HeadLink[] = alternates
-    ? [
-        {
-          rel: "alternate",
-          hrefLang: "es",
-          href: absoluteUrl(alternates.es),
-        },
-        {
-          rel: "alternate",
-          hrefLang: "en",
-          href: absoluteUrl(alternates.en),
-        },
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: absoluteUrl(alternates.es),
-        },
-      ]
-    : []
+  const imageAlt = image?.alt ?? OG_IMAGE_ALT
 
   return {
     meta: [
@@ -140,14 +97,10 @@ export function buildPageMeta({
       { property: "og:description", content: description },
       { property: "og:url", content: url },
       { property: "og:locale", content: OG_LOCALE[locale] },
-      ...(alternates
-        ? [
-            {
-              property: "og:locale:alternate",
-              content: OG_LOCALE[otherLocale],
-            },
-          ]
-        : []),
+      {
+        property: "og:locale:alternate",
+        content: OG_LOCALE[alternateLocale],
+      },
       { property: "og:image", content: imageUrl },
       { property: "og:image:alt", content: imageAlt },
       { property: "og:image:width", content: "1200" },
@@ -158,85 +111,26 @@ export function buildPageMeta({
       { name: "twitter:image", content: imageUrl },
       { name: "twitter:image:alt", content: imageAlt },
     ],
-    links: [{ rel: "canonical", href: url }, ...alternateLinks],
+    links: [
+      { rel: "canonical", href: url },
+      ...LOCALES.map((lang) => ({
+        rel: "alternate",
+        href: url,
+        hrefLang: lang,
+      })),
+      {
+        rel: "alternate",
+        href: url,
+        hrefLang: "x-default",
+      },
+    ],
     scripts: [],
-  }
-}
-
-const DEVDAY_EVENT = {
-  "@type": "Event",
-  name: "DevDay. San Salvador",
-  startDate: "2026-10-24T15:00:00-06:00",
-  endDate: "2026-10-24T19:00:00-06:00",
-  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-  eventStatus: "https://schema.org/EventScheduled",
-  inLanguage: "es",
-  url: "https://devday.ailabs.sv/",
-  location: {
-    "@type": "Place",
-    name: "BINAES",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "San Salvador",
-      addressCountry: "SV",
-    },
-  },
-  organizer: { "@id": `${SITE_URL}/#organization` },
-} as const
-
-/** JSON-LD for one language-locked landing page. Does not redefine the homepage area. */
-export function buildLandingJsonLd(input: {
-  locale: Locale
-  page: LandingMeta
-}): HeadScript {
-  const url = absoluteUrl(input.page.path)
-  const organizationId = `${SITE_URL}/#organization`
-  const areaServed = {
-    "@type": input.page.areaType,
-    name: input.page.areaName,
-  }
-  const graph: Array<Record<string, unknown>> = [
-    {
-      "@type": "WebPage",
-      "@id": `${url}#webpage`,
-      url,
-      name: input.page.metaTitle,
-      description: input.page.metaDescription,
-      inLanguage: input.locale,
-      isPartOf: { "@id": `${SITE_URL}/#website` },
-      about: { "@id": organizationId },
-      spatialCoverage: areaServed,
-    },
-  ]
-
-  if (input.page.kind === "service") {
-    graph.push({
-      "@type": "Service",
-      name: input.page.schemaName,
-      description: input.page.metaDescription,
-      url,
-      provider: { "@id": organizationId },
-      areaServed,
-    })
-  }
-
-  if (input.page.kind === "event") {
-    graph.push({ ...DEVDAY_EVENT })
-  }
-
-  return {
-    type: "application/ld+json",
-    children: JSON.stringify({
-      "@context": "https://schema.org",
-      "@graph": graph,
-    }),
   }
 }
 
 type JsonLdService = {
   name: string
   description: string
-  path?: string
 }
 
 export function buildHomeJsonLd(input: {
@@ -246,37 +140,34 @@ export function buildHomeJsonLd(input: {
   services: readonly [JsonLdService, JsonLdService, JsonLdService]
 }): HeadScript {
   const url = absoluteUrl()
-  const organizationId = `${url}#organization`
   const graph = [
     {
       "@type": "Organization",
-      "@id": organizationId,
+      "@id": `${SITE_URL}/#organization`,
       name: SITE_NAME,
-      url,
+      url: SITE_URL,
       logo: {
         "@type": "ImageObject",
         url: `${SITE_URL}/brand/ailabs-ico.svg`,
       },
       description: input.description,
-      sameAs: [...ORGANIZATION_SAME_AS],
       areaServed: {
         "@type": "Country",
         name: "El Salvador",
       },
       address: {
         "@type": "PostalAddress",
-        addressLocality: "San Salvador",
         addressCountry: "SV",
       },
     },
     {
       "@type": "WebSite",
-      "@id": `${url}#website`,
-      url,
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
       name: SITE_NAME,
       description: input.description,
-      publisher: { "@id": organizationId },
-      inLanguage: input.locale,
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      inLanguage: LOCALES,
       potentialAction: {
         "@type": "ReadAction",
         target: url,
@@ -284,12 +175,12 @@ export function buildHomeJsonLd(input: {
     },
     {
       "@type": "WebPage",
-      "@id": `${url}#webpage`,
+      "@id": `${url === SITE_URL ? `${SITE_URL}/` : url}#webpage`,
       url,
       name: input.title,
       description: input.description,
-      isPartOf: { "@id": `${url}#website` },
-      about: { "@id": organizationId },
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      about: { "@id": `${SITE_URL}/#organization` },
       inLanguage: input.locale,
       primaryImageOfPage: {
         "@type": "ImageObject",
@@ -298,7 +189,7 @@ export function buildHomeJsonLd(input: {
     },
     {
       "@type": "OfferCatalog",
-      "@id": `${url}#offer-catalog`,
+      "@id": `${SITE_URL}/#offer-catalog`,
       name: "Ai Labs services",
       itemListElement: input.services.map((service, index) => ({
         "@type": "Offer",
@@ -307,8 +198,7 @@ export function buildHomeJsonLd(input: {
           "@type": "Service",
           name: service.name,
           description: service.description,
-          ...(service.path ? { url: absoluteUrl(service.path) } : {}),
-          provider: { "@id": organizationId },
+          provider: { "@id": `${SITE_URL}/#organization` },
           areaServed: {
             "@type": "Country",
             name: "El Salvador",
