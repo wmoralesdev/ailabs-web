@@ -1,5 +1,6 @@
 import { homeCarousel } from "./home-carousel"
 import { legalEn } from "./legal-en"
+import { pagesEn } from "./pages-en"
 import type { SiteContent } from "./types"
 
 export const en: SiteContent = {
@@ -18,6 +19,26 @@ export const en: SiteContent = {
       community: {
         label: "Community",
         items: [
+          {
+            label: "AI community in El Salvador",
+            href: "/ai-community-el-salvador",
+          },
+          {
+            label: "Tech events in El Salvador",
+            href: "/tech-events-el-salvador",
+          },
+          {
+            label: "AI community in Central America",
+            href: "/ai-community-central-america",
+          },
+          {
+            label: "Tech events in Central America",
+            href: "/tech-events-central-america",
+          },
+          {
+            label: "AI consulting in Central America",
+            href: "/ai-consulting-central-america",
+          },
           {
             label: "Join the community",
             href: "/community",
@@ -63,16 +84,20 @@ export const en: SiteContent = {
           title: "Services",
           links: [
             {
-              label: "AI consulting",
-              href: "#services",
+              label: "AI consulting in El Salvador",
+              href: "/ai-consulting-el-salvador",
             },
             {
-              label: "Practical education",
-              href: "#academy",
+              label: "AI training for teams",
+              href: "/ai-training-el-salvador",
             },
             {
-              label: "Business automation",
-              href: "#agentic",
+              label: "AI automation",
+              href: "/ai-automation-el-salvador",
+            },
+            {
+              label: "AI consulting in Central America",
+              href: "/ai-consulting-central-america",
             },
             {
               label: "How we work",
@@ -84,6 +109,14 @@ export const en: SiteContent = {
           id: "aperture",
           title: "Community",
           links: [
+            {
+              label: "AI community in El Salvador",
+              href: "/ai-community-el-salvador",
+            },
+            {
+              label: "AI community in Central America",
+              href: "/ai-community-central-america",
+            },
             {
               label: "Join the community",
               href: "/community",
@@ -101,6 +134,18 @@ export const en: SiteContent = {
         {
           title: "Ai Labs",
           links: [
+            {
+              label: "Tech events in El Salvador",
+              href: "/tech-events-el-salvador",
+            },
+            {
+              label: "Tech events in Central America",
+              href: "/tech-events-central-america",
+            },
+            {
+              label: "Official links",
+              href: "/enlaces",
+            },
             {
               label: "Let’s talk",
               href: "#contact",
@@ -168,6 +213,8 @@ export const en: SiteContent = {
       label: "Our services",
       title: "AI consulting",
       body: "We look at how you work, identify where AI can help and decide what to tackle first. From there, we help you learn or build the workflow with you.",
+      pageLabel: "AI consulting in El Salvador",
+      pageHref: "/ai-consulting-el-salvador",
       items: [
         {
           id: "academy",
@@ -180,6 +227,8 @@ export const en: SiteContent = {
             "Build skills you can use on your own.",
           ],
           cta: "I want to learn",
+          pageLabel: "AI training for teams",
+          pageHref: "/ai-training-el-salvador",
           interest: "enablement",
         },
         {
@@ -193,6 +242,8 @@ export const en: SiteContent = {
             "Receive documentation and a handover to your team.",
           ],
           cta: "Improve a process",
+          pageLabel: "AI automation",
+          pageHref: "/ai-automation-el-salvador",
           interest: "implementation",
         },
       ],
@@ -213,6 +264,24 @@ export const en: SiteContent = {
         {
           title: "Put it into practice",
           body: "We prepare the team or implement the workflow, with the review and documentation it needs.",
+        },
+      ],
+      eventsLink: {
+        label: "Tech events in El Salvador",
+        href: "/tech-events-el-salvador",
+      },
+      sideLinks: [
+        {
+          label: "AI community in El Salvador",
+          href: "/ai-community-el-salvador",
+        },
+        {
+          label: "AI consulting in Central America",
+          href: "/ai-consulting-central-america",
+        },
+        {
+          label: "Tech events in Central America",
+          href: "/tech-events-central-america",
         },
       ],
     },
@@ -447,6 +516,7 @@ export const en: SiteContent = {
       invalid: "Check your details and try again.",
     },
   },
+  pages: pagesEn,
   redeem: {
     metaTitle: "Redeem credits",
     eventLabel: "Event",

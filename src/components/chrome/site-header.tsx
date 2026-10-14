@@ -23,6 +23,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { alternatePath } from "@/lib/language-pairs"
 import { setLocalePreference } from "@/lib/locale-preference"
 import { useScrolled } from "@/lib/use-scrolled"
 import { cn } from "@/lib/utils"
@@ -57,8 +58,12 @@ function SiteHeader({
   const onHome = useRouterState({
     select: (state) => state.location.pathname === "/",
   })
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  })
   const otherLocale =
     LOCALES.find((candidate) => candidate !== locale) ?? locale
+  const nextHref = alternatePath(pathname, otherLocale)
   const nav = getChromeNavItems(chrome.nav)
   const primaryLabel = microcopy.primaryNavigation
 
@@ -77,6 +82,10 @@ function SiteHeader({
     setCommunityOpen(false)
     startTransition(async () => {
       await setLocalePreference({ data: { locale: otherLocale } })
+      if (nextHref) {
+        await router.navigate({ href: nextHref })
+        return
+      }
       await router.invalidate()
     })
   }
@@ -144,7 +153,7 @@ function SiteHeader({
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="site-community-menu min-w-56 p-1.5"
+                className="site-community-menu min-w-72 p-1.5"
                 sideOffset={14}
               >
                 {nav.community.items.map((item) => (

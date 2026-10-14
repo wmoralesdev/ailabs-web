@@ -12,7 +12,10 @@ import { TanStackDevtools } from "@tanstack/react-devtools"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
-import { resolveLocaleContext } from "@/lib/locale-preference"
+import {
+  isLocaleContext,
+  resolveLocaleContext,
+} from "@/lib/locale-preference"
 import { OG_IMAGE_ALT, OG_IMAGE_URL, SITE_NAME } from "@/lib/seo"
 import appCss from "../styles.css?url"
 
@@ -20,9 +23,10 @@ if (import.meta.env.DEV && !import.meta.env.SSR) {
   void import("react-grab")
 }
 
-const SITE_TITLE = "Ai Labs: Adapt, develop, and learn with AI"
+const SITE_TITLE =
+  "Ai Labs | Consultoría en IA, automatización y formación práctica"
 const SITE_DESCRIPTION =
-  "Ai Labs helps companies put AI to work through training, software, and community. Based in El Salvador."
+  "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Desde El Salvador."
 
 export const Route = createRootRoute({
   beforeLoad: async () => resolveLocaleContext(),
@@ -63,12 +67,16 @@ const rootNotFoundLinkClassName =
   "bg-primary text-primary-foreground focus-visible:ring-ring/50 inline-flex h-11 items-center rounded-md px-5 text-sm font-medium transition-colors hover:brightness-95 focus-visible:ring-2 focus-visible:outline-none"
 
 function RootNotFound() {
+  const { content } = Route.useRouteContext()
+
   return (
     <main
       id="main"
       tabIndex={-1}
       className="page-gutter section-y mx-auto min-h-dvh max-w-content"
     >
+      <title>{content.meta.title}</title>
+      <meta name="robots" content="noindex, nofollow" />
       <p className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
         404
       </p>
@@ -104,12 +112,13 @@ function RootNotFound() {
 function RootDocument({ children }: { children: React.ReactNode }) {
   const lang = useRouterState({
     select: (state) => {
-      const match = state.matches.find(
-        (entry) =>
-          typeof entry.context === "object" && "locale" in entry.context
-      )
-      const locale = match?.context.locale
-      return locale === "es" || locale === "en" ? locale : "en"
+      for (let index = state.matches.length - 1; index >= 0; index -= 1) {
+        const context = state.matches[index]?.context
+        if (isLocaleContext(context)) {
+          return context.locale
+        }
+      }
+      return "es" as const
     },
   })
 

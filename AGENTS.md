@@ -72,10 +72,14 @@ possibly stale value into this file.
   page-owned on full-bleed routes (home, redeem, community, campus-leader,
   lab, event microsites); other routes get a top-left lockup sibling. Do not
   embed theme/locale controls in page heroes.
-- Locale is not in the URL. Prefer the `ailabs-locale` cookie, then
-  `Accept-Language`, then `en`. Legacy `/en/*` and `/es/*` permanently
-  redirect to the unprefixed path and set the cookie. Language toggle updates
-  the cookie and reloads route context.
+- The homepage follows the `ailabs-locale` cookie, then `Accept-Language`,
+  then `es`. A request with no language header is Spanish. Legacy `/en` and
+  `/es` (and other prefixed paths) permanently redirect to the unprefixed path
+  and set the cookie. The homepage language toggle only updates the cookie.
+- Indexable landing pages have their own Spanish and English URLs. Each URL
+  returns that language with status 200, ignoring the cookie. `hreflang` is
+  emitted only between those pairs. On a paired URL the language toggle goes
+  to the twin. Do not put those pages under `/en` or `/es`.
 - The home page (`/`) follows Hero, Ambassador marquee, Services, Method, and Contact, followed by
   the shared footer. Services combines Academy and Agentic; community is
   accessible through chrome. The seven existing ambassador-program logos return
@@ -89,8 +93,20 @@ possibly stale value into this file.
   primary button and secondary text link with an arrow, followed by the logos.
   The spiral is unmounted on mobile, not replaced with another decoration.
   `/lab` and campaign heroes keep their existing spiral layouts.
-- Academy / Agentic / Aperture standalone marketing routes are not shipped
-  pages.
+- Indexable offer pages: `/consultoria-de-ia` with
+  `/ai-consulting-el-salvador`, `/capacitacion-ia` with
+  `/ai-training-el-salvador`, and `/automatizacion-con-ia` with
+  `/ai-automation-el-salvador`. Events: `/eventos` with
+  `/tech-events-el-salvador`. Community: `/comunidad-de-ia-el-salvador` with
+  `/ai-community-el-salvador`. Regional pages, grounded in San Salvador plus
+  the Guatemala events already published: `/comunidad-de-ia-centroamerica`,
+  `/eventos-tech-centroamerica`, `/consultoria-de-ia-centroamerica`, and their
+  English twins. El Salvador pages stay El Salvador. Regional pages may say
+  Central America. Do not add offices, clients, events, attendance, or reviews
+  in other countries, and do not title a page “AI consulting Latin America”.
+  `/enlaces` stays Spanish. `/community` is the WhatsApp invite, not the
+  community landing page. Academy and Agentic stay line names; `/academy` and
+  `/agentic` are not routes.
 - `/redeem` is an authenticated credit-redemption flow backed by Clerk,
   TanStack server functions, Prisma, and PostgreSQL/Neon.
 - `/aperture/join` is the authenticated Aperture claim flow. Join stays

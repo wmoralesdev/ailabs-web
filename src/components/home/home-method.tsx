@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   SearchFocusIcon,
@@ -9,6 +10,7 @@ import {
 import type { HomeMethodContent, Locale } from "@/content"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { useHomeEntrance } from "@/lib/home-motion"
+import { isInternalHref, routeForHref } from "@/lib/locale-links"
 import { homeShellClassName } from "./home-styles"
 
 type HomeMethodProps = {
@@ -47,6 +49,19 @@ function HomeMethod({ method, locale }: HomeMethodProps) {
             <p className="max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
               {method.body}
             </p>
+            <div className="flex flex-col items-start">
+              {[method.eventsLink, ...method.sideLinks].map((link) =>
+                isInternalHref(link.href) ? (
+                  <Link
+                    key={link.href}
+                    to={routeForHref(link.href)}
+                    className="inline-flex min-h-11 w-fit items-center text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+                  >
+                    {link.label}
+                  </Link>
+                ) : null
+              )}
+            </div>
           </div>
 
           <ol className="flex flex-col divide-y divide-border border-t border-border">
