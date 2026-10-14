@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 
-import { buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
+import { ORGANIZATION_SAME_AS, buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
 
 type ServiceOffer = {
   "@type": string
@@ -73,6 +73,25 @@ describe("buildHomeJsonLd", () => {
       offeredServices.map(({ name, description }) => ({ name, description }))
     ).toEqual(services)
     expect(JSON.stringify(offeredServices)).not.toMatch(/aperture/i)
+
+    const serialized = JSON.stringify(document)
+    expect(serialized).not.toMatch(/latinoam[eé]rica|latin america/i)
+    const organization = document["@graph"].find(
+      (node) => node["@type"] === "Organization"
+    ) as
+      | {
+          sameAs?: string[]
+          areaServed?: { name?: string }
+          address?: { addressLocality?: string; addressCountry?: string }
+        }
+      | undefined
+    expect(organization?.sameAs).toEqual([...ORGANIZATION_SAME_AS])
+    expect(organization?.areaServed?.name).toBe("El Salvador")
+    expect(organization?.address).toMatchObject({
+      "@type": "PostalAddress",
+      addressLocality: "San Salvador",
+      addressCountry: "SV",
+    })
   })
 })
 
@@ -88,6 +107,28 @@ describe("buildPageMeta", () => {
     expect(robots(true)).toEqual([
       { name: "robots", content: "noindex, nofollow" },
     ])
+  })
+
+  it("canonicalizes on www and does not emit hreflang", () => {
+    const head = buildPageMeta({
+      locale: "es",
+      path: "/consultoria-de-ia",
+      title: "Consultoría de IA en El Salvador | Ai Labs",
+      description: "Desde San Salvador.",
+    })
+    expect(head.links).toEqual([
+      {
+        rel: "canonical",
+        href: "https://www.ailabs.sv/consultoria-de-ia",
+      },
+    ])
+    expect(head.links.some((link) => link.hrefLang)).toBe(false)
+    expect(
+      head.meta.some((tag) => tag.property === "og:locale:alternate")
+    ).toBe(false)
+    expect(head.meta.find((tag) => tag.property === "og:url")?.content).toBe(
+      "https://www.ailabs.sv/consultoria-de-ia"
+    )
   })
 
   it("uses a custom share image when provided", () => {
