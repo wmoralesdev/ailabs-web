@@ -72,6 +72,8 @@ function SiteNotFound() {
   return (
     <MainCard>
       <section className="section-y page-gutter">
+        <title>{content.meta.title}</title>
+        <meta name="robots" content="noindex, nofollow" />
         <p className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
           404
         </p>

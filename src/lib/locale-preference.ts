@@ -26,8 +26,8 @@ function writeLocaleCookie(locale: Locale): void {
 }
 
 /**
- * Resolve UI locale: cookie → Accept-Language → `en`.
- * Optionally persist the resolved locale when the cookie was missing.
+ * Resolve UI locale: cookie → Accept-Language → `es`.
+ * Persist the resolved locale when the cookie was missing.
  */
 export const resolveLocaleContext = createServerFn({ method: "GET" }).handler(
   async (): Promise<LocaleContext> => {

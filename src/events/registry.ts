@@ -20,6 +20,8 @@ export type WorkshopDefinition = {
    */
   endsOn: string | null
   metaDescription: (locale: Locale) => string
+  /** Visible question headings and the copy already under them. */
+  faq: (locale: Locale) => ReadonlyArray<{ question: string; answer: string }>
   Page: ComponentType<{
     locale: Locale
     soldOut: boolean
@@ -45,6 +47,38 @@ const workshops: Record<string, WorkshopDefinition> = {
     capacity: 20,
     endsOn: "2026-08-15",
     metaDescription: (locale) => getModoFundadorContent(locale).metaDescription,
+    faq: (locale) => {
+      const content = getModoFundadorContent(locale)
+      return [
+        { question: content.promiseTitle, answer: content.promise },
+        {
+          question: content.proof.title,
+          answer: content.proof.points
+            .map((point) => `${point.label}. ${point.note}`)
+            .join(" "),
+        },
+        {
+          question: content.forWhomTitle,
+          answer: content.forWhom.join(". "),
+        },
+        {
+          question: content.notForWhomTitle,
+          answer: content.notForWhom.join(". "),
+        },
+        {
+          question: content.deliverablesTitle,
+          answer: content.deliverables
+            .map((item) => `${item.title}. ${item.note}`)
+            .join(" "),
+        },
+        {
+          question: content.requirementsTitle,
+          answer: content.requirements
+            .map((item) => `${item.label}. ${item.note}`)
+            .join(" "),
+        },
+      ]
+    },
     Page: ModoFundadorPage,
     SuccessPage: ModoFundadorSuccessPage,
   },
@@ -57,6 +91,28 @@ const workshops: Record<string, WorkshopDefinition> = {
     endsOn: null,
     metaDescription: (locale) =>
       getGetCompetitiveQuickContent(locale).metaDescription,
+    faq: (locale) => {
+      const content = getGetCompetitiveQuickContent(locale)
+      return [
+        { question: content.promiseTitle, answer: content.promise },
+        {
+          question: content.forWhomTitle,
+          answer: content.forWhom.join(". "),
+        },
+        {
+          question: content.notForWhomTitle,
+          answer: content.notForWhom.join(". "),
+        },
+        {
+          question: content.deliverablesTitle,
+          answer: content.deliverables.join(". "),
+        },
+        {
+          question: content.requirementsTitle,
+          answer: content.requirements.map((item) => item.label).join(". "),
+        },
+      ]
+    },
     Page: GetCompetitiveQuickPage,
     SuccessPage: GetCompetitiveQuickSuccessPage,
   },

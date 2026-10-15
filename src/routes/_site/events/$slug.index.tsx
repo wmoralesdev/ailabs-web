@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router"
 
 import { daysUntilWorkshop, getWorkshopBySlug } from "@/events/registry"
+import { buildFaqJsonLd, buildPageMeta, SITE_NAME } from "@/lib/seo"
 import { getWorkshopAvailability } from "@/server/workshop-registration"
 
 export const Route = createFileRoute("/_site/events/$slug/")({
@@ -24,21 +25,22 @@ export const Route = createFileRoute("/_site/events/$slug/")({
       capacity: availability.capacity,
       daysUntil: daysUntilWorkshop(workshop),
       locale: context.locale,
+      faq: workshop.faq(context.locale),
     }
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {}
     }
-    const title = `${loaderData.title} | Ai Labs`
+    const page = buildPageMeta({
+      locale: loaderData.locale,
+      path: `/events/${loaderData.slug}`,
+      title: `${loaderData.title} | ${SITE_NAME}`,
+      description: loaderData.metaDescription,
+    })
     return {
-      meta: [
-        { title },
-        {
-          name: "description",
-          content: loaderData.metaDescription,
-        },
-      ],
+      ...page,
+      scripts: [buildFaqJsonLd(loaderData.faq)],
     }
   },
   component: EventSlugIndexPage,

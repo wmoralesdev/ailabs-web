@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml"
->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ailabs.sv/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ailabs.sv/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://ailabs.sv/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ailabs.sv/" />
+    <loc>https://www.ailabs.sv/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ailabs.sv/community</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ailabs.sv/community" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://ailabs.sv/community" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ailabs.sv/community" />
+    <loc>https://www.ailabs.sv/community</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ailabs.sv/campus-leader</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ailabs.sv/campus-leader" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://ailabs.sv/campus-leader" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ailabs.sv/campus-leader" />
+    <loc>https://www.ailabs.sv/campus-leader</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ailabs.sv/events/modo-fundador</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ailabs.sv/events/modo-fundador" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://ailabs.sv/events/modo-fundador" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ailabs.sv/events/modo-fundador" />
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://www.ailabs.sv/aperture</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/events/modo-fundador</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/events/get-competitive-quick</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

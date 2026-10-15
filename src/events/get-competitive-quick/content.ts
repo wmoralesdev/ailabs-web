@@ -111,7 +111,7 @@ const es: GetCompetitiveQuickContent = {
   eyebrow: ["Taller práctico", "Academy"],
   audience: ["Estudiantes", "Primer empleo tech"],
   title: ["Get", "Competitive", "Quick"],
-  deck: "De Gmail genérico a email con tu dominio. Perfiles limpios. Portfolio listo.",
+  deck: "Taller de unas 4 horas para estudiantes y quienes buscan empleo remoto. De Gmail genérico a email con tu dominio. Perfiles limpios. Portfolio listo.",
   sellLead:
     "USD 25. Te compras un dominio, configuras email profesional a Gmail (gratis con Cloudflare), limpias LinkedIn y X, y sales con un portfolio hecho con IA. Incluye 3 meses de Ai Labs, Notion e IA. Mid-agosto · fecha por confirmar · cupo limitado.",
   outcomesTitle: "Sales con",
@@ -162,23 +162,23 @@ const es: GetCompetitiveQuickContent = {
     { label: "Nivel", value: "Sin experiencia" },
     { label: "Cupo", value: "20 lugares" },
   ],
-  promiseTitle: "La promesa",
+  promiseTitle: "¿Qué promete el taller?",
   promise:
     "En una tarde arreglas dominio, email profesional a Gmail, perfiles sin red flags obvios, y un portfolio v0 que sí se puede mandar en una aplicación.",
   programFrame:
     "El ticket está pensado para cubrir el dominio. El resto del stack del día sale en cero. Bundle 3 meses: Ai Labs + Notion + IA (planes exactos por confirmar).",
-  forWhomTitle: "Para quién",
+  forWhomTitle: "¿Para quién es?",
   forWhom: [
     "Estudiantes y gente buscando remote con Gmail genérico",
     "Quienes tienen LinkedIn a medias y cero portfolio mandable",
     "Primer empleo tech — sin requisito técnico serio",
   ],
-  notForWhomTitle: "No es para",
+  notForWhomTitle: "¿Para quién no es?",
   notForWhom: [
     "Quienes ya negocian offers o tienen brand personal sólido",
     "Un bootcamp de código — hay otros formatos para eso",
   ],
-  deliverablesTitle: "Entregables",
+  deliverablesTitle: "¿Qué te llevas?",
   deliverables: [
     "Dominio comprado + email vivo en Gmail (Cloudflare Email Routing)",
     "Checklist LinkedIn/X y headline/bio listos",
@@ -186,7 +186,7 @@ const es: GetCompetitiveQuickContent = {
     "Firma + 1 template de outreach",
     "Accesos del bundle 3 meses (cuando cierren SKUs)",
   ],
-  requirementsTitle: "Qué traer",
+  requirementsTitle: "¿Qué hay que traer?",
   requirements: [
     { icon: "laptop", label: "Laptop cargada" },
     { icon: "payment", label: "Gmail y forma de pago para el dominio" },
@@ -197,7 +197,7 @@ const es: GetCompetitiveQuickContent = {
     },
     { icon: "level", label: "Cero requisito técnico serio" },
   ],
-  agendaTitle: "Agenda (~4h)",
+  agendaTitle: "¿Cómo es el día?",
   agendaNote: "Tiempos relativos al inicio. Horario del día por confirmar.",
   agenda: [
     {
@@ -292,7 +292,7 @@ const en: GetCompetitiveQuickContent = {
   eyebrow: ["Hands-on workshop", "Academy"],
   audience: ["Students", "First tech job"],
   title: ["Get", "Competitive", "Quick"],
-  deck: "From generic Gmail to email on your domain. Clean profiles. Portfolio ready.",
+  deck: "An about-4-hour workshop for students and remote job seekers. From generic Gmail to email on your domain. Clean profiles. Portfolio ready.",
   sellLead:
     "USD 25. Buy a domain, set up pro email to Gmail (free with Cloudflare), clean LinkedIn and X, and leave with an AI-built portfolio. Includes 3 months of Ai Labs, Notion, and AI. Mid-August · date TBD · limited seats.",
   outcomesTitle: "You leave with",
@@ -343,23 +343,23 @@ const en: GetCompetitiveQuickContent = {
     { label: "Level", value: "No experience" },
     { label: "Seats", value: "20 seats" },
   ],
-  promiseTitle: "The promise",
+  promiseTitle: "What does the workshop promise?",
   promise:
     "In one afternoon you fix domain, pro email to Gmail, profiles without obvious red flags, and a v0 portfolio you can actually send in an application.",
   programFrame:
     "The ticket is sized to cover the domain. The rest of the day stack is free. 3-month bundle: Ai Labs + Notion + AI (exact plans TBD).",
-  forWhomTitle: "Who it's for",
+  forWhomTitle: "Who is it for?",
   forWhom: [
     "Students and remote seekers still applying with generic Gmail",
     "People with a half-finished LinkedIn and no sendable portfolio",
     "First tech job — no serious technical prerequisite",
   ],
-  notForWhomTitle: "Not for",
+  notForWhomTitle: "Who is it not for?",
   notForWhom: [
     "People already negotiating offers or with a solid personal brand",
     "A coding bootcamp — other formats cover that",
   ],
-  deliverablesTitle: "Deliverables",
+  deliverablesTitle: "What do you leave with?",
   deliverables: [
     "Domain purchased + email live in Gmail (Cloudflare Email Routing)",
     "LinkedIn/X checklist and ready headline/bio",
@@ -367,7 +367,7 @@ const en: GetCompetitiveQuickContent = {
     "Email signature + 1 outreach template",
     "3-month bundle access (when SKUs lock)",
   ],
-  requirementsTitle: "Bring",
+  requirementsTitle: "What should you bring?",
   requirements: [
     { icon: "laptop", label: "Charged laptop" },
     { icon: "payment", label: "Gmail and a way to pay for the domain" },
@@ -378,7 +378,7 @@ const en: GetCompetitiveQuickContent = {
     },
     { icon: "level", label: "No serious technical background required" },
   ],
-  agendaTitle: "Agenda (~4h)",
+  agendaTitle: "What does the day look like?",
   agendaNote: "Times are relative to the start. Day schedule TBD.",
   agenda: [
     {

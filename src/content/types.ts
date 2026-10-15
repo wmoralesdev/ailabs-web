@@ -451,7 +451,10 @@ export type HomeContactContent = {
 export type HomeServiceItem = {
   id: "academy" | "agentic"
   brand: string
+  /** Visible heading. Question-shaped when the card already answers it. */
   title: string
+  /** Service name in JSON-LD. Not the question heading. */
+  offerName: string
   body: string
   points: ReadonlyArray<string>
   cta: string
@@ -460,7 +463,10 @@ export type HomeServiceItem = {
 
 export type HomeServicesContent = {
   label: string
+  /** Visible heading. */
   title: string
+  /** Catalog name in JSON-LD. Not the question heading. */
+  offerName: string
   body: string
   items: readonly [HomeServiceItem, HomeServiceItem]
 }

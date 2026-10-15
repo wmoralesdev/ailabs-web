@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router"
 import { MemberDirectory } from "@/components/aperture/member-directory"
 import { MainCard } from "@/components/chrome/main-card"
 import { Eyebrow } from "@/components/ui/eyebrow"
-import { buildPageMeta } from "@/lib/seo"
+import { buildFaqJsonLd, buildPageMeta, SITE_NAME } from "@/lib/seo"
 import { listApertureMembers } from "@/server/aperture/public"
 
 export const Route = createFileRoute("/_site/aperture/")({
@@ -16,12 +16,21 @@ export const Route = createFileRoute("/_site/aperture/")({
       return {}
     }
     const { locale, content } = loaderData
-    return buildPageMeta({
+    const directory = content.aperture.directory
+    const page = buildPageMeta({
       locale,
       path: "/aperture",
-      title: `${content.aperture.directory.metaTitle} | ${content.meta.title}`,
-      description: content.aperture.directory.metaDescription,
+      title: `${directory.metaTitle} | ${SITE_NAME}`,
+      description: directory.metaDescription,
     })
+    return {
+      ...page,
+      scripts: [
+        buildFaqJsonLd([
+          { question: directory.headline, answer: directory.body },
+        ]),
+      ],
+    }
   },
   component: DirectoryPage,
 })
