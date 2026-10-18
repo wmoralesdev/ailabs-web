@@ -7,6 +7,7 @@ const INTERNAL_ROUTES = {
   "/campus-leader": "/campus-leader",
   "/aperture": "/aperture",
   "/aperture/join": "/aperture/join",
+  "/events": "/events",
   "/me": "/me",
   "/terms": "/terms",
   "/privacy": "/privacy",

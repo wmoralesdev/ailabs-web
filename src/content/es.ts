@@ -23,6 +23,10 @@ export const es: SiteContent = {
             href: "/community",
           },
           {
+            label: "Eventos",
+            href: "/events",
+          },
+          {
             label: "Campus Leaders",
             href: "/campus-leader",
           },
@@ -87,6 +91,10 @@ export const es: SiteContent = {
             {
               label: "Unirme a la comunidad",
               href: "/community",
+            },
+            {
+              label: "Eventos",
+              href: "/events",
             },
             {
               label: "Campus Leaders",
@@ -411,6 +419,10 @@ export const es: SiteContent = {
         "Aperture reúne comunidad, alianzas y eventos que muestran cómo se construye y se aprende con estas herramientas.",
       attribution: "Ai Labs",
       cta: { label: "Unirme a la comunidad", href: "/community" },
+      eventsCta: {
+        label: "Eventos de Ai Labs en El Salvador",
+        href: "/events",
+      },
       partnerCta: { label: "Explorar una alianza", href: "#contact" },
     },
     contact: {
@@ -536,6 +548,10 @@ export const es: SiteContent = {
     joinCta: "Unirme en WhatsApp",
     joinHint: "Abre WhatsApp · puede pedir aprobación",
     joinHref: "https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj",
+    eventsCta: {
+      label: "Eventos de Ai Labs en El Salvador",
+      href: "/events",
+    },
     howItWorksLabel: "Cómo funciona",
     steps: [
       { title: "Abre la invitación", body: "Toca Unirme en WhatsApp" },
@@ -1027,5 +1043,144 @@ export const es: SiteContent = {
       shareCta: "Abrir tarjeta para compartir",
       shareCardAlt: "{name} · Miembro de Aperture #{number}",
     },
+  },
+  events: {
+    metaTitle: "Eventos de Ai Labs en El Salvador",
+    metaDescription:
+      "Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país.",
+    breadcrumbHome: "Inicio",
+    label: "Eventos",
+    headline: "Eventos de Ai Labs en El Salvador",
+    intro:
+      "Estos son los eventos de Ai Labs publicados en Luma para este mes, no todos los eventos del país.",
+    upcomingLabel: "Próximos",
+    pastLabel: "Anteriores",
+    hostsLabel: "Anfitriones",
+    lumaLabel: "Ver en Luma",
+    newTabLabel: "Se abre en una pestaña nueva.",
+    photosLabel: "En la comunidad",
+    photosCaption: "Estas fotos son de las reuniones en San Salvador.",
+    cityLine: "en San Salvador",
+    closeHeadline: "San Salvador sigue juntándose",
+    closeSupport: "Walter publica el calendario completo en Luma.",
+    communityCta: "Unirme a la comunidad",
+    upcomingEmpty: "No hay un evento próximo.",
+    monthEmpty: "No hay eventos de Ai Labs publicados en Luma en {month}.",
+    calendarLabel: "Ver calendario",
+    previousPhoto: "Foto anterior",
+    nextPhoto: "Foto siguiente",
+    pausePhotos: "Pausar fotos",
+    playPhotos: "Reanudar fotos",
+    photoStatus: "{current} de {total}",
+    photos: [
+      {
+        src: "/events/community/01-group-hall.webp",
+        alt: "Grupo grande reunido en un salón de dos niveles, con gente sentada en el piso.",
+        width: 1200,
+        height: 676,
+      },
+      {
+        src: "/events/community/02-canopy-laptops.webp",
+        alt: "Personas con laptops en mesas bajo una carpa blanca, rodeadas de sillas verdes.",
+        width: 1200,
+        height: 800,
+      },
+      {
+        src: "/events/community/03-selfie-stick.webp",
+        alt: "Cuatro personas sonríen mientras una sostiene un palo de selfie junto a una mesa.",
+        width: 1200,
+        height: 800,
+      },
+      {
+        src: "/events/community/04-auditorium-podium.webp",
+        alt: "Auditorio en luz azul: una persona en el podio y la pantalla dice “Atrévete a construir”.",
+        width: 1200,
+        height: 900,
+      },
+      {
+        src: "/events/community/08-green-couch.webp",
+        alt: "Cinco personas en un sofá verde, con laptops abiertas sobre mesas redondas.",
+        width: 1200,
+        height: 800,
+      },
+      {
+        src: "/events/community/09-cursor-banner-group.webp",
+        alt: "Grupo de pie junto a un banner vertical que dice Cursor San Salvador.",
+        width: 1200,
+        height: 800,
+      },
+      {
+        src: "/events/community/10-classroom-talk.webp",
+        alt: "Una persona con micrófono habla frente a una pantalla, y el grupo escucha desde las mesas.",
+        width: 1200,
+        height: 900,
+      },
+      {
+        src: "/events/community/12-stickers-outside.webp",
+        alt: "Tres personas sonríen afuera de un edificio de vidrio, mostrando stickers y tarjetas.",
+        width: 1200,
+        height: 900,
+      },
+      {
+        src: "/events/community/13-hackathon-laptops.webp",
+        alt: "Tres personas alrededor de una mesa; la laptop del centro dice “Cursor Hackathon”.",
+        width: 1200,
+        height: 800,
+      },
+      {
+        src: "/events/community/05-classroom-selfie.webp",
+        alt: "Salón de clases: una persona se toma una selfie y otras usan laptops en las mesas.",
+        width: 900,
+        height: 1200,
+      },
+      {
+        src: "/events/community/06-blue-audience.webp",
+        alt: "Filas de personas sentadas en butacas azules, bajo luz azul, mirando hacia el escenario.",
+        width: 1200,
+        height: 900,
+      },
+      {
+        src: "/events/community/07-table-cursor-banner.webp",
+        alt: "Personas sentadas a una mesa con botellas de agua, con un banner de Cursor detrás.",
+        width: 1200,
+        height: 900,
+      },
+      {
+        src: "/events/community/11-screen-atrevete.webp",
+        alt: "Una persona de pie junto a una pantalla negra que dice “Atrévete a construir”.",
+        width: 1200,
+        height: 900,
+      },
+      {
+        src: "/events/community/14-purple-seats.webp",
+        alt: "En butacas moradas, una persona con micrófono señala la laptop que sostiene otra.",
+        width: 1200,
+        height: 802,
+      },
+      {
+        src: "/events/community/15-meetup-card.webp",
+        alt: "Una mano sostiene una tarjeta que dice “Grok Bot San Salvador Meetup”, con el público detrás.",
+        width: 1200,
+        height: 900,
+      },
+      {
+        src: "/events/community/16-bookstore-laptops.webp",
+        alt: "Personas con laptops alrededor de una mesa, junto a estantes de libros y un mural.",
+        width: 1200,
+        height: 676,
+      },
+      {
+        src: "/events/community/17-window-laptops.webp",
+        alt: "Tres personas trabajan en laptops junto a una ventana con el vidrio mojado.",
+        width: 1200,
+        height: 800,
+      },
+      {
+        src: "/events/community/18-cursor-banner-hall.webp",
+        alt: "Cuatro personas posan junto a un banner vertical de Cursor, en un pasillo con vidrio.",
+        width: 1200,
+        height: 800,
+      },
+    ],
   },
 }

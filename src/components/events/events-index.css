@@ -1,0 +1,67 @@
+/* Photo rows reuse the home trust marquee. No separate palette. */
+
+.events-marquee-row {
+  position: relative;
+  overflow: hidden;
+}
+
+.events-marquee-measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.events-marquee-track {
+  display: block;
+  width: 100%;
+  animation-play-state: paused;
+}
+
+.events-marquee-half {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.events-marquee-static {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.events-marquee-static:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .events-marquee-row[data-ready] {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 2rem,
+      #000 calc(100% - 2rem),
+      transparent
+    );
+  }
+
+  .events-marquee-row[data-ready] .events-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: home-trust-marquee var(--events-duration) linear infinite;
+    will-change: transform;
+  }
+
+  .events-marquee-row[data-ready] .events-marquee-static {
+    width: max-content;
+    overflow: visible;
+  }
+
+  .events-marquee-row[data-ready][data-reverse] .events-marquee-track {
+    animation-direction: reverse;
+  }
+
+  .events-marquee-row[data-ready][data-paused] .events-marquee-track {
+    animation-play-state: paused;
+    will-change: auto;
+  }
+}

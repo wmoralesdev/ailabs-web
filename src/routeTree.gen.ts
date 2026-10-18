@@ -26,6 +26,7 @@ import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
 import { Route as SignUpSplatRouteImport } from './routes/sign-up.$'
 import { Route as SiteApertureIndexRouteImport } from './routes/_site/aperture/index'
 import { Route as SiteApertureJoinRouteImport } from './routes/_site/aperture/join'
+import { Route as SiteEventsIndexRouteImport } from './routes/_site/events/index'
 import { Route as SiteEventsSlugRouteImport } from './routes/_site/events/$slug'
 import { Route as SiteUUsernameRouteImport } from './routes/_site/u/$username'
 import { Route as ApiWebhooksClerkRouteImport } from './routes/api/webhooks/clerk'
@@ -118,6 +119,11 @@ const SiteApertureJoinRoute = SiteApertureJoinRouteImport.update({
   path: '/aperture/join',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteEventsIndexRoute = SiteEventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteEventsSlugRoute = SiteEventsSlugRouteImport.update({
   id: '/events/$slug',
   path: '/events/$slug',
@@ -175,6 +181,7 @@ export interface FileRoutesByFullPath {
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/aperture/': typeof SiteApertureIndexRoute
+  '/events/': typeof SiteEventsIndexRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/events/$slug/': typeof SiteEventsSlugIndexRoute
@@ -198,6 +205,7 @@ export interface FileRoutesByTo {
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/aperture': typeof SiteApertureIndexRoute
+  '/events': typeof SiteEventsIndexRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/events/$slug': typeof SiteEventsSlugIndexRoute
@@ -225,6 +233,7 @@ export interface FileRoutesById {
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/_site/aperture/': typeof SiteApertureIndexRoute
+  '/_site/events/': typeof SiteEventsIndexRoute
   '/_site/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/_site/events/$slug/': typeof SiteEventsSlugIndexRoute
@@ -252,6 +261,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/aperture/'
+    | '/events/'
     | '/events/$slug/success'
     | '/api/og/u/$username'
     | '/events/$slug/'
@@ -275,6 +285,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/aperture'
+    | '/events'
     | '/events/$slug/success'
     | '/api/og/u/$username'
     | '/events/$slug'
@@ -301,6 +312,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/_site/aperture/'
+    | '/_site/events/'
     | '/_site/events/$slug/success'
     | '/api/og/u/$username'
     | '/_site/events/$slug/'
@@ -438,6 +450,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteApertureJoinRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/events/': {
+      id: '/_site/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof SiteEventsIndexRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/events/$slug': {
       id: '/_site/events/$slug'
       path: '/events/$slug'
@@ -530,6 +549,7 @@ interface SiteRouteChildren {
   SiteEventsSlugRoute: typeof SiteEventsSlugRouteWithChildren
   SiteUUsernameRoute: typeof SiteUUsernameRoute
   SiteApertureIndexRoute: typeof SiteApertureIndexRoute
+  SiteEventsIndexRoute: typeof SiteEventsIndexRoute
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
@@ -545,6 +565,7 @@ const SiteRouteChildren: SiteRouteChildren = {
   SiteEventsSlugRoute: SiteEventsSlugRouteWithChildren,
   SiteUUsernameRoute: SiteUUsernameRoute,
   SiteApertureIndexRoute: SiteApertureIndexRoute,
+  SiteEventsIndexRoute: SiteEventsIndexRoute,
 }
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)

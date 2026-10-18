@@ -16,29 +16,46 @@ import type { HomeHeroContent, Locale, SiteContent } from "@/content"
 import { cn } from "@/lib/utils"
 import { useHomeEntrance } from "@/lib/home-motion"
 
+type HomeHeroLinkAction = {
+  label: string
+  href: string
+  external?: boolean
+  newTabLabel?: string
+}
+
 type HomeHeroProps = {
   locale: Locale
   content: SiteContent
   /**
    * When true (home), the secondary hash CTA stays on-page.
    * When false (lab preview), it resolves to `/#…`.
-   * The primary CTA opens the shared contact dialog in either route.
+   * The primary CTA opens the shared contact dialog unless `primaryAction` is set.
    */
   samePageCtas?: boolean
   /** The home uses a compact, typographic hero below the desktop breakpoint. */
   desktopSpiralOnly?: boolean
+  /** Reuse this hero with another page's copy. Omit to use the home hero. */
+  hero?: HomeHeroContent
+  /** When set, the primary control is this link instead of the contact dialog. */
+  primaryAction?: HomeHeroLinkAction
 }
 
 const DESKTOP_QUERY = "(min-width: 1024px)"
 
 function subscribeToDesktop(onChange: () => void) {
+  if (typeof window.matchMedia !== "function") {
+    return () => {}
+  }
   const media = window.matchMedia(DESKTOP_QUERY)
   media.addEventListener("change", onChange)
   return () => media.removeEventListener("change", onChange)
 }
 
 function isDesktop() {
-  return window.matchMedia(DESKTOP_QUERY).matches
+  return (
+    typeof window.matchMedia === "function" &&
+    window.matchMedia(DESKTOP_QUERY).matches
+  )
 }
 
 function serverDesktopSnapshot() {
@@ -60,8 +77,9 @@ function HomeHero({
   content,
   samePageCtas = true,
   desktopSpiralOnly = false,
+  hero = content.home.hero,
+  primaryAction,
 }: HomeHeroProps) {
-  const hero = content.home.hero
   const root = useRef<HTMLElement>(null)
   const desktop = useSyncExternalStore(
     subscribeToDesktop,
@@ -82,6 +100,7 @@ function HomeHero({
         hero={hero}
         samePageCtas={samePageCtas}
         compactMobile={desktopSpiralOnly}
+        primaryAction={primaryAction}
       />
       <div
         data-home-spiral
@@ -102,17 +121,56 @@ function HomeHero({
   )
 }
 
+function HomeHeroContactButton({ label }: { label: string }) {
+  const { openContact } = useContact()
+
+  return (
+    <Button
+      type="button"
+      onClick={() => openContact("discovery")}
+      className={cn(
+        homePillClassName,
+        "h-auto min-h-12 w-fit text-left whitespace-normal"
+      )}
+    >
+      {label}
+      <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+    </Button>
+  )
+}
+
+function HomeHeroPrimaryLink({ action }: { action: HomeHeroLinkAction }) {
+  return (
+    <a
+      href={action.href}
+      {...(action.external
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : {})}
+      className={cn(
+        homePillClassName,
+        "h-auto min-h-12 w-fit text-left whitespace-normal"
+      )}
+    >
+      {action.label}
+      {action.newTabLabel ? (
+        <span className="sr-only"> {action.newTabLabel}</span>
+      ) : null}
+      <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+    </a>
+  )
+}
+
 function HomeHeroCopy({
   hero,
   samePageCtas,
   compactMobile,
+  primaryAction,
 }: {
   hero: HomeHeroContent
   samePageCtas: boolean
   compactMobile: boolean
+  primaryAction?: HomeHeroLinkAction
 }) {
-  const { openContact } = useContact()
-
   return (
     <div
       className={cn(
@@ -163,33 +221,31 @@ function HomeHeroCopy({
               </Fragment>
             ))}
           </h1>
-          <p
-            data-home-entrance
-            className="max-w-xl text-base leading-relaxed text-foreground md:text-lg"
-          >
-            {hero.directAnswer}
-          </p>
-          <p
-            data-home-entrance
-            className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg"
-          >
-            {hero.body}
-          </p>
+          {hero.directAnswer ? (
+            <p
+              data-home-entrance
+              className="max-w-xl text-base leading-relaxed text-foreground md:text-lg"
+            >
+              {hero.directAnswer}
+            </p>
+          ) : null}
+          {hero.body ? (
+            <p
+              data-home-entrance
+              className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg"
+            >
+              {hero.body}
+            </p>
+          ) : null}
           <div
             data-home-entrance
             className="flex flex-wrap items-center gap-3 pt-1"
           >
-            <Button
-              type="button"
-              onClick={() => openContact("discovery")}
-              className={cn(
-                homePillClassName,
-                "h-auto min-h-12 w-fit text-left whitespace-normal"
-              )}
-            >
-              {hero.primaryCta.label}
-              <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-            </Button>
+            {primaryAction ? (
+              <HomeHeroPrimaryLink action={primaryAction} />
+            ) : (
+              <HomeHeroContactButton label={hero.primaryCta.label} />
+            )}
             <a
               href={resolveCtaHref(hero.secondaryCta.href, samePageCtas)}
               className={cn(

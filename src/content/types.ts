@@ -146,6 +146,8 @@ export type CommunityContent = CampaignQrCopy & {
   joinCta: string
   joinHint: string
   joinHref: string
+  /** Plain link to the events index. The body stays text for meta and FAQ. */
+  eventsCta: NavItem
   howItWorksLabel: string
   steps: ReadonlyArray<CommunityStep>
 }
@@ -415,6 +417,8 @@ export type HomeApertureContent = {
   events: ReadonlyArray<HomeApertureEvent>
   /** Builder-facing CTA into the community route. */
   cta: NavItem
+  /** Link to the public events index from the section that already names events. */
+  eventsCta: NavItem
   /** Partner-facing CTA into the contact form's partnership interest. */
   partnerCta: NavItem
 }
@@ -724,6 +728,43 @@ export type ApertureContent = {
   profile: ApertureProfileContent
 }
 
+export type EventsIndexPhoto = {
+  src: string
+  alt: string
+  width: number
+  height: number
+}
+
+export type EventsIndexContent = {
+  metaTitle: string
+  metaDescription: string
+  /** First crumb in the events JSON-LD breadcrumb. Not rendered on the page. */
+  breadcrumbHome: string
+  label: string
+  headline: string
+  intro: string
+  upcomingLabel: string
+  pastLabel: string
+  hostsLabel: string
+  lumaLabel: string
+  newTabLabel: string
+  photosLabel: string
+  photosCaption: string
+  cityLine: string
+  closeHeadline: string
+  closeSupport: string
+  communityCta: string
+  upcomingEmpty: string
+  monthEmpty: string
+  calendarLabel: string
+  previousPhoto: string
+  nextPhoto: string
+  pausePhotos: string
+  playPhotos: string
+  photoStatus: string
+  photos: ReadonlyArray<EventsIndexPhoto>
+}
+
 export type SiteContent = {
   locale: Locale
   meta: PageMeta
@@ -735,4 +776,5 @@ export type SiteContent = {
   campusLeader: CampusLeaderContent
   legal: LegalContent
   aperture: ApertureContent
+  events: EventsIndexContent
 }

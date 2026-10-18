@@ -10,6 +10,7 @@ describe("public home content", () => {
       expect(nav.services.href).toBe("#services")
       expect(nav.community.items.map(({ to }) => to)).toEqual([
         "/community",
+        "/events",
         "/campus-leader",
         "/aperture",
       ])
@@ -25,6 +26,7 @@ describe("public home content", () => {
           "#about",
           "#contact",
           "/community",
+          "/events",
           "/campus-leader",
           "/aperture",
         ])

@@ -21,6 +21,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.ailabs.sv/events</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.ailabs.sv/events/modo-fundador</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>

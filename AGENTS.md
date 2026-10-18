@@ -70,7 +70,8 @@ possibly stale value into this file.
 - Shared chrome is a fixed, centered floating nav bar (`SiteHeader`): rounded
   corners (not pill), nav links plus theme and locale. Brand lockup stays
   page-owned on full-bleed routes (home, redeem, community, campus-leader,
-  lab, event microsites); other routes get a top-left lockup sibling. Do not
+  lab, the events index, and event microsites); other routes get a top-left
+  lockup sibling. Do not
   embed theme/locale controls in page heroes.
 - Locale is not in the URL. Prefer the `ailabs-locale` cookie, then
   `Accept-Language`, then `es` when the header is missing or unrecognized.
@@ -115,6 +116,10 @@ possibly stale value into this file.
   open/close is controlled by `campusLeader.applicationsOpen` in content.
   Footer links to it; accepted-leader directory is not shipped yet. Export
   applications with `pnpm campus-leader:export` for Notion review.
+- `/events` is the index of Ai Labs events in El Salvador. It is a normal
+  indexable page (sitemap, 200). Country-shaped search aliases 301 here.
+  The index reuses the home hero, including its text spiral, and owns the
+  brand lockup. Workshop aliases stay on their own event pages.
 - `/events/$slug` hosts per-event microsites with their own layouts. Shipped
   events: `/events/modo-fundador` (founders, USD 50, Wompi) and
   `/events/get-competitive-quick` (students / remote seekers, USD 25, Wompi;
