@@ -45,6 +45,10 @@ export const Route = createFileRoute("/_site/")({
           ],
         }),
         buildFaqJsonLd([
+          {
+            question: home.hero.agencyQuestion,
+            answer: home.hero.directAnswer,
+          },
           { question: home.services.title, answer: home.services.body },
           {
             question: home.services.items[0].title,

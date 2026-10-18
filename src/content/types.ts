@@ -285,6 +285,10 @@ export type HomeHeroContent = {
   label: string
   headline: string
   body: string
+  /** Visible company answer on the home page. Same string as the FAQ answer. */
+  directAnswer: string
+  /** FAQ question for the visible direct answer. Not a separate route. */
+  agencyQuestion: string
   primaryCta: NavItem
   secondaryCta: NavItem
   /** Dedicated source for the canvas text spiral. */
