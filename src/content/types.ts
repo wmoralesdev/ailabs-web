@@ -745,6 +745,10 @@ export type EventsIndexContent = {
   lumaLabel: string
   newTabLabel: string
   photosLabel: string
+  photosCaption: string
+  cityLine: string
+  closeHeadline: string
+  closeSupport: string
   communityCta: string
   upcomingEmpty: string
   monthEmpty: string

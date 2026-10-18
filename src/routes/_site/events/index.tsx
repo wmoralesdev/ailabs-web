@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
 
-import { MainCard } from "@/components/chrome/main-card"
 import { EventsIndex } from "@/components/events/events-index"
 import { buildPageMeta } from "@/lib/seo"
 
@@ -30,8 +29,6 @@ function EventsIndexPage() {
   const { now } = Route.useLoaderData()
 
   return (
-    <MainCard>
-      <EventsIndex locale={locale} copy={content.events} now={new Date(now)} />
-    </MainCard>
+    <EventsIndex locale={locale} copy={content.events} now={new Date(now)} />
   )
 }

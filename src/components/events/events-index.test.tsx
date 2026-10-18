@@ -80,17 +80,13 @@ describe("events index page", () => {
 
     expect(
       screen.getByRole("img", { name: es.events.photos[0].alt })
-    ).toBeInTheDocument()
-    fireEvent.click(screen.getByRole("button", { name: "Foto siguiente" }))
+    ).toHaveAttribute("data-letter", "true")
+    fireEvent.click(
+      screen.getByRole("button", { name: es.events.photos[1].alt })
+    )
     expect(
       screen.getByRole("img", { name: es.events.photos[1].alt })
-    ).toBeInTheDocument()
-    expect(
-      screen.queryByRole("img", { name: es.events.photos[0].alt })
-    ).not.toBeInTheDocument()
-    expect(
-      screen.queryByRole("button", { name: es.events.photos[1].alt })
-    ).not.toBeInTheDocument()
+    ).toHaveAttribute("data-letter", "true")
     expect(
       screen.queryByRole("button", { name: "Reanudar fotos" })
     ).not.toBeInTheDocument()
@@ -149,6 +145,6 @@ describe("events index page", () => {
     expect(
       screen.getByRole("link", { name: /Ver calendario/ })
     ).toBeInTheDocument()
-    expect(screen.getByRole("img")).toBeInTheDocument()
+    expect(screen.getAllByRole("img").length).toBeGreaterThan(0)
   })
 })
