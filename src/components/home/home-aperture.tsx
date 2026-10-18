@@ -227,6 +227,11 @@ function HomeAperture({ locale, aperture }: HomeApertureProps) {
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <HomeCtaLink cta={aperture.cta} locale={locale} />
               <HomeCtaLink
+                cta={aperture.eventsCta}
+                locale={locale}
+                variant="quiet"
+              />
+              <HomeCtaLink
                 cta={aperture.partnerCta}
                 locale={locale}
                 variant="quiet"

@@ -146,6 +146,8 @@ export type CommunityContent = CampaignQrCopy & {
   joinCta: string
   joinHint: string
   joinHref: string
+  /** Plain link to the events index. The body stays text for meta and FAQ. */
+  eventsCta: NavItem
   howItWorksLabel: string
   steps: ReadonlyArray<CommunityStep>
 }
@@ -415,6 +417,8 @@ export type HomeApertureContent = {
   events: ReadonlyArray<HomeApertureEvent>
   /** Builder-facing CTA into the community route. */
   cta: NavItem
+  /** Link to the public events index from the section that already names events. */
+  eventsCta: NavItem
   /** Partner-facing CTA into the contact form's partnership interest. */
   partnerCta: NavItem
 }
@@ -724,6 +728,25 @@ export type ApertureContent = {
   profile: ApertureProfileContent
 }
 
+/** One event the public site already publishes on its own page. */
+export type EventsIndexItem = {
+  id: string
+  name: string
+  /** Facts that event's own page already states. No invented date, venue, or attendance. */
+  summary: string
+  href: string
+  external?: boolean
+}
+
+export type EventsIndexContent = {
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  intro: string
+  items: ReadonlyArray<EventsIndexItem>
+}
+
 export type SiteContent = {
   locale: Locale
   meta: PageMeta
@@ -735,4 +758,5 @@ export type SiteContent = {
   campusLeader: CampusLeaderContent
   legal: LegalContent
   aperture: ApertureContent
+  events: EventsIndexContent
 }

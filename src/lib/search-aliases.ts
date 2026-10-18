@@ -8,6 +8,7 @@ export const PUBLIC_PAGE_PATHS = [
   "/community",
   "/campus-leader",
   "/aperture",
+  "/events",
   "/events/modo-fundador",
   "/events/get-competitive-quick",
 ] as const
@@ -18,6 +19,7 @@ const HOME = "/"
 const COMMUNITY = "/community"
 const CAMPUS_LEADER = "/campus-leader"
 const APERTURE = "/aperture"
+const EVENTS = "/events"
 const MODO_FUNDADOR = "/events/modo-fundador"
 const GET_COMPETITIVE_QUICK = "/events/get-competitive-quick"
 
@@ -59,8 +61,14 @@ export const SEARCH_ALIASES: Readonly<Record<string, PublicPagePath>> = {
   "/modo-fundador": MODO_FUNDADOR,
   "/taller-modo-fundador": MODO_FUNDADOR,
   "/taller-fundadores-san-salvador": MODO_FUNDADOR,
-  "/eventos-tech-el-salvador": MODO_FUNDADOR,
-  "/tech-events-el-salvador": MODO_FUNDADOR,
+
+  // The events index, not one workshop. Same 301 for every client.
+  "/eventos": EVENTS,
+  "/eventos-el-salvador": EVENTS,
+  "/eventos-tech-el-salvador": EVENTS,
+  "/eventos-de-ia-el-salvador": EVENTS,
+  "/tech-events-el-salvador": EVENTS,
+  "/ai-events-el-salvador": EVENTS,
 
   // Get Competitive Quick does not name a country or city.
   "/get-competitive-quick": GET_COMPETITIVE_QUICK,

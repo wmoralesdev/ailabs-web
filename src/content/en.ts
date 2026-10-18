@@ -23,6 +23,10 @@ export const en: SiteContent = {
             href: "/community",
           },
           {
+            label: "Events",
+            href: "/events",
+          },
+          {
             label: "Campus Leaders",
             href: "/campus-leader",
           },
@@ -87,6 +91,10 @@ export const en: SiteContent = {
             {
               label: "Join the community",
               href: "/community",
+            },
+            {
+              label: "Events",
+              href: "/events",
             },
             {
               label: "Campus Leaders",
@@ -408,6 +416,10 @@ export const en: SiteContent = {
         "Aperture brings together community, partnerships, and events that show how people build and learn with these tools.",
       attribution: "Ai Labs",
       cta: { label: "Join the community", href: "/community" },
+      eventsCta: {
+        label: "Ai Labs events in El Salvador",
+        href: "/events",
+      },
       partnerCta: { label: "Explore a partnership", href: "#contact" },
     },
     contact: {
@@ -535,6 +547,10 @@ export const en: SiteContent = {
     joinCta: "Join on WhatsApp",
     joinHint: "Opens WhatsApp · request may need approval",
     joinHref: "https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj",
+    eventsCta: {
+      label: "Ai Labs events in El Salvador",
+      href: "/events",
+    },
     howItWorksLabel: "How it works",
     steps: [
       { title: "Open the invite", body: "Tap Join on WhatsApp" },
@@ -1020,5 +1036,38 @@ export const en: SiteContent = {
       shareCta: "Open share card",
       shareCardAlt: "{name} · Aperture member #{number}",
     },
+  },
+  events: {
+    metaTitle: "Ai Labs events in El Salvador",
+    metaDescription:
+      "These are Ai Labs events in El Salvador, not every event in the country.",
+    label: "Events",
+    headline: "Ai Labs events in El Salvador",
+    intro:
+      "These are Ai Labs events in El Salvador, not every event in the country.",
+    items: [
+      {
+        id: "modo-fundador",
+        name: "Modo Fundador",
+        summary:
+          "An in-person Ai Labs workshop in San Salvador on August 15, 2026. Its page says the venue is still to be confirmed.",
+        href: "/events/modo-fundador",
+      },
+      {
+        id: "get-competitive-quick",
+        name: "Get Competitive Quick",
+        summary:
+          "An Ai Labs workshop. Its page does not name a city or a country. It says mid-August 2026 and that the date is still to be confirmed.",
+        href: "/events/get-competitive-quick",
+      },
+      {
+        id: "devday",
+        name: "DevDay Exchange Community",
+        summary:
+          "The DevDay page says Walter Morales and Ai Labs organize this community event in San Salvador on Saturday, October 24, 2026, from 3:00 to 7:00 p.m., at BINAES.",
+        href: "https://devday.ailabs.sv/",
+        external: true,
+      },
+    ],
   },
 }

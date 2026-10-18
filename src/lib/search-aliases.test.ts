@@ -60,11 +60,31 @@ describe("search aliases", () => {
     }
     expect(SEARCH_ALIASES["/comunidad-de-ia-el-salvador"]).toBe("/community")
     expect(SEARCH_ALIASES["/ai-community-el-salvador"]).toBe("/community")
-    expect(SEARCH_ALIASES["/eventos-tech-el-salvador"]).toBe(
+    for (const alias of [
+      "/eventos",
+      "/eventos-el-salvador",
+      "/eventos-tech-el-salvador",
+      "/eventos-de-ia-el-salvador",
+      "/tech-events-el-salvador",
+      "/ai-events-el-salvador",
+    ]) {
+      expect(SEARCH_ALIASES[alias]).toBe("/events")
+    }
+    expect(SEARCH_ALIASES["/modo-fundador"]).toBe("/events/modo-fundador")
+    expect(SEARCH_ALIASES["/taller-modo-fundador"]).toBe(
       "/events/modo-fundador"
     )
-    expect(SEARCH_ALIASES["/tech-events-el-salvador"]).toBe(
+    expect(SEARCH_ALIASES["/taller-fundadores-san-salvador"]).toBe(
       "/events/modo-fundador"
+    )
+    expect(SEARCH_ALIASES["/get-competitive-quick"]).toBe(
+      "/events/get-competitive-quick"
+    )
+    expect(SEARCH_ALIASES["/taller-get-competitive-quick"]).toBe(
+      "/events/get-competitive-quick"
+    )
+    expect(SEARCH_ALIASES["/taller-primer-empleo-tech"]).toBe(
+      "/events/get-competitive-quick"
     )
     expect(SEARCH_ALIASES["/consultores-el-salvador"]).toBeUndefined()
   })

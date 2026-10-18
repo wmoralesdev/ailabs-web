@@ -115,6 +115,9 @@ possibly stale value into this file.
   open/close is controlled by `campusLeader.applicationsOpen` in content.
   Footer links to it; accepted-leader directory is not shipped yet. Export
   applications with `pnpm campus-leader:export` for Notion review.
+- `/events` is the index of Ai Labs events in El Salvador. It is a normal
+  indexable page (sitemap, 200). Country-shaped search aliases 301 here.
+  Workshop aliases stay on their own event pages.
 - `/events/$slug` hosts per-event microsites with their own layouts. Shipped
   events: `/events/modo-fundador` (founders, USD 50, Wompi) and
   `/events/get-competitive-quick` (students / remote seekers, USD 25, Wompi;

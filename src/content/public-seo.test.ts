@@ -88,6 +88,7 @@ describe("public SEO files", () => {
     expect(sitemap).toContain("https://www.ailabs.sv/community")
     expect(sitemap).toContain("https://www.ailabs.sv/campus-leader")
     expect(sitemap).toContain("https://www.ailabs.sv/aperture")
+    expect(sitemap).toContain("<loc>https://www.ailabs.sv/events</loc>")
     expect(sitemap).toContain("https://www.ailabs.sv/events/modo-fundador")
     expect(sitemap).toContain(
       "https://www.ailabs.sv/events/get-competitive-quick"

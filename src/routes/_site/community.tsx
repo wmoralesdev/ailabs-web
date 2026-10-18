@@ -1,6 +1,6 @@
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
-import { createFileRoute } from "@tanstack/react-router"
+import { Link, createFileRoute } from "@tanstack/react-router"
 
 import { CampaignFactRow } from "@/components/campaign/campaign-fact-row"
 import { CampaignHero } from "@/components/campaign/campaign-hero"
@@ -90,6 +90,12 @@ function CommunityPage() {
           <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
             {content.body}
           </p>
+          <Link
+            to="/events"
+            className="w-fit text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+          >
+            {content.eventsCta.label}
+          </Link>
           <div className="flex flex-col gap-2 pt-1">
             <a
               href={content.joinHref}
