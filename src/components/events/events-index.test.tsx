@@ -1,10 +1,4 @@
-import {
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-  within,
-} from "@testing-library/react"
+import { cleanup, render, screen, within } from "@testing-library/react"
 import { afterEach, describe, expect, it, vi } from "vitest"
 
 import { EventsIndex } from "@/components/events/events-index"
@@ -78,15 +72,13 @@ describe("events index page", () => {
       screen.getByRole("link", { name: "Unirme a la comunidad" })
     ).toHaveAttribute("href", "/community")
 
-    expect(
-      screen.getByRole("img", { name: es.events.photos[0].alt })
-    ).toHaveAttribute("data-letter", "true")
-    fireEvent.click(
-      screen.getByRole("button", { name: es.events.photos[1].alt })
-    )
-    expect(
-      screen.getByRole("img", { name: es.events.photos[1].alt })
-    ).toHaveAttribute("data-letter", "true")
+    expect(screen.getAllByRole("img")).toHaveLength(es.events.photos.length)
+    for (const photo of es.events.photos) {
+      expect(screen.getByRole("img", { name: photo.alt })).toHaveAttribute(
+        "src",
+        photo.src
+      )
+    }
     expect(
       screen.queryByRole("button", { name: "Reanudar fotos" })
     ).not.toBeInTheDocument()
@@ -145,6 +137,6 @@ describe("events index page", () => {
     expect(
       screen.getByRole("link", { name: /Ver calendario/ })
     ).toBeInTheDocument()
-    expect(screen.getAllByRole("img").length).toBeGreaterThan(0)
+    expect(screen.getAllByRole("img")).toHaveLength(es.events.photos.length)
   })
 })

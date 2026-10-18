@@ -74,21 +74,28 @@ export function formatLumaPlace(
   return parts.length > 0 ? parts.join(", ") : null
 }
 
-export function formatLumaWhen(event: LumaEvent, locale: Locale): string {
+export function formatLumaDate(event: LumaEvent, locale: Locale): string {
+  return formatDay(new Date(event.startAt), event.timezone, locale)
+}
+
+export function formatLumaTime(event: LumaEvent, locale: Locale): string {
   const start = new Date(event.startAt)
-  const day = formatDay(start, event.timezone, locale)
   const startClock = formatClock(start, event.timezone, locale)
   if (!event.endAt) {
-    return `${day}, ${startClock}`
+    return startClock
   }
 
   const end = new Date(event.endAt)
   const endClock = formatClock(end, event.timezone, locale)
   if (dayKey(start, event.timezone) === dayKey(end, event.timezone)) {
-    return `${day}, ${startClock} – ${endClock}`
+    return `${startClock} – ${endClock}`
   }
 
-  return `${day}, ${startClock} – ${formatDay(end, event.timezone, locale)}, ${endClock}`
+  return `${startClock} – ${formatDay(end, event.timezone, locale)}, ${endClock}`
+}
+
+export function formatLumaWhen(event: LumaEvent, locale: Locale): string {
+  return `${formatLumaDate(event, locale)}, ${formatLumaTime(event, locale)}`
 }
 
 export function formatLumaMonth(event: LumaEvent, locale: Locale): string {
