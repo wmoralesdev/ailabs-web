@@ -12,7 +12,7 @@ import { TanStackDevtools } from "@tanstack/react-devtools"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
-import { resolveLocaleContext } from "@/lib/locale-preference"
+import { loadLocaleContext } from "@/lib/locale-preference"
 import { OG_IMAGE_ALT, OG_IMAGE_URL, SITE_NAME } from "@/lib/seo"
 import appCss from "../styles.css?url"
 
@@ -26,7 +26,7 @@ const SITE_DESCRIPTION =
   "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador."
 
 export const Route = createRootRoute({
-  beforeLoad: async () => resolveLocaleContext(),
+  beforeLoad: () => loadLocaleContext(),
   head: () => ({
     meta: [
       { charSet: "utf-8" },
