@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
 import type { IconSvgElement } from "@hugeicons/react"
-import {
-  ArrowLeft01Icon,
-  ArrowRight01Icon,
-  PauseIcon,
-  PlayIcon,
-} from "@hugeicons/core-free-icons"
+import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
 import type { EventsIndexContent } from "@/content/types"
 import { cn } from "@/lib/utils"
@@ -16,6 +11,21 @@ const GLIDE_EASE = "cubic-bezier(0.165, 0.84, 0.44, 1)"
 const controlClassName =
   "inline-flex size-11 min-h-11 min-w-11 cursor-pointer touch-manipulation items-center justify-center rounded-full bg-background text-foreground shadow-sm ring-1 ring-foreground/15 transition-colors duration-200 hover:ring-foreground/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground motion-reduce:transition-none"
 
+const POSE: Array<React.CSSProperties> = [
+  {
+    transform: "translateZ(-56px) rotateY(35deg)",
+    transformOrigin: "right center",
+  },
+  {
+    transform: "translateZ(28px)",
+    transformOrigin: "center center",
+  },
+  {
+    transform: "translateZ(-56px) rotateY(-35deg)",
+    transformOrigin: "left center",
+  },
+]
+
 function fill(template: string, values: Record<string, string>): string {
   return template.replace(/\{(\w+)\}/g, (_, key: string) => values[key] ?? "")
 }
@@ -24,16 +34,21 @@ function mod(value: number, count: number): number {
   return ((value % count) + count) % count
 }
 
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  )
+}
+
 function CarouselControl({
   label,
   icon,
-  pressed,
   className,
   onClick,
 }: {
   label: string
   icon: IconSvgElement
-  pressed?: boolean
   className?: string
   onClick: () => void
 }) {
@@ -42,7 +57,6 @@ function CarouselControl({
       type="button"
       className={cn(controlClassName, className)}
       aria-label={label}
-      aria-pressed={pressed}
       onClick={onClick}
     >
       <HugeiconsIcon
@@ -55,75 +69,94 @@ function CarouselControl({
   )
 }
 
+function PhotoFigure({
+  src,
+  alt,
+  active,
+}: {
+  src: string
+  alt: string
+  active: boolean
+}) {
+  return (
+    <div
+      className="relative aspect-[3/2] w-full"
+      style={{ perspective: "1100px" }}
+    >
+      <div
+        className="absolute inset-0 flex items-stretch gap-3 sm:gap-4"
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        {POSE.map((pose, part) => (
+          <div
+            key={part}
+            className="relative min-w-0 flex-1 overflow-hidden bg-muted shadow-[0_18px_40px_rgba(26,26,26,0.16)]"
+            style={pose}
+          >
+            <img
+              src={src}
+              alt={active && part === 1 ? alt : ""}
+              width={1600}
+              height={1067}
+              loading={active ? "eager" : "lazy"}
+              decoding="async"
+              draggable={false}
+              className="absolute top-0 h-full max-w-none object-cover"
+              style={{ width: "300%", left: `${-part * 100}%` }}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function CommunityCarousel({ copy }: { copy: EventsIndexContent }) {
   const photos = copy.photos
   const count = photos.length
   const [position, setPosition] = useState(1)
   const [instant, setInstant] = useState(false)
-  const [paused, setPaused] = useState(false)
   const [status, setStatus] = useState("")
-
-  useEffect(() => {
-    if (typeof window.matchMedia !== "function") {
-      return
-    }
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const sync = () => {
-      if (media.matches) {
-        setPaused(true)
-      }
-    }
-    sync()
-    media.addEventListener("change", sync)
-    return () => media.removeEventListener("change", sync)
-  }, [])
 
   useEffect(() => {
     if (!instant) {
       return
     }
-    const id = window.requestAnimationFrame(() => {
-      setInstant(false)
-    })
+    const id = window.requestAnimationFrame(() => setInstant(false))
     return () => window.cancelAnimationFrame(id)
   }, [instant])
-
-  useEffect(() => {
-    if (paused || count < 2) {
-      return
-    }
-    const id = window.setInterval(() => {
-      setPosition((current) => current + 1)
-    }, 6000)
-    return () => window.clearInterval(id)
-  }, [paused, count])
 
   if (count === 0) {
     return null
   }
 
-  const before = photos[count - 1]
-  const after = photos[0]
   const track = [
-    { photo: before, key: `${before.src}-before` },
+    { photo: photos[count - 1], key: `${photos[count - 1].src}-before` },
     ...photos.map((photo) => ({ photo, key: photo.src })),
-    { photo: after, key: `${after.src}-after` },
+    { photo: photos[0], key: `${photos[0].src}-after` },
   ]
 
-  function step(delta: number, fromUser: boolean) {
-    const next = position + delta
-    setPosition(next)
-    if (!fromUser) {
-      return
-    }
-    setPaused(true)
-    const photo = photos[mod(next - 1, count)]
+  function announce(nextPosition: number) {
+    const photo = photos[mod(nextPosition - 1, count)]
     setStatus(
       `${fill(copy.photoStatus, {
-        current: String(mod(next - 1, count) + 1),
+        current: String(mod(nextPosition - 1, count) + 1),
         total: String(count),
       })}. ${photo.alt}`
     )
+  }
+
+  function step(delta: number) {
+    if (prefersReducedMotion()) {
+      const next = mod(position - 1 + delta, count) + 1
+      setInstant(true)
+      setPosition(next)
+      announce(next)
+      return
+    }
+    const next = position + delta
+    setPosition(next)
+    announce(next)
   }
 
   function settle(event: React.TransitionEvent<HTMLDivElement>) {
@@ -144,8 +177,6 @@ function CommunityCarousel({ copy }: { copy: EventsIndexContent }) {
     }
   }
 
-  const playing = !paused && count > 1
-
   return (
     <section
       aria-labelledby="events-photos"
@@ -154,10 +185,10 @@ function CommunityCarousel({ copy }: { copy: EventsIndexContent }) {
       onKeyDown={(event) => {
         if (event.key === "ArrowLeft") {
           event.preventDefault()
-          step(-1, true)
+          step(-1)
         } else if (event.key === "ArrowRight") {
           event.preventDefault()
-          step(1, true)
+          step(1)
         }
       }}
     >
@@ -168,89 +199,57 @@ function CommunityCarousel({ copy }: { copy: EventsIndexContent }) {
         {copy.photosLabel}
       </h2>
       <div className="relative">
-        <div className="@container overflow-hidden py-3 [--gap:20px] [--peek:120px] max-sm:[--peek:100px]">
+        <div className="overflow-hidden py-6">
           <div
             className={cn(
-              "flex items-stretch",
+              "flex",
               instant
                 ? "transition-none"
                 : "transition-transform duration-[400ms] motion-reduce:transition-none"
             )}
             style={{
-              gap: "var(--gap)",
+              transform: `translate3d(${-position * 100}%, 0, 0)`,
               transitionTimingFunction: instant ? undefined : GLIDE_EASE,
-              transform: `translate3d(calc(var(--peek) - ${position} * (100cqi - 2 * var(--peek) + var(--gap))), 0, 0)`,
             }}
             onTransitionEnd={settle}
           >
-            {track.map((slide, slideIndex) => {
-              const centered = slideIndex === position
-              return (
-                <div
-                  key={slide.key}
-                  className="w-[calc(100cqi-2*var(--peek))] shrink-0"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-hidden={centered ? undefined : true}
-                  aria-label={fill(copy.photoStatus, {
-                    current: String(mod(slideIndex - 1, count) + 1),
-                    total: String(count),
-                  })}
-                >
-                  <div
-                    className={cn(
-                      "h-full overflow-hidden rounded-2xl bg-muted transition-[transform,opacity,box-shadow] duration-[400ms] motion-reduce:transition-none",
-                      centered
-                        ? "scale-[1.02] opacity-100 shadow-[0_16px_40px_rgba(26,26,26,0.18)]"
-                        : "scale-100 opacity-90"
-                    )}
-                    style={{
-                      transitionTimingFunction: GLIDE_EASE,
-                    }}
-                  >
-                    <img
-                      src={slide.photo.src}
-                      alt={centered ? slide.photo.alt : ""}
-                      width={1600}
-                      height={1067}
-                      loading="eager"
-                      decoding="async"
-                      draggable={false}
-                      className="aspect-[3/2] w-full object-cover"
-                    />
-                  </div>
-                </div>
-              )
-            })}
+            {track.map((slide, slideIndex) => (
+              <div
+                key={slide.key}
+                className="w-full shrink-0 grow-0 basis-full px-3 sm:px-8"
+                role="group"
+                aria-roledescription="slide"
+                aria-hidden={slideIndex === position ? undefined : true}
+                aria-label={fill(copy.photoStatus, {
+                  current: String(mod(slideIndex - 1, count) + 1),
+                  total: String(count),
+                })}
+              >
+                <PhotoFigure
+                  src={slide.photo.src}
+                  alt={slide.photo.alt}
+                  active={slideIndex === position}
+                />
+              </div>
+            ))}
           </div>
         </div>
-        <div className="mt-3 flex items-center justify-center gap-3">
-          <CarouselControl
-            label={copy.previousPhoto}
-            icon={ArrowLeft01Icon}
-            className="z-10 sm:absolute sm:top-[calc(50%-1.375rem)] sm:left-3 sm:-translate-y-1/2"
-            onClick={() => step(-1, true)}
-          />
-          <CarouselControl
-            label={playing ? copy.pausePhotos : copy.playPhotos}
-            icon={playing ? PauseIcon : PlayIcon}
-            pressed={!playing}
-            onClick={() => setPaused((current) => !current)}
-          />
-          <p aria-hidden="true" className="text-base text-foreground">
-            {mod(position - 1, count) + 1} / {count}
-          </p>
-          <CarouselControl
-            label={copy.nextPhoto}
-            icon={ArrowRight01Icon}
-            className="z-10 sm:absolute sm:top-[calc(50%-1.375rem)] sm:right-3 sm:-translate-y-1/2"
-            onClick={() => step(1, true)}
-          />
-          <p className="sr-only" aria-live="polite">
-            {status}
-          </p>
-        </div>
+        <CarouselControl
+          label={copy.previousPhoto}
+          icon={ArrowLeft01Icon}
+          className="absolute top-1/2 left-3 z-20 -translate-y-1/2"
+          onClick={() => step(-1)}
+        />
+        <CarouselControl
+          label={copy.nextPhoto}
+          icon={ArrowRight01Icon}
+          className="absolute top-1/2 right-3 z-20 -translate-y-1/2"
+          onClick={() => step(1)}
+        />
       </div>
+      <p className="sr-only" aria-live="polite">
+        {status}
+      </p>
     </section>
   )
 }
