@@ -28,7 +28,5 @@ function EventsIndexPage() {
   const { locale, content } = Route.useRouteContext()
   const { now } = Route.useLoaderData()
 
-  return (
-    <EventsIndex locale={locale} copy={content.events} now={new Date(now)} />
-  )
+  return <EventsIndex locale={locale} content={content} now={new Date(now)} />
 }

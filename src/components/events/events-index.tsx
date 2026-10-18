@@ -1,21 +1,15 @@
 import { useEffect, useRef, useState } from "react"
-import type { CSSProperties, ReactNode } from "react"
+import type { CSSProperties } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
-import type { IconSvgElement } from "@hugeicons/react"
 import {
-  ArrowRight01Icon,
-  Calendar03Icon,
-  Clock01Icon,
-  Location01Icon,
+  ArrowUpRight01Icon,
   PauseIcon,
   PlayIcon,
-  UserGroupIcon,
 } from "@hugeicons/core-free-icons"
-import { Link } from "@tanstack/react-router"
-import { gsap } from "gsap"
 
-import { homePillClassName } from "@/components/home/home-styles"
-import { Eyebrow } from "@/components/ui/eyebrow"
+import { HomeHero } from "@/components/home/home-hero"
+import { homeShellClassName } from "@/components/home/home-styles"
+import { Button } from "@/components/ui/button"
 import {
   formatCurrentMonth,
   formatLumaPlace,
@@ -28,6 +22,7 @@ import type {
   EventsIndexContent,
   EventsIndexPhoto,
   Locale,
+  SiteContent,
 } from "@/content/types"
 import { cn } from "@/lib/utils"
 
@@ -35,17 +30,61 @@ import "./events-index.css"
 
 type EventsIndexProps = {
   locale: Locale
-  copy: EventsIndexContent
+  content: SiteContent
   now: Date
 }
 
-const HERO_COUNT = 5
+const MONTH_LABELS: Record<Locale, readonly string[]> = {
+  es: [
+    "ENE",
+    "FEB",
+    "MAR",
+    "ABR",
+    "MAY",
+    "JUN",
+    "JUL",
+    "AGO",
+    "SET",
+    "OCT",
+    "NOV",
+    "DIC",
+  ],
+  en: [
+    "JAN",
+    "FEB",
+    "MAR",
+    "APR",
+    "MAY",
+    "JUN",
+    "JUL",
+    "AUG",
+    "SEP",
+    "OCT",
+    "NOV",
+    "DEC",
+  ],
+}
+
+/** Same constant speed as the home ambassador marquee. */
 const MARQUEE_SPEED = 42
 
-const shellClassName = "page-gutter mx-auto w-full max-w-content"
-
 const sectionTitleClassName =
-  "font-display text-3xl font-semibold tracking-tight text-balance text-foreground md:text-4xl"
+  "font-display text-3xl leading-tight font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
+
+const monthTitleClassName =
+  "font-display text-2xl leading-tight font-semibold tracking-tight text-foreground sm:text-3xl"
+
+const subheadingClassName =
+  "font-display text-lg leading-tight font-semibold tracking-tight sm:text-xl"
+
+const frameClassName =
+  "h-60 w-80 shrink-0 overflow-hidden rounded-2xl border border-border bg-muted sm:h-72 sm:w-96 lg:h-80 lg:w-128"
+
+const frameSizes = "(min-width: 64rem) 32rem, (min-width: 40rem) 24rem, 20rem"
+
+function smallSrc(src: string) {
+  return src.replace("/events/community/", "/events/community/sm/")
+}
 
 function fill(template: string, values: Record<string, string>): string {
   return template.replace(/\{(\w+)\}/g, (_, key: string) => values[key] ?? "")
@@ -55,181 +94,120 @@ function intlLocale(locale: Locale): string {
   return locale === "es" ? "es-SV" : "en-US"
 }
 
+function eventMonthNumber(date: Date, timeZone: string): number {
+  const month = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    month: "numeric",
+  }).format(date)
+  return Number(month)
+}
+
 function eventDateParts(event: LumaEvent, locale: Locale) {
   const date = new Date(event.startAt)
-  const options = { timeZone: event.timezone }
-  const format = (part: Intl.DateTimeFormatOptions) =>
-    new Intl.DateTimeFormat(intlLocale(locale), { ...options, ...part }).format(
-      date
-    )
+  const timeZone = event.timezone
+  const day = new Intl.DateTimeFormat(intlLocale(locale), {
+    timeZone,
+    day: "2-digit",
+  }).format(date)
+  const month = MONTH_LABELS[locale][eventMonthNumber(date, timeZone) - 1] ?? ""
 
-  return {
-    weekday: format({ weekday: "short" }),
-    day: format({ day: "numeric" }),
-    month: format({ month: "short" }),
-  }
-}
-
-function MetaRow({
-  icon,
-  children,
-}: {
-  icon: IconSvgElement
-  children: ReactNode
-}) {
-  return (
-    <p className="flex gap-2">
-      <span aria-hidden="true" className="mt-1 inline-flex shrink-0">
-        <HugeiconsIcon icon={icon} strokeWidth={1.75} className="size-4" />
-      </span>
-      <span className="min-w-0">{children}</span>
-    </p>
-  )
-}
-
-function DateBlock({
-  event,
-  locale,
-  featured,
-}: {
-  event: LumaEvent
-  locale: Locale
-  featured?: boolean
-}) {
-  const parts = eventDateParts(event, locale)
-
-  return (
-    <div
-      className={cn(
-        "flex shrink-0 flex-col items-center justify-center rounded-2xl px-3 py-3 text-center",
-        featured
-          ? "min-w-28 bg-primary text-primary-foreground md:min-w-36 md:px-5 md:py-6"
-          : "min-w-20 bg-foreground text-background"
-      )}
-    >
-      <span className="text-xs font-semibold tracking-wide uppercase">
-        {parts.weekday}
-      </span>
-      <span
-        className={cn(
-          "font-display leading-none font-semibold",
-          featured ? "text-6xl md:text-7xl" : "text-4xl"
-        )}
-      >
-        {parts.day}
-      </span>
-      <span className="text-sm font-semibold tracking-wide uppercase">
-        {parts.month}
-      </span>
-    </div>
-  )
+  return { day, month }
 }
 
 function EventCard({
   event,
   locale,
   copy,
-  featured = false,
-  quiet = false,
 }: {
   event: LumaEvent
   locale: Locale
   copy: EventsIndexContent
-  featured?: boolean
-  quiet?: boolean
 }) {
   const place = formatLumaPlace(event, locale)
   const time = formatLumaTime(event, locale)
+  const parts = eventDateParts(event, locale)
 
   return (
     <a
       href={event.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={cn(
-        "flex h-full min-h-11 flex-col gap-5 rounded-3xl p-5 transition-shadow duration-200 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none motion-reduce:transition-none sm:p-6",
-        featured
-          ? "shadow-panel bg-foreground text-background md:flex-row md:items-stretch md:gap-8 md:p-8"
-          : quiet
-            ? "border border-border bg-card text-card-foreground sm:flex-row sm:items-start"
-            : "shadow-elevated border border-border bg-card text-card-foreground sm:flex-row sm:items-start"
-      )}
+      className="group flex items-start gap-3 rounded-2xl border border-border bg-card p-3 text-card-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none sm:gap-4 sm:p-4"
     >
-      <DateBlock event={event} locale={locale} featured={featured} />
-      <div className="flex min-w-0 flex-1 flex-col gap-3">
-        <h4
-          className={cn(
-            "font-display font-semibold tracking-tight text-balance",
-            featured ? "text-3xl md:text-4xl" : "text-2xl"
-          )}
-        >
+      <span className="flex w-12 shrink-0 flex-col items-center gap-0.5 rounded-lg border border-border px-1.5 py-1.5">
+        <span className="font-display text-xl leading-none font-semibold tracking-tight tabular-nums">
+          {parts.day}
+        </span>
+        <span className="font-mono text-[0.6rem] tracking-wider text-muted-foreground uppercase">
+          {parts.month}
+        </span>
+      </span>
+      <span className="flex min-w-0 flex-1 flex-col gap-1">
+        <span className="font-display text-base font-semibold tracking-tight text-balance group-hover:underline group-hover:decoration-2 sm:text-lg">
           {event.name}
-        </h4>
-        <time dateTime={event.startAt} className="flex flex-col gap-2">
-          <MetaRow icon={Clock01Icon}>{time}</MetaRow>
-        </time>
-        {place ? <MetaRow icon={Location01Icon}>{place}</MetaRow> : null}
-        {event.hosts.length > 0 ? (
-          <MetaRow icon={UserGroupIcon}>
-            {copy.hostsLabel}: {event.hosts.join(", ")}
-          </MetaRow>
-        ) : null}
-        <span
-          className={cn(
-            "mt-auto inline-flex min-h-11 w-fit items-center gap-1.5 rounded-full px-5 text-sm font-medium",
-            quiet
-              ? "border border-current"
-              : "bg-primary text-primary-foreground"
-          )}
+        </span>
+        <time
+          dateTime={event.startAt}
+          className="text-sm leading-snug text-muted-foreground"
         >
+          {time}
+        </time>
+        {place ? (
+          <span className="text-sm leading-snug text-muted-foreground">
+            {place}
+          </span>
+        ) : null}
+        <span className="inline-flex items-center gap-1 text-sm font-medium">
           {copy.lumaLabel}
           <span className="sr-only"> {copy.newTabLabel}</span>
           <HugeiconsIcon
-            icon={ArrowRight01Icon}
+            icon={ArrowUpRight01Icon}
             strokeWidth={2}
-            className="size-4"
+            className="size-4 text-purple"
             aria-hidden
           />
         </span>
-      </div>
+      </span>
     </a>
   )
 }
 
-const frameWidths = ["15rem", "22rem", "13.5rem", "26rem", "18rem"]
-
 function PhotoStrip({
   photos,
   decorative = false,
-  listRef,
   className,
-  frameHeight,
+  tabIndex,
+  loading = "lazy",
 }: {
   photos: ReadonlyArray<EventsIndexPhoto>
   decorative?: boolean
-  listRef?: React.RefObject<HTMLUListElement | null>
   className?: string
-  frameHeight?: string
+  tabIndex?: number
+  loading?: "lazy" | "eager"
 }) {
   return (
-    <ul ref={listRef} className={cn("events-marquee-strip", className)}>
-      {photos.map((photo, index) => (
-        <li
-          key={photo.src}
-          className="events-marquee-frame"
-          style={
-            {
-              width: frameWidths[index % frameWidths.length],
-              "--frame-h": frameHeight,
-            } as CSSProperties
-          }
-        >
+    <ul
+      className={cn(
+        "flex shrink-0 flex-nowrap items-stretch gap-4 pr-4",
+        tabIndex === undefined && "w-max",
+        className
+      )}
+      aria-hidden={decorative || undefined}
+      tabIndex={tabIndex}
+    >
+      {photos.map((photo) => (
+        <li key={photo.src} className={frameClassName}>
           <img
             src={photo.src}
+            srcSet={`${smallSrc(photo.src)} 640w, ${photo.src} ${photo.width}w`}
+            sizes={frameSizes}
             alt={decorative ? "" : photo.alt}
-            width={1600}
-            height={1067}
+            width={photo.width}
+            height={photo.height}
+            loading={loading}
+            decoding="async"
             draggable={false}
+            className="size-full object-cover"
           />
         </li>
       ))}
@@ -237,36 +215,38 @@ function PhotoStrip({
   )
 }
 
-function PhotoMarquee({
+function MarqueeRow({
   photos,
-  copy,
+  reverse = false,
+  motionAllowed,
+  userPaused,
 }: {
   photos: ReadonlyArray<EventsIndexPhoto>
-  copy: EventsIndexContent
+  reverse?: boolean
+  motionAllowed: boolean
+  userPaused: boolean
 }) {
-  const bandRef = useRef<HTMLDivElement>(null)
+  const rowRef = useRef<HTMLDivElement>(null)
   const measureRef = useRef<HTMLUListElement>(null)
   const [layout, setLayout] = useState({ sets: 1, duration: 0 })
-  const [motionAllowed, setMotionAllowed] = useState(false)
   const [environmentPaused, setEnvironmentPaused] = useState(true)
-  const [userPaused, setUserPaused] = useState(false)
-  const ready = motionAllowed && layout.duration > 0
-  const reversed = [...photos].reverse()
+  const [seen, setSeen] = useState(false)
+  const [painted, setPainted] = useState(false)
+  const showTrack = painted && motionAllowed && layout.duration > 0 && seen
 
   useEffect(() => {
-    const band = bandRef.current
+    const row = rowRef.current
     const measure = measureRef.current
-    if (!band || !measure || typeof window.matchMedia !== "function") return
+    if (!row || !measure) return
 
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
     let inViewport = typeof IntersectionObserver !== "function"
     const syncPlayback = () => {
-      setMotionAllowed(!media.matches)
       setEnvironmentPaused(!inViewport || document.visibilityState === "hidden")
+      if (inViewport) setSeen(true)
     }
     const measureLayout = () => {
       const width = measure.getBoundingClientRect().width
-      const viewport = band.clientWidth
+      const viewport = row.clientWidth
       if (width <= 0 || viewport <= 0) return
       const sets = Math.max(1, Math.ceil(viewport / width))
       const duration = (width * sets) / MARQUEE_SPEED
@@ -277,13 +257,17 @@ function PhotoMarquee({
       )
     }
 
-    measureLayout()
-    syncPlayback()
+    let paintFrame = 0
+    const firstFrame = requestAnimationFrame(() => {
+      measureLayout()
+      syncPlayback()
+      paintFrame = requestAnimationFrame(() => setPainted(true))
+    })
     const resizeObserver =
       typeof ResizeObserver === "function"
         ? new ResizeObserver(measureLayout)
         : null
-    resizeObserver?.observe(band)
+    resizeObserver?.observe(row)
     resizeObserver?.observe(measure)
     const viewportObserver =
       typeof IntersectionObserver === "function"
@@ -292,34 +276,108 @@ function PhotoMarquee({
             syncPlayback()
           })
         : null
-    viewportObserver?.observe(band)
+    viewportObserver?.observe(row)
     window.addEventListener("resize", measureLayout)
     document.addEventListener("visibilitychange", syncPlayback)
-    media.addEventListener("change", syncPlayback)
 
     return () => {
+      cancelAnimationFrame(firstFrame)
+      cancelAnimationFrame(paintFrame)
       resizeObserver?.disconnect()
       viewportObserver?.disconnect()
       window.removeEventListener("resize", measureLayout)
       document.removeEventListener("visibilitychange", syncPlayback)
-      media.removeEventListener("change", syncPlayback)
     }
   }, [photos])
 
-  const rows = [
-    { photos, reverse: false, height: "13.5rem" },
-    { photos: reversed, reverse: true, height: "10.5rem" },
-  ]
+  const copies = Array.from({ length: layout.sets }, (_, index) => index)
+  const paused = userPaused || environmentPaused
 
   return (
     <div
-      ref={bandRef}
-      className="events-marquee-band flex flex-col gap-5 py-12 md:gap-6 md:py-16"
-      data-ready={ready || undefined}
-      data-paused={userPaused || environmentPaused || undefined}
+      ref={rowRef}
+      className="events-marquee-row"
+      data-ready={showTrack || undefined}
+      data-paused={paused || undefined}
+      data-reverse={reverse || undefined}
+      style={
+        {
+          "--events-duration": `${layout.duration}s`,
+        } as CSSProperties
+      }
     >
+      <ul
+        ref={measureRef}
+        className="events-marquee-measure flex w-max flex-nowrap gap-4 pr-4"
+        aria-hidden="true"
+      >
+        {photos.map((photo) => (
+          <li key={photo.src} className={frameClassName} />
+        ))}
+      </ul>
+      <div className="events-marquee-track">
+        <div className="events-marquee-half">
+          {copies.map((index) => (
+            <PhotoStrip
+              key={index}
+              photos={photos}
+              decorative={index > 0}
+              loading="lazy"
+              className={
+                showTrack || index > 0 ? undefined : "events-marquee-static"
+              }
+              tabIndex={showTrack || index > 0 ? undefined : 0}
+            />
+          ))}
+        </div>
+        {showTrack ? (
+          <div className="events-marquee-half" aria-hidden="true">
+            {copies.map((index) => (
+              <PhotoStrip
+                key={index}
+                photos={photos}
+                decorative
+                loading="lazy"
+              />
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
+function PhotoMarquee({
+  photos,
+  copy,
+}: {
+  photos: ReadonlyArray<EventsIndexPhoto>
+  copy: EventsIndexContent
+}) {
+  const [motionAllowed, setMotionAllowed] = useState(false)
+  const [userPaused, setUserPaused] = useState(false)
+  const midpoint = Math.ceil(photos.length / 2)
+  const rows = [
+    { photos: photos.slice(0, midpoint), reverse: false },
+    { photos: photos.slice(midpoint), reverse: true },
+  ]
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") return
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const sync = () => setMotionAllowed(!media.matches)
+    sync()
+    media.addEventListener("change", sync)
+    return () => media.removeEventListener("change", sync)
+  }, [])
+
+  return (
+    <div className="flex flex-col gap-6">
       <div
-        className={cn(shellClassName, "flex items-end justify-between gap-4")}
+        className={cn(
+          homeShellClassName,
+          "flex items-end justify-between gap-4"
+        )}
       >
         <div className="flex max-w-3xl flex-col gap-3">
           <h2 id="events-photos" className={sectionTitleClassName}>
@@ -329,10 +387,12 @@ function PhotoMarquee({
             {copy.photosCaption}
           </p>
         </div>
-        <button
+        <Button
           type="button"
-          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-foreground/20 bg-background text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-          hidden={!ready}
+          variant="outline"
+          size="xl"
+          className="size-11 rounded-full px-0"
+          hidden={!motionAllowed}
           onClick={() => setUserPaused((paused) => !paused)}
           aria-label={userPaused ? copy.playPhotos : copy.pausePhotos}
         >
@@ -341,233 +401,98 @@ function PhotoMarquee({
             className="size-4"
             aria-hidden
           />
-        </button>
+        </Button>
       </div>
-      <PhotoStrip
-        photos={photos}
-        decorative
-        listRef={measureRef}
-        className="events-marquee-measure"
-        frameHeight="13.5rem"
-      />
-      {rows.map((row) => (
-        <div key={row.height} className="events-marquee-row">
-          <PhotoStrip
+      <div className="flex flex-col gap-2">
+        {rows.map((row) => (
+          <MarqueeRow
+            key={row.reverse ? "reverse" : "forward"}
             photos={row.photos}
-            decorative={row.reverse}
-            className="events-marquee-static"
-            frameHeight={row.height}
+            reverse={row.reverse}
+            motionAllowed={motionAllowed}
+            userPaused={userPaused}
           />
-          <div
-            className="events-marquee-track"
-            aria-hidden="true"
-            data-reverse={row.reverse || undefined}
-            style={
-              {
-                "--events-duration": `${layout.duration}s`,
-              } as CSSProperties
-            }
-          >
-            {["first", "duplicate"].map((half) => (
-              <div key={half} className="events-marquee-half">
-                {Array.from({ length: layout.sets }, (_, index) => (
-                  <PhotoStrip
-                    key={`${half}-${index}`}
-                    photos={row.photos}
-                    decorative
-                    frameHeight={row.height}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   )
 }
 
-function EventsIndex({ locale, copy, now }: EventsIndexProps) {
-  const rootRef = useRef<HTMLElement>(null)
-  const heroRef = useRef<HTMLElement>(null)
+function EventsIndex({ locale, content, now }: EventsIndexProps) {
+  const copy = content.events
   const { upcoming, past } = splitCurrentMonthEvents(now)
   const monthLabel = formatCurrentMonth(now, locale)
   const monthInSentence =
     locale === "es" ? monthLabel.toLocaleLowerCase("es-SV") : monthLabel
   const monthIsEmpty = upcoming.length === 0 && past.length === 0
-  const heroPhotos = copy.photos.slice(0, HERO_COUNT)
-  const restPhotos = copy.photos.slice(HERO_COUNT)
-
-  useEffect(() => {
-    const hero = heroRef.current
-    if (!hero || typeof window.matchMedia !== "function") return
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
-    if (media.matches) return
-
-    const slots = [...hero.querySelectorAll<HTMLElement>("[data-depth]")]
-    const setters = slots.map((slot) => ({
-      set: gsap.quickSetter(slot, "y", "px"),
-      depth: Number(slot.dataset.depth) || 12,
-    }))
-    let frame = 0
-    const update = () => {
-      frame = 0
-      const shift = Math.max(
-        -72,
-        Math.min(72, -hero.getBoundingClientRect().top * 0.12)
-      )
-      for (const { set, depth } of setters) {
-        set(shift * (depth / 28))
-      }
-    }
-    const onScroll = () => {
-      if (frame) return
-      frame = window.requestAnimationFrame(update)
-    }
-
-    update()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => {
-      window.removeEventListener("scroll", onScroll)
-      if (frame) window.cancelAnimationFrame(frame)
-    }
-  }, [])
-
-  useEffect(() => {
-    const root = rootRef.current
-    if (!root || typeof window.matchMedia !== "function") return
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-    if (typeof IntersectionObserver !== "function") return
-
-    root.classList.add("events-ready")
-    const nodes = [...root.querySelectorAll<HTMLElement>("[data-rise]")]
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue
-          entry.target.classList.add("is-in")
-          observer.unobserve(entry.target)
-        }
-      },
-      { threshold: 0.18 }
-    )
-    for (const node of nodes) observer.observe(node)
-    return () => {
-      observer.disconnect()
-      root.classList.remove("events-ready")
-    }
-  }, [])
+  const hero = {
+    ...content.home.hero,
+    label: copy.label,
+    headline: copy.headline,
+    directAnswer: copy.intro,
+    body: "",
+    primaryCta: {
+      label: copy.calendarLabel,
+      href: walterEventsCalendarUrl,
+    },
+    secondaryCta: {
+      label: copy.communityCta,
+      href: "/community",
+    },
+  }
 
   return (
-    <article
-      ref={rootRef}
-      className="overflow-x-clip bg-background text-foreground"
-    >
-      <header ref={heroRef} className="events-hero">
-        <div className="events-hero-inner">
-          <div className="flex max-w-xl flex-col items-start gap-4">
-            <Eyebrow tone="onDark">{copy.label}</Eyebrow>
-            <h1 className="font-display text-[clamp(2.75rem,4.6vw,5.25rem)] leading-[0.95] font-semibold tracking-tight text-balance text-on-dark">
-              {copy.headline}
-            </h1>
-            <p className="max-w-md text-base leading-relaxed text-on-dark/85 md:text-lg">
-              {copy.intro}
-            </p>
-            <a
-              href={walterEventsCalendarUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                homePillClassName,
-                "mt-2 h-12 w-fit gap-2 px-6 text-base"
-              )}
-            >
-              <HugeiconsIcon
-                icon={Calendar03Icon}
-                strokeWidth={1.75}
-                className="size-4"
-                aria-hidden
-              />
-              {copy.calendarLabel}
-              <span className="sr-only"> {copy.newTabLabel}</span>
-            </a>
-          </div>
-          {heroPhotos.length > 0 ? (
-            <div className="events-collage">
-              {heroPhotos.map((photo, index) => (
-                <div
-                  key={photo.src}
-                  className="events-collage-slot"
-                  data-depth={12 + index * 4}
-                >
-                  <div className="events-collage-float">
-                    <div className="events-collage-card">
-                      <img
-                        src={photo.src}
-                        alt={photo.alt}
-                        width={1600}
-                        height={1067}
-                        draggable={false}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : null}
-        </div>
-      </header>
+    <article className="bg-background text-foreground">
+      <HomeHero
+        locale={locale}
+        content={content}
+        desktopSpiralOnly
+        hero={hero}
+        primaryAction={{
+          label: copy.calendarLabel,
+          href: walterEventsCalendarUrl,
+          external: true,
+          newTabLabel: copy.newTabLabel,
+        }}
+      />
 
-      {restPhotos.length > 0 ? (
-        <section aria-labelledby="events-photos">
-          <PhotoMarquee photos={restPhotos} copy={copy} />
+      {copy.photos.length > 0 ? (
+        <section
+          aria-labelledby="events-photos"
+          className="section-y bg-background"
+        >
+          <PhotoMarquee photos={copy.photos} copy={copy} />
         </section>
       ) : null}
 
-      <section className="bg-background py-14 md:py-20">
-        <div className={cn(shellClassName, "flex flex-col gap-8")}>
-          <h2 id="events-month" className={sectionTitleClassName}>
+      <section className="section-y bg-background">
+        <div className={cn(homeShellClassName, "flex flex-col gap-6")}>
+          <h2 id="events-month" className={monthTitleClassName}>
             {monthLabel}
           </h2>
           {monthIsEmpty ? (
-            <p className="max-w-xl text-base leading-relaxed text-foreground">
+            <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
               {fill(copy.monthEmpty, { month: monthInSentence })}
             </p>
           ) : (
-            <div className="flex flex-col gap-12">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
               <section
                 aria-labelledby="events-upcoming"
-                className="flex flex-col gap-4"
+                className="flex flex-col gap-3"
               >
-                <h3
-                  id="events-upcoming"
-                  className="font-display text-xl font-semibold tracking-tight text-foreground"
-                >
+                <h3 id="events-upcoming" className={subheadingClassName}>
                   {copy.upcomingLabel}
                 </h3>
                 {upcoming.length > 0 ? (
-                  <ul className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                    {upcoming.map((event, index) => (
-                      <li
-                        key={event.id}
-                        data-rise
-                        style={{ ["--i" as string]: index }}
-                        className={cn(
-                          "min-w-0",
-                          index === 0 && "lg:col-span-2"
-                        )}
-                      >
-                        <EventCard
-                          event={event}
-                          locale={locale}
-                          copy={copy}
-                          featured={index === 0}
-                        />
+                  <ul className="flex flex-col gap-3">
+                    {upcoming.map((event) => (
+                      <li key={event.id}>
+                        <EventCard event={event} locale={locale} copy={copy} />
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-base leading-relaxed text-foreground">
+                  <p className="text-base leading-relaxed text-muted-foreground">
                     {copy.upcomingEmpty}
                   </p>
                 )}
@@ -575,28 +500,15 @@ function EventsIndex({ locale, copy, now }: EventsIndexProps) {
               {past.length > 0 ? (
                 <section
                   aria-labelledby="events-past"
-                  className="flex flex-col gap-4"
+                  className="flex flex-col gap-3"
                 >
-                  <h3
-                    id="events-past"
-                    className="font-display text-xl font-semibold tracking-tight text-foreground"
-                  >
+                  <h3 id="events-past" className={subheadingClassName}>
                     {copy.pastLabel}
                   </h3>
-                  <ul className="grid grid-cols-1 gap-4">
-                    {past.map((event, index) => (
-                      <li
-                        key={event.id}
-                        data-rise
-                        style={{ ["--i" as string]: index }}
-                        className="min-w-0"
-                      >
-                        <EventCard
-                          event={event}
-                          locale={locale}
-                          copy={copy}
-                          quiet
-                        />
+                  <ul className="flex flex-col gap-3">
+                    {past.map((event) => (
+                      <li key={event.id}>
+                        <EventCard event={event} locale={locale} copy={copy} />
                       </li>
                     ))}
                   </ul>
@@ -604,39 +516,6 @@ function EventsIndex({ locale, copy, now }: EventsIndexProps) {
               ) : null}
             </div>
           )}
-        </div>
-      </section>
-
-      <section aria-labelledby="events-close" className="events-close">
-        <div
-          className={cn(
-            shellClassName,
-            "flex flex-col items-start gap-4 py-12 md:flex-row md:items-end md:justify-between md:gap-8 md:py-14"
-          )}
-        >
-          <div className="flex max-w-xl flex-col gap-2">
-            <h2
-              id="events-close"
-              className="font-display text-2xl font-semibold tracking-tight text-balance text-foreground md:text-3xl"
-            >
-              {copy.closeHeadline}
-            </h2>
-            <p className="text-base leading-relaxed text-foreground">
-              {copy.closeSupport}
-            </p>
-          </div>
-          <Link
-            to="/community"
-            className={cn(homePillClassName, "w-fit shrink-0")}
-          >
-            {copy.communityCta}
-            <HugeiconsIcon
-              icon={ArrowRight01Icon}
-              strokeWidth={2}
-              className="size-4"
-              aria-hidden
-            />
-          </Link>
         </div>
       </section>
     </article>

@@ -29,7 +29,7 @@ afterEach(() => {
 
 describe("events index page", () => {
   it("shows upcoming Luma events before past ones in Spanish", () => {
-    render(<EventsIndex locale="es" copy={es.events} now={now} />)
+    render(<EventsIndex locale="es" content={es} now={now} />)
 
     expect(
       screen.getByRole("heading", { level: 1, name: es.events.headline })
@@ -47,9 +47,8 @@ describe("events index page", () => {
     })
     expect(devday).toHaveAttribute("href", "https://luma.com/0vam8okf")
     expect(devday).toHaveTextContent("Biblioteca Nacional de El Salvador")
-    expect(devday).toHaveTextContent("Walter Morales")
-    expect(devday).toHaveTextContent("Daniela Huezo")
     expect(devday).toHaveTextContent("Ver en Luma")
+    expect(devday).not.toHaveTextContent("Anfitriones")
     expect(devday).not.toHaveTextContent(/por confirmar|la página dice/i)
 
     const past = screen.getByRole("region", { name: "Anteriores" })
@@ -69,10 +68,12 @@ describe("events index page", () => {
       screen.getByRole("link", { name: /Ver calendario/ })
     ).toHaveAttribute("href", "https://luma.com/user/wmoralesdev")
     expect(
-      screen.getByRole("link", { name: "Unirme a la comunidad" })
+      screen.getByRole("link", { name: /Unirme a la comunidad/ })
     ).toHaveAttribute("href", "/community")
+    expect(screen.queryByText(es.events.closeHeadline)).not.toBeInTheDocument()
 
-    expect(screen.getAllByRole("img")).toHaveLength(es.events.photos.length)
+    expect(screen.getAllByRole("img")).toHaveLength(es.events.photos.length + 1)
+    expect(screen.getByRole("img", { name: "Ai Labs" })).toBeInTheDocument()
     for (const photo of es.events.photos) {
       expect(screen.getByRole("img", { name: photo.alt })).toHaveAttribute(
         "src",
@@ -85,7 +86,7 @@ describe("events index page", () => {
   })
 
   it("uses English chrome on the same events", () => {
-    render(<EventsIndex locale="en" copy={en.events} now={now} />)
+    render(<EventsIndex locale="en" content={en} now={now} />)
 
     expect(
       screen.getByRole("heading", {
@@ -100,18 +101,19 @@ describe("events index page", () => {
     })
     expect(devday).toHaveTextContent("National Library of El Salvador")
     expect(devday).toHaveTextContent("View on Luma")
-    expect(devday).toHaveTextContent("Hosts")
+    expect(devday).not.toHaveTextContent("Hosts")
     expect(screen.getByRole("link", { name: /View calendar/ })).toHaveAttribute(
       "href",
       "https://luma.com/user/wmoralesdev"
     )
+    expect(
+      screen.getByRole("link", { name: /Join the community/ })
+    ).toHaveAttribute("href", "/community")
     expect(screen.getByRole("link", { name: /View calendar/ })).toHaveAttribute(
       "target",
       "_blank"
     )
-    expect(
-      screen.getByRole("link", { name: "Join the community" })
-    ).toHaveAttribute("href", "/community")
+    expect(screen.queryByText(en.events.closeHeadline)).not.toBeInTheDocument()
     expect(
       screen.getByRole("img", { name: en.events.photos[0].alt })
     ).toBeInTheDocument()
@@ -121,7 +123,7 @@ describe("events index page", () => {
     render(
       <EventsIndex
         locale="es"
-        copy={es.events}
+        content={es}
         now={new Date("2026-11-15T18:00:00.000Z")}
       />
     )
@@ -137,6 +139,50 @@ describe("events index page", () => {
     expect(
       screen.getByRole("link", { name: /Ver calendario/ })
     ).toBeInTheDocument()
-    expect(screen.getAllByRole("img")).toHaveLength(es.events.photos.length)
+    expect(screen.getAllByRole("img")).toHaveLength(es.events.photos.length + 1)
+  })
+
+  it("labels a pinned October date as OCT in Spanish and English", () => {
+    const october = new Date("2026-10-23T20:00:00.000Z")
+    const cards = [
+      "https://luma.com/q0l9hdwo",
+      "https://luma.com/0vam8okf",
+      "https://luma.com/spacexai-ikz6",
+      "https://luma.com/x36xff8j",
+      "https://luma.com/hrf7a7di",
+    ]
+
+    for (const [locale, content] of [
+      ["es", es],
+      ["en", en],
+    ] as const) {
+      const view = render(
+        <EventsIndex locale={locale} content={content} now={october} />
+      )
+
+      const eleven = screen.getByRole("link", {
+        name: /ElevenCreative Workshop/,
+      })
+      expect(within(eleven).getByText("23")).toBeInTheDocument()
+      expect(within(eleven).getByText("OCT")).toBeInTheDocument()
+      expect(eleven).not.toHaveTextContent("SET")
+
+      const guatemala = screen.getByRole("link", {
+        name: /Ciudad de Guatemala - Clerk Meetup/,
+      })
+      expect(within(guatemala).getByText("09")).toBeInTheDocument()
+      expect(within(guatemala).getByText("OCT")).toBeInTheDocument()
+
+      for (const href of cards) {
+        const card = screen
+          .getAllByRole("link")
+          .find((link) => link.getAttribute("href") === href)
+        expect(card).toBeDefined()
+        expect(within(card!).getByText("OCT")).toBeInTheDocument()
+        expect(card).not.toHaveTextContent("SET")
+      }
+
+      view.unmount()
+    }
   })
 })

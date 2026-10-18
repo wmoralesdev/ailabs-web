@@ -26,6 +26,7 @@ function pageOwnsBrand(routeId: string): boolean {
     routeId === "/_site/campus-leader" ||
     routeId === "/_site/aperture/join" ||
     routeId === "/_site/lab" ||
+    routeId === "/_site/events/" ||
     routeId.startsWith("/_site/events/$slug")
   )
 }

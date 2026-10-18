@@ -123,7 +123,8 @@ describe("events index", () => {
     expect(es.events.photos.map((photo) => photo.src)).toEqual(
       en.events.photos.map((photo) => photo.src)
     )
-    expect(es.events.photos).toHaveLength(10)
+    expect(es.events.photos).toHaveLength(18)
+    expect(new Set(es.events.photos.map((photo) => photo.src)).size).toBe(18)
     expect(es.events.photos.map((photo) => photo.alt)).not.toEqual(
       en.events.photos.map((photo) => photo.alt)
     )

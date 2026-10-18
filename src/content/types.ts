@@ -731,6 +731,8 @@ export type ApertureContent = {
 export type EventsIndexPhoto = {
   src: string
   alt: string
+  width: number
+  height: number
 }
 
 export type EventsIndexContent = {
