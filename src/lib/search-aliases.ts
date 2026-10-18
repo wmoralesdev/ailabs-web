@@ -5,6 +5,7 @@
 
 export const PUBLIC_PAGE_PATHS = [
   "/",
+  "/consultoria-de-ia-el-salvador",
   "/community",
   "/campus-leader",
   "/aperture",
@@ -16,6 +17,7 @@ export const PUBLIC_PAGE_PATHS = [
 export type PublicPagePath = (typeof PUBLIC_PAGE_PATHS)[number]
 
 const HOME = "/"
+const CONSULTING = "/consultoria-de-ia-el-salvador"
 const COMMUNITY = "/community"
 const CAMPUS_LEADER = "/campus-leader"
 const APERTURE = "/aperture"
@@ -28,16 +30,17 @@ const GET_COMPETITIVE_QUICK = "/events/get-competitive-quick"
  * Slugs name what that destination page already says. No other countries.
  */
 export const SEARCH_ALIASES: Readonly<Record<string, PublicPagePath>> = {
-  // Home: consulting and the company in El Salvador.
-  "/consultoria-ia-el-salvador": HOME,
-  "/consultoria-de-ia-el-salvador": HOME,
-  "/consultoria-el-salvador": HOME,
-  "/agencia-ia-el-salvador": HOME,
-  "/agencia-de-inteligencia-artificial-el-salvador": HOME,
+  // Consulting page. The canonical path is a document, not an alias.
+  "/consultoria-ia-el-salvador": CONSULTING,
+  "/consultoria-el-salvador": CONSULTING,
+  "/agencia-ia-el-salvador": CONSULTING,
+  "/agencia-de-inteligencia-artificial-el-salvador": CONSULTING,
+  "/ai-consulting-el-salvador": CONSULTING,
+  "/ai-agency-el-salvador": CONSULTING,
+
+  // Home: the company in El Salvador, not a consulting-only query.
   "/ia-el-salvador": HOME,
   "/inteligencia-artificial-el-salvador": HOME,
-  "/ai-consulting-el-salvador": HOME,
-  "/ai-agency-el-salvador": HOME,
   "/ai-el-salvador": HOME,
 
   // WhatsApp community in El Salvador.

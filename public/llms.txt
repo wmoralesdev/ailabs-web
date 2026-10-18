@@ -23,6 +23,7 @@ No se publican precios de consultoría. Los logos de programas de embajadores no
 ## URLs reales
 
 - Inicio: https://www.ailabs.sv/
+- Consultoría de IA en El Salvador: https://www.ailabs.sv/consultoria-de-ia-el-salvador
 - Servicios: https://www.ailabs.sv/#services
 - Cómo trabajamos: https://www.ailabs.sv/#about
 - Contacto: https://www.ailabs.sv/#contact

@@ -212,6 +212,10 @@ export const es: SiteContent = {
           interest: "implementation",
         },
       ],
+      pageLink: {
+        label: "Consultoría de IA en El Salvador",
+        href: "/consultoria-de-ia-el-salvador",
+      },
     },
     method: {
       label: "Cómo trabajamos",
@@ -466,6 +470,58 @@ export const es: SiteContent = {
       rateLimited: "Recibimos varias consultas. Intentá de nuevo en una hora.",
       invalid: "Revisá los datos e intentá de nuevo.",
     },
+  },
+  consulting: {
+    metaTitle: "Consultoría de IA en El Salvador",
+    metaDescription:
+      "Ai Labs es una empresa privada en San Salvador, El Salvador, de consultoría en IA, automatización de procesos y formación práctica para equipos profesionales.",
+    label: "San Salvador, El Salvador",
+    headline: "Consultoría de IA en El Salvador",
+    lead: "Ai Labs es una empresa privada en San Salvador, El Salvador, de consultoría en IA, automatización de procesos y formación práctica para equipos profesionales.",
+    servicesTitle: "Servicios",
+    services: [
+      {
+        id: "consulting",
+        name: "Consultoría en IA",
+        body: "Revisamos cómo trabajás, identificamos dónde puede ayudar la IA y decidimos por dónde empezar. Después te ayudamos a aprender o implementamos el flujo con vos.",
+      },
+      {
+        id: "academy",
+        name: "Formación práctica",
+        body: "Formación práctica para profesionales y equipos, a partir de las tareas que querés mejorar.",
+      },
+      {
+        id: "agentic",
+        name: "Automatización de procesos",
+        body: "Diseñamos e implementamos flujos para tu operación, conectando tus herramientas y a las personas que las usan.",
+      },
+    ],
+    methodTitle: "Cómo trabajamos",
+    methodBody:
+      "Primero, entendamos el trabajo. En consultoría e implementación, partimos de la necesidad y acordamos un siguiente paso útil. También podés venir directamente a aprender.",
+    steps: [
+      {
+        title: "Entender",
+        body: "Revisamos cómo se hace el trabajo hoy, quién participa y dónde se traba.",
+      },
+      {
+        title: "Priorizar",
+        body: "Elegimos una oportunidad y acordamos el alcance y cómo valorar la mejora.",
+      },
+      {
+        title: "Poner en práctica",
+        body: "Preparamos al equipo o implementamos el flujo, con la revisión y documentación que necesita.",
+      },
+    ],
+    faqs: [
+      {
+        question:
+          "¿Existe una agencia de inteligencia artificial en El Salvador?",
+        answer:
+          "Ai Labs es una empresa privada en San Salvador, El Salvador, de consultoría en IA, automatización de procesos y formación práctica para equipos profesionales.",
+      },
+    ],
+    cta: "Hablemos",
   },
   redeem: {
     metaTitle: "Canjear créditos",

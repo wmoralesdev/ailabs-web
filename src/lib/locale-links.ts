@@ -3,6 +3,7 @@
  * section hashes ("#academy"). Path hrefs map to route ids (no locale segment).
  */
 const INTERNAL_ROUTES = {
+  "/consultoria-de-ia-el-salvador": "/consultoria-de-ia-el-salvador",
   "/community": "/community",
   "/campus-leader": "/campus-leader",
   "/aperture": "/aperture",

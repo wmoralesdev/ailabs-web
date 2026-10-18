@@ -477,6 +477,42 @@ export type HomeServicesContent = {
   offerName: string
   body: string
   items: readonly [HomeServiceItem, HomeServiceItem]
+  /** One text link from the home consulting section to the consulting page. */
+  pageLink: NavItem
+}
+
+export type ConsultingServiceId = "consulting" | "academy" | "agentic"
+
+export type ConsultingService = {
+  id: ConsultingServiceId
+  name: string
+  body: string
+}
+
+export type ConsultingFaq = {
+  question: string
+  answer: string
+}
+
+/** Indexable consulting page. Same path in both languages. */
+export type ConsultingPageContent = {
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  /** First visible paragraph. Same string as `faqs[0].answer`. */
+  lead: string
+  servicesTitle: string
+  services: readonly [ConsultingService, ConsultingService, ConsultingService]
+  methodTitle: string
+  methodBody: string
+  steps: readonly [
+    HomeAboutBridgeItem,
+    HomeAboutBridgeItem,
+    HomeAboutBridgeItem,
+  ]
+  faqs: readonly [ConsultingFaq]
+  cta: string
 }
 
 export type HomeMethodContent = {
@@ -771,6 +807,7 @@ export type SiteContent = {
   chrome: ChromeContent
   microcopy: MicrocopyContent
   home: HomeContent
+  consulting: ConsultingPageContent
   redeem: RedeemContent
   community: CommunityContent
   campusLeader: CampusLeaderContent
