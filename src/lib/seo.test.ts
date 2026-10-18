@@ -5,6 +5,7 @@ import {
   buildFaqJsonLd,
   buildHomeJsonLd,
   buildPageMeta,
+  buildWorkshopEventJsonLd,
 } from "@/lib/seo"
 
 type ServiceOffer = {
@@ -178,6 +179,44 @@ describe("buildPageMeta", () => {
     }).meta
     expect(meta.find((tag) => tag.property === "og:image")?.content).toBe(
       "https://ailabs.sv/api/og/u/walter"
+    )
+  })
+})
+
+describe("buildWorkshopEventJsonLd", () => {
+  const base = {
+    locale: "es" as const,
+    path: "/events/demo",
+    name: "Demo",
+    description: "Taller de prueba.",
+    priceCents: 2500,
+    currency: "USD",
+    soldOut: false,
+  }
+
+  it("skips workshops without a date", () => {
+    expect(buildWorkshopEventJsonLd({ ...base, endsOn: null })).toBeNull()
+  })
+
+  it("publishes an in-person event in San Salvador with its price", () => {
+    const script = buildWorkshopEventJsonLd({ ...base, endsOn: "2026-12-05" })
+    const data = JSON.parse(script?.children ?? "{}")
+    expect(data["@type"]).toBe("EducationEvent")
+    expect(data.startDate).toBe("2026-12-05")
+    expect(data.url).toBe("https://www.ailabs.sv/events/demo")
+    expect(data.location.address.addressLocality).toBe("San Salvador")
+    expect(data.offers.price).toBe("25.00")
+    expect(data.offers.availability).toBe("https://schema.org/InStock")
+  })
+
+  it("marks sold-out workshops", () => {
+    const script = buildWorkshopEventJsonLd({
+      ...base,
+      endsOn: "2026-12-05",
+      soldOut: true,
+    })
+    expect(JSON.parse(script?.children ?? "{}").offers.availability).toBe(
+      "https://schema.org/SoldOut"
     )
   })
 })

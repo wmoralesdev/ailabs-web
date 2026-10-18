@@ -149,6 +149,68 @@ export function buildFaqJsonLd(items: readonly FaqItem[]): HeadScript {
   }
 }
 
+/**
+ * Event for a dated, in-person workshop in San Salvador. Returns null while the
+ * date is TBD: search engines reject an Event without `startDate`.
+ */
+export function buildWorkshopEventJsonLd(input: {
+  locale: Locale
+  path: string
+  name: string
+  description: string
+  endsOn: string | null
+  priceCents: number
+  currency: string
+  soldOut: boolean
+}): HeadScript | null {
+  if (!input.endsOn) {
+    return null
+  }
+  const url = absoluteUrl(input.path)
+  const organizationId = `${absoluteUrl()}#organization`
+
+  return {
+    type: "application/ld+json",
+    children: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "EducationEvent",
+      name: input.name,
+      description: input.description,
+      url,
+      inLanguage: input.locale,
+      startDate: input.endsOn,
+      endDate: input.endsOn,
+      eventStatus: "https://schema.org/EventScheduled",
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      image: [OG_IMAGE_URL],
+      location: {
+        "@type": "Place",
+        name: "San Salvador",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "San Salvador",
+          addressCountry: "SV",
+        },
+      },
+      organizer: {
+        "@type": "Organization",
+        "@id": organizationId,
+        name: SITE_NAME,
+        url: absoluteUrl(),
+      },
+      offers: {
+        "@type": "Offer",
+        url,
+        price: (input.priceCents / 100).toFixed(2),
+        priceCurrency: input.currency,
+        availability: input.soldOut
+          ? "https://schema.org/SoldOut"
+          : "https://schema.org/InStock",
+      },
+    }),
+  }
+}
+
 type JsonLdService = {
   name: string
   description: string

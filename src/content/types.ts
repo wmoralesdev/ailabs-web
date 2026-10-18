@@ -504,10 +504,23 @@ export type HomeTrustContent = {
   logos: ReadonlyArray<HomeTrustLogo>
 }
 
+export type HomeFaqItem = {
+  question: string
+  /** Opens with the full subject so the answer reads correctly when quoted alone. */
+  answer: string
+}
+
+export type HomeFaqContent = {
+  label: string
+  title: string
+  items: ReadonlyArray<HomeFaqItem>
+}
+
 export type HomeContent = {
   hero: HomeHeroContent
   services: HomeServicesContent
   method: HomeMethodContent
+  faq: HomeFaqContent
   trust: HomeTrustContent
   about: HomeAboutContent
   academy: HomeAcademyPillarContent

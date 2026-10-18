@@ -77,8 +77,9 @@ possibly stale value into this file.
   An explicit English preference still wins. Legacy `/en/*` and `/es/*` permanently
   redirect to the unprefixed path and set the cookie. Language toggle updates
   the cookie and reloads route context.
-- The home page (`/`) follows Hero, Ambassador marquee, Services, Method, and Contact, followed by
-  the shared footer. Services combines Academy and Agentic; community is
+- The home page (`/`) follows Hero, Ambassador marquee, Services, Method, FAQ, and Contact,
+  followed by the shared footer. FAQ answers stay visible (never collapsed) and
+  are the same text as the home `FAQPage` JSON-LD and the `llms.txt` FAQ. Services combines Academy and Agentic; community is
   accessible through chrome. The seven existing ambassador-program logos return
   beneath the hero at the owner's request. Describe that relationship, not a
   customer list or a guarantee from those companies. Do not restore photo bands or metrics
