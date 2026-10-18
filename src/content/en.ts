@@ -1040,33 +1040,35 @@ export const en: SiteContent = {
   events: {
     metaTitle: "Ai Labs events in El Salvador",
     metaDescription:
-      "These are Ai Labs events in El Salvador, not every event in the country.",
+      "These are Ai Labs events published on Luma, not every event in the country.",
     label: "Events",
     headline: "Ai Labs events in El Salvador",
     intro:
-      "These are Ai Labs events in El Salvador, not every event in the country.",
-    items: [
+      "These are Ai Labs events published on Luma, not every event in the country.",
+    upcomingLabel: "Upcoming",
+    pastLabel: "Past",
+    hostsLabel: "Hosts",
+    lumaLabel: "View on Luma",
+    newTabLabel: "Opens in a new tab.",
+    photosLabel: "From the community",
+    communityCta: "Join the community",
+    upcomingEmpty: "There is no upcoming event.",
+    photos: [
       {
-        id: "modo-fundador",
-        name: "Modo Fundador",
-        summary:
-          "An in-person Ai Labs workshop in San Salvador on August 15, 2026. Its page says the venue is still to be confirmed.",
-        href: "/events/modo-fundador",
+        src: "/carousel/16.webp",
+        alt: "A hand holding a Cafe Cursor cup in front of a crowded cafe at a San Salvador gathering.",
       },
       {
-        id: "get-competitive-quick",
-        name: "Get Competitive Quick",
-        summary:
-          "An Ai Labs workshop. Its page does not name a city or a country. It says mid-August 2026 and that the date is still to be confirmed.",
-        href: "/events/get-competitive-quick",
+        src: "/carousel/10.webp",
+        alt: "A person holding up a Cursor Hackathon San Salvador 2026 badge.",
       },
       {
-        id: "devday",
-        name: "DevDay Exchange Community",
-        summary:
-          "The DevDay page says Walter Morales and Ai Labs organize this community event in San Salvador on Saturday, October 24, 2026, from 3:00 to 7:00 p.m., at BINAES.",
-        href: "https://devday.ailabs.sv/",
-        external: true,
+        src: "/carousel/5.webp",
+        alt: "People standing at a workshop, with laptops on the tables.",
+      },
+      {
+        src: "/carousel/1.webp",
+        alt: "Five people posing together at a gathering under a concrete roof.",
       },
     ],
   },

@@ -1,62 +1,115 @@
-import { readFileSync } from "node:fs"
+import { existsSync, readFileSync } from "node:fs"
 
 import { describe, expect, it } from "vitest"
 
 import { en } from "@/content/en"
 import { es } from "@/content/es"
+import {
+  formatLumaPlace,
+  formatLumaWhen,
+  splitLumaEvents,
+} from "@/content/luma-event-format"
+import { lumaEvents } from "@/content/luma-events"
+
+const fetchedAt = new Date("2026-10-18T12:00:00.000Z")
 
 describe("events index", () => {
   it("uses the Spanish title on the Spanish render and English on the same URL", () => {
     expect(es.events.headline).toBe("Eventos de Ai Labs en El Salvador")
     expect(es.events.metaTitle).toBe(es.events.headline)
     expect(es.events.intro).toBe(
-      "Estos son eventos de Ai Labs en El Salvador, no todos los eventos del país."
+      "Estos son eventos de Ai Labs publicados en Luma, no todos los eventos del país.",
     )
     expect(es.events.metaDescription).toBe(es.events.intro)
     expect(en.events.headline).toBe("Ai Labs events in El Salvador")
     expect(en.events.metaTitle).toBe(en.events.headline)
     expect(en.events.intro).toBe(
-      "These are Ai Labs events in El Salvador, not every event in the country."
+      "These are Ai Labs events published on Luma, not every event in the country.",
     )
     expect(en.events.metaDescription).toBe(en.events.intro)
-  })
-
-  it("lists only events whose pages already exist, and does not invent a country", () => {
-    for (const content of [es, en]) {
-      expect(content.events.items.map((item) => item.href)).toEqual([
-        "/events/modo-fundador",
-        "/events/get-competitive-quick",
-        "https://devday.ailabs.sv/",
-      ])
-      const competitive = content.events.items.find(
-        (item) => item.id === "get-competitive-quick"
-      )
-      expect(competitive?.summary).not.toMatch(/el salvador|san salvador/i)
-      expect(competitive?.summary).toMatch(/mid-ago|mid-august/i)
-      const founder = content.events.items.find(
-        (item) => item.id === "modo-fundador"
-      )
-      expect(founder?.summary).toMatch(/San Salvador/)
-      expect(founder?.summary).toMatch(/15/)
-      const devday = content.events.items.find((item) => item.id === "devday")
-      expect(devday?.summary).toMatch(/San Salvador/)
-      expect(devday?.summary).toMatch(/BINAES/)
-      expect(devday?.external).toBe(true)
-      expect(JSON.stringify(content.events.items)).not.toMatch(
-        /attendance|asistentes|cupo lleno|\b208\b/i
-      )
-    }
     expect(es.community.eventsCta.href).toBe("/events")
     expect(en.community.eventsCta.href).toBe("/events")
     expect(es.home.aperture.eventsCta.href).toBe("/events")
     expect(en.home.aperture.eventsCta.href).toBe("/events")
   })
 
+  it("lists the public Luma events once, with only published fields", () => {
+    expect(lumaEvents).toHaveLength(54)
+    expect(new Set(lumaEvents.map((event) => event.id)).size).toBe(54)
+    expect(new Set(lumaEvents.map((event) => event.href)).size).toBe(54)
+    for (const event of lumaEvents) {
+      expect(event.href).toMatch(/^https:\/\/luma\.com\/[a-z0-9-]+$/)
+      expect(event.hosts.length).toBeGreaterThan(0)
+      expect(event.timezone.length).toBeGreaterThan(0)
+    }
+
+    const devday = lumaEvents.find(
+      (event) => event.href === "https://luma.com/0vam8okf",
+    )
+    expect(devday?.name).toBe("DevDay Exchange Community: San Salvador")
+    expect(devday?.hosts).toEqual(["Walter Morales", "Daniela Huezo"])
+    expect(formatLumaPlace(devday!, "es")).toBe(
+      "Biblioteca Nacional de El Salvador (BINAES), San Salvador, El Salvador",
+    )
+    expect(formatLumaPlace(devday!, "en")).toContain("National Library")
+    expect(formatLumaWhen(devday!, "es")).toMatch(/2026/)
+    expect(formatLumaWhen(devday!, "es")).toMatch(/octubre/i)
+    expect(formatLumaWhen(devday!, "en")).toMatch(/October/)
+
+    const guatemala = lumaEvents.find(
+      (event) => event.href === "https://luma.com/hrf7a7di",
+    )
+    expect(formatLumaPlace(guatemala!, "es")).toBe(
+      "Tec, Ciudad de Guatemala, Guatemala",
+    )
+
+    const hiddenPlace = lumaEvents.find(
+      (event) => event.href === "https://luma.com/uf2mpfis",
+    )
+    expect(hiddenPlace?.name).toBe("Cursor Workshop El Salvador")
+    expect(hiddenPlace?.place).toBeUndefined()
+    expect(formatLumaPlace(hiddenPlace!, "es")).toBeNull()
+
+    expect(JSON.stringify(lumaEvents)).not.toMatch(
+      /por confirmar|unconfirmed|la página dice|share\.google/i,
+    )
+    expect(`${es.events.intro} ${en.events.intro}`).not.toMatch(
+      /por confirmar|unconfirmed|la página dice/i,
+    )
+  })
+
+  it("sorts upcoming events before past events", () => {
+    const { upcoming, past } = splitLumaEvents(fetchedAt)
+    expect(upcoming.map((event) => event.href)).toEqual([
+      "https://luma.com/q0l9hdwo",
+      "https://luma.com/0vam8okf",
+    ])
+    expect(past[0]?.href).toBe("https://luma.com/spacexai-ikz6")
+    expect(past).toHaveLength(52)
+    for (let index = 1; index < past.length; index += 1) {
+      expect(past[index - 1].startAt >= past[index].startAt).toBe(true)
+    }
+  })
+
+  it("uses community photos that already live in the repo", () => {
+    expect(es.events.photos.map((photo) => photo.src)).toEqual(
+      en.events.photos.map((photo) => photo.src),
+    )
+    expect(es.events.photos.map((photo) => photo.alt)).not.toEqual(
+      en.events.photos.map((photo) => photo.alt),
+    )
+    for (const photo of [...es.events.photos, ...en.events.photos]) {
+      expect(photo.alt.trim().length).toBeGreaterThan(20)
+      expect(existsSync(`public${photo.src}`)).toBe(true)
+    }
+  })
+
   it("renders one index for both languages, with no bot-specific copy", () => {
     const route = readFileSync("src/routes/_site/events/index.tsx", "utf8")
-    expect(route).toContain("{events.headline}")
-    expect(route).toContain("{events.intro}")
+    expect(route).toContain("events.headline")
+    expect(route).toContain("events.intro")
     expect(route).toContain('path: "/events"')
+    expect(route).toContain("<EventsIndex")
     expect(route).not.toMatch(/googlebot|user-agent|noindex/i)
   })
 })

@@ -1047,33 +1047,35 @@ export const es: SiteContent = {
   events: {
     metaTitle: "Eventos de Ai Labs en El Salvador",
     metaDescription:
-      "Estos son eventos de Ai Labs en El Salvador, no todos los eventos del país.",
+      "Estos son eventos de Ai Labs publicados en Luma, no todos los eventos del país.",
     label: "Eventos",
     headline: "Eventos de Ai Labs en El Salvador",
     intro:
-      "Estos son eventos de Ai Labs en El Salvador, no todos los eventos del país.",
-    items: [
+      "Estos son eventos de Ai Labs publicados en Luma, no todos los eventos del país.",
+    upcomingLabel: "Próximos",
+    pastLabel: "Anteriores",
+    hostsLabel: "Anfitriones",
+    lumaLabel: "Ver en Luma",
+    newTabLabel: "Se abre en una pestaña nueva.",
+    photosLabel: "En la comunidad",
+    communityCta: "Unirme a la comunidad",
+    upcomingEmpty: "No hay un evento próximo.",
+    photos: [
       {
-        id: "modo-fundador",
-        name: "Modo Fundador",
-        summary:
-          "Taller presencial de Ai Labs en San Salvador, el 15 de agosto de 2026. La página dice que el lugar sigue por confirmar.",
-        href: "/events/modo-fundador",
+        src: "/carousel/16.webp",
+        alt: "Mano sosteniendo un vaso de Cafe Cursor frente a un café lleno, en un encuentro en San Salvador.",
       },
       {
-        id: "get-competitive-quick",
-        name: "Get Competitive Quick",
-        summary:
-          "Taller de Ai Labs. La página no nombra una ciudad ni un país. Dice mid-agosto de 2026 y que la fecha sigue por confirmar.",
-        href: "/events/get-competitive-quick",
+        src: "/carousel/10.webp",
+        alt: "Persona mostrando un gafete de Cursor Hackathon San Salvador 2026.",
       },
       {
-        id: "devday",
-        name: "DevDay Exchange Community",
-        summary:
-          "La página de DevDay dice que Walter Morales y Ai Labs organizan este evento de comunidad en San Salvador, el sábado 24 de octubre de 2026, de 3:00 a 7:00 p. m., en BINAES.",
-        href: "https://devday.ailabs.sv/",
-        external: true,
+        src: "/carousel/5.webp",
+        alt: "Grupo de pie en un taller, con laptops sobre las mesas.",
+      },
+      {
+        src: "/carousel/1.webp",
+        alt: "Cinco personas posando juntas en un encuentro bajo un techo de concreto.",
       },
     ],
   },

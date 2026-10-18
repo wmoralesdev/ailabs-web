@@ -728,14 +728,9 @@ export type ApertureContent = {
   profile: ApertureProfileContent
 }
 
-/** One event the public site already publishes on its own page. */
-export type EventsIndexItem = {
-  id: string
-  name: string
-  /** Facts that event's own page already states. No invented date, venue, or attendance. */
-  summary: string
-  href: string
-  external?: boolean
+export type EventsIndexPhoto = {
+  src: string
+  alt: string
 }
 
 export type EventsIndexContent = {
@@ -744,7 +739,15 @@ export type EventsIndexContent = {
   label: string
   headline: string
   intro: string
-  items: ReadonlyArray<EventsIndexItem>
+  upcomingLabel: string
+  pastLabel: string
+  hostsLabel: string
+  lumaLabel: string
+  newTabLabel: string
+  photosLabel: string
+  communityCta: string
+  upcomingEmpty: string
+  photos: ReadonlyArray<EventsIndexPhoto>
 }
 
 export type SiteContent = {
