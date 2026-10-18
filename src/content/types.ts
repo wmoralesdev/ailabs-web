@@ -738,6 +738,8 @@ export type EventsIndexPhoto = {
 export type EventsIndexContent = {
   metaTitle: string
   metaDescription: string
+  /** First crumb in the events JSON-LD breadcrumb. Not rendered on the page. */
+  breadcrumbHome: string
   label: string
   headline: string
   intro: string

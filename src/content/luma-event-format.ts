@@ -45,21 +45,36 @@ function dayKey(date: Date, timeZone: string): string {
   }).format(date)
 }
 
-export function formatLumaPlace(
+export function lumaPlaceFields(
   event: LumaEvent,
   locale: Locale
-): string | null {
+): { venue?: string; city?: string; country?: string } | null {
   const place = event.place
   if (!place) {
     return null
   }
 
+  const venue = pick(locale, place.venueEs, place.venueEn)
+  const city = pick(locale, place.cityEs, place.cityEn)
+  const country = pick(locale, place.countryEs, place.countryEn)
+  if (!venue && !city && !country) {
+    return null
+  }
+
+  return { venue, city, country }
+}
+
+export function formatLumaPlace(
+  event: LumaEvent,
+  locale: Locale
+): string | null {
+  const fields = lumaPlaceFields(event, locale)
+  if (!fields) {
+    return null
+  }
+
   const parts: Array<string> = []
-  for (const part of [
-    pick(locale, place.venueEs, place.venueEn),
-    pick(locale, place.cityEs, place.cityEn),
-    pick(locale, place.countryEs, place.countryEn),
-  ]) {
+  for (const part of [fields.venue, fields.city, fields.country]) {
     if (!part) {
       continue
     }

@@ -12,6 +12,7 @@ import {
   walterEventsCalendarUrl,
 } from "@/content/luma-event-format"
 import { lumaEvents } from "@/content/luma-events"
+import { buildEventsIndexHead } from "@/lib/events-index-head"
 
 const fetchedAt = new Date("2026-10-18T12:00:00.000Z")
 
@@ -22,13 +23,19 @@ describe("events index", () => {
     expect(es.events.intro).toBe(
       "Estos son los eventos de Ai Labs publicados en Luma para este mes, no todos los eventos del país."
     )
-    expect(es.events.metaDescription).toBe(es.events.intro)
+    expect(es.events.metaDescription).toBe(
+      "Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país."
+    )
+    expect(es.events.breadcrumbHome).toBe("Inicio")
     expect(en.events.headline).toBe("Ai Labs events in El Salvador")
     expect(en.events.metaTitle).toBe(en.events.headline)
     expect(en.events.intro).toBe(
       "These are the Ai Labs events published on Luma for this month, not every event in the country."
     )
-    expect(en.events.metaDescription).toBe(en.events.intro)
+    expect(en.events.metaDescription).toBe(
+      "These are the Ai Labs events published on Luma for this month. The base is in San Salvador; they are not every event in the country."
+    )
+    expect(en.events.breadcrumbHome).toBe("Home")
     expect(es.community.eventsCta.href).toBe("/events")
     expect(en.community.eventsCta.href).toBe("/events")
     expect(es.home.aperture.eventsCta.href).toBe("/events")
@@ -138,10 +145,102 @@ describe("events index", () => {
 
   it("renders one index for both languages, with no bot-specific copy", () => {
     const route = readFileSync("src/routes/_site/events/index.tsx", "utf8")
-    expect(route).toContain("events.headline")
-    expect(route).toContain("events.intro")
-    expect(route).toContain('path: "/events"')
+    expect(route).toContain("buildEventsIndexHead")
     expect(route).toContain("<EventsIndex")
-    expect(route).not.toMatch(/googlebot|user-agent|noindex/i)
+    expect(route).not.toMatch(
+      /googlebot|user-agent|noindex|FAQPage|buildFaqJsonLd/i
+    )
+  })
+
+  it("describes the Spanish page and the events it renders", () => {
+    const head = buildEventsIndexHead({
+      locale: "es",
+      events: es.events,
+      now: fetchedAt,
+    })
+    const title = head.meta.find((tag) => tag.title)?.title
+    const description = head.meta.find(
+      (tag) => tag.name === "description"
+    )?.content
+    const document = JSON.parse(head.scripts[0]?.children ?? "{}") as {
+      "@graph": Array<{
+        "@type": string
+        name?: string
+        description?: string
+        areaServed?: { "@type": string; name?: string }
+        itemListElement?: Array<{
+          name?: string
+          item?: {
+            "@type": string
+            name?: string
+            startDate?: string
+            timezone?: string
+            url?: string
+            organizer?: { "@type"?: string; name?: string; url?: string }
+            location?: {
+              name?: string
+              address?: { addressLocality?: string; addressCountry?: string }
+            }
+          }
+        }>
+      }>
+    }
+    const types = document["@graph"].map((node) => node["@type"])
+    const list = document["@graph"].find((node) => node["@type"] === "ItemList")
+    const events = list?.itemListElement?.map((entry) => entry.item) ?? []
+    const guatemala = events.find((event) => event?.name?.includes("Guatemala"))
+
+    expect(title).toBe("Eventos de Ai Labs en El Salvador")
+    expect(description).toBe(es.events.metaDescription)
+    expect(description).toMatch(/San Salvador/)
+    expect(description).toMatch(/Luma/)
+    expect(description).toMatch(/este mes/)
+    expect(head.links).toEqual([
+      { rel: "canonical", href: "https://www.ailabs.sv/events" },
+    ])
+    expect(head.links.some((link) => link.hrefLang)).toBe(false)
+    expect(head.meta.find((tag) => tag.property === "og:image")?.content).toBe(
+      "https://www.ailabs.sv/events/community/01-group-hall.webp"
+    )
+    expect(head.meta.find((tag) => tag.name === "twitter:card")?.content).toBe(
+      "summary_large_image"
+    )
+    expect(types).toEqual(["BreadcrumbList", "ItemList"])
+    expect(JSON.stringify(document["@graph"][0])).toContain('"name":"Inicio"')
+    expect(JSON.stringify(document["@graph"][0])).toContain('"name":"Eventos"')
+    expect(JSON.stringify(document)).not.toMatch(/FAQPage/)
+    expect(list?.description).toBe(es.events.intro)
+    expect(list?.areaServed).toEqual({
+      "@type": "Country",
+      name: "El Salvador",
+    })
+    expect(events.map((event) => event?.name)).toEqual([
+      "ElevenCreative Workshop",
+      "DevDay Exchange Community: San Salvador",
+      "Grok Bot Workshop San Salvador",
+      "Grok Bot Meetup San Salvador",
+      "Ciudad de Guatemala - Clerk Meetup",
+    ])
+    expect(events[0]?.startDate).toBe("2026-10-23T14:00:00-06:00")
+    expect(events[0]?.timezone).toBe("America/El_Salvador")
+    expect(guatemala?.startDate).toBe("2026-10-09T14:00:00-06:00")
+    expect(guatemala?.timezone).toBe("America/Guatemala")
+    expect(guatemala?.location).toMatchObject({
+      name: "Tec",
+      address: {
+        addressLocality: "Ciudad de Guatemala",
+        addressCountry: "Guatemala",
+      },
+    })
+    expect(guatemala?.organizer).toEqual({
+      "@type": "Organization",
+      name: "Ai Labs",
+      url: "https://www.ailabs.sv",
+    })
+    expect(guatemala?.url).toBe("https://luma.com/hrf7a7di")
+    expect(JSON.stringify(guatemala)).not.toMatch(/El Salvador/)
+    expect(JSON.stringify(document)).not.toMatch(
+      /latinoam[eé]rica|latin america|centroam[eé]rica|central america|attendeeCount|eventAttendance/i
+    )
   })
 })

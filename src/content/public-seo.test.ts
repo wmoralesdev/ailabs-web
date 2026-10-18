@@ -99,6 +99,9 @@ describe("public SEO files", () => {
     expect(llms).toContain("https://x.com/ailabs_sv")
     expect(llms).toContain("https://www.instagram.com/ailabs_sv/")
     expect(llms).toContain("San Salvador")
+    expect(llms).toContain(
+      "https://www.ailabs.sv/events. Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país."
+    )
     expect(llms).toMatch(/no describen un área de servicio de centroamérica/i)
     expect(llms).not.toMatch(/cubre centroamérica|covers central america/i)
   })

@@ -1047,7 +1047,8 @@ export const es: SiteContent = {
   events: {
     metaTitle: "Eventos de Ai Labs en El Salvador",
     metaDescription:
-      "Estos son los eventos de Ai Labs publicados en Luma para este mes, no todos los eventos del país.",
+      "Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país.",
+    breadcrumbHome: "Inicio",
     label: "Eventos",
     headline: "Eventos de Ai Labs en El Salvador",
     intro:

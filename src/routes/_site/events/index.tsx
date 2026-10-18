@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 
 import { EventsIndex } from "@/components/events/events-index"
-import { buildPageMeta } from "@/lib/seo"
+import { buildEventsIndexHead } from "@/lib/events-index-head"
 
 export const Route = createFileRoute("/_site/events/")({
   loader: ({ context }) => ({
@@ -12,13 +12,11 @@ export const Route = createFileRoute("/_site/events/")({
     if (!loaderData) {
       return {}
     }
-    const { locale, content } = loaderData
-    const { events } = content
-    return buildPageMeta({
+    const { locale, content, now } = loaderData
+    return buildEventsIndexHead({
       locale,
-      path: "/events",
-      title: events.headline,
-      description: events.intro,
+      events: content.events,
+      now: new Date(now),
     })
   },
   component: EventsIndexPage,
