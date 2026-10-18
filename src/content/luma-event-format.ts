@@ -11,7 +11,7 @@ const intlLocale: Record<Locale, string> = {
 function pick(
   locale: Locale,
   spanish: string | undefined,
-  english: string | undefined,
+  english: string | undefined
 ): string | undefined {
   const value = locale === "es" ? (spanish ?? english) : (english ?? spanish)
   const trimmed = value?.trim()
@@ -47,7 +47,7 @@ function dayKey(date: Date, timeZone: string): string {
 
 export function formatLumaPlace(
   event: LumaEvent,
-  locale: Locale,
+  locale: Locale
 ): string | null {
   const place = event.place
   if (!place) {
@@ -64,7 +64,7 @@ export function formatLumaPlace(
       continue
     }
     const seen = parts.some(
-      (existing) => existing.toLocaleLowerCase() === part.toLocaleLowerCase(),
+      (existing) => existing.toLocaleLowerCase() === part.toLocaleLowerCase()
     )
     if (!seen) {
       parts.push(part)
@@ -108,13 +108,38 @@ export function lumaMonthKey(event: LumaEvent): string {
   }).format(new Date(event.startAt))
 }
 
-export function splitLumaEvents(now: Date): {
-  upcoming: Array<LumaEvent>
-  past: Array<LumaEvent>
-} {
+/** El Salvador clock. The events page follows this month, not the viewer's. */
+const SITE_TIME_ZONE = "America/El_Salvador"
+
+/**
+ * Walter Morales's public Luma profile. The repo has no separate calendar URL.
+ */
+export const walterEventsCalendarUrl = "https://luma.com/user/wmoralesdev"
+
+export function currentMonthKey(now: Date): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: SITE_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+  }).format(now)
+}
+
+export function formatCurrentMonth(now: Date, locale: Locale): string {
+  const label = new Intl.DateTimeFormat(intlLocale[locale], {
+    timeZone: SITE_TIME_ZONE,
+    month: "long",
+    year: "numeric",
+  }).format(now)
+  return label.charAt(0).toLocaleUpperCase(intlLocale[locale]) + label.slice(1)
+}
+
+function splitEvents(
+  events: ReadonlyArray<LumaEvent>,
+  now: Date
+): { upcoming: Array<LumaEvent>; past: Array<LumaEvent> } {
   const upcoming: Array<LumaEvent> = []
   const past: Array<LumaEvent> = []
-  for (const event of lumaEvents) {
+  for (const event of events) {
     const boundary = new Date(event.endAt ?? event.startAt)
     if (boundary.getTime() >= now.getTime()) {
       upcoming.push(event)
@@ -127,9 +152,27 @@ export function splitLumaEvents(now: Date): {
   return { upcoming, past }
 }
 
+export function splitLumaEvents(now: Date): {
+  upcoming: Array<LumaEvent>
+  past: Array<LumaEvent>
+} {
+  return splitEvents(lumaEvents, now)
+}
+
+export function splitCurrentMonthEvents(now: Date): {
+  upcoming: Array<LumaEvent>
+  past: Array<LumaEvent>
+} {
+  const month = currentMonthKey(now)
+  return splitEvents(
+    lumaEvents.filter((event) => lumaMonthKey(event) === month),
+    now
+  )
+}
+
 export function groupPastLumaEvents(
   past: ReadonlyArray<LumaEvent>,
-  locale: Locale,
+  locale: Locale
 ): Array<{ key: string; label: string; events: Array<LumaEvent> }> {
   const groups: Array<{
     key: string

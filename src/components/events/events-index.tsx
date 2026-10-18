@@ -1,23 +1,24 @@
 import { HugeiconsIcon } from "@hugeicons/react"
+import type { IconSvgElement } from "@hugeicons/react"
 import {
   ArrowRight01Icon,
   Calendar03Icon,
   Location01Icon,
   UserGroupIcon,
 } from "@hugeicons/core-free-icons"
-import type { IconSvgElement } from "@hugeicons/react"
 import { Link } from "@tanstack/react-router"
 
+import { CommunityCarousel } from "@/components/events/community-carousel"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import {
+  formatCurrentMonth,
   formatLumaPlace,
   formatLumaWhen,
-  groupPastLumaEvents,
-  splitLumaEvents,
+  splitCurrentMonthEvents,
+  walterEventsCalendarUrl,
 } from "@/content/luma-event-format"
 import type { LumaEvent } from "@/content/luma-events"
 import type { EventsIndexContent, Locale } from "@/content/types"
-import { cn } from "@/lib/utils"
 
 type EventsIndexProps = {
   locale: Locale
@@ -31,6 +32,13 @@ const eventLinkClassName =
 const sectionHeadingClassName =
   "font-display text-2xl font-semibold tracking-tight text-foreground"
 
+const buttonClassName =
+  "inline-flex min-h-11 w-fit cursor-pointer touch-manipulation items-center gap-2 rounded-full bg-primary px-5 text-base font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground motion-reduce:transition-none"
+
+function fill(template: string, values: Record<string, string>): string {
+  return template.replace(/\{(\w+)\}/g, (_, key: string) => values[key] ?? "")
+}
+
 function MetaIcon({ icon }: { icon: IconSvgElement }) {
   return (
     <span aria-hidden="true" className="mt-1 inline-flex shrink-0">
@@ -43,14 +51,11 @@ function EventCard({
   event,
   locale,
   copy,
-  heading,
 }: {
   event: LumaEvent
   locale: Locale
   copy: EventsIndexContent
-  heading: "h3" | "h4"
 }) {
-  const Heading = heading
   const place = formatLumaPlace(event, locale)
   const when = formatLumaWhen(event, locale)
 
@@ -59,16 +64,11 @@ function EventCard({
       href={event.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={cn(eventLinkClassName, heading === "h4" && "gap-3 p-5")}
+      className={eventLinkClassName}
     >
-      <Heading
-        className={cn(
-          "font-display font-semibold tracking-tight text-balance text-foreground",
-          heading === "h3" ? "text-2xl md:text-3xl" : "text-xl",
-        )}
-      >
+      <h4 className="font-display text-2xl font-semibold tracking-tight text-balance text-foreground md:text-3xl">
         {event.name}
-      </Heading>
+      </h4>
       <p className="flex gap-2 text-foreground">
         <MetaIcon icon={Calendar03Icon} />
         <time dateTime={event.startAt}>{when}</time>
@@ -105,8 +105,11 @@ function EventCard({
 }
 
 function EventsIndex({ locale, copy, now }: EventsIndexProps) {
-  const { upcoming, past } = splitLumaEvents(now)
-  const pastGroups = groupPastLumaEvents(past, locale)
+  const { upcoming, past } = splitCurrentMonthEvents(now)
+  const monthLabel = formatCurrentMonth(now, locale)
+  const monthInSentence =
+    locale === "es" ? monthLabel.toLocaleLowerCase("es-SV") : monthLabel
+  const monthIsEmpty = upcoming.length === 0 && past.length === 0
 
   return (
     <article className="page-gutter section-y mx-auto flex w-full max-w-6xl flex-col gap-12 md:gap-16">
@@ -118,86 +121,78 @@ function EventsIndex({ locale, copy, now }: EventsIndexProps) {
         <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
           {copy.intro}
         </p>
+        <a
+          href={walterEventsCalendarUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={buttonClassName}
+        >
+          <HugeiconsIcon
+            icon={Calendar03Icon}
+            strokeWidth={1.75}
+            className="size-4"
+            aria-hidden
+          />
+          {copy.calendarLabel}
+          <span className="sr-only"> {copy.newTabLabel}</span>
+        </a>
       </header>
 
-      <section
-        aria-labelledby="events-upcoming"
-        className="flex flex-col gap-4"
-      >
-        <h2 id="events-upcoming" className={sectionHeadingClassName}>
-          {copy.upcomingLabel}
-        </h2>
-        {upcoming.length > 0 ? (
-          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {upcoming.map((event) => (
-              <li key={event.id} className="min-w-0">
-                <EventCard
-                  event={event}
-                  locale={locale}
-                  copy={copy}
-                  heading="h3"
-                />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-base text-foreground">{copy.upcomingEmpty}</p>
-        )}
-      </section>
+      <CommunityCarousel copy={copy} />
 
-      <section aria-labelledby="events-photos" className="flex flex-col gap-4">
-        <h2 id="events-photos" className={sectionHeadingClassName}>
-          {copy.photosLabel}
-        </h2>
-        <ul className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          {copy.photos.map((photo) => (
-            <li key={photo.src} className="min-w-0">
-              <img
-                src={photo.src}
-                alt={photo.alt}
-                width={900}
-                height={1200}
-                loading="lazy"
-                decoding="async"
-                className="aspect-[3/4] w-full rounded-2xl object-cover"
-              />
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section aria-labelledby="events-past" className="flex flex-col gap-8">
-        <h2 id="events-past" className={sectionHeadingClassName}>
-          {copy.pastLabel}
-        </h2>
-        {pastGroups.map((group) => (
-          <div key={group.key} className="flex flex-col gap-3">
-            <h3 className="font-display text-xl font-semibold tracking-tight text-foreground">
-              {group.label}
+      {monthIsEmpty ? (
+        <p className="text-base text-foreground">
+          {fill(copy.monthEmpty, { month: monthInSentence })}
+        </p>
+      ) : (
+        <div className="flex flex-col gap-8">
+          <h2 className={sectionHeadingClassName}>{monthLabel}</h2>
+          <section
+            aria-labelledby="events-upcoming"
+            className="flex flex-col gap-4"
+          >
+            <h3
+              id="events-upcoming"
+              className="font-display text-xl font-semibold tracking-tight text-foreground"
+            >
+              {copy.upcomingLabel}
             </h3>
-            <ul className="flex flex-col gap-3">
-              {group.events.map((event) => (
-                <li key={event.id} className="min-w-0">
-                  <EventCard
-                    event={event}
-                    locale={locale}
-                    copy={copy}
-                    heading="h4"
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </section>
+            {upcoming.length > 0 ? (
+              <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {upcoming.map((event) => (
+                  <li key={event.id} className="min-w-0">
+                    <EventCard event={event} locale={locale} copy={copy} />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-base text-foreground">{copy.upcomingEmpty}</p>
+            )}
+          </section>
+          {past.length > 0 ? (
+            <section
+              aria-labelledby="events-past"
+              className="flex flex-col gap-4"
+            >
+              <h3
+                id="events-past"
+                className="font-display text-xl font-semibold tracking-tight text-foreground"
+              >
+                {copy.pastLabel}
+              </h3>
+              <ul className="flex flex-col gap-3">
+                {past.map((event) => (
+                  <li key={event.id} className="min-w-0">
+                    <EventCard event={event} locale={locale} copy={copy} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+        </div>
+      )}
 
-      <Link
-        to="/community"
-        className={cn(
-          "inline-flex min-h-11 w-fit cursor-pointer touch-manipulation items-center rounded-full bg-primary px-5 text-base font-medium text-primary-foreground transition-colors duration-200",
-          "hover:bg-primary/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground motion-reduce:transition-none",
-        )}
-      >
+      <Link to="/community" className={buttonClassName}>
         {copy.communityCta}
       </Link>
     </article>

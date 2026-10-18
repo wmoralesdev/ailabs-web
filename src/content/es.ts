@@ -1047,11 +1047,11 @@ export const es: SiteContent = {
   events: {
     metaTitle: "Eventos de Ai Labs en El Salvador",
     metaDescription:
-      "Estos son eventos de Ai Labs publicados en Luma, no todos los eventos del país.",
+      "Estos son los eventos de Ai Labs publicados en Luma para este mes, no todos los eventos del país.",
     label: "Eventos",
     headline: "Eventos de Ai Labs en El Salvador",
     intro:
-      "Estos son eventos de Ai Labs publicados en Luma, no todos los eventos del país.",
+      "Estos son los eventos de Ai Labs publicados en Luma para este mes, no todos los eventos del país.",
     upcomingLabel: "Próximos",
     pastLabel: "Anteriores",
     hostsLabel: "Anfitriones",
@@ -1060,22 +1060,53 @@ export const es: SiteContent = {
     photosLabel: "En la comunidad",
     communityCta: "Unirme a la comunidad",
     upcomingEmpty: "No hay un evento próximo.",
+    monthEmpty: "No hay eventos de Ai Labs publicados en Luma en {month}.",
+    calendarLabel: "Ver calendario",
+    previousPhoto: "Foto anterior",
+    nextPhoto: "Foto siguiente",
+    pausePhotos: "Pausar fotos",
+    playPhotos: "Reanudar fotos",
+    photoStatus: "{current} de {total}",
     photos: [
       {
-        src: "/carousel/16.webp",
-        alt: "Mano sosteniendo un vaso de Cafe Cursor frente a un café lleno, en un encuentro en San Salvador.",
+        src: "/events/community/01-outdoor-hackathon.webp",
+        alt: "Hackathon al aire libre: personas con laptops bajo una carpa.",
       },
       {
-        src: "/carousel/10.webp",
-        alt: "Persona mostrando un gafete de Cursor Hackathon San Salvador 2026.",
+        src: "/events/community/02-couch-group.webp",
+        alt: "Cinco personas en un sofá verde, con laptops.",
       },
       {
-        src: "/carousel/5.webp",
-        alt: "Grupo de pie en un taller, con laptops sobre las mesas.",
+        src: "/events/community/03-selfie-stick.webp",
+        alt: "Cuatro personas tomándose una selfie con un palo.",
       },
       {
-        src: "/carousel/1.webp",
-        alt: "Cinco personas posando juntas en un encuentro bajo un techo de concreto.",
+        src: "/events/community/04-group-portrait.webp",
+        alt: "Retrato de un grupo grande en un espacio interior.",
+      },
+      {
+        src: "/events/community/05-cursor-banner-san-salvador.webp",
+        alt: "Grupo con un banner de Cursor San Salvador.",
+      },
+      {
+        src: "/events/community/06-organizers-table.webp",
+        alt: "Organizadores en una mesa, con un banner de Cursor detrás.",
+      },
+      {
+        src: "/events/community/07-classroom-selfie.webp",
+        alt: "Aula con laptops abiertas, mientras alguien se toma una selfie.",
+      },
+      {
+        src: "/events/community/08-auditorium-audience.webp",
+        alt: "Público sentado en un auditorio iluminado de azul.",
+      },
+      {
+        src: "/events/community/09-grok-bot-meetup-card.webp",
+        alt: "Una mano sostiene la tarjeta del Grok Bot San Salvador Meetup.",
+      },
+      {
+        src: "/events/community/10-stage-talk.webp",
+        alt: "Alguien habla en el escenario, con una pantalla grande y el público delante.",
       },
     ],
   },

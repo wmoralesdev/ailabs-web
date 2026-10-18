@@ -1,4 +1,10 @@
-import { cleanup, render, screen, within } from "@testing-library/react"
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react"
 import { afterEach, describe, expect, it, vi } from "vitest"
 
 import { EventsIndex } from "@/components/events/events-index"
@@ -32,14 +38,14 @@ describe("events index page", () => {
     render(<EventsIndex locale="es" copy={es.events} now={now} />)
 
     expect(
-      screen.getByRole("heading", { level: 1, name: es.events.headline }),
+      screen.getByRole("heading", { level: 1, name: es.events.headline })
     ).toBeInTheDocument()
 
     const upcoming = screen.getByRole("region", { name: "Próximos" })
     expect(
       within(upcoming)
         .getAllByRole("link")
-        .map((link) => link.getAttribute("href")),
+        .map((link) => link.getAttribute("href"))
     ).toEqual(["https://luma.com/q0l9hdwo", "https://luma.com/0vam8okf"])
 
     const devday = within(upcoming).getByRole("link", {
@@ -54,21 +60,34 @@ describe("events index page", () => {
 
     const past = screen.getByRole("region", { name: "Anteriores" })
     const pastLinks = within(past).getAllByRole("link")
-    expect(pastLinks[0]).toHaveAttribute(
-      "href",
+    expect(pastLinks.map((link) => link.getAttribute("href"))).toEqual([
       "https://luma.com/spacexai-ikz6",
-    )
-    expect(pastLinks).toHaveLength(52)
-
-    const workshop = within(past).getByRole("link", {
-      name: /Cursor Workshop El Salvador/,
-    })
-    expect(workshop).not.toHaveTextContent("San Salvador")
+      "https://luma.com/x36xff8j",
+      "https://luma.com/hrf7a7di",
+    ])
+    expect(past).toHaveTextContent("Ciudad de Guatemala")
+    expect(
+      screen.queryByRole("link", { name: /Cursor Workshop El Salvador/ })
+    ).not.toBeInTheDocument()
+    expect(screen.queryByText("Septiembre de 2026")).not.toBeInTheDocument()
 
     expect(
-      screen.getByRole("link", { name: "Unirme a la comunidad" }),
+      screen.getByRole("link", { name: /Ver calendario/ })
+    ).toHaveAttribute("href", "https://luma.com/user/wmoralesdev")
+    expect(
+      screen.getByRole("link", { name: "Unirme a la comunidad" })
     ).toHaveAttribute("href", "/community")
-    expect(screen.getAllByRole("img")).toHaveLength(4)
+
+    expect(
+      screen.getByRole("img", { name: es.events.photos[0].alt })
+    ).toBeInTheDocument()
+    fireEvent.click(screen.getByRole("button", { name: "Foto siguiente" }))
+    expect(
+      screen.getByRole("img", { name: es.events.photos[1].alt })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole("button", { name: "Reanudar fotos" })
+    ).toBeInTheDocument()
   })
 
   it("uses English chrome on the same events", () => {
@@ -78,7 +97,7 @@ describe("events index page", () => {
       screen.getByRole("heading", {
         level: 1,
         name: "Ai Labs events in El Salvador",
-      }),
+      })
     ).toBeInTheDocument()
 
     const upcoming = screen.getByRole("region", { name: "Upcoming" })
@@ -88,8 +107,42 @@ describe("events index page", () => {
     expect(devday).toHaveTextContent("National Library of El Salvador")
     expect(devday).toHaveTextContent("View on Luma")
     expect(devday).toHaveTextContent("Hosts")
+    expect(screen.getByRole("link", { name: /View calendar/ })).toHaveAttribute(
+      "href",
+      "https://luma.com/user/wmoralesdev"
+    )
+    expect(screen.getByRole("link", { name: /View calendar/ })).toHaveAttribute(
+      "target",
+      "_blank"
+    )
     expect(
-      screen.getByRole("link", { name: "Join the community" }),
+      screen.getByRole("link", { name: "Join the community" })
     ).toHaveAttribute("href", "/community")
+    expect(
+      screen.getByRole("img", { name: en.events.photos[0].alt })
+    ).toBeInTheDocument()
+  })
+
+  it("says when the current month has no published events", () => {
+    render(
+      <EventsIndex
+        locale="es"
+        copy={es.events}
+        now={new Date("2026-11-15T18:00:00.000Z")}
+      />
+    )
+
+    expect(
+      screen.getByText(
+        "No hay eventos de Ai Labs publicados en Luma en noviembre de 2026."
+      )
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByRole("region", { name: "Próximos" })
+    ).not.toBeInTheDocument()
+    expect(
+      screen.getByRole("link", { name: /Ver calendario/ })
+    ).toBeInTheDocument()
+    expect(screen.getByRole("img")).toBeInTheDocument()
   })
 })

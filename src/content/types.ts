@@ -747,6 +747,13 @@ export type EventsIndexContent = {
   photosLabel: string
   communityCta: string
   upcomingEmpty: string
+  monthEmpty: string
+  calendarLabel: string
+  previousPhoto: string
+  nextPhoto: string
+  pausePhotos: string
+  playPhotos: string
+  photoStatus: string
   photos: ReadonlyArray<EventsIndexPhoto>
 }
 

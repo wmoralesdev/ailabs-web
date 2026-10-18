@@ -1040,11 +1040,11 @@ export const en: SiteContent = {
   events: {
     metaTitle: "Ai Labs events in El Salvador",
     metaDescription:
-      "These are Ai Labs events published on Luma, not every event in the country.",
+      "These are the Ai Labs events published on Luma for this month, not every event in the country.",
     label: "Events",
     headline: "Ai Labs events in El Salvador",
     intro:
-      "These are Ai Labs events published on Luma, not every event in the country.",
+      "These are the Ai Labs events published on Luma for this month, not every event in the country.",
     upcomingLabel: "Upcoming",
     pastLabel: "Past",
     hostsLabel: "Hosts",
@@ -1053,22 +1053,53 @@ export const en: SiteContent = {
     photosLabel: "From the community",
     communityCta: "Join the community",
     upcomingEmpty: "There is no upcoming event.",
+    monthEmpty: "There are no Ai Labs events published on Luma in {month}.",
+    calendarLabel: "View calendar",
+    previousPhoto: "Previous photo",
+    nextPhoto: "Next photo",
+    pausePhotos: "Pause photos",
+    playPhotos: "Play photos",
+    photoStatus: "{current} of {total}",
     photos: [
       {
-        src: "/carousel/16.webp",
-        alt: "A hand holding a Cafe Cursor cup in front of a crowded cafe at a San Salvador gathering.",
+        src: "/events/community/01-outdoor-hackathon.webp",
+        alt: "Outdoor hackathon, people with laptops under a canopy.",
       },
       {
-        src: "/carousel/10.webp",
-        alt: "A person holding up a Cursor Hackathon San Salvador 2026 badge.",
+        src: "/events/community/02-couch-group.webp",
+        alt: "Five people on a green couch with laptops.",
       },
       {
-        src: "/carousel/5.webp",
-        alt: "People standing at a workshop, with laptops on the tables.",
+        src: "/events/community/03-selfie-stick.webp",
+        alt: "Four people taking a selfie with a stick.",
       },
       {
-        src: "/carousel/1.webp",
-        alt: "Five people posing together at a gathering under a concrete roof.",
+        src: "/events/community/04-group-portrait.webp",
+        alt: "Large indoor group portrait.",
+      },
+      {
+        src: "/events/community/05-cursor-banner-san-salvador.webp",
+        alt: "Group with a Cursor San Salvador banner.",
+      },
+      {
+        src: "/events/community/06-organizers-table.webp",
+        alt: "Organizers at a table, with a Cursor banner behind them.",
+      },
+      {
+        src: "/events/community/07-classroom-selfie.webp",
+        alt: "Classroom, someone taking a selfie, laptops open.",
+      },
+      {
+        src: "/events/community/08-auditorium-audience.webp",
+        alt: "Audience seated in a blue-lit auditorium.",
+      },
+      {
+        src: "/events/community/09-grok-bot-meetup-card.webp",
+        alt: "Hand holding a Grok Bot San Salvador Meetup card.",
+      },
+      {
+        src: "/events/community/10-stage-talk.webp",
+        alt: "Speaker on stage, with a large screen and the audience in front.",
       },
     ],
   },

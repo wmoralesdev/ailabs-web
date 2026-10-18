@@ -7,7 +7,9 @@ import { es } from "@/content/es"
 import {
   formatLumaPlace,
   formatLumaWhen,
+  splitCurrentMonthEvents,
   splitLumaEvents,
+  walterEventsCalendarUrl,
 } from "@/content/luma-event-format"
 import { lumaEvents } from "@/content/luma-events"
 
@@ -18,13 +20,13 @@ describe("events index", () => {
     expect(es.events.headline).toBe("Eventos de Ai Labs en El Salvador")
     expect(es.events.metaTitle).toBe(es.events.headline)
     expect(es.events.intro).toBe(
-      "Estos son eventos de Ai Labs publicados en Luma, no todos los eventos del país.",
+      "Estos son los eventos de Ai Labs publicados en Luma para este mes, no todos los eventos del país."
     )
     expect(es.events.metaDescription).toBe(es.events.intro)
     expect(en.events.headline).toBe("Ai Labs events in El Salvador")
     expect(en.events.metaTitle).toBe(en.events.headline)
     expect(en.events.intro).toBe(
-      "These are Ai Labs events published on Luma, not every event in the country.",
+      "These are the Ai Labs events published on Luma for this month, not every event in the country."
     )
     expect(en.events.metaDescription).toBe(en.events.intro)
     expect(es.community.eventsCta.href).toBe("/events")
@@ -44,12 +46,12 @@ describe("events index", () => {
     }
 
     const devday = lumaEvents.find(
-      (event) => event.href === "https://luma.com/0vam8okf",
+      (event) => event.href === "https://luma.com/0vam8okf"
     )
     expect(devday?.name).toBe("DevDay Exchange Community: San Salvador")
     expect(devday?.hosts).toEqual(["Walter Morales", "Daniela Huezo"])
     expect(formatLumaPlace(devday!, "es")).toBe(
-      "Biblioteca Nacional de El Salvador (BINAES), San Salvador, El Salvador",
+      "Biblioteca Nacional de El Salvador (BINAES), San Salvador, El Salvador"
     )
     expect(formatLumaPlace(devday!, "en")).toContain("National Library")
     expect(formatLumaWhen(devday!, "es")).toMatch(/2026/)
@@ -57,24 +59,24 @@ describe("events index", () => {
     expect(formatLumaWhen(devday!, "en")).toMatch(/October/)
 
     const guatemala = lumaEvents.find(
-      (event) => event.href === "https://luma.com/hrf7a7di",
+      (event) => event.href === "https://luma.com/hrf7a7di"
     )
     expect(formatLumaPlace(guatemala!, "es")).toBe(
-      "Tec, Ciudad de Guatemala, Guatemala",
+      "Tec, Ciudad de Guatemala, Guatemala"
     )
 
     const hiddenPlace = lumaEvents.find(
-      (event) => event.href === "https://luma.com/uf2mpfis",
+      (event) => event.href === "https://luma.com/uf2mpfis"
     )
     expect(hiddenPlace?.name).toBe("Cursor Workshop El Salvador")
     expect(hiddenPlace?.place).toBeUndefined()
     expect(formatLumaPlace(hiddenPlace!, "es")).toBeNull()
 
     expect(JSON.stringify(lumaEvents)).not.toMatch(
-      /por confirmar|unconfirmed|la página dice|share\.google/i,
+      /por confirmar|unconfirmed|la página dice|share\.google/i
     )
     expect(`${es.events.intro} ${en.events.intro}`).not.toMatch(
-      /por confirmar|unconfirmed|la página dice/i,
+      /por confirmar|unconfirmed|la página dice/i
     )
   })
 
@@ -91,15 +93,44 @@ describe("events index", () => {
     }
   })
 
-  it("uses community photos that already live in the repo", () => {
-    expect(es.events.photos.map((photo) => photo.src)).toEqual(
-      en.events.photos.map((photo) => photo.src),
+  it("keeps the current month, with upcoming events first", () => {
+    const october = splitCurrentMonthEvents(fetchedAt)
+    expect(october.upcoming.map((event) => event.href)).toEqual([
+      "https://luma.com/q0l9hdwo",
+      "https://luma.com/0vam8okf",
+    ])
+    expect(october.past.map((event) => event.href)).toEqual([
+      "https://luma.com/spacexai-ikz6",
+      "https://luma.com/x36xff8j",
+      "https://luma.com/hrf7a7di",
+    ])
+
+    const stillOctober = splitCurrentMonthEvents(
+      new Date("2026-11-01T05:30:00.000Z")
     )
+    expect(stillOctober.upcoming).toHaveLength(0)
+    expect(stillOctober.past).toHaveLength(5)
+
+    const november = splitCurrentMonthEvents(
+      new Date("2026-11-15T18:00:00.000Z")
+    )
+    expect(november.upcoming).toHaveLength(0)
+    expect(november.past).toHaveLength(0)
+    expect(walterEventsCalendarUrl).toBe("https://luma.com/user/wmoralesdev")
+  })
+
+  it("uses the community photos sent for the events page", () => {
+    expect(es.events.photos.map((photo) => photo.src)).toEqual(
+      en.events.photos.map((photo) => photo.src)
+    )
+    expect(es.events.photos).toHaveLength(10)
     expect(es.events.photos.map((photo) => photo.alt)).not.toEqual(
-      en.events.photos.map((photo) => photo.alt),
+      en.events.photos.map((photo) => photo.alt)
     )
     for (const photo of [...es.events.photos, ...en.events.photos]) {
       expect(photo.alt.trim().length).toBeGreaterThan(20)
+      expect(photo.src.startsWith("/events/community/")).toBe(true)
+      expect(photo.src.endsWith(".webp")).toBe(true)
       expect(existsSync(`public${photo.src}`)).toBe(true)
     }
   })
