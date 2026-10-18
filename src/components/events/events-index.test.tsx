@@ -86,6 +86,9 @@ describe("events index page", () => {
       screen.getByRole("img", { name: es.events.photos[1].alt })
     ).toBeInTheDocument()
     expect(
+      screen.queryByRole("button", { name: es.events.photos[1].alt })
+    ).not.toBeInTheDocument()
+    expect(
       screen.getByRole("button", { name: "Reanudar fotos" })
     ).toBeInTheDocument()
   })
