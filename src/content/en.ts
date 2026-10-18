@@ -142,6 +142,9 @@ export const en: SiteContent = {
     hero: {
       label: "AI LABS · EL SALVADOR",
       headline: "AI consulting, business automation and practical education.",
+      directAnswer:
+        "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, automation, and practical education.",
+      agencyQuestion: "Is there an AI agency in El Salvador?",
       body: "AI consulting, business automation and practical education for teams and professionals. Crafted in San Salvador, El Salvador.",
       primaryCta: { label: "Let’s talk", href: "#contact" },
       secondaryCta: { label: "Explore services", href: "#services" },

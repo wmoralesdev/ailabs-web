@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest"
 
 import { en } from "@/content/en"
 import { es } from "@/content/es"
+import { SEARCH_ALIASES } from "@/lib/search-aliases"
 
 const REMOVED_PATHS = [
   "/comunidad-de-ia-el-salvador",
@@ -46,23 +47,39 @@ function walk(dir: string): string[] {
   })
 }
 
+/**
+ * Whole path only. `/eventos` does not match `/eventos-tech-el-salvador`,
+ * and `/modo-fundador` does not match `/events/modo-fundador`.
+ */
+function containsPath(haystack: string, path: string): boolean {
+  const escaped = path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  return new RegExp(`(?<![a-z0-9-])${escaped}(?![a-z0-9-])`).test(haystack)
+}
+
 describe("public SEO files", () => {
   const sitemap = readFileSync("public/sitemap.xml", "utf8")
   const llms = readFileSync("public/llms.txt", "utf8")
   const robots = readFileSync("public/robots.txt", "utf8")
-  const sources = walk("src")
-    .filter(
-      (path) =>
-        (path.endsWith(".ts") || path.endsWith(".tsx")) &&
-        !path.endsWith("public-seo.test.ts")
-    )
-    .map((path) => readFileSync(path, "utf8"))
-    .join("\n")
 
   it("does not publish the keyword landing URLs from PR 17", () => {
-    const published = `${sitemap}\n${llms}\n${robots}\n${sources}`
+    const published = `${sitemap}\n${llms}\n${robots}`
+    const pageSources = walk("src")
+      .filter(
+        (path) =>
+          (path.endsWith(".ts") || path.endsWith(".tsx")) &&
+          !path.endsWith("public-seo.test.ts") &&
+          !path.endsWith("search-aliases.ts") &&
+          !path.endsWith("search-aliases.test.ts")
+      )
+      .map((path) => readFileSync(path, "utf8"))
+      .join("\n")
     for (const path of REMOVED_PATHS) {
-      expect(published).not.toContain(path)
+      expect(containsPath(published, path)).toBe(false)
+      expect(containsPath(pageSources, path)).toBe(false)
+    }
+    for (const alias of Object.keys(SEARCH_ALIASES)) {
+      expect(containsPath(published, alias)).toBe(false)
+      expect(containsPath(pageSources, alias)).toBe(false)
     }
   })
 
@@ -117,7 +134,27 @@ describe("existing page answers", () => {
     }
     expect(es.home.hero.body).toMatch(/San Salvador/)
     expect(en.home.hero.body).toMatch(/San Salvador/)
+    expect(es.home.hero.directAnswer).toBe(
+      "Ai Labs es una empresa privada en San Salvador, El Salvador: consultoría en IA, automatización y formación práctica."
+    )
+    expect(en.home.hero.directAnswer).toBe(
+      "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, automation, and practical education."
+    )
+    expect(es.home.hero.agencyQuestion).toBe(
+      "¿Existe una agencia de inteligencia artificial en El Salvador?"
+    )
+    expect(es.home.hero.directAnswer).not.toMatch(
+      /agencia nacional|gobierno|única agencia|only agency/i
+    )
+    expect(en.home.hero.directAnswer).not.toMatch(
+      /national agency|government|only agency/i
+    )
     expect(JSON.stringify(es.home)).not.toMatch(/centroam[eé]rica/i)
     expect(JSON.stringify(en.home)).not.toMatch(/central america/i)
+    const homeRoute = readFileSync("src/routes/_site/index.tsx", "utf8")
+    const hero = readFileSync("src/components/home/home-hero.tsx", "utf8")
+    expect(homeRoute).toContain("home.hero.agencyQuestion")
+    expect(homeRoute).toContain("home.hero.directAnswer")
+    expect(hero).toContain("{hero.directAnswer}")
   })
 })

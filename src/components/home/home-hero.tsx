@@ -165,6 +165,12 @@ function HomeHeroCopy({
           </h1>
           <p
             data-home-entrance
+            className="max-w-xl text-base leading-relaxed text-foreground md:text-lg"
+          >
+            {hero.directAnswer}
+          </p>
+          <p
+            data-home-entrance
             className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg"
           >
             {hero.body}
