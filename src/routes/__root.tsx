@@ -26,7 +26,7 @@ const SITE_DESCRIPTION =
   "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador."
 
 export const Route = createRootRoute({
-  beforeLoad: async () => resolveLocaleContext(),
+  beforeLoad: () => resolveLocaleContext(),
   head: () => ({
     meta: [
       { charSet: "utf-8" },

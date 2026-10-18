@@ -1,4 +1,4 @@
-import { createServerFn } from "@tanstack/react-start"
+import { createIsomorphicFn, createServerFn } from "@tanstack/react-start"
 import {
   getCookie,
   getRequestHeader,
@@ -25,23 +25,42 @@ function writeLocaleCookie(locale: Locale): void {
   })
 }
 
+function readDocumentLocaleCookie(): string | undefined {
+  const prefix = `${LOCALE_COOKIE}=`
+  return document.cookie
+    .split("; ")
+    .find((entry) => entry.startsWith(prefix))
+    ?.slice(prefix.length)
+}
+
 /**
  * Resolve UI locale: cookie → Accept-Language → `es`.
- * Persist the resolved locale when the cookie was missing.
+ * The server persists the resolved locale when the cookie was missing. The
+ * browser reads the same cookie locally, so client navigations never wait on
+ * a server round trip; the language toggle writes the cookie, then invalidates.
  */
-export const resolveLocaleContext = createServerFn({ method: "GET" }).handler(
-  async (): Promise<LocaleContext> => {
+const resolveLocale = createIsomorphicFn()
+  .server((): Locale => {
     const cookieValue = getCookie(LOCALE_COOKIE)
     if (typeof cookieValue === "string" && isLocale(cookieValue)) {
-      return { locale: cookieValue, content: getContent(cookieValue) }
+      return cookieValue
     }
-
     const locale = localeFromAcceptLanguage(getRequestHeader("accept-language"))
     writeLocaleCookie(locale)
+    return locale
+  })
+  .client((): Locale => {
+    const cookieValue = readDocumentLocaleCookie()
+    if (cookieValue && isLocale(cookieValue)) {
+      return cookieValue
+    }
+    return localeFromAcceptLanguage(navigator.languages.join(","))
+  })
 
-    return { locale, content: getContent(locale) }
-  }
-)
+export function resolveLocaleContext(): LocaleContext {
+  const locale = resolveLocale()
+  return { locale, content: getContent(locale) }
+}
 
 export const setLocalePreference = createServerFn({ method: "POST" })
   .validator((data: { locale: string }) => {

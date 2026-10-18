@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router"
 
-import { applyWompiWebhook } from "@/server/wompi-webhook.server"
-
 export const Route = createFileRoute("/api/webhooks/wompi")({
   server: {
     handlers: {
+      // Loaded per request so page requests do not boot Prisma.
       POST: async ({ request }) => {
+        const { applyWompiWebhook } =
+          await import("@/server/wompi-webhook.server")
         const rawBody = await request.text()
         const headerHash =
           request.headers.get("wompi_hash") ?? request.headers.get("Wompi_Hash")

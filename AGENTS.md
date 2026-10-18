@@ -143,6 +143,12 @@ possibly stale value into this file.
 - Vitest and Testing Library
 - pnpm
 
+Performance invariants: the root `beforeLoad` resolves the locale with
+`createIsomorphicFn` (cookie in the browser), so client navigation never waits
+on a server function. API route files import `.server` modules lazily inside
+their handlers, so satori, resvg, and Prisma do not boot with every page.
+three.js loads only when a canvas band nears the viewport.
+
 The linked `ailabs-cli` package at `../ailabs-cli` powers the seed and image
 scripts. Do not recreate deleted one-off scripts in this repo.
 
