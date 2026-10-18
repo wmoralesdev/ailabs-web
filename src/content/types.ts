@@ -463,6 +463,8 @@ export type HomeServiceItem = {
   points: ReadonlyArray<string>
   cta: string
   interest: ContactInterestId
+  /** Text link to the matching service page. */
+  learnMore: string
 }
 
 export type HomeServicesContent = {
@@ -472,6 +474,8 @@ export type HomeServicesContent = {
   /** Catalog name in JSON-LD. Not the question heading. */
   offerName: string
   body: string
+  /** Text link to the consulting page. */
+  learnMore: string
   items: readonly [HomeServiceItem, HomeServiceItem]
 }
 
@@ -514,6 +518,49 @@ export type HomeFaqContent = {
   label: string
   title: string
   items: ReadonlyArray<HomeFaqItem>
+}
+
+export type ServicePageCard = {
+  title: string
+  body: string
+}
+
+export type ServicePageContent = {
+  metaTitle: string
+  /** 140–160 characters. */
+  metaDescription: string
+  /** Service name in JSON-LD, breadcrumbs, and related links. */
+  serviceName: string
+  eyebrow: string
+  title: string
+  lead: string
+  definitionHeading: string
+  /** Self-contained sentence. Repeated verbatim as the first FAQ answer. */
+  definition: string
+  includesHeading: string
+  includes: ReadonlyArray<ServicePageCard>
+  stepsHeading: string
+  steps: ReadonlyArray<ServicePageCard>
+  fitHeading: string
+  fit: ReadonlyArray<string>
+  notFitHeading: string
+  notFit: ReadonlyArray<string>
+  faqHeading: string
+  faq: ReadonlyArray<HomeFaqItem>
+  ctaHeading: string
+  ctaBody: string
+  cta: string
+  interest: ContactInterestId
+}
+
+export type ServicePagesContent = {
+  homeLabel: string
+  breadcrumbLabel: string
+  relatedLabel: string
+  communityLink: string
+  consulting: ServicePageContent
+  training: ServicePageContent
+  automation: ServicePageContent
 }
 
 export type HomeContent = {
@@ -743,6 +790,7 @@ export type SiteContent = {
   chrome: ChromeContent
   microcopy: MicrocopyContent
   home: HomeContent
+  servicePages: ServicePagesContent
   redeem: RedeemContent
   community: CommunityContent
   campusLeader: CampusLeaderContent

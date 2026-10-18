@@ -12,14 +12,10 @@ import {
 } from "@/lib/search-aliases"
 
 const HOME_ALIASES = [
-  "/consultoria-ia-el-salvador",
-  "/consultoria-de-ia-el-salvador",
-  "/consultoria-el-salvador",
   "/agencia-ia-el-salvador",
   "/agencia-de-inteligencia-artificial-el-salvador",
   "/ia-el-salvador",
   "/inteligencia-artificial-el-salvador",
-  "/ai-consulting-el-salvador",
   "/ai-agency-el-salvador",
   "/ai-el-salvador",
 ]
@@ -44,10 +40,11 @@ describe("search aliases", () => {
         `${destination}?utm=search#services`
       )
     }
-    expect(aliasRedirectHref("/consultoria-ia-el-salvador")).toBe("/")
-    expect(
-      searchAliasDestination("/consultoria-ia-el-salvador?utm=search")
-    ).toBe("/")
+    expect(aliasRedirectHref("/agencia-ia-el-salvador")).toBe("/")
+    expect(searchAliasDestination("/agencia-ia-el-salvador?utm=search")).toBe(
+      "/"
+    )
+    expect(searchAliasDestination("/consultoria-ia-el-salvador")).toBeNull()
     expect(searchAliasDestination("/consultores-el-salvador")).toBeNull()
     expect(searchAliasDestination("/community")).toBeNull()
     expect(searchAliasDestination("/en")).toBeNull()
@@ -67,6 +64,21 @@ describe("search aliases", () => {
       "/events/modo-fundador"
     )
     expect(SEARCH_ALIASES["/consultores-el-salvador"]).toBeUndefined()
+  })
+
+  it("sends service-shaped aliases to the matching service page", () => {
+    expect(SEARCH_ALIASES["/consultoria-de-ia-el-salvador"]).toBe(
+      "/consultoria-ia-el-salvador"
+    )
+    expect(SEARCH_ALIASES["/ai-consulting-el-salvador"]).toBe(
+      "/consultoria-ia-el-salvador"
+    )
+    expect(SEARCH_ALIASES["/cursos-ia-el-salvador"]).toBe(
+      "/capacitacion-ia-el-salvador"
+    )
+    expect(SEARCH_ALIASES["/ai-automation-el-salvador"]).toBe(
+      "/automatizacion-ia-el-salvador"
+    )
   })
 
   it("does not invent another country, or a country the page does not name", () => {

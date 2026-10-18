@@ -91,8 +91,15 @@ possibly stale value into this file.
   primary button and secondary text link with an arrow, followed by the logos.
   The spiral is unmounted on mobile, not replaced with another decoration.
   `/lab` and campaign heroes keep their existing spiral layouts.
-- Academy / Agentic / Aperture standalone marketing routes are not shipped
-  pages.
+- Three consulting pages share `src/components/marketing/service-page.tsx`
+  and copy in `src/content/service-pages-{es,en}.ts`:
+  `/consultoria-ia-el-salvador`, `/capacitacion-ia-el-salvador` (Academy),
+  and `/automatizacion-ia-el-salvador` (Agentic). Slugs are the Spanish search
+  term; language stays in the cookie. Each page opens with a self-contained
+  definition sentence that is repeated as its first FAQ answer, keeps its FAQ
+  visible and mirrored in `FAQPage` JSON-LD, and links to the other two. The
+  footer Services column and home Services section link to them. Do not add
+  per-country variants or a standalone Aperture marketing page.
 - `/redeem` is an authenticated credit-redemption flow backed by Clerk,
   TanStack server functions, Prisma, and PostgreSQL/Neon.
 - `/aperture/join` is the authenticated Aperture claim flow. Join stays

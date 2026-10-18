@@ -211,6 +211,74 @@ export function buildWorkshopEventJsonLd(input: {
   }
 }
 
+/** WebPage, Service, and breadcrumb for one consulting route. */
+export function buildServicePageJsonLd(input: {
+  locale: Locale
+  path: string
+  title: string
+  description: string
+  serviceName: string
+  homeLabel: string
+}): HeadScript {
+  const url = absoluteUrl(input.path)
+  const home = absoluteUrl()
+  const organizationId = `${home}#organization`
+  const serviceId = `${url}#service`
+
+  return {
+    type: "application/ld+json",
+    children: JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": `${url}#webpage`,
+          url,
+          name: input.title,
+          description: input.description,
+          inLanguage: input.locale,
+          isPartOf: { "@id": `${home}#website` },
+          about: { "@id": serviceId },
+          breadcrumb: { "@id": `${url}#breadcrumb` },
+        },
+        {
+          "@type": "Service",
+          "@id": serviceId,
+          name: input.serviceName,
+          description: input.description,
+          url,
+          provider: {
+            "@type": "Organization",
+            "@id": organizationId,
+            name: SITE_NAME,
+            url: home,
+          },
+          areaServed: { "@type": "Country", name: "El Salvador" },
+          availableLanguage: ["es", "en"],
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `${url}#breadcrumb`,
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: input.homeLabel,
+              item: home,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: input.serviceName,
+              item: url,
+            },
+          ],
+        },
+      ],
+    }),
+  }
+}
+
 type JsonLdService = {
   name: string
   description: string

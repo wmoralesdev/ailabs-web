@@ -19,9 +19,9 @@ describe("public home content", () => {
           .map(({ href }) => href)
       ).toEqual(
         expect.arrayContaining([
-          "#services",
-          "#academy",
-          "#agentic",
+          "/consultoria-ia-el-salvador",
+          "/capacitacion-ia-el-salvador",
+          "/automatizacion-ia-el-salvador",
           "#about",
           "#contact",
           "/community",

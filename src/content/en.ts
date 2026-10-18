@@ -1,6 +1,7 @@
 import { homeCarousel } from "./home-carousel"
 import { legalEn } from "./legal-en"
 import type { SiteContent } from "./types"
+import { servicePagesEn } from "./service-pages-en"
 
 export const en: SiteContent = {
   locale: "en",
@@ -64,15 +65,15 @@ export const en: SiteContent = {
           links: [
             {
               label: "AI consulting",
-              href: "#services",
+              href: "/consultoria-ia-el-salvador",
             },
             {
-              label: "Practical education",
-              href: "#academy",
+              label: "AI training",
+              href: "/capacitacion-ia-el-salvador",
             },
             {
-              label: "Business automation",
-              href: "#agentic",
+              label: "AI automation",
+              href: "/automatizacion-ia-el-salvador",
             },
             {
               label: "How we work",
@@ -172,6 +173,7 @@ export const en: SiteContent = {
       title: "What does AI consulting include?",
       offerName: "AI consulting",
       body: "We look at how you work, identify where AI can help and decide what to tackle first. From there, we help you learn or build the workflow with you.",
+      learnMore: "More on AI consulting in El Salvador",
       items: [
         {
           id: "academy",
@@ -186,6 +188,7 @@ export const en: SiteContent = {
           ],
           cta: "I want to learn",
           interest: "enablement",
+          learnMore: "More on AI training",
         },
         {
           id: "agentic",
@@ -200,6 +203,7 @@ export const en: SiteContent = {
           ],
           cta: "Improve a process",
           interest: "implementation",
+          learnMore: "More on AI automation",
         },
       ],
     },
@@ -506,6 +510,7 @@ export const en: SiteContent = {
       invalid: "Check your details and try again.",
     },
   },
+  servicePages: servicePagesEn,
   redeem: {
     metaTitle: "Redeem credits",
     eventLabel: "Event",

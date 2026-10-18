@@ -1,6 +1,7 @@
 import { homeCarousel } from "./home-carousel"
 import { legalEs } from "./legal-es"
 import type { SiteContent } from "./types"
+import { servicePagesEs } from "./service-pages-es"
 
 export const es: SiteContent = {
   locale: "es",
@@ -64,15 +65,15 @@ export const es: SiteContent = {
           links: [
             {
               label: "Consultoría en IA",
-              href: "#services",
+              href: "/consultoria-ia-el-salvador",
             },
             {
-              label: "Formación práctica",
-              href: "#academy",
+              label: "Capacitación en IA",
+              href: "/capacitacion-ia-el-salvador",
             },
             {
-              label: "Automatización de procesos",
-              href: "#agentic",
+              label: "Automatización con IA",
+              href: "/automatizacion-ia-el-salvador",
             },
             {
               label: "Cómo trabajamos",
@@ -174,6 +175,7 @@ export const es: SiteContent = {
       title: "¿Qué es la consultoría en IA?",
       offerName: "Consultoría en IA",
       body: "Revisamos cómo trabajás, identificamos dónde puede ayudar la IA y decidimos por dónde empezar. Después te ayudamos a aprender o implementamos el flujo con vos.",
+      learnMore: "Más sobre consultoría en IA en El Salvador",
       items: [
         {
           id: "academy",
@@ -188,6 +190,7 @@ export const es: SiteContent = {
           ],
           cta: "Quiero aprender",
           interest: "enablement",
+          learnMore: "Más sobre capacitación en IA",
         },
         {
           id: "agentic",
@@ -202,6 +205,7 @@ export const es: SiteContent = {
           ],
           cta: "Quiero mejorar un proceso",
           interest: "implementation",
+          learnMore: "Más sobre automatización con IA",
         },
       ],
     },
@@ -508,6 +512,7 @@ export const es: SiteContent = {
       invalid: "Revisá los datos e intentá de nuevo.",
     },
   },
+  servicePages: servicePagesEs,
   redeem: {
     metaTitle: "Canjear créditos",
     eventLabel: "Evento",
