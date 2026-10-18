@@ -17,6 +17,7 @@ import { Route as LocaleSplatRouteImport } from './routes/$locale/$'
 import { Route as SiteIndexRouteImport } from './routes/_site/index'
 import { Route as SiteCampusLeaderRouteImport } from './routes/_site/campus-leader'
 import { Route as SiteCommunityRouteImport } from './routes/_site/community'
+import { Route as SiteConsultoriaDeIaElSalvadorRouteImport } from './routes/_site/consultoria-de-ia-el-salvador'
 import { Route as SiteLabRouteImport } from './routes/_site/lab'
 import { Route as SiteMeRouteImport } from './routes/_site/me'
 import { Route as SitePrivacyRouteImport } from './routes/_site/privacy'
@@ -73,6 +74,12 @@ const SiteCommunityRoute = SiteCommunityRouteImport.update({
   path: '/community',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteConsultoriaDeIaElSalvadorRoute =
+  SiteConsultoriaDeIaElSalvadorRouteImport.update({
+    id: '/consultoria-de-ia-el-salvador',
+    path: '/consultoria-de-ia-el-salvador',
+    getParentRoute: () => SiteRoute,
+  } as any)
 const SiteLabRoute = SiteLabRouteImport.update({
   id: '/lab',
   path: '/lab',
@@ -161,6 +168,7 @@ export interface FileRoutesByFullPath {
   '/$locale/$': typeof LocaleSplatRoute
   '/campus-leader': typeof SiteCampusLeaderRoute
   '/community': typeof SiteCommunityRoute
+  '/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
   '/lab': typeof SiteLabRoute
   '/me': typeof SiteMeRoute
   '/privacy': typeof SitePrivacyRoute
@@ -184,6 +192,7 @@ export interface FileRoutesByTo {
   '/$locale/$': typeof LocaleSplatRoute
   '/campus-leader': typeof SiteCampusLeaderRoute
   '/community': typeof SiteCommunityRoute
+  '/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
   '/lab': typeof SiteLabRoute
   '/me': typeof SiteMeRoute
   '/privacy': typeof SitePrivacyRoute
@@ -210,6 +219,7 @@ export interface FileRoutesById {
   '/$locale/$': typeof LocaleSplatRoute
   '/_site/campus-leader': typeof SiteCampusLeaderRoute
   '/_site/community': typeof SiteCommunityRoute
+  '/_site/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
   '/_site/lab': typeof SiteLabRoute
   '/_site/me': typeof SiteMeRoute
   '/_site/privacy': typeof SitePrivacyRoute
@@ -238,6 +248,7 @@ export interface FileRouteTypes {
     | '/$locale/$'
     | '/campus-leader'
     | '/community'
+    | '/consultoria-de-ia-el-salvador'
     | '/lab'
     | '/me'
     | '/privacy'
@@ -261,6 +272,7 @@ export interface FileRouteTypes {
     | '/$locale/$'
     | '/campus-leader'
     | '/community'
+    | '/consultoria-de-ia-el-salvador'
     | '/lab'
     | '/me'
     | '/privacy'
@@ -286,6 +298,7 @@ export interface FileRouteTypes {
     | '/$locale/$'
     | '/_site/campus-leader'
     | '/_site/community'
+    | '/_site/consultoria-de-ia-el-salvador'
     | '/_site/lab'
     | '/_site/me'
     | '/_site/privacy'
@@ -373,6 +386,13 @@ declare module '@tanstack/react-router' {
       path: '/community'
       fullPath: '/community'
       preLoaderRoute: typeof SiteCommunityRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/consultoria-de-ia-el-salvador': {
+      id: '/_site/consultoria-de-ia-el-salvador'
+      path: '/consultoria-de-ia-el-salvador'
+      fullPath: '/consultoria-de-ia-el-salvador'
+      preLoaderRoute: typeof SiteConsultoriaDeIaElSalvadorRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/lab': {
@@ -520,6 +540,7 @@ const SiteEventsSlugRouteWithChildren = SiteEventsSlugRoute._addFileChildren(
 interface SiteRouteChildren {
   SiteCampusLeaderRoute: typeof SiteCampusLeaderRoute
   SiteCommunityRoute: typeof SiteCommunityRoute
+  SiteConsultoriaDeIaElSalvadorRoute: typeof SiteConsultoriaDeIaElSalvadorRoute
   SiteLabRoute: typeof SiteLabRoute
   SiteMeRoute: typeof SiteMeRoute
   SitePrivacyRoute: typeof SitePrivacyRoute
@@ -535,6 +556,7 @@ interface SiteRouteChildren {
 const SiteRouteChildren: SiteRouteChildren = {
   SiteCampusLeaderRoute: SiteCampusLeaderRoute,
   SiteCommunityRoute: SiteCommunityRoute,
+  SiteConsultoriaDeIaElSalvadorRoute: SiteConsultoriaDeIaElSalvadorRoute,
   SiteLabRoute: SiteLabRoute,
   SiteMeRoute: SiteMeRoute,
   SitePrivacyRoute: SitePrivacyRoute,

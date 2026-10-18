@@ -11,16 +11,20 @@ import {
   searchAliasDestination,
 } from "@/lib/search-aliases"
 
-const HOME_ALIASES = [
+const CONSULTING_PAGE = "/consultoria-de-ia-el-salvador"
+
+const CONSULTING_ALIASES = [
   "/consultoria-ia-el-salvador",
-  "/consultoria-de-ia-el-salvador",
   "/consultoria-el-salvador",
   "/agencia-ia-el-salvador",
   "/agencia-de-inteligencia-artificial-el-salvador",
-  "/ia-el-salvador",
-  "/inteligencia-artificial-el-salvador",
   "/ai-consulting-el-salvador",
   "/ai-agency-el-salvador",
+]
+
+const HOME_ALIASES = [
+  "/ia-el-salvador",
+  "/inteligencia-artificial-el-salvador",
   "/ai-el-salvador",
 ]
 
@@ -44,10 +48,13 @@ describe("search aliases", () => {
         `${destination}?utm=search#services`
       )
     }
-    expect(aliasRedirectHref("/consultoria-ia-el-salvador")).toBe("/")
+    expect(aliasRedirectHref("/consultoria-ia-el-salvador")).toBe(
+      CONSULTING_PAGE
+    )
     expect(
       searchAliasDestination("/consultoria-ia-el-salvador?utm=search")
-    ).toBe("/")
+    ).toBe(CONSULTING_PAGE)
+    expect(searchAliasDestination(CONSULTING_PAGE)).toBeNull()
     expect(searchAliasDestination("/consultores-el-salvador")).toBeNull()
     expect(searchAliasDestination("/community")).toBeNull()
     expect(searchAliasDestination("/en")).toBeNull()
@@ -55,6 +62,10 @@ describe("search aliases", () => {
   })
 
   it("uses the home, community, and event slugs Daniela named", () => {
+    for (const alias of CONSULTING_ALIASES) {
+      expect(SEARCH_ALIASES[alias]).toBe(CONSULTING_PAGE)
+    }
+    expect(SEARCH_ALIASES[CONSULTING_PAGE]).toBeUndefined()
     for (const alias of HOME_ALIASES) {
       expect(SEARCH_ALIASES[alias]).toBe("/")
     }
@@ -116,6 +127,7 @@ describe("search aliases", () => {
     expect(start).toContain("status: 301")
     expect(start).toContain("aliasRedirectHref")
     expect(`${localeRoute}\n${start}`).not.toMatch(/googlebot|user-agent/i)
+    expect(routeTree).toContain("path: '/consultoria-de-ia-el-salvador'")
     for (const alias of Object.keys(SEARCH_ALIASES)) {
       const segment = alias.slice(1)
       expect(routeTree).not.toContain(`path: '${segment}'`)

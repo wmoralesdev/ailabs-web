@@ -85,6 +85,9 @@ describe("public SEO files", () => {
 
   it("lists only real pages on the www host", () => {
     expect(sitemap).toContain("https://www.ailabs.sv/")
+    expect(sitemap).toContain(
+      "https://www.ailabs.sv/consultoria-de-ia-el-salvador"
+    )
     expect(sitemap).toContain("https://www.ailabs.sv/community")
     expect(sitemap).toContain("https://www.ailabs.sv/campus-leader")
     expect(sitemap).toContain("https://www.ailabs.sv/aperture")
@@ -97,6 +100,9 @@ describe("public SEO files", () => {
     expect(llms).toContain("https://www.linkedin.com/company/ai-labs-sv")
     expect(llms).toContain("https://x.com/ailabs_sv")
     expect(llms).toContain("https://www.instagram.com/ailabs_sv/")
+    expect(llms).toContain(
+      "https://www.ailabs.sv/consultoria-de-ia-el-salvador"
+    )
     expect(llms).toContain("San Salvador")
     expect(llms).toMatch(/no describen un área de servicio de centroamérica/i)
     expect(llms).not.toMatch(/cubre centroamérica|covers central america/i)

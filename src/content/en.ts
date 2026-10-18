@@ -202,6 +202,10 @@ export const en: SiteContent = {
           interest: "implementation",
         },
       ],
+      pageLink: {
+        label: "AI consulting in El Salvador",
+        href: "/consultoria-de-ia-el-salvador",
+      },
     },
     method: {
       label: "How we work",
@@ -452,6 +456,57 @@ export const en: SiteContent = {
         "We received several inquiries. Please try again in an hour.",
       invalid: "Check your details and try again.",
     },
+  },
+  consulting: {
+    metaTitle: "AI consulting in El Salvador",
+    metaDescription:
+      "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, process automation, and practical training for professional teams.",
+    label: "San Salvador, El Salvador",
+    headline: "AI consulting in El Salvador",
+    lead: "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, process automation, and practical training for professional teams.",
+    servicesTitle: "Services",
+    services: [
+      {
+        id: "consulting",
+        name: "AI consulting",
+        body: "We look at how you work, identify where AI can help and decide what to tackle first. From there, we help you learn or build the workflow with you.",
+      },
+      {
+        id: "academy",
+        name: "Practical education",
+        body: "Practical education for professionals and teams, built around the tasks you want to improve.",
+      },
+      {
+        id: "agentic",
+        name: "Business automation",
+        body: "We design and implement workflows around your operation, connecting your tools and the people who use them.",
+      },
+    ],
+    methodTitle: "How we work",
+    methodBody:
+      "First, understand the work. For consulting and implementation, we start with the need and agree on a useful next step. You can also come directly to learn.",
+    steps: [
+      {
+        title: "Understand",
+        body: "We look at how the work happens today, who is involved and where it gets stuck.",
+      },
+      {
+        title: "Prioritize",
+        body: "We choose an opportunity and agree on scope and how to assess improvement.",
+      },
+      {
+        title: "Put it into practice",
+        body: "We prepare the team or implement the workflow, with the review and documentation it needs.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Is there an AI agency in El Salvador?",
+        answer:
+          "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, process automation, and practical training for professional teams.",
+      },
+    ],
+    cta: "Let’s talk",
   },
   redeem: {
     metaTitle: "Redeem credits",

@@ -92,6 +92,9 @@ possibly stale value into this file.
   `/lab` and campaign heroes keep their existing spiral layouts.
 - Academy / Agentic / Aperture standalone marketing routes are not shipped
   pages.
+- `/consultoria-de-ia-el-salvador` is the indexable consulting page. Spanish
+  and English share that URL. Consulting aliases 301 to it. `/ia-el-salvador`,
+  `/inteligencia-artificial-el-salvador`, and `/ai-el-salvador` still 301 to `/`.
 - `/redeem` is an authenticated credit-redemption flow backed by Clerk,
   TanStack server functions, Prisma, and PostgreSQL/Neon.
 - `/aperture/join` is the authenticated Aperture claim flow. Join stays
