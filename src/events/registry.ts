@@ -1,12 +1,6 @@
-import type { ComponentType } from "react"
-
 import type { Locale } from "@/content"
 import { getGetCompetitiveQuickContent } from "@/events/get-competitive-quick/content"
-import { GetCompetitiveQuickPage } from "@/events/get-competitive-quick/page"
-import { GetCompetitiveQuickSuccessPage } from "@/events/get-competitive-quick/success-page"
 import { getModoFundadorContent } from "@/events/modo-fundador/content"
-import { ModoFundadorPage } from "@/events/modo-fundador/page"
-import { ModoFundadorSuccessPage } from "@/events/modo-fundador/success-page"
 
 export type WorkshopDefinition = {
   slug: string
@@ -22,20 +16,6 @@ export type WorkshopDefinition = {
   metaDescription: (locale: Locale) => string
   /** Visible question headings and the copy already under them. */
   faq: (locale: Locale) => ReadonlyArray<{ question: string; answer: string }>
-  Page: ComponentType<{
-    locale: Locale
-    soldOut: boolean
-    /** Remaining paid capacity, clamped at 0. Pages may ignore it. */
-    seatsLeft: number
-    capacity: number
-    /** Whole days until the event, or null when TBD or already here. */
-    daysUntil: number | null
-  }>
-  SuccessPage: ComponentType<{
-    locale: Locale
-    paymentStatus?: string
-    redirectValid?: boolean | null
-  }>
 }
 
 const workshops: Record<string, WorkshopDefinition> = {
@@ -79,8 +59,6 @@ const workshops: Record<string, WorkshopDefinition> = {
         },
       ]
     },
-    Page: ModoFundadorPage,
-    SuccessPage: ModoFundadorSuccessPage,
   },
   "get-competitive-quick": {
     slug: "get-competitive-quick",
@@ -113,8 +91,6 @@ const workshops: Record<string, WorkshopDefinition> = {
         },
       ]
     },
-    Page: GetCompetitiveQuickPage,
-    SuccessPage: GetCompetitiveQuickSuccessPage,
   },
 }
 

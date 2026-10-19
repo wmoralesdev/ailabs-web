@@ -10,6 +10,7 @@ import { createFileRoute, Link, useRouterState } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
+import { AuthProvider } from "@/components/auth/auth-provider"
 import { MeDashboardView } from "@/components/aperture/me-dashboard"
 import { MainCard } from "@/components/chrome/main-card"
 import { homePillClassName } from "@/components/home/home-styles"
@@ -38,7 +39,11 @@ export const Route = createFileRoute("/_site/me")({
       noindex: true,
     })
   },
-  component: MePage,
+  component: () => (
+    <AuthProvider>
+      <MePage />
+    </AuthProvider>
+  ),
 })
 
 function MePage() {

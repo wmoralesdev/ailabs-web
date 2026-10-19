@@ -11,12 +11,14 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { toast } from "sonner"
 
+import { AuthProvider } from "@/components/auth/auth-provider"
 import { CampaignFactRow } from "@/components/campaign/campaign-fact-row"
 import { CampaignHero } from "@/components/campaign/campaign-hero"
 import {
   homeDisplayClassName,
   homePillClassName,
 } from "@/components/home/home-styles"
+import { Toaster } from "@/components/ui/sonner"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Spinner } from "@/components/ui/spinner"
 import type { Locale, RedeemContent } from "@/content/types"
@@ -85,7 +87,12 @@ export const Route = createFileRoute("/_site/redeem")({
       ],
     }
   },
-  component: RedeemPage,
+  component: () => (
+    <AuthProvider>
+      <RedeemPage />
+      <Toaster />
+    </AuthProvider>
+  ),
 })
 
 const skipLinkClassName =

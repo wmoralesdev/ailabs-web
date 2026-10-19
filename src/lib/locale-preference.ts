@@ -43,6 +43,31 @@ export const resolveLocaleContext = createServerFn({ method: "GET" }).handler(
   }
 )
 
+function readBrowserLocaleCookie(): Locale | null {
+  for (const entry of document.cookie.split(";")) {
+    const [name, value = ""] = entry.trim().split("=")
+    if (name === LOCALE_COOKIE && isLocale(value)) {
+      return value
+    }
+  }
+  return null
+}
+
+/**
+ * Root `beforeLoad` runs on every client navigation and preload. Both content
+ * modules already ship to the browser, so once the server has written the
+ * cookie the client resolves locale without a server round trip.
+ */
+export async function loadLocaleContext(): Promise<LocaleContext> {
+  if (typeof document !== "undefined") {
+    const locale = readBrowserLocaleCookie()
+    if (locale) {
+      return { locale, content: getContent(locale) }
+    }
+  }
+  return resolveLocaleContext()
+}
+
 export const setLocalePreference = createServerFn({ method: "POST" })
   .validator((data: { locale: string }) => {
     if (!isLocale(data.locale)) {

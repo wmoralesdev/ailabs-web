@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react"
+import { Suspense, lazy, useEffect, useRef, useState } from "react"
 import type { ReactNode } from "react"
 
-import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect"
 import {
   homeBandPaddingClassName,
   homeShellClassName,
@@ -13,6 +12,15 @@ const CANVAS_COLORS: number[][] = [
   [167, 139, 250],
   [124, 58, 237],
 ]
+
+/** Three.js is most of the effect's weight; fetch it only near the viewport. */
+const CanvasRevealEffect = lazy(() =>
+  import("@/components/ui/canvas-reveal-effect").then((module) => ({
+    default: module.CanvasRevealEffect,
+  }))
+)
+
+const CANVAS_ROOT_MARGIN = "400px 0px"
 
 type CanvasRevealBannerProps = {
   id?: string
@@ -46,7 +54,9 @@ function CanvasRevealBanner({
   action,
   shellClassName = homeShellClassName,
 }: CanvasRevealBannerProps) {
+  const root = useRef<HTMLElement>(null)
   const [reduceMotion, setReduceMotion] = useState(true)
+  const [nearViewport, setNearViewport] = useState(false)
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -56,8 +66,32 @@ function CanvasRevealBanner({
     return () => media.removeEventListener("change", sync)
   }, [])
 
+  useEffect(() => {
+    const section = root.current
+    if (reduceMotion || nearViewport || !section) return
+    if (typeof IntersectionObserver !== "function") {
+      setNearViewport(true)
+      return
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setNearViewport(true)
+        }
+      },
+      { rootMargin: CANVAS_ROOT_MARGIN }
+    )
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [reduceMotion, nearViewport])
+
+  const staticBackdrop = (
+    <div className="absolute inset-0 bg-linear-to-b from-purple/35 via-background to-background" />
+  )
+
   return (
     <section
+      ref={root}
       id={id}
       className={cn(
         "home-hero-invert relative scroll-mt-8 overflow-hidden bg-surface-ink text-on-dark",
@@ -66,16 +100,18 @@ function CanvasRevealBanner({
       )}
     >
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        {reduceMotion ? (
-          <div className="absolute inset-0 bg-linear-to-b from-purple/35 via-background to-background" />
+        {reduceMotion || !nearViewport ? (
+          staticBackdrop
         ) : (
-          <CanvasRevealEffect
-            animationSpeed={3}
-            containerClassName="bg-background"
-            colors={CANVAS_COLORS}
-            dotSize={2}
-            showGradient
-          />
+          <Suspense fallback={staticBackdrop}>
+            <CanvasRevealEffect
+              animationSpeed={3}
+              containerClassName="bg-background"
+              colors={CANVAS_COLORS}
+              dotSize={2}
+              showGradient
+            />
+          </Suspense>
         )}
       </div>
 

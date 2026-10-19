@@ -1,5 +1,3 @@
-import { ClerkProvider } from "@clerk/tanstack-react-start"
-import { shadcn } from "@clerk/ui/themes"
 import {
   HeadContent,
   Link,
@@ -10,11 +8,13 @@ import {
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 
+import { ClerkInitState } from "@/components/auth/clerk-init-state"
 import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/sonner"
-import { resolveLocaleContext } from "@/lib/locale-preference"
+import { loadLocaleContext } from "@/lib/locale-preference"
 import { OG_IMAGE_ALT, OG_IMAGE_URL, SITE_NAME } from "@/lib/seo"
 import appCss from "../styles.css?url"
+import alanSansLatin from "@fontsource-variable/alan-sans/files/alan-sans-latin-wght-normal.woff2?url"
+import dmSansLatin from "@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url"
 
 if (import.meta.env.DEV && !import.meta.env.SSR) {
   void import("react-grab")
@@ -26,7 +26,7 @@ const SITE_DESCRIPTION =
   "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador."
 
 export const Route = createRootRoute({
-  beforeLoad: async () => resolveLocaleContext(),
+  beforeLoad: () => loadLocaleContext(),
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -53,6 +53,15 @@ export const Route = createRootRoute({
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/manifest.json" },
+      // Fetch both faces alongside the stylesheet: discovered only from the
+      // CSS, they arrive after first paint and the hero re-wraps on swap.
+      ...[alanSansLatin, dmSansLatin].map((href) => ({
+        rel: "preload",
+        href,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous" as const,
+      })),
       { rel: "stylesheet", href: appCss },
     ],
   }),
@@ -124,25 +133,23 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <ClerkProvider appearance={{ theme: shadcn }}>
-          <ThemeProvider defaultTheme="system" storageKey="ailabs-theme">
-            {children}
-            <Toaster />
-            {import.meta.env.DEV ? (
-              <TanStackDevtools
-                config={{
-                  position: "bottom-right",
-                }}
-                plugins={[
-                  {
-                    name: "Tanstack Router",
-                    render: <TanStackRouterDevtoolsPanel />,
-                  },
-                ]}
-              />
-            ) : null}
-          </ThemeProvider>
-        </ClerkProvider>
+        <ClerkInitState />
+        <ThemeProvider defaultTheme="system" storageKey="ailabs-theme">
+          {children}
+          {import.meta.env.DEV ? (
+            <TanStackDevtools
+              config={{
+                position: "bottom-right",
+              }}
+              plugins={[
+                {
+                  name: "Tanstack Router",
+                  render: <TanStackRouterDevtoolsPanel />,
+                },
+              ]}
+            />
+          ) : null}
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>

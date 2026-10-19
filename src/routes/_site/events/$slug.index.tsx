@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router"
 
+import { getWorkshopPages } from "@/events/pages"
 import { daysUntilWorkshop, getWorkshopBySlug } from "@/events/registry"
 import { buildFaqJsonLd, buildPageMeta, SITE_NAME } from "@/lib/seo"
 import { getWorkshopAvailability } from "@/server/workshop-registration"
@@ -49,12 +50,12 @@ export const Route = createFileRoute("/_site/events/$slug/")({
 function EventSlugIndexPage() {
   const { slug, soldOut, seatsLeft, capacity, daysUntil, locale } =
     Route.useLoaderData()
-  const workshop = getWorkshopBySlug(slug)
-  if (!workshop) {
+  const pages = getWorkshopPages(slug)
+  if (!pages) {
     throw notFound()
   }
 
-  const Page = workshop.Page
+  const Page = pages.Page
   return (
     <Page
       locale={locale}
