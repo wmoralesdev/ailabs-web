@@ -11,10 +11,28 @@ import { cn } from "@/lib/utils"
 
 const PIXELS_PER_SECOND = 42
 
-function BrandAsset({ src, codex = false }: { src: string; codex?: boolean }) {
+/**
+ * Intrinsic SVG sizes; CSS sets the rendered height. Lazy loading keeps React
+ * from preloading every marquee logo ahead of the stylesheet.
+ */
+function BrandAsset({
+  src,
+  width,
+  height,
+  codex = false,
+}: {
+  src: string
+  width: number
+  height: number
+  codex?: boolean
+}) {
   return (
     <img
       src={src}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
       alt=""
       className={cn("home-trust-logo", codex && "home-trust-logo-codex")}
       draggable={false}
@@ -40,13 +58,19 @@ function IconWordLockup({
 function TrustLogoMark({ id, name }: { id: TrustLogoId; name: string }) {
   switch (id) {
     case "spacexai":
-      return <BrandAsset src="/brand/spacexai-light.svg" />
+      return (
+        <BrandAsset src="/brand/spacexai-light.svg" width={205} height={25} />
+      )
     case "codex":
-      return <BrandAsset src="/brand/codex.svg" codex />
+      return (
+        <BrandAsset src="/brand/codex.svg" width={680} height={261} codex />
+      )
     case "openai":
-      return <BrandAsset src="/brand/openai.svg" />
+      return <BrandAsset src="/brand/openai.svg" width={1957} height={480} />
     case "claude":
-      return <BrandAsset src="/brand/claude-light.svg" />
+      return (
+        <BrandAsset src="/brand/claude-light.svg" width={184} height={40} />
+      )
     case "mistral":
       return (
         <IconWordLockup name={name}>
@@ -54,7 +78,7 @@ function TrustLogoMark({ id, name }: { id: TrustLogoId; name: string }) {
         </IconWordLockup>
       )
     case "elevenlabs":
-      return <BrandAsset src="/brand/elevenlabs.svg" />
+      return <BrandAsset src="/brand/elevenlabs.svg" width={171} height={22} />
     case "notion":
       return (
         <IconWordLockup name={name}>

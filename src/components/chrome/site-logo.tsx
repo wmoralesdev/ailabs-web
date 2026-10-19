@@ -47,6 +47,10 @@ const LOCKUP = {
   onDark: "/brand/ailabs-light.svg",
 } as const
 
+/** Intrinsic size of both lockup SVGs; CSS sets the rendered height. */
+const LOCKUP_WIDTH = 1295
+const LOCKUP_HEIGHT = 324
+
 type LogoVariant = "mark" | "lockup"
 
 type SiteLogoProps = {
@@ -82,6 +86,8 @@ function SiteLogo({
     return (
       <img
         src={LOCKUP.onDark}
+        width={LOCKUP_WIDTH}
+        height={LOCKUP_HEIGHT}
         alt="Ai Labs"
         className={imgClassName}
       />
@@ -92,6 +98,8 @@ function SiteLogo({
     return (
       <img
         src={LOCKUP.onLight}
+        width={LOCKUP_WIDTH}
+        height={LOCKUP_HEIGHT}
         alt="Ai Labs"
         className={imgClassName}
       />
@@ -102,11 +110,15 @@ function SiteLogo({
     <span className="inline-grid">
       <img
         src={LOCKUP.onLight}
+        width={LOCKUP_WIDTH}
+        height={LOCKUP_HEIGHT}
         alt="Ai Labs"
         className={cn(imgClassName, "col-start-1 row-start-1 dark:hidden")}
       />
       <img
         src={LOCKUP.onDark}
+        width={LOCKUP_WIDTH}
+        height={LOCKUP_HEIGHT}
         alt=""
         aria-hidden
         className={cn(
