@@ -1,6 +1,7 @@
 import { homeCarousel } from "./home-carousel"
 import { legalEs } from "./legal-es"
 import type { SiteContent } from "./types"
+import { servicePagesEs } from "./service-pages-es"
 
 export const es: SiteContent = {
   locale: "es",
@@ -72,11 +73,11 @@ export const es: SiteContent = {
             },
             {
               label: "Formación práctica",
-              href: "#academy",
+              href: "/capacitacion-ia-el-salvador",
             },
             {
               label: "Automatización de procesos",
-              href: "#agentic",
+              href: "/automatizacion-ia-el-salvador",
             },
             {
               label: "Cómo trabajamos",
@@ -196,6 +197,7 @@ export const es: SiteContent = {
           ],
           cta: "Quiero aprender",
           interest: "enablement",
+          learnMore: "Más sobre capacitación en IA",
         },
         {
           id: "agentic",
@@ -210,6 +212,7 @@ export const es: SiteContent = {
           ],
           cta: "Quiero mejorar un proceso",
           interest: "implementation",
+          learnMore: "Más sobre automatización con IA",
         },
       ],
       pageLink: {
@@ -233,6 +236,59 @@ export const es: SiteContent = {
         {
           title: "Poner en práctica",
           body: "Preparamos al equipo o implementamos el flujo, con la revisión y documentación que necesita.",
+        },
+      ],
+    },
+    faq: {
+      label: "Preguntas frecuentes",
+      title: "Lo que suelen preguntarnos.",
+      items: [
+        {
+          question: "¿Qué hace un consultor de IA?",
+          answer:
+            "Un consultor de IA revisa cómo trabaja un equipo, identifica dónde la inteligencia artificial puede ayudar y decide por dónde empezar. En Ai Labs, después de priorizar una oportunidad concreta, preparamos al equipo (Academy) o implementamos el flujo con ustedes (Agentic).",
+        },
+        {
+          question:
+            "Consultor, asesor, agencia o empresa de IA: ¿cuál es la diferencia?",
+          answer:
+            "Ai Labs es una empresa privada de consultoría en IA en San Salvador, El Salvador. Si buscás un consultor, asesor, agencia o empresa de inteligencia artificial, lo que importa es el resultado: entender el proceso, elegir una mejora y prepararse para aplicarla. Ai Labs hace consultoría, automatización de procesos y formación práctica.",
+        },
+        {
+          question: "¿Cuánto cuesta una consultoría en IA?",
+          answer:
+            "Depende del alcance. Ai Labs no publica tarifas de consultoría porque primero revisamos el proceso y acordamos qué conviene mejorar. Los talleres públicos sí muestran su costo en su propia página.",
+        },
+        {
+          question: "¿Qué procesos se pueden mejorar o automatizar con IA?",
+          answer:
+            "Ai Labs trabaja con equipos comerciales, de gestión y de operaciones: tareas repetitivas, seguimiento, documentos y flujos entre herramientas. Definimos qué asiste la IA, qué se automatiza y qué decisiones siguen en manos de las personas, con revisión humana y documentación.",
+        },
+        {
+          question: "¿Necesito ser empresa para aprender IA con Ai Labs?",
+          answer:
+            "No. Ai Labs Academy es formación práctica para profesionales y equipos. Podés venir directamente a aprender, sin una empresa ni una consultoría previa.",
+        },
+        {
+          question: "¿Dónde está Ai Labs?",
+          answer:
+            "Ai Labs está en San Salvador, El Salvador. Los talleres públicos que hemos publicado son presenciales en San Salvador, y la comunidad se reúne por WhatsApp.",
+        },
+        {
+          question:
+            "¿Ai Labs vende acceso o créditos de OpenAI, Claude u otras herramientas?",
+          answer:
+            "No. Ai Labs participa en programas de embajadores de varias herramientas de IA. Esos logos no son una lista de clientes ni una garantía de acceso, créditos o alianzas.",
+        },
+        {
+          question: "¿Qué es Aperture?",
+          answer:
+            "Aperture es la comunidad de builders de Ai Labs. Conecta personas, empresas, eventos y oportunidades relevantes. No es una tercera oferta comercial.",
+        },
+        {
+          question: "¿Cómo empiezo a trabajar con Ai Labs?",
+          answer:
+            "Escribí a Ai Labs desde «Hablemos» y contanos qué querés mejorar o aprender. La empresa es opcional.",
         },
       ],
     },
@@ -471,6 +527,7 @@ export const es: SiteContent = {
       invalid: "Revisá los datos e intentá de nuevo.",
     },
   },
+  servicePages: servicePagesEs,
   consulting: {
     metaTitle: "Consultoría de IA en El Salvador",
     metaDescription:

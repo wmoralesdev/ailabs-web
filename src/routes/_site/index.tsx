@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 
 import { HomeContact } from "@/components/home/home-contact"
+import { HomeFaq } from "@/components/home/home-faq"
 import { HomeHero } from "@/components/home/home-hero"
 import { HomeMethod } from "@/components/home/home-method"
 import { HomeServices } from "@/components/home/home-services"
@@ -59,6 +60,7 @@ export const Route = createFileRoute("/_site/")({
             answer: home.services.items[1].body,
           },
           { question: home.method.title, answer: home.method.body },
+          ...home.faq.items,
           { question: home.contact.title, answer: home.contact.lead },
         ]),
       ],
@@ -77,6 +79,7 @@ function HomePage() {
       <HomeTrust trust={home.trust} />
       <HomeServices services={home.services} locale={locale} />
       <HomeMethod method={home.method} locale={locale} />
+      <HomeFaq faq={home.faq} />
       <HomeContact contact={home.contact} />
     </div>
   )

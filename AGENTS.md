@@ -78,8 +78,9 @@ possibly stale value into this file.
   An explicit English preference still wins. Legacy `/en/*` and `/es/*` permanently
   redirect to the unprefixed path and set the cookie. Language toggle updates
   the cookie and reloads route context.
-- The home page (`/`) follows Hero, Ambassador marquee, Services, Method, and Contact, followed by
-  the shared footer. Services combines Academy and Agentic; community is
+- The home page (`/`) follows Hero, Ambassador marquee, Services, Method, FAQ, and Contact,
+  followed by the shared footer. FAQ answers stay visible (never collapsed) and
+  are the same text as the home `FAQPage` JSON-LD and the `llms.txt` FAQ. Services combines Academy and Agentic; community is
   accessible through chrome. The seven existing ambassador-program logos return
   beneath the hero at the owner's request. Describe that relationship, not a
   customer list or a guarantee from those companies. Do not restore photo bands or metrics
@@ -91,11 +92,18 @@ possibly stale value into this file.
   primary button and secondary text link with an arrow, followed by the logos.
   The spiral is unmounted on mobile, not replaced with another decoration.
   `/lab` and campaign heroes keep their existing spiral layouts.
-- Academy / Agentic / Aperture standalone marketing routes are not shipped
-  pages.
 - `/consultoria-de-ia-el-salvador` is the indexable consulting page. Spanish
   and English share that URL. Consulting aliases 301 to it. `/ia-el-salvador`,
   `/inteligencia-artificial-el-salvador`, and `/ai-el-salvador` still 301 to `/`.
+- Two delivery pages share `src/components/marketing/service-page.tsx` and
+  copy in `src/content/service-pages-{es,en}.ts`:
+  `/capacitacion-ia-el-salvador` (Academy) and `/automatizacion-ia-el-salvador`
+  (Agentic). Slugs are the Spanish search term; language stays in the cookie.
+  Each opens with a self-contained definition sentence that is repeated as its
+  first FAQ answer, keeps its FAQ visible and mirrored in `FAQPage` JSON-LD,
+  and links to the other page and the consulting page. The footer Services
+  column and the home Services cards link to them. Do not add per-country
+  variants or a standalone Aperture marketing page.
 - `/redeem` is an authenticated credit-redemption flow backed by Clerk,
   TanStack server functions, Prisma, and PostgreSQL/Neon.
 - `/aperture/join` is the authenticated Aperture claim flow. Join stays
@@ -142,6 +150,22 @@ possibly stale value into this file.
 - Prisma with PostgreSQL/Neon
 - Vitest and Testing Library
 - pnpm
+
+Performance invariants for public pages (guarded by
+`src/lib/performance-guards.test.ts`):
+
+- The root `beforeLoad` resolves the locale with `createIsomorphicFn`, so
+  client navigation never waits on a server function.
+- Clerk runs only where `src/lib/clerk-scope.ts` says: server functions and
+  the auth routes. Those routes wrap their component in `ClerkAuth` and use
+  `ensureClerkDocument` in `beforeLoad`. Keep Clerk, toasts, and event page
+  components out of the root, chrome, and route loaders: those ship in the
+  entry bundle. Loaders import heavy modules dynamically.
+- API route files import `.server` modules inside their handlers.
+- three.js, carousel slides past the first, and marquee logos load lazily.
+  Only the Alan Sans Latin font is preloaded; preloading DM Sans measured
+  slower. TextSpiral builds its rings on idle, after hydration.
+- Resize new carousel photos to 1920px on the long edge (WebP, quality 80).
 
 The linked `ailabs-cli` package at `../ailabs-cli` powers the seed and image
 scripts. Do not recreate deleted one-off scripts in this repo.

@@ -20,8 +20,11 @@ import { buildPageMeta } from "@/lib/seo"
 import { cn } from "@/lib/utils"
 import { getMeDashboard } from "@/server/aperture/me"
 import type { LoadMeResult, MeDashboard } from "@/server/aperture/me"
+import { ClerkAuth } from "@/components/auth/clerk-auth"
+import { ensureClerkDocument } from "@/lib/clerk-document"
 
 export const Route = createFileRoute("/_site/me")({
+  beforeLoad: ensureClerkDocument,
   loader: ({ context }) => context,
   head: ({ loaderData }) => {
     if (!loaderData) {
@@ -38,7 +41,11 @@ export const Route = createFileRoute("/_site/me")({
       noindex: true,
     })
   },
-  component: MePage,
+  component: () => (
+    <ClerkAuth>
+      <MePage />
+    </ClerkAuth>
+  ),
 })
 
 function MePage() {

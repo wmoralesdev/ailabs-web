@@ -1,12 +1,21 @@
 import { createFileRoute, notFound } from "@tanstack/react-router"
 
-import { daysUntilWorkshop, getWorkshopBySlug } from "@/events/registry"
-import { buildFaqJsonLd, buildPageMeta, SITE_NAME } from "@/lib/seo"
+import { daysUntilWorkshop } from "@/events/catalog"
+import { getWorkshopBySlug } from "@/events/registry"
+import {
+  buildFaqJsonLd,
+  buildPageMeta,
+  buildWorkshopEventJsonLd,
+  SITE_NAME,
+} from "@/lib/seo"
 import { getWorkshopAvailability } from "@/server/workshop-registration"
 
 export const Route = createFileRoute("/_site/events/$slug/")({
   loader: async ({ params, context }) => {
-    const workshop = getWorkshopBySlug(params.slug)
+    // Dynamic: event pages and copy stay out of the entry bundle.
+    const { getWorkshopBySlug: loadWorkshop } =
+      await import("@/events/registry")
+    const workshop = loadWorkshop(params.slug)
     if (!workshop) {
       throw notFound()
     }
@@ -25,6 +34,9 @@ export const Route = createFileRoute("/_site/events/$slug/")({
       capacity: availability.capacity,
       daysUntil: daysUntilWorkshop(workshop),
       locale: context.locale,
+      endsOn: workshop.endsOn,
+      priceCents: workshop.priceCents,
+      currency: workshop.currency,
       faq: workshop.faq(context.locale),
     }
   },
@@ -38,9 +50,19 @@ export const Route = createFileRoute("/_site/events/$slug/")({
       title: `${loaderData.title} | ${SITE_NAME}`,
       description: loaderData.metaDescription,
     })
+    const event = buildWorkshopEventJsonLd({
+      locale: loaderData.locale,
+      path: `/events/${loaderData.slug}`,
+      name: loaderData.title,
+      description: loaderData.metaDescription,
+      endsOn: loaderData.endsOn,
+      priceCents: loaderData.priceCents,
+      currency: loaderData.currency,
+      soldOut: loaderData.soldOut,
+    })
     return {
       ...page,
-      scripts: [buildFaqJsonLd(loaderData.faq)],
+      scripts: [buildFaqJsonLd(loaderData.faq), ...(event ? [event] : [])],
     }
   },
   component: EventSlugIndexPage,

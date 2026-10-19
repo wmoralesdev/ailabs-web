@@ -157,6 +157,136 @@ export function buildFaqJsonLd(items: readonly FaqItem[]): HeadScript {
   }
 }
 
+/**
+ * Event for a dated, in-person workshop in San Salvador. Returns null while the
+ * date is TBD: search engines reject an Event without `startDate`.
+ */
+export function buildWorkshopEventJsonLd(input: {
+  locale: Locale
+  path: string
+  name: string
+  description: string
+  endsOn: string | null
+  priceCents: number
+  currency: string
+  soldOut: boolean
+}): HeadScript | null {
+  if (!input.endsOn) {
+    return null
+  }
+  const url = absoluteUrl(input.path)
+  const organizationId = `${absoluteUrl()}#organization`
+
+  return {
+    type: "application/ld+json",
+    children: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "EducationEvent",
+      name: input.name,
+      description: input.description,
+      url,
+      inLanguage: input.locale,
+      startDate: input.endsOn,
+      endDate: input.endsOn,
+      eventStatus: "https://schema.org/EventScheduled",
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      image: [OG_IMAGE_URL],
+      location: {
+        "@type": "Place",
+        name: "San Salvador",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "San Salvador",
+          addressCountry: "SV",
+        },
+      },
+      organizer: {
+        "@type": "Organization",
+        "@id": organizationId,
+        name: SITE_NAME,
+        url: absoluteUrl(),
+      },
+      offers: {
+        "@type": "Offer",
+        url,
+        price: (input.priceCents / 100).toFixed(2),
+        priceCurrency: input.currency,
+        availability: input.soldOut
+          ? "https://schema.org/SoldOut"
+          : "https://schema.org/InStock",
+      },
+    }),
+  }
+}
+
+/** WebPage, Service, and breadcrumb for one consulting route. */
+export function buildServicePageJsonLd(input: {
+  locale: Locale
+  path: string
+  title: string
+  description: string
+  serviceName: string
+  homeLabel: string
+}): HeadScript {
+  const url = absoluteUrl(input.path)
+  const home = absoluteUrl()
+  const organizationId = `${home}#organization`
+  const serviceId = `${url}#service`
+
+  return {
+    type: "application/ld+json",
+    children: JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": `${url}#webpage`,
+          url,
+          name: input.title,
+          description: input.description,
+          inLanguage: input.locale,
+          isPartOf: { "@id": `${home}#website` },
+          about: { "@id": serviceId },
+          breadcrumb: { "@id": `${url}#breadcrumb` },
+        },
+        {
+          "@type": "Service",
+          "@id": serviceId,
+          name: input.serviceName,
+          description: input.description,
+          url,
+          provider: {
+            "@type": "Organization",
+            "@id": organizationId,
+            name: SITE_NAME,
+            url: home,
+          },
+          areaServed: { "@type": "Country", name: "El Salvador" },
+          availableLanguage: ["es", "en"],
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `${url}#breadcrumb`,
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: input.homeLabel,
+              item: home,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: input.serviceName,
+              item: url,
+            },
+          ],
+        },
+      ],
+    }),
+  }
+}
+
 type JsonLdService = {
   name: string
   description: string

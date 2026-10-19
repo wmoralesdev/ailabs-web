@@ -827,10 +827,7 @@ function TextSpiral({
       onActivate(rect.left + rect.width / 2, rect.top + rect.height / 2)
     }
 
-    rebuild()
-
     const observer = new ResizeObserver(onResize)
-    observer.observe(root)
     const viewportObserver =
       typeof IntersectionObserver === "function"
         ? new IntersectionObserver(
@@ -843,7 +840,19 @@ function TextSpiral({
             { threshold: 0 }
           )
         : null
-    viewportObserver?.observe(root)
+    // Building every ring canvas is the heaviest work on pages with a spiral.
+    // Wait for idle (at most 1s) so hydration and first paint finish first.
+    // Observers start with the build: ResizeObserver's initial delivery
+    // would otherwise trigger it early.
+    const startBuild = () => {
+      rebuild()
+      observer.observe(root)
+      viewportObserver?.observe(root)
+    }
+    const idleHandle =
+      typeof window.requestIdleCallback === "function"
+        ? window.requestIdleCallback(startBuild, { timeout: 1000 })
+        : window.setTimeout(startBuild, 1)
     document.addEventListener("visibilitychange", onVisibility)
     reduceMedia.addEventListener("change", onMotionChange)
     root.addEventListener("click", onClick)
@@ -851,6 +860,11 @@ function TextSpiral({
     stage.addEventListener("animationend", onAnimationEnd)
 
     return () => {
+      if (typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleHandle)
+      } else {
+        window.clearTimeout(idleHandle)
+      }
       window.clearInterval(flickerTimer)
       window.cancelAnimationFrame(resizeFrame)
       observer.disconnect()

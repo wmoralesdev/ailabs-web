@@ -168,3 +168,26 @@ describe("existing page answers", () => {
     expect(hero).toContain("{hero.directAnswer}")
   })
 })
+
+describe("home FAQ", () => {
+  it("keeps both languages in parity and quotable on their own", () => {
+    expect(es.home.faq.items.length).toBe(en.home.faq.items.length)
+    for (const content of [es, en]) {
+      for (const item of content.home.faq.items) {
+        expect(item.question).toMatch(/\?$/)
+        expect(item.answer.split(/\s+/).length).toBeLessThanOrEqual(70)
+        expect(item.answer).not.toMatch(/US\$|USD|\$\d/)
+      }
+      const text = JSON.stringify(content.home.faq)
+      expect(text).not.toMatch(/centroam[eé]rica|central america/i)
+    }
+  })
+
+  it("renders the FAQ visibly and mirrors it in the JSON-LD and llms.txt", () => {
+    const homeRoute = readFileSync("src/routes/_site/index.tsx", "utf8")
+    expect(homeRoute).toContain("<HomeFaq faq={home.faq} />")
+    expect(homeRoute).toContain("...home.faq.items")
+    const llms = readFileSync("public/llms.txt", "utf8")
+    expect(llms).toContain("https://www.ailabs.sv/#faq")
+  })
+})

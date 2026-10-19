@@ -13,7 +13,7 @@ import type { FooterContent, FooterSocial, Locale, NavItem } from "@/content"
 import { formatCopyright } from "@/content"
 import { SiteLogo } from "@/components/chrome/site-logo"
 import { useContact } from "@/components/contact/contact-provider"
-import { listUpcomingWorkshops } from "@/events/registry"
+import { listUpcomingWorkshops } from "@/events/catalog"
 import {
   hashFromHref,
   isHashHref,

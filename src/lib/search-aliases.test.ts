@@ -100,6 +100,16 @@ describe("search aliases", () => {
     expect(SEARCH_ALIASES["/consultores-el-salvador"]).toBeUndefined()
   })
 
+  it("sends service-shaped aliases to the matching service page", () => {
+    expect(SEARCH_ALIASES["/consultor-ia-el-salvador"]).toBe(CONSULTING_PAGE)
+    expect(SEARCH_ALIASES["/cursos-ia-el-salvador"]).toBe(
+      "/capacitacion-ia-el-salvador"
+    )
+    expect(SEARCH_ALIASES["/ai-automation-el-salvador"]).toBe(
+      "/automatizacion-ia-el-salvador"
+    )
+  })
+
   it("does not invent another country, or a country the page does not name", () => {
     for (const alias of Object.keys(SEARCH_ALIASES)) {
       expect(alias).not.toMatch(OTHER_COUNTRY)

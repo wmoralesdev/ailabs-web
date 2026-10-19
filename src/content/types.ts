@@ -467,6 +467,8 @@ export type HomeServiceItem = {
   points: ReadonlyArray<string>
   cta: string
   interest: ContactInterestId
+  /** Text link to the matching service page. */
+  learnMore: string
 }
 
 export type HomeServicesContent = {
@@ -544,10 +546,66 @@ export type HomeTrustContent = {
   logos: ReadonlyArray<HomeTrustLogo>
 }
 
+export type HomeFaqItem = {
+  question: string
+  /** Opens with the full subject so the answer reads correctly when quoted alone. */
+  answer: string
+}
+
+export type HomeFaqContent = {
+  label: string
+  title: string
+  items: ReadonlyArray<HomeFaqItem>
+}
+
+export type ServicePageCard = {
+  title: string
+  body: string
+}
+
+export type ServicePageContent = {
+  metaTitle: string
+  /** 140–160 characters. */
+  metaDescription: string
+  /** Service name in JSON-LD, breadcrumbs, and related links. */
+  serviceName: string
+  eyebrow: string
+  title: string
+  lead: string
+  definitionHeading: string
+  /** Self-contained sentence. Repeated verbatim as the first FAQ answer. */
+  definition: string
+  includesHeading: string
+  includes: ReadonlyArray<ServicePageCard>
+  stepsHeading: string
+  steps: ReadonlyArray<ServicePageCard>
+  fitHeading: string
+  fit: ReadonlyArray<string>
+  notFitHeading: string
+  notFit: ReadonlyArray<string>
+  faqHeading: string
+  faq: ReadonlyArray<HomeFaqItem>
+  ctaHeading: string
+  ctaBody: string
+  cta: string
+  interest: ContactInterestId
+}
+
+export type ServicePagesContent = {
+  homeLabel: string
+  breadcrumbLabel: string
+  relatedLabel: string
+  consultingLink: string
+  communityLink: string
+  training: ServicePageContent
+  automation: ServicePageContent
+}
+
 export type HomeContent = {
   hero: HomeHeroContent
   services: HomeServicesContent
   method: HomeMethodContent
+  faq: HomeFaqContent
   trust: HomeTrustContent
   about: HomeAboutContent
   academy: HomeAcademyPillarContent
@@ -807,6 +865,7 @@ export type SiteContent = {
   chrome: ChromeContent
   microcopy: MicrocopyContent
   home: HomeContent
+  servicePages: ServicePagesContent
   consulting: ConsultingPageContent
   redeem: RedeemContent
   community: CommunityContent

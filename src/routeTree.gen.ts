@@ -15,7 +15,9 @@ import { Route as BgRouteImport } from './routes/bg'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as LocaleSplatRouteImport } from './routes/$locale/$'
 import { Route as SiteIndexRouteImport } from './routes/_site/index'
+import { Route as SiteAutomatizacionIaElSalvadorRouteImport } from './routes/_site/automatizacion-ia-el-salvador'
 import { Route as SiteCampusLeaderRouteImport } from './routes/_site/campus-leader'
+import { Route as SiteCapacitacionIaElSalvadorRouteImport } from './routes/_site/capacitacion-ia-el-salvador'
 import { Route as SiteCommunityRouteImport } from './routes/_site/community'
 import { Route as SiteConsultoriaDeIaElSalvadorRouteImport } from './routes/_site/consultoria-de-ia-el-salvador'
 import { Route as SiteLabRouteImport } from './routes/_site/lab'
@@ -65,11 +67,23 @@ const SiteIndexRoute = SiteIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteAutomatizacionIaElSalvadorRoute =
+  SiteAutomatizacionIaElSalvadorRouteImport.update({
+    id: '/automatizacion-ia-el-salvador',
+    path: '/automatizacion-ia-el-salvador',
+    getParentRoute: () => SiteRoute,
+  } as any)
 const SiteCampusLeaderRoute = SiteCampusLeaderRouteImport.update({
   id: '/campus-leader',
   path: '/campus-leader',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteCapacitacionIaElSalvadorRoute =
+  SiteCapacitacionIaElSalvadorRouteImport.update({
+    id: '/capacitacion-ia-el-salvador',
+    path: '/capacitacion-ia-el-salvador',
+    getParentRoute: () => SiteRoute,
+  } as any)
 const SiteCommunityRoute = SiteCommunityRouteImport.update({
   id: '/community',
   path: '/community',
@@ -172,7 +186,9 @@ export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/bg': typeof BgRoute
   '/$locale/$': typeof LocaleSplatRoute
+  '/automatizacion-ia-el-salvador': typeof SiteAutomatizacionIaElSalvadorRoute
   '/campus-leader': typeof SiteCampusLeaderRoute
+  '/capacitacion-ia-el-salvador': typeof SiteCapacitacionIaElSalvadorRoute
   '/community': typeof SiteCommunityRoute
   '/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
   '/lab': typeof SiteLabRoute
@@ -197,7 +213,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/bg': typeof BgRoute
   '/$locale/$': typeof LocaleSplatRoute
+  '/automatizacion-ia-el-salvador': typeof SiteAutomatizacionIaElSalvadorRoute
   '/campus-leader': typeof SiteCampusLeaderRoute
+  '/capacitacion-ia-el-salvador': typeof SiteCapacitacionIaElSalvadorRoute
   '/community': typeof SiteCommunityRoute
   '/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
   '/lab': typeof SiteLabRoute
@@ -225,7 +243,9 @@ export interface FileRoutesById {
   '/_site': typeof SiteRouteWithChildren
   '/bg': typeof BgRoute
   '/$locale/$': typeof LocaleSplatRoute
+  '/_site/automatizacion-ia-el-salvador': typeof SiteAutomatizacionIaElSalvadorRoute
   '/_site/campus-leader': typeof SiteCampusLeaderRoute
+  '/_site/capacitacion-ia-el-salvador': typeof SiteCapacitacionIaElSalvadorRoute
   '/_site/community': typeof SiteCommunityRoute
   '/_site/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
   '/_site/lab': typeof SiteLabRoute
@@ -255,7 +275,9 @@ export interface FileRouteTypes {
     | '/'
     | '/bg'
     | '/$locale/$'
+    | '/automatizacion-ia-el-salvador'
     | '/campus-leader'
+    | '/capacitacion-ia-el-salvador'
     | '/community'
     | '/consultoria-de-ia-el-salvador'
     | '/lab'
@@ -280,7 +302,9 @@ export interface FileRouteTypes {
   to:
     | '/bg'
     | '/$locale/$'
+    | '/automatizacion-ia-el-salvador'
     | '/campus-leader'
+    | '/capacitacion-ia-el-salvador'
     | '/community'
     | '/consultoria-de-ia-el-salvador'
     | '/lab'
@@ -307,7 +331,9 @@ export interface FileRouteTypes {
     | '/_site'
     | '/bg'
     | '/$locale/$'
+    | '/_site/automatizacion-ia-el-salvador'
     | '/_site/campus-leader'
+    | '/_site/capacitacion-ia-el-salvador'
     | '/_site/community'
     | '/_site/consultoria-de-ia-el-salvador'
     | '/_site/lab'
@@ -386,11 +412,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteIndexRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/automatizacion-ia-el-salvador': {
+      id: '/_site/automatizacion-ia-el-salvador'
+      path: '/automatizacion-ia-el-salvador'
+      fullPath: '/automatizacion-ia-el-salvador'
+      preLoaderRoute: typeof SiteAutomatizacionIaElSalvadorRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/campus-leader': {
       id: '/_site/campus-leader'
       path: '/campus-leader'
       fullPath: '/campus-leader'
       preLoaderRoute: typeof SiteCampusLeaderRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/capacitacion-ia-el-salvador': {
+      id: '/_site/capacitacion-ia-el-salvador'
+      path: '/capacitacion-ia-el-salvador'
+      fullPath: '/capacitacion-ia-el-salvador'
+      preLoaderRoute: typeof SiteCapacitacionIaElSalvadorRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/community': {
@@ -557,7 +597,9 @@ const SiteEventsSlugRouteWithChildren = SiteEventsSlugRoute._addFileChildren(
 )
 
 interface SiteRouteChildren {
+  SiteAutomatizacionIaElSalvadorRoute: typeof SiteAutomatizacionIaElSalvadorRoute
   SiteCampusLeaderRoute: typeof SiteCampusLeaderRoute
+  SiteCapacitacionIaElSalvadorRoute: typeof SiteCapacitacionIaElSalvadorRoute
   SiteCommunityRoute: typeof SiteCommunityRoute
   SiteConsultoriaDeIaElSalvadorRoute: typeof SiteConsultoriaDeIaElSalvadorRoute
   SiteLabRoute: typeof SiteLabRoute
@@ -574,7 +616,9 @@ interface SiteRouteChildren {
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
+  SiteAutomatizacionIaElSalvadorRoute: SiteAutomatizacionIaElSalvadorRoute,
   SiteCampusLeaderRoute: SiteCampusLeaderRoute,
+  SiteCapacitacionIaElSalvadorRoute: SiteCapacitacionIaElSalvadorRoute,
   SiteCommunityRoute: SiteCommunityRoute,
   SiteConsultoriaDeIaElSalvadorRoute: SiteConsultoriaDeIaElSalvadorRoute,
   SiteLabRoute: SiteLabRoute,

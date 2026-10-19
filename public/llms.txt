@@ -14,9 +14,9 @@ Las páginas publicadas ubican a Ai Labs en San Salvador, El Salvador. No descri
 
 Revisan cómo se trabaja, identifican dónde puede ayudar la IA y deciden por dónde empezar. Después preparan al equipo o implementan el flujo. También se puede venir directamente a aprender.
 
-- Consultoría en IA: revisar el trabajo, elegir por dónde empezar, y luego aprender o implementar el flujo.
-- Formación práctica (Academy): para profesionales y equipos, a partir de las tareas que quieren mejorar.
-- Automatización de procesos (Agentic): diseñar e implementar flujos, con revisión humana, documentación y transferencia al equipo.
+- [Consultoría de IA en El Salvador](https://www.ailabs.sv/consultoria-de-ia-el-salvador): revisar el proceso, priorizar una oportunidad concreta y decidir si formar al equipo o implementar el flujo.
+- [Capacitación en IA en El Salvador](https://www.ailabs.sv/capacitacion-ia-el-salvador) (Academy): formación práctica para profesionales y equipos, sobre tareas reales; talleres públicos en San Salvador. No hace falta una empresa.
+- [Automatización de procesos con IA en El Salvador](https://www.ailabs.sv/automatizacion-ia-el-salvador) (Agentic): diseñar e implementar flujos con las herramientas del equipo, revisión humana, documentación y transferencia.
 
 No se publican precios de consultoría. Los logos de programas de embajadores no son una lista de clientes.
 
@@ -24,8 +24,11 @@ No se publican precios de consultoría. Los logos de programas de embajadores no
 
 - Inicio: https://www.ailabs.sv/
 - Consultoría de IA en El Salvador: https://www.ailabs.sv/consultoria-de-ia-el-salvador
+- Capacitación en IA: https://www.ailabs.sv/capacitacion-ia-el-salvador
+- Automatización con IA: https://www.ailabs.sv/automatizacion-ia-el-salvador
 - Servicios: https://www.ailabs.sv/#services
 - Cómo trabajamos: https://www.ailabs.sv/#about
+- Preguntas frecuentes: https://www.ailabs.sv/#faq
 - Contacto: https://www.ailabs.sv/#contact
 - Comunidad de WhatsApp en El Salvador: https://www.ailabs.sv/community
 - Campus Leaders (un líder por universidad en El Salvador): https://www.ailabs.sv/campus-leader
@@ -34,6 +37,17 @@ No se publican precios de consultoría. Los logos de programas de embajadores no
 - Taller Modo Fundador, presencial en San Salvador, 15 ago 2026: https://www.ailabs.sv/events/modo-fundador
 - Taller Get Competitive Quick, fecha por confirmar: https://www.ailabs.sv/events/get-competitive-quick
 - DevDay Exchange Community, San Salvador, 24 oct 2026, BINAES: https://devday.ailabs.sv/
+
+## Preguntas frecuentes
+
+Las mismas respuestas aparecen visibles en https://www.ailabs.sv/#faq.
+
+- ¿Qué hace un consultor de IA? Revisa cómo trabaja un equipo, identifica dónde la IA puede ayudar y decide por dónde empezar. En Ai Labs, después de priorizar una oportunidad, preparan al equipo (Academy) o implementan el flujo (Agentic).
+- ¿Cuánto cuesta una consultoría en IA? Depende del alcance. Ai Labs no publica tarifas de consultoría; los talleres públicos muestran su costo en su página.
+- ¿Qué procesos se pueden mejorar con IA? Los de equipos comerciales, de gestión y de operaciones: tareas repetitivas, seguimiento, documentos y flujos entre herramientas, con revisión humana.
+- ¿Necesito ser empresa para aprender? No. Academy recibe a profesionales y equipos; se puede venir directamente a aprender.
+- ¿Ai Labs vende acceso o créditos de OpenAI, Claude u otras herramientas? No. Participa en programas de embajadores; esos logos no son clientes ni garantía de acceso, créditos o alianzas.
+- ¿Qué es Aperture? La comunidad de builders de Ai Labs. No es una tercera oferta comercial.
 
 ## Contacto
 

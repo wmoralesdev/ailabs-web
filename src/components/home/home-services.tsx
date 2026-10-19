@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
@@ -10,7 +11,16 @@ import { Eyebrow } from "@/components/ui/eyebrow"
 import { homePillClassName, homeShellClassName } from "./home-styles"
 import { HomeServiceVisual } from "./home-service-visual"
 import { useHomeEntrance } from "@/lib/home-motion"
+import { SERVICE_PAGE_PATHS } from "@/lib/service-pages"
 import { cn } from "@/lib/utils"
+
+const servicePagePath = {
+  academy: SERVICE_PAGE_PATHS.training,
+  agentic: SERVICE_PAGE_PATHS.automation,
+} as const
+
+const learnMoreClassName =
+  "inline-flex min-h-11 items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
 
 type HomeServicesProps = {
   services: HomeServicesContent
@@ -88,7 +98,10 @@ function HomeServices({ services, locale }: HomeServicesProps) {
                   </li>
                 ))}
               </ul>
-              <div data-service-part className="mt-auto pt-8">
+              <div
+                data-service-part
+                className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-3 pt-8"
+              >
                 <Button
                   type="button"
                   onClick={() => openContact(service.interest)}
@@ -100,6 +113,12 @@ function HomeServices({ services, locale }: HomeServicesProps) {
                   {service.cta}
                   <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
                 </Button>
+                <Link
+                  to={servicePagePath[service.id]}
+                  className={learnMoreClassName}
+                >
+                  {service.learnMore}
+                </Link>
               </div>
             </article>
           ))}

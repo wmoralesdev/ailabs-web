@@ -1,5 +1,3 @@
-import { ClerkProvider } from "@clerk/tanstack-react-start"
-import { shadcn } from "@clerk/ui/themes"
 import {
   HeadContent,
   Link,
@@ -11,10 +9,13 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 
 import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/sonner"
 import { resolveLocaleContext } from "@/lib/locale-preference"
 import { OG_IMAGE_ALT, OG_IMAGE_URL, SITE_NAME } from "@/lib/seo"
 import appCss from "../styles.css?url"
+// The hero headline (the LCP element) uses Alan Sans. Preloading this one file,
+// the same hashed asset the CSS references, fetches it alongside the
+// stylesheet. Preloading DM Sans too measured slower: it competes with the CSS.
+import alanSansLatinUrl from "@fontsource-variable/alan-sans/files/alan-sans-latin-wght-normal.woff2?url"
 
 if (import.meta.env.DEV && !import.meta.env.SSR) {
   void import("react-grab")
@@ -26,7 +27,7 @@ const SITE_DESCRIPTION =
   "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador."
 
 export const Route = createRootRoute({
-  beforeLoad: async () => resolveLocaleContext(),
+  beforeLoad: () => resolveLocaleContext(),
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -53,6 +54,13 @@ export const Route = createRootRoute({
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/manifest.json" },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: alanSansLatinUrl,
+        crossOrigin: "anonymous",
+      },
       { rel: "stylesheet", href: appCss },
     ],
   }),
@@ -124,25 +132,22 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <ClerkProvider appearance={{ theme: shadcn }}>
-          <ThemeProvider defaultTheme="system" storageKey="ailabs-theme">
-            {children}
-            <Toaster />
-            {import.meta.env.DEV ? (
-              <TanStackDevtools
-                config={{
-                  position: "bottom-right",
-                }}
-                plugins={[
-                  {
-                    name: "Tanstack Router",
-                    render: <TanStackRouterDevtoolsPanel />,
-                  },
-                ]}
-              />
-            ) : null}
-          </ThemeProvider>
-        </ClerkProvider>
+        <ThemeProvider defaultTheme="system" storageKey="ailabs-theme">
+          {children}
+          {import.meta.env.DEV ? (
+            <TanStackDevtools
+              config={{
+                position: "bottom-right",
+              }}
+              plugins={[
+                {
+                  name: "Tanstack Router",
+                  render: <TanStackRouterDevtoolsPanel />,
+                },
+              ]}
+            />
+          ) : null}
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>

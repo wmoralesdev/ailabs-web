@@ -21,8 +21,8 @@ describe("public home content", () => {
       ).toEqual(
         expect.arrayContaining([
           "#services",
-          "#academy",
-          "#agentic",
+          "/capacitacion-ia-el-salvador",
+          "/automatizacion-ia-el-salvador",
           "#about",
           "#contact",
           "/community",

@@ -1,6 +1,7 @@
 import { homeCarousel } from "./home-carousel"
 import { legalEn } from "./legal-en"
 import type { SiteContent } from "./types"
+import { servicePagesEn } from "./service-pages-en"
 
 export const en: SiteContent = {
   locale: "en",
@@ -72,11 +73,11 @@ export const en: SiteContent = {
             },
             {
               label: "Practical education",
-              href: "#academy",
+              href: "/capacitacion-ia-el-salvador",
             },
             {
               label: "Business automation",
-              href: "#agentic",
+              href: "/automatizacion-ia-el-salvador",
             },
             {
               label: "How we work",
@@ -194,6 +195,7 @@ export const en: SiteContent = {
           ],
           cta: "I want to learn",
           interest: "enablement",
+          learnMore: "More on AI training",
         },
         {
           id: "agentic",
@@ -208,6 +210,7 @@ export const en: SiteContent = {
           ],
           cta: "Improve a process",
           interest: "implementation",
+          learnMore: "More on AI automation",
         },
       ],
       pageLink: {
@@ -231,6 +234,59 @@ export const en: SiteContent = {
         {
           title: "Put it into practice",
           body: "We prepare the team or implement the workflow, with the review and documentation it needs.",
+        },
+      ],
+    },
+    faq: {
+      label: "Questions",
+      title: "What people usually ask us.",
+      items: [
+        {
+          question: "What does an AI consultant do?",
+          answer:
+            "An AI consultant looks at how a team works, finds where artificial intelligence can help, and decides where to start. At Ai Labs, once one concrete opportunity is prioritized, we prepare the team (Academy) or implement the workflow with you (Agentic).",
+        },
+        {
+          question:
+            "AI consultant, advisor, agency or company: what is the difference?",
+          answer:
+            "Ai Labs is a private AI consulting company in San Salvador, El Salvador. Whether you are looking for an AI consultant, advisor, agency or company, what matters is the outcome: understand the process, choose one improvement, and get ready to apply it. Ai Labs does consulting, business automation, and practical education.",
+        },
+        {
+          question: "How much does AI consulting cost?",
+          answer:
+            "It depends on scope. Ai Labs does not publish consulting prices because we first review the process and agree on what is worth improving. Public workshops do list their price on their own page.",
+        },
+        {
+          question: "Which processes can AI improve or automate?",
+          answer:
+            "Ai Labs works with commercial, management, and operations teams: repetitive tasks, follow-up, documents, and workflows across tools. We define what AI assists, what gets automated, and which decisions stay with people, with human review and documentation.",
+        },
+        {
+          question: "Do I need a company to learn AI with Ai Labs?",
+          answer:
+            "No. Ai Labs Academy is practical education for professionals and teams. You can come directly to learn, with no company or prior consulting required.",
+        },
+        {
+          question: "Where is Ai Labs?",
+          answer:
+            "Ai Labs is in San Salvador, El Salvador. The public workshops we have published are in person in San Salvador, and the community meets on WhatsApp.",
+        },
+        {
+          question:
+            "Does Ai Labs sell access or credits for OpenAI, Claude or other tools?",
+          answer:
+            "No. Ai Labs takes part in ambassador programs for several AI tools. Those logos are not a customer list or a guarantee of access, credits, or partnerships.",
+        },
+        {
+          question: "What is Aperture?",
+          answer:
+            "Aperture is the Ai Labs builder community. It connects people, companies, events, and relevant opportunities. It is not a third commercial offer.",
+        },
+        {
+          question: "How do I start working with Ai Labs?",
+          answer:
+            "Write to Ai Labs from “Let’s talk” and tell us what you want to improve or learn. A company is optional.",
         },
       ],
     },
@@ -469,6 +525,7 @@ export const en: SiteContent = {
       invalid: "Check your details and try again.",
     },
   },
+  servicePages: servicePagesEn,
   consulting: {
     metaTitle: "AI consulting in El Salvador",
     metaDescription:

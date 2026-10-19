@@ -12,6 +12,8 @@ const INTERNAL_ROUTES = {
   "/me": "/me",
   "/terms": "/terms",
   "/privacy": "/privacy",
+  "/capacitacion-ia-el-salvador": "/capacitacion-ia-el-salvador",
+  "/automatizacion-ia-el-salvador": "/automatizacion-ia-el-salvador",
 } as const
 
 type InternalHref = keyof typeof INTERNAL_ROUTES
