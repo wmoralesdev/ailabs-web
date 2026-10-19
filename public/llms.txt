@@ -14,7 +14,7 @@ Las páginas publicadas ubican a Ai Labs en San Salvador, El Salvador. No descri
 
 Revisan cómo se trabaja, identifican dónde puede ayudar la IA y deciden por dónde empezar. Después preparan al equipo o implementan el flujo. También se puede venir directamente a aprender.
 
-- [Consultoría en IA en El Salvador](https://www.ailabs.sv/consultoria-ia-el-salvador): revisar el proceso, priorizar una oportunidad concreta y decidir si formar al equipo o implementar el flujo.
+- [Consultoría de IA en El Salvador](https://www.ailabs.sv/consultoria-de-ia-el-salvador): revisar el proceso, priorizar una oportunidad concreta y decidir si formar al equipo o implementar el flujo.
 - [Capacitación en IA en El Salvador](https://www.ailabs.sv/capacitacion-ia-el-salvador) (Academy): formación práctica para profesionales y equipos, sobre tareas reales; talleres públicos en San Salvador. No hace falta una empresa.
 - [Automatización de procesos con IA en El Salvador](https://www.ailabs.sv/automatizacion-ia-el-salvador) (Agentic): diseñar e implementar flujos con las herramientas del equipo, revisión humana, documentación y transferencia.
 
@@ -23,7 +23,7 @@ No se publican precios de consultoría. Los logos de programas de embajadores no
 ## URLs reales
 
 - Inicio: https://www.ailabs.sv/
-- Consultoría en IA: https://www.ailabs.sv/consultoria-ia-el-salvador
+- Consultoría de IA en El Salvador: https://www.ailabs.sv/consultoria-de-ia-el-salvador
 - Capacitación en IA: https://www.ailabs.sv/capacitacion-ia-el-salvador
 - Automatización con IA: https://www.ailabs.sv/automatizacion-ia-el-salvador
 - Servicios: https://www.ailabs.sv/#services
@@ -33,8 +33,10 @@ No se publican precios de consultoría. Los logos de programas de embajadores no
 - Comunidad de WhatsApp en El Salvador: https://www.ailabs.sv/community
 - Campus Leaders (un líder por universidad en El Salvador): https://www.ailabs.sv/campus-leader
 - Miembros de Aperture: https://www.ailabs.sv/aperture
+- Eventos de Ai Labs en El Salvador: https://www.ailabs.sv/events. Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país.
 - Taller Modo Fundador, presencial en San Salvador, 15 ago 2026: https://www.ailabs.sv/events/modo-fundador
 - Taller Get Competitive Quick, fecha por confirmar: https://www.ailabs.sv/events/get-competitive-quick
+- DevDay Exchange Community, San Salvador, 24 oct 2026, BINAES: https://devday.ailabs.sv/
 
 ## Preguntas frecuentes
 

@@ -5,6 +5,7 @@ import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
 import type { HomeServicesContent, Locale } from "@/content"
 import { useContact } from "@/components/contact/contact-provider"
+import { HomeCtaLink } from "@/components/home/home-cta-link"
 import { Button } from "@/components/ui/button"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { homePillClassName, homeShellClassName } from "./home-styles"
@@ -49,22 +50,15 @@ function HomeServices({ services, locale }: HomeServicesProps) {
               {services.title}
             </h2>
           </div>
-          <div className="flex flex-col gap-3">
-            <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          <div className="flex max-w-xl flex-col items-start gap-4">
+            <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
               {services.body}
             </p>
-            <Link
-              to={SERVICE_PAGE_PATHS.consulting}
-              className={learnMoreClassName}
-            >
-              {services.learnMore}
-              <HugeiconsIcon
-                icon={ArrowRight01Icon}
-                size={16}
-                strokeWidth={2}
-                aria-hidden="true"
-              />
-            </Link>
+            <HomeCtaLink
+              cta={services.pageLink}
+              locale={locale}
+              variant="quiet"
+            />
           </div>
         </div>
 

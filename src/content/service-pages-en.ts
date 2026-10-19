@@ -1,8 +1,5 @@
 import type { ServicePagesContent } from "./types"
 
-const consultingDefinition =
-  "AI consulting reviews how the work gets done today, finds where artificial intelligence can help, and prioritizes one concrete opportunity to put into practice."
-
 const trainingDefinition =
   "Practical AI training teaches people to use artificial intelligence in their real tasks, with the judgment to know when to use it, how to review the result, and how to run it."
 
@@ -13,103 +10,8 @@ export const servicePagesEn: ServicePagesContent = {
   homeLabel: "Home",
   breadcrumbLabel: "Breadcrumb",
   relatedLabel: "Other ways to work with Ai Labs",
+  consultingLink: "AI consulting in El Salvador",
   communityLink: "AI community in El Salvador",
-  consulting: {
-    metaTitle:
-      "AI Consulting in El Salvador: Assessment and Priorities | Ai Labs",
-    metaDescription:
-      "AI consulting in San Salvador: we review the process, prioritize one concrete opportunity, and decide whether to train the team or implement the workflow.",
-    serviceName: "AI consulting in El Salvador",
-    eyebrow: "AI consulting · San Salvador",
-    title:
-      "AI consulting in El Salvador for commercial, management, and operations teams",
-    lead: "Ai Labs helps teams in El Salvador understand how they work today, choose where AI really helps, and decide the next step: prepare the team or implement the workflow.",
-    definitionHeading: "What AI consulting does for your team.",
-    definition: consultingDefinition,
-    includesHeading: "What consulting includes.",
-    includes: [
-      {
-        title: "A map of the current process",
-        body: "We look at how the work happens today: who is involved, what comes in, what gets decided, and where it gets stuck.",
-      },
-      {
-        title: "Assessed opportunities",
-        body: "We compare where AI can help by impact, risk, and a realistic scope for the team.",
-      },
-      {
-        title: "One clear priority",
-        body: "We choose one opportunity and agree on scope and how we will assess the improvement.",
-      },
-      {
-        title: "The next route",
-        body: "We decide whether to prepare the team with Academy or implement the workflow with Agentic.",
-      },
-    ],
-    stepsHeading: "How we work.",
-    steps: [
-      {
-        title: "Understand",
-        body: "We map the process, people, inputs, decisions, and friction.",
-      },
-      {
-        title: "Prioritize",
-        body: "We assess the opportunity, impact, risk, and a realistic scope.",
-      },
-      {
-        title: "Put it into practice",
-        body: "We prepare the team or design and implement the workflow with them, with human review and documentation.",
-      },
-    ],
-    fitHeading: "Who it is for.",
-    fit: [
-      "Commercial, management, and operations teams with repetitive tasks or a lot of manual follow-up.",
-      "Owners and leaders who want to start with AI without buying tools blindly.",
-      "Companies that already tried AI tools and need to decide what is worth keeping.",
-    ],
-    notFitHeading: "Who it is not for.",
-    notFit: [
-      "If you are looking for licenses, credits, or access to a specific tool.",
-      "If you expect a guaranteed result without reviewing how the work gets done.",
-    ],
-    faqHeading: "Questions about AI consulting.",
-    faq: [
-      {
-        question: "What does an AI consultant do?",
-        answer: consultingDefinition,
-      },
-      {
-        question:
-          "AI consultant, advisor, agency, or company: what is the difference?",
-        answer:
-          "Ai Labs is a private AI consulting company in San Salvador, El Salvador. Whether you are looking for an AI consultant, advisor, agency, or company, what matters is the method: understand the process, prioritize one improvement, and leave the team ready to run it.",
-      },
-      {
-        question: "How much does AI consulting cost in El Salvador?",
-        answer:
-          "It depends on scope. Ai Labs does not publish consulting rates because it first reviews the process and agrees with the team on what is worth improving.",
-      },
-      {
-        question: "Do I need data or tools ready to start?",
-        answer:
-          "No. Ai Labs consulting starts by understanding how the work gets done today. Tools and data are decided later, based on the prioritized opportunity.",
-      },
-      {
-        question: "What happens after consulting?",
-        answer:
-          "Ai Labs follows one of two routes: Academy prepares the team to apply the improvement, and Agentic designs and implements the workflow with the team, with integrations, human review, documentation, and transfer.",
-      },
-      {
-        question: "Does Ai Labs sell AI tool licenses or credits?",
-        answer:
-          "No. Ai Labs takes part in ambassador programs for several AI tools, but it does not sell licenses or guarantee access, credits, or third-party partnerships.",
-      },
-    ],
-    ctaHeading: "Where do we start?",
-    ctaBody:
-      "Tell us which process you want to improve. A company is optional.",
-    cta: "Find where to apply AI",
-    interest: "discovery",
-  },
   training: {
     metaTitle: "AI Training in El Salvador: Teams and Professionals | Ai Labs",
     metaDescription:

@@ -1,8 +1,5 @@
 import type { ServicePagesContent } from "./types"
 
-const consultingDefinition =
-  "Una consultoría en IA revisa cómo se hace el trabajo hoy, identifica dónde la inteligencia artificial puede ayudar y prioriza una oportunidad concreta para ponerla en práctica."
-
 const trainingDefinition =
   "Una capacitación práctica en IA enseña a usar la inteligencia artificial en las tareas reales de cada persona o equipo, con criterio para saber cuándo usarla, cómo revisar el resultado y cómo operarla."
 
@@ -13,102 +10,8 @@ export const servicePagesEs: ServicePagesContent = {
   homeLabel: "Inicio",
   breadcrumbLabel: "Ruta de navegación",
   relatedLabel: "Otras formas de trabajar con Ai Labs",
+  consultingLink: "Consultoría de IA en El Salvador",
   communityLink: "Comunidad de IA en El Salvador",
-  consulting: {
-    metaTitle:
-      "Consultoría en IA en El Salvador: diagnóstico y priorización | Ai Labs",
-    metaDescription:
-      "Consultoría en IA en San Salvador: revisamos el proceso, priorizamos una oportunidad concreta y definimos si formar al equipo o implementar el flujo.",
-    serviceName: "Consultoría en IA en El Salvador",
-    eyebrow: "Consultoría en IA · San Salvador",
-    title:
-      "Consultoría en IA en El Salvador para equipos comerciales, de gestión y operaciones",
-    lead: "Ai Labs ayuda a equipos en El Salvador a entender cómo trabajan hoy, elegir dónde la IA aporta de verdad y decidir el siguiente paso: preparar al equipo o implementar el flujo.",
-    definitionHeading: "Qué hace una consultoría en IA por tu equipo.",
-    definition: consultingDefinition,
-    includesHeading: "Qué incluye la consultoría.",
-    includes: [
-      {
-        title: "Mapa del proceso actual",
-        body: "Revisamos cómo se hace el trabajo hoy: quién participa, qué entra, qué se decide y dónde se traba.",
-      },
-      {
-        title: "Oportunidades evaluadas",
-        body: "Comparamos dónde puede ayudar la IA según impacto, riesgo y un alcance realista para el equipo.",
-      },
-      {
-        title: "Una prioridad clara",
-        body: "Elegimos una oportunidad y acordamos el alcance y cómo vamos a valorar la mejora.",
-      },
-      {
-        title: "La ruta siguiente",
-        body: "Decidimos si conviene preparar al equipo con Academy o implementar el flujo con Agentic.",
-      },
-    ],
-    stepsHeading: "Cómo trabajamos.",
-    steps: [
-      {
-        title: "Entender",
-        body: "Mapeamos el proceso, las personas, las entradas, las decisiones y la fricción.",
-      },
-      {
-        title: "Priorizar",
-        body: "Evaluamos la oportunidad, el impacto, el riesgo y un alcance realista.",
-      },
-      {
-        title: "Poner en práctica",
-        body: "Preparamos al equipo o diseñamos e implementamos el flujo con él, con revisión humana y documentación.",
-      },
-    ],
-    fitHeading: "Para quién es.",
-    fit: [
-      "Equipos comerciales, de gestión y de operaciones con tareas repetitivas o mucho seguimiento manual.",
-      "Dueños y líderes que quieren empezar con IA sin comprar herramientas a ciegas.",
-      "Empresas que ya probaron herramientas de IA y necesitan decidir qué vale la pena sostener.",
-    ],
-    notFitHeading: "Para quién no es.",
-    notFit: [
-      "Si buscás licencias, créditos o acceso a una herramienta específica.",
-      "Si esperás un resultado garantizado sin revisar cómo se hace el trabajo.",
-    ],
-    faqHeading: "Preguntas sobre consultoría en IA.",
-    faq: [
-      {
-        question: "¿Qué hace un consultor de IA?",
-        answer: consultingDefinition,
-      },
-      {
-        question:
-          "Consultor, asesor, agencia o empresa de IA: ¿cuál es la diferencia?",
-        answer:
-          "Ai Labs es una empresa privada de consultoría en IA en San Salvador, El Salvador. Ya sea que busqués un consultor, un asesor, una agencia o una empresa de inteligencia artificial, lo que importa es el método: entender el proceso, priorizar una mejora y dejar al equipo listo para operarla.",
-      },
-      {
-        question: "¿Cuánto cuesta una consultoría en IA en El Salvador?",
-        answer:
-          "Depende del alcance. Ai Labs no publica tarifas de consultoría porque primero revisa el proceso y acuerda con el equipo qué conviene mejorar.",
-      },
-      {
-        question: "¿Necesito tener datos o herramientas listas para empezar?",
-        answer:
-          "No. La consultoría de Ai Labs empieza por entender cómo se hace el trabajo hoy. Las herramientas y los datos se deciden después, según la oportunidad priorizada.",
-      },
-      {
-        question: "¿Qué pasa después de la consultoría?",
-        answer:
-          "Ai Labs sigue por una de dos rutas: Academy prepara al equipo para aplicar la mejora, y Agentic diseña e implementa el flujo con el equipo, con integraciones, revisión humana, documentación y transferencia.",
-      },
-      {
-        question: "¿Ai Labs vende licencias o créditos de herramientas de IA?",
-        answer:
-          "No. Ai Labs participa en programas de embajadores de varias herramientas de IA, pero no vende licencias ni garantiza acceso, créditos o alianzas con terceros.",
-      },
-    ],
-    ctaHeading: "¿Por dónde empezamos?",
-    ctaBody: "Contanos qué proceso querés mejorar. La empresa es opcional.",
-    cta: "Encontrar dónde aplicar IA",
-    interest: "discovery",
-  },
   training: {
     metaTitle:
       "Capacitación en IA en El Salvador: equipos y profesionales | Ai Labs",

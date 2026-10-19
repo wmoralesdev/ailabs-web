@@ -10,6 +10,7 @@ describe("public home content", () => {
       expect(nav.services.href).toBe("#services")
       expect(nav.community.items.map(({ to }) => to)).toEqual([
         "/community",
+        "/events",
         "/campus-leader",
         "/aperture",
       ])
@@ -19,12 +20,13 @@ describe("public home content", () => {
           .map(({ href }) => href)
       ).toEqual(
         expect.arrayContaining([
-          "/consultoria-ia-el-salvador",
+          "#services",
           "/capacitacion-ia-el-salvador",
           "/automatizacion-ia-el-salvador",
           "#about",
           "#contact",
           "/community",
+          "/events",
           "/campus-leader",
           "/aperture",
         ])

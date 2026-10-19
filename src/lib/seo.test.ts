@@ -180,6 +180,27 @@ describe("buildPageMeta", () => {
     expect(meta.find((tag) => tag.property === "og:image")?.content).toBe(
       "https://ailabs.sv/api/og/u/walter"
     )
+    expect(meta.find((tag) => tag.property === "og:image:width")?.content).toBe(
+      "1200"
+    )
+    expect(
+      meta.find((tag) => tag.property === "og:image:height")?.content
+    ).toBe("630")
+    const sized = buildPageMeta({
+      locale: "es",
+      path: "/events",
+      title: "Eventos",
+      description: "Este mes",
+      image: {
+        url: "https://www.ailabs.sv/events/community/01-group-hall.webp",
+        alt: "Grupo",
+        width: 1200,
+        height: 676,
+      },
+    }).meta
+    expect(
+      sized.find((tag) => tag.property === "og:image:height")?.content
+    ).toBe("676")
   })
 })
 

@@ -70,7 +70,8 @@ possibly stale value into this file.
 - Shared chrome is a fixed, centered floating nav bar (`SiteHeader`): rounded
   corners (not pill), nav links plus theme and locale. Brand lockup stays
   page-owned on full-bleed routes (home, redeem, community, campus-leader,
-  lab, event microsites); other routes get a top-left lockup sibling. Do not
+  lab, the events index, and event microsites); other routes get a top-left
+  lockup sibling. Do not
   embed theme/locale controls in page heroes.
 - Locale is not in the URL. Prefer the `ailabs-locale` cookie, then
   `Accept-Language`, then `es` when the header is missing or unrecognized.
@@ -91,15 +92,18 @@ possibly stale value into this file.
   primary button and secondary text link with an arrow, followed by the logos.
   The spiral is unmounted on mobile, not replaced with another decoration.
   `/lab` and campaign heroes keep their existing spiral layouts.
-- Three consulting pages share `src/components/marketing/service-page.tsx`
-  and copy in `src/content/service-pages-{es,en}.ts`:
-  `/consultoria-ia-el-salvador`, `/capacitacion-ia-el-salvador` (Academy),
-  and `/automatizacion-ia-el-salvador` (Agentic). Slugs are the Spanish search
-  term; language stays in the cookie. Each page opens with a self-contained
-  definition sentence that is repeated as its first FAQ answer, keeps its FAQ
-  visible and mirrored in `FAQPage` JSON-LD, and links to the other two. The
-  footer Services column and home Services section link to them. Do not add
-  per-country variants or a standalone Aperture marketing page.
+- `/consultoria-de-ia-el-salvador` is the indexable consulting page. Spanish
+  and English share that URL. Consulting aliases 301 to it. `/ia-el-salvador`,
+  `/inteligencia-artificial-el-salvador`, and `/ai-el-salvador` still 301 to `/`.
+- Two delivery pages share `src/components/marketing/service-page.tsx` and
+  copy in `src/content/service-pages-{es,en}.ts`:
+  `/capacitacion-ia-el-salvador` (Academy) and `/automatizacion-ia-el-salvador`
+  (Agentic). Slugs are the Spanish search term; language stays in the cookie.
+  Each opens with a self-contained definition sentence that is repeated as its
+  first FAQ answer, keeps its FAQ visible and mirrored in `FAQPage` JSON-LD,
+  and links to the other page and the consulting page. The footer Services
+  column and the home Services cards link to them. Do not add per-country
+  variants or a standalone Aperture marketing page.
 - `/redeem` is an authenticated credit-redemption flow backed by Clerk,
   TanStack server functions, Prisma, and PostgreSQL/Neon.
 - `/aperture/join` is the authenticated Aperture claim flow. Join stays
@@ -123,6 +127,10 @@ possibly stale value into this file.
   open/close is controlled by `campusLeader.applicationsOpen` in content.
   Footer links to it; accepted-leader directory is not shipped yet. Export
   applications with `pnpm campus-leader:export` for Notion review.
+- `/events` is the index of Ai Labs events in El Salvador. It is a normal
+  indexable page (sitemap, 200). Country-shaped search aliases 301 here.
+  The index reuses the home hero, including its text spiral, and owns the
+  brand lockup. Workshop aliases stay on their own event pages.
 - `/events/$slug` hosts per-event microsites with their own layouts. Shipped
   events: `/events/modo-fundador` (founders, USD 50, Wompi) and
   `/events/get-competitive-quick` (students / remote seekers, USD 25, Wompi;

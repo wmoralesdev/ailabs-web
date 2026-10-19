@@ -5,12 +5,13 @@
 
 export const PUBLIC_PAGE_PATHS = [
   "/",
+  "/consultoria-de-ia-el-salvador",
   "/community",
   "/campus-leader",
   "/aperture",
+  "/events",
   "/events/modo-fundador",
   "/events/get-competitive-quick",
-  "/consultoria-ia-el-salvador",
   "/capacitacion-ia-el-salvador",
   "/automatizacion-ia-el-salvador",
 ] as const
@@ -18,12 +19,13 @@ export const PUBLIC_PAGE_PATHS = [
 export type PublicPagePath = (typeof PUBLIC_PAGE_PATHS)[number]
 
 const HOME = "/"
+const CONSULTING = "/consultoria-de-ia-el-salvador"
 const COMMUNITY = "/community"
 const CAMPUS_LEADER = "/campus-leader"
 const APERTURE = "/aperture"
+const EVENTS = "/events"
 const MODO_FUNDADOR = "/events/modo-fundador"
 const GET_COMPETITIVE_QUICK = "/events/get-competitive-quick"
-const CONSULTING = "/consultoria-ia-el-salvador"
 const TRAINING = "/capacitacion-ia-el-salvador"
 const AUTOMATION = "/automatizacion-ia-el-salvador"
 
@@ -32,19 +34,19 @@ const AUTOMATION = "/automatizacion-ia-el-salvador"
  * Slugs name what that destination page already says. No other countries.
  */
 export const SEARCH_ALIASES: Readonly<Record<string, PublicPagePath>> = {
-  // Home: the company in El Salvador.
-  "/agencia-ia-el-salvador": HOME,
-  "/agencia-de-inteligencia-artificial-el-salvador": HOME,
+  // Consulting page. The canonical path is a document, not an alias.
+  "/consultoria-ia-el-salvador": CONSULTING,
+  "/consultoria-el-salvador": CONSULTING,
+  "/agencia-ia-el-salvador": CONSULTING,
+  "/agencia-de-inteligencia-artificial-el-salvador": CONSULTING,
+  "/ai-consulting-el-salvador": CONSULTING,
+  "/ai-agency-el-salvador": CONSULTING,
+  "/consultor-ia-el-salvador": CONSULTING,
+
+  // Home: the company in El Salvador, not a consulting-only query.
   "/ia-el-salvador": HOME,
   "/inteligencia-artificial-el-salvador": HOME,
-  "/ai-agency-el-salvador": HOME,
   "/ai-el-salvador": HOME,
-
-  // Consulting page.
-  "/consultoria-de-ia-el-salvador": CONSULTING,
-  "/consultoria-el-salvador": CONSULTING,
-  "/consultor-ia-el-salvador": CONSULTING,
-  "/ai-consulting-el-salvador": CONSULTING,
 
   // Training page (Academy).
   "/capacitacion-de-ia-el-salvador": TRAINING,
@@ -78,8 +80,14 @@ export const SEARCH_ALIASES: Readonly<Record<string, PublicPagePath>> = {
   "/modo-fundador": MODO_FUNDADOR,
   "/taller-modo-fundador": MODO_FUNDADOR,
   "/taller-fundadores-san-salvador": MODO_FUNDADOR,
-  "/eventos-tech-el-salvador": MODO_FUNDADOR,
-  "/tech-events-el-salvador": MODO_FUNDADOR,
+
+  // The events index, not one workshop. Same 301 for every client.
+  "/eventos": EVENTS,
+  "/eventos-el-salvador": EVENTS,
+  "/eventos-tech-el-salvador": EVENTS,
+  "/eventos-de-ia-el-salvador": EVENTS,
+  "/tech-events-el-salvador": EVENTS,
+  "/ai-events-el-salvador": EVENTS,
 
   // Get Competitive Quick does not name a country or city.
   "/get-competitive-quick": GET_COMPETITIVE_QUICK,

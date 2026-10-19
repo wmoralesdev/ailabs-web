@@ -68,17 +68,16 @@ describe("service pages", () => {
       "src/components/home/home-services.tsx",
       "utf8"
     )
-    expect(services).toContain("SERVICE_PAGE_PATHS.consulting")
     expect(services).toContain("servicePagePath[service.id]")
   })
 
   it("publishes Service and breadcrumb JSON-LD on the canonical URL", () => {
     const script = buildServicePageJsonLd({
       locale: "es",
-      path: SERVICE_PAGE_PATHS.consulting,
-      title: es.servicePages.consulting.metaTitle,
-      description: es.servicePages.consulting.metaDescription,
-      serviceName: es.servicePages.consulting.serviceName,
+      path: SERVICE_PAGE_PATHS.training,
+      title: es.servicePages.training.metaTitle,
+      description: es.servicePages.training.metaDescription,
+      serviceName: es.servicePages.training.serviceName,
       homeLabel: es.servicePages.homeLabel,
     })
     const graph = JSON.parse(script.children)["@graph"] as Array<{
@@ -89,7 +88,7 @@ describe("service pages", () => {
     }>
     const service = graph.find((node) => node["@type"] === "Service")
     expect(service?.url).toBe(
-      "https://www.ailabs.sv/consultoria-ia-el-salvador"
+      "https://www.ailabs.sv/capacitacion-ia-el-salvador"
     )
     expect(service?.provider?.["@id"]).toBe(
       "https://www.ailabs.sv/#organization"

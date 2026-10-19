@@ -13,11 +13,11 @@ import { homePillClassName } from "@/components/home/home-styles"
 import { Button } from "@/components/ui/button"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import {
+  CONSULTING_PAGE_PATH,
   SERVICE_PAGE_IDS,
-  SERVICE_PAGE_PATHS
-  
+  SERVICE_PAGE_PATHS,
 } from "@/lib/service-pages"
-import type {ServicePageId} from "@/lib/service-pages";
+import type { ServicePageId } from "@/lib/service-pages"
 import { cn } from "@/lib/utils"
 
 const h2ClassName =
@@ -249,6 +249,17 @@ function ServicePage({ id, pages }: ServicePageProps) {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link to={CONSULTING_PAGE_PATH} className={textLinkClassName}>
+                {pages.consultingLink}
+                <HugeiconsIcon
+                  icon={ArrowRight01Icon}
+                  size={16}
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
+              </Link>
+            </li>
             <li>
               <Link to="/community" className={textLinkClassName}>
                 {pages.communityLink}

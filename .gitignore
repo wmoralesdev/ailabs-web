@@ -22,6 +22,7 @@ docs/internal/*.local.md
 /src/generated/prisma
 .vercel
 /tmp
+.taste-skill
 
 # playwright
 /test-results/

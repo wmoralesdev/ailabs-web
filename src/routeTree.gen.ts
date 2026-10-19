@@ -19,7 +19,7 @@ import { Route as SiteAutomatizacionIaElSalvadorRouteImport } from './routes/_si
 import { Route as SiteCampusLeaderRouteImport } from './routes/_site/campus-leader'
 import { Route as SiteCapacitacionIaElSalvadorRouteImport } from './routes/_site/capacitacion-ia-el-salvador'
 import { Route as SiteCommunityRouteImport } from './routes/_site/community'
-import { Route as SiteConsultoriaIaElSalvadorRouteImport } from './routes/_site/consultoria-ia-el-salvador'
+import { Route as SiteConsultoriaDeIaElSalvadorRouteImport } from './routes/_site/consultoria-de-ia-el-salvador'
 import { Route as SiteLabRouteImport } from './routes/_site/lab'
 import { Route as SiteMeRouteImport } from './routes/_site/me'
 import { Route as SitePrivacyRouteImport } from './routes/_site/privacy'
@@ -29,6 +29,7 @@ import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
 import { Route as SignUpSplatRouteImport } from './routes/sign-up.$'
 import { Route as SiteApertureIndexRouteImport } from './routes/_site/aperture/index'
 import { Route as SiteApertureJoinRouteImport } from './routes/_site/aperture/join'
+import { Route as SiteEventsIndexRouteImport } from './routes/_site/events/index'
 import { Route as SiteEventsSlugRouteImport } from './routes/_site/events/$slug'
 import { Route as SiteUUsernameRouteImport } from './routes/_site/u/$username'
 import { Route as ApiWebhooksClerkRouteImport } from './routes/api/webhooks/clerk'
@@ -88,10 +89,10 @@ const SiteCommunityRoute = SiteCommunityRouteImport.update({
   path: '/community',
   getParentRoute: () => SiteRoute,
 } as any)
-const SiteConsultoriaIaElSalvadorRoute =
-  SiteConsultoriaIaElSalvadorRouteImport.update({
-    id: '/consultoria-ia-el-salvador',
-    path: '/consultoria-ia-el-salvador',
+const SiteConsultoriaDeIaElSalvadorRoute =
+  SiteConsultoriaDeIaElSalvadorRouteImport.update({
+    id: '/consultoria-de-ia-el-salvador',
+    path: '/consultoria-de-ia-el-salvador',
     getParentRoute: () => SiteRoute,
   } as any)
 const SiteLabRoute = SiteLabRouteImport.update({
@@ -139,6 +140,11 @@ const SiteApertureJoinRoute = SiteApertureJoinRouteImport.update({
   path: '/aperture/join',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteEventsIndexRoute = SiteEventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteEventsSlugRoute = SiteEventsSlugRouteImport.update({
   id: '/events/$slug',
   path: '/events/$slug',
@@ -184,7 +190,7 @@ export interface FileRoutesByFullPath {
   '/campus-leader': typeof SiteCampusLeaderRoute
   '/capacitacion-ia-el-salvador': typeof SiteCapacitacionIaElSalvadorRoute
   '/community': typeof SiteCommunityRoute
-  '/consultoria-ia-el-salvador': typeof SiteConsultoriaIaElSalvadorRoute
+  '/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
   '/lab': typeof SiteLabRoute
   '/me': typeof SiteMeRoute
   '/privacy': typeof SitePrivacyRoute
@@ -199,6 +205,7 @@ export interface FileRoutesByFullPath {
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/aperture/': typeof SiteApertureIndexRoute
+  '/events/': typeof SiteEventsIndexRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/events/$slug/': typeof SiteEventsSlugIndexRoute
@@ -210,7 +217,7 @@ export interface FileRoutesByTo {
   '/campus-leader': typeof SiteCampusLeaderRoute
   '/capacitacion-ia-el-salvador': typeof SiteCapacitacionIaElSalvadorRoute
   '/community': typeof SiteCommunityRoute
-  '/consultoria-ia-el-salvador': typeof SiteConsultoriaIaElSalvadorRoute
+  '/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
   '/lab': typeof SiteLabRoute
   '/me': typeof SiteMeRoute
   '/privacy': typeof SitePrivacyRoute
@@ -225,6 +232,7 @@ export interface FileRoutesByTo {
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/aperture': typeof SiteApertureIndexRoute
+  '/events': typeof SiteEventsIndexRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/events/$slug': typeof SiteEventsSlugIndexRoute
@@ -239,7 +247,7 @@ export interface FileRoutesById {
   '/_site/campus-leader': typeof SiteCampusLeaderRoute
   '/_site/capacitacion-ia-el-salvador': typeof SiteCapacitacionIaElSalvadorRoute
   '/_site/community': typeof SiteCommunityRoute
-  '/_site/consultoria-ia-el-salvador': typeof SiteConsultoriaIaElSalvadorRoute
+  '/_site/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
   '/_site/lab': typeof SiteLabRoute
   '/_site/me': typeof SiteMeRoute
   '/_site/privacy': typeof SitePrivacyRoute
@@ -255,6 +263,7 @@ export interface FileRoutesById {
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/_site/aperture/': typeof SiteApertureIndexRoute
+  '/_site/events/': typeof SiteEventsIndexRoute
   '/_site/events/$slug/success': typeof SiteEventsSlugSuccessRoute
   '/api/og/u/$username': typeof ApiOgUUsernameRoute
   '/_site/events/$slug/': typeof SiteEventsSlugIndexRoute
@@ -270,7 +279,7 @@ export interface FileRouteTypes {
     | '/campus-leader'
     | '/capacitacion-ia-el-salvador'
     | '/community'
-    | '/consultoria-ia-el-salvador'
+    | '/consultoria-de-ia-el-salvador'
     | '/lab'
     | '/me'
     | '/privacy'
@@ -285,6 +294,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/aperture/'
+    | '/events/'
     | '/events/$slug/success'
     | '/api/og/u/$username'
     | '/events/$slug/'
@@ -296,7 +306,7 @@ export interface FileRouteTypes {
     | '/campus-leader'
     | '/capacitacion-ia-el-salvador'
     | '/community'
-    | '/consultoria-ia-el-salvador'
+    | '/consultoria-de-ia-el-salvador'
     | '/lab'
     | '/me'
     | '/privacy'
@@ -311,6 +321,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/aperture'
+    | '/events'
     | '/events/$slug/success'
     | '/api/og/u/$username'
     | '/events/$slug'
@@ -324,7 +335,7 @@ export interface FileRouteTypes {
     | '/_site/campus-leader'
     | '/_site/capacitacion-ia-el-salvador'
     | '/_site/community'
-    | '/_site/consultoria-ia-el-salvador'
+    | '/_site/consultoria-de-ia-el-salvador'
     | '/_site/lab'
     | '/_site/me'
     | '/_site/privacy'
@@ -340,6 +351,7 @@ export interface FileRouteTypes {
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/_site/aperture/'
+    | '/_site/events/'
     | '/_site/events/$slug/success'
     | '/api/og/u/$username'
     | '/_site/events/$slug/'
@@ -428,11 +440,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteCommunityRouteImport
       parentRoute: typeof SiteRoute
     }
-    '/_site/consultoria-ia-el-salvador': {
-      id: '/_site/consultoria-ia-el-salvador'
-      path: '/consultoria-ia-el-salvador'
-      fullPath: '/consultoria-ia-el-salvador'
-      preLoaderRoute: typeof SiteConsultoriaIaElSalvadorRouteImport
+    '/_site/consultoria-de-ia-el-salvador': {
+      id: '/_site/consultoria-de-ia-el-salvador'
+      path: '/consultoria-de-ia-el-salvador'
+      fullPath: '/consultoria-de-ia-el-salvador'
+      preLoaderRoute: typeof SiteConsultoriaDeIaElSalvadorRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/lab': {
@@ -496,6 +508,13 @@ declare module '@tanstack/react-router' {
       path: '/aperture/join'
       fullPath: '/aperture/join'
       preLoaderRoute: typeof SiteApertureJoinRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/events/': {
+      id: '/_site/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof SiteEventsIndexRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/events/$slug': {
@@ -582,7 +601,7 @@ interface SiteRouteChildren {
   SiteCampusLeaderRoute: typeof SiteCampusLeaderRoute
   SiteCapacitacionIaElSalvadorRoute: typeof SiteCapacitacionIaElSalvadorRoute
   SiteCommunityRoute: typeof SiteCommunityRoute
-  SiteConsultoriaIaElSalvadorRoute: typeof SiteConsultoriaIaElSalvadorRoute
+  SiteConsultoriaDeIaElSalvadorRoute: typeof SiteConsultoriaDeIaElSalvadorRoute
   SiteLabRoute: typeof SiteLabRoute
   SiteMeRoute: typeof SiteMeRoute
   SitePrivacyRoute: typeof SitePrivacyRoute
@@ -593,6 +612,7 @@ interface SiteRouteChildren {
   SiteEventsSlugRoute: typeof SiteEventsSlugRouteWithChildren
   SiteUUsernameRoute: typeof SiteUUsernameRoute
   SiteApertureIndexRoute: typeof SiteApertureIndexRoute
+  SiteEventsIndexRoute: typeof SiteEventsIndexRoute
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
@@ -600,7 +620,7 @@ const SiteRouteChildren: SiteRouteChildren = {
   SiteCampusLeaderRoute: SiteCampusLeaderRoute,
   SiteCapacitacionIaElSalvadorRoute: SiteCapacitacionIaElSalvadorRoute,
   SiteCommunityRoute: SiteCommunityRoute,
-  SiteConsultoriaIaElSalvadorRoute: SiteConsultoriaIaElSalvadorRoute,
+  SiteConsultoriaDeIaElSalvadorRoute: SiteConsultoriaDeIaElSalvadorRoute,
   SiteLabRoute: SiteLabRoute,
   SiteMeRoute: SiteMeRoute,
   SitePrivacyRoute: SitePrivacyRoute,
@@ -611,6 +631,7 @@ const SiteRouteChildren: SiteRouteChildren = {
   SiteEventsSlugRoute: SiteEventsSlugRouteWithChildren,
   SiteUUsernameRoute: SiteUUsernameRoute,
   SiteApertureIndexRoute: SiteApertureIndexRoute,
+  SiteEventsIndexRoute: SiteEventsIndexRoute,
 }
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
