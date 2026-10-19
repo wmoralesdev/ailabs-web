@@ -10,6 +10,7 @@ import { createFileRoute, useRouterState } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
+import { AuthProvider } from "@/components/auth/auth-provider"
 import { JoinForm } from "@/components/aperture/join-form"
 import { MemberNumberReveal } from "@/components/aperture/member-number-reveal"
 import { CampaignHero } from "@/components/campaign/campaign-hero"
@@ -43,7 +44,11 @@ export const Route = createFileRoute("/_site/aperture/join")({
       noindex: true,
     })
   },
-  component: JoinPage,
+  component: () => (
+    <AuthProvider>
+      <JoinPage />
+    </AuthProvider>
+  ),
 })
 
 const skipLinkClassName =

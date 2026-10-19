@@ -1,6 +1,8 @@
 import { SignUp } from "@clerk/tanstack-react-start"
 import { createFileRoute } from "@tanstack/react-router"
 
+import { AuthProvider } from "@/components/auth/auth-provider"
+
 export const Route = createFileRoute("/sign-up/$")({
   head: () => ({
     meta: [{ name: "robots", content: "noindex, nofollow" }],
@@ -11,7 +13,9 @@ export const Route = createFileRoute("/sign-up/$")({
 function Page() {
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <SignUp />
+      <AuthProvider>
+        <SignUp />
+      </AuthProvider>
     </div>
   )
 }

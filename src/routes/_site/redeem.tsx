@@ -11,6 +11,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { toast } from "sonner"
 
+import { AuthProvider } from "@/components/auth/auth-provider"
 import { CampaignFactRow } from "@/components/campaign/campaign-fact-row"
 import { CampaignHero } from "@/components/campaign/campaign-hero"
 import {
@@ -85,7 +86,11 @@ export const Route = createFileRoute("/_site/redeem")({
       ],
     }
   },
-  component: RedeemPage,
+  component: () => (
+    <AuthProvider>
+      <RedeemPage />
+    </AuthProvider>
+  ),
 })
 
 const skipLinkClassName =

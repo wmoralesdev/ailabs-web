@@ -1,5 +1,3 @@
-import { ClerkProvider } from "@clerk/tanstack-react-start"
-import { shadcn } from "@clerk/ui/themes"
 import {
   HeadContent,
   Link,
@@ -10,6 +8,7 @@ import {
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 
+import { ClerkInitState } from "@/components/auth/clerk-init-state"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import { loadLocaleContext } from "@/lib/locale-preference"
@@ -124,25 +123,24 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <ClerkProvider appearance={{ theme: shadcn }}>
-          <ThemeProvider defaultTheme="system" storageKey="ailabs-theme">
-            {children}
-            <Toaster />
-            {import.meta.env.DEV ? (
-              <TanStackDevtools
-                config={{
-                  position: "bottom-right",
-                }}
-                plugins={[
-                  {
-                    name: "Tanstack Router",
-                    render: <TanStackRouterDevtoolsPanel />,
-                  },
-                ]}
-              />
-            ) : null}
-          </ThemeProvider>
-        </ClerkProvider>
+        <ClerkInitState />
+        <ThemeProvider defaultTheme="system" storageKey="ailabs-theme">
+          {children}
+          <Toaster />
+          {import.meta.env.DEV ? (
+            <TanStackDevtools
+              config={{
+                position: "bottom-right",
+              }}
+              plugins={[
+                {
+                  name: "Tanstack Router",
+                  render: <TanStackRouterDevtoolsPanel />,
+                },
+              ]}
+            />
+          ) : null}
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>
