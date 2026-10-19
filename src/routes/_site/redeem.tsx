@@ -18,6 +18,7 @@ import {
   homeDisplayClassName,
   homePillClassName,
 } from "@/components/home/home-styles"
+import { Toaster } from "@/components/ui/sonner"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Spinner } from "@/components/ui/spinner"
 import type { Locale, RedeemContent } from "@/content/types"
@@ -89,6 +90,7 @@ export const Route = createFileRoute("/_site/redeem")({
   component: () => (
     <AuthProvider>
       <RedeemPage />
+      <Toaster />
     </AuthProvider>
   ),
 })

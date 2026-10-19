@@ -10,7 +10,6 @@ import { TanStackDevtools } from "@tanstack/react-devtools"
 
 import { ClerkInitState } from "@/components/auth/clerk-init-state"
 import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/sonner"
 import { loadLocaleContext } from "@/lib/locale-preference"
 import { OG_IMAGE_ALT, OG_IMAGE_URL, SITE_NAME } from "@/lib/seo"
 import appCss from "../styles.css?url"
@@ -126,7 +125,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <ClerkInitState />
         <ThemeProvider defaultTheme="system" storageKey="ailabs-theme">
           {children}
-          <Toaster />
           {import.meta.env.DEV ? (
             <TanStackDevtools
               config={{
