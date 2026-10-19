@@ -1,12 +1,14 @@
 import { afterEach, describe, expect, it, vi } from "vitest"
 
+import { getContent } from "@/content"
+import { LOCALE_COOKIE, loadLocaleContext } from "./locale-preference"
+
 const serverResolve = vi.hoisted(() => vi.fn())
 
 vi.mock("@tanstack/react-start", () => {
   const builder = {
     validator: () => builder,
-    handler: (fn: () => unknown) =>
-      fn.length === 0 ? serverResolve : vi.fn(),
+    handler: (fn: () => unknown) => (fn.length === 0 ? serverResolve : vi.fn()),
   }
   return { createServerFn: () => builder }
 })
@@ -16,9 +18,6 @@ vi.mock("@tanstack/react-start/server", () => ({
   getRequestHeader: vi.fn(),
   setCookie: vi.fn(),
 }))
-
-import { getContent } from "@/content"
-import { LOCALE_COOKIE, loadLocaleContext } from "./locale-preference"
 
 function clearLocaleCookie() {
   document.cookie = `${LOCALE_COOKIE}=; Max-Age=0; Path=/`
