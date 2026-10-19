@@ -7,8 +7,8 @@ import type { BrowserContext, Locator, Page } from "@playwright/test"
 const BASE_URL = "http://localhost:3000"
 const evidenceDir = () => test.info().outputPath("evidence")
 const headlines = {
-  es: "Consultoría en IA, automatización de procesos y formación práctica.",
-  en: "AI consulting, business automation and practical education.",
+  es: "Consultoría en IA en El Salvador, automatización de procesos y formación práctica.",
+  en: "AI consulting in El Salvador, business automation and practical education.",
 } as const
 const brands = [
   "SpaceXAI",

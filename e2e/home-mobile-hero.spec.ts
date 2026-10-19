@@ -9,13 +9,14 @@ const evidenceDir = () => test.info().outputPath("evidence")
 const copy = {
   es: {
     headline:
-      "Consultoría en IA, automatización de procesos y formación práctica.",
+      "Consultoría en IA en El Salvador, automatización de procesos y formación práctica.",
     talk: "Hablemos",
     explore: "Explorar servicios",
     spiral: "Animar la espiral de texto",
   },
   en: {
-    headline: "AI consulting, business automation and practical education.",
+    headline:
+      "AI consulting in El Salvador, business automation and practical education.",
     talk: "Let’s talk",
     explore: "Explore services",
     spiral: "Animate the text spiral",

@@ -6,7 +6,8 @@ import { servicePagesEn } from "./service-pages-en"
 export const en: SiteContent = {
   locale: "en",
   meta: {
-    title: "Ai Labs | AI consulting, automation and practical education",
+    title:
+      "Ai Labs | AI consulting in El Salvador, automation and practical education",
     description:
       "AI consulting, business automation and practical education for teams and professionals. Crafted in San Salvador, El Salvador.",
   },
@@ -150,7 +151,8 @@ export const en: SiteContent = {
   home: {
     hero: {
       label: "AI LABS · EL SALVADOR",
-      headline: "AI consulting, business automation and practical education.",
+      headline:
+        "AI consulting in El Salvador, business automation and practical education.",
       directAnswer:
         "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, automation, and practical education.",
       agencyQuestion: "Is there an AI agency in El Salvador?",
@@ -291,7 +293,7 @@ export const en: SiteContent = {
       ],
     },
     trust: {
-      label: "Part of ambassador programs",
+      label: "Part of ambassador programs for Cursor and Codex in El Salvador",
       pause: "Pause logos",
       resume: "Resume logos",
       logos: [
