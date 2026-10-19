@@ -30,10 +30,6 @@ export const en: SiteContent = {
             label: "Campus Leaders",
             href: "/campus-leader",
           },
-          {
-            label: "Aperture members",
-            href: "/aperture",
-          },
         ],
       },
       contact: {
@@ -99,10 +95,6 @@ export const en: SiteContent = {
             {
               label: "Campus Leaders",
               href: "/campus-leader",
-            },
-            {
-              label: "Aperture members",
-              href: "/aperture",
             },
           ],
         },
