@@ -13,6 +13,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { loadLocaleContext } from "@/lib/locale-preference"
 import { OG_IMAGE_ALT, OG_IMAGE_URL, SITE_NAME } from "@/lib/seo"
 import appCss from "../styles.css?url"
+import alanSansLatin from "@fontsource-variable/alan-sans/files/alan-sans-latin-wght-normal.woff2?url"
+import dmSansLatin from "@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url"
 
 if (import.meta.env.DEV && !import.meta.env.SSR) {
   void import("react-grab")
@@ -51,6 +53,15 @@ export const Route = createRootRoute({
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/manifest.json" },
+      // Fetch both faces alongside the stylesheet: discovered only from the
+      // CSS, they arrive after first paint and the hero re-wraps on swap.
+      ...[alanSansLatin, dmSansLatin].map((href) => ({
+        rel: "preload",
+        href,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous" as const,
+      })),
       { rel: "stylesheet", href: appCss },
     ],
   }),

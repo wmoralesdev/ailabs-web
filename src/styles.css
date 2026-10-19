@@ -7,10 +7,27 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Arial-metric stand-ins scaled to the web fonts' average advance (measured on
+ * the home copy at the weights it uses), so text painted before the woff2
+ * arrives wraps the same way and the swap does not shift the layout.
+ */
+@font-face {
+    font-family: "Alan Sans Fallback";
+    src: local("Arial"), local("Arimo"), local("Liberation Sans"), local("Helvetica"), local("Roboto");
+    size-adjust: 104.3%;
+}
+
+@font-face {
+    font-family: "DM Sans Fallback";
+    src: local("Arial"), local("Arimo"), local("Liberation Sans"), local("Helvetica"), local("Roboto");
+    size-adjust: 104.1%;
+}
+
 @theme inline {
     --font-heading: var(--font-display);
-    --font-display: "Alan Sans Variable", ui-sans-serif, system-ui, sans-serif;
-    --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Alan Sans Variable", "Alan Sans Fallback", ui-sans-serif, system-ui, sans-serif;
+    --font-sans: "DM Sans Variable", "DM Sans Fallback", ui-sans-serif, system-ui, sans-serif;
 
     --color-purple: var(--brand-purple);
     --color-purple-soft: var(--brand-purple-soft);
