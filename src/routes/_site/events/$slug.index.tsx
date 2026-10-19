@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router"
 
-import { daysUntilWorkshop, getWorkshopBySlug } from "@/events/registry"
+import { daysUntilWorkshop } from "@/events/catalog"
+import { getWorkshopBySlug } from "@/events/registry"
 import {
   buildFaqJsonLd,
   buildPageMeta,
@@ -11,7 +12,10 @@ import { getWorkshopAvailability } from "@/server/workshop-registration"
 
 export const Route = createFileRoute("/_site/events/$slug/")({
   loader: async ({ params, context }) => {
-    const workshop = getWorkshopBySlug(params.slug)
+    // Dynamic: event pages and copy stay out of the entry bundle.
+    const { getWorkshopBySlug: loadWorkshop } =
+      await import("@/events/registry")
+    const workshop = loadWorkshop(params.slug)
     if (!workshop) {
       throw notFound()
     }

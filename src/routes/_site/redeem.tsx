@@ -32,12 +32,16 @@ import type {
   RedeemEventPublic,
   RedeemStatusResult,
 } from "@/server/redeem"
+import { ClerkAuth } from "@/components/auth/clerk-auth"
+import { ensureClerkDocument } from "@/lib/clerk-document"
+import { Toaster } from "@/components/ui/sonner"
 
 type RedeemSearch = {
   code?: string
 }
 
 export const Route = createFileRoute("/_site/redeem")({
+  beforeLoad: ensureClerkDocument,
   validateSearch: (search: Record<string, unknown>): RedeemSearch => {
     const code =
       typeof search.code === "string" && search.code.trim().length > 0
@@ -85,7 +89,13 @@ export const Route = createFileRoute("/_site/redeem")({
       ],
     }
   },
-  component: RedeemPage,
+  component: () => (
+    <ClerkAuth>
+      <RedeemPage />
+      {/* Only this route raises toasts; keep sonner out of public pages. */}
+      <Toaster />
+    </ClerkAuth>
+  ),
 })
 
 const skipLinkClassName =

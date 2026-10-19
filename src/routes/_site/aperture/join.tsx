@@ -25,8 +25,11 @@ import { buildPageMeta } from "@/lib/seo"
 import { cn } from "@/lib/utils"
 import { getJoinState } from "@/server/aperture/claim"
 import type { JoinPageState } from "@/server/aperture/claim"
+import { ClerkAuth } from "@/components/auth/clerk-auth"
+import { ensureClerkDocument } from "@/lib/clerk-document"
 
 export const Route = createFileRoute("/_site/aperture/join")({
+  beforeLoad: ensureClerkDocument,
   loader: ({ context }) => context,
   head: ({ loaderData }) => {
     if (!loaderData) {
@@ -43,7 +46,11 @@ export const Route = createFileRoute("/_site/aperture/join")({
       noindex: true,
     })
   },
-  component: JoinPage,
+  component: () => (
+    <ClerkAuth>
+      <JoinPage />
+    </ClerkAuth>
+  ),
 })
 
 const skipLinkClassName =

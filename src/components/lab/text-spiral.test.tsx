@@ -164,6 +164,13 @@ beforeEach(() => {
   resizeObservers.length = 0
   intersectionObservers.length = 0
   vi.useFakeTimers()
+  // The spiral builds on idle. Lifecycle tests run it at once; the idle
+  // scheduling itself is covered by its own test.
+  vi.stubGlobal("requestIdleCallback", (callback: IdleRequestCallback) => {
+    callback({ didTimeout: false, timeRemaining: () => 50 })
+    return 0
+  })
+  vi.stubGlobal("cancelIdleCallback", vi.fn())
   Object.defineProperty(Element.prototype, "getAnimations", {
     configurable: true,
     value: vi.fn(() => []),
@@ -401,6 +408,24 @@ describe("text spiral rendering and lifecycle", () => {
     act(() => vi.advanceTimersByTime(520))
     flushFrame()
     expect(paintOperations()).toBeGreaterThan(beforePause)
+  })
+
+  it("waits for idle before building rings, so hydration and first paint go first", () => {
+    const idle: IdleRequestCallback[] = []
+    vi.stubGlobal("requestIdleCallback", (callback: IdleRequestCallback) => {
+      idle.push(callback)
+      return idle.length
+    })
+    const { container } = render(<TextSpiral words={words} />)
+    expect(canvases(container)).toHaveLength(0)
+    expect(resizeObservers[0]?.target).toBeUndefined()
+
+    act(() =>
+      idle.forEach((callback) =>
+        callback({ didTimeout: false, timeRemaining: () => 50 })
+      )
+    )
+    expect(canvases(container).length).toBeGreaterThan(0)
   })
 
   it("renders a static spiral with reduced motion and schedules no flicker", () => {

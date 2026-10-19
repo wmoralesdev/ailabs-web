@@ -27,7 +27,10 @@ export const Route = createFileRoute("/_site/events/$slug/success")({
   }),
   loaderDeps: ({ search }) => search,
   loader: async ({ params, context, deps }) => {
-    const workshop = getWorkshopBySlug(params.slug)
+    // Dynamic: event pages and copy stay out of the entry bundle.
+    const { getWorkshopBySlug: loadWorkshop } =
+      await import("@/events/registry")
+    const workshop = loadWorkshop(params.slug)
     if (!workshop) {
       throw notFound()
     }

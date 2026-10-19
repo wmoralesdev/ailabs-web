@@ -25,7 +25,10 @@ function HomeMediaCarousel({
     displayIndex,
     trackImages,
     logicalCount,
+    loadedThrough,
+    markLoaded,
   } = useHomeMediaCarousel(images, intervalMs)
+  const loopClone = logicalCount > 1 ? trackImages.length - 1 : -1
 
   if (images.length === 0) {
     return null
@@ -56,15 +59,28 @@ function HomeMediaCarousel({
               style={{ width: `${100 / trackImages.length}%` }}
               aria-hidden={slideIndex !== displayIndex}
             >
-              <img
-                src={src}
-                alt={slideIndex === displayIndex ? alt : ""}
-                className={cn(
-                  "absolute inset-0 size-full object-cover",
-                  imgClassName
-                )}
-                draggable={false}
-              />
+              {slideIndex <= loadedThrough || slideIndex === loopClone ? (
+                <img
+                  src={src}
+                  alt={slideIndex === displayIndex ? alt : ""}
+                  // The first slide (and its loop clone, same file) waits for
+                  // the viewport. Later slides mount one step ahead of their
+                  // turn, so they load eagerly; clipped slides never
+                  // intersect, and native lazy loading would leave a gap.
+                  loading={
+                    slideIndex === 0 || slideIndex === loopClone
+                      ? "lazy"
+                      : "eager"
+                  }
+                  decoding="async"
+                  onLoad={() => markLoaded(slideIndex)}
+                  className={cn(
+                    "absolute inset-0 size-full object-cover",
+                    imgClassName
+                  )}
+                  draggable={false}
+                />
+              ) : null}
             </div>
           ))}
         </div>

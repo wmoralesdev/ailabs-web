@@ -143,11 +143,21 @@ possibly stale value into this file.
 - Vitest and Testing Library
 - pnpm
 
-Performance invariants: the root `beforeLoad` resolves the locale with
-`createIsomorphicFn` (cookie in the browser), so client navigation never waits
-on a server function. API route files import `.server` modules lazily inside
-their handlers, so satori, resvg, and Prisma do not boot with every page.
-three.js loads only when a canvas band nears the viewport.
+Performance invariants for public pages (guarded by
+`src/lib/performance-guards.test.ts`):
+
+- The root `beforeLoad` resolves the locale with `createIsomorphicFn`, so
+  client navigation never waits on a server function.
+- Clerk runs only where `src/lib/clerk-scope.ts` says: server functions and
+  the auth routes. Those routes wrap their component in `ClerkAuth` and use
+  `ensureClerkDocument` in `beforeLoad`. Keep Clerk, toasts, and event page
+  components out of the root, chrome, and route loaders: those ship in the
+  entry bundle. Loaders import heavy modules dynamically.
+- API route files import `.server` modules inside their handlers.
+- three.js, carousel slides past the first, and marquee logos load lazily.
+  Only the Alan Sans Latin font is preloaded; preloading DM Sans measured
+  slower. TextSpiral builds its rings on idle, after hydration.
+- Resize new carousel photos to 1920px on the long edge (WebP, quality 80).
 
 The linked `ailabs-cli` package at `../ailabs-cli` powers the seed and image
 scripts. Do not recreate deleted one-off scripts in this repo.

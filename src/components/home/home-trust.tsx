@@ -13,9 +13,13 @@ const PIXELS_PER_SECOND = 42
 
 function BrandAsset({ src, codex = false }: { src: string; codex?: boolean }) {
   return (
+    // Lazy: React preloads every eager SSR image, and these would compete with
+    // the CSS and fonts the hero needs for first paint.
     <img
       src={src}
       alt=""
+      loading="lazy"
+      decoding="async"
       className={cn("home-trust-logo", codex && "home-trust-logo-codex")}
       draggable={false}
     />

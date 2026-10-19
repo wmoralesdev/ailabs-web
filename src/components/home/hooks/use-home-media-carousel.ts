@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 const DEFAULT_INTERVAL_MS = 5000
 const TRANSITION_MS = 600
@@ -11,6 +11,10 @@ type UseHomeMediaCarouselResult = {
   displayIndex: number
   trackImages: ReadonlyArray<string>
   logicalCount: number
+  /** Highest track slide whose image may be requested. */
+  loadedThrough: number
+  /** Call when a slide's image loads so the next one is queued. */
+  markLoaded: (slideIndex: number) => void
 }
 
 function useHomeMediaCarousel(
@@ -20,6 +24,11 @@ function useHomeMediaCarousel(
   const [index, setIndex] = useState(0)
   const [reducedMotion, setReducedMotion] = useState(false)
   const [instant, setInstant] = useState(false)
+  // Images download one slide ahead instead of all at once on page load.
+  const [loadedThrough, setLoadedThrough] = useState(0)
+  const markLoaded = useCallback((slideIndex: number) => {
+    setLoadedThrough((current) => Math.max(current, slideIndex + 1))
+  }, [])
 
   const logicalCount = images.length
   const trackImages =
@@ -67,6 +76,14 @@ function useHomeMediaCarousel(
   }, [index, logicalCount, reducedMotion])
 
   useEffect(() => {
+    // On mount the first image's onLoad queues slide 1, so an off-screen
+    // carousel stays idle until its lazy first image is near the viewport.
+    if (index > 0) {
+      setLoadedThrough((current) => Math.max(current, index + 1))
+    }
+  }, [index])
+
+  useEffect(() => {
     if (!instant) {
       return
     }
@@ -93,6 +110,8 @@ function useHomeMediaCarousel(
     displayIndex,
     trackImages,
     logicalCount,
+    loadedThrough,
+    markLoaded,
   }
 }
 
