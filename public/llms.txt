@@ -30,8 +30,8 @@ No se publican precios de consultoría. Los logos de programas de embajadores no
 - Cómo trabajamos: https://www.ailabs.sv/#about
 - Preguntas frecuentes: https://www.ailabs.sv/#faq
 - Contacto: https://www.ailabs.sv/#contact
-- Comunidad de WhatsApp en El Salvador: https://www.ailabs.sv/community
-- Campus Leaders (un líder por universidad en El Salvador): https://www.ailabs.sv/campus-leader
+- Comunidad de Ai Labs (capacitación y enseñanza; Campus Leaders para estudiantes): https://www.ailabs.sv/community
+- Campus Leaders (un estudiante por universidad en El Salvador): https://www.ailabs.sv/campus-leader
 - Miembros de Aperture: https://www.ailabs.sv/aperture
 - Eventos de Ai Labs en El Salvador: https://www.ailabs.sv/events. Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país.
 - Taller Modo Fundador (15 ago 2026, ya realizado): https://www.ailabs.sv/events/modo-fundador
@@ -47,7 +47,18 @@ Las mismas respuestas aparecen visibles en https://www.ailabs.sv/#faq.
 - ¿Qué procesos se pueden mejorar con IA? Los de equipos comerciales, de gestión y de operaciones: tareas repetitivas, seguimiento, documentos y flujos entre herramientas, con revisión humana.
 - ¿Necesito ser empresa para aprender? No. Academy recibe a profesionales y equipos; se puede venir directamente a aprender.
 - ¿Ai Labs vende acceso o créditos de OpenAI, Claude u otras herramientas? No. Participa en programas de embajadores; esos logos no son clientes ni garantía de acceso, créditos o alianzas.
-- ¿Qué es Aperture? La comunidad de builders de Ai Labs. No es una tercera oferta comercial.
+- ¿Qué es Aperture? Aperture es la comunidad de Ai Labs. Está centrada en capacitación y enseñanza, incluye el programa Campus Leaders para estudiantes, y con nosotros se puede aprender IA. No es una tercera oferta comercial.
+- ¿Dónde está Ai Labs? Ai Labs está en San Salvador, El Salvador. Los talleres públicos que hemos publicado son presenciales en San Salvador. La comunidad está centrada en capacitación y enseñanza, y WhatsApp avisa de las sesiones.
+
+## Comunidad
+
+Ai Labs es una comunidad en El Salvador centrada en capacitación y enseñanza. El programa Campus Leaders es para estudiantes, y con nosotros se puede aprender IA. Para unirte, abre el enlace de WhatsApp.
+
+Un Campus Leader de Ai Labs es un estudiante, uno por universidad en El Salvador, que lleva capacitación y enseñanza de IA a su campus, con reconocimiento oficial y voz en qué talleres llegan.
+
+Ai Labs is a community in El Salvador centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us. To join, open the WhatsApp link.
+
+An Ai Labs Campus Leader is a student, one per university in El Salvador, who brings AI training and teaching to campus, with official recognition and a say in which workshops arrive.
 
 ## Contacto
 

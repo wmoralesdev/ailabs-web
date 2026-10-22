@@ -160,6 +160,22 @@ export function buildEventsIndexHead(input: {
                 item: eventNode(event, locale),
               })),
             },
+            {
+              "@type": "ImageGallery",
+              name: events.photosLabel,
+              description: events.photosCaption,
+              image: events.photos.map((photo) => ({
+                "@type": "ImageObject",
+                contentUrl: absoluteUrl(photo.src),
+                caption: photo.alt,
+                creditText: SITE_NAME,
+                creator: {
+                  "@type": "Organization",
+                  name: SITE_NAME,
+                  url: SITE_URL,
+                },
+              })),
+            },
           ],
         }),
       },

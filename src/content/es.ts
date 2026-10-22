@@ -272,7 +272,7 @@ export const es: SiteContent = {
         {
           question: "¿Dónde está Ai Labs?",
           answer:
-            "Ai Labs está en San Salvador, El Salvador. Los talleres públicos que hemos publicado son presenciales en San Salvador, y la comunidad se reúne por WhatsApp.",
+            "Ai Labs está en San Salvador, El Salvador. Los talleres públicos que hemos publicado son presenciales en San Salvador. La comunidad está centrada en capacitación y enseñanza, y WhatsApp avisa de las sesiones.",
         },
         {
           question:
@@ -283,7 +283,7 @@ export const es: SiteContent = {
         {
           question: "¿Qué es Aperture?",
           answer:
-            "Aperture es la comunidad de builders de Ai Labs. Conecta personas, empresas, eventos y oportunidades relevantes. No es una tercera oferta comercial.",
+            "Aperture es la comunidad de Ai Labs. Está centrada en capacitación y enseñanza, incluye el programa Campus Leaders para estudiantes, y con nosotros se puede aprender IA. No es una tercera oferta comercial.",
         },
         {
           question: "¿Cómo empiezo a trabajar con Ai Labs?",
@@ -330,7 +330,9 @@ export const es: SiteContent = {
         },
       ],
       mediaSrcs: homeCarousel.about,
-      mediaAlt: "Builders colaborando en un evento de Ai Labs",
+      mediaAlt:
+        "Evento de Ai Labs: builders colaborando en una sesión de capacitación.",
+      mediaCredit: "Crédito: Ai Labs. Fotografía de un evento de Ai Labs.",
       toastTitle: "Sesión en curso",
       toastMeta: "El Salvador",
     },
@@ -356,7 +358,9 @@ export const es: SiteContent = {
       ],
       cta: { label: "Preparar a mi equipo", href: "#contact" },
       mediaSrcs: homeCarousel.features,
-      mediaAlt: "Taller práctico en Ai Labs",
+      mediaAlt:
+        "Evento de Ai Labs: taller práctico de capacitación y enseñanza.",
+      mediaCredit: "Crédito: Ai Labs. Fotografía de un evento de Ai Labs.",
     },
     agentic: {
       id: "agentic",
@@ -405,7 +409,7 @@ export const es: SiteContent = {
       index: "03",
       eyebrow: "APERTURE · COMUNIDAD Y EVIDENCIA",
       title: "Aperture",
-      lead: "La comunidad, las alianzas y los eventos nos mantienen cerca de quienes construyen con estas herramientas y muestran el trabajo en práctica.",
+      lead: "La comunidad de Ai Labs está centrada en capacitación y enseñanza. El programa Campus Leaders es para estudiantes, y con nosotros se puede aprender IA.",
       voices: [
         {
           quote: "Aprendo construyendo.",
@@ -476,7 +480,7 @@ export const es: SiteContent = {
       ],
       stat: { value: "800+", label: "Builders en la comunidad" },
       quote:
-        "Aperture reúne comunidad, alianzas y eventos que muestran cómo se construye y se aprende con estas herramientas.",
+        "Aperture es la comunidad donde se aprende IA: Campus Leaders para estudiantes, con la capacitación y la enseñanza en el centro.",
       attribution: "Ai Labs",
       cta: { label: "Unirme a la comunidad", href: "/community" },
       eventsCta: {
@@ -653,10 +657,10 @@ export const es: SiteContent = {
   community: {
     metaTitle: "Comunidad de WhatsApp",
     metaDescription:
-      "La comunidad de WhatsApp de Ai Labs en El Salvador es el canal del día a día para eventos, talleres y gente construyendo con IA.",
+      "Ai Labs es una comunidad en El Salvador centrada en capacitación y enseñanza. El programa Campus Leaders es para estudiantes, y con nosotros se puede aprender IA. Para unirte, abre el enlace de WhatsApp.",
     label: "Comunidad",
     headline: "¿Cómo me uno a la comunidad de WhatsApp de Ai Labs?",
-    body: "La comunidad de WhatsApp de Ai Labs en El Salvador es el canal del día a día para eventos, talleres y gente construyendo con IA.",
+    body: "Ai Labs es una comunidad en El Salvador centrada en capacitación y enseñanza. El programa Campus Leaders es para estudiantes, y con nosotros se puede aprender IA. Para unirte, abre el enlace de WhatsApp.",
     joinPrompt: "Unirte es gratis.",
     joinCta: "Unirme en WhatsApp",
     joinHint: "Abre WhatsApp · puede pedir aprobación",
@@ -681,10 +685,10 @@ export const es: SiteContent = {
   campusLeader: {
     metaTitle: "Campus Leader",
     metaDescription:
-      "Un Campus Leader de Ai Labs es un líder por universidad en campus de El Salvador, con reconocimiento oficial y voz en qué talleres llegan al campus.",
+      "Un Campus Leader de Ai Labs es un estudiante, uno por universidad en El Salvador, que lleva capacitación y enseñanza de IA a su campus, con reconocimiento oficial y voz en qué talleres llegan.",
     label: "Campus Leader",
     headline: "¿Qué es un Campus Leader?",
-    body: "Un Campus Leader de Ai Labs es un líder por universidad en campus de El Salvador, con reconocimiento oficial y voz en qué talleres llegan al campus.",
+    body: "Un Campus Leader de Ai Labs es un estudiante, uno por universidad en El Salvador, que lleva capacitación y enseñanza de IA a su campus, con reconocimiento oficial y voz en qué talleres llegan.",
     creditsNote:
       "Los líderes aceptados reciben créditos de las herramientas con las que trabajamos. Los montos quedan entre nosotros.",
     cohort: "aster",
@@ -697,15 +701,18 @@ export const es: SiteContent = {
     learnCta: "Cómo funciona",
     media: {
       whatSrc: homeCarousel.campusLeader[0],
-      whatAlt: "Estudiantes colaborando en laptops durante una sesión Ai Labs",
+      whatAlt:
+        "Evento de Ai Labs: estudiantes colaborando en laptops durante una sesión de capacitación.",
       benefitsSrcs: homeCarousel.campusLeader,
-      benefitsAlt: "Participante trabajando en un escritorio de taller Ai Labs",
+      benefitsAlt:
+        "Evento de Ai Labs: participante en un escritorio de taller de capacitación.",
+      credit: "Crédito: Ai Labs. Fotografía de un evento de Ai Labs.",
     },
     landing: {
       what: {
         label: "El programa",
         title: "¿Qué es el programa?",
-        body: "Ai Labs en el campus: un líder por universidad de El Salvador, elegido por cohorte.",
+        body: "Ai Labs en el campus: un estudiante por universidad en El Salvador, elegido por cohorte, para llevar capacitación y enseñanza de IA.",
         items: [
           {
             title: "Cualquier carrera",
@@ -1171,8 +1178,9 @@ export const es: SiteContent = {
     hostsLabel: "Anfitriones",
     lumaLabel: "Ver en Luma",
     newTabLabel: "Se abre en una pestaña nueva.",
-    photosLabel: "En la comunidad",
-    photosCaption: "Estas fotos son de las reuniones en San Salvador.",
+    photosLabel: "Fotografías de Ai Labs",
+    photosCaption:
+      "Crédito: Ai Labs. Estas fotografías son de eventos de Ai Labs en San Salvador.",
     cityLine: "en San Salvador",
     closeHeadline: "San Salvador sigue juntándose",
     closeSupport: "Walter publica el calendario completo en Luma.",
@@ -1188,109 +1196,109 @@ export const es: SiteContent = {
     photos: [
       {
         src: "/events/community/01-group-hall.webp",
-        alt: "Grupo grande reunido en un salón de dos niveles, con gente sentada en el piso.",
+        alt: "Evento de Ai Labs en San Salvador. Grupo grande reunido en un salón de dos niveles, con gente sentada en el piso.",
         width: 1200,
         height: 676,
       },
       {
         src: "/events/community/02-canopy-laptops.webp",
-        alt: "Personas con laptops en mesas bajo una carpa blanca, rodeadas de sillas verdes.",
+        alt: "Evento de Ai Labs en San Salvador. Personas con laptops en mesas bajo una carpa blanca, rodeadas de sillas verdes.",
         width: 1200,
         height: 800,
       },
       {
         src: "/events/community/03-selfie-stick.webp",
-        alt: "Cuatro personas sonríen mientras una sostiene un palo de selfie junto a una mesa.",
+        alt: "Evento de Ai Labs en San Salvador. Cuatro personas sonríen mientras una sostiene un palo de selfie junto a una mesa.",
         width: 1200,
         height: 800,
       },
       {
         src: "/events/community/04-auditorium-podium.webp",
-        alt: "Auditorio en luz azul: una persona en el podio y la pantalla dice “Atrévete a construir”.",
+        alt: "Evento de Ai Labs en San Salvador. Auditorio en luz azul: una persona en el podio y la pantalla dice “Atrévete a construir”.",
         width: 1200,
         height: 900,
       },
       {
         src: "/events/community/08-green-couch.webp",
-        alt: "Cinco personas en un sofá verde, con laptops abiertas sobre mesas redondas.",
+        alt: "Evento de Ai Labs en San Salvador. Cinco personas en un sofá verde, con laptops abiertas sobre mesas redondas.",
         width: 1200,
         height: 800,
       },
       {
         src: "/events/community/09-cursor-banner-group.webp",
-        alt: "Grupo de pie junto a un banner vertical que dice Cursor San Salvador.",
+        alt: "Evento de Ai Labs en San Salvador. Grupo de pie junto a un banner vertical que dice Cursor San Salvador.",
         width: 1200,
         height: 800,
       },
       {
         src: "/events/community/10-classroom-talk.webp",
-        alt: "Una persona con micrófono habla frente a una pantalla, y el grupo escucha desde las mesas.",
+        alt: "Evento de Ai Labs en San Salvador. Una persona con micrófono habla frente a una pantalla, y el grupo escucha desde las mesas.",
         width: 1200,
         height: 900,
       },
       {
         src: "/events/community/12-stickers-outside.webp",
-        alt: "Tres personas sonríen afuera de un edificio de vidrio, mostrando stickers y tarjetas.",
+        alt: "Evento de Ai Labs en San Salvador. Tres personas sonríen afuera de un edificio de vidrio, mostrando stickers y tarjetas.",
         width: 1200,
         height: 900,
       },
       {
         src: "/events/community/13-hackathon-laptops.webp",
-        alt: "Tres personas alrededor de una mesa; la laptop del centro dice “Cursor Hackathon”.",
+        alt: "Evento de Ai Labs en San Salvador. Tres personas alrededor de una mesa; la laptop del centro dice “Cursor Hackathon”.",
         width: 1200,
         height: 800,
       },
       {
         src: "/events/community/05-classroom-selfie.webp",
-        alt: "Salón de clases: una persona se toma una selfie y otras usan laptops en las mesas.",
+        alt: "Evento de Ai Labs en San Salvador. Salón de clases: una persona se toma una selfie y otras usan laptops en las mesas.",
         width: 900,
         height: 1200,
       },
       {
         src: "/events/community/06-blue-audience.webp",
-        alt: "Filas de personas sentadas en butacas azules, bajo luz azul, mirando hacia el escenario.",
+        alt: "Evento de Ai Labs en San Salvador. Filas de personas sentadas en butacas azules, bajo luz azul, mirando hacia el escenario.",
         width: 1200,
         height: 900,
       },
       {
         src: "/events/community/07-table-cursor-banner.webp",
-        alt: "Personas sentadas a una mesa con botellas de agua, con un banner de Cursor detrás.",
+        alt: "Evento de Ai Labs en San Salvador. Personas sentadas a una mesa con botellas de agua, con un banner de Cursor detrás.",
         width: 1200,
         height: 900,
       },
       {
         src: "/events/community/11-screen-atrevete.webp",
-        alt: "Una persona de pie junto a una pantalla negra que dice “Atrévete a construir”.",
+        alt: "Evento de Ai Labs en San Salvador. Una persona de pie junto a una pantalla negra que dice “Atrévete a construir”.",
         width: 1200,
         height: 900,
       },
       {
         src: "/events/community/14-purple-seats.webp",
-        alt: "En butacas moradas, una persona con micrófono señala la laptop que sostiene otra.",
+        alt: "Evento de Ai Labs en San Salvador. En butacas moradas, una persona con micrófono señala la laptop que sostiene otra.",
         width: 1200,
         height: 802,
       },
       {
         src: "/events/community/15-meetup-card.webp",
-        alt: "Una mano sostiene una tarjeta que dice “Grok Bot San Salvador Meetup”, con el público detrás.",
+        alt: "Evento de Ai Labs en San Salvador. Una mano sostiene una tarjeta que dice “Grok Bot San Salvador Meetup”, con el público detrás.",
         width: 1200,
         height: 900,
       },
       {
         src: "/events/community/16-bookstore-laptops.webp",
-        alt: "Personas con laptops alrededor de una mesa, junto a estantes de libros y un mural.",
+        alt: "Evento de Ai Labs en San Salvador. Personas con laptops alrededor de una mesa, junto a estantes de libros y un mural.",
         width: 1200,
         height: 676,
       },
       {
         src: "/events/community/17-window-laptops.webp",
-        alt: "Tres personas trabajan en laptops junto a una ventana con el vidrio mojado.",
+        alt: "Evento de Ai Labs en San Salvador. Tres personas trabajan en laptops junto a una ventana con el vidrio mojado.",
         width: 1200,
         height: 800,
       },
       {
         src: "/events/community/18-cursor-banner-hall.webp",
-        alt: "Cuatro personas posan junto a un banner vertical de Cursor, en un pasillo con vidrio.",
+        alt: "Evento de Ai Labs en San Salvador. Cuatro personas posan junto a un banner vertical de Cursor, en un pasillo con vidrio.",
         width: 1200,
         height: 800,
       },

@@ -135,6 +135,22 @@ describe("events index", () => {
     expect(es.events.photos.map((photo) => photo.alt)).not.toEqual(
       en.events.photos.map((photo) => photo.alt)
     )
+    expect(es.events.photosCaption).toBe(
+      "Crédito: Ai Labs. Estas fotografías son de eventos de Ai Labs en San Salvador."
+    )
+    expect(en.events.photosCaption).toBe(
+      "Credit: Ai Labs. These photographs are from Ai Labs events in San Salvador."
+    )
+    for (const photo of es.events.photos) {
+      expect(photo.alt.startsWith("Evento de Ai Labs en San Salvador. ")).toBe(
+        true
+      )
+      expect(photo.alt).not.toMatch(/Tribe|GDG/)
+    }
+    for (const photo of en.events.photos) {
+      expect(photo.alt.startsWith("Ai Labs event in San Salvador. ")).toBe(true)
+      expect(photo.alt).not.toMatch(/Tribe|GDG/)
+    }
     for (const photo of [...es.events.photos, ...en.events.photos]) {
       expect(photo.alt.trim().length).toBeGreaterThan(20)
       expect(photo.src.startsWith("/events/community/")).toBe(true)
@@ -205,7 +221,29 @@ describe("events index", () => {
     expect(head.meta.find((tag) => tag.name === "twitter:card")?.content).toBe(
       "summary_large_image"
     )
-    expect(types).toEqual(["BreadcrumbList", "ItemList"])
+    expect(types).toEqual(["BreadcrumbList", "ItemList", "ImageGallery"])
+    const gallery = document["@graph"].find(
+      (node) => node["@type"] === "ImageGallery"
+    ) as {
+      description?: string
+      image?: Array<{
+        caption?: string
+        creditText?: string
+        creator?: { name?: string }
+      }>
+    }
+    expect(gallery.description).toBe(es.events.photosCaption)
+    expect(gallery.description).toMatch(/Crédito: Ai Labs/)
+    expect(gallery.image).toHaveLength(es.events.photos.length)
+    for (const image of gallery.image ?? []) {
+      expect(image.caption).toMatch(/^Evento de Ai Labs en San Salvador\./)
+      expect(image.caption).not.toMatch(/Tribe|GDG/)
+      expect(image.creditText).toBe("Ai Labs")
+      expect(image.creator?.name).toBe("Ai Labs")
+    }
+    expect(
+      head.meta.find((tag) => tag.property === "og:image:alt")?.content
+    ).toBe(es.events.photos[0]?.alt)
     expect(JSON.stringify(document["@graph"][0])).toContain('"name":"Inicio"')
     expect(JSON.stringify(document["@graph"][0])).toContain('"name":"Eventos"')
     expect(JSON.stringify(document)).not.toMatch(/FAQPage/)

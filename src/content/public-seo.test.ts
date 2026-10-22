@@ -198,5 +198,58 @@ describe("home FAQ", () => {
     expect(homeRoute).toContain("...home.faq.items")
     const llms = readFileSync("public/llms.txt", "utf8")
     expect(llms).toContain("https://www.ailabs.sv/#faq")
+    expect(llms).toContain(
+      es.home.faq.items.find((item) =>
+        item.question.startsWith("¿Qué es Aperture")
+      )?.answer
+    )
+    expect(llms).toContain(es.community.body)
+    expect(llms).toContain(es.campusLeader.body)
+    expect(llms).toContain(en.community.body)
+    expect(llms).toContain(en.campusLeader.body)
+  })
+
+  it("describes the community as training and teaching, in both languages", () => {
+    expect(es.community.body).toBe(
+      "Ai Labs es una comunidad en El Salvador centrada en capacitación y enseñanza. El programa Campus Leaders es para estudiantes, y con nosotros se puede aprender IA. Para unirte, abre el enlace de WhatsApp."
+    )
+    expect(en.community.body).toBe(
+      "Ai Labs is a community in El Salvador centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us. To join, open the WhatsApp link."
+    )
+    expect(es.campusLeader.body).toBe(
+      "Un Campus Leader de Ai Labs es un estudiante, uno por universidad en El Salvador, que lleva capacitación y enseñanza de IA a su campus, con reconocimiento oficial y voz en qué talleres llegan."
+    )
+    expect(en.campusLeader.body).toBe(
+      "An Ai Labs Campus Leader is a student, one per university in El Salvador, who brings AI training and teaching to campus, with official recognition and a say in which workshops arrive."
+    )
+    expect(es.home.aperture.lead).toBe(
+      "La comunidad de Ai Labs está centrada en capacitación y enseñanza. El programa Campus Leaders es para estudiantes, y con nosotros se puede aprender IA."
+    )
+    expect(en.home.aperture.lead).toBe(
+      "The Ai Labs community is centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us."
+    )
+    const apertureEs = es.home.faq.items.find((item) =>
+      item.question.startsWith("¿Qué es Aperture")
+    )
+    const apertureEn = en.home.faq.items.find((item) =>
+      item.question.startsWith("What is Aperture")
+    )
+    expect(apertureEs?.answer).toBe(
+      "Aperture es la comunidad de Ai Labs. Está centrada en capacitación y enseñanza, incluye el programa Campus Leaders para estudiantes, y con nosotros se puede aprender IA. No es una tercera oferta comercial."
+    )
+    expect(apertureEn?.answer).toBe(
+      "Aperture is the Ai Labs community. It is centered on training and teaching, it includes the Campus Leaders program for students, and you can learn AI with us. It is not a third commercial offer."
+    )
+    for (const content of [es, en]) {
+      const text = [
+        content.community.body,
+        content.campusLeader.body,
+        content.home.aperture.lead,
+        content.home.aperture.quote,
+        ...content.home.faq.items.map((item) => item.answer),
+      ].join("\n")
+      expect(text).not.toMatch(/centroam[eé]rica|central america/i)
+      expect(text).not.toMatch(/m[aá]s activ|ranking|number one|#1/i)
+    }
   })
 })

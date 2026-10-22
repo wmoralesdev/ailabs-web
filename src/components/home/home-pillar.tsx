@@ -37,21 +37,26 @@ function HomePillar({
   const isPurple = band === "purple"
 
   const media = (
-    <div
-      className={cn(
-        homeCardClassName,
-        "bg-graphite relative min-h-72 lg:min-h-[30rem]"
-      )}
-    >
-      {pillar.id === "agentic" ? (
-        <HomeAgenticProcess process={pillar.process} />
-      ) : (
-        <HomeMediaCarousel
-          images={pillar.mediaSrcs}
-          alt={pillar.mediaAlt}
-          intervalMs={intervalMs}
-        />
-      )}
+    <div className="flex flex-col gap-3">
+      <div
+        className={cn(
+          homeCardClassName,
+          "bg-graphite relative min-h-72 lg:min-h-[30rem]"
+        )}
+      >
+        {pillar.id === "agentic" ? (
+          <HomeAgenticProcess process={pillar.process} />
+        ) : (
+          <HomeMediaCarousel
+            images={pillar.mediaSrcs}
+            alt={pillar.mediaAlt}
+            intervalMs={intervalMs}
+          />
+        )}
+      </div>
+      {pillar.id === "academy" ? (
+        <p className="text-muted-foreground text-sm">{pillar.mediaCredit}</p>
+      ) : null}
     </div>
   )
 
