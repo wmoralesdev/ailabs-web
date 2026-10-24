@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest"
 
 import {
   ORGANIZATION_SAME_AS,
+  brandedTitle,
   buildFaqJsonLd,
   buildHomeJsonLd,
   buildPageMeta,
@@ -99,6 +100,21 @@ describe("buildHomeJsonLd", () => {
       addressLocality: "San Salvador",
       addressCountry: "SV",
     })
+  })
+})
+
+describe("brandedTitle", () => {
+  it("adds the brand suffix once", () => {
+    expect(brandedTitle("Consultoría de IA en El Salvador")).toBe(
+      "Consultoría de IA en El Salvador | Ai Labs"
+    )
+    expect(
+      brandedTitle(
+        "Capacitación en IA en El Salvador: equipos y profesionales | Ai Labs"
+      )
+    ).toBe(
+      "Capacitación en IA en El Salvador: equipos y profesionales | Ai Labs"
+    )
   })
 })
 
@@ -224,10 +240,22 @@ describe("buildWorkshopEventJsonLd", () => {
     const data = JSON.parse(script?.children ?? "{}")
     expect(data["@type"]).toBe("EducationEvent")
     expect(data.startDate).toBe("2026-12-05")
+    expect(data.eventStatus).toBe("https://schema.org/EventScheduled")
     expect(data.url).toBe("https://www.ailabs.sv/events/demo")
     expect(data.location.address.addressLocality).toBe("San Salvador")
     expect(data.offers.price).toBe("25.00")
     expect(data.offers.availability).toBe("https://schema.org/InStock")
+  })
+
+  it("marks a dated workshop as completed after its day in El Salvador", () => {
+    const script = buildWorkshopEventJsonLd({
+      ...base,
+      endsOn: "2026-08-15",
+      now: new Date("2026-10-24T18:00:00.000Z"),
+    })
+    expect(JSON.parse(script?.children ?? "{}").eventStatus).toBe(
+      "https://schema.org/EventCompleted"
+    )
   })
 
   it("marks sold-out workshops", () => {

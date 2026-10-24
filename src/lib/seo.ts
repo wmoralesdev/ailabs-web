@@ -1,4 +1,5 @@
 import type { Locale } from "@/content"
+import { isWorkshopPast } from "@/events/catalog"
 
 /** Host that returns the public site. Canonical URLs use www. */
 export const SITE_URL = "https://www.ailabs.sv"
@@ -46,6 +47,12 @@ export function localizedPath(_locale: Locale, path = ""): string {
 export function absoluteUrl(path = ""): string {
   const normalized = sitePath(path)
   return normalized ? `${SITE_URL}${normalized}` : `${SITE_URL}/`
+}
+
+/** Document title with the brand suffix, if the page title does not already have it. */
+export function brandedTitle(title: string): string {
+  const suffix = ` | ${SITE_NAME}`
+  return title.endsWith(suffix) ? title : `${title}${suffix}`
 }
 
 type BuildPageMetaInput = {
@@ -170,12 +177,14 @@ export function buildWorkshopEventJsonLd(input: {
   priceCents: number
   currency: string
   soldOut: boolean
+  now?: Date
 }): HeadScript | null {
   if (!input.endsOn) {
     return null
   }
   const url = absoluteUrl(input.path)
   const organizationId = `${absoluteUrl()}#organization`
+  const completed = isWorkshopPast({ endsOn: input.endsOn }, input.now)
 
   return {
     type: "application/ld+json",
@@ -188,7 +197,9 @@ export function buildWorkshopEventJsonLd(input: {
       inLanguage: input.locale,
       startDate: input.endsOn,
       endDate: input.endsOn,
-      eventStatus: "https://schema.org/EventScheduled",
+      eventStatus: completed
+        ? "https://schema.org/EventCompleted"
+        : "https://schema.org/EventScheduled",
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       image: [OG_IMAGE_URL],
       location: {
