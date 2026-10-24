@@ -2,7 +2,13 @@ import { createFileRoute } from "@tanstack/react-router"
 
 import { ConsultingPage } from "@/components/consulting/consulting-page"
 import { useContact } from "@/components/contact/contact-provider"
-import { buildFaqJsonLd, buildPageMeta } from "@/lib/seo"
+import {
+  brandedTitle,
+  buildFaqJsonLd,
+  buildPageMeta,
+  buildServicePageJsonLd,
+} from "@/lib/seo"
+import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
 
 export const Route = createFileRoute("/_site/consultoria-de-ia-el-salvador")({
   loader: ({ context }) => context,
@@ -12,16 +18,27 @@ export const Route = createFileRoute("/_site/consultoria-de-ia-el-salvador")({
     }
     const { locale, content } = loaderData
     const page = content.consulting
+    const title = brandedTitle(page.metaTitle)
     const meta = buildPageMeta({
       locale,
-      path: "/consultoria-de-ia-el-salvador",
-      title: page.metaTitle,
+      path: CONSULTING_PAGE_PATH,
+      title,
       description: page.metaDescription,
     })
 
     return {
       ...meta,
-      scripts: [buildFaqJsonLd(page.faqs)],
+      scripts: [
+        buildServicePageJsonLd({
+          locale,
+          path: CONSULTING_PAGE_PATH,
+          title,
+          description: page.metaDescription,
+          serviceName: page.headline,
+          homeLabel: content.servicePages.homeLabel,
+        }),
+        buildFaqJsonLd(page.faqs),
+      ],
     }
   },
   component: ConsultingRoute,

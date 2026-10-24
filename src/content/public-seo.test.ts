@@ -92,9 +92,18 @@ describe("public SEO files", () => {
     expect(sitemap).toContain("https://www.ailabs.sv/campus-leader")
     expect(sitemap).toContain("https://www.ailabs.sv/aperture")
     expect(sitemap).toContain("<loc>https://www.ailabs.sv/events</loc>")
-    expect(sitemap).toContain("https://www.ailabs.sv/events/modo-fundador")
-    expect(sitemap).toContain(
+    expect(sitemap).toMatch(
+      /<loc>https:\/\/www\.ailabs\.sv\/events<\/loc>\s*<lastmod>2026-10-18<\/lastmod>/
+    )
+    expect(sitemap).not.toContain("https://www.ailabs.sv/events/modo-fundador")
+    expect(sitemap).not.toContain(
       "https://www.ailabs.sv/events/get-competitive-quick"
+    )
+    expect(llms).toContain(
+      "Taller Modo Fundador (15 ago 2026, ya realizado): https://www.ailabs.sv/events/modo-fundador"
+    )
+    expect(llms).toContain(
+      "Taller Get Competitive Quick (mid-agosto 2026; la fecha no se confirmó): https://www.ailabs.sv/events/get-competitive-quick"
     )
     expect(sitemap).not.toContain("hreflang")
     expect(sitemap).not.toContain("https://ailabs.sv/")

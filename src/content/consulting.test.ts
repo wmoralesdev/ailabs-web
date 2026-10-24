@@ -5,6 +5,8 @@ import { describe, expect, it } from "vitest"
 import { en } from "@/content/en"
 import { es } from "@/content/es"
 import { getChromeNavItems } from "@/components/chrome/chrome-nav-items"
+import { brandedTitle, buildServicePageJsonLd } from "@/lib/seo"
+import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
 
 const CONSULTING_PATH = "/consultoria-de-ia-el-salvador"
 const ES_LEAD =
@@ -87,7 +89,7 @@ describe("consulting page", () => {
     }
   })
 
-  it("publishes FAQ schema only for the questions the page renders", () => {
+  it("publishes Service, breadcrumb, and FAQ schema for the questions the page renders", () => {
     const route = readFileSync(
       "src/routes/_site/consultoria-de-ia-el-salvador.tsx",
       "utf8"
@@ -96,12 +98,42 @@ describe("consulting page", () => {
       "src/components/consulting/consulting-page.tsx",
       "utf8"
     )
+    expect(route).toContain("buildServicePageJsonLd({")
     expect(route).toContain("buildFaqJsonLd(page.faqs)")
-    expect(route).toContain('path: "/consultoria-de-ia-el-salvador"')
+    expect(route).toContain("brandedTitle(page.metaTitle)")
+    expect(route).toContain("CONSULTING_PAGE_PATH")
     expect(route).not.toMatch(/googlebot|user-agent/i)
     expect(page).toContain("{content.lead}")
     expect(page).toContain("{faq.question}")
     expect(page).toContain("{faq.answer}")
     expect(page).not.toMatch(/googlebot|user-agent/i)
+
+    const script = buildServicePageJsonLd({
+      locale: "es",
+      path: CONSULTING_PAGE_PATH,
+      title: brandedTitle(es.consulting.metaTitle),
+      description: es.consulting.metaDescription,
+      serviceName: es.consulting.headline,
+      homeLabel: es.servicePages.homeLabel,
+    })
+    const graph = JSON.parse(script.children)["@graph"] as Array<{
+      "@type": string
+      name?: string
+      url?: string
+    }>
+    expect(graph.map((node) => node["@type"])).toEqual([
+      "WebPage",
+      "Service",
+      "BreadcrumbList",
+    ])
+    expect(graph.find((node) => node["@type"] === "Service")?.url).toBe(
+      `https://www.ailabs.sv${CONSULTING_PATH}`
+    )
+    expect(brandedTitle(es.consulting.metaTitle)).toBe(
+      "Consultoría de IA en El Salvador | Ai Labs"
+    )
+    expect(brandedTitle(en.consulting.metaTitle)).toBe(
+      "AI consulting in El Salvador | Ai Labs"
+    )
   })
 })
