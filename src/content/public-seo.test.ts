@@ -119,6 +119,12 @@ describe("public SEO files", () => {
     )
     expect(llms).toMatch(/no describen un área de servicio de centroamérica/i)
     expect(llms).not.toMatch(/cubre centroamérica|covers central america/i)
+    expect(llms).toContain(
+      "Ai Labs es una empresa privada en San Salvador, El Salvador."
+    )
+    expect(llms).toContain(
+      "Ai Labs is a private company in San Salvador, El Salvador."
+    )
   })
 
   it("lets answer-engine crawlers fetch the public site", () => {
@@ -174,7 +180,28 @@ describe("existing page answers", () => {
     const hero = readFileSync("src/components/home/home-hero.tsx", "utf8")
     expect(homeRoute).toContain("home.hero.agencyQuestion")
     expect(homeRoute).toContain("home.hero.directAnswer")
+    expect(homeRoute).toContain(
+      "organizationDescription: home.hero.directAnswer"
+    )
+    expect(homeRoute).toContain("path: CONSULTING_PAGE_PATH")
+    expect(homeRoute).toContain("path: SERVICE_PAGE_PATHS.training")
+    expect(homeRoute).toContain("path: SERVICE_PAGE_PATHS.automation")
+    expect(es.meta.title).toBe(
+      "Ai Labs | Consultoría en IA, automatización y formación práctica"
+    )
+    expect(es.home.hero.headline).toBe(
+      "Consultoría en IA, automatización de procesos y formación práctica."
+    )
+    expect(es.home.trust.label).toBe("Somos parte de programas de embajadores")
+    expect(en.meta.title).toBe(
+      "Ai Labs | AI consulting, automation and practical education"
+    )
+    expect(en.home.hero.headline).toBe(
+      "AI consulting, business automation and practical education."
+    )
+    expect(en.home.trust.label).toBe("Part of ambassador programs")
     expect(hero).toContain("{hero.directAnswer}")
+    expect(hero).toContain("hero.headline")
   })
 })
 
