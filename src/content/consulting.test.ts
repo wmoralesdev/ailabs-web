@@ -10,9 +10,9 @@ import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
 
 const CONSULTING_PATH = "/consultoria-de-ia-el-salvador"
 const ES_LEAD =
-  "Ai Labs es una empresa privada en San Salvador, El Salvador, de consultoría en IA, automatización de procesos y formación práctica para equipos profesionales."
+  "Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador."
 const EN_LEAD =
-  "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, process automation, and practical training for professional teams."
+  "Ai Labs is an AI consulting company in San Salvador, El Salvador."
 
 describe("consulting page", () => {
   it("uses the published service names and answers, in both languages", () => {
@@ -48,7 +48,7 @@ describe("consulting page", () => {
         content.home.hero.agencyQuestion
       )
       expect(JSON.stringify(content.consulting)).not.toMatch(
-        /agencia nacional|gobierno|única agencia|only agency|national agency|government|centroam[eé]rica|central america|\d+\+/i
+        /agencia nacional|gobierno|única agencia|only agency|national agency|government|centroam[eé]rica|central america|l[ií]der|\d+\+/i
       )
     }
   })
@@ -120,14 +120,40 @@ describe("consulting page", () => {
       "@type": string
       name?: string
       url?: string
+      description?: string
+      inLanguage?: string
     }>
     expect(graph.map((node) => node["@type"])).toEqual([
       "WebPage",
       "Service",
       "BreadcrumbList",
     ])
-    expect(graph.find((node) => node["@type"] === "Service")?.url).toBe(
-      `https://www.ailabs.sv${CONSULTING_PATH}`
+    const service = graph.find((node) => node["@type"] === "Service")
+    expect(service?.url).toBe(`https://www.ailabs.sv${CONSULTING_PATH}`)
+    expect(service?.name).toBe(es.consulting.headline)
+    expect(service?.description).toBe(ES_LEAD)
+    expect(graph.find((node) => node["@type"] === "WebPage")?.description).toBe(
+      ES_LEAD
+    )
+    expect(graph.find((node) => node["@type"] === "WebPage")?.inLanguage).toBe(
+      "es"
+    )
+
+    const english = JSON.parse(
+      buildServicePageJsonLd({
+        locale: "en",
+        path: CONSULTING_PAGE_PATH,
+        title: brandedTitle(en.consulting.metaTitle),
+        description: en.consulting.metaDescription,
+        serviceName: en.consulting.headline,
+        homeLabel: en.servicePages.homeLabel,
+      }).children
+    )["@graph"] as Array<{ "@type": string; description?: string }>
+    expect(
+      english.find((node) => node["@type"] === "Service")?.description
+    ).toBe(EN_LEAD)
+    expect(JSON.stringify(graph)).not.toMatch(
+      /centroam[eé]rica|central america|l[ií]der/i
     )
     expect(brandedTitle(es.consulting.metaTitle)).toBe(
       "Consultoría de IA en El Salvador | Ai Labs"

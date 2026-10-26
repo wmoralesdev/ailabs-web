@@ -125,6 +125,12 @@ describe("public SEO files", () => {
     expect(llms).toContain(
       "Ai Labs is a private company in San Salvador, El Salvador."
     )
+    expect(llms).toContain(
+      "Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador."
+    )
+    expect(llms).toContain(
+      "Ai Labs is an AI consulting company in San Salvador, El Salvador."
+    )
   })
 
   it("lets answer-engine crawlers fetch the public site", () => {
