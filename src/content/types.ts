@@ -148,6 +148,8 @@ export type CommunityContent = CampaignQrCopy & {
   joinHref: string
   /** Plain link to the events index. The body stays text for meta and FAQ. */
   eventsCta: NavItem
+  /** Plain link to the consulting page. The anchor is the search query. */
+  consultingCta: NavItem
   howItWorksLabel: string
   steps: ReadonlyArray<CommunityStep>
 }
@@ -211,6 +213,8 @@ export type CampusLeaderContent = CampaignQrCopy & {
   closedBody: string
   applyCta: string
   learnCta: string
+  /** Plain link to the consulting page. The anchor is the search query. */
+  consultingCta: NavItem
   media: CampusLeaderMedia
   landing: {
     what: CampusLeaderLandingSection
@@ -519,7 +523,7 @@ export type ConsultingPageContent = {
     HomeAboutBridgeItem,
     HomeAboutBridgeItem,
   ]
-  faqs: readonly [ConsultingFaq]
+  faqs: readonly [ConsultingFaq, ConsultingFaq]
   cta: string
 }
 
@@ -801,6 +805,8 @@ export type ApertureDirectoryContent = {
   body: string
   empty: string
   joinCta: string
+  /** Plain link to the consulting page. The anchor is the search query. */
+  consultingCta: NavItem
 }
 
 export type ApertureProfileContent = {
@@ -854,6 +860,8 @@ export type EventsIndexContent = {
   closeHeadline: string
   closeSupport: string
   communityCta: string
+  /** Visible label for the consulting page. The anchor is the search query. */
+  consultingLink: string
   upcomingEmpty: string
   monthEmpty: string
   calendarLabel: string

@@ -581,6 +581,11 @@ export const es: SiteContent = {
         answer:
           "Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador.",
       },
+      {
+        question: "¿Qué es la consultoría de IA en El Salvador?",
+        answer:
+          "Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador. Con equipos comerciales, de gestión y de operaciones revisamos el trabajo, elegimos una oportunidad y después preparamos al equipo (Academy) o implementamos el flujo (Agentic), con revisión humana y documentación. Podés venir directamente a aprender, sin una empresa ni una consultoría previa. Los talleres públicos que hemos publicado son presenciales en San Salvador. Ai Labs no publica tarifas de consultoría porque primero revisamos el proceso y acordamos qué conviene mejorar. Los talleres públicos sí muestran su costo en su propia página. Escribí a Ai Labs desde «Hablemos» y contanos qué querés mejorar o aprender. La empresa es opcional.",
+      },
     ],
     cta: "Hablemos",
   },
@@ -669,6 +674,10 @@ export const es: SiteContent = {
       label: "Eventos de Ai Labs en El Salvador",
       href: "/events",
     },
+    consultingCta: {
+      label: "Consultoría de IA en El Salvador",
+      href: "/consultoria-de-ia-el-salvador",
+    },
     howItWorksLabel: "Cómo funciona",
     steps: [
       { title: "Abre la invitación", body: "Toca Unirme en WhatsApp" },
@@ -699,6 +708,10 @@ export const es: SiteContent = {
     closedBody: "La próxima cohorte aparece aquí.",
     applyCta: "Aplicar",
     learnCta: "Cómo funciona",
+    consultingCta: {
+      label: "Consultoría de IA en El Salvador",
+      href: "/consultoria-de-ia-el-salvador",
+    },
     media: {
       whatSrc: homeCarousel.campusLeader[0],
       whatAlt:
@@ -1147,6 +1160,10 @@ export const es: SiteContent = {
       body: "Los miembros de Aperture son perfiles públicos de builders en la comunidad de Ai Labs. Cada perfil tiene un número permanente.",
       empty: "Todavía no hay perfiles públicos.",
       joinCta: "Reclamá tu número",
+      consultingCta: {
+        label: "Consultoría de IA en El Salvador",
+        href: "/consultoria-de-ia-el-salvador",
+      },
     },
     profile: {
       metaTitle: "Perfil de Aperture",
@@ -1185,6 +1202,7 @@ export const es: SiteContent = {
     closeHeadline: "San Salvador sigue juntándose",
     closeSupport: "Walter publica el calendario completo en Luma.",
     communityCta: "Unirme a la comunidad",
+    consultingLink: "Consultoría de IA en El Salvador",
     upcomingEmpty: "No hay un evento próximo.",
     monthEmpty: "No hay eventos de Ai Labs publicados en Luma en {month}.",
     calendarLabel: "Ver calendario",

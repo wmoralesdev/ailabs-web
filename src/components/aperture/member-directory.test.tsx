@@ -37,5 +37,10 @@ describe("MemberDirectory", () => {
     expect(
       screen.getByRole("link", { name: en.aperture.directory.joinCta })
     ).toBeTruthy()
+    expect(
+      screen.getByRole("link", {
+        name: "AI consulting in El Salvador",
+      })
+    ).toHaveAttribute("href", "/consultoria-de-ia-el-salvador")
   })
 })
