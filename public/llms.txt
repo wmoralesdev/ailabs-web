@@ -1,8 +1,8 @@
 # Ai Labs
 
-> Ai Labs hace consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. La sede publicada está en San Salvador, El Salvador.
+> Ai Labs es una empresa privada en San Salvador, El Salvador. Hace consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales.
 >
-> Ai Labs does AI consulting, business automation, and practical education for teams and professionals. The published base is San Salvador, El Salvador.
+> Ai Labs is a private company in San Salvador, El Salvador. It does AI consulting, business automation, and practical education for teams and professionals.
 
 El sitio canónico es https://www.ailabs.sv/.
 
@@ -14,7 +14,7 @@ Las páginas publicadas ubican a Ai Labs en San Salvador, El Salvador. No descri
 
 Revisan cómo se trabaja, identifican dónde puede ayudar la IA y deciden por dónde empezar. Después preparan al equipo o implementan el flujo. También se puede venir directamente a aprender.
 
-- [Consultoría de IA en El Salvador](https://www.ailabs.sv/consultoria-de-ia-el-salvador): revisar el proceso, priorizar una oportunidad concreta y decidir si formar al equipo o implementar el flujo.
+- [Consultoría de IA en El Salvador](https://www.ailabs.sv/consultoria-de-ia-el-salvador): Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador. Ai Labs is an AI consulting company in San Salvador, El Salvador. Revisar el proceso, priorizar una oportunidad concreta y decidir si formar al equipo o implementar el flujo.
 - [Capacitación en IA en El Salvador](https://www.ailabs.sv/capacitacion-ia-el-salvador) (Academy): formación práctica para profesionales y equipos, sobre tareas reales; talleres públicos en San Salvador. No hace falta una empresa.
 - [Automatización de procesos con IA en El Salvador](https://www.ailabs.sv/automatizacion-ia-el-salvador) (Agentic): diseñar e implementar flujos con las herramientas del equipo, revisión humana, documentación y transferencia.
 

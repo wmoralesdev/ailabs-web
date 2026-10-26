@@ -11,6 +11,8 @@ import {
 
 type ServiceOffer = {
   "@type": string
+  "@id"?: string
+  url?: string
   name: string
   description: string
 }
@@ -30,17 +32,23 @@ const services = [
     name: "Process consulting and prioritization",
     description:
       "Identify and prioritize a practical AI opportunity in an existing process.",
+    path: "/consultoria-de-ia-el-salvador",
   },
   {
     name: "Team enablement",
     description: "Prepare business teams to apply AI in their day-to-day work.",
+    path: "/capacitacion-ia-el-salvador",
   },
   {
     name: "Workflow design and implementation",
     description:
       "Design, integrate, document, and transfer an AI-enabled workflow.",
+    path: "/automatizacion-ia-el-salvador",
   },
 ] as const
+
+const PRIVATE_COMPANY =
+  "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, automation, and practical education."
 
 describe("buildHomeJsonLd", () => {
   it("publishes exactly three consultative services without Aperture", () => {
@@ -48,6 +56,7 @@ describe("buildHomeJsonLd", () => {
       locale: "en",
       title: "Ai Labs applied AI consulting",
       description: "Applied AI consulting for business teams.",
+      organizationDescription: PRIVATE_COMPANY,
       services,
     })
     const document = JSON.parse(script.children) as {
@@ -78,7 +87,17 @@ describe("buildHomeJsonLd", () => {
     ).toBe(true)
     expect(
       offeredServices.map(({ name, description }) => ({ name, description }))
-    ).toEqual(services)
+    ).toEqual(services.map(({ name, description }) => ({ name, description })))
+    expect(offeredServices.map((service) => service.url)).toEqual([
+      "https://www.ailabs.sv/consultoria-de-ia-el-salvador",
+      "https://www.ailabs.sv/capacitacion-ia-el-salvador",
+      "https://www.ailabs.sv/automatizacion-ia-el-salvador",
+    ])
+    expect(offeredServices.map((service) => service["@id"])).toEqual([
+      "https://www.ailabs.sv/consultoria-de-ia-el-salvador#service",
+      "https://www.ailabs.sv/capacitacion-ia-el-salvador#service",
+      "https://www.ailabs.sv/automatizacion-ia-el-salvador#service",
+    ])
     expect(JSON.stringify(offeredServices)).not.toMatch(/aperture/i)
 
     const serialized = JSON.stringify(document)
@@ -89,17 +108,38 @@ describe("buildHomeJsonLd", () => {
       (node) => node["@type"] === "Organization"
     ) as
       | {
+          description?: string
           sameAs?: string[]
           areaServed?: { name?: string }
           address?: { addressLocality?: string; addressCountry?: string }
         }
       | undefined
+    expect(organization?.description).toBe(PRIVATE_COMPANY)
+    const website = document["@graph"].find(
+      (node) => node["@type"] === "WebSite"
+    ) as { description?: string } | undefined
+    expect(website?.description).toBe(
+      "Applied AI consulting for business teams."
+    )
     expect(organization?.sameAs).toEqual([...ORGANIZATION_SAME_AS])
     expect(organization?.areaServed?.name).toBe("El Salvador")
     expect(organization?.address).toMatchObject({
       addressLocality: "San Salvador",
       addressCountry: "SV",
     })
+
+    const fallback = JSON.parse(
+      buildHomeJsonLd({
+        locale: "en",
+        title: "Ai Labs applied AI consulting",
+        description: "Applied AI consulting for business teams.",
+        services,
+      }).children
+    ) as { "@graph": Array<{ "@type": string; description?: string }> }
+    expect(
+      fallback["@graph"].find((node) => node["@type"] === "Organization")
+        ?.description
+    ).toBe("Applied AI consulting for business teams.")
   })
 })
 

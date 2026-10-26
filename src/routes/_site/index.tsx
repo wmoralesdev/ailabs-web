@@ -7,6 +7,7 @@ import { HomeMethod } from "@/components/home/home-method"
 import { HomeServices } from "@/components/home/home-services"
 import { HomeTrust } from "@/components/home/home-trust"
 import { buildFaqJsonLd, buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
+import { CONSULTING_PAGE_PATH, SERVICE_PAGE_PATHS } from "@/lib/service-pages"
 
 export const Route = createFileRoute("/_site/")({
   loader: ({ context }) => context,
@@ -30,18 +31,22 @@ export const Route = createFileRoute("/_site/")({
           locale,
           title: meta.title,
           description: meta.description,
+          organizationDescription: home.hero.directAnswer,
           services: [
             {
               name: home.services.offerName,
               description: home.services.body,
+              path: CONSULTING_PAGE_PATH,
             },
             {
               name: home.services.items[0].offerName,
               description: home.services.items[0].body,
+              path: SERVICE_PAGE_PATHS.training,
             },
             {
               name: home.services.items[1].offerName,
               description: home.services.items[1].body,
+              path: SERVICE_PAGE_PATHS.automation,
             },
           ],
         }),

@@ -529,10 +529,10 @@ export const en: SiteContent = {
   consulting: {
     metaTitle: "AI consulting in El Salvador",
     metaDescription:
-      "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, process automation, and practical training for professional teams.",
+      "Ai Labs is an AI consulting company in San Salvador, El Salvador.",
     label: "San Salvador, El Salvador",
     headline: "AI consulting in El Salvador",
-    lead: "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, process automation, and practical training for professional teams.",
+    lead: "Ai Labs is an AI consulting company in San Salvador, El Salvador.",
     servicesTitle: "Services",
     services: [
       {
@@ -572,7 +572,7 @@ export const en: SiteContent = {
       {
         question: "Is there an AI agency in El Salvador?",
         answer:
-          "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, process automation, and practical training for professional teams.",
+          "Ai Labs is an AI consulting company in San Salvador, El Salvador.",
       },
     ],
     cta: "Let’s talk",

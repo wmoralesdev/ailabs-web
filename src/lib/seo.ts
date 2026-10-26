@@ -301,12 +301,19 @@ export function buildServicePageJsonLd(input: {
 type JsonLdService = {
   name: string
   description: string
+  /** Public service page on this site, when one exists. */
+  path?: string
 }
 
 export function buildHomeJsonLd(input: {
   locale: Locale
   title: string
   description: string
+  /**
+   * Visible company sentence. Falls back to `description` when omitted.
+   * The home meta description stays the shorter line.
+   */
+  organizationDescription?: string
   services: readonly [JsonLdService, JsonLdService, JsonLdService]
 }): HeadScript {
   const url = absoluteUrl()
@@ -321,7 +328,7 @@ export function buildHomeJsonLd(input: {
         "@type": "ImageObject",
         url: `${SITE_URL}/brand/ailabs-ico.svg`,
       },
-      description: input.description,
+      description: input.organizationDescription ?? input.description,
       sameAs: [...ORGANIZATION_SAME_AS],
       areaServed: {
         "@type": "Country",
@@ -364,20 +371,26 @@ export function buildHomeJsonLd(input: {
       "@type": "OfferCatalog",
       "@id": `${url}#offer-catalog`,
       name: "Ai Labs services",
-      itemListElement: input.services.map((service, index) => ({
-        "@type": "Offer",
-        position: index + 1,
-        itemOffered: {
-          "@type": "Service",
-          name: service.name,
-          description: service.description,
-          provider: { "@id": organizationId },
-          areaServed: {
-            "@type": "Country",
-            name: "El Salvador",
+      itemListElement: input.services.map((service, index) => {
+        const serviceUrl = service.path ? absoluteUrl(service.path) : undefined
+        return {
+          "@type": "Offer",
+          position: index + 1,
+          itemOffered: {
+            "@type": "Service",
+            ...(serviceUrl
+              ? { "@id": `${serviceUrl}#service`, url: serviceUrl }
+              : {}),
+            name: service.name,
+            description: service.description,
+            provider: { "@id": organizationId },
+            areaServed: {
+              "@type": "Country",
+              name: "El Salvador",
+            },
           },
-        },
-      })),
+        }
+      }),
     },
   ]
 
