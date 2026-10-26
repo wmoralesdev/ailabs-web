@@ -56,6 +56,40 @@ describe("public home content", () => {
     }
   })
 
+  it("places El Salvador next to AI in the home title and headline", () => {
+    expect(es.meta.title).toBe(
+      "Ai Labs | Consultoría en IA en El Salvador, automatización y formación práctica"
+    )
+    expect(es.home.hero.headline).toBe(
+      "Consultoría en IA en El Salvador, automatización de procesos y formación práctica."
+    )
+    expect(en.meta.title).toBe(
+      "Ai Labs | AI consulting in El Salvador, automation and practical education"
+    )
+    expect(en.home.hero.headline).toBe(
+      "AI consulting in El Salvador, business automation and practical education."
+    )
+  })
+
+  it("keeps the ambassador sentence and names Cursor, Codex, and El Salvador", () => {
+    expect(es.home.trust.label).toBe(
+      "Somos parte de programas de embajadores de Cursor y Codex en El Salvador"
+    )
+    expect(en.home.trust.label).toBe(
+      "Part of ambassador programs for Cursor and Codex in El Salvador"
+    )
+    expect(es.home.trust.logos.map(({ id, name }) => [id, name])).toEqual([
+      ["spacexai", "SpaceXAI"],
+      ["codex", "Codex"],
+      ["openai", "OpenAI"],
+      ["claude", "Claude"],
+      ["mistral", "Mistral"],
+      ["elevenlabs", "ElevenLabs"],
+      ["notion", "Notion"],
+    ])
+    expect(en.home.trust.logos).toEqual(es.home.trust.logos)
+  })
+
   for (const content of [en, es]) {
     it(`does not publish consulting prices in ${content.locale} home copy`, () => {
       expect(

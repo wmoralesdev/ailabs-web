@@ -6,7 +6,8 @@ import { servicePagesEs } from "./service-pages-es"
 export const es: SiteContent = {
   locale: "es",
   meta: {
-    title: "Ai Labs | Consultoría en IA, automatización y formación práctica",
+    title:
+      "Ai Labs | Consultoría en IA en El Salvador, automatización y formación práctica",
     description:
       "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador.",
   },
@@ -151,7 +152,7 @@ export const es: SiteContent = {
     hero: {
       label: "AI LABS · EL SALVADOR",
       headline:
-        "Consultoría en IA, automatización de procesos y formación práctica.",
+        "Consultoría en IA en El Salvador, automatización de procesos y formación práctica.",
       directAnswer:
         "Ai Labs es una empresa privada en San Salvador, El Salvador: consultoría en IA, automatización y formación práctica.",
       agencyQuestion:
@@ -293,7 +294,8 @@ export const es: SiteContent = {
       ],
     },
     trust: {
-      label: "Somos parte de programas de embajadores",
+      label:
+        "Somos parte de programas de embajadores de Cursor y Codex en El Salvador",
       pause: "Pausar logos",
       resume: "Reanudar logos",
       logos: [

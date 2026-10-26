@@ -165,6 +165,24 @@ describe("existing page answers", () => {
     }
     expect(es.home.hero.body).toMatch(/San Salvador/)
     expect(en.home.hero.body).toMatch(/San Salvador/)
+    expect(es.meta.title).toBe(
+      "Ai Labs | Consultoría en IA en El Salvador, automatización y formación práctica"
+    )
+    expect(en.meta.title).toBe(
+      "Ai Labs | AI consulting in El Salvador, automation and practical education"
+    )
+    expect(es.home.hero.headline).toBe(
+      "Consultoría en IA en El Salvador, automatización de procesos y formación práctica."
+    )
+    expect(en.home.hero.headline).toBe(
+      "AI consulting in El Salvador, business automation and practical education."
+    )
+    expect(es.home.trust.label).toBe(
+      "Somos parte de programas de embajadores de Cursor y Codex en El Salvador"
+    )
+    expect(en.home.trust.label).toBe(
+      "Part of ambassador programs for Cursor and Codex in El Salvador"
+    )
     expect(es.home.hero.directAnswer).toBe(
       "Ai Labs es una empresa privada en San Salvador, El Salvador: consultoría en IA, automatización y formación práctica."
     )
