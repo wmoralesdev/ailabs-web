@@ -24,6 +24,7 @@ import type {
   Locale,
   SiteContent,
 } from "@/content/types"
+import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
 import { cn } from "@/lib/utils"
 
 import "./events-index.css"
@@ -453,6 +454,10 @@ function EventsIndex({ locale, content, now }: EventsIndexProps) {
           href: walterEventsCalendarUrl,
           external: true,
           newTabLabel: copy.newTabLabel,
+        }}
+        textLink={{
+          label: copy.consultingLink,
+          href: CONSULTING_PAGE_PATH,
         }}
       />
 

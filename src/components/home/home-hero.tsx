@@ -3,16 +3,17 @@ import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
-import { TextSpiral } from "@/components/lab/text-spiral"
 import { SiteLogo } from "@/components/chrome/site-logo"
 import { useContact } from "@/components/contact/contact-provider"
+import { HomeCtaLink } from "@/components/home/home-cta-link"
+import { TextSpiral } from "@/components/lab/text-spiral"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
   homeDisplayClassName,
   homePillClassName,
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
-import type { HomeHeroContent, Locale, SiteContent } from "@/content"
+import type { HomeHeroContent, Locale, NavItem, SiteContent } from "@/content"
 import { cn } from "@/lib/utils"
 import { useHomeEntrance } from "@/lib/home-motion"
 
@@ -38,6 +39,8 @@ type HomeHeroProps = {
   hero?: HomeHeroContent
   /** When set, the primary control is this link instead of the contact dialog. */
   primaryAction?: HomeHeroLinkAction
+  /** Quiet text link under the hero actions. Omit on the home. */
+  textLink?: NavItem
 }
 
 const DESKTOP_QUERY = "(min-width: 1024px)"
@@ -79,6 +82,7 @@ function HomeHero({
   desktopSpiralOnly = false,
   hero = content.home.hero,
   primaryAction,
+  textLink,
 }: HomeHeroProps) {
   const root = useRef<HTMLElement>(null)
   const desktop = useSyncExternalStore(
@@ -98,9 +102,11 @@ function HomeHero({
     >
       <HomeHeroCopy
         hero={hero}
+        locale={locale}
         samePageCtas={samePageCtas}
         compactMobile={desktopSpiralOnly}
         primaryAction={primaryAction}
+        textLink={textLink}
       />
       <div
         data-home-spiral
@@ -162,14 +168,18 @@ function HomeHeroPrimaryLink({ action }: { action: HomeHeroLinkAction }) {
 
 function HomeHeroCopy({
   hero,
+  locale,
   samePageCtas,
   compactMobile,
   primaryAction,
+  textLink,
 }: {
   hero: HomeHeroContent
+  locale: Locale
   samePageCtas: boolean
   compactMobile: boolean
   primaryAction?: HomeHeroLinkAction
+  textLink?: NavItem
 }) {
   return (
     <div
@@ -265,6 +275,9 @@ function HomeHeroCopy({
               )}
             </a>
           </div>
+          {textLink ? (
+            <HomeCtaLink cta={textLink} locale={locale} variant="quiet" />
+          ) : null}
         </div>
       </div>
     </div>

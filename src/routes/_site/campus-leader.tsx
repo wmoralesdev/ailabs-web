@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowDown01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
-import { createFileRoute } from "@tanstack/react-router"
+import { Link, createFileRoute } from "@tanstack/react-router"
 
 import { CampusLeaderForm } from "@/components/campus-leader/campus-leader-form"
 import { CampusLeaderLanding } from "@/components/campus-leader/campus-leader-landing"
@@ -14,6 +14,7 @@ import { Button, buttonVariants } from "@/components/ui/button"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import type { CampusLeaderContent } from "@/content/types"
 import { buildFaqJsonLd, buildPageMeta, SITE_NAME } from "@/lib/seo"
+import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
 import { cn } from "@/lib/utils"
 
 export const Route = createFileRoute("/_site/campus-leader")({
@@ -103,6 +104,12 @@ function CampusLeaderPage() {
           <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
             {content.body}
           </p>
+          <Link
+            to={CONSULTING_PAGE_PATH}
+            className="w-fit text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+          >
+            {content.consultingCta.label}
+          </Link>
           <p className="font-mono text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
             {content.cohortLabel} {content.cohortDisplay}
           </p>

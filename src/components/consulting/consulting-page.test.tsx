@@ -33,6 +33,15 @@ describe("ConsultingPage", () => {
         name: es.consulting.faqs[0]?.question,
       })
     ).toBeInTheDocument()
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: "¿Qué es la consultoría de IA en El Salvador?",
+      })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/equipos comerciales, de gestión y de operaciones/i)
+    ).toBeInTheDocument()
     expect(screen.getAllByText(es.consulting.lead)).toHaveLength(2)
     expect(
       screen.getByRole("button", { name: es.consulting.cta })
@@ -52,6 +61,12 @@ describe("ConsultingPage", () => {
         "Ai Labs is an AI consulting company in San Salvador, El Salvador."
       )
     ).toHaveLength(2)
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: "What is AI consulting in El Salvador?",
+      })
+    ).toBeInTheDocument()
     expect(screen.getAllByText(en.consulting.lead)).toHaveLength(2)
     await user.click(screen.getByRole("button", { name: en.consulting.cta }))
     expect(onTalk).toHaveBeenCalledOnce()

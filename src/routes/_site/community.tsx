@@ -10,6 +10,7 @@ import {
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { buildFaqJsonLd, buildPageMeta, SITE_NAME } from "@/lib/seo"
+import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
 import { cn } from "@/lib/utils"
 
 export const Route = createFileRoute("/_site/community")({
@@ -95,6 +96,12 @@ function CommunityPage() {
             className="w-fit text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
           >
             {content.eventsCta.label}
+          </Link>
+          <Link
+            to={CONSULTING_PAGE_PATH}
+            className="w-fit text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+          >
+            {content.consultingCta.label}
           </Link>
           <div className="flex flex-col gap-2 pt-1">
             <a

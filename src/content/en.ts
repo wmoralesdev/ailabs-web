@@ -576,6 +576,11 @@ export const en: SiteContent = {
         answer:
           "Ai Labs is an AI consulting company in San Salvador, El Salvador.",
       },
+      {
+        question: "What is AI consulting in El Salvador?",
+        answer:
+          "Ai Labs is an AI consulting company in San Salvador, El Salvador. With commercial, management, and operations teams, we review the work, choose one opportunity, and then prepare the team (Academy) or implement the workflow (Agentic), with human review and documentation. You can come directly to learn, with no company or prior consulting required. The public workshops we have published are in person in San Salvador. Ai Labs does not publish consulting prices because we first review the process and agree on what is worth improving. Public workshops do list their price on their own page. Write to Ai Labs from “Let’s talk” and tell us what you want to improve or learn. A company is optional.",
+      },
     ],
     cta: "Let’s talk",
   },
@@ -665,6 +670,10 @@ export const en: SiteContent = {
       label: "Ai Labs events in El Salvador",
       href: "/events",
     },
+    consultingCta: {
+      label: "AI consulting in El Salvador",
+      href: "/consultoria-de-ia-el-salvador",
+    },
     howItWorksLabel: "How it works",
     steps: [
       { title: "Open the invite", body: "Tap Join on WhatsApp" },
@@ -692,6 +701,10 @@ export const en: SiteContent = {
     closedBody: "The next cohort will show up here.",
     applyCta: "Apply",
     learnCta: "How it works",
+    consultingCta: {
+      label: "AI consulting in El Salvador",
+      href: "/consultoria-de-ia-el-salvador",
+    },
     media: {
       whatSrc: homeCarousel.campusLeader[0],
       whatAlt:
@@ -1136,6 +1149,10 @@ export const en: SiteContent = {
       body: "Aperture members are public builder profiles from the Ai Labs community. Each profile has a permanent number.",
       empty: "No public profiles yet.",
       joinCta: "Claim your number",
+      consultingCta: {
+        label: "AI consulting in El Salvador",
+        href: "/consultoria-de-ia-el-salvador",
+      },
     },
     profile: {
       metaTitle: "Aperture profile",
@@ -1174,6 +1191,7 @@ export const en: SiteContent = {
     closeHeadline: "San Salvador keeps gathering",
     closeSupport: "Walter publishes the full calendar on Luma.",
     communityCta: "Join the community",
+    consultingLink: "AI consulting in El Salvador",
     upcomingEmpty: "There is no upcoming event.",
     monthEmpty: "There are no Ai Labs events published on Luma in {month}.",
     calendarLabel: "View calendar",

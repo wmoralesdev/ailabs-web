@@ -7,6 +7,7 @@ import type {
   Locale,
 } from "@/content/types"
 import { countryName } from "@/lib/aperture/countries"
+import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
 import { formatMemberNumber } from "@/lib/aperture/member-number"
 import { cn } from "@/lib/utils"
 import type { DirectoryMember } from "@/server/aperture/public"
@@ -31,6 +32,12 @@ export function MemberDirectory({
         <p className="text-lg leading-relaxed text-muted-foreground">
           {content.body}
         </p>
+        <Link
+          to={CONSULTING_PAGE_PATH}
+          className="w-fit text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+        >
+          {content.consultingCta.label}
+        </Link>
         <Link to="/aperture/join" className={cn(homePillClassName, "w-fit")}>
           {content.joinCta}
         </Link>
