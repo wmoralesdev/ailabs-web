@@ -189,6 +189,8 @@ export type CampusLeaderMedia = {
   whatAlt: string
   benefitsSrcs: ReadonlyArray<string>
   benefitsAlt: string
+  /** Visible credit for the campus photographs. */
+  credit: string
 }
 
 export type CampusLeaderContent = CampaignQrCopy & {
@@ -319,6 +321,8 @@ export type HomeAboutContent = {
   ]
   mediaSrcs: ReadonlyArray<string>
   mediaAlt: string
+  /** Visible credit under the about photographs. */
+  mediaCredit: string
   toastTitle: string
   toastMeta: string
 }
@@ -350,6 +354,8 @@ export type HomeAcademyPillarContent = HomePillarShared & {
   id: "academy"
   mediaSrcs: ReadonlyArray<string>
   mediaAlt: string
+  /** Visible credit under the workshop photographs. */
+  mediaCredit: string
 }
 
 /** Agentic — process flow diagram (no photo carousel). */

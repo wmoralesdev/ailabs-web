@@ -89,19 +89,19 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
             </ul>
           </div>
 
-          <figure
-            className={cn(
-              revealClassName,
-              "motion-safe:delay-100 overflow-hidden rounded-[2rem]"
-            )}
-          >
-            <img
-              src={media.whatSrc}
-              alt={media.whatAlt}
-              className="aspect-video w-full object-cover"
-              loading="lazy"
-              decoding="async"
-            />
+          <figure className={cn(revealClassName, "motion-safe:delay-100")}>
+            <div className="overflow-hidden rounded-[2rem]">
+              <img
+                src={media.whatSrc}
+                alt={media.whatAlt}
+                className="aspect-video w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <figcaption className="text-muted-foreground mt-3 text-sm">
+              {media.credit}
+            </figcaption>
           </figure>
         </div>
       </section>
@@ -232,14 +232,19 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
           <figure
             className={cn(
               revealClassName,
-              "motion-safe:delay-100 relative aspect-video overflow-hidden rounded-[2rem] lg:sticky lg:top-28"
+              "motion-safe:delay-100 lg:sticky lg:top-28"
             )}
           >
-            <HomeMediaCarousel
-              images={media.benefitsSrcs}
-              alt={media.benefitsAlt}
-              intervalMs={5200}
-            />
+            <div className="relative aspect-video overflow-hidden rounded-[2rem]">
+              <HomeMediaCarousel
+                images={media.benefitsSrcs}
+                alt={media.benefitsAlt}
+                intervalMs={5200}
+              />
+            </div>
+            <figcaption className="text-muted-foreground mt-3 text-sm">
+              {media.credit}
+            </figcaption>
           </figure>
         </div>
       </section>

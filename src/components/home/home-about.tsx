@@ -80,6 +80,7 @@ function HomeAbout({ about }: HomeAboutProps) {
             intervalMs={5200}
           />
         </div>
+        <p className="text-muted-foreground mt-3 text-sm">{about.mediaCredit}</p>
       </div>
     </section>
   )
