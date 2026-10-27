@@ -37,7 +37,7 @@ type SiteHeaderProps = {
 const navLinkClassName =
   "link-underline inline-flex min-h-11 shrink-0 items-center gap-1.5 whitespace-nowrap text-small font-semibold text-foreground"
 const utilityControlClassName =
-  "min-h-11 min-w-11 rounded-none text-foreground hover:bg-surface hover:text-foreground"
+  "min-h-11 min-w-11 rounded-full text-foreground hover:bg-surface hover:text-foreground"
 const menuItemClassName = "min-h-11 cursor-pointer px-3 text-sm"
 
 function SiteHeader({

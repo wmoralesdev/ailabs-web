@@ -1,4 +1,4 @@
-import { HalftonePhoto } from "@/components/halftone/halftone-photo"
+import { HalftoneLens } from "@/components/halftone/halftone-lens"
 import { RedeemQrModal } from "@/components/redeem/redeem-qr-modal"
 import type { CampaignQrCopy, Locale } from "@/content/types"
 import { EVENT_PHOTOS } from "@/content/event-photos"
@@ -18,8 +18,8 @@ type CampaignHeroProps = {
 
 /**
  * Shared split hero for the campaign routes (community, campus leader,
- * redeem): copy on paper at the left, a real event photo printed in graphite
- * on the purple field at the right. The photo develops on hover.
+ * redeem): copy on paper at the left, a real event photo at the right with
+ * the halftone lens under the pointer.
  */
 function CampaignHero({
   photo,
@@ -50,22 +50,23 @@ function CampaignHero({
         {footer}
       </div>
 
-      <div className="relative aspect-[4/3] w-full lg:col-span-5 lg:aspect-auto">
-        <HalftonePhoto
-          name={photo.name}
-          alt={photo.alt}
-          width={size.width}
-          height={size.height}
-          sizes="(min-width: 1024px) 42vw, 100vw"
-          tone="bg-purple text-on-purple"
-          priority
-          fill
-        />
-        {qrContent ? (
-          <div className="absolute top-3 right-3 z-10 bg-background sm:top-4 sm:right-4">
-            <RedeemQrModal content={qrContent} onDark={false} />
-          </div>
-        ) : null}
+      <div className="page-gutter pb-[var(--space-gutter)] lg:col-span-5 lg:py-[var(--space-gutter)] lg:pl-0">
+        <div className="relative aspect-[4/3] h-full w-full lg:aspect-auto">
+          <HalftoneLens
+            src={`/carousel/${photo.name}`}
+            alt={photo.alt}
+            width={size.width}
+            height={size.height}
+            sizes="(min-width: 1024px) 42vw, 100vw"
+            priority
+            className="absolute inset-0 size-full rounded-3xl"
+          />
+          {qrContent ? (
+            <div className="absolute top-3 right-3 z-10 rounded-full bg-background sm:top-4 sm:right-4">
+              <RedeemQrModal content={qrContent} onDark={false} />
+            </div>
+          ) : null}
+        </div>
       </div>
     </section>
   )

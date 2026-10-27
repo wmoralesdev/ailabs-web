@@ -297,8 +297,6 @@ export type HomeStat = {
 }
 
 export type HomeHeroContent = {
-  /** Event photo printed as halftone across the waterline. */
-  photo: EventPhoto
   label: string
   headline: string
   body: string
@@ -436,8 +434,8 @@ export type HomeServiceItem = {
   interest: ContactInterestId
   /** Text link to the matching service page. */
   learnMore: string
-  /** Event photo printed as halftone beside the service. */
-  photo: EventPhoto
+  /** Two real event photos for the service's cells in the bento. */
+  photos: readonly [EventPhoto, EventPhoto]
 }
 
 export type HomeServicesContent = {
@@ -624,8 +622,6 @@ export type EventsIndexPhoto = {
 }
 
 export type EventsIndexContent = {
-  /** Event photo printed across the hero waterline. */
-  heroPhoto: EventPhoto
   metaTitle: string
   metaDescription: string
   /** First crumb in the events JSON-LD breadcrumb. Not rendered on the page. */

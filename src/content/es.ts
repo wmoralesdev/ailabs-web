@@ -170,10 +170,6 @@ export const es: SiteContent = {
       ],
       mediaSrcs: homeCarousel.hero,
       mediaAlt: "Sesión de comunidad de Ai Labs",
-      photo: {
-        name: "20.webp",
-        alt: "Un facilitador de Ai Labs habla al grupo con un micrófono durante una sesión.",
-      },
     },
     services: {
       label: "Nuestros servicios",
@@ -195,10 +191,16 @@ export const es: SiteContent = {
           cta: "Quiero aprender",
           interest: "enablement",
           learnMore: "Más sobre capacitación en IA",
-          photo: {
-            name: "23.webp",
-            alt: "Dos participantes trabajan en sus laptops durante un taller de Ai Labs.",
-          },
+          photos: [
+            {
+              name: "23.webp",
+              alt: "Dos participantes trabajan en sus laptops durante un taller de Ai Labs.",
+            },
+            {
+              name: "3.webp",
+              alt: "Participantes siguen una sesión práctica de Ai Labs en un auditorio.",
+            },
+          ],
         },
         {
           id: "agentic",
@@ -214,10 +216,16 @@ export const es: SiteContent = {
           cta: "Quiero mejorar un proceso",
           interest: "implementation",
           learnMore: "Más sobre automatización con IA",
-          photo: {
-            name: "24.webp",
-            alt: "Un participante programa frente a un monitor en una sesión de Ai Labs.",
-          },
+          photos: [
+            {
+              name: "24.webp",
+              alt: "Un participante programa frente a un monitor en una sesión de Ai Labs.",
+            },
+            {
+              name: "21.webp",
+              alt: "Dos participantes revisan código en sus laptops durante una sesión de Ai Labs.",
+            },
+          ],
         },
       ],
       pageLink: {
@@ -891,10 +899,6 @@ export const es: SiteContent = {
     lumaLabel: "Ver en Luma",
     newTabLabel: "Se abre en una pestaña nueva.",
     photosLabel: "Fotografías de Ai Labs",
-    heroPhoto: {
-      name: "4.webp",
-      alt: "Foto grupal de participantes en un evento de Ai Labs.",
-    },
     photosCaption:
       "Crédito: Ai Labs. Estas fotografías son de eventos de Ai Labs en San Salvador.",
     cityLine: "en San Salvador",

@@ -17,7 +17,6 @@
     "seed": "ailabs-cli credits",
     "compress:webp": "ailabs-cli images compress",
     "images:list": "ailabs-cli images list",
-    "halftone": "node scripts/halftone.mjs",
     "halftone:logos": "node scripts/logo-dots.mjs",
     "postinstall": "prisma generate",
     "db:generate": "prisma generate",

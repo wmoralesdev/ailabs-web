@@ -6,23 +6,22 @@ import type { LogoName } from "@/lib/logo-dots"
 type HomeTrustProps = { trust: HomeTrustContent }
 
 /**
- * The ambassador programs, printed as halftone marks on the purple field the
- * hero's water rises into. A static list: nothing moves until the pointer
- * passes over a mark.
+ * The ambassador programs, printed as halftone marks in a quiet row under
+ * the hero. Nothing moves until the pointer passes over a mark.
  */
 function HomeTrust({ trust }: HomeTrustProps) {
   return (
     <section
       id="trust"
       aria-labelledby="home-trust-title"
-      className="bg-purple py-12 text-on-purple md:py-16"
+      className="border-y border-border bg-background py-10 md:py-12"
     >
       <div
         className={`${homeShellClassName} grid gap-8 lg:grid-cols-12 lg:items-center`}
       >
         <h2
           id="home-trust-title"
-          className="max-w-[18ch] text-lead leading-snug font-semibold lg:col-span-3"
+          className="max-w-[22ch] text-body leading-snug font-semibold text-muted-foreground lg:col-span-3"
         >
           {trust.label}
         </h2>
@@ -31,13 +30,15 @@ function HomeTrust({ trust }: HomeTrustProps) {
             <li
               key={logo.id}
               data-icon-hover
-              className="flex flex-col items-start gap-2.5"
+              className="group flex flex-col items-start gap-2.5"
             >
               <HalftoneLogo
                 name={logo.id satisfies LogoName}
-                className="size-12 md:size-14"
+                className="size-11 text-foreground transition-colors duration-300 group-hover:text-purple-ink md:size-12"
               />
-              <span className="text-small font-semibold">{logo.name}</span>
+              <span className="text-small font-medium text-muted-foreground">
+                {logo.name}
+              </span>
             </li>
           ))}
         </ul>

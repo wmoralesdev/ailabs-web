@@ -18,7 +18,7 @@ function HomeMethod({ method }: HomeMethodProps) {
       as="section"
       id="method"
       aria-labelledby="home-method-title"
-      className="section-y relative bg-surface"
+      className="section-y relative bg-background"
     >
       <span id="about" aria-hidden className="absolute top-0" />
       <div className={homeShellClassName}>

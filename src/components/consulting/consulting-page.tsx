@@ -4,7 +4,7 @@ import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import type { ConsultingPageContent } from "@/content"
 import { EVENT_PHOTOS } from "@/content/event-photos"
 import { HalftoneIcon } from "@/components/halftone/halftone-icon"
-import { HalftonePhoto } from "@/components/halftone/halftone-photo"
+import { HalftoneLens } from "@/components/halftone/halftone-lens"
 import { Reveal } from "@/components/halftone/reveal"
 import {
   homeHeadingClassName,
@@ -41,14 +41,15 @@ function ConsultingPage({ content, onTalk }: ConsultingPageProps) {
           </button>
         </div>
         <div className="lg:col-span-5">
-          <HalftonePhoto
-            name={content.photo.name}
+          <HalftoneLens
+            src={`/carousel/${content.photo.name}`}
             alt={content.photo.alt}
             width={photo.width}
             height={photo.height}
             sizes="(min-width: 1024px) 40vw, 100vw"
-            tone="bg-purple text-on-purple"
             priority
+            className="rounded-3xl"
+            style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
           />
         </div>
       </header>

@@ -3,11 +3,11 @@
  * utilities repeat `.btn` so they also win over `<Button>`'s size classes.
  */
 const homePillClassName =
-  "btn h-auto min-h-11 gap-2 px-[1.125rem] py-2.5 text-small font-semibold"
+  "btn h-auto min-h-11 gap-2 rounded-full px-5 py-2.5 text-small font-semibold"
 
 /** Flat bordered panel. Prefer spacing and hairlines over cards. */
 const homeCardClassName =
-  "overflow-hidden border border-border bg-card text-card-foreground"
+  "overflow-hidden rounded-2xl border border-border bg-card text-card-foreground"
 
 /** Content column shared by sections. */
 const homeShellClassName = "page-gutter mx-auto w-full max-w-content"
@@ -24,7 +24,8 @@ const homePaperSheetClassName = "relative bg-background text-foreground"
 const homeBandPaddingClassName = "section-y"
 
 /** Section heading: Alan Sans display at the shared head size. */
-const homeHeadingClassName = "display text-head"
+const homeHeadingClassName =
+  "display text-[clamp(2.25rem,1.6rem+2.4vw,3.75rem)]"
 
 const homeDisplayClassName =
   "display text-foreground text-4xl sm:text-5xl md:text-6xl"

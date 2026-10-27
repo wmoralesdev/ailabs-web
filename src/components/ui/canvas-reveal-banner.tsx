@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 
-import { HalftoneField } from "@/components/halftone/halftone-field"
+import { HalftoneCanvas } from "@/components/halftone/halftone-canvas"
 import {
   homeBandPaddingClassName,
   homeShellClassName,
@@ -25,7 +25,8 @@ type CanvasRevealBannerProps = {
 }
 
 /**
- * Full-bleed, theme-invariant night CTA band with a moving halftone field.
+ * Full-bleed, theme-invariant night CTA band: a quiet dot screen that purple
+ * ink follows under the pointer.
  * Dialogs and forms should live outside this tree so they keep normal page
  * theme tokens.
  */
@@ -40,16 +41,17 @@ function CanvasRevealBanner({
   return (
     <section
       id={id}
+      data-halftone-surface
       className={cn(
-        "surface-night relative isolate overflow-clip text-on-dark",
+        "surface-night relative isolate overflow-clip text-on-dark [--ht-accent:var(--color-purple)] [--ht-faint:color-mix(in_srgb,var(--color-snow)_11%,transparent)] [--ht-ink:var(--color-purple)]",
         homeBandPaddingClassName,
         className
       )}
     >
-      <HalftoneField
-        seed={1.2}
-        fade="up"
-        className="absolute inset-0 -z-10 text-purple-deep opacity-70"
+      <HalftoneCanvas
+        cell={12}
+        rest={0.08}
+        className="absolute inset-0 -z-10"
       />
 
       <div

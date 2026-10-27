@@ -6,7 +6,7 @@ import type { ServicePagesContent } from "@/content"
 import { EVENT_PHOTOS } from "@/content/event-photos"
 import { useContact } from "@/components/contact/contact-provider"
 import { HalftoneIcon } from "@/components/halftone/halftone-icon"
-import { HalftonePhoto } from "@/components/halftone/halftone-photo"
+import { HalftoneLens } from "@/components/halftone/halftone-lens"
 import { Reveal } from "@/components/halftone/reveal"
 import { homeShellClassName } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
@@ -76,14 +76,15 @@ function ServicePage({ id, pages }: ServicePageProps) {
             </button>
           </div>
           <div className="lg:col-span-5">
-            <HalftonePhoto
-              name={page.photo.name}
+            <HalftoneLens
+              src={`/carousel/${page.photo.name}`}
               alt={page.photo.alt}
               width={photo.width}
               height={photo.height}
               sizes="(min-width: 1024px) 40vw, 100vw"
-              tone="bg-purple text-on-purple"
               priority
+              className="rounded-3xl"
+              style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
             />
           </div>
         </header>
@@ -91,9 +92,9 @@ function ServicePage({ id, pages }: ServicePageProps) {
 
       <section
         aria-labelledby="service-definition"
-        className="bg-purple py-16 text-on-purple md:py-24"
+        className={homeShellClassName}
       >
-        <div className={`${homeShellClassName} grid gap-6 lg:grid-cols-12`}>
+        <div className="grid gap-6 rounded-3xl bg-purple p-6 text-on-purple sm:p-10 lg:grid-cols-12 lg:p-14">
           <h2
             id="service-definition"
             className="text-lead leading-snug font-semibold lg:col-span-4"

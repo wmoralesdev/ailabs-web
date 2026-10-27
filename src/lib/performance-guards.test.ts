@@ -39,7 +39,7 @@ describe("performance guards", () => {
       "src/components/ui/canvas-reveal-banner.tsx",
       "utf8"
     )
-    expect(banner).toContain("<HalftoneField")
+    expect(banner).toContain("<HalftoneCanvas")
     const pkg = JSON.parse(readFileSync("package.json", "utf8")) as {
       dependencies: Record<string, string>
     }
@@ -109,9 +109,9 @@ describe("performance guards", () => {
     expect(trust).not.toContain("<img")
   })
 
-  it("lazy-loads halftone photos below the hero", () => {
+  it("lazy-loads event photos below the hero", () => {
     const photo = readFileSync(
-      "src/components/halftone/halftone-photo.tsx",
+      "src/components/halftone/halftone-lens.tsx",
       "utf8"
     )
     expect(photo).toContain('loading={priority ? "eager" : "lazy"}')
