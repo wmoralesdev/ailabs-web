@@ -73,7 +73,9 @@ describe("events index page", () => {
     expect(screen.queryByText(es.events.closeHeadline)).not.toBeInTheDocument()
 
     expect(screen.getAllByRole("img")).toHaveLength(es.events.photos.length + 1)
-    expect(screen.getByRole("img", { name: "Ai Labs" })).toBeInTheDocument()
+    expect(
+      screen.getByRole("img", { name: es.events.heroPhoto.alt })
+    ).toBeInTheDocument()
     expect(screen.getByText(es.events.photosCaption)).toBeInTheDocument()
     for (const photo of es.events.photos) {
       expect(screen.getByRole("img", { name: photo.alt })).toHaveAttribute(

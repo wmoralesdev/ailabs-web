@@ -56,11 +56,7 @@ describe("performance guards", () => {
     ]) {
       expect(needsClerkMiddleware(path, "router"), path).toBe(false)
     }
-    for (const path of [
-      "/redeem",
-      "/sign-in/factor-one",
-      "/sign-up",
-    ]) {
+    for (const path of ["/redeem", "/sign-in/factor-one", "/sign-up"]) {
       expect(isClerkPath(path), path).toBe(true)
     }
     expect(needsClerkMiddleware("/", "serverFn")).toBe(true)
@@ -98,14 +94,24 @@ describe("performance guards", () => {
     }
   })
 
-  it("loads carousel photos one slide ahead and never preloads marquee logos", () => {
+  it("loads carousel photos one slide ahead and prints logos without images", () => {
     const carousel = readFileSync(
       "src/components/home/home-media-carousel.tsx",
       "utf8"
     )
     expect(carousel).toContain("slideIndex <= loadedThrough")
+    // Ambassador marks are inline halftone dots: no image requests at all.
     const trust = readFileSync("src/components/home/home-trust.tsx", "utf8")
-    expect(trust).toContain('loading="lazy"')
+    expect(trust).toContain("<HalftoneLogo")
+    expect(trust).not.toContain("<img")
+  })
+
+  it("lazy-loads halftone photos below the hero", () => {
+    const photo = readFileSync(
+      "src/components/halftone/halftone-photo.tsx",
+      "utf8"
+    )
+    expect(photo).toContain('loading={priority ? "eager" : "lazy"}')
   })
 
   it("keeps each carousel photo under 400 KB", () => {

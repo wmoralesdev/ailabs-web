@@ -121,6 +121,7 @@ export const es: SiteContent = {
       eventsTitle: "Eventos",
       copyright: "© {year} Ai Labs",
       locationLine: "Hecho en San Salvador, El Salvador",
+      socialTitle: "Redes",
     },
   },
   microcopy: {
@@ -169,6 +170,10 @@ export const es: SiteContent = {
       ],
       mediaSrcs: homeCarousel.hero,
       mediaAlt: "Sesión de comunidad de Ai Labs",
+      photo: {
+        name: "20.webp",
+        alt: "Un facilitador de Ai Labs habla al grupo con un micrófono durante una sesión.",
+      },
     },
     services: {
       label: "Nuestros servicios",
@@ -190,6 +195,10 @@ export const es: SiteContent = {
           cta: "Quiero aprender",
           interest: "enablement",
           learnMore: "Más sobre capacitación en IA",
+          photo: {
+            name: "23.webp",
+            alt: "Dos participantes trabajan en sus laptops durante un taller de Ai Labs.",
+          },
         },
         {
           id: "agentic",
@@ -205,6 +214,10 @@ export const es: SiteContent = {
           cta: "Quiero mejorar un proceso",
           interest: "implementation",
           learnMore: "Más sobre automatización con IA",
+          photo: {
+            name: "24.webp",
+            alt: "Un participante programa frente a un monitor en una sesión de Ai Labs.",
+          },
         },
       ],
       pageLink: {
@@ -286,8 +299,6 @@ export const es: SiteContent = {
     },
     trust: {
       label: "Somos parte de programas de embajadores",
-      pause: "Pausar logos",
-      resume: "Reanudar logos",
       logos: [
         { id: "spacexai", name: "SpaceXAI" },
         { id: "codex", name: "Codex" },
@@ -864,6 +875,10 @@ export const es: SiteContent = {
     lumaLabel: "Ver en Luma",
     newTabLabel: "Se abre en una pestaña nueva.",
     photosLabel: "Fotografías de Ai Labs",
+    heroPhoto: {
+      name: "4.webp",
+      alt: "Foto grupal de participantes en un evento de Ai Labs.",
+    },
     photosCaption:
       "Crédito: Ai Labs. Estas fotografías son de eventos de Ai Labs en San Salvador.",
     cityLine: "en San Salvador",

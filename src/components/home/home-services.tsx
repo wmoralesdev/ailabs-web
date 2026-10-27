@@ -1,16 +1,15 @@
-import { useRef } from "react"
 import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
 import type { HomeServicesContent, Locale } from "@/content"
+import { EVENT_PHOTOS } from "@/content/event-photos"
 import { useContact } from "@/components/contact/contact-provider"
+import { HalftoneIcon } from "@/components/halftone/halftone-icon"
+import { HalftonePhoto } from "@/components/halftone/halftone-photo"
+import { Reveal } from "@/components/halftone/reveal"
 import { HomeCtaLink } from "@/components/home/home-cta-link"
-import { Button } from "@/components/ui/button"
-import { Eyebrow } from "@/components/ui/eyebrow"
-import { homePillClassName, homeShellClassName } from "./home-styles"
-import { HomeServiceVisual } from "./home-service-visual"
-import { useHomeEntrance } from "@/lib/home-motion"
+import { homeHeadingClassName, homeShellClassName } from "./home-styles"
 import { SERVICE_PAGE_PATHS } from "@/lib/service-pages"
 import { cn } from "@/lib/utils"
 
@@ -19,41 +18,47 @@ const servicePagePath = {
   agentic: SERVICE_PAGE_PATHS.automation,
 } as const
 
-const learnMoreClassName =
-  "inline-flex min-h-11 items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+const serviceIcon = {
+  academy: "book",
+  agentic: "nodes",
+} as const
 
 type HomeServicesProps = {
   services: HomeServicesContent
   locale: Locale
 }
 
+/**
+ * Consulting first, then its two delivery routes. Each route pairs a real
+ * event photo, printed as halftone, with its promise; the second mirrors the
+ * first so the two read as one spread.
+ */
 function HomeServices({ services, locale }: HomeServicesProps) {
-  const root = useRef<HTMLElement>(null)
   const { openContact } = useContact()
-  useHomeEntrance(root, "services", locale)
 
   return (
-    <section
-      ref={root}
+    <Reveal
+      as="section"
       id="services"
       aria-labelledby="home-services-title"
-      className="section-y scroll-mt-[calc(var(--site-header-offset)+1rem)] bg-background"
+      className="section-y bg-background"
     >
       <div className={homeShellClassName}>
-        <div className="grid gap-5 lg:grid-cols-2 lg:items-end lg:gap-12">
-          <div className="flex flex-col gap-4">
-            <Eyebrow>{services.label}</Eyebrow>
-            <h2
-              id="home-services-title"
-              className="font-display text-3xl leading-tight font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
-            >
-              {services.title}
-            </h2>
-          </div>
-          <div className="flex max-w-xl flex-col items-start gap-4">
-            <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-              {services.body}
-            </p>
+        <div className="flex max-w-3xl flex-col items-start gap-5">
+          <h2
+            id="home-services-title"
+            data-reveal
+            className={homeHeadingClassName}
+          >
+            {services.title}
+          </h2>
+          <p
+            data-reveal
+            className="max-w-[52ch] text-lead leading-snug text-muted-foreground"
+          >
+            {services.body}
+          </p>
+          <div data-reveal>
             <HomeCtaLink
               cta={services.pageLink}
               locale={locale}
@@ -62,69 +67,108 @@ function HomeServices({ services, locale }: HomeServicesProps) {
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 lg:mt-12 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-0">
-          {services.items.map((service) => (
-            <article
-              key={service.id}
-              id={service.id}
-              data-home-entrance
-              aria-labelledby={`service-${service.id}-title`}
-              className="flex min-w-0 scroll-mt-[calc(var(--site-header-offset)+1rem)] flex-col rounded-3xl border border-border bg-card p-6 text-card-foreground sm:p-8 lg:row-span-6 lg:grid lg:grid-rows-subgrid lg:p-10"
-            >
-              <div data-service-part>
-                <Eyebrow>{service.brand}</Eyebrow>
-              </div>
-              <h3
-                id={`service-${service.id}-title`}
-                data-service-part
-                className="mt-4 font-display text-2xl leading-tight font-semibold tracking-tight sm:text-3xl"
+        <div className="mt-16 flex flex-col gap-20 md:mt-24 md:gap-28">
+          {services.items.map((service, index) => {
+            const photo = EVENT_PHOTOS[service.photo.name]
+            const flip = index % 2 === 1
+            return (
+              <article
+                key={service.id}
+                id={service.id}
+                aria-labelledby={`service-${service.id}-title`}
+                className="grid items-center gap-8 md:grid-cols-12 md:gap-x-8"
               >
-                {service.title}
-              </h3>
-              <p
-                data-service-part
-                className="mt-4 max-w-prose text-base leading-relaxed text-muted-foreground"
-              >
-                {service.body}
-              </p>
-              <HomeServiceVisual service={service.id} />
-              <ul
-                data-service-part
-                className="mt-6 flex flex-col divide-y divide-border border-y border-border"
-              >
-                {service.points.map((point) => (
-                  <li key={point} className="py-3 text-sm leading-relaxed">
-                    {point}
-                  </li>
-                ))}
-              </ul>
-              <div
-                data-service-part
-                className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-3 pt-8"
-              >
-                <Button
-                  type="button"
-                  onClick={() => openContact(service.interest)}
+                <div
+                  data-reveal="clip"
                   className={cn(
-                    homePillClassName,
-                    "h-auto min-h-12 w-fit text-left whitespace-normal"
+                    "md:col-span-7",
+                    flip && "md:order-2 md:col-start-6"
                   )}
                 >
-                  {service.cta}
-                  <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-                </Button>
-                <Link
-                  to={servicePagePath[service.id]}
-                  className={learnMoreClassName}
+                  <HalftonePhoto
+                    name={service.photo.name}
+                    alt={service.photo.alt}
+                    width={photo.width}
+                    height={photo.height}
+                    sizes="(min-width: 768px) 56vw, 100vw"
+                    tone={
+                      flip
+                        ? "bg-purple text-on-purple"
+                        : "bg-print text-on-purple"
+                    }
+                  />
+                </div>
+                <div
+                  data-icon-hover
+                  className={cn(
+                    "flex flex-col items-start md:col-span-5",
+                    flip && "md:order-1 md:col-span-4 md:col-start-1"
+                  )}
                 >
-                  {service.learnMore}
-                </Link>
-              </div>
-            </article>
-          ))}
+                  <div data-reveal className="flex items-center gap-4">
+                    <HalftoneIcon
+                      shape={serviceIcon[service.id]}
+                      motion="hover"
+                      className="size-12 text-purple-ink"
+                    />
+                    <span className="text-small font-semibold">
+                      {service.brand}
+                    </span>
+                  </div>
+                  <h3
+                    id={`service-${service.id}-title`}
+                    data-reveal
+                    className="display mt-6 text-[clamp(1.875rem,1.4rem+1.5vw,2.75rem)] leading-[1]"
+                  >
+                    {service.title}
+                  </h3>
+                  <p
+                    data-reveal
+                    className="mt-4 max-w-[44ch] text-body text-muted-foreground"
+                  >
+                    {service.body}
+                  </p>
+                  <ul data-reveal className="mt-6 flex flex-col gap-2.5">
+                    {service.points.map((point) => (
+                      <li
+                        key={point}
+                        className="grid grid-cols-[1.25rem_1fr] gap-2 text-body leading-snug"
+                      >
+                        <HalftoneIcon
+                          shape="check"
+                          grid={7}
+                          className="mt-[0.2em] size-4 text-purple-ink"
+                        />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                  <div
+                    data-reveal
+                    className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => openContact(service.interest)}
+                      className="btn"
+                    >
+                      {service.cta}
+                      <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+                    </button>
+                    <Link
+                      to={servicePagePath[service.id]}
+                      className="text-action"
+                    >
+                      {service.learnMore}
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            )
+          })}
         </div>
       </div>
-    </section>
+    </Reveal>
   )
 }
 

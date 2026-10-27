@@ -17,8 +17,7 @@ type HomeCtaLinkProps = {
   className?: string
 }
 
-const homeQuietCtaClassName =
-  "inline-flex min-h-11 w-fit items-center gap-1 rounded-sm text-sm font-medium text-muted-foreground underline decoration-transparent underline-offset-4 hover:text-foreground hover:decoration-current focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none motion-safe:transition-colors motion-safe:duration-150"
+const homeQuietCtaClassName = "text-action"
 
 /**
  * CTA for home sections. Resolves the locale-agnostic hrefs stored in content

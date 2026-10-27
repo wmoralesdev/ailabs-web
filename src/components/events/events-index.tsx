@@ -428,6 +428,7 @@ function EventsIndex({ locale, content, now }: EventsIndexProps) {
   const monthIsEmpty = upcoming.length === 0 && past.length === 0
   const hero = {
     ...content.home.hero,
+    photo: copy.heroPhoto,
     label: copy.label,
     headline: copy.headline,
     directAnswer: copy.intro,
@@ -447,8 +448,8 @@ function EventsIndex({ locale, content, now }: EventsIndexProps) {
       <HomeHero
         locale={locale}
         content={content}
-        desktopSpiralOnly
         hero={hero}
+        samePageCtas={false}
         primaryAction={{
           label: copy.calendarLabel,
           href: walterEventsCalendarUrl,

@@ -1,30 +1,29 @@
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+/** The one button shape: square, flat, purple, presses down (see `.btn`). */
+const homePillClassName = "btn"
 
-const homePillClassName = cn(
-  buttonVariants({ variant: "default", size: "xl" }),
-  "home-action rounded-full px-5 transition-[color,background-color,border-color,box-shadow,transform]",
-  "motion-safe:hover:shadow-lift motion-safe:duration-150 motion-safe:hover:-translate-y-px",
-  "motion-safe:active:scale-[0.98]"
-)
-
+/** Flat bordered panel. Prefer spacing and hairlines over cards. */
 const homeCardClassName =
-  "overflow-hidden rounded-[2rem] border border-border bg-card text-card-foreground"
+  "overflow-hidden border border-border bg-card text-card-foreground"
 
+/** Content column shared by sections. */
 const homeShellClassName = "page-gutter mx-auto w-full max-w-content"
 
 const homeSectionGapClassName = "flex flex-col gap-10 md:gap-14"
 
-/** Full-bleed purple poster band — pair with HomePaperArcs. */
-const homePaperBandClassName = "home-paper-band relative overflow-hidden"
+/** Full-bleed purple field, graphite ink, the same in both themes. */
+const homePaperBandClassName =
+  "relative overflow-hidden bg-purple text-on-purple"
 
-/** Paper sheet that alternates with purple bands below the hero; follows theme. */
-const homePaperSheetClassName = "home-paper-sheet relative"
+/** Paper sheet that follows the page theme. */
+const homePaperSheetClassName = "relative bg-background text-foreground"
 
 const homeBandPaddingClassName = "section-y"
 
+/** Section heading: Alan Sans display at the shared head size. */
+const homeHeadingClassName = "display text-head"
+
 const homeDisplayClassName =
-  "font-display text-foreground text-4xl font-semibold tracking-tight uppercase sm:text-5xl md:text-6xl"
+  "display text-foreground text-4xl sm:text-5xl md:text-6xl"
 
 export {
   homePillClassName,
@@ -34,5 +33,6 @@ export {
   homePaperBandClassName,
   homePaperSheetClassName,
   homeBandPaddingClassName,
+  homeHeadingClassName,
   homeDisplayClassName,
 }

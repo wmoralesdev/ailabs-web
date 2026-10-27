@@ -121,6 +121,7 @@ export const en: SiteContent = {
       eventsTitle: "Events",
       copyright: "© {year} Ai Labs",
       locationLine: "Crafted in San Salvador, El Salvador",
+      socialTitle: "Social",
     },
   },
   microcopy: {
@@ -167,6 +168,10 @@ export const en: SiteContent = {
       ],
       mediaSrcs: homeCarousel.hero,
       mediaAlt: "Ai Labs community session",
+      photo: {
+        name: "20.webp",
+        alt: "An Ai Labs facilitator speaks to the group with a microphone during a session.",
+      },
     },
     services: {
       label: "Our services",
@@ -188,6 +193,10 @@ export const en: SiteContent = {
           cta: "I want to learn",
           interest: "enablement",
           learnMore: "More on AI training",
+          photo: {
+            name: "23.webp",
+            alt: "Two participants work on their laptops during an Ai Labs workshop.",
+          },
         },
         {
           id: "agentic",
@@ -203,6 +212,10 @@ export const en: SiteContent = {
           cta: "Improve a process",
           interest: "implementation",
           learnMore: "More on AI automation",
+          photo: {
+            name: "24.webp",
+            alt: "A participant writes code at a monitor during an Ai Labs session.",
+          },
         },
       ],
       pageLink: {
@@ -284,8 +297,6 @@ export const en: SiteContent = {
     },
     trust: {
       label: "Part of ambassador programs",
-      pause: "Pause logos",
-      resume: "Resume logos",
       logos: [
         { id: "spacexai", name: "SpaceXAI" },
         { id: "codex", name: "Codex" },
@@ -857,6 +868,10 @@ export const en: SiteContent = {
     lumaLabel: "View on Luma",
     newTabLabel: "Opens in a new tab.",
     photosLabel: "Ai Labs photographs",
+    heroPhoto: {
+      name: "4.webp",
+      alt: "Group photo of participants at an Ai Labs event.",
+    },
     photosCaption:
       "Credit: Ai Labs. These photographs are from Ai Labs events in San Salvador.",
     cityLine: "in San Salvador",
