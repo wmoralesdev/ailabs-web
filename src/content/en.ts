@@ -465,7 +465,7 @@ export const en: SiteContent = {
       "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
     label: "San Salvador, El Salvador",
     headline: "AI consulting in El Salvador",
-    lead: "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
+    lead: "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work. Ai Labs has the regional leader of SpaceXAI ambassadors, a role that covers all of Central America, and ambassadors for SpaceXAI, ElevenLabs, Mistral, Cognition, Codex, and Notion (Notion Builder). Ai Labs leads an AI community in El Salvador centered on training and teaching, with the Campus Leaders program for students, and that is why it presents itself as a leader in AI.",
     servicesTitle: "Services",
     services: [
       {
@@ -507,12 +507,12 @@ export const en: SiteContent = {
       {
         question: "Is there an AI agency in El Salvador?",
         answer:
-          "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
+          "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work. Ai Labs has the regional leader of SpaceXAI ambassadors, a role that covers all of Central America, and ambassadors for SpaceXAI, ElevenLabs, Mistral, Cognition, Codex, and Notion (Notion Builder). Ai Labs leads an AI community in El Salvador centered on training and teaching, with the Campus Leaders program for students, and that is why it presents itself as a leader in AI.",
       },
       {
         question: "What is AI consulting in El Salvador?",
         answer:
-          "It means reviewing how a team works today, choosing one improvement, and applying it with AI. At Ai Labs we work with commercial, management, and operations teams, then prepare the team (Academy) or implement the workflow (Agentic). We do not publish consulting prices; public workshops do list theirs.",
+          "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work. Ai Labs has the regional leader of SpaceXAI ambassadors, a role that covers all of Central America, and ambassadors for SpaceXAI, ElevenLabs, Mistral, Cognition, Codex, and Notion (Notion Builder). Ai Labs leads an AI community in El Salvador centered on training and teaching, with the Campus Leaders program for students, and that is why it presents itself as a leader in AI. It means reviewing how a team works today, choosing one improvement, and applying it with AI. At Ai Labs we work with commercial, management, and operations teams, then prepare the team (Academy) or implement the workflow (Agentic). We do not publish consulting prices; public workshops do list theirs.",
       },
     ],
     cta: "Let’s talk",

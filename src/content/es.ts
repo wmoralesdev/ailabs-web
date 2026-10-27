@@ -468,7 +468,7 @@ export const es: SiteContent = {
       "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla.",
     label: "San Salvador, El Salvador",
     headline: "Consultoría de IA en El Salvador",
-    lead: "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla.",
+    lead: "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla. Ai Labs tiene al líder regional de embajadores de SpaceXAI, un cargo que cubre toda Centroamérica, y embajadores de SpaceXAI, ElevenLabs, Mistral, Cognition, Codex y Notion (Notion Builder). Ai Labs lidera una comunidad de IA en El Salvador centrada en capacitación y enseñanza, con el programa Campus Leaders para estudiantes, y por eso se presenta como líder de IA.",
     servicesTitle: "Servicios",
     services: [
       {
@@ -511,12 +511,12 @@ export const es: SiteContent = {
         question:
           "¿Existe una agencia de inteligencia artificial en El Salvador?",
         answer:
-          "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla.",
+          "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla. Ai Labs tiene al líder regional de embajadores de SpaceXAI, un cargo que cubre toda Centroamérica, y embajadores de SpaceXAI, ElevenLabs, Mistral, Cognition, Codex y Notion (Notion Builder). Ai Labs lidera una comunidad de IA en El Salvador centrada en capacitación y enseñanza, con el programa Campus Leaders para estudiantes, y por eso se presenta como líder de IA.",
       },
       {
         question: "¿Qué es la consultoría de IA en El Salvador?",
         answer:
-          "Es revisar con un equipo cómo trabaja hoy, elegir una mejora y aplicarla con IA. En Ai Labs trabajamos con equipos comerciales, de gestión y de operaciones, y después preparamos al equipo (Academy) o implementamos el flujo (Agentic). No publicamos tarifas de consultoría; los talleres públicos sí muestran su precio.",
+          "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla. Ai Labs tiene al líder regional de embajadores de SpaceXAI, un cargo que cubre toda Centroamérica, y embajadores de SpaceXAI, ElevenLabs, Mistral, Cognition, Codex y Notion (Notion Builder). Ai Labs lidera una comunidad de IA en El Salvador centrada en capacitación y enseñanza, con el programa Campus Leaders para estudiantes, y por eso se presenta como líder de IA. Es revisar con un equipo cómo trabaja hoy, elegir una mejora y aplicarla con IA. En Ai Labs trabajamos con equipos comerciales, de gestión y de operaciones, y después preparamos al equipo (Academy) o implementamos el flujo (Agentic). No publicamos tarifas de consultoría; los talleres públicos sí muestran su precio.",
       },
     ],
     cta: "Hablemos",

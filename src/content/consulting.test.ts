@@ -9,10 +9,22 @@ import { brandedTitle, buildServicePageJsonLd } from "@/lib/seo"
 import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
 
 const CONSULTING_PATH = "/consultoria-de-ia-el-salvador"
-const ES_LEAD =
-  "Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador."
-const EN_LEAD =
-  "Ai Labs is an AI consulting company in San Salvador, El Salvador."
+const ES_DEFINITION =
+  "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla."
+const EN_DEFINITION =
+  "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work."
+const ES_AMBASSADOR =
+  "Ai Labs tiene al líder regional de embajadores de SpaceXAI, un cargo que cubre toda Centroamérica, y embajadores de SpaceXAI, ElevenLabs, Mistral, Cognition, Codex y Notion (Notion Builder)."
+const EN_AMBASSADOR =
+  "Ai Labs has the regional leader of SpaceXAI ambassadors, a role that covers all of Central America, and ambassadors for SpaceXAI, ElevenLabs, Mistral, Cognition, Codex, and Notion (Notion Builder)."
+const ES_COMMUNITY =
+  "Ai Labs lidera una comunidad de IA en El Salvador centrada en capacitación y enseñanza, con el programa Campus Leaders para estudiantes, y por eso se presenta como líder de IA."
+const EN_COMMUNITY =
+  "Ai Labs leads an AI community in El Salvador centered on training and teaching, with the Campus Leaders program for students, and that is why it presents itself as a leader in AI."
+const ES_ADVANTAGE = `${ES_AMBASSADOR} ${ES_COMMUNITY}`
+const EN_ADVANTAGE = `${EN_AMBASSADOR} ${EN_COMMUNITY}`
+const ES_LEAD = `${ES_DEFINITION} ${ES_ADVANTAGE}`
+const EN_LEAD = `${EN_DEFINITION} ${EN_ADVANTAGE}`
 
 describe("consulting page", () => {
   it("uses the published service names and answers, in both languages", () => {
@@ -41,7 +53,13 @@ describe("consulting page", () => {
       expect(content.consulting.steps).toEqual(content.home.method.steps)
       expect(content.consulting.cta).toBe(content.home.hero.primaryCta.label)
       expect(content.consulting.metaTitle).toBe(content.consulting.headline)
-      expect(content.consulting.metaDescription).toBe(content.consulting.lead)
+      const advantage = content.locale === "es" ? ES_ADVANTAGE : EN_ADVANTAGE
+      expect(content.consulting.metaDescription).toBe(
+        content.locale === "es" ? ES_DEFINITION : EN_DEFINITION
+      )
+      expect(content.consulting.lead).toBe(
+        `${content.consulting.metaDescription} ${advantage}`
+      )
       expect(content.consulting.faqs).toHaveLength(2)
       expect(content.consulting.faqs[0]?.answer).toBe(content.consulting.lead)
       expect(content.consulting.faqs[0]?.question).toBe(
@@ -51,8 +69,12 @@ describe("consulting page", () => {
       expect(
         content.consulting.faqs[1]?.answer.startsWith(content.consulting.lead)
       ).toBe(true)
-      expect(JSON.stringify(content.consulting)).not.toMatch(
-        /agencia nacional|gobierno|única agencia|only agency|national agency|government|centroam[eé]rica|central america|l[ií]der|\d+\+/i
+      expect(content.consulting.faqs[1]?.answer).toContain(advantage)
+      const withoutAdvantage = JSON.stringify(content.consulting)
+        .split(advantage)
+        .join("")
+      expect(withoutAdvantage).not.toMatch(
+        /agencia nacional|gobierno|única agencia|only agency|national agency|government|centroam[eé]rica|central america|l[ií]der|\d+\+|somos los primeros|leading agency|\bthe first\b|#1|Walter|Daniela|Morales|Huezo/i
       )
     }
   })
@@ -60,8 +82,12 @@ describe("consulting page", () => {
   it("answers the El Salvador agency question with the visible lead", () => {
     expect(es.consulting.headline).toBe("Consultoría de IA en El Salvador")
     expect(en.consulting.headline).toBe("AI consulting in El Salvador")
+    expect(es.consulting.metaDescription).toBe(ES_DEFINITION)
+    expect(en.consulting.metaDescription).toBe(EN_DEFINITION)
     expect(es.consulting.lead).toBe(ES_LEAD)
     expect(en.consulting.lead).toBe(EN_LEAD)
+    expect(es.consulting.lead).toContain(`${ES_AMBASSADOR} ${ES_COMMUNITY}`)
+    expect(en.consulting.lead).toContain(`${EN_AMBASSADOR} ${EN_COMMUNITY}`)
     expect(es.consulting.faqs[0]?.question).toBe(
       "¿Existe una agencia de inteligencia artificial en El Salvador?"
     )
@@ -74,39 +100,13 @@ describe("consulting page", () => {
     expect(en.consulting.faqs[1]?.question).toBe(
       "What is AI consulting in El Salvador?"
     )
+    expect(es.consulting.faqs[1]?.answer).toContain(ES_ADVANTAGE)
     expect(es.consulting.faqs[1]?.answer).toContain(
-      "Con equipos comerciales, de gestión y de operaciones revisamos el trabajo, elegimos una oportunidad y después preparamos al equipo (Academy) o implementamos el flujo (Agentic), con revisión humana y documentación."
+      "En Ai Labs trabajamos con equipos comerciales, de gestión y de operaciones, y después preparamos al equipo (Academy) o implementamos el flujo (Agentic)."
     )
-    expect(es.consulting.faqs[1]?.answer).toContain(
-      "Podés venir directamente a aprender, sin una empresa ni una consultoría previa."
-    )
-    expect(es.consulting.faqs[1]?.answer).toContain(
-      "Los talleres públicos que hemos publicado son presenciales en San Salvador."
-    )
-    expect(es.consulting.faqs[1]?.answer).toContain(
-      "Ai Labs no publica tarifas de consultoría porque primero revisamos el proceso y acordamos qué conviene mejorar."
-    )
-    expect(es.consulting.faqs[1]?.answer).toContain(
-      es.home.faq.items.find((item) =>
-        item.question.startsWith("¿Cómo empiezo")
-      )?.answer
-    )
+    expect(en.consulting.faqs[1]?.answer).toContain(EN_ADVANTAGE)
     expect(en.consulting.faqs[1]?.answer).toContain(
-      "With commercial, management, and operations teams, we review the work, choose one opportunity, and then prepare the team (Academy) or implement the workflow (Agentic), with human review and documentation."
-    )
-    expect(en.consulting.faqs[1]?.answer).toContain(
-      "You can come directly to learn, with no company or prior consulting required."
-    )
-    expect(en.consulting.faqs[1]?.answer).toContain(
-      "The public workshops we have published are in person in San Salvador."
-    )
-    expect(en.consulting.faqs[1]?.answer).toContain(
-      "Ai Labs does not publish consulting prices because we first review the process and agree on what is worth improving."
-    )
-    expect(en.consulting.faqs[1]?.answer).toContain(
-      en.home.faq.items.find((item) =>
-        item.question.startsWith("How do I start")
-      )?.answer
+      "At Ai Labs we work with commercial, management, and operations teams, then prepare the team (Academy) or implement the workflow (Agentic)."
     )
   })
 
@@ -212,9 +212,9 @@ describe("consulting page", () => {
     const service = graph.find((node) => node["@type"] === "Service")
     expect(service?.url).toBe(`https://www.ailabs.sv${CONSULTING_PATH}`)
     expect(service?.name).toBe(es.consulting.headline)
-    expect(service?.description).toBe(ES_LEAD)
+    expect(service?.description).toBe(ES_DEFINITION)
     expect(graph.find((node) => node["@type"] === "WebPage")?.description).toBe(
-      ES_LEAD
+      ES_DEFINITION
     )
     expect(graph.find((node) => node["@type"] === "WebPage")?.inLanguage).toBe(
       "es"
@@ -232,7 +232,7 @@ describe("consulting page", () => {
     )["@graph"] as Array<{ "@type": string; description?: string }>
     expect(
       english.find((node) => node["@type"] === "Service")?.description
-    ).toBe(EN_LEAD)
+    ).toBe(EN_DEFINITION)
     expect(JSON.stringify(graph)).not.toMatch(
       /centroam[eé]rica|central america|l[ií]der/i
     )

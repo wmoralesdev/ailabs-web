@@ -473,7 +473,11 @@ export type ConsultingPageContent = {
   metaDescription: string
   label: string
   headline: string
-  /** First visible paragraph. Same string as `faqs[0].answer`. */
+  /**
+   * Opening paragraph: the El Salvador sentence, the SpaceXAI ambassador role,
+   * then the community Ai Labs leads. Same string as `faqs[0].answer`.
+   * `metaDescription` stays the shorter sentence.
+   */
   lead: string
   servicesTitle: string
   services: readonly [ConsultingService, ConsultingService, ConsultingService]
