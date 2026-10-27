@@ -118,7 +118,20 @@ describe("public SEO files", () => {
       "https://www.ailabs.sv/events. Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país."
     )
     expect(llms).toMatch(/no describen un área de servicio de centroamérica/i)
-    expect(llms).not.toMatch(/cubre centroamérica|covers central america/i)
+    expect(llms).toMatch(
+      /esa regla no aplica al cargo de líder regional de embajadores de spacexai/i
+    )
+    expect(llms).toMatch(
+      /that rule does not apply to the spacexai ambassador regional-lead role/i
+    )
+    const esAdvantage = es.consulting.lead
+      .slice(es.consulting.metaDescription.length)
+      .trim()
+    const enAdvantage = en.consulting.lead
+      .slice(en.consulting.metaDescription.length)
+      .trim()
+    expect(llms).toContain(esAdvantage)
+    expect(llms).toContain(enAdvantage)
     expect(llms).toContain(
       "Ai Labs es una empresa privada en San Salvador, El Salvador."
     )
