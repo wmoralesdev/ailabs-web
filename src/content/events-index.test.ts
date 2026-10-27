@@ -21,20 +21,16 @@ describe("events index", () => {
     expect(es.events.headline).toBe("Eventos de Ai Labs en El Salvador")
     expect(es.events.metaTitle).toBe(es.events.headline)
     expect(es.events.intro).toBe(
-      "Estos son los eventos de Ai Labs publicados en Luma para este mes, no todos los eventos del país."
+      "Publicamos los eventos de IA en El Salvador de Ai Labs en Luma para este mes, en San Salvador; no son todos los eventos del país."
     )
-    expect(es.events.metaDescription).toBe(
-      "Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país."
-    )
+    expect(es.events.metaDescription).toBe(es.events.intro)
     expect(es.events.breadcrumbHome).toBe("Inicio")
     expect(en.events.headline).toBe("Ai Labs events in El Salvador")
     expect(en.events.metaTitle).toBe(en.events.headline)
     expect(en.events.intro).toBe(
-      "These are the Ai Labs events published on Luma for this month, not every event in the country."
+      "We publish the Ai Labs events in El Salvador on Luma for this month, in San Salvador; they are not every event in the country."
     )
-    expect(en.events.metaDescription).toBe(
-      "These are the Ai Labs events published on Luma for this month. The base is in San Salvador; they are not every event in the country."
-    )
+    expect(en.events.metaDescription).toBe(en.events.intro)
     expect(en.events.breadcrumbHome).toBe("Home")
     expect(es.community.eventsCta.href).toBe("/events")
     expect(en.community.eventsCta.href).toBe("/events")
@@ -134,10 +130,10 @@ describe("events index", () => {
       en.events.photos.map((photo) => photo.alt)
     )
     expect(es.events.photosCaption).toBe(
-      "Crédito: Ai Labs. Estas fotografías son de eventos de Ai Labs en San Salvador."
+      "Crédito: Ai Labs. Fotos de nuestros eventos en San Salvador."
     )
     expect(en.events.photosCaption).toBe(
-      "Credit: Ai Labs. These photographs are from Ai Labs events in San Salvador."
+      "Credit: Ai Labs. Photos from our events in San Salvador."
     )
     for (const photo of es.events.photos) {
       expect(photo.alt.startsWith("Evento de Ai Labs en San Salvador. ")).toBe(

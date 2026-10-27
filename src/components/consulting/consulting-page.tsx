@@ -43,6 +43,11 @@ function ConsultingPage({ content, onTalk }: ConsultingPageProps) {
             {content.headline}
           </h1>
           <p className="max-w-[40ch] text-lead leading-snug">{content.lead}</p>
+          {content.claims.map((claim) => (
+            <p key={claim} className="max-w-[46ch] text-body leading-snug">
+              {claim}
+            </p>
+          ))}
           <button type="button" onClick={onTalk} className="btn">
             {content.cta}
             <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
