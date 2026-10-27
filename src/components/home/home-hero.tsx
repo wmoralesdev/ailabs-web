@@ -49,7 +49,7 @@ function tide(
   const points = 28
   let visible = true
   const io = new IntersectionObserver(([entry]) => {
-    visible = Boolean(entry?.isIntersecting)
+    visible = entry.isIntersecting
   })
   io.observe(root)
   root.dataset.tide = ""

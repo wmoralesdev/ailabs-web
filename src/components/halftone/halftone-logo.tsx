@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react"
-import { LOGO_GRID, type LogoName, logoDots } from "@/lib/logo-dots"
+import { LOGO_GRID, logoDots } from "@/lib/logo-dots"
+import type { LogoName } from "@/lib/logo-dots"
 
 const MAX_R = 0.46
 
@@ -44,8 +45,7 @@ export function HalftoneLogo({
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
 
     const circles = Array.from(svg.querySelectorAll("circle"))
-    const trigger =
-      (svg.closest("[data-icon-hover]") as HTMLElement | null) ?? svg
+    const trigger = svg.closest("[data-icon-hover]") ?? svg
     const mid = LOGO_GRID / 2
     let raf = 0
     let hovering = false
@@ -92,7 +92,6 @@ export function HalftoneLogo({
       trigger.removeEventListener("focusin", enter)
       trigger.removeEventListener("focusout", leave)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- dots derive from name
   }, [name])
 
   return (

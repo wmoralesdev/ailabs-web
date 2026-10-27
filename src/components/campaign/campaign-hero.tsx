@@ -1,52 +1,46 @@
-import { Link } from "@tanstack/react-router"
-
-import { SiteLogo } from "@/components/chrome/site-logo"
-import { TextSpiral } from "@/components/lab/text-spiral"
+import { HalftonePhoto } from "@/components/halftone/halftone-photo"
 import { RedeemQrModal } from "@/components/redeem/redeem-qr-modal"
 import type { CampaignQrCopy, Locale } from "@/content/types"
-import { getContent } from "@/content"
+import { EVENT_PHOTOS } from "@/content/event-photos"
+import type { EventPhoto } from "@/content/event-photos"
 import { cn } from "@/lib/utils"
 
 type CampaignHeroProps = {
   locale: Locale
-  /** Route-specific phrases painted into the ink spiral panel. */
-  words: ReadonlyArray<string>
+  /** Real event photo printed as halftone on the purple panel. */
+  photo: EventPhoto
   qrContent?: CampaignQrCopy
-  /** Static heroes lock to one viewport (like home); dynamic flows grow. */
+  /** Static heroes fill one viewport (like home); dynamic flows grow. */
   fluid?: boolean
   footer?: React.ReactNode
   children: React.ReactNode
 }
 
+/**
+ * Shared split hero for the campaign routes (community, campus leader,
+ * redeem): copy on paper at the left, a real event photo printed in graphite
+ * on the purple field at the right. The photo develops on hover.
+ */
 function CampaignHero({
-  locale,
-  words,
+  photo,
   qrContent,
   fluid = false,
   footer,
   children,
 }: CampaignHeroProps) {
+  const size = EVENT_PHOTOS[photo.name]
+
   return (
     <section
       className={cn(
-        "grid min-h-dvh grid-cols-1 bg-background text-foreground lg:grid-cols-2",
-        !fluid && "lg:h-dvh lg:overflow-hidden"
+        "grid grid-cols-1 bg-background text-foreground lg:grid-cols-12",
+        !fluid && "lg:min-h-[calc(100svh-var(--site-header-height))]"
       )}
     >
-      <div className="flex min-h-0 w-full flex-col justify-between gap-10 border-b border-border px-6 pt-[calc(var(--site-header-offset)+0.5rem)] pb-8 sm:px-10 sm:pb-10 lg:border-r lg:border-b-0 lg:px-12 lg:pb-12 xl:px-16">
-        <div>
-          <Link
-            to="/"
-            aria-label="Ai Labs"
-            className="inline-flex rounded-sm focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-          >
-            <SiteLogo variant="lockup" />
-          </Link>
-        </div>
-
+      <div className="page-gutter flex min-w-0 flex-col justify-between gap-12 pt-10 pb-12 sm:pt-14 lg:col-span-7 lg:pt-[clamp(2.5rem,8svh,5.5rem)] lg:pr-12">
         <div
           className={cn(
-            "flex w-full max-w-xl flex-col gap-5",
+            "flex w-full max-w-2xl flex-col items-start gap-5",
             !footer && "flex-1 justify-center"
           )}
         >
@@ -56,15 +50,20 @@ function CampaignHero({
         {footer}
       </div>
 
-      <div className="relative min-h-[50vh] w-full bg-surface-ink lg:min-h-0">
-        <TextSpiral
-          words={words}
-          interactionLabel={getContent(locale).microcopy.textSpiralAction}
-          className="absolute inset-0 h-full w-full"
+      <div className="relative aspect-[4/3] w-full lg:col-span-5 lg:aspect-auto">
+        <HalftonePhoto
+          name={photo.name}
+          alt={photo.alt}
+          width={size.width}
+          height={size.height}
+          sizes="(min-width: 1024px) 42vw, 100vw"
+          tone="bg-purple text-on-purple"
+          priority
+          fill
         />
         {qrContent ? (
-          <div className="absolute top-4 right-4 z-10 sm:right-6 lg:top-[calc(var(--site-header-offset)+0.5rem)] lg:right-8">
-            <RedeemQrModal content={qrContent} onDark />
+          <div className="absolute top-3 right-3 z-10 bg-background sm:top-4 sm:right-4">
+            <RedeemQrModal content={qrContent} onDark={false} />
           </div>
         ) : null}
       </div>

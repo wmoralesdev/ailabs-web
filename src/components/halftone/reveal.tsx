@@ -76,7 +76,7 @@ function Reveal<T extends ElementType = "div">({
   )
 
   return (
-    <Tag ref={root} {...(props as ComponentPropsWithoutRef<"div">)}>
+    <Tag ref={root} {...props}>
       {children}
     </Tag>
   )

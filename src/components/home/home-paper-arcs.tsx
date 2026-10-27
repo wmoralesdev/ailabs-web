@@ -5,22 +5,18 @@ type HomePaperArcsProps = {
 }
 
 /**
- * Quiet concentric arcs for purple paper bands — poster-rail texture
- * that fills empty violet without competing with type or logos.
+ * Quiet halftone texture for purple bands: a dot screen that thins out from
+ * one corner, so empty violet reads as print without competing with type.
  */
 function HomePaperArcs({ className }: HomePaperArcsProps) {
   return (
     <div
       className={cn(
-        "pointer-events-none absolute inset-0 overflow-hidden text-on-dark",
+        "dot-screen pointer-events-none absolute inset-0 [mask-image:radial-gradient(120%_90%_at_100%_0%,#000_0%,transparent_60%)] [--dot-r:32%] [--dot-size:9px] [--dot:var(--color-purple-deep)]",
         className
       )}
       aria-hidden
-    >
-      <span className="absolute -top-[28%] -right-[18%] block size-[78%] rounded-full border-[1.5px] border-current opacity-25" />
-      <span className="absolute -top-[8%] -right-[34%] block size-[96%] rounded-full border border-current opacity-15" />
-      <span className="absolute top-[38%] -left-[26%] block size-[52%] rounded-full border border-current opacity-12" />
-    </div>
+    />
   )
 }
 

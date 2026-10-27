@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from "react"
-import { type ShapeName, shapes } from "@/lib/halftone-shapes"
+import { shapes } from "@/lib/halftone-shapes"
+import type { ShapeName } from "@/lib/halftone-shapes"
 
 type Motion = "none" | "hover" | "morph"
 
@@ -82,8 +83,7 @@ export function HalftoneIcon({
 
     const names = key.split(",") as ShapeName[]
     const dots = Array.from(svg.querySelectorAll("circle"))
-    const trigger =
-      (svg.closest("[data-icon-hover]") as HTMLElement | null) ?? svg
+    const trigger = svg.closest("[data-icon-hover]") ?? svg
     let raf = 0
     let visible = false
     let hovering = false
@@ -95,9 +95,9 @@ export function HalftoneIcon({
       let sdf = (x: number, y: number) => shapes[names[0]](x, y)
 
       if (motion === "morph" && names.length > 1) {
-        const step = HOLD_MS + MORPH_MS
-        const i = Math.floor((now - t0) / step)
-        const into = (now - t0) % step
+        const cycle = HOLD_MS + MORPH_MS
+        const i = Math.floor((now - t0) / cycle)
+        const into = (now - t0) % cycle
         const a = shapes[names[i % names.length]]
         const b = shapes[names[(i + 1) % names.length]]
         const m = ease(clamp01((into - HOLD_MS) / MORPH_MS))

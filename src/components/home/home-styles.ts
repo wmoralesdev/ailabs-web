@@ -1,5 +1,9 @@
-/** The one button shape: square, flat, purple, presses down (see `.btn`). */
-const homePillClassName = "btn"
+/**
+ * The one button shape: square, flat, purple, presses down (see `.btn`). The
+ * utilities repeat `.btn` so they also win over `<Button>`'s size classes.
+ */
+const homePillClassName =
+  "btn h-auto min-h-11 gap-2 px-[1.125rem] py-2.5 text-small font-semibold"
 
 /** Flat bordered panel. Prefer spacing and hairlines over cards. */
 const homeCardClassName =

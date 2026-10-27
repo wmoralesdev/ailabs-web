@@ -10,7 +10,7 @@ import {
   homeDisplayClassName,
   homePillClassName,
 } from "@/components/home/home-styles"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import type { CampusLeaderContent } from "@/content/types"
 import { buildFaqJsonLd, buildPageMeta, SITE_NAME } from "@/lib/seo"
@@ -77,15 +77,6 @@ function CampusLeaderPage() {
   const content = siteContent.campusLeader
   const { microcopy } = siteContent
   const [applyOpen, setApplyOpen] = useState(false)
-  const words = [
-    content.label,
-    content.headline,
-    `${content.cohortLabel} ${content.cohortDisplay}`,
-    content.applyCta,
-    ...content.landing.what.items.map((item) => item.title),
-    ...content.landing.role.items.map((item) => item.title),
-    ...content.landing.benefits.items.map((item) => item.title),
-  ]
 
   return (
     <div className="relative">
@@ -96,7 +87,11 @@ function CampusLeaderPage() {
         {microcopy.skipToContent}
       </a>
       <div id="campus-leader-main">
-        <CampaignHero locale={locale} words={words} qrContent={content}>
+        <CampaignHero
+          locale={locale}
+          photo={content.heroPhoto}
+          qrContent={content}
+        >
           <Eyebrow>{content.label}</Eyebrow>
           <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
             {content.headline}
@@ -104,13 +99,10 @@ function CampusLeaderPage() {
           <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
             {content.body}
           </p>
-          <Link
-            to={CONSULTING_PAGE_PATH}
-            className="w-fit text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-          >
+          <Link to={CONSULTING_PAGE_PATH} className="text-action">
             {content.consultingCta.label}
           </Link>
-          <p className="font-mono text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+          <p className="text-small font-semibold text-muted-foreground">
             {content.cohortLabel} {content.cohortDisplay}
           </p>
           <CampusLeaderHeroAction
@@ -143,7 +135,7 @@ function CampusLeaderHeroAction({
 }) {
   if (!content.applicationsOpen) {
     return (
-      <div className="flex w-full max-w-md flex-col gap-2 rounded-3xl border border-border bg-card p-5 text-card-foreground">
+      <div className="flex w-full max-w-md flex-col gap-2 border-l-2 border-purple pl-4">
         <p className="text-base leading-relaxed font-medium">
           {content.closedTitle}
         </p>
@@ -168,13 +160,7 @@ function CampusLeaderHeroAction({
           {content.applyCta}
           <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
         </Button>
-        <a
-          href="#campus-leader-program"
-          className={cn(
-            buttonVariants({ variant: "outline", size: "xl" }),
-            "gap-1.5 rounded-full px-5"
-          )}
-        >
+        <a href="#campus-leader-program" className="text-action">
           {content.learnCta}
           <HugeiconsIcon
             icon={ArrowDown01Icon}

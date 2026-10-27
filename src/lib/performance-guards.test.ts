@@ -34,13 +34,16 @@ describe("performance guards", () => {
     expect(locale).not.toMatch(/resolveLocaleContext = createServerFn/)
   })
 
-  it("loads three.js only when the canvas band is needed", () => {
+  it("ships no WebGL: bands print with the 2D halftone field", () => {
     const banner = readFileSync(
       "src/components/ui/canvas-reveal-banner.tsx",
       "utf8"
     )
-    expect(banner).not.toMatch(/^import .*canvas-reveal-effect/m)
-    expect(banner).toContain('import("@/components/ui/canvas-reveal-effect")')
+    expect(banner).toContain("<HalftoneField")
+    const pkg = JSON.parse(readFileSync("package.json", "utf8")) as {
+      dependencies: Record<string, string>
+    }
+    expect(pkg.dependencies.three).toBeUndefined()
   })
 
   it("runs Clerk only for server functions and auth routes", () => {

@@ -448,6 +448,10 @@ export const en: SiteContent = {
   },
   servicePages: servicePagesEn,
   consulting: {
+    photo: {
+      name: "13.webp",
+      alt: "A participant listens closely during an Ai Labs session.",
+    },
     metaTitle: "AI consulting in El Salvador",
     metaDescription:
       "Ai Labs is an AI consulting company in San Salvador, El Salvador.",
@@ -504,6 +508,10 @@ export const en: SiteContent = {
     cta: "Let’s talk",
   },
   redeem: {
+    heroPhoto: {
+      name: "18.webp",
+      alt: "Participants pose as a group during an Ai Labs event.",
+    },
     metaTitle: "Redeem credits",
     eventLabel: "Event",
     howItWorksLabel: "How it works",
@@ -571,6 +579,10 @@ export const en: SiteContent = {
     },
   },
   community: {
+    heroPhoto: {
+      name: "9.webp",
+      alt: "Ai Labs community members hug and take a selfie at an event.",
+    },
     metaTitle: "WhatsApp community",
     metaDescription:
       "Ai Labs is a community in El Salvador centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us. To join, open the WhatsApp link.",
@@ -600,6 +612,10 @@ export const en: SiteContent = {
     qrBody: "Scan this code to open this page on another device.",
   },
   campusLeader: {
+    heroPhoto: {
+      name: "17.webp",
+      alt: "Students work on their laptops at an Ai Labs event.",
+    },
     metaTitle: "Campus Leader",
     metaDescription:
       "An Ai Labs Campus Leader is a student, one per university in El Salvador, who brings AI training and teaching to campus, with official recognition and a say in which workshops arrive.",

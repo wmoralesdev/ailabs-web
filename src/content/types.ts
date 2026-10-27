@@ -89,6 +89,8 @@ export type RedeemStep = {
 }
 
 export type RedeemContent = CampaignQrCopy & {
+  /** Event photo printed on the hero panel. */
+  heroPhoto: EventPhoto
   metaTitle: string
   eventLabel: string
   howItWorksLabel: string
@@ -138,6 +140,8 @@ export type CommunityStep = {
 }
 
 export type CommunityContent = CampaignQrCopy & {
+  /** Event photo printed on the hero panel. */
+  heroPhoto: EventPhoto
   metaTitle: string
   metaDescription: string
   label: string
@@ -197,6 +201,8 @@ export type CampusLeaderMedia = {
 }
 
 export type CampusLeaderContent = CampaignQrCopy & {
+  /** Event photo printed on the hero panel. */
+  heroPhoto: EventPhoto
   metaTitle: string
   metaDescription: string
   label: string
@@ -461,6 +467,8 @@ export type ConsultingFaq = {
 
 /** Indexable consulting page. Same path in both languages. */
 export type ConsultingPageContent = {
+  /** Event photo printed beside the opening. */
+  photo: EventPhoto
   metaTitle: string
   metaDescription: string
   label: string
@@ -525,6 +533,8 @@ export type ServicePageCard = {
 }
 
 export type ServicePageContent = {
+  /** Event photo printed beside the opening. */
+  photo: EventPhoto
   metaTitle: string
   /** 140–160 characters. */
   metaDescription: string

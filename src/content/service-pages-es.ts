@@ -13,6 +13,10 @@ export const servicePagesEs: ServicePagesContent = {
   consultingLink: "Consultoría de IA en El Salvador",
   communityLink: "Comunidad de IA en El Salvador",
   training: {
+    photo: {
+      name: "3.webp",
+      alt: "Participantes siguen una sesión práctica de Ai Labs en un auditorio.",
+    },
     metaTitle:
       "Capacitación en IA en El Salvador: equipos y profesionales | Ai Labs",
     metaDescription:
@@ -107,6 +111,10 @@ export const servicePagesEs: ServicePagesContent = {
     interest: "enablement",
   },
   automation: {
+    photo: {
+      name: "21.webp",
+      alt: "Dos participantes revisan código en sus laptops durante una sesión de Ai Labs.",
+    },
     metaTitle:
       "Automatización con IA en El Salvador: flujos e integraciones | Ai Labs",
     metaDescription:

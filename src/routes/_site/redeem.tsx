@@ -99,20 +99,6 @@ export const Route = createFileRoute("/_site/redeem")({
 const skipLinkClassName =
   "bg-background text-foreground focus-visible:ring-ring sr-only rounded-sm px-3 py-2 text-sm font-medium focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2"
 
-function collectRedeemWords(
-  content: RedeemContent,
-  eventName?: string
-): string[] {
-  return [
-    content.eventLabel,
-    ...(eventName ? [eventName] : []),
-    ...Object.values(content.products).map((product) => product.title),
-    content.signInCta,
-    content.claimCta,
-    ...content.steps.map((step) => step.title),
-  ]
-}
-
 function RedeemPage() {
   const { locale, content: siteContent } = Route.useRouteContext()
   const { code } = Route.useSearch()
@@ -168,7 +154,7 @@ function RedeemPage() {
         <CampaignHero
           fluid
           locale={locale}
-          words={collectRedeemWords(content, event.name)}
+          photo={content.heroPhoto}
           qrContent={content}
           footer={
             <CampaignFactRow
@@ -212,7 +198,7 @@ function RedeemStatusHero({
         <CampaignHero
           fluid
           locale={locale}
-          words={collectRedeemWords(content)}
+          photo={content.heroPhoto}
           qrContent={content}
           footer={<RedeemFootNote text={content.poweredBy} />}
         >

@@ -129,9 +129,7 @@ describe("search aliases", () => {
       expect(alias).not.toMatch(/consultores/)
     }
     for (const [alias, destination] of entries) {
-      if (
-        destination === "/events/get-competitive-quick"
-      ) {
+      if (destination === "/events/get-competitive-quick") {
         expect(alias).not.toMatch(/el-salvador|san-salvador/)
       }
     }

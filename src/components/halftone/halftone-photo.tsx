@@ -51,7 +51,7 @@ function HalftonePhoto({
       return
     }
     const io = new IntersectionObserver(
-      ([entry]) => setDeveloped(Boolean(entry?.isIntersecting)),
+      ([entry]) => setDeveloped(entry.isIntersecting),
       { rootMargin: "-42% 0px -42% 0px" }
     )
     io.observe(el)

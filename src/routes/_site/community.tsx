@@ -57,12 +57,6 @@ function CommunityPage() {
   const { locale, content: siteContent } = Route.useRouteContext()
   const content = siteContent.community
   const { microcopy } = siteContent
-  const words = [
-    content.label,
-    content.headline,
-    content.joinCta,
-    ...content.steps.map((step) => step.title),
-  ]
 
   return (
     <div className="relative">
@@ -75,7 +69,7 @@ function CommunityPage() {
       <div id="community-main">
         <CampaignHero
           locale={locale}
-          words={words}
+          photo={content.heroPhoto}
           qrContent={content}
           footer={
             <CampaignFactRow
@@ -91,16 +85,10 @@ function CommunityPage() {
           <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
             {content.body}
           </p>
-          <Link
-            to="/events"
-            className="w-fit text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-          >
+          <Link to="/events" className="text-action">
             {content.eventsCta.label}
           </Link>
-          <Link
-            to={CONSULTING_PAGE_PATH}
-            className="w-fit text-sm font-medium text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-          >
+          <Link to={CONSULTING_PAGE_PATH} className="text-action">
             {content.consultingCta.label}
           </Link>
           <div className="flex flex-col gap-2 pt-1">
@@ -118,7 +106,7 @@ function CommunityPage() {
                 className="size-4 shrink-0 opacity-80"
               />
             </a>
-            <p className="text-xs tracking-wide text-muted-foreground">
+            <p className="text-small text-muted-foreground">
               {content.joinPrompt} {content.joinHint}
             </p>
           </div>
