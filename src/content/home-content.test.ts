@@ -12,7 +12,6 @@ describe("public home content", () => {
         "/community",
         "/events",
         "/campus-leader",
-        "/aperture",
       ])
       expect(
         content.chrome.footer.columns
@@ -28,7 +27,6 @@ describe("public home content", () => {
           "/community",
           "/events",
           "/campus-leader",
-          "/aperture",
         ])
       )
     }

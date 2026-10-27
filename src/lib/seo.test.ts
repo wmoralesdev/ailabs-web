@@ -225,16 +225,16 @@ describe("buildPageMeta", () => {
   it("uses a custom share image when provided", () => {
     const meta = buildPageMeta({
       locale: "en",
-      path: "/u/walter",
+      path: "/events/modo-fundador",
       title: "Walter",
       description: "Building",
       image: {
-        url: "https://ailabs.sv/api/og/u/walter",
-        alt: "Walter · Aperture member #005",
+        url: "https://ailabs.sv/events/modo-fundador/og.png",
+        alt: "Modo Fundador workshop",
       },
     }).meta
     expect(meta.find((tag) => tag.property === "og:image")?.content).toBe(
-      "https://ailabs.sv/api/og/u/walter"
+      "https://ailabs.sv/events/modo-fundador/og.png"
     )
     expect(meta.find((tag) => tag.property === "og:image:width")?.content).toBe(
       "1200"

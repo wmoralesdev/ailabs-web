@@ -38,8 +38,6 @@ describe("events index", () => {
     expect(en.events.breadcrumbHome).toBe("Home")
     expect(es.community.eventsCta.href).toBe("/events")
     expect(en.community.eventsCta.href).toBe("/events")
-    expect(es.home.aperture.eventsCta.href).toBe("/events")
-    expect(en.home.aperture.eventsCta.href).toBe("/events")
   })
 
   it("lists the public Luma events once, with only published fields", () => {

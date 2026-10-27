@@ -48,7 +48,6 @@ describe("performance guards", () => {
       "/",
       "/community",
       "/campus-leader",
-      "/aperture",
       "/consultoria-de-ia-el-salvador",
       "/events",
       "/events/modo-fundador",
@@ -59,8 +58,6 @@ describe("performance guards", () => {
     }
     for (const path of [
       "/redeem",
-      "/me",
-      "/aperture/join",
       "/sign-in/factor-one",
       "/sign-up",
     ]) {
@@ -74,8 +71,6 @@ describe("performance guards", () => {
     for (const prefix of CLERK_ROUTE_PREFIXES) {
       const file = {
         "/redeem": "src/routes/_site/redeem.tsx",
-        "/me": "src/routes/_site/me.tsx",
-        "/aperture/join": "src/routes/_site/aperture/join.tsx",
         "/sign-in": "src/routes/sign-in.$.tsx",
         "/sign-up": "src/routes/sign-up.$.tsx",
       }[prefix]

@@ -5,8 +5,6 @@
  */
 export const CLERK_ROUTE_PREFIXES = [
   "/redeem",
-  "/me",
-  "/aperture/join",
   "/sign-in",
   "/sign-up",
 ] as const
