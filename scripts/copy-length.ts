@@ -91,6 +91,9 @@ function collect(content: SiteContent): {
   add("consulting.metaTitle", consulting.metaTitle + BRAND, 60)
   add("consulting.metaDescription", consulting.metaDescription, 160, 110)
   add("consulting.lead", consulting.lead, 160)
+  consulting.claims.forEach((claim, i) =>
+    add(`consulting.claims[${i}]`, claim, 220)
+  )
   consulting.services.forEach((service, i) =>
     add(`consulting.services[${i}].body`, service.body, 120)
   )
@@ -115,6 +118,7 @@ function collect(content: SiteContent): {
     add(`${at}.metaDescription`, page.metaDescription, 160, 110)
     add(`${at}.title`, page.title, 75)
     add(`${at}.lead`, page.lead, 170)
+    page.claims.forEach((claim, i) => add(`${at}.claims[${i}]`, claim, 220))
     add(`${at}.definition`, page.definition, 230)
     page.includes.forEach((item, i) =>
       add(`${at}.includes[${i}].body`, item.body, 120)

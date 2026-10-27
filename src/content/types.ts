@@ -475,6 +475,8 @@ export type ConsultingPageContent = {
   headline: string
   /** First visible paragraph. Same string as `faqs[0].answer`. */
   lead: string
+  /** Sentences beside the opening. Each one is also a later FAQ answer. */
+  claims: ReadonlyArray<string>
   servicesTitle: string
   services: readonly [ConsultingService, ConsultingService, ConsultingService]
   methodTitle: string
@@ -484,7 +486,7 @@ export type ConsultingPageContent = {
     HomeAboutBridgeItem,
     HomeAboutBridgeItem,
   ]
-  faqs: readonly [ConsultingFaq, ConsultingFaq]
+  faqs: ReadonlyArray<ConsultingFaq>
   cta: string
 }
 
@@ -543,6 +545,8 @@ export type ServicePageContent = {
   eyebrow: string
   title: string
   lead: string
+  /** Sentences under the opening. Each one is also a later FAQ answer. */
+  claims: ReadonlyArray<string>
   definitionHeading: string
   /** Self-contained sentence. Repeated verbatim as the first FAQ answer. */
   definition: string

@@ -466,6 +466,11 @@ export const en: SiteContent = {
     label: "San Salvador, El Salvador",
     headline: "AI consulting in El Salvador",
     lead: "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
+    claims: [
+      "We do artificial intelligence consulting in El Salvador, from San Salvador: we review your process, choose one improvement, and help you put it to work.",
+      "We are an AI company in El Salvador: a private consulting firm in San Salvador.",
+      "If you are looking for an artificial intelligence agency in El Salvador, we are a private consulting firm in San Salvador. We are not the National Artificial Intelligence Agency.",
+    ],
     servicesTitle: "Services",
     services: [
       {
@@ -513,6 +518,22 @@ export const en: SiteContent = {
         question: "What is AI consulting in El Salvador?",
         answer:
           "It means reviewing how a team works today, choosing one improvement, and applying it with AI. At Ai Labs we work with commercial, management, and operations teams, then prepare the team (Academy) or implement the workflow (Agentic). We do not publish consulting prices; public workshops do list theirs.",
+      },
+      {
+        question:
+          "Do you do artificial intelligence consulting in El Salvador?",
+        answer:
+          "We do artificial intelligence consulting in El Salvador, from San Salvador: we review your process, choose one improvement, and help you put it to work.",
+      },
+      {
+        question: "Are you an AI company in El Salvador?",
+        answer:
+          "We are an AI company in El Salvador: a private consulting firm in San Salvador.",
+      },
+      {
+        question: "Are you an AI agency in San Salvador?",
+        answer:
+          "If you are looking for an artificial intelligence agency in El Salvador, we are a private consulting firm in San Salvador. We are not the National Artificial Intelligence Agency.",
       },
     ],
     cta: "Let’s talk",
@@ -882,12 +903,12 @@ export const en: SiteContent = {
   events: {
     metaTitle: "Ai Labs events in El Salvador",
     metaDescription:
-      "Our AI events in San Salvador published on Luma for this month. These are Ai Labs events, not every event in the country.",
+      "We publish the Ai Labs events in El Salvador on Luma for this month, in San Salvador; they are not every event in the country.",
     breadcrumbHome: "Home",
     label: "Events",
     headline: "Ai Labs events in El Salvador",
     intro:
-      "Our events published on Luma for this month. These are Ai Labs events, not every event in the country.",
+      "We publish the Ai Labs events in El Salvador on Luma for this month, in San Salvador; they are not every event in the country.",
     upcomingLabel: "Upcoming",
     pastLabel: "Past",
     hostsLabel: "Hosts",
