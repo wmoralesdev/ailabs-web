@@ -31,8 +31,7 @@ function useHomeMediaCarousel(
   }, [])
 
   const logicalCount = images.length
-  const trackImages =
-    logicalCount > 1 ? [...images, images[0] as string] : [...images]
+  const trackImages = logicalCount > 1 ? [...images, images[0]] : [...images]
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)")

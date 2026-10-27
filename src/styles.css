@@ -12,11 +12,31 @@
     --font-display: "Alan Sans Variable", ui-sans-serif, system-ui, sans-serif;
     --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
 
+    /*
+     * Print palette. Themed tokens (paper, surface, ink, purple-ink, lilac)
+     * swap in dark mode; fixed tokens (purple, on-purple, snow, night,
+     * night-soft) read the same in both themes, so the purple field and the
+     * night footer never invert.
+     */
+    --color-paper: var(--paper);
+    --color-surface: var(--surface);
+    --color-ink: var(--ink);
     --color-purple: var(--brand-purple);
+    --color-purple-ink: var(--purple-ink);
+    --color-purple-deep: var(--brand-purple-deep);
+    --color-on-purple: var(--brand-white);
+    /* Fixed lilac paper under the photo lens. */
+    --color-print: #d6cffd;
+    --color-lilac: var(--lilac);
+    --color-snow: var(--brand-white);
+    --color-night: var(--brand-night);
+    --color-night-soft: var(--brand-night-soft);
+
+    /* Legacy aliases kept for the event microsites. */
     --color-purple-soft: var(--brand-purple-soft);
-    --color-lavender: var(--brand-lavender);
+    --color-lavender: var(--lilac);
     --color-graphite: var(--brand-graphite);
-    --color-muted-text: var(--brand-muted);
+    --color-muted-text: var(--muted-foreground);
     --color-white: var(--brand-white);
     --color-border-dark: var(--brand-border-dark);
 
@@ -56,13 +76,22 @@
     --color-on-dark: var(--on-dark);
     --color-on-dark-foreground: var(--on-dark-foreground);
 
-    --radius-sm: 0.5rem;
-    --radius-md: 0.75rem;
-    --radius-lg: 1.125rem;
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+    /*
+     * Shape rule: surfaces (cards, photos, bento cells) are 1.25rem, inputs
+     * and menus 0.625rem, buttons are full pills.
+     */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.625rem;
+    --radius-xl: 0.875rem;
+    --radius-2xl: 1.25rem;
+    --radius-3xl: 1.5rem;
+    --radius-4xl: 2rem;
+
+    --text-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+    --text-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+    --text-lead: clamp(1.1875rem, 1.07rem + 0.55vw, 1.5rem);
+    --text-head: clamp(2.375rem, 1.55rem + 3vw, 4.25rem);
 
     --spacing-section-y: var(--space-section-y);
     --spacing-gutter: var(--space-gutter);
@@ -72,31 +101,38 @@
 
 :root {
     /* Brand color contract; durable guidance lives in AGENTS.md. */
-    --brand-purple: #a78bfa;
-    --brand-purple-soft: #c4acf6;
-    --brand-lavender: #ede4ff;
-    --brand-graphite: #1a1a1a;
-    --brand-muted: #5c5c5c;
-    --brand-white: #fafafa;
-    --brand-border: #e8e4f0;
-    --brand-border-dark: #44414f;
+    /* Indigo, shared with wmorales.dev. */
+    --brand-purple: #614afc;
+    --brand-purple-soft: #8f7dfd;
+    --brand-purple-deep: #3d27c9;
+    --brand-graphite: #16131f;
+    --brand-white: #f5f4f8;
+    --brand-night: #0f0d17;
+    --brand-night-soft: #b7b2c8;
+    --brand-border-dark: #3a3648;
+
+    --paper: var(--brand-white);
+    --surface: #e9e6f2;
+    --ink: var(--brand-graphite);
+    --purple-ink: #614afc;
+    --lilac: #d6cffd;
 
     /* Spacing / layout */
-    --space-section-y: 4rem;
-    --space-gutter: 1.5rem;
+    --space-section-y: 5rem;
+    --space-gutter: 1rem;
     --max-width: 90rem;
     --max-width-narrow: 45rem;
-    /* Site chrome — floating header offset; keep in sync with SiteHeader / MainCard */
-    --site-header-offset: calc(env(safe-area-inset-top, 0px) + 3.75rem);
-    --site-header-height: var(--site-header-offset);
-    --main-card-margin-top: var(--site-header-offset);
-    --main-card-margin-bottom: 0.5rem;
-    --main-card-min-height: calc(
-        100dvh - var(--main-card-margin-top) - var(--main-card-margin-bottom)
-    );
+    /* Site chrome: the sticky header bar sits in flow, so pages need no
+       top offset; anchors scroll clear of it via scroll-padding. */
+    --site-header-height: calc(env(safe-area-inset-top, 0px) + 4.5rem);
+    --site-header-offset: 0px;
+    --main-card-margin-top: 0rem;
+    --main-card-margin-bottom: 0rem;
+    --main-card-min-height: auto;
 
     /* Motion */
-    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
     --dur-fast: 160ms;
     --dur-base: 240ms;
@@ -106,130 +142,266 @@
     --motion-dialog-enter: 250ms;
     --motion-dialog-exit: 180ms;
 
-    /* shadcn semantic map → brand */
-    --background: var(--brand-white);
-    --foreground: var(--brand-graphite);
-    --card: var(--brand-white);
-    --card-foreground: var(--brand-graphite);
-    --popover: var(--brand-white);
-    --popover-foreground: var(--brand-graphite);
+    /* shadcn semantic map → print palette */
+    --background: var(--paper);
+    --foreground: var(--ink);
+    --card: var(--paper);
+    --card-foreground: var(--ink);
+    --popover: var(--paper);
+    --popover-foreground: var(--ink);
     --primary: var(--brand-purple);
-    --primary-foreground: var(--brand-graphite);
-    --secondary: var(--brand-white);
-    --secondary-foreground: var(--brand-graphite);
-    --muted: var(--brand-lavender);
-    --muted-foreground: var(--brand-muted);
-    --accent: var(--brand-lavender);
-    --accent-foreground: var(--brand-graphite);
+    --primary-foreground: var(--brand-white);
+    --secondary: var(--surface);
+    --secondary-foreground: var(--ink);
+    --muted: var(--surface);
+    --muted-foreground: #534f66;
+    --accent: var(--surface);
+    --accent-foreground: var(--ink);
     --destructive: #c2410c;
-    --border: var(--brand-border);
-    --input: var(--brand-border);
-    --ring: var(--brand-purple);
+    --border: color-mix(in srgb, var(--ink) 16%, transparent);
+    --input: color-mix(in srgb, var(--ink) 28%, transparent);
+    --ring: var(--purple-ink);
     --chart-1: var(--brand-purple);
-    --chart-2: var(--brand-purple-soft);
-    --chart-3: var(--brand-muted);
-    --chart-4: var(--brand-graphite);
-    --chart-5: var(--brand-border-dark);
-    --radius: 0.75rem;
-    --sidebar: var(--brand-white);
-    --sidebar-foreground: var(--brand-graphite);
+    --chart-2: var(--purple-ink);
+    --chart-3: var(--muted-foreground);
+    --chart-4: var(--ink);
+    --chart-5: var(--lilac);
+    --radius: 0.625rem;
+    --sidebar: var(--paper);
+    --sidebar-foreground: var(--ink);
     --sidebar-primary: var(--brand-purple);
-    --sidebar-primary-foreground: var(--brand-graphite);
-    --sidebar-accent: var(--brand-lavender);
-    --sidebar-accent-foreground: var(--brand-graphite);
-    --sidebar-border: var(--brand-border);
-    --sidebar-ring: var(--brand-purple);
+    --sidebar-primary-foreground: var(--brand-white);
+    --sidebar-accent: var(--surface);
+    --sidebar-accent-foreground: var(--ink);
+    --sidebar-border: var(--border);
+    --sidebar-ring: var(--purple-ink);
 
-    /* Soft tinted ground (lavender band, soft cards) */
-    --surface-soft: var(--brand-lavender);
-
-    /* Always-dark purple-graphite band (footer, hero media panel) */
-    --surface-ink: color-mix(in srgb, var(--brand-purple) 14%, var(--brand-graphite));
-
-    /* Poster-weight purple for full-bleed home paper bands */
-    --home-paper-purple: color-mix(
-        in srgb,
-        var(--brand-purple) 72%,
-        var(--brand-graphite) 28%
-    );
-
-    /* Fixed contrast for controls sitting on dark bands */
+    --surface-soft: var(--surface);
+    /* Always-dark band (footer, event microsite panels). */
+    --surface-ink: var(--brand-night);
+    --home-paper-purple: var(--brand-purple);
     --on-dark: var(--brand-white);
     --on-dark-foreground: var(--brand-graphite);
 
-    /* Elevation — graphite/purple in light, black/purple in dark */
-    --shadow-color: color-mix(in srgb, var(--brand-graphite) 8%, transparent);
-    --shadow-color-strong: color-mix(in srgb, var(--brand-graphite) 12%, transparent);
-    --shadow-glow: color-mix(in srgb, var(--brand-purple) 32%, transparent);
+    /* Flat print: shadows are hairlines, not glows. */
+    --shadow-color: color-mix(in srgb, var(--brand-graphite) 10%, transparent);
+    --shadow-color-strong: color-mix(in srgb, var(--brand-graphite) 16%, transparent);
+    --shadow-glow: transparent;
 }
 
 @media (min-width: 640px) {
     :root {
-        --main-card-margin-bottom: 0.75rem;
+        --space-gutter: 1.75rem;
     }
 }
 
 @media (min-width: 768px) {
     :root {
-        --space-section-y: 6rem;
-        --space-gutter: 2.5rem;
-        --site-header-offset: calc(env(safe-area-inset-top, 0px) + 4.25rem);
+        --space-section-y: 8rem;
     }
 }
 
 .dark {
-    --background: var(--brand-graphite);
-    --foreground: var(--brand-white);
-    --card: color-mix(in srgb, var(--brand-white) 8%, var(--brand-graphite));
-    --card-foreground: var(--brand-white);
-    --popover: color-mix(in srgb, var(--brand-white) 8%, var(--brand-graphite));
-    --popover-foreground: var(--brand-white);
-    --primary: var(--brand-purple);
-    --primary-foreground: var(--brand-graphite);
-    --secondary: transparent;
-    --secondary-foreground: var(--brand-white);
-    --muted: color-mix(in srgb, var(--brand-purple) 10%, var(--brand-graphite));
-    --muted-foreground: color-mix(in srgb, var(--brand-white) 68%, transparent);
-    --accent: color-mix(in srgb, var(--brand-purple) 14%, var(--brand-graphite));
-    --accent-foreground: var(--brand-white);
-    --destructive: color-mix(in srgb, #f87171 92%, var(--brand-white));
-    --border: var(--brand-border-dark);
-    --input: var(--brand-border-dark);
-    --ring: var(--brand-purple-soft);
-    --chart-1: var(--brand-purple);
-    --chart-2: var(--brand-purple-soft);
-    --chart-3: color-mix(in srgb, var(--brand-white) 68%, transparent);
-    --chart-4: var(--brand-white);
-    --chart-5: var(--brand-border);
-    --sidebar: color-mix(in srgb, var(--brand-white) 8%, var(--brand-graphite));
-    --sidebar-foreground: var(--brand-white);
-    --sidebar-primary: var(--brand-purple);
-    --sidebar-primary-foreground: var(--brand-graphite);
-    --sidebar-accent: color-mix(in srgb, var(--brand-purple) 14%, var(--brand-graphite));
-    --sidebar-accent-foreground: var(--brand-white);
-    --sidebar-border: var(--brand-border-dark);
-    --sidebar-ring: var(--brand-purple-soft);
+    --brand-purple: #7462ff;
+    --paper: #100e17;
+    --surface: #1c1928;
+    --ink: #eeebf7;
+    --purple-ink: #9184ff;
+    --lilac: #2a2160;
 
-    --surface-soft: color-mix(in srgb, var(--brand-purple) 14%, var(--brand-graphite));
+    --muted-foreground: #a9a3bf;
+    --destructive: color-mix(in srgb, #f87171 92%, var(--brand-white));
+    --border: color-mix(in srgb, var(--ink) 16%, transparent);
+    --input: color-mix(in srgb, var(--ink) 26%, transparent);
     --shadow-color: color-mix(in srgb, black 40%, transparent);
     --shadow-color-strong: color-mix(in srgb, black 55%, transparent);
-    --shadow-glow: color-mix(in srgb, var(--brand-purple) 24%, transparent);
+    color-scheme: dark;
 }
 
 @layer base {
     * {
         @apply border-border outline-ring/50;
     }
+    html {
+        @apply font-sans;
+        background: var(--paper);
+        -webkit-text-size-adjust: 100%;
+        text-rendering: optimizeLegibility;
+        scroll-behavior: smooth;
+        scroll-padding-top: calc(var(--site-header-height) + 1rem);
+    }
     body {
         @apply bg-background text-foreground font-sans antialiased;
+        font-size: var(--text-body);
+        line-height: 1.5;
+        -webkit-tap-highlight-color: transparent;
     }
     button:not(:disabled),
     [role="button"]:not(:disabled) {
         cursor: pointer;
     }
-    html {
-        @apply font-sans;
-        scroll-behavior: smooth;
+    :focus-visible {
+        outline: 3px solid var(--purple-ink);
+        outline-offset: 3px;
+    }
+    ::selection {
+        background: var(--brand-purple);
+        color: var(--brand-white);
+    }
+    h1,
+    h2,
+    h3 {
+        text-wrap: balance;
+    }
+    p {
+        text-wrap: pretty;
+    }
+}
+
+@layer components {
+    /* Display type: Alan Sans, tight tracking and leading, sentence case. */
+    .display {
+        font-family: var(--font-display);
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1.02;
+    }
+
+    /*
+     * One button shape for the whole site: a flat pill that presses down.
+     * Indigo field with snow ink; hover turns to ink. Override with
+     * --btn-* vars.
+     */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: 44px;
+        padding: 0.625rem 1.25rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: var(--text-small);
+        line-height: 1.1;
+        background: var(--btn-bg, var(--brand-purple));
+        color: var(--btn-fg, var(--brand-white));
+        transition:
+            transform 160ms var(--ease-out),
+            background-color 180ms ease,
+            color 180ms ease;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .btn > svg {
+        flex-shrink: 0;
+        transition: transform 200ms var(--ease-out);
+    }
+
+    .btn:active {
+        transform: scale(0.97);
+    }
+
+    .btn:disabled {
+        opacity: 0.55;
+        pointer-events: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .btn:hover {
+            background: var(--btn-bg-hover, var(--ink));
+            color: var(--btn-fg-hover, var(--paper));
+        }
+
+        .btn:hover > svg:last-child {
+            transform: translateX(3px);
+        }
+    }
+
+    /* Ink button: for use on the purple field, where a purple button vanishes.
+       Light-faced in the dark theme so it also reads on night paper. */
+    .btn-ink {
+        --btn-bg: var(--brand-graphite);
+        --btn-fg: var(--brand-white);
+        --btn-bg-hover: var(--brand-white);
+        --btn-fg-hover: var(--brand-graphite);
+    }
+
+    .dark .btn-ink {
+        --btn-bg: var(--brand-white);
+        --btn-fg: var(--brand-graphite);
+        --btn-bg-hover: var(--brand-graphite);
+        --btn-fg-hover: var(--brand-white);
+    }
+
+    /* Quiet text action next to a button. */
+    .text-action {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        gap: 0.375rem;
+        font-weight: 600;
+        font-size: var(--text-small);
+        text-decoration-line: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 5px;
+        text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+        transition: text-decoration-color 180ms ease;
+    }
+
+    .text-action > svg {
+        transition: transform 200ms var(--ease-out);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .text-action:hover {
+            text-decoration-color: currentColor;
+        }
+
+        .text-action:hover > svg:last-child {
+            transform: translateX(3px);
+        }
+    }
+
+    /* Live CSS halftone screen for seams and fields: the dots are the print. */
+    .dot-screen {
+        background-image: radial-gradient(
+            circle at center,
+            var(--dot, var(--purple-ink)) var(--dot-r, 28%),
+            transparent calc(var(--dot-r, 28%) + 1%)
+        );
+        background-size: var(--dot-size, 10px) var(--dot-size, 10px);
+    }
+
+    .link-underline {
+        position: relative;
+    }
+
+    .link-underline::after {
+        content: "";
+        position: absolute;
+        inset-inline: 0;
+        bottom: -2px;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 240ms var(--ease-out);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .link-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+    }
+
+    .press {
+        transition: transform 160ms var(--ease-out);
+    }
+
+    .press:active {
+        transform: scale(0.97);
     }
 }
 
@@ -238,7 +410,7 @@
         font-family: var(--font-display);
     }
 
-    /* Legacy aliases → semantic tokens (prefer bg-surface-soft / text-foreground) */
+    /* Legacy aliases → semantic tokens (prefer bg-surface / text-foreground) */
     .bg-lavender {
         background-color: var(--surface-soft);
     }
@@ -267,28 +439,11 @@
         box-shadow: 0 2px 10px var(--shadow-color-strong);
     }
 
-    .shadow-float {
-        box-shadow:
-            0 2px 6px var(--shadow-color-strong),
-            0 16px 40px var(--shadow-glow);
-    }
-
-    .shadow-float-lg {
-        box-shadow:
-            0 2px 6px var(--shadow-color-strong),
-            0 18px 44px var(--shadow-glow);
-    }
-
-    .shadow-elevated {
-        box-shadow:
-            0 1px 2px var(--shadow-color),
-            0 12px 32px -20px var(--shadow-glow);
-    }
-
+    .shadow-float,
+    .shadow-float-lg,
+    .shadow-elevated,
     .shadow-panel {
-        box-shadow:
-            0 2px 8px var(--shadow-color),
-            0 32px 80px -24px var(--shadow-glow);
+        box-shadow: 0 1px 2px var(--shadow-color);
     }
 
     .section-y {
@@ -320,137 +475,48 @@
     }
 
     /*
-     * Home hero content card — always-dark surface-ink band (matches footer).
-     * Does not add `.dark` on the node so site-level `dark:` utilities still track html theme.
-     */
-    .home-hero-invert {
-        --background: var(--surface-ink);
-        --foreground: var(--brand-white);
-        --card: color-mix(in srgb, var(--brand-white) 8%, var(--brand-graphite));
-        --card-foreground: var(--brand-white);
-        --popover: color-mix(in srgb, var(--brand-white) 8%, var(--brand-graphite));
-        --popover-foreground: var(--brand-white);
-        --secondary: transparent;
-        --secondary-foreground: var(--brand-white);
-        --muted: color-mix(in srgb, var(--brand-purple) 10%, var(--brand-graphite));
-        --muted-foreground: color-mix(in srgb, var(--brand-white) 68%, transparent);
-        --accent: color-mix(in srgb, var(--brand-purple) 14%, var(--brand-graphite));
-        --accent-foreground: var(--brand-white);
-        --border: var(--brand-border-dark);
-        --input: var(--brand-border-dark);
-        --ring: var(--brand-purple-soft);
-        --surface-soft: var(--surface-ink);
-        --shadow-color: color-mix(in srgb, black 40%, transparent);
-        --shadow-color-strong: color-mix(in srgb, black 55%, transparent);
-        --shadow-glow: color-mix(in srgb, var(--brand-purple) 24%, transparent);
-        color-scheme: dark;
-    }
-
-    /*
-     * Full-bleed purple paper band (poster rail). Remaps semantics so
-     * foreground/CTAs/accents read as ink-on-violet; cards stay paper white.
-     */
-    .home-paper-band {
-        --background: var(--home-paper-purple);
-        --foreground: var(--brand-white);
-        --card: var(--brand-white);
-        --card-foreground: var(--brand-graphite);
-        --popover: var(--brand-white);
-        --popover-foreground: var(--brand-graphite);
-        --primary: var(--brand-white);
-        --primary-foreground: var(--brand-graphite);
-        --secondary: color-mix(in srgb, var(--brand-white) 12%, transparent);
-        --secondary-foreground: var(--brand-white);
-        --muted: color-mix(in srgb, var(--brand-white) 12%, transparent);
-        --muted-foreground: color-mix(in srgb, var(--brand-white) 72%, transparent);
-        --accent: color-mix(in srgb, var(--brand-white) 14%, transparent);
-        --accent-foreground: var(--brand-white);
-        --border: color-mix(in srgb, var(--brand-white) 22%, transparent);
-        --input: color-mix(in srgb, var(--brand-white) 22%, transparent);
-        --ring: var(--brand-white);
-        --surface-soft: color-mix(in srgb, var(--brand-white) 14%, transparent);
-        --color-purple: color-mix(in srgb, var(--brand-white) 88%, transparent);
-        --color-purple-soft: color-mix(in srgb, var(--brand-white) 55%, transparent);
-        --shadow-color: color-mix(in srgb, black 18%, transparent);
-        --shadow-color-strong: color-mix(in srgb, black 28%, transparent);
-        --shadow-glow: color-mix(in srgb, var(--brand-white) 18%, transparent);
-        background-color: var(--home-paper-purple);
-        color: var(--brand-white);
-        color-scheme: dark;
-    }
-
-    /* Paper sheet alternating with purple bands — follows page theme (light/dark). */
-    .home-paper-sheet {
-        background-color: var(--background);
-        color: var(--foreground);
-    }
-
-    /*
      * Theme-invariant paper island. For cards sitting on a surface that is
      * violet in both themes (event pass faces): following the page theme would
      * turn the card into a dark hole on an unchanged violet field.
      */
     .surface-paper {
-        --background: var(--brand-white);
-        --foreground: var(--brand-graphite);
-        --card: var(--brand-white);
-        --card-foreground: var(--brand-graphite);
-        --popover: var(--brand-white);
-        --popover-foreground: var(--brand-graphite);
-        --muted: var(--brand-lavender);
-        --muted-foreground: var(--brand-muted);
-        --accent: var(--brand-lavender);
-        --accent-foreground: var(--brand-graphite);
-        --primary: var(--brand-purple);
-        --primary-foreground: var(--brand-graphite);
-        --secondary: var(--brand-white);
-        --secondary-foreground: var(--brand-graphite);
+        --paper: var(--brand-white);
+        --surface: #e9e6f2;
+        --ink: var(--brand-graphite);
+        --purple-ink: #614afc;
+        --lilac: #d6cffd;
+        --muted-foreground: #534f66;
         --destructive: #c2410c;
-        --border: var(--brand-border);
-        --input: var(--brand-border);
-        --ring: var(--brand-purple);
-        --shadow-color: color-mix(in srgb, var(--brand-graphite) 14%, transparent);
-        --shadow-color-strong: color-mix(in srgb, var(--brand-graphite) 22%, transparent);
-        --shadow-glow: color-mix(in srgb, var(--brand-graphite) 18%, transparent);
         background-color: var(--brand-white);
         color: var(--brand-graphite);
         color-scheme: light;
     }
 
-    /* Paper islands on a purple band restore light-surface ink. */
-    .home-paper-band .bg-card {
-        --background: var(--brand-white);
-        --foreground: var(--brand-graphite);
-        --muted-foreground: var(--brand-muted);
-        --border: var(--brand-border);
-        --primary: var(--brand-purple);
-        --primary-foreground: var(--brand-graphite);
-        --ring: var(--brand-purple);
-        --color-purple: var(--brand-purple);
-        --color-purple-soft: var(--brand-purple-soft);
-        background-color: var(--brand-white);
-        color: var(--brand-graphite);
-        color-scheme: light;
-    }
-
-    /* Corner stipple — light dots on the always-dark hero content card. */
-    .home-hero-stipple-canvas {
+    /*
+     * Always-dark island (night footer, dark event panels): remaps the themed
+     * tokens so components inside read as light-on-night in both themes.
+     */
+    .surface-night {
+        --paper: var(--brand-night);
+        --surface: #1c1928;
+        --ink: #eeebf7;
+        --purple-ink: #9184ff;
+        --lilac: #2a2160;
+        --muted-foreground: var(--brand-night-soft);
+        background-color: var(--brand-night);
         color: var(--brand-white);
-        --stipple-opacity: 0.28;
+        color-scheme: dark;
     }
 
-    /* Full-viewport presentation background stipple. Brand purple reads on
-       both the white and graphite page backgrounds. */
+    /* Full-viewport presentation background stipple. */
     .bg-stipple-canvas {
-        color: var(--brand-purple);
+        color: var(--purple-ink);
         --stipple-opacity: 0.35;
     }
 
     .dark .bg-stipple-canvas {
-        color: var(--brand-purple);
         --stipple-opacity: 0.28;
     }
-
 }
 
 @keyframes main-grid-glow {
@@ -470,141 +536,44 @@
     }
 }
 
-/* A measured, constant-speed ambassador strip. Static content is the default. */
-@keyframes home-trust-marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+/* Masked headline reveal. Pure CSS, off the main thread. */
+@keyframes line-rise {
+    from {
+        transform: translateY(105%);
+    }
+    to {
+        transform: translateY(0);
+    }
 }
 
-.home-trust {
-    color: var(--on-dark);
-    background: color-mix(in srgb, var(--brand-purple) 28%, var(--brand-graphite));
-}
-
-.home-trust-marquee {
-    position: relative;
-    min-height: 4.5rem;
-    overflow: hidden;
-}
-
-.home-trust-logo-list {
-    display: flex;
-    width: max-content;
-    flex-shrink: 0;
-    align-items: center;
-    gap: clamp(2rem, 3vw, 3rem);
-    padding-right: clamp(2rem, 3vw, 3rem);
-}
-
-.home-trust-logo-slot {
-    display: flex;
-    width: 8.5rem;
-    height: 4.5rem;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-}
-
-.home-trust-logo {
-    display: block;
-    width: auto;
-    max-width: 8.5rem;
-    height: 1.5rem;
-    object-fit: contain;
-}
-
-.home-trust-logo-codex {
-    height: 2rem;
-}
-
-.home-trust-lockup {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: -0.025em;
-}
-
-.home-trust-marquee-measure {
-    position: absolute;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.home-trust-marquee-track {
-    display: none;
-    width: max-content;
-    animation-play-state: paused;
-}
-
-.home-trust-marquee-half {
-    display: flex;
-    flex-shrink: 0;
-}
-
-.home-trust-marquee-static {
-    width: 100%;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--on-dark) 35%, transparent) transparent;
-}
-
-.home-trust-marquee-static:focus-visible {
-    outline: 2px solid var(--on-dark);
-    outline-offset: -2px;
-}
-
-.home-trust-control {
-    display: inline-flex;
-    width: 2.75rem;
-    height: 2.75rem;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid color-mix(in srgb, var(--on-dark) 35%, transparent);
-    border-radius: 50%;
-    color: var(--on-dark);
-    background: transparent;
-    transition: background-color var(--dur-fast) var(--ease-out);
-}
-
-.home-trust-control[hidden] { display: none; }
-
-.home-trust-control:focus-visible {
-    outline: 2px solid var(--on-dark);
-    outline-offset: 3px;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .home-trust-control:hover {
-        background: color-mix(in srgb, var(--on-dark) 12%, transparent);
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .home-trust[data-ready] .home-trust-marquee {
-        mask-image: linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
+    .mask-line {
+        display: block;
+        overflow: clip;
+        padding-block: 0.14em 0.06em;
+        margin-block: -0.14em -0.06em;
     }
 
-    .home-trust[data-ready] .home-trust-marquee-track {
-        display: flex;
-        animation: home-trust-marquee var(--trust-duration) linear infinite;
-        will-change: transform;
+    .mask-line > span {
+        display: block;
+        animation: line-rise 900ms var(--ease-expo) both;
+        animation-delay: calc(var(--i, 0) * 90ms);
     }
 
-    .home-trust[data-ready][data-paused] .home-trust-marquee-track {
-        animation-play-state: paused;
-        will-change: auto;
-    }
-
-    .home-trust[data-ready] .home-trust-marquee-static {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        clip-path: inset(50%);
-        white-space: nowrap;
+    .fade-in-late {
+        animation: fade-up 700ms var(--ease-out) both;
+        animation-delay: 420ms;
     }
 }
 
@@ -658,24 +627,6 @@
 .contact-dialog[data-ending-style],
 .contact-overlay[data-ending-style] {
     transition-duration: var(--motion-dialog-exit);
-}
-
-.home-action > svg {
-    transition: transform var(--dur-fast) var(--ease-out);
-}
-
-[data-home-visual] [data-visual-node] > svg {
-    transition: transform var(--dur-fast) var(--ease-out);
-}
-
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .home-action:hover > svg {
-        transform: translateX(4px);
-    }
-
-    #services article:hover [data-visual-node]:last-child > svg {
-        transform: translateY(-4px);
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {

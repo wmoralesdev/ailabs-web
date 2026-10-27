@@ -14,8 +14,6 @@ Allow: /
 Disallow: /sign-in
 Disallow: /sign-up
 Disallow: /bg
-Disallow: /me
 Disallow: /redeem
-Disallow: /aperture/join
 
 Sitemap: https://www.ailabs.sv/sitemap.xml

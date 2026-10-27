@@ -34,11 +34,11 @@ then follows one of two delivery routes:
 - **Agentic** — design and implement the workflow with the team, including
   integrations, human review, documentation, and transfer.
 
-**Aperture** is community evidence, not a third commercial offer. It connects
-people, companies, events, and relevant opportunities and keeps Ai Labs close
-to people building with these tools. Keep the offer practical and grounded in
-real work. Never sell AI as magic or imply guaranteed access, credits,
-partnerships, or third-party outcomes.
+**Aperture** is the name of the Ai Labs community: community evidence, not a
+third commercial offer. It has no pages of its own on this site; the member
+directory, join flow, dashboard, and public profiles were retired. Keep the
+offer practical and grounded in real work. Never sell AI as magic or imply
+guaranteed access, credits, partnerships, or third-party outcomes.
 
 Metrics, program names, partner relationships, credits, and credentials can
 change. Verify them before adding or changing public claims; do not copy a
@@ -57,6 +57,17 @@ possibly stale value into this file.
   teaching, software, event, and community proof over AI-industry hype.
 - Avoid inflated language such as "revolutionary," "unlock the future,"
   "empower," or unsupported "leading ecosystem" claims.
+- Ai Labs speaks about itself in the first person plural ("somos", "hacemos",
+  "we"), never as a third party ("Ai Labs hace…"). The brand name still opens
+  entity statements ("Somos Ai Labs, una empresa…"). `public/llms.txt` is
+  written for machines and stays in the third person.
+- Spanish copy uses voseo throughout ("querés", "escribinos", "tocá").
+- Long sections lose attention, so copy has length budgets: visible strings
+  stay within their budget, and siblings shown side by side (cards, steps,
+  FAQ answers) stay close in length. `pnpm copy:check`
+  (`scripts/copy-length.ts`) enforces both and the first-person voice; run it
+  after any copy change. Titles stay at 60 characters or fewer with the brand
+  last; meta descriptions run 110 to 160.
 - Keep English and Spanish content in parity. Add customer-facing strings to
   the typed content modules rather than scattering literals through
   components.
@@ -67,31 +78,32 @@ possibly stale value into this file.
 
 ## Current application
 
-- Shared chrome is a fixed, centered floating nav bar (`SiteHeader`): rounded
-  corners (not pill), nav links plus theme and locale. Brand lockup stays
-  page-owned on full-bleed routes (home, redeem, community, campus-leader,
-  lab, the events index, and event microsites); other routes get a top-left
-  lockup sibling. Do not
-  embed theme/locale controls in page heroes.
+- Shared chrome is a flat, sticky header bar (`SiteHeader`): lockup at
+  the left, then Services, grouped Community, theme, locale, and one
+  "Let's talk" button. Event microsites and `/lab` print their own lockup and
+  hide the header's. Do not embed theme/locale controls in page heroes. The
+  footer is a night block revealed from under the page where it fits in the
+  viewport, ending in the "get curious" line.
 - Locale is not in the URL. Prefer the `ailabs-locale` cookie, then
   `Accept-Language`, then `es` when the header is missing or unrecognized.
   An explicit English preference still wins. Legacy `/en/*` and `/es/*` permanently
   redirect to the unprefixed path and set the cookie. Language toggle updates
   the cookie and reloads route context.
-- The home page (`/`) follows Hero, Ambassador marquee, Services, Method, FAQ, and Contact,
-  followed by the shared footer. FAQ answers stay visible (never collapsed) and
-  are the same text as the home `FAQPage` JSON-LD and the `llms.txt` FAQ. Services combines Academy and Agentic; community is
-  accessible through chrome. The seven existing ambassador-program logos return
-  beneath the hero at the owner's request. Describe that relationship, not a
-  customer list or a guarantee from those companies. Do not restore photo bands or metrics
-  from unused legacy content. The navbar is Services, grouped Community, and
-  Let's talk; mobile navigation is used below 1024px.
-  From 1024px, the home hero is a 50/50 split: left copy and a right text
-  spiral sourced from `hero.spiralWords` (`TextSpiral`). Below 1024px, the
-  home has a compact typographic hero with natural height, balanced headline,
-  primary button and secondary text link with an arrow, followed by the logos.
-  The spiral is unmounted on mobile, not replaced with another decoration.
-  `/lab` and campaign heroes keep their existing spiral layouts.
+- The home page (`/`) follows Hero, Ambassador programs, Services, Method, FAQ,
+  and Contact, followed by the shared footer. FAQ answers stay visible (never
+  collapsed) and are the same text as the home `FAQPage` JSON-LD and the
+  `llms.txt` FAQ. Services combines Academy and Agentic; community is
+  accessible through chrome. The seven ambassador-program marks sit beneath the
+  hero in a quiet row, printed as halftone dots. Describe that
+  relationship, not a customer list or a guarantee from those companies. Do not
+  restore photo bands or metrics from unused legacy content.
+- The home hero is typographic beside the Ai Labs mark printed as a live
+  halftone (`HalftoneCanvas` reading `public/brand/ailabs-iso-dark.svg`). The
+  whole hero is the pointer surface: the cursor drags purple ink through the
+  dot screen and it melts into the mark. No photo, no waves, no idle loop.
+  `/events` reuses this hero.
+- Services is a bento: per route a text card, two real event photos with the
+  halftone lens, and one pure-halftone cell inked by the pointer.
 - `/consultoria-de-ia-el-salvador` is the indexable consulting page. Spanish
   and English share that URL. Consulting aliases 301 to it. `/ia-el-salvador`,
   `/inteligencia-artificial-el-salvador`, and `/ai-el-salvador` still 301 to `/`.
@@ -106,21 +118,12 @@ possibly stale value into this file.
   variants or a standalone Aperture marketing page.
 - `/redeem` is an authenticated credit-redemption flow backed by Clerk,
   TanStack server functions, Prisma, and PostgreSQL/Neon.
-- `/aperture/join` is the authenticated Aperture claim flow. Join stays
-  closed in production unless `APERTURE_JOIN=open` and the legal text is
-  published. `APERTURE_JOIN=preview` opens the form only outside
-  production. A successful claim allocates a permanent member number.
-- `/me` is the private member dashboard: events linked to verified emails,
-  credit codes and expiry, and profile settings. It stays noindex.
-- `/u/$username` is the public builder profile. `/aperture` lists members.
-  Public events appear only when the member turns `showEvents` on.
-  Published projects show a self-reported built-with breakdown.
-  Project images are stored in Cloudflare R2 when those credentials are set.
-  `/api/og/u/$username` renders the member share card used as the profile OG image.
+- `/aperture`, `/aperture/join`, `/me`, and `/u/*` 301 to `/community`
+  (`src/lib/search-aliases.ts`). Do not rebuild them without the owner.
 - `/community` is a minimal WhatsApp invite landing (no auth). Like redeem
   and campus-leader, its hero is the shared campaign split hero
-  (`src/components/campaign/campaign-hero.tsx`): light copy column on the
-  left, ink text-spiral panel on the right. Community appears in chrome nav
+  (`src/components/campaign/campaign-hero.tsx`): copy at the left, a real
+  event photo with the halftone lens at the right. Community appears in chrome nav
   and the footer.
 - `/campus-leader` is a public Campus Leader application flow (no auth).
   Submissions persist via a TanStack server function and Prisma. Cohort
@@ -129,8 +132,7 @@ possibly stale value into this file.
   applications with `pnpm campus-leader:export` for Notion review.
 - `/events` is the index of Ai Labs events in El Salvador. It is a normal
   indexable page (sitemap, 200). Country-shaped search aliases 301 here.
-  The index reuses the home hero, including its text spiral, and owns the
-  brand lockup. Workshop aliases stay on their own event pages.
+  The index reuses the home hero. Workshop aliases stay on their own event pages.
 - `/events/$slug` hosts per-event microsites with their own layouts. Shipped
   events: `/events/modo-fundador` (founders, USD 50, Wompi) and
   `/events/get-competitive-quick` (students / remote seekers, USD 25, Wompi;
@@ -162,10 +164,16 @@ Performance invariants for public pages (guarded by
   components out of the root, chrome, and route loaders: those ship in the
   entry bundle. Loaders import heavy modules dynamically.
 - API route files import `.server` modules inside their handlers.
-- three.js, carousel slides past the first, and marquee logos load lazily.
-  Only the Alan Sans Latin font is preloaded; preloading DM Sans measured
-  slower. TextSpiral builds its rings on idle, after hydration.
-- Resize new carousel photos to 1920px on the long edge (WebP, quality 80).
+- No WebGL: live halftone is 2D canvas (`HalftoneCanvas`, `HalftoneLens`)
+  that only draws while ink moves and on screen; icons and logos are inline
+  SVG dots; photos are plain lazy `<img>`s. Carousel
+  slides past the first load lazily. Only the Alan Sans Latin font is
+  preloaded; preloading DM Sans measured slower. TextSpiral (`/lab` only)
+  builds its rings on idle, after hydration.
+- Resize new carousel photos to 1920px on the long edge (WebP, quality 80)
+  and add their size to `src/content/event-photos.ts`. New ambassador marks go in `assets/logos`
+  as single-colour SVGs; `pnpm halftone:logos` regenerates
+  `src/lib/logo-dots.ts`.
 
 The linked `ailabs-cli` package at `../ailabs-cli` powers the seed and image
 scripts. Do not recreate deleted one-off scripts in this repo.
@@ -175,6 +183,10 @@ scripts. Do not recreate deleted one-off scripts in this repo.
 - `src/routes` — file-based routes, metadata, and route-level loading
 - `src/components/chrome` — shared shell, header, footer, logo, and theme UI
 - `src/components/home` — homepage sections and home-specific interactions
+- `src/components/halftone` — the halftone primitives: `HalftoneCanvas` (live
+  print with pointer ink), `HalftoneLens` (photo with a pointer lens),
+  `HalftoneIcon` (shapes in `src/lib/halftone-shapes.ts`), `HalftoneLogo`, and
+  the GSAP `Reveal`
 - `src/components/ui` — shared shadcn/Base UI primitives; reuse before adding a
   local replacement
 - `src/content` — localized content and its TypeScript contract
@@ -184,13 +196,22 @@ scripts. Do not recreate deleted one-off scripts in this repo.
   utilities
 - `prisma` — schema and migrations
 - `public/brand`, `public/carousel`, `public/community-avatars` — approved
-  visual assets
+  visual assets; `assets/logos` holds the single-colour ambassador marks
 
 ## UI implementation rules
 
-- Treat the current components as the geometry reference. The home uses large
-  rounded surfaces, pill-shaped marketing controls, real-event media, stipple
-  texture, and distinct desktop/mobile hero compositions.
+- Halftone is an accent, inspired by wmorales.dev but not a copy of it. Use
+  it where it can move with the visitor: the printed mark, pure-halftone
+  cells, the lens over photos, icons and ambassador marks. Photos stay real
+  photographs; never pre-print a whole photo as dots. No waves or idle loops.
+- Shape rule: surfaces (cards, photos, bento cells, the contact card) are
+  rounded (`rounded-2xl`/`rounded-3xl`), inputs and menus small radii, buttons
+  full pills. One button (`.btn`: indigo, snow ink, turns to ink on hover)
+  and one text action (`.text-action`). Display type is Alan Sans 600, tight.
+- Tokens live in `src/styles.css`: themed `paper`, `surface`, `ink`,
+  `purple-ink`, `lilac`; fixed `purple` (indigo #614afc, shared with wmorales.dev), `on-purple`
+  (snow), `print` (lilac paper under the photo lens),
+  `snow`, `night`. Purple is an accent, not a band behind every section.
 - Preserve the established light, dark, and system theme behavior.
 - Use semantic classes and existing CSS variables. Do not create a parallel
   palette or hard-code brand colors inside components.
@@ -198,9 +219,10 @@ scripts. Do not recreate deleted one-off scripts in this repo.
   locally through Fontsource.
 - Reuse `src/components/ui` and the shared home/chrome utilities. Use
   Hugeicons for interface icons; do not use emoji as UI icons.
-- Keep responsive behavior deliberate. The home hero is typographic below
-  `lg` and becomes a true 50/50 split with TextSpiral from `lg` up. Let mobile
-  text and zoom grow naturally; do not restore a viewport-height minimum.
+- Keep responsive behavior deliberate. Below `lg` the home hero stacks copy
+  over the mark with natural height; from `lg` it is a split up to one
+  viewport tall. Let
+  mobile text and zoom grow naturally.
 - Keep effects restrained and performant. Prefer transform and opacity for
   motion, and do not add decorative animation that competes with content.
 
@@ -227,19 +249,16 @@ scripts. Do not recreate deleted one-off scripts in this repo.
   generic skill defaults about fonts, palettes, generated imagery, headline
   line limits, Motion, Next.js or critique quotas. Review demonstrated problems
   judiciously and also acknowledge what works.
-- Motion is editorial, fluid and perceptible: a coordinated word-by-word
-  hero entrance (700ms, up to 28px), service entrances (600ms,
-  up to 24px), and short diagrams that assemble as they enter their own viewport.
-  Method icons enter once while its text and the footer remain still. Use
-  `src/lib/home-motion.ts` for entrance timings and
+- Motion is editorial, fluid and driven by the visitor: a coordinated
+  word-by-word hero entrance (700ms, up to 28px), the mark's dots growing in
+  once, pointer ink that trails and melts back, the photo lens on a spring,
+  sections that rise in once (`Reveal`: 24px, staggered), and icons and logos
+  that ripple under the pointer. Nothing loops on its own. Use `src/lib/home-motion.ts` for the hero entrance and
   `src/styles.css` for surface/state tokens.
-- GSAP and `@gsap/react` own coordinated entrances; CSS owns small state changes.
-  TextSpiral keeps its own engine and pauses outside the viewport or in hidden
-  tabs. Do not let two engines control the same transform.
-- The ambassador marquee moves linearly at 42px/s. Provide a pause control,
-  pause outside the viewport and in hidden tabs, and show a static accessible
-  list with reduced motion or without JavaScript. Keep decorative copies out
-  of the accessibility tree.
+- GSAP and `@gsap/react` own coordinated entrances and scroll links; CSS owns
+  small state changes; halftone canvases and SVGs run their own frame loops.
+  Register ScrollTrigger inside hooks, not at import. Do not let two engines
+  control the same transform.
 - Keep native scrolling, immediate access to copy/CTAs, reduced-motion support,
   and cleanup of listeners, observers, timers and animation contexts. Test at
   normal speed as well as with captures; passing a build is not visual approval.
@@ -266,8 +285,8 @@ scripts. Do not recreate deleted one-off scripts in this repo.
   reuses or gaps a number. Team numbers 0 to 4 come only from
   `pnpm aperture:reserve`. Clerk `user.updated` and `user.deleted` events at
   `/api/webhooks/clerk` refresh emails and avatars for existing members and
-  retire deleted users; a number is never reused. Join at `/aperture/join`
-  is gated by `APERTURE_JOIN` and required Terms, Privacy, and 18+ consent.
+  retire deleted users; a number is never reused. There is no join flow on
+  the site any more; the member tables stay as they are.
 
 ## Contact operations
 

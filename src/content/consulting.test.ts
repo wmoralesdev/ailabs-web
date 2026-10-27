@@ -150,10 +150,6 @@ describe("consulting page", () => {
         label: anchor,
         href: CONSULTING_PATH,
       })
-      expect(content.aperture.directory.consultingCta).toEqual({
-        label: anchor,
-        href: CONSULTING_PATH,
-      })
       expect(content.events.consultingLink).toBe(anchor)
     }
 
@@ -163,17 +159,12 @@ describe("consulting page", () => {
       "src/components/events/events-index.tsx",
       "utf8"
     )
-    const directory = readFileSync(
-      "src/components/aperture/member-directory.tsx",
-      "utf8"
-    )
-    for (const source of [community, campus, events, directory]) {
+    for (const source of [community, campus, events]) {
       expect(source).toContain("CONSULTING_PAGE_PATH")
     }
     expect(community).toContain("{content.consultingCta.label}")
     expect(campus).toContain("{content.consultingCta.label}")
     expect(events).toContain("copy.consultingLink")
-    expect(directory).toContain("{content.consultingCta.label}")
     expect(readFileSync("src/components/home/home-hero.tsx", "utf8")).toContain(
       "textLink?"
     )

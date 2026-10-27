@@ -447,8 +447,8 @@ function EventsIndex({ locale, content, now }: EventsIndexProps) {
       <HomeHero
         locale={locale}
         content={content}
-        desktopSpiralOnly
         hero={hero}
+        samePageCtas={false}
         primaryAction={{
           label: copy.calendarLabel,
           href: walterEventsCalendarUrl,

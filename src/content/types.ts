@@ -1,8 +1,10 @@
+import type { EventPhoto } from "./event-photos"
+
 export const LOCALES = ["en", "es"] as const
 
 export type Locale = (typeof LOCALES)[number]
 
-export type PillarId = "academy" | "agentic" | "aperture"
+export type PillarId = "academy" | "agentic"
 
 export type PageMeta = {
   title: string
@@ -50,6 +52,8 @@ export type FooterContent = {
   eventsTitle: string
   copyright: string
   locationLine: string
+  /** Heading above the social links. */
+  socialTitle: string
 }
 
 export type ChromeContent = {
@@ -85,6 +89,8 @@ export type RedeemStep = {
 }
 
 export type RedeemContent = CampaignQrCopy & {
+  /** Event photo printed on the hero panel. */
+  heroPhoto: EventPhoto
   metaTitle: string
   eventLabel: string
   howItWorksLabel: string
@@ -115,9 +121,6 @@ export type RedeemContent = CampaignQrCopy & {
   missingCodeTitle: string
   missingCodeBody: string
   /** Shown after codes when the signed-in visitor is not yet a member. */
-  joinNudgeTitle: string
-  joinNudgeBody: string
-  joinNudgeCta: string
   poolLabels: {
     CURSOR: string
     CODEX: string
@@ -137,6 +140,8 @@ export type CommunityStep = {
 }
 
 export type CommunityContent = CampaignQrCopy & {
+  /** Event photo printed on the hero panel. */
+  heroPhoto: EventPhoto
   metaTitle: string
   metaDescription: string
   label: string
@@ -196,6 +201,8 @@ export type CampusLeaderMedia = {
 }
 
 export type CampusLeaderContent = CampaignQrCopy & {
+  /** Event photo printed on the hero panel. */
+  heroPhoto: EventPhoto
   metaTitle: string
   metaDescription: string
   label: string
@@ -381,58 +388,6 @@ export type HomePartnerVoice = {
   role: string
 }
 
-/**
- * One row of the Aperture lineup. Every event so far is in San Salvador, so
- * rows carry a venue rather than a city.
- */
-export type HomeApertureEvent = {
-  /** Luma slug where the event has a public page, otherwise a stable key. */
-  id: string
-  /** Authored to scan in display type — not the raw Luma title. */
-  name: string
-  venue?: string
-  /** Verified headcount. Reserved for standout events; most rows omit it. */
-  attendance?: number
-  /** Marks a recurring series collapsed into a single row. */
-  series?: boolean
-  /** Set on upcoming events; drives the coming-up card's date block and link. */
-  upcoming?: {
-    /** `YYYY-MM-DD`, formatted per locale in UTC so SSR and client agree. */
-    date: string
-    href: string
-  }
-}
-
-/** Aperture section: community, partnerships, events, and evidence. */
-export type HomeApertureContent = {
-  id: "aperture"
-  index: string
-  eyebrow: string
-  title: string
-  lead: string
-  stat: HomeStat
-  quote: string
-  attribution: string
-  /** First voice carries the section's pull quote; the rest are testimonials. */
-  voices: readonly [HomePartnerVoice, ...ReadonlyArray<HomePartnerVoice>]
-  eventsLabel: string
-  /** Column label above the upcoming event cards. */
-  upcomingLabel: string
-  /** Marker on the upcoming card. */
-  nextLabel: string
-  /** Shown where a collapsed series would otherwise show an edition count. */
-  seriesLabel: string
-  /** Unit after `attendance`, e.g. "208 builders". */
-  attendanceLabel: string
-  events: ReadonlyArray<HomeApertureEvent>
-  /** Builder-facing CTA into the community route. */
-  cta: NavItem
-  /** Link to the public events index from the section that already names events. */
-  eventsCta: NavItem
-  /** Partner-facing CTA into the contact form's partnership interest. */
-  partnerCta: NavItem
-}
-
 /** Contact routing follows the consultive outcome or relationship requested. */
 export type ContactInterestId =
   "discovery" | "enablement" | "implementation" | "partnership"
@@ -479,6 +434,8 @@ export type HomeServiceItem = {
   interest: ContactInterestId
   /** Text link to the matching service page. */
   learnMore: string
+  /** Two real event photos for the service's cells in the bento. */
+  photos: readonly [EventPhoto, EventPhoto]
 }
 
 export type HomeServicesContent = {
@@ -499,6 +456,8 @@ export type ConsultingService = {
   id: ConsultingServiceId
   name: string
   body: string
+  /** Anchor text to the route's own page, phrased as its search query. */
+  link?: string
 }
 
 export type ConsultingFaq = {
@@ -508,6 +467,8 @@ export type ConsultingFaq = {
 
 /** Indexable consulting page. Same path in both languages. */
 export type ConsultingPageContent = {
+  /** Event photo printed beside the opening. */
+  photo: EventPhoto
   metaTitle: string
   metaDescription: string
   label: string
@@ -551,8 +512,6 @@ export type HomeTrustLogo = {
 
 export type HomeTrustContent = {
   label: string
-  pause: string
-  resume: string
   logos: ReadonlyArray<HomeTrustLogo>
 }
 
@@ -574,6 +533,8 @@ export type ServicePageCard = {
 }
 
 export type ServicePageContent = {
+  /** Event photo printed beside the opening. */
+  photo: EventPhoto
   metaTitle: string
   /** 140–160 characters. */
   metaDescription: string
@@ -620,7 +581,6 @@ export type HomeContent = {
   about: HomeAboutContent
   academy: HomeAcademyPillarContent
   agentic: HomeAgenticPillarContent
-  aperture: HomeApertureContent
   contact: HomeContactContent
 }
 
@@ -654,184 +614,6 @@ export type LegalContent = {
   contentsLabel: string
   terms: LegalDocument
   privacy: LegalDocument
-}
-
-export type ApertureMemberRole =
-  "FOUNDER" | "DEVELOPER" | "DESIGNER" | "OPERATOR" | "STUDENT"
-
-export type ApertureUpFor =
-  "COFOUNDING" | "FREELANCE" | "HIRING" | "MENTORING" | "COLLABORATING"
-
-export type ApertureFieldError =
-  "required" | "too_long" | "invalid" | "reserved" | "taken"
-
-export type ApertureJoinField = {
-  label: string
-  placeholder?: string
-  helper?: string
-}
-
-export type ApertureJoinContent = CampaignQrCopy & {
-  metaTitle: string
-  metaDescription: string
-  label: string
-  headline: string
-  body: string
-  signInPrompt: string
-  signInCta: string
-  signOutCta: string
-  signedInAs: string
-  submit: string
-  submitting: string
-  closedTitle: string
-  closedBody: string
-  retiredTitle: string
-  retiredBody: string
-  existingTitle: string
-  /** `{number}` is replaced. */
-  existingBody: string
-  noVerifiedEmailTitle: string
-  noVerifiedEmailBody: string
-  error: string
-  usernameAvailable: string
-  usernameChecking: string
-  fields: {
-    username: ApertureJoinField
-    displayName: ApertureJoinField
-    headline: ApertureJoinField
-    country: ApertureJoinField
-    role: ApertureJoinField
-    upFor: ApertureJoinField
-  }
-  roleOptions: Record<ApertureMemberRole, string>
-  upForOptions: Record<ApertureUpFor, string>
-  fieldErrors: Record<ApertureFieldError, string>
-  /** `{terms}` and `{privacy}` are replaced with links. */
-  legalAccept: string
-  legalTerms: string
-  legalPrivacy: string
-  ageAccept: string
-  newsletterAccept: string
-  revealTitle: string
-  /** `{number}` is replaced. */
-  revealBody: string
-  revealCta: string
-}
-
-export type ApertureMeContent = {
-  metaTitle: string
-  metaDescription: string
-  label: string
-  headline: string
-  /** `{number}` is replaced. */
-  numberLabel: string
-  signInPrompt: string
-  signInCta: string
-  signOutCta: string
-  signedInAs: string
-  joinCta: string
-  noMemberTitle: string
-  noMemberBody: string
-  retiredTitle: string
-  retiredBody: string
-  eventsTitle: string
-  eventsEmpty: string
-  creditsTitle: string
-  creditsEmpty: string
-  /** `{date}` is replaced. */
-  expiresLabel: string
-  settingsTitle: string
-  save: string
-  saving: string
-  saved: string
-  error: string
-  newsletterLabel: string
-  showEventsLabel: string
-  showEventsHelper: string
-  /** `{date}` is replaced. */
-  usernameCooldown: string
-  fields: {
-    bio: ApertureJoinField
-    city: ApertureJoinField
-    linkedin: ApertureJoinField
-    x: ApertureJoinField
-    github: ApertureJoinField
-    website: ApertureJoinField
-    instagram: ApertureJoinField
-    title: ApertureJoinField
-    summary: ApertureJoinField
-    url: ApertureJoinField
-    repoUrl: ApertureJoinField
-  }
-  poolLabels: {
-    CURSOR: string
-    CODEX: string
-    OPENAI: string
-  }
-  shareCta: string
-  projectsTitle: string
-  projectsEmpty: string
-  projectsHelper: string
-  addProject: string
-  editProject: string
-  saveProject: string
-  cancelProject: string
-  deleteProject: string
-  builtWithTitle: string
-  builtWithHelper: string
-  addTool: string
-  removeTool: string
-  toolNameLabel: string
-  percentLabel: string
-  publishedLabel: string
-  imageLabel: string
-  imageHelper: string
-  imageUnavailable: string
-  removeImage: string
-  projectLimit: string
-  projectErrors: {
-    required: string
-    too_long: string
-    invalid: string
-    sum: string
-  }
-}
-
-export type ApertureDirectoryContent = {
-  metaTitle: string
-  metaDescription: string
-  label: string
-  headline: string
-  body: string
-  empty: string
-  joinCta: string
-  /** Plain link to the consulting page. The anchor is the search query. */
-  consultingCta: NavItem
-}
-
-export type ApertureProfileContent = {
-  metaTitle: string
-  /** `{name}` is replaced. */
-  metaTitleNamed: string
-  metaDescription: string
-  /** `{name}` and `{headline}` are replaced. */
-  metaDescriptionNamed: string
-  notFoundTitle: string
-  notFoundBody: string
-  eventsTitle: string
-  linksTitle: string
-  projectsTitle: string
-  builtWithDisclaimer: string
-  shareCta: string
-  /** `{name}` and `{number}` are replaced. */
-  shareCardAlt: string
-}
-
-export type ApertureContent = {
-  join: ApertureJoinContent
-  me: ApertureMeContent
-  directory: ApertureDirectoryContent
-  profile: ApertureProfileContent
 }
 
 export type EventsIndexPhoto = {
@@ -885,6 +667,5 @@ export type SiteContent = {
   community: CommunityContent
   campusLeader: CampusLeaderContent
   legal: LegalContent
-  aperture: ApertureContent
   events: EventsIndexContent
 }

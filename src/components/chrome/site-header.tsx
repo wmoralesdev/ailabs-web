@@ -35,11 +35,9 @@ type SiteHeaderProps = {
 }
 
 const navLinkClassName =
-  "inline-flex min-h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-sm px-1 text-sm font-medium text-on-dark/80 transition-colors duration-150 hover:text-on-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-dark/50"
-const barSurfaceClassName =
-  "rounded-2xl border border-white/12 bg-surface-ink/85 text-on-dark shadow-soft backdrop-blur-md supports-backdrop-filter:bg-surface-ink/70"
+  "link-underline inline-flex min-h-11 shrink-0 items-center gap-1.5 whitespace-nowrap text-small font-semibold text-foreground"
 const utilityControlClassName =
-  "text-on-dark hover:bg-on-dark/10 hover:text-on-dark"
+  "min-h-11 min-w-11 rounded-full text-foreground hover:bg-surface hover:text-foreground"
 const menuItemClassName = "min-h-11 cursor-pointer px-3 text-sm"
 
 function SiteHeader({
@@ -92,33 +90,26 @@ function SiteHeader({
   return (
     <header
       data-scrolled={scrolled || mobileOpen ? "" : undefined}
-      className="pointer-events-none fixed inset-x-0 top-0 z-40 pt-[max(0.75rem,env(safe-area-inset-top))]"
+      className="group/header sticky top-0 z-40 bg-background/92 pt-[env(safe-area-inset-top)] backdrop-blur-md transition-[box-shadow] duration-200 data-scrolled:shadow-[0_1px_0_var(--border)] supports-backdrop-filter:bg-background/80"
     >
       <a
         href="#main"
-        className="pointer-events-auto sr-only rounded-sm bg-background px-3 py-2 text-sm font-medium text-foreground focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2 focus-visible:ring-ring"
+        className="btn sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-3 focus-visible:left-3 focus-visible:z-50"
       >
         {microcopy.skipToContent}
       </a>
-      {showBrandLink && (
-        <Link
-          to="/"
-          aria-label="Ai Labs"
-          className="pointer-events-auto absolute top-[max(0.75rem,env(safe-area-inset-top))] left-4 z-10 rounded-sm focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none sm:left-6"
-        >
-          <SiteLogo variant="lockup" className="h-6 w-auto" />
-        </Link>
-      )}
-      <div className="relative mx-auto flex w-full max-w-fit flex-col items-center px-4">
-        <div
-          className={cn(
-            "pointer-events-auto flex items-center gap-2 px-2 py-1.5 sm:gap-3 sm:px-3 lg:pl-5",
-            barSurfaceClassName,
-            scrolled && "shadow-soft-hover border-white/18"
-          )}
-        >
+      <div className="page-gutter mx-auto flex h-[4.5rem] max-w-content items-center justify-between gap-4">
+        {showBrandLink ? (
+          <Link to="/" aria-label="Ai Labs" className="press shrink-0">
+            <SiteLogo variant="lockup" className="h-7" />
+          </Link>
+        ) : (
+          <span />
+        )}
+
+        <div className="flex items-center gap-1 sm:gap-2">
           <nav
-            className="hidden items-center gap-6 lg:flex"
+            className="mr-4 hidden items-center gap-7 lg:flex"
             aria-label={primaryLabel}
           >
             {onHome ? (
@@ -158,34 +149,58 @@ function SiteHeader({
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            <button
-              type="button"
-              className={cn(navLinkClassName, "text-on-dark")}
-              onClick={() => openContact()}
-            >
-              {nav.contact.label}
-            </button>
           </nav>
+
+          <ThemeToggle
+            labels={{
+              cycle: microcopy.themeCycle,
+              toLight: microcopy.themeToLight,
+              toDark: microcopy.themeToDark,
+              toSystem: microcopy.themeToSystem,
+            }}
+            className={utilityControlClassName}
+          />
+          <button
+            type="button"
+            disabled={isPending}
+            onClick={switchLocale}
+            aria-label={microcopy.languageSwitch}
+            className={cn(
+              buttonVariants({ variant: "ghost", size: "sm" }),
+              "text-xs font-semibold tracking-wider uppercase",
+              utilityControlClassName
+            )}
+          >
+            {microcopy.languageSwitch}
+          </button>
+          <button
+            type="button"
+            className="btn ml-1 max-sm:hidden"
+            onClick={() => openContact()}
+          >
+            {nav.contact.label}
+          </button>
+
           <DropdownMenu open={mobileOpen} onOpenChange={setMobileOpen}>
             <DropdownMenuTrigger
               render={
                 <Button
                   variant="ghost"
                   size="icon-sm"
-                  className={cn(
-                    "min-h-11 min-w-11 lg:hidden",
-                    utilityControlClassName
-                  )}
+                  className={cn("lg:hidden", utilityControlClassName)}
                 />
               }
               data-contact-focus-fallback
               aria-label={mobileOpen ? microcopy.menuClose : microcopy.menuOpen}
             >
-              <HugeiconsIcon icon={mobileOpen ? Cancel01Icon : Menu01Icon} />
+              <HugeiconsIcon
+                icon={mobileOpen ? Cancel01Icon : Menu01Icon}
+                className="size-5"
+              />
             </DropdownMenuTrigger>
             <DropdownMenuContent
               className="site-community-menu w-[min(calc(100vw-2rem),20rem)] p-2 lg:hidden"
-              align="start"
+              align="end"
               sideOffset={14}
               aria-label={primaryLabel}
             >
@@ -212,41 +227,13 @@ function SiteHeader({
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className={cn(menuItemClassName, "font-medium")}
+                className={cn(menuItemClassName, "font-semibold")}
                 onClick={() => openContact()}
               >
                 {nav.contact.label}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <div
-            className="hidden h-5 w-px shrink-0 bg-on-dark/15 lg:block"
-            aria-hidden="true"
-          />
-          <div className="flex items-center gap-0.5">
-            <ThemeToggle
-              labels={{
-                cycle: microcopy.themeCycle,
-                toLight: microcopy.themeToLight,
-                toDark: microcopy.themeToDark,
-                toSystem: microcopy.themeToSystem,
-              }}
-              className={utilityControlClassName}
-            />
-            <button
-              type="button"
-              disabled={isPending}
-              onClick={switchLocale}
-              aria-label={microcopy.languageSwitch}
-              className={cn(
-                buttonVariants({ variant: "ghost", size: "sm" }),
-                "min-h-11 min-w-11 text-xs font-semibold tracking-wider uppercase",
-                utilityControlClassName
-              )}
-            >
-              {microcopy.languageSwitch}
-            </button>
-          </div>
         </div>
       </div>
     </header>

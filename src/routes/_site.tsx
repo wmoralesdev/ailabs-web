@@ -11,24 +11,17 @@ import { ContactProvider } from "@/components/contact/contact-provider"
 import { MainCard } from "@/components/chrome/main-card"
 
 const chromeShellClassName = "flex min-h-dvh flex-col"
-const mainClassName = "flex flex-1 flex-col"
+// Main sits above the sticky footer so the footer is revealed as it scrolls away.
+const mainClassName = "relative z-10 flex flex-1 flex-col bg-background"
 
 export const Route = createFileRoute("/_site")({
   component: SiteLayout,
   notFoundComponent: SiteNotFound,
 })
 
+/** Event microsites and the lab print their own lockup. */
 function pageOwnsBrand(routeId: string): boolean {
-  return (
-    routeId === "/_site/" ||
-    routeId === "/_site/redeem" ||
-    routeId === "/_site/community" ||
-    routeId === "/_site/campus-leader" ||
-    routeId === "/_site/aperture/join" ||
-    routeId === "/_site/lab" ||
-    routeId === "/_site/events/" ||
-    routeId.startsWith("/_site/events/$slug")
-  )
+  return routeId === "/_site/lab" || routeId.startsWith("/_site/events/$slug")
 }
 
 function SiteLayout() {

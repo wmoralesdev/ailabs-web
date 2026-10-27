@@ -13,13 +13,17 @@ export const servicePagesEn: ServicePagesContent = {
   consultingLink: "AI consulting in El Salvador",
   communityLink: "AI community in El Salvador",
   training: {
-    metaTitle: "AI Training in El Salvador: Teams and Professionals | Ai Labs",
+    photo: {
+      name: "3.webp",
+      alt: "Participants follow a hands-on Ai Labs session in an auditorium.",
+    },
+    metaTitle: "AI Training in El Salvador for Teams | Ai Labs",
     metaDescription:
       "Practical AI training in San Salvador for professionals and teams: real tasks, judgment to review results, and public workshops.",
     serviceName: "AI training in El Salvador",
     eyebrow: "Academy · Practical education",
     title: "AI training in El Salvador for professionals and teams",
-    lead: "Ai Labs Academy teaches how to apply AI to everyday work, in plain language for business roles. Come with your team or directly to learn.",
+    lead: "At Ai Labs Academy we teach how to apply AI to everyday work, in plain language for business roles. Come with your team or on your own.",
     definitionHeading: "What you learn in practical AI training.",
     definition: trainingDefinition,
     includesHeading: "How the training works.",
@@ -29,7 +33,7 @@ export const servicePagesEn: ServicePagesContent = {
         body: "Practice starts from the tasks, decisions, and friction you face every day, not generic examples.",
       },
       {
-        title: "Judgment, not just tools",
+        title: "Judgment to use it",
         body: "You learn when to use AI, how to review what it produces, and when a task should stay human.",
       },
       {
@@ -76,27 +80,27 @@ export const servicePagesEn: ServicePagesContent = {
       {
         question: "AI course, workshop, or training: what is the difference?",
         answer:
-          "Ai Labs Academy offers practical AI education in San Salvador. Whether you are looking for an AI course, workshop, bootcamp, or training, the idea is the same: practice on real tasks until you can apply it at work.",
+          "A course covers a topic over several sessions, a workshop is one hands-on session, and a training is built for one team and its tasks. At Academy we run public workshops and team training, always on real tasks.",
       },
       {
         question: "Do I need a company to learn AI with Ai Labs?",
         answer:
-          "No. Ai Labs Academy welcomes professionals and teams. You can come directly to learn, with no company or prior consulting required.",
+          "No. At Academy we welcome professionals and teams. You can come straight to learn, with no company or prior consulting.",
       },
       {
         question: "Do I need to know how to code?",
         answer:
-          "No. Ai Labs training is designed for business roles and uses plain language. It focuses on applying AI to real tasks with judgment.",
+          "No. We design the training for business roles and use plain language. We focus on applying AI to real tasks with judgment.",
       },
       {
         question: "How much does AI training cost?",
         answer:
-          "Ai Labs public workshops show their cost on their own page. Team training depends on scope and is agreed after reviewing the process.",
+          "Each public workshop shows its price on its page. Team training depends on scope, and we agree on it after reviewing the process.",
       },
       {
         question: "How do I hear about upcoming workshops?",
         answer:
-          "Follow the Ai Labs WhatsApp community in El Salvador and its social profiles to hear about upcoming public workshops.",
+          "Follow our WhatsApp community in El Salvador and our social profiles: that is where we announce upcoming public workshops.",
       },
     ],
     ctaHeading: "Want to prepare your team?",
@@ -106,14 +110,17 @@ export const servicePagesEn: ServicePagesContent = {
     interest: "enablement",
   },
   automation: {
-    metaTitle:
-      "AI Automation in El Salvador: Workflows and Integrations | Ai Labs",
+    photo: {
+      name: "21.webp",
+      alt: "Two participants review code on their laptops during an Ai Labs session.",
+    },
+    metaTitle: "AI Process Automation in El Salvador | Ai Labs",
     metaDescription:
       "AI process automation in San Salvador: workflows with your tools, human review, documentation, and transfer to the team.",
     serviceName: "AI process automation in El Salvador",
     eyebrow: "Agentic · Design and implementation",
     title: "AI process automation in El Salvador, designed with your team",
-    lead: "Ai Labs Agentic designs and implements workflows that fit the way your team works today, with the integrations and human review each process needs.",
+    lead: "At Ai Labs Agentic we design and implement workflows that fit the way your team works today, with the integrations and human review each process needs.",
     definitionHeading: "What AI automation does for your operation.",
     definition: automationDefinition,
     includesHeading: "What it includes.",
@@ -171,22 +178,22 @@ export const servicePagesEn: ServicePagesContent = {
         question:
           "Automation, AI agent, or agentic workflow: what is the difference?",
         answer:
-          "Ai Labs Agentic implements AI workflows in San Salvador. An automation runs fixed steps; an AI agent or agentic workflow also interprets information and proposes actions. Either way, Ai Labs defines what AI decides, what a person reviews, and what gets documented.",
+          "An automation runs fixed steps; an AI agent also interprets information and proposes actions. Either way, we define what AI decides, what a person reviews, and what gets documented.",
       },
       {
         question: "Does AI replace the team?",
         answer:
-          "No. Ai Labs designs each workflow with human review where it is needed. AI assists or automates steps, and important decisions stay with the team.",
+          "No. We design each workflow with human review where it is needed. AI assists or automates steps, and important decisions stay with the team.",
       },
       {
         question: "Which tools does it integrate with?",
         answer:
-          "Ai Labs starts from the tools the team already uses. Integrations are defined after understanding the process, not before.",
+          "We start from the tools the team already uses. We define integrations after understanding the process, not before.",
       },
       {
         question: "How much does it cost to automate a process with AI?",
         answer:
-          "It depends on the process and the integrations. Ai Labs does not publish rates: it first reviews the process and agrees on scope with the team.",
+          "It depends on the process and the integrations. We do not publish rates: we first review the process and agree on scope with the team.",
       },
       {
         question: "What does the team get at the end?",

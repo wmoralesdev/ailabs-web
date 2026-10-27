@@ -34,6 +34,19 @@ const OTHER_COUNTRY =
 describe("search aliases", () => {
   const entries = Object.entries(SEARCH_ALIASES)
 
+  it("sends the retired Aperture pages to the community", () => {
+    for (const path of [
+      "/aperture",
+      "/aperture/join",
+      "/me",
+      "/u/walter",
+      "/U/Walter/",
+    ]) {
+      expect(searchAliasDestination(path), path).toBe("/community")
+    }
+    expect(searchAliasDestination("/use-cases")).toBeNull()
+  })
+
   it("301s each alias to an existing public page and keeps the query", () => {
     expect(entries.length).toBeGreaterThan(0)
     expect(entries.length).toBeLessThanOrEqual(40)
@@ -116,10 +129,7 @@ describe("search aliases", () => {
       expect(alias).not.toMatch(/consultores/)
     }
     for (const [alias, destination] of entries) {
-      if (
-        destination === "/aperture" ||
-        destination === "/events/get-competitive-quick"
-      ) {
+      if (destination === "/events/get-competitive-quick") {
         expect(alias).not.toMatch(/el-salvador|san-salvador/)
       }
     }

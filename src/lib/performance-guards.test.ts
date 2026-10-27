@@ -34,13 +34,16 @@ describe("performance guards", () => {
     expect(locale).not.toMatch(/resolveLocaleContext = createServerFn/)
   })
 
-  it("loads three.js only when the canvas band is needed", () => {
+  it("ships no WebGL: bands print with the 2D halftone field", () => {
     const banner = readFileSync(
       "src/components/ui/canvas-reveal-banner.tsx",
       "utf8"
     )
-    expect(banner).not.toMatch(/^import .*canvas-reveal-effect/m)
-    expect(banner).toContain('import("@/components/ui/canvas-reveal-effect")')
+    expect(banner).toContain("<HalftoneCanvas")
+    const pkg = JSON.parse(readFileSync("package.json", "utf8")) as {
+      dependencies: Record<string, string>
+    }
+    expect(pkg.dependencies.three).toBeUndefined()
   })
 
   it("runs Clerk only for server functions and auth routes", () => {
@@ -48,7 +51,6 @@ describe("performance guards", () => {
       "/",
       "/community",
       "/campus-leader",
-      "/aperture",
       "/consultoria-de-ia-el-salvador",
       "/events",
       "/events/modo-fundador",
@@ -57,13 +59,7 @@ describe("performance guards", () => {
     ]) {
       expect(needsClerkMiddleware(path, "router"), path).toBe(false)
     }
-    for (const path of [
-      "/redeem",
-      "/me",
-      "/aperture/join",
-      "/sign-in/factor-one",
-      "/sign-up",
-    ]) {
+    for (const path of ["/redeem", "/sign-in/factor-one", "/sign-up"]) {
       expect(isClerkPath(path), path).toBe(true)
     }
     expect(needsClerkMiddleware("/", "serverFn")).toBe(true)
@@ -74,8 +70,6 @@ describe("performance guards", () => {
     for (const prefix of CLERK_ROUTE_PREFIXES) {
       const file = {
         "/redeem": "src/routes/_site/redeem.tsx",
-        "/me": "src/routes/_site/me.tsx",
-        "/aperture/join": "src/routes/_site/aperture/join.tsx",
         "/sign-in": "src/routes/sign-in.$.tsx",
         "/sign-up": "src/routes/sign-up.$.tsx",
       }[prefix]
@@ -103,14 +97,24 @@ describe("performance guards", () => {
     }
   })
 
-  it("loads carousel photos one slide ahead and never preloads marquee logos", () => {
+  it("loads carousel photos one slide ahead and prints logos without images", () => {
     const carousel = readFileSync(
       "src/components/home/home-media-carousel.tsx",
       "utf8"
     )
     expect(carousel).toContain("slideIndex <= loadedThrough")
+    // Ambassador marks are inline halftone dots: no image requests at all.
     const trust = readFileSync("src/components/home/home-trust.tsx", "utf8")
-    expect(trust).toContain('loading="lazy"')
+    expect(trust).toContain("<HalftoneLogo")
+    expect(trust).not.toContain("<img")
+  })
+
+  it("lazy-loads event photos below the hero", () => {
+    const photo = readFileSync(
+      "src/components/halftone/halftone-lens.tsx",
+      "utf8"
+    )
+    expect(photo).toContain('loading={priority ? "eager" : "lazy"}')
   })
 
   it("keeps each carousel photo under 400 KB", () => {

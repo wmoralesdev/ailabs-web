@@ -1,20 +1,11 @@
-import { Fragment, useRef, useSyncExternalStore } from "react"
-import { Link } from "@tanstack/react-router"
+import { Fragment, useRef } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
-import { SiteLogo } from "@/components/chrome/site-logo"
 import { useContact } from "@/components/contact/contact-provider"
+import { HalftoneCanvas } from "@/components/halftone/halftone-canvas"
 import { HomeCtaLink } from "@/components/home/home-cta-link"
-import { TextSpiral } from "@/components/lab/text-spiral"
-import { Button, buttonVariants } from "@/components/ui/button"
-import {
-  homeDisplayClassName,
-  homePillClassName,
-} from "@/components/home/home-styles"
-import { Eyebrow } from "@/components/ui/eyebrow"
 import type { HomeHeroContent, Locale, NavItem, SiteContent } from "@/content"
-import { cn } from "@/lib/utils"
 import { useHomeEntrance } from "@/lib/home-motion"
 
 type HomeHeroLinkAction = {
@@ -27,200 +18,56 @@ type HomeHeroLinkAction = {
 type HomeHeroProps = {
   locale: Locale
   content: SiteContent
-  /**
-   * When true (home), the secondary hash CTA stays on-page.
-   * When false (lab preview), it resolves to `/#…`.
-   * The primary CTA opens the shared contact dialog unless `primaryAction` is set.
-   */
-  samePageCtas?: boolean
-  /** The home uses a compact, typographic hero below the desktop breakpoint. */
-  desktopSpiralOnly?: boolean
   /** Reuse this hero with another page's copy. Omit to use the home hero. */
   hero?: HomeHeroContent
   /** When set, the primary control is this link instead of the contact dialog. */
   primaryAction?: HomeHeroLinkAction
   /** Quiet text link under the hero actions. Omit on the home. */
   textLink?: NavItem
+  /** On the home, hash CTAs stay on the page; elsewhere they lead home. */
+  samePageCtas?: boolean
 }
 
-const DESKTOP_QUERY = "(min-width: 1024px)"
-
-function subscribeToDesktop(onChange: () => void) {
-  if (typeof window.matchMedia !== "function") {
-    return () => {}
-  }
-  const media = window.matchMedia(DESKTOP_QUERY)
-  media.addEventListener("change", onChange)
-  return () => media.removeEventListener("change", onChange)
-}
-
-function isDesktop() {
-  return (
-    typeof window.matchMedia === "function" &&
-    window.matchMedia(DESKTOP_QUERY).matches
-  )
-}
-
-function serverDesktopSnapshot() {
-  return false
-}
-
-function resolveCtaHref(href: string, samePageCtas: boolean): string {
-  if (href.startsWith("#")) {
-    return samePageCtas ? href : `/${href}`
-  }
-  if (href.startsWith("/")) {
-    return href
-  }
-  return href
-}
-
+/**
+ * Typographic hero beside the Ai Labs mark printed as a live halftone. The
+ * whole section is the pointer surface: the cursor drags ink through the dot
+ * screen and it melts into the mark where they meet. No photo and no loop:
+ * the dots only move when someone moves.
+ */
 function HomeHero({
   locale,
   content,
-  samePageCtas = true,
-  desktopSpiralOnly = false,
   hero = content.home.hero,
   primaryAction,
   textLink,
+  samePageCtas = true,
 }: HomeHeroProps) {
   const root = useRef<HTMLElement>(null)
-  const desktop = useSyncExternalStore(
-    subscribeToDesktop,
-    isDesktop,
-    serverDesktopSnapshot
-  )
   useHomeEntrance(root, "hero", locale)
+  // Hash CTAs belong to the home; from another page they go there.
+  const secondaryHref =
+    hero.secondaryCta.href.startsWith("#") && !samePageCtas
+      ? `/${hero.secondaryCta.href}`
+      : hero.secondaryCta.href
 
   return (
     <section
       ref={root}
-      className={cn(
-        "grid min-h-dvh grid-cols-1 bg-background text-foreground lg:grid-cols-2",
-        desktopSpiralOnly && "min-h-0 lg:min-h-dvh"
-      )}
+      aria-labelledby="hero-title"
+      data-halftone-surface
+      className="relative isolate overflow-clip bg-background [--ht-accent:var(--color-purple-ink)] [--ht-faint:color-mix(in_srgb,var(--color-ink)_10%,transparent)] [--ht-ink:var(--color-ink)]"
     >
-      <HomeHeroCopy
-        hero={hero}
-        locale={locale}
-        samePageCtas={samePageCtas}
-        compactMobile={desktopSpiralOnly}
-        primaryAction={primaryAction}
-        textLink={textLink}
+      <HalftoneCanvas
+        src="/brand/ailabs-iso-dark.svg"
+        cell={11}
+        className="absolute inset-0 -z-10"
       />
-      <div
-        data-home-spiral
-        className={cn(
-          "relative min-h-[50vh] w-full bg-surface-ink lg:min-h-0",
-          desktopSpiralOnly && "hidden lg:block"
-        )}
-      >
-        {(!desktopSpiralOnly || desktop) && (
-          <TextSpiral
-            words={hero.spiralWords}
-            interactionLabel={content.microcopy.textSpiralAction}
-            className="absolute inset-0 h-full w-full"
-          />
-        )}
-      </div>
-    </section>
-  )
-}
 
-function HomeHeroContactButton({ label }: { label: string }) {
-  const { openContact } = useContact()
-
-  return (
-    <Button
-      type="button"
-      onClick={() => openContact("discovery")}
-      className={cn(
-        homePillClassName,
-        "h-auto min-h-12 w-fit text-left whitespace-normal"
-      )}
-    >
-      {label}
-      <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-    </Button>
-  )
-}
-
-function HomeHeroPrimaryLink({ action }: { action: HomeHeroLinkAction }) {
-  return (
-    <a
-      href={action.href}
-      {...(action.external
-        ? { target: "_blank", rel: "noopener noreferrer" }
-        : {})}
-      className={cn(
-        homePillClassName,
-        "h-auto min-h-12 w-fit text-left whitespace-normal"
-      )}
-    >
-      {action.label}
-      {action.newTabLabel ? (
-        <span className="sr-only"> {action.newTabLabel}</span>
-      ) : null}
-      <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-    </a>
-  )
-}
-
-function HomeHeroCopy({
-  hero,
-  locale,
-  samePageCtas,
-  compactMobile,
-  primaryAction,
-  textLink,
-}: {
-  hero: HomeHeroContent
-  locale: Locale
-  samePageCtas: boolean
-  compactMobile: boolean
-  primaryAction?: HomeHeroLinkAction
-  textLink?: NavItem
-}) {
-  return (
-    <div
-      className={cn(
-        "flex w-full min-w-0 flex-col gap-12 border-b border-border bg-background px-6 pt-[calc(var(--site-header-offset)+0.5rem)] pb-10 sm:px-10 sm:pb-12 lg:border-r lg:border-b-0 lg:px-12 xl:px-16",
-        compactMobile && "max-lg:gap-10 max-lg:pb-12"
-      )}
-    >
-      <div>
-        <Link
-          to="/"
-          aria-label="Ai Labs"
-          className="inline-flex rounded-sm focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-        >
-          <SiteLogo variant="lockup" />
-        </Link>
-      </div>
-
-      <div
-        className={cn(
-          "flex flex-1 flex-col justify-center py-4 lg:py-12",
-          compactMobile && "max-lg:py-0"
-        )}
-      >
-        <div
-          className={cn(
-            "flex max-w-xl flex-col gap-5",
-            compactMobile && "max-lg:max-w-2xl"
-          )}
-        >
-          <div data-home-entrance>
-            <Eyebrow>{hero.label}</Eyebrow>
-          </div>
+      <div className="page-gutter mx-auto grid w-full max-w-content gap-10 pt-12 pb-16 sm:pt-16 lg:min-h-[min(52rem,calc(100svh-var(--site-header-height)))] lg:grid-cols-12 lg:items-center lg:gap-8 lg:py-16">
+        <div className="flex flex-col items-start gap-7 lg:col-span-7">
           <h1
-            data-home-entrance
-            className={cn(
-              homeDisplayClassName,
-              "text-4xl leading-[1.05] normal-case sm:text-5xl md:text-5xl xl:text-6xl",
-              compactMobile &&
-                "max-lg:text-[clamp(2.125rem,9.5vw,3rem)] max-lg:leading-[1.08] max-lg:text-balance"
-            )}
+            id="hero-title"
+            className="display max-w-[21ch] text-[clamp(2.375rem,1.5rem+3.2vw,4.25rem)] text-balance"
           >
             {hero.headline.split(" ").map((word, index) => (
               <Fragment key={`${index}-${word}`}>
@@ -234,53 +81,71 @@ function HomeHeroCopy({
           {hero.directAnswer ? (
             <p
               data-home-entrance
-              className="max-w-xl text-base leading-relaxed text-foreground md:text-lg"
+              className="max-w-[40ch] text-lead leading-snug text-muted-foreground"
             >
               {hero.directAnswer}
             </p>
           ) : null}
-          {hero.body ? (
-            <p
-              data-home-entrance
-              className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg"
-            >
-              {hero.body}
-            </p>
-          ) : null}
           <div
             data-home-entrance
-            className="flex flex-wrap items-center gap-3 pt-1"
+            className="flex flex-wrap items-center gap-x-6 gap-y-2"
           >
             {primaryAction ? (
-              <HomeHeroPrimaryLink action={primaryAction} />
+              <a
+                href={primaryAction.href}
+                {...(primaryAction.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="btn"
+              >
+                {primaryAction.label}
+                {primaryAction.newTabLabel ? (
+                  <span className="sr-only"> {primaryAction.newTabLabel}</span>
+                ) : null}
+                <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+              </a>
             ) : (
-              <HomeHeroContactButton label={hero.primaryCta.label} />
+              <HeroContactButton label={hero.primaryCta.label} />
             )}
-            <a
-              href={resolveCtaHref(hero.secondaryCta.href, samePageCtas)}
-              className={cn(
-                buttonVariants({ variant: "outline", size: "xl" }),
-                "h-auto min-h-12 rounded-full px-5 whitespace-normal",
-                compactMobile &&
-                  "home-action max-lg:gap-2 max-lg:rounded-sm max-lg:border-transparent max-lg:bg-transparent max-lg:px-0 max-lg:text-foreground max-lg:underline-offset-4 max-lg:hover:bg-transparent max-lg:hover:text-purple max-lg:hover:underline dark:max-lg:bg-transparent"
-              )}
-            >
+            <a href={secondaryHref} className="text-action">
               {hero.secondaryCta.label}
-              {compactMobile && (
-                <HugeiconsIcon
-                  icon={ArrowRight01Icon}
-                  strokeWidth={2}
-                  className="lg:hidden"
-                />
-              )}
+              <HugeiconsIcon
+                icon={ArrowRight01Icon}
+                strokeWidth={2}
+                className="size-4"
+              />
             </a>
           </div>
           {textLink ? (
-            <HomeCtaLink cta={textLink} locale={locale} variant="quiet" />
+            <div data-home-entrance>
+              <HomeCtaLink cta={textLink} locale={locale} variant="quiet" />
+            </div>
           ) : null}
         </div>
+
+        {/* Where the printed mark sits; the canvas reads this box. */}
+        <div
+          data-halftone-slot
+          aria-hidden="true"
+          className="mx-auto aspect-[278/324] w-[min(72vw,22rem)] lg:col-span-5 lg:w-full lg:max-w-[28rem]"
+        />
       </div>
-    </div>
+    </section>
+  )
+}
+
+function HeroContactButton({ label }: { label: string }) {
+  const { openContact } = useContact()
+
+  return (
+    <button
+      type="button"
+      onClick={() => openContact("discovery")}
+      className="btn"
+    >
+      {label}
+      <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+    </button>
   )
 }
 

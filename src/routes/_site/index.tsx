@@ -80,7 +80,7 @@ function HomePage() {
 
   return (
     <div>
-      <HomeHero locale={locale} content={content} desktopSpiralOnly />
+      <HomeHero locale={locale} content={content} />
       <HomeTrust trust={home.trust} />
       <HomeServices services={home.services} locale={locale} />
       <HomeMethod method={home.method} locale={locale} />

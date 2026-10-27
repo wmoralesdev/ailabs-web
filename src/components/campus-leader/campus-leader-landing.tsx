@@ -72,16 +72,16 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
             >
               {landing.what.title}
             </h2>
-            <p className="text-muted-foreground max-w-lg text-base leading-relaxed md:text-lg">
+            <p className="max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
               {landing.what.body}
             </p>
             <ul className="mt-4 flex flex-col gap-5">
               {landing.what.items.map((item) => (
                 <li key={item.title} className="flex flex-col gap-1">
-                  <h3 className="text-foreground text-base font-semibold tracking-tight">
+                  <h3 className="text-base font-semibold tracking-tight text-foreground">
                     {item.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed md:text-base">
+                  <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
                     {item.body}
                   </p>
                 </li>
@@ -90,7 +90,7 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
           </div>
 
           <figure className={cn(revealClassName, "motion-safe:delay-100")}>
-            <div className="overflow-hidden rounded-[2rem]">
+            <div className="overflow-hidden">
               <img
                 src={media.whatSrc}
                 alt={media.whatAlt}
@@ -99,7 +99,7 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
                 decoding="async"
               />
             </div>
-            <figcaption className="text-muted-foreground mt-3 text-sm">
+            <figcaption className="mt-3 text-sm text-muted-foreground">
               {media.credit}
             </figcaption>
           </figure>
@@ -132,7 +132,7 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
                   key={item.title}
                   className={cn(
                     revealClassName,
-                    "border-border border-b py-8 last:border-b-0 md:py-10",
+                    "border-b border-border py-8 last:border-b-0 md:py-10",
                     "first:pt-0 last:pb-0",
                     index === 1 && "motion-safe:delay-75",
                     index === 2 && "motion-safe:delay-150"
@@ -155,10 +155,10 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
                         zigZag && "md:order-1 md:text-right"
                       )}
                     >
-                      <h3 className="text-foreground text-xl font-semibold tracking-tight md:text-2xl">
+                      <h3 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
                         {item.title}
                       </h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed md:text-base">
+                      <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
                         {item.body}
                       </p>
                     </div>
@@ -170,12 +170,7 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
         </div>
       </section>
 
-      <section
-        className={cn(
-          homePaperBandClassName,
-          homeBandPaddingClassName
-        )}
-      >
+      <section className={cn(homePaperBandClassName, homeBandPaddingClassName)}>
         <HomePaperArcs />
         <div
           className={cn(
@@ -196,7 +191,7 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
               </h2>
             </div>
 
-            <dl className="border-border mt-8 divide-y border-y">
+            <dl className="mt-8 divide-y border-y border-border">
               {landing.benefits.items.map((item, index) => {
                 const icon = BENEFIT_ICONS[index] ?? Link01Icon
 
@@ -206,7 +201,7 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
                     className="grid gap-3 py-5 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center sm:gap-5"
                   >
                     <span
-                      className="text-purple bg-purple/10 inline-flex size-10 shrink-0 items-center justify-center rounded-full"
+                      className="inline-flex size-10 shrink-0 items-center justify-center bg-purple/10 text-purple"
                       aria-hidden="true"
                     >
                       <HugeiconsIcon
@@ -216,10 +211,10 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
                       />
                     </span>
                     <div className="grid gap-1 sm:items-center md:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] md:gap-6">
-                      <dt className="text-foreground text-base font-semibold">
+                      <dt className="text-base font-semibold text-foreground">
                         {item.title}
                       </dt>
-                      <dd className="text-muted-foreground text-sm leading-relaxed md:text-base">
+                      <dd className="text-sm leading-relaxed text-muted-foreground md:text-base">
                         {item.body}
                       </dd>
                     </div>
@@ -235,14 +230,14 @@ function CampusLeaderLanding({ content, onApply }: CampusLeaderLandingProps) {
               "motion-safe:delay-100 lg:sticky lg:top-28"
             )}
           >
-            <div className="relative aspect-video overflow-hidden rounded-[2rem]">
+            <div className="relative aspect-video overflow-hidden">
               <HomeMediaCarousel
                 images={media.benefitsSrcs}
                 alt={media.benefitsAlt}
                 intervalMs={5200}
               />
             </div>
-            <figcaption className="text-muted-foreground mt-3 text-sm">
+            <figcaption className="mt-3 text-sm text-muted-foreground">
               {media.credit}
             </figcaption>
           </figure>
@@ -339,7 +334,7 @@ function RoleIcon({
   return (
     <div className={cn("flex items-center gap-3", className)}>
       <span
-        className="text-purple bg-purple/10 inline-flex size-12 shrink-0 items-center justify-center rounded-full"
+        className="inline-flex size-12 shrink-0 items-center justify-center bg-purple/10 text-purple"
         aria-hidden="true"
       >
         <HugeiconsIcon icon={icon} strokeWidth={2} className="size-6" />
@@ -376,7 +371,7 @@ function FitColumn({
         {items.map((item) => (
           <li
             key={item}
-            className="text-foreground border-border/70 border-l-2 pl-3 text-sm leading-relaxed"
+            className="border-l-2 border-border/70 pl-3 text-sm leading-relaxed text-foreground"
           >
             {item}
           </li>

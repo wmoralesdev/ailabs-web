@@ -8,7 +8,6 @@ export const PUBLIC_PAGE_PATHS = [
   "/consultoria-de-ia-el-salvador",
   "/community",
   "/campus-leader",
-  "/aperture",
   "/events",
   "/events/modo-fundador",
   "/events/get-competitive-quick",
@@ -22,7 +21,6 @@ const HOME = "/"
 const CONSULTING = "/consultoria-de-ia-el-salvador"
 const COMMUNITY = "/community"
 const CAMPUS_LEADER = "/campus-leader"
-const APERTURE = "/aperture"
 const EVENTS = "/events"
 const MODO_FUNDADOR = "/events/modo-fundador"
 const GET_COMPETITIVE_QUICK = "/events/get-competitive-quick"
@@ -71,10 +69,10 @@ export const SEARCH_ALIASES: Readonly<Record<string, PublicPagePath>> = {
   "/lider-campus-el-salvador": CAMPUS_LEADER,
   "/ai-campus-leader-el-salvador": CAMPUS_LEADER,
 
-  // Aperture member directory. That page does not name a country.
-  "/miembros-aperture": APERTURE,
-  "/miembros-de-aperture": APERTURE,
-  "/aperture-members": APERTURE,
+  // Searches for the retired Aperture member directory.
+  "/miembros-aperture": COMMUNITY,
+  "/miembros-de-aperture": COMMUNITY,
+  "/aperture-members": COMMUNITY,
 
   // Modo Fundador is the in-person workshop in San Salvador.
   "/modo-fundador": MODO_FUNDADOR,
@@ -95,6 +93,13 @@ export const SEARCH_ALIASES: Readonly<Record<string, PublicPagePath>> = {
   "/taller-primer-empleo-tech": GET_COMPETITIVE_QUICK,
 }
 
+/**
+ * Aperture member pages that no longer exist: the directory, the join flow,
+ * the member dashboard, and public profiles under /u/. They 301 to the
+ * community so old links and indexed URLs still land somewhere useful.
+ */
+const RETIRED_PATHS = new Set(["/aperture", "/aperture/join", "/me"])
+
 /** Lowercase path without a trailing slash. `/` stays `/`. */
 export function normalizeAliasPath(pathname: string): string {
   const trimmed = pathname.trim()
@@ -111,7 +116,11 @@ export function normalizeAliasPath(pathname: string): string {
 export function searchAliasDestination(
   pathname: string
 ): PublicPagePath | null {
-  return SEARCH_ALIASES[normalizeAliasPath(pathname)] ?? null
+  const path = normalizeAliasPath(pathname)
+  if (RETIRED_PATHS.has(path) || path.startsWith("/u/")) {
+    return COMMUNITY
+  }
+  return SEARCH_ALIASES[path] ?? null
 }
 
 export function aliasRedirectHref(

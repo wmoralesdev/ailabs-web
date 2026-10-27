@@ -6,7 +6,7 @@ import { servicePagesEn } from "./service-pages-en"
 export const en: SiteContent = {
   locale: "en",
   meta: {
-    title: "Ai Labs | AI consulting, automation and practical education",
+    title: "AI consulting, automation and practical education | Ai Labs",
     description:
       "AI consulting, business automation and practical education for teams and professionals. Crafted in San Salvador, El Salvador.",
   },
@@ -30,10 +30,6 @@ export const en: SiteContent = {
           {
             label: "Campus Leaders",
             href: "/campus-leader",
-          },
-          {
-            label: "Aperture members",
-            href: "/aperture",
           },
         ],
       },
@@ -86,7 +82,7 @@ export const en: SiteContent = {
           ],
         },
         {
-          id: "aperture",
+          id: "community",
           title: "Community",
           links: [
             {
@@ -100,10 +96,6 @@ export const en: SiteContent = {
             {
               label: "Campus Leaders",
               href: "/campus-leader",
-            },
-            {
-              label: "Aperture members",
-              href: "/aperture",
             },
           ],
         },
@@ -129,6 +121,7 @@ export const en: SiteContent = {
       eventsTitle: "Events",
       copyright: "© {year} Ai Labs",
       locationLine: "Crafted in San Salvador, El Salvador",
+      socialTitle: "Social",
     },
   },
   microcopy: {
@@ -152,7 +145,7 @@ export const en: SiteContent = {
       label: "AI LABS · EL SALVADOR",
       headline: "AI consulting, business automation and practical education.",
       directAnswer:
-        "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, automation, and practical education.",
+        "We are Ai Labs, a private company in San Salvador, El Salvador. We help commercial, management, and operations teams improve real processes with AI.",
       agencyQuestion: "Is there an AI agency in El Salvador?",
       body: "AI consulting, business automation and practical education for teams and professionals. Crafted in San Salvador, El Salvador.",
       primaryCta: { label: "Let’s talk", href: "#contact" },
@@ -187,7 +180,7 @@ export const en: SiteContent = {
           brand: "Academy",
           title: "How do you learn to apply AI in your work?",
           offerName: "Learn to apply AI in your work.",
-          body: "Practical education for professionals and teams, built around the tasks you want to improve.",
+          body: "Workshops and training for professionals and teams, on the tasks you want to improve.",
           points: [
             "Practice with work you recognize.",
             "Learn when to use AI and how to review its output.",
@@ -196,6 +189,16 @@ export const en: SiteContent = {
           cta: "I want to learn",
           interest: "enablement",
           learnMore: "More on AI training",
+          photos: [
+            {
+              name: "23.webp",
+              alt: "Two participants work on their laptops during an Ai Labs workshop.",
+            },
+            {
+              name: "3.webp",
+              alt: "Participants follow a hands-on Ai Labs session in an auditorium.",
+            },
+          ],
         },
         {
           id: "agentic",
@@ -211,6 +214,16 @@ export const en: SiteContent = {
           cta: "Improve a process",
           interest: "implementation",
           learnMore: "More on AI automation",
+          photos: [
+            {
+              name: "24.webp",
+              alt: "A participant writes code at a monitor during an Ai Labs session.",
+            },
+            {
+              name: "21.webp",
+              alt: "Two participants review code on their laptops during an Ai Labs session.",
+            },
+          ],
         },
       ],
       pageLink: {
@@ -221,7 +234,7 @@ export const en: SiteContent = {
     method: {
       label: "How we work",
       title: "Where do we start?",
-      body: "First, understand the work. For consulting and implementation, we start with the need and agree on a useful next step. You can also come directly to learn.",
+      body: "First we look at how the work gets done today. Then we agree on a concrete next step with you. If you only want to learn, come straight to Academy.",
       steps: [
         {
           title: "Understand",
@@ -244,56 +257,54 @@ export const en: SiteContent = {
         {
           question: "What does an AI consultant do?",
           answer:
-            "An AI consultant looks at how a team works, finds where artificial intelligence can help, and decides where to start. At Ai Labs, once one concrete opportunity is prioritized, we prepare the team (Academy) or implement the workflow with you (Agentic).",
+            "They look at how a team works, find where AI can help, and decide where to start. At Ai Labs, once we choose an opportunity, we prepare the team (Academy) or implement the workflow with you (Agentic).",
         },
         {
           question:
             "AI consultant, advisor, agency or company: what is the difference?",
           answer:
-            "Ai Labs is a private AI consulting company in San Salvador, El Salvador. Whether you are looking for an AI consultant, advisor, agency or company, what matters is the outcome: understand the process, choose one improvement, and get ready to apply it. Ai Labs does consulting, business automation, and practical education.",
+            "A consultant or advisor usually works alone and recommends; an agency or company works as a team and also implements. We are a private AI consulting company in San Salvador, and we do both.",
         },
         {
           question: "How much does AI consulting cost?",
           answer:
-            "It depends on scope. Ai Labs does not publish consulting prices because we first review the process and agree on what is worth improving. Public workshops do list their price on their own page.",
+            "It depends on scope. We do not publish consulting prices because we first review the process and agree on what is worth improving. Public workshops do list their price on their page.",
         },
         {
           question: "Which processes can AI improve or automate?",
           answer:
-            "Ai Labs works with commercial, management, and operations teams: repetitive tasks, follow-up, documents, and workflows across tools. We define what AI assists, what gets automated, and which decisions stay with people, with human review and documentation.",
+            "We work with commercial, management, and operations teams: repetitive tasks, follow-up, documents, and workflows across tools. We define what AI assists and which decisions stay with people.",
         },
         {
           question: "Do I need a company to learn AI with Ai Labs?",
           answer:
-            "No. Ai Labs Academy is practical education for professionals and teams. You can come directly to learn, with no company or prior consulting required.",
+            "No. Academy is our practical education for professionals and teams. You can come straight to learn, with no company or prior consulting.",
         },
         {
           question: "Where is Ai Labs?",
           answer:
-            "Ai Labs is in San Salvador, El Salvador. The public workshops we have published are in person in San Salvador. The community is centered on training and teaching, and WhatsApp is how people hear about the sessions.",
+            "We are in San Salvador, El Salvador. Public workshops are in person in San Salvador, and we announce each session in our WhatsApp community.",
         },
         {
           question:
             "Does Ai Labs sell access or credits for OpenAI, Claude or other tools?",
           answer:
-            "No. Ai Labs takes part in ambassador programs for several AI tools. Those logos are not a customer list or a guarantee of access, credits, or partnerships.",
+            "No. We take part in ambassador programs for several AI tools. Those logos are not a customer list or a guarantee of access, credits, or partnerships.",
         },
         {
           question: "What is Aperture?",
           answer:
-            "Aperture is the Ai Labs community. It is centered on training and teaching, it includes the Campus Leaders program for students, and you can learn AI with us. It is not a third commercial offer.",
+            "Aperture is the name of our community: workshops, events, and the Campus Leaders program for students. Joining on WhatsApp is free.",
         },
         {
           question: "How do I start working with Ai Labs?",
           answer:
-            "Write to Ai Labs from “Let’s talk” and tell us what you want to improve or learn. A company is optional.",
+            "Write to us from “Let’s talk” and tell us what you want to improve or learn. You do not need a company or a defined solution.",
         },
       ],
     },
     trust: {
       label: "Part of ambassador programs",
-      pause: "Pause logos",
-      resume: "Resume logos",
       logos: [
         { id: "spacexai", name: "SpaceXAI" },
         { id: "codex", name: "Codex" },
@@ -311,7 +322,7 @@ export const en: SiteContent = {
         { value: "40+", label: "Events hosted" },
         { value: "8", label: "Active partners" },
       ],
-      bold: "We choose a concrete path and leave your team with judgment, documentation, and the ability to operate it—not just a demonstration.",
+      bold: "We choose a concrete path and leave your team with judgment, documentation, and the ability to operate it.",
       bridgeLabel: "Process consulting and prioritization",
       bridge: [
         {
@@ -400,90 +411,6 @@ export const en: SiteContent = {
         ],
       },
     },
-    aperture: {
-      id: "aperture",
-      index: "03",
-      eyebrow: "APERTURE · COMMUNITY AND EVIDENCE",
-      title: "Aperture",
-      lead: "The Ai Labs community is centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us.",
-      voices: [
-        {
-          quote: "I learn by building.",
-          name: "Cristina, CFO at YonJob",
-          role: "Builder",
-        },
-        {
-          quote: "Workshops, mentors, and people who show up.",
-          name: "Cristian, Software Engineer",
-          role: "Academy",
-        },
-        {
-          quote: "Good people, real events, and a shared love for tech.",
-          name: "Kharen, Design Student",
-          role: "Aperture",
-        },
-      ],
-      eventsLabel: "In the room so far",
-      upcomingLabel: "Coming up",
-      nextLabel: "Next",
-      seriesLabel: "Recurring series",
-      attendanceLabel: "builders",
-      events: [
-        {
-          id: "hack0-q2my",
-          name: "The Next Craft",
-        },
-        {
-          id: "tm16k0kj",
-          name: "Cursor Buildathon 24h",
-          venue: "Universidad Francisco Gavidia",
-          attendance: 208,
-        },
-        {
-          id: "yzoilzlq",
-          name: "OpenAI Build Week",
-          venue: "Presidente Plaza",
-        },
-        {
-          id: "hack0-4d2s",
-          name: "Code Brew El Salvador",
-          venue: "Presidente Plaza",
-        },
-        {
-          id: "625ptozh",
-          name: "Codex Community Build Meetup",
-          venue: "Presidente Plaza",
-        },
-        {
-          id: "cursor-cowork",
-          name: "Cursor Cowork",
-          venue: "San Salvador",
-          series: true,
-        },
-        {
-          id: "cursor-lab",
-          name: "Cursor Lab",
-          venue: "University campuses",
-          series: true,
-        },
-        {
-          id: "zero-to-agent",
-          name: "Zero to Agent",
-          venue: "San Salvador and Guatemala",
-          series: true,
-        },
-      ],
-      stat: { value: "800+", label: "Builders in the community" },
-      quote:
-        "Aperture is the community where you learn AI: Campus Leaders for students, with training and teaching at the center.",
-      attribution: "Ai Labs",
-      cta: { label: "Join the community", href: "/community" },
-      eventsCta: {
-        label: "Ai Labs events in El Salvador",
-        href: "/events",
-      },
-      partnerCta: { label: "Explore a partnership", href: "#contact" },
-    },
     contact: {
       title: "How can we help?",
       lead: "Tell us what you want to learn, improve or explore. You don’t need to have a solution in mind.",
@@ -529,33 +456,39 @@ export const en: SiteContent = {
   },
   servicePages: servicePagesEn,
   consulting: {
+    photo: {
+      name: "13.webp",
+      alt: "A participant listens closely during an Ai Labs session.",
+    },
     metaTitle: "AI consulting in El Salvador",
     metaDescription:
-      "Ai Labs is an AI consulting company in San Salvador, El Salvador.",
+      "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
     label: "San Salvador, El Salvador",
     headline: "AI consulting in El Salvador",
-    lead: "Ai Labs is an AI consulting company in San Salvador, El Salvador.",
+    lead: "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
     servicesTitle: "Services",
     services: [
       {
         id: "consulting",
         name: "AI consulting",
-        body: "We look at how you work, identify where AI can help and decide what to tackle first. From there, we help you learn or build the workflow with you.",
+        body: "We look at how you work, find where AI helps, and decide where to start.",
       },
       {
         id: "academy",
         name: "Practical education",
-        body: "Practical education for professionals and teams, built around the tasks you want to improve.",
+        link: "AI training in El Salvador",
+        body: "Workshops and training for professionals and teams, on the tasks you want to improve.",
       },
       {
         id: "agentic",
         name: "Business automation",
-        body: "We design and implement workflows around your operation, connecting your tools and the people who use them.",
+        link: "AI automation in El Salvador",
+        body: "We design and implement workflows that connect your tools with the people who use them.",
       },
     ],
     methodTitle: "How we work",
     methodBody:
-      "First, understand the work. For consulting and implementation, we start with the need and agree on a useful next step. You can also come directly to learn.",
+      "First we look at how the work gets done today. Then we agree on a concrete next step with you. If you only want to learn, come straight to Academy.",
     steps: [
       {
         title: "Understand",
@@ -574,17 +507,21 @@ export const en: SiteContent = {
       {
         question: "Is there an AI agency in El Salvador?",
         answer:
-          "Ai Labs is an AI consulting company in San Salvador, El Salvador.",
+          "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
       },
       {
         question: "What is AI consulting in El Salvador?",
         answer:
-          "Ai Labs is an AI consulting company in San Salvador, El Salvador. With commercial, management, and operations teams, we review the work, choose one opportunity, and then prepare the team (Academy) or implement the workflow (Agentic), with human review and documentation. You can come directly to learn, with no company or prior consulting required. The public workshops we have published are in person in San Salvador. Ai Labs does not publish consulting prices because we first review the process and agree on what is worth improving. Public workshops do list their price on their own page. Write to Ai Labs from “Let’s talk” and tell us what you want to improve or learn. A company is optional.",
+          "It means reviewing how a team works today, choosing one improvement, and applying it with AI. At Ai Labs we work with commercial, management, and operations teams, then prepare the team (Academy) or implement the workflow (Agentic). We do not publish consulting prices; public workshops do list theirs.",
       },
     ],
     cta: "Let’s talk",
   },
   redeem: {
+    heroPhoto: {
+      name: "18.webp",
+      alt: "Participants pose as a group during an Ai Labs event.",
+    },
     metaTitle: "Redeem credits",
     eventLabel: "Event",
     howItWorksLabel: "How it works",
@@ -623,10 +560,6 @@ export const en: SiteContent = {
       "Your account needs a verified email before you can claim credits.",
     missingCodeTitle: "Missing code",
     missingCodeBody: "Open the full redeem link that includes ?code=…",
-    joinNudgeTitle: "Aperture",
-    joinNudgeBody:
-      "Claim a permanent member number and a public builder profile.",
-    joinNudgeCta: "Join Aperture",
     qrCta: "QR",
     qrTitle: "Scan to open",
     qrBody: "Scan this code to open this page on another device.",
@@ -656,15 +589,19 @@ export const en: SiteContent = {
     },
   },
   community: {
-    metaTitle: "WhatsApp community",
+    heroPhoto: {
+      name: "9.webp",
+      alt: "Ai Labs community members hug and take a selfie at an event.",
+    },
+    metaTitle: "AI community in El Salvador",
     metaDescription:
-      "Ai Labs is a community in El Salvador centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us. To join, open the WhatsApp link.",
+      "Our community in El Salvador is a WhatsApp group for learning AI: notices of workshops and events, and the Campus Leaders program for students.",
     label: "Community",
     headline: "How do I join the Ai Labs WhatsApp community?",
-    body: "Ai Labs is a community in El Salvador centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us. To join, open the WhatsApp link.",
+    body: "Our community in El Salvador is a WhatsApp group for learning AI: notices of workshops and events, and the Campus Leaders program for students.",
     joinPrompt: "Free to join.",
     joinCta: "Join on WhatsApp",
-    joinHint: "Opens WhatsApp · request may need approval",
+    joinHint: "Opens WhatsApp. Your request may need approval.",
     joinHref: "https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj",
     eventsCta: {
       label: "Ai Labs events in El Salvador",
@@ -685,12 +622,16 @@ export const en: SiteContent = {
     qrBody: "Scan this code to open this page on another device.",
   },
   campusLeader: {
-    metaTitle: "Campus Leader",
+    heroPhoto: {
+      name: "17.webp",
+      alt: "Students work on their laptops at an Ai Labs event.",
+    },
+    metaTitle: "Campus Leader: AI program for students",
     metaDescription:
-      "An Ai Labs Campus Leader is a student, one per university in El Salvador, who brings AI training and teaching to campus, with official recognition and a say in which workshops arrive.",
+      "A Campus Leader is a student, one per university in El Salvador, who brings our AI workshops to campus and chooses which ones arrive.",
     label: "Campus Leader",
     headline: "What is a Campus Leader?",
-    body: "An Ai Labs Campus Leader is a student, one per university in El Salvador, who brings AI training and teaching to campus, with official recognition and a say in which workshops arrive.",
+    body: "A Campus Leader is a student, one per university in El Salvador, who brings our AI workshops to campus and chooses which ones arrive.",
     creditsNote:
       "Accepted leaders get credits for the tools we work with. Amounts stay between us.",
     cohort: "aster",
@@ -717,7 +658,7 @@ export const en: SiteContent = {
       what: {
         label: "The program",
         title: "What is the program?",
-        body: "Ai Labs on campus: one student per university in El Salvador, chosen by cohort, to bring AI training and teaching.",
+        body: "Ai Labs on your campus: we choose one student per university in El Salvador, by cohort, to bring our AI workshops.",
         items: [
           {
             title: "Any career",
@@ -825,7 +766,7 @@ export const en: SiteContent = {
       instagram: {
         label: "Instagram",
         placeholder: "https://instagram.com/yourhandle",
-        helper: "Profile link — how we find you on campus",
+        helper: "Profile link. This is how we find you on campus.",
         skipLabel: "I don’t have Instagram",
       },
       linkedin: {
@@ -938,262 +879,29 @@ export const en: SiteContent = {
     qrBody: "Scan this code to open this page on another device.",
   },
   legal: legalEn,
-  aperture: {
-    join: {
-      metaTitle: "Join Aperture",
-      metaDescription:
-        "Claim a permanent Aperture member number and a short public builder profile.",
-      label: "Aperture",
-      headline: "Claim your member number",
-      body: "A short public profile and a permanent number. Numbers are assigned in order and never reused.",
-      signInPrompt: "Sign in to claim your number. Use a verified email.",
-      signInCta: "Sign in to join",
-      signOutCta: "Sign out",
-      signedInAs: "Signed in as {email}",
-      submit: "Claim my number",
-      submitting: "Claiming…",
-      closedTitle: "Join is closed",
-      closedBody: "Aperture is not accepting new members right now.",
-      retiredTitle: "This account was closed",
-      retiredBody:
-        "Your member number stays retired and cannot be claimed again.",
-      existingTitle: "You already have a number",
-      existingBody: "Your number is #{number}.",
-      noVerifiedEmailTitle: "Verify your email",
-      noVerifiedEmailBody:
-        "Your account needs a verified email before you can join Aperture.",
-      error: "Something went wrong. Try again in a moment.",
-      usernameAvailable: "Available",
-      usernameChecking: "Checking…",
-      fields: {
-        username: {
-          label: "Username",
-          placeholder: "walter",
-          helper: "3–20 letters, numbers, or underscores.",
-        },
-        displayName: {
-          label: "Display name",
-          placeholder: "Walter Morales",
-        },
-        headline: {
-          label: "Headline",
-          placeholder: "Founder working on applied AI",
-          helper: "What you do, in one line.",
-        },
-        country: {
-          label: "Country",
-          placeholder: "Select a country",
-        },
-        role: {
-          label: "Role",
-          placeholder: "Select a role",
-        },
-        upFor: {
-          label: "Open to",
-          helper: "Optional. What you want to be asked about.",
-        },
-      },
-      roleOptions: {
-        FOUNDER: "Founder",
-        DEVELOPER: "Developer",
-        DESIGNER: "Designer",
-        OPERATOR: "Operator",
-        STUDENT: "Student",
-      },
-      upForOptions: {
-        COFOUNDING: "Cofounding",
-        FREELANCE: "Freelance",
-        HIRING: "Hiring",
-        MENTORING: "Mentoring",
-        COLLABORATING: "Collaborating",
-      },
-      fieldErrors: {
-        required: "This field is required.",
-        too_long: "This is too long.",
-        invalid: "Check this value.",
-        reserved: "That username is reserved.",
-        taken: "That username is taken.",
-      },
-      legalAccept: "I agree to the {terms} and the {privacy}.",
-      legalTerms: "Terms of use",
-      legalPrivacy: "Privacy policy",
-      ageAccept: "I am 18 or older.",
-      newsletterAccept: "Send me the Aperture newsletter. Optional.",
-      revealTitle: "You're in",
-      revealBody: "Your number is #{number}.",
-      revealCta: "Go to your dashboard",
-      qrCta: "QR",
-      qrTitle: "Scan to open",
-      qrBody: "Scan this code to open this page on another device.",
-    },
-    me: {
-      metaTitle: "Your Aperture profile",
-      metaDescription:
-        "Your private Aperture dashboard: member number, events, credits, and settings.",
-      label: "Aperture",
-      headline: "Your dashboard",
-      numberLabel: "Member #{number}",
-      signInPrompt: "Sign in to see your number, events, and credits.",
-      signInCta: "Sign in",
-      signOutCta: "Sign out",
-      signedInAs: "Signed in as {email}",
-      joinCta: "Claim your number",
-      noMemberTitle: "You are not a member yet",
-      noMemberBody: "Claim a permanent number to open your dashboard.",
-      retiredTitle: "This account was closed",
-      retiredBody:
-        "Your member number stays retired. Events and credits are no longer shown.",
-      eventsTitle: "Events",
-      eventsEmpty: "No Ai Labs events are linked to your verified emails yet.",
-      creditsTitle: "Credits",
-      creditsEmpty: "You have not claimed credits yet.",
-      expiresLabel: "Expires {date}",
-      settingsTitle: "Profile settings",
-      save: "Save changes",
-      saving: "Saving…",
-      saved: "Saved",
-      error: "Something went wrong. Try again in a moment.",
-      newsletterLabel: "Send me the Aperture newsletter.",
-      showEventsLabel: "Show my events on my public profile",
-      showEventsHelper:
-        "Only events already linked to your verified emails. Off by default.",
-      usernameCooldown: "You can change your username again on {date}.",
-      fields: {
-        bio: {
-          label: "Bio",
-          placeholder: "What you are building, in a few lines.",
-          helper: "Up to 280 characters. Shown on your public profile.",
-        },
-        city: {
-          label: "City",
-          placeholder: "San Salvador",
-        },
-        linkedin: {
-          label: "LinkedIn",
-          placeholder: "https://linkedin.com/in/yourname",
-        },
-        x: {
-          label: "X",
-          placeholder: "https://x.com/yourhandle",
-        },
-        github: {
-          label: "GitHub",
-          placeholder: "https://github.com/yourhandle",
-        },
-        website: {
-          label: "Website",
-          placeholder: "https://example.com",
-        },
-        instagram: {
-          label: "Instagram",
-          placeholder: "https://instagram.com/yourhandle",
-        },
-        title: {
-          label: "Title",
-          placeholder: "Lane notes",
-        },
-        summary: {
-          label: "Summary",
-          placeholder: "What it does, in a few lines.",
-          helper: "Up to 280 characters.",
-        },
-        url: {
-          label: "Project URL",
-          placeholder: "https://example.com",
-        },
-        repoUrl: {
-          label: "Repository",
-          placeholder: "https://github.com/you/project",
-        },
-      },
-      poolLabels: {
-        CURSOR: "Cursor",
-        CODEX: "Codex",
-        OPENAI: "OpenAI Platform",
-      },
-      shareCta: "Open share card",
-      projectsTitle: "Projects",
-      projectsEmpty: "You have not published a project yet.",
-      projectsHelper:
-        "Show work you built. The built-with split is yours to report.",
-      addProject: "Add a project",
-      editProject: "Edit",
-      saveProject: "Save project",
-      cancelProject: "Cancel",
-      deleteProject: "Remove",
-      builtWithTitle: "Built with",
-      builtWithHelper: "Self-reported. Shares must add up to 100.",
-      addTool: "Add a tool",
-      removeTool: "Remove",
-      toolNameLabel: "Tool",
-      percentLabel: "%",
-      publishedLabel: "Show on my public profile",
-      imageLabel: "Image",
-      imageHelper: "JPEG, PNG, or WebP. Up to 2 MB.",
-      imageUnavailable: "Image upload is not configured on this environment.",
-      removeImage: "Remove image",
-      projectLimit: "You can publish up to 12 projects.",
-      projectErrors: {
-        required: "This field is required.",
-        too_long: "This is too long.",
-        invalid: "Check this value.",
-        sum: "The built-with shares must add up to 100.",
-      },
-    },
-    directory: {
-      metaTitle: "Aperture members",
-      metaDescription:
-        "Aperture members are public builder profiles from the Ai Labs community. Each profile has a permanent number.",
-      label: "Aperture",
-      headline: "Who are the Aperture members?",
-      body: "Aperture members are public builder profiles from the Ai Labs community. Each profile has a permanent number.",
-      empty: "No public profiles yet.",
-      joinCta: "Claim your number",
-      consultingCta: {
-        label: "AI consulting in El Salvador",
-        href: "/consultoria-de-ia-el-salvador",
-      },
-    },
-    profile: {
-      metaTitle: "Aperture profile",
-      metaTitleNamed: "{name} · Aperture",
-      metaDescription: "A public Aperture builder profile.",
-      metaDescriptionNamed: "{name} — {headline}",
-      notFoundTitle: "Profile not found",
-      notFoundBody: "That username is not an Aperture member.",
-      eventsTitle: "Events",
-      linksTitle: "Links",
-      projectsTitle: "Projects",
-      builtWithDisclaimer:
-        "Reported by the maker. Ai Labs does not verify this breakdown, and it does not mean a tool company endorses the project.",
-      shareCta: "Open share card",
-      shareCardAlt: "{name} · Aperture member #{number}",
-    },
-  },
   events: {
     metaTitle: "Ai Labs events in El Salvador",
     metaDescription:
-      "These are the Ai Labs events published on Luma for this month. The base is in San Salvador; they are not every event in the country.",
+      "Our AI events in San Salvador published on Luma for this month. These are Ai Labs events, not every event in the country.",
     breadcrumbHome: "Home",
     label: "Events",
     headline: "Ai Labs events in El Salvador",
     intro:
-      "These are the Ai Labs events published on Luma for this month, not every event in the country.",
+      "Our events published on Luma for this month. These are Ai Labs events, not every event in the country.",
     upcomingLabel: "Upcoming",
     pastLabel: "Past",
     hostsLabel: "Hosts",
     lumaLabel: "View on Luma",
     newTabLabel: "Opens in a new tab.",
     photosLabel: "Ai Labs photographs",
-    photosCaption:
-      "Credit: Ai Labs. These photographs are from Ai Labs events in San Salvador.",
+    photosCaption: "Credit: Ai Labs. Photos from our events in San Salvador.",
     cityLine: "in San Salvador",
     closeHeadline: "San Salvador keeps gathering",
     closeSupport: "Walter publishes the full calendar on Luma.",
     communityCta: "Join the community",
     consultingLink: "AI consulting in El Salvador",
     upcomingEmpty: "There is no upcoming event.",
-    monthEmpty: "There are no Ai Labs events published on Luma in {month}.",
+    monthEmpty: "We have no events published on Luma in {month}.",
     calendarLabel: "View calendar",
     previousPhoto: "Previous photo",
     nextPhoto: "Next photo",

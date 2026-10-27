@@ -90,7 +90,7 @@ describe("public SEO files", () => {
     )
     expect(sitemap).toContain("https://www.ailabs.sv/community")
     expect(sitemap).toContain("https://www.ailabs.sv/campus-leader")
-    expect(sitemap).toContain("https://www.ailabs.sv/aperture")
+    expect(sitemap).not.toContain("https://www.ailabs.sv/aperture")
     expect(sitemap).toContain("<loc>https://www.ailabs.sv/events</loc>")
     expect(sitemap).toMatch(
       /<loc>https:\/\/www\.ailabs\.sv\/events<\/loc>\s*<lastmod>2026-10-18<\/lastmod>/
@@ -147,7 +147,7 @@ describe("public SEO files", () => {
 })
 
 describe("existing page answers", () => {
-  it("opens the home, community, campus, and member pages with a direct answer", () => {
+  it("opens the home, community, and campus pages with a direct answer", () => {
     for (const content of [es, en]) {
       expect(content.home.hero.body.length).toBeGreaterThan(40)
       expect(content.home.services.title).toMatch(/\?$/)
@@ -157,10 +157,6 @@ describe("existing page answers", () => {
       expect(content.campusLeader.headline).toMatch(/\?$/)
       expect(content.campusLeader.body).toBe(
         content.campusLeader.metaDescription
-      )
-      expect(content.aperture.directory.headline).toMatch(/\?$/)
-      expect(content.aperture.directory.body).toBe(
-        content.aperture.directory.metaDescription
       )
     }
     expect(es.home.hero.body).toMatch(/San Salvador/)
@@ -255,12 +251,6 @@ describe("home FAQ", () => {
     expect(en.campusLeader.body).toBe(
       "An Ai Labs Campus Leader is a student, one per university in El Salvador, who brings AI training and teaching to campus, with official recognition and a say in which workshops arrive."
     )
-    expect(es.home.aperture.lead).toBe(
-      "La comunidad de Ai Labs está centrada en capacitación y enseñanza. El programa Campus Leaders es para estudiantes, y con nosotros se puede aprender IA."
-    )
-    expect(en.home.aperture.lead).toBe(
-      "The Ai Labs community is centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us."
-    )
     const apertureEs = es.home.faq.items.find((item) =>
       item.question.startsWith("¿Qué es Aperture")
     )
@@ -277,8 +267,6 @@ describe("home FAQ", () => {
       const text = [
         content.community.body,
         content.campusLeader.body,
-        content.home.aperture.lead,
-        content.home.aperture.quote,
         ...content.home.faq.items.map((item) => item.answer),
       ].join("\n")
       expect(text).not.toMatch(/centroam[eé]rica|central america/i)

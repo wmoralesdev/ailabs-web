@@ -11,6 +11,7 @@ import {
 import type { FooterContent, FooterSocial, Locale, NavItem } from "@/content"
 
 import { formatCopyright } from "@/content"
+import { cn } from "@/lib/utils"
 import { SiteLogo } from "@/components/chrome/site-logo"
 import { useContact } from "@/components/contact/contact-provider"
 import { listUpcomingWorkshops } from "@/events/catalog"
@@ -27,9 +28,9 @@ type SiteFooterProps = {
   legalPublished: boolean
 }
 
-/** Always-dark footer: graphite + on-dark only — no theme or purple tokens. */
+/** Always-night footer: night field + snow ink, the same in both themes. */
 const footerLinkClassName =
-  "inline-flex min-h-11 items-center rounded-sm text-sm text-on-dark/65 underline-offset-4 transition-colors hover:text-on-dark hover:underline focus-visible:ring-2 focus-visible:ring-on-dark/40 focus-visible:outline-none"
+  "link-underline inline-flex min-h-9 items-center text-[0.9375rem] text-night-soft transition-colors hover:text-snow"
 
 function FooterLink({ link }: { link: NavItem; locale: Locale }) {
   const { openContact } = useContact()
@@ -110,19 +111,20 @@ function SocialLink({ social }: { social: FooterSocial }) {
       href={social.href}
       target="_blank"
       rel="noreferrer"
-      aria-label={social.label}
-      className="inline-flex size-11 items-center justify-center rounded-full border border-on-dark/15 text-on-dark/65 transition-colors hover:border-on-dark/35 hover:text-on-dark focus-visible:ring-2 focus-visible:ring-on-dark/40 focus-visible:outline-none"
+      className={cn(footerLinkClassName, "gap-2")}
     >
       <HugeiconsIcon
         icon={SOCIAL_ICONS[social.icon]}
         strokeWidth={1.8}
-        className="size-4.5"
+        className="size-4"
+        aria-hidden="true"
       />
+      {social.label}
     </a>
   )
 }
 
-/** Decorative watermark — brand phrase, not localized UI copy. */
+/** Brand phrase printed big at the foot of every page; not localized UI copy. */
 const FOOTER_WATERMARK = "get curious"
 
 function SiteFooter({ locale, footer, legalPublished }: SiteFooterProps) {
@@ -146,43 +148,28 @@ function SiteFooter({ locale, footer, legalPublished }: SiteFooterProps) {
   ].filter((column) => column.links.length > 0)
 
   return (
-    <footer className="relative overflow-hidden bg-graphite text-on-dark">
-      <p
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-6 text-center font-display text-[clamp(4.5rem,18vw,12rem)] leading-none font-semibold tracking-tight text-on-dark/[0.035] lowercase select-none sm:bottom-8"
-      >
-        {FOOTER_WATERMARK}
-      </p>
-
-      <div className="page-gutter section-y relative mx-auto max-w-content pb-16 sm:pb-20">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="flex flex-col items-start gap-6 text-left lg:col-span-5">
-            <SiteLogo variant="lockup" onDark className="self-start" />
-            <p className="max-w-sm text-sm leading-relaxed text-on-dark/65 md:text-[0.9375rem]">
+    // Revealed from under the page where it fits in the viewport; a taller
+    // footer pinned to the bottom would poke out above the page instead.
+    <footer className="surface-night relative z-0 overflow-clip pb-[env(safe-area-inset-bottom)] [@media(min-width:768px)_and_(min-height:54rem)]:sticky [@media(min-width:768px)_and_(min-height:54rem)]:bottom-0">
+      <div className="page-gutter mx-auto max-w-content pt-14 md:pt-20">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
+          <div className="flex flex-col items-start gap-5 lg:col-span-4">
+            <SiteLogo variant="lockup" onDark className="h-8" />
+            <p className="max-w-xs text-[0.9375rem] leading-relaxed text-night-soft">
               {footer.brandLine}
             </p>
-            {footer.socials.length > 0 ? (
-              <ul className="flex flex-wrap items-center gap-2.5">
-                {footer.socials.map((social) => (
-                  <li key={social.href}>
-                    <SocialLink social={social} />
-                  </li>
-                ))}
-              </ul>
-            ) : null}
           </div>
 
-          <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 lg:col-span-8">
             {columns.map((column) => (
               <div
                 key={column.title}
                 id={"id" in column ? column.id : undefined}
-                className="scroll-mt-[calc(var(--site-header-offset)+2rem)]"
               >
-                <h2 className="text-sm font-semibold text-on-dark">
+                <h2 className="text-[0.9375rem] font-semibold text-snow">
                   {column.title}
                 </h2>
-                <ul className="mt-3.5 flex flex-col gap-0.5">
+                <ul className="mt-2">
                   {column.links.map((link) => (
                     <li key={link.label}>
                       <FooterLink link={link} locale={locale} />
@@ -191,14 +178,26 @@ function SiteFooter({ locale, footer, legalPublished }: SiteFooterProps) {
                 </ul>
               </div>
             ))}
+            {footer.socials.length > 0 ? (
+              <div>
+                <h2 className="text-[0.9375rem] font-semibold text-snow">
+                  {footer.socialTitle}
+                </h2>
+                <ul className="mt-2">
+                  {footer.socials.map((social) => (
+                    <li key={social.href}>
+                      <SocialLink social={social} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-on-dark/12 pt-6">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
-            <p className="text-sm text-on-dark/55">
-              {formatCopyright(footer.copyright)}
-            </p>
+        <div className="mt-14 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-t border-snow/12 pt-5 text-small text-night-soft">
+          <div className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
+            <p>{formatCopyright(footer.copyright)}</p>
             {legalPublished ? (
               <ul className="flex flex-wrap items-center gap-x-5">
                 {footer.legalLinks.map((link) => (
@@ -209,17 +208,23 @@ function SiteFooter({ locale, footer, legalPublished }: SiteFooterProps) {
               </ul>
             ) : null}
           </div>
-          <p className="flex items-center gap-2 text-sm text-on-dark/55">
+          <p className="flex items-center gap-2">
             <HugeiconsIcon
               icon={Location01Icon}
               strokeWidth={1.8}
-              className="size-4 text-on-dark/45"
+              className="size-4"
               aria-hidden="true"
             />
             {footer.locationLine}
           </p>
         </div>
       </div>
+      <p
+        aria-hidden="true"
+        className="display mt-6 -mb-[0.12em] px-[var(--space-gutter)] text-[17.5vw] leading-[0.82] whitespace-nowrap text-snow select-none lg:text-[min(17.5vw,16rem)]"
+      >
+        {FOOTER_WATERMARK}
+      </p>
     </footer>
   )
 }

@@ -22,7 +22,7 @@ if (import.meta.env.DEV && !import.meta.env.SSR) {
 }
 
 const SITE_TITLE =
-  "Ai Labs | Consultoría en IA, automatización y formación práctica"
+  "Consultoría en IA, automatización y formación práctica | Ai Labs"
 const SITE_DESCRIPTION =
   "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador."
 

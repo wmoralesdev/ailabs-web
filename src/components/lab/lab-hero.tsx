@@ -1,14 +1,22 @@
-import { HomeHero } from "@/components/home/home-hero"
 import type { Locale, SiteContent } from "@/content"
+import { TextSpiral } from "@/components/lab/text-spiral"
 
 type LabHeroProps = {
   locale: Locale
   content: SiteContent
 }
 
-/** Lab preview of the landing spiral hero (hash CTAs point at home). */
-function LabHero({ locale, content }: LabHeroProps) {
-  return <HomeHero locale={locale} content={content} samePageCtas={false} />
+/** Lab preview of the text spiral, full bleed on the night field. */
+function LabHero({ content }: LabHeroProps) {
+  return (
+    <section className="surface-night relative min-h-[calc(100svh-var(--site-header-height))]">
+      <TextSpiral
+        words={content.home.hero.spiralWords}
+        interactionLabel={content.microcopy.textSpiralAction}
+        className="absolute inset-0 h-full w-full"
+      />
+    </section>
+  )
 }
 
 export { LabHero }

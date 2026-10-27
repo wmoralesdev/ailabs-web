@@ -6,7 +6,7 @@ import {
   UserButton,
   useUser,
 } from "@clerk/tanstack-react-start"
-import { createFileRoute, Link, useRouterState } from "@tanstack/react-router"
+import { createFileRoute, useRouterState } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { toast } from "sonner"
@@ -23,8 +23,6 @@ import type { Locale, RedeemContent } from "@/content/types"
 import { getRedeemProductConfig } from "@/lib/redeem-products"
 import type { RedeemProductConfig } from "@/lib/redeem-products"
 import { cn } from "@/lib/utils"
-import { getMembershipHint } from "@/server/aperture/claim"
-import type { MembershipHint } from "@/server/aperture/claim"
 import { getEventByCode, getRedeemStatus, redeemCredits } from "@/server/redeem"
 import type {
   RedeemCreditsResult,
@@ -101,20 +99,6 @@ export const Route = createFileRoute("/_site/redeem")({
 const skipLinkClassName =
   "bg-background text-foreground focus-visible:ring-ring sr-only rounded-sm px-3 py-2 text-sm font-medium focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2"
 
-function collectRedeemWords(
-  content: RedeemContent,
-  eventName?: string
-): string[] {
-  return [
-    content.eventLabel,
-    ...(eventName ? [eventName] : []),
-    ...Object.values(content.products).map((product) => product.title),
-    content.signInCta,
-    content.claimCta,
-    ...content.steps.map((step) => step.title),
-  ]
-}
-
 function RedeemPage() {
   const { locale, content: siteContent } = Route.useRouteContext()
   const { code } = Route.useSearch()
@@ -170,7 +154,7 @@ function RedeemPage() {
         <CampaignHero
           fluid
           locale={locale}
-          words={collectRedeemWords(content, event.name)}
+          photo={content.heroPhoto}
           qrContent={content}
           footer={
             <CampaignFactRow
@@ -214,7 +198,7 @@ function RedeemStatusHero({
         <CampaignHero
           fluid
           locale={locale}
-          words={collectRedeemWords(content)}
+          photo={content.heroPhoto}
           qrContent={content}
           footer={<RedeemFootNote text={content.poweredBy} />}
         >
@@ -447,7 +431,6 @@ function RedeemClaimPanel({
           <p className="text-sm text-foreground">{content.alreadyRedeemed}</p>
         ) : null}
         <CodesList codes={result.codes} content={content} />
-        <JoinNudge content={content} />
       </div>
     )
   }
@@ -517,49 +500,6 @@ function RedeemClaimPanel({
           </>
         )}
       </button>
-    </div>
-  )
-}
-
-function JoinNudge({ content }: { content: RedeemContent }) {
-  const [hint, setHint] = useState<MembershipHint | null>(null)
-
-  useEffect(() => {
-    let cancelled = false
-    void getMembershipHint()
-      .then((next) => {
-        if (!cancelled) {
-          setHint(next)
-        }
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setHint(null)
-        }
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
-  if (hint?.status !== "guest") {
-    return null
-  }
-
-  return (
-    <div className="flex flex-col gap-1 border-t border-border/60 pt-4">
-      <p className="text-sm font-medium text-foreground">
-        {content.joinNudgeTitle}
-      </p>
-      <p className="text-sm text-muted-foreground">
-        {content.joinNudgeBody}{" "}
-        <Link
-          to="/aperture/join"
-          className="font-medium text-foreground underline underline-offset-4 hover:text-foreground"
-        >
-          {content.joinNudgeCta}
-        </Link>
-      </p>
     </div>
   )
 }
