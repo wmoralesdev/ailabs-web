@@ -18,6 +18,7 @@
     "compress:webp": "ailabs-cli images compress",
     "images:list": "ailabs-cli images list",
     "halftone:logos": "node scripts/logo-dots.mjs",
+    "copy:check": "tsx scripts/copy-length.ts",
     "postinstall": "prisma generate",
     "db:generate": "prisma generate",
     "db:studio": "prisma studio",

@@ -17,14 +17,13 @@ export const servicePagesEs: ServicePagesContent = {
       name: "3.webp",
       alt: "Participantes siguen una sesión práctica de Ai Labs en un auditorio.",
     },
-    metaTitle:
-      "Capacitación en IA en El Salvador: equipos y profesionales | Ai Labs",
+    metaTitle: "Capacitación en IA en El Salvador para equipos | Ai Labs",
     metaDescription:
       "Capacitación práctica en IA en San Salvador para profesionales y equipos: tareas reales, criterio para revisar resultados y talleres públicos.",
     serviceName: "Capacitación en IA en El Salvador",
     eyebrow: "Academy · Formación práctica",
     title: "Capacitación en IA en El Salvador para profesionales y equipos",
-    lead: "Ai Labs Academy enseña a aplicar IA en el trabajo de todos los días, en lenguaje claro para perfiles de negocio. Podés venir con tu equipo o directamente a aprender.",
+    lead: "En Ai Labs Academy enseñamos a aplicar IA en el trabajo de todos los días, en lenguaje claro para perfiles de negocio. Podés venir con tu equipo o por tu cuenta.",
     definitionHeading: "Qué aprendés en una capacitación práctica en IA.",
     definition: trainingDefinition,
     includesHeading: "Cómo es la formación.",
@@ -34,7 +33,7 @@ export const servicePagesEs: ServicePagesContent = {
         body: "La práctica parte de las tareas, decisiones y fricciones que enfrentás cada día, no de ejemplos genéricos.",
       },
       {
-        title: "Criterio, no solo herramientas",
+        title: "Criterio para usarla",
         body: "Aprendés cuándo usar la IA, cómo revisar lo que produce y cuándo conviene mantener una tarea humana.",
       },
       {
@@ -81,27 +80,27 @@ export const servicePagesEs: ServicePagesContent = {
       {
         question: "Curso, taller o capacitación en IA: ¿cuál es la diferencia?",
         answer:
-          "Ai Labs Academy ofrece formación práctica en IA en San Salvador. Ya sea que busqués un curso, un taller, un bootcamp o una capacitación en inteligencia artificial, la idea es la misma: practicar sobre tareas reales hasta poder aplicarlo en el trabajo.",
+          "Un curso cubre un tema en varias sesiones, un taller es una sesión práctica y una capacitación se arma para un equipo y sus tareas. En Academy damos talleres públicos y capacitaciones, siempre sobre tareas reales.",
       },
       {
         question: "¿Necesito una empresa para aprender IA con Ai Labs?",
         answer:
-          "No. Ai Labs Academy recibe a profesionales y equipos. Podés venir directamente a aprender, sin una empresa ni una consultoría previa.",
+          "No. En Academy recibimos a profesionales y equipos. Podés venir directo a aprender, sin empresa ni una consultoría previa.",
       },
       {
         question: "¿Necesito saber programar?",
         answer:
-          "No. La formación de Ai Labs está pensada para perfiles de negocio y usa lenguaje claro. Se enfoca en aplicar IA a tareas reales con criterio.",
+          "No. Pensamos la formación para perfiles de negocio y usamos lenguaje claro. Nos enfocamos en aplicar IA a tareas reales con criterio.",
       },
       {
         question: "¿Cuánto cuesta una capacitación en IA?",
         answer:
-          "Los talleres públicos de Ai Labs muestran su costo en su propia página. Las capacitaciones para equipos dependen del alcance y se acuerdan después de revisar el proceso.",
+          "Cada taller público muestra su precio en su página. Las capacitaciones para equipos dependen del alcance y las acordamos después de revisar el proceso.",
       },
       {
         question: "¿Cómo me entero de los próximos talleres?",
         answer:
-          "Seguí la comunidad de WhatsApp de Ai Labs en El Salvador y sus redes para enterarte de los próximos talleres públicos.",
+          "Seguí nuestra comunidad de WhatsApp en El Salvador y nuestras redes sociales: ahí avisamos de los próximos talleres públicos.",
       },
     ],
     ctaHeading: "¿Querés preparar a tu equipo?",
@@ -115,15 +114,14 @@ export const servicePagesEs: ServicePagesContent = {
       name: "21.webp",
       alt: "Dos participantes revisan código en sus laptops durante una sesión de Ai Labs.",
     },
-    metaTitle:
-      "Automatización con IA en El Salvador: flujos e integraciones | Ai Labs",
+    metaTitle: "Automatización de procesos con IA en El Salvador | Ai Labs",
     metaDescription:
       "Automatización de procesos con IA en San Salvador: flujos con tus herramientas, revisión humana, documentación y transferencia al equipo.",
     serviceName: "Automatización de procesos con IA en El Salvador",
     eyebrow: "Agentic · Diseño e implementación",
     title:
       "Automatización de procesos con IA en El Salvador, diseñada con tu equipo",
-    lead: "Ai Labs Agentic diseña e implementa flujos que encajan con la forma actual de trabajar, con las integraciones y la revisión humana que cada proceso necesita.",
+    lead: "En Ai Labs Agentic diseñamos e implementamos flujos que encajan con la forma actual de trabajar, con las integraciones y la revisión humana que cada proceso necesita.",
     definitionHeading: "Qué hace la automatización con IA por tu operación.",
     definition: automationDefinition,
     includesHeading: "Qué incluye.",
@@ -162,7 +160,7 @@ export const servicePagesEs: ServicePagesContent = {
     ],
     fitHeading: "Para quién es.",
     fit: [
-      "Equipos con procesos repetitivos: seguimiento, documentos, reportes o datos que pasan entre herramientas.",
+      "Equipos con tareas repetitivas: seguimiento, documentos, reportes o datos entre herramientas.",
       "Operaciones que necesitan velocidad sin perder control sobre las decisiones importantes.",
       "Empresas que quieren que el equipo pueda operar el flujo sin depender de un proveedor.",
     ],
@@ -181,22 +179,22 @@ export const servicePagesEs: ServicePagesContent = {
         question:
           "Automatización, agente de IA o flujo agéntico: ¿cuál es la diferencia?",
         answer:
-          "Ai Labs Agentic implementa flujos con IA en San Salvador. Una automatización ejecuta pasos fijos; un agente de IA o flujo agéntico además interpreta información y propone acciones. En ambos casos, Ai Labs define qué decide la IA, qué revisa una persona y qué queda documentado.",
+          "Una automatización ejecuta pasos fijos; un agente de IA también interpreta información y propone acciones. En los dos casos definimos qué decide la IA, qué revisa una persona y qué queda documentado.",
       },
       {
         question: "¿La IA reemplaza al equipo?",
         answer:
-          "No. Ai Labs diseña cada flujo con revisión humana donde hace falta. La IA asiste o automatiza pasos, y las decisiones importantes siguen en manos del equipo.",
+          "No. Diseñamos cada flujo con revisión humana donde hace falta. La IA asiste o automatiza pasos, y las decisiones importantes siguen en manos del equipo.",
       },
       {
         question: "¿Con qué herramientas se integra?",
         answer:
-          "Ai Labs parte de las herramientas que el equipo ya usa. Las integraciones se definen después de entender el proceso, no antes.",
+          "Partimos de las herramientas que el equipo ya usa. Definimos las integraciones después de entender el proceso, no antes.",
       },
       {
         question: "¿Cuánto cuesta automatizar un proceso con IA?",
         answer:
-          "Depende del proceso y de las integraciones. Ai Labs no publica tarifas: primero revisa el proceso y acuerda el alcance con el equipo.",
+          "Depende del proceso y de las integraciones. No publicamos tarifas: primero revisamos el proceso y acordamos el alcance con el equipo.",
       },
       {
         question: "¿Qué recibe el equipo al final?",

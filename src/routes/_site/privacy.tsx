@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 
 import { LegalDocument } from "@/components/legal/legal-document"
-import { buildPageMeta } from "@/lib/seo"
+import { brandedTitle, buildPageMeta } from "@/lib/seo"
 
 export const Route = createFileRoute("/_site/privacy")({
   loader: ({ context }) => context,
@@ -9,11 +9,11 @@ export const Route = createFileRoute("/_site/privacy")({
     if (!loaderData) {
       return {}
     }
-    const { meta, legal } = loaderData.content
+    const { legal } = loaderData.content
     return buildPageMeta({
       locale: loaderData.locale,
       path: "/privacy",
-      title: `${legal.privacy.title} | ${meta.title}`,
+      title: brandedTitle(legal.privacy.title),
       description: legal.privacy.metaDescription,
       noindex: legal.status === "draft",
     })

@@ -456,6 +456,8 @@ export type ConsultingService = {
   id: ConsultingServiceId
   name: string
   body: string
+  /** Anchor text to the route's own page, phrased as its search query. */
+  link?: string
 }
 
 export type ConsultingFaq = {

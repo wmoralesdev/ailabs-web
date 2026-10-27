@@ -14,7 +14,7 @@ Las páginas publicadas ubican a Ai Labs en San Salvador, El Salvador. No descri
 
 Revisan cómo se trabaja, identifican dónde puede ayudar la IA y deciden por dónde empezar. Después preparan al equipo o implementan el flujo. También se puede venir directamente a aprender.
 
-- [Consultoría de IA en El Salvador](https://www.ailabs.sv/consultoria-de-ia-el-salvador): Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador. Ai Labs is an AI consulting company in San Salvador, El Salvador. Revisar el proceso, priorizar una oportunidad concreta y decidir si formar al equipo o implementar el flujo.
+- [Consultoría de IA en El Salvador](https://www.ailabs.sv/consultoria-de-ia-el-salvador): Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador. Revisa un proceso con el equipo, elige una mejora y ayuda a aplicarla: formando al equipo o implementando el flujo.
 - [Capacitación en IA en El Salvador](https://www.ailabs.sv/capacitacion-ia-el-salvador) (Academy): formación práctica para profesionales y equipos, sobre tareas reales; talleres públicos en San Salvador. No hace falta una empresa.
 - [Automatización de procesos con IA en El Salvador](https://www.ailabs.sv/automatizacion-ia-el-salvador) (Agentic): diseñar e implementar flujos con las herramientas del equipo, revisión humana, documentación y transferencia.
 
@@ -32,7 +32,7 @@ No se publican precios de consultoría. Los logos de programas de embajadores no
 - Contacto: https://www.ailabs.sv/#contact
 - Comunidad de Ai Labs (capacitación y enseñanza; Campus Leaders para estudiantes): https://www.ailabs.sv/community
 - Campus Leaders (un estudiante por universidad en El Salvador): https://www.ailabs.sv/campus-leader
-- Eventos de Ai Labs en El Salvador: https://www.ailabs.sv/events. Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país.
+- Eventos de Ai Labs en El Salvador: https://www.ailabs.sv/events. Los eventos de Ai Labs publicados en Luma para este mes; no son todos los eventos del país.
 - Taller Modo Fundador (15 ago 2026, ya realizado): https://www.ailabs.sv/events/modo-fundador
 - Taller Get Competitive Quick (mid-agosto 2026; la fecha no se confirmó): https://www.ailabs.sv/events/get-competitive-quick
 - DevDay Exchange Community, San Salvador, 24 oct 2026, BINAES: https://devday.ailabs.sv/
@@ -42,26 +42,27 @@ No se publican precios de consultoría. Los logos de programas de embajadores no
 Las mismas respuestas aparecen visibles en https://www.ailabs.sv/#faq.
 
 - ¿Qué hace un consultor de IA? Revisa cómo trabaja un equipo, identifica dónde la IA puede ayudar y decide por dónde empezar. En Ai Labs, después de priorizar una oportunidad, preparan al equipo (Academy) o implementan el flujo (Agentic).
+- Consultor, asesor, agencia o empresa de IA: ¿cuál es la diferencia? Un consultor o asesor suele trabajar solo y recomendar; una agencia o empresa trabaja en equipo y también implementa. Ai Labs es una empresa de consultoría en IA en San Salvador y hace las dos cosas.
 - ¿Cuánto cuesta una consultoría en IA? Depende del alcance. Ai Labs no publica tarifas de consultoría; los talleres públicos muestran su costo en su página.
 - ¿Qué procesos se pueden mejorar con IA? Los de equipos comerciales, de gestión y de operaciones: tareas repetitivas, seguimiento, documentos y flujos entre herramientas, con revisión humana.
 - ¿Necesito ser empresa para aprender? No. Academy recibe a profesionales y equipos; se puede venir directamente a aprender.
 - ¿Ai Labs vende acceso o créditos de OpenAI, Claude u otras herramientas? No. Participa en programas de embajadores; esos logos no son clientes ni garantía de acceso, créditos o alianzas.
-- ¿Qué es Aperture? Aperture es la comunidad de Ai Labs. Está centrada en capacitación y enseñanza, incluye el programa Campus Leaders para estudiantes, y con nosotros se puede aprender IA. No es una tercera oferta comercial.
-- ¿Dónde está Ai Labs? Ai Labs está en San Salvador, El Salvador. Los talleres públicos que hemos publicado son presenciales en San Salvador. La comunidad está centrada en capacitación y enseñanza, y WhatsApp avisa de las sesiones.
+- ¿Qué es Aperture? Es el nombre de la comunidad de Ai Labs: talleres, eventos y el programa Campus Leaders para estudiantes. Unirse por WhatsApp es gratis.
+- ¿Dónde está Ai Labs? En San Salvador, El Salvador. Los talleres públicos son presenciales en San Salvador y se avisan en la comunidad de WhatsApp.
 
 ## Comunidad
 
-Ai Labs es una comunidad en El Salvador centrada en capacitación y enseñanza. El programa Campus Leaders es para estudiantes, y con nosotros se puede aprender IA. Para unirte, abre el enlace de WhatsApp.
+La comunidad de Ai Labs en El Salvador es un grupo de WhatsApp para aprender IA: avisos de talleres y eventos, y el programa Campus Leaders para estudiantes.
 
-Un Campus Leader de Ai Labs es un estudiante, uno por universidad en El Salvador, que lleva capacitación y enseñanza de IA a su campus, con reconocimiento oficial y voz en qué talleres llegan.
+Un Campus Leader es un estudiante, uno por universidad en El Salvador, que lleva los talleres de IA de Ai Labs a su campus y elige cuáles llegan.
 
-Ai Labs is a community in El Salvador centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us. To join, open the WhatsApp link.
+The Ai Labs community in El Salvador is a WhatsApp group for learning AI: notices of workshops and events, and the Campus Leaders program for students.
 
-An Ai Labs Campus Leader is a student, one per university in El Salvador, who brings AI training and teaching to campus, with official recognition and a say in which workshops arrive.
+A Campus Leader is a student, one per university in El Salvador, who brings Ai Labs AI workshops to campus and chooses which ones arrive.
 
 ## Contacto
 
-«Hablemos» en la navegación, o https://www.ailabs.sv/#contact. El formulario acepta consultas para encontrar dónde aplicar IA, aprender o preparar al equipo, mejorar o automatizar un proceso, y explorar una alianza. La empresa es opcional.
+«Hablemos» en la navegación, o https://www.ailabs.sv/#contact. El formulario acepta consultas para encontrar dónde aplicar IA, aprender o preparar al equipo, mejorar o automatizar un proceso, y explorar una alianza. No hace falta tener empresa.
 
 ## Perfiles
 

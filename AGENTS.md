@@ -57,6 +57,17 @@ possibly stale value into this file.
   teaching, software, event, and community proof over AI-industry hype.
 - Avoid inflated language such as "revolutionary," "unlock the future,"
   "empower," or unsupported "leading ecosystem" claims.
+- Ai Labs speaks about itself in the first person plural ("somos", "hacemos",
+  "we"), never as a third party ("Ai Labs hace…"). The brand name still opens
+  entity statements ("Somos Ai Labs, una empresa…"). `public/llms.txt` is
+  written for machines and stays in the third person.
+- Spanish copy uses voseo throughout ("querés", "escribinos", "tocá").
+- Long sections lose attention, so copy has length budgets: visible strings
+  stay within their budget, and siblings shown side by side (cards, steps,
+  FAQ answers) stay close in length. `pnpm copy:check`
+  (`scripts/copy-length.ts`) enforces both and the first-person voice; run it
+  after any copy change. Titles stay at 60 characters or fewer with the brand
+  last; meta descriptions run 110 to 160.
 - Keep English and Spanish content in parity. Add customer-facing strings to
   the typed content modules rather than scattering literals through
   components.

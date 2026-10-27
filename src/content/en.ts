@@ -6,7 +6,7 @@ import { servicePagesEn } from "./service-pages-en"
 export const en: SiteContent = {
   locale: "en",
   meta: {
-    title: "Ai Labs | AI consulting, automation and practical education",
+    title: "AI consulting, automation and practical education | Ai Labs",
     description:
       "AI consulting, business automation and practical education for teams and professionals. Crafted in San Salvador, El Salvador.",
   },
@@ -145,7 +145,7 @@ export const en: SiteContent = {
       label: "AI LABS · EL SALVADOR",
       headline: "AI consulting, business automation and practical education.",
       directAnswer:
-        "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, automation, and practical education.",
+        "We are Ai Labs, a private company in San Salvador, El Salvador. We help commercial, management, and operations teams improve real processes with AI.",
       agencyQuestion: "Is there an AI agency in El Salvador?",
       body: "AI consulting, business automation and practical education for teams and professionals. Crafted in San Salvador, El Salvador.",
       primaryCta: { label: "Let’s talk", href: "#contact" },
@@ -180,7 +180,7 @@ export const en: SiteContent = {
           brand: "Academy",
           title: "How do you learn to apply AI in your work?",
           offerName: "Learn to apply AI in your work.",
-          body: "Practical education for professionals and teams, built around the tasks you want to improve.",
+          body: "Workshops and training for professionals and teams, on the tasks you want to improve.",
           points: [
             "Practice with work you recognize.",
             "Learn when to use AI and how to review its output.",
@@ -234,7 +234,7 @@ export const en: SiteContent = {
     method: {
       label: "How we work",
       title: "Where do we start?",
-      body: "First, understand the work. For consulting and implementation, we start with the need and agree on a useful next step. You can also come directly to learn.",
+      body: "First we look at how the work gets done today. Then we agree on a concrete next step with you. If you only want to learn, come straight to Academy.",
       steps: [
         {
           title: "Understand",
@@ -257,49 +257,49 @@ export const en: SiteContent = {
         {
           question: "What does an AI consultant do?",
           answer:
-            "An AI consultant looks at how a team works, finds where artificial intelligence can help, and decides where to start. At Ai Labs, once one concrete opportunity is prioritized, we prepare the team (Academy) or implement the workflow with you (Agentic).",
+            "They look at how a team works, find where AI can help, and decide where to start. At Ai Labs, once we choose an opportunity, we prepare the team (Academy) or implement the workflow with you (Agentic).",
         },
         {
           question:
             "AI consultant, advisor, agency or company: what is the difference?",
           answer:
-            "Ai Labs is a private AI consulting company in San Salvador, El Salvador. Whether you are looking for an AI consultant, advisor, agency or company, what matters is the outcome: understand the process, choose one improvement, and get ready to apply it. Ai Labs does consulting, business automation, and practical education.",
+            "A consultant or advisor usually works alone and recommends; an agency or company works as a team and also implements. We are a private AI consulting company in San Salvador, and we do both.",
         },
         {
           question: "How much does AI consulting cost?",
           answer:
-            "It depends on scope. Ai Labs does not publish consulting prices because we first review the process and agree on what is worth improving. Public workshops do list their price on their own page.",
+            "It depends on scope. We do not publish consulting prices because we first review the process and agree on what is worth improving. Public workshops do list their price on their page.",
         },
         {
           question: "Which processes can AI improve or automate?",
           answer:
-            "Ai Labs works with commercial, management, and operations teams: repetitive tasks, follow-up, documents, and workflows across tools. We define what AI assists, what gets automated, and which decisions stay with people, with human review and documentation.",
+            "We work with commercial, management, and operations teams: repetitive tasks, follow-up, documents, and workflows across tools. We define what AI assists and which decisions stay with people.",
         },
         {
           question: "Do I need a company to learn AI with Ai Labs?",
           answer:
-            "No. Ai Labs Academy is practical education for professionals and teams. You can come directly to learn, with no company or prior consulting required.",
+            "No. Academy is our practical education for professionals and teams. You can come straight to learn, with no company or prior consulting.",
         },
         {
           question: "Where is Ai Labs?",
           answer:
-            "Ai Labs is in San Salvador, El Salvador. The public workshops we have published are in person in San Salvador. The community is centered on training and teaching, and WhatsApp is how people hear about the sessions.",
+            "We are in San Salvador, El Salvador. Public workshops are in person in San Salvador, and we announce each session in our WhatsApp community.",
         },
         {
           question:
             "Does Ai Labs sell access or credits for OpenAI, Claude or other tools?",
           answer:
-            "No. Ai Labs takes part in ambassador programs for several AI tools. Those logos are not a customer list or a guarantee of access, credits, or partnerships.",
+            "No. We take part in ambassador programs for several AI tools. Those logos are not a customer list or a guarantee of access, credits, or partnerships.",
         },
         {
           question: "What is Aperture?",
           answer:
-            "Aperture is the Ai Labs community. It is centered on training and teaching, it includes the Campus Leaders program for students, and you can learn AI with us. It is not a third commercial offer.",
+            "Aperture is the name of our community: workshops, events, and the Campus Leaders program for students. Joining on WhatsApp is free.",
         },
         {
           question: "How do I start working with Ai Labs?",
           answer:
-            "Write to Ai Labs from “Let’s talk” and tell us what you want to improve or learn. A company is optional.",
+            "Write to us from “Let’s talk” and tell us what you want to improve or learn. You do not need a company or a defined solution.",
         },
       ],
     },
@@ -322,7 +322,7 @@ export const en: SiteContent = {
         { value: "40+", label: "Events hosted" },
         { value: "8", label: "Active partners" },
       ],
-      bold: "We choose a concrete path and leave your team with judgment, documentation, and the ability to operate it—not just a demonstration.",
+      bold: "We choose a concrete path and leave your team with judgment, documentation, and the ability to operate it.",
       bridgeLabel: "Process consulting and prioritization",
       bridge: [
         {
@@ -462,31 +462,33 @@ export const en: SiteContent = {
     },
     metaTitle: "AI consulting in El Salvador",
     metaDescription:
-      "Ai Labs is an AI consulting company in San Salvador, El Salvador.",
+      "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
     label: "San Salvador, El Salvador",
     headline: "AI consulting in El Salvador",
-    lead: "Ai Labs is an AI consulting company in San Salvador, El Salvador.",
+    lead: "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
     servicesTitle: "Services",
     services: [
       {
         id: "consulting",
         name: "AI consulting",
-        body: "We look at how you work, identify where AI can help and decide what to tackle first. From there, we help you learn or build the workflow with you.",
+        body: "We look at how you work, find where AI helps, and decide where to start.",
       },
       {
         id: "academy",
         name: "Practical education",
-        body: "Practical education for professionals and teams, built around the tasks you want to improve.",
+        link: "AI training in El Salvador",
+        body: "Workshops and training for professionals and teams, on the tasks you want to improve.",
       },
       {
         id: "agentic",
         name: "Business automation",
-        body: "We design and implement workflows around your operation, connecting your tools and the people who use them.",
+        link: "AI automation in El Salvador",
+        body: "We design and implement workflows that connect your tools with the people who use them.",
       },
     ],
     methodTitle: "How we work",
     methodBody:
-      "First, understand the work. For consulting and implementation, we start with the need and agree on a useful next step. You can also come directly to learn.",
+      "First we look at how the work gets done today. Then we agree on a concrete next step with you. If you only want to learn, come straight to Academy.",
     steps: [
       {
         title: "Understand",
@@ -505,12 +507,12 @@ export const en: SiteContent = {
       {
         question: "Is there an AI agency in El Salvador?",
         answer:
-          "Ai Labs is an AI consulting company in San Salvador, El Salvador.",
+          "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
       },
       {
         question: "What is AI consulting in El Salvador?",
         answer:
-          "Ai Labs is an AI consulting company in San Salvador, El Salvador. With commercial, management, and operations teams, we review the work, choose one opportunity, and then prepare the team (Academy) or implement the workflow (Agentic), with human review and documentation. You can come directly to learn, with no company or prior consulting required. The public workshops we have published are in person in San Salvador. Ai Labs does not publish consulting prices because we first review the process and agree on what is worth improving. Public workshops do list their price on their own page. Write to Ai Labs from “Let’s talk” and tell us what you want to improve or learn. A company is optional.",
+          "It means reviewing how a team works today, choosing one improvement, and applying it with AI. At Ai Labs we work with commercial, management, and operations teams, then prepare the team (Academy) or implement the workflow (Agentic). We do not publish consulting prices; public workshops do list theirs.",
       },
     ],
     cta: "Let’s talk",
@@ -591,15 +593,15 @@ export const en: SiteContent = {
       name: "9.webp",
       alt: "Ai Labs community members hug and take a selfie at an event.",
     },
-    metaTitle: "WhatsApp community",
+    metaTitle: "AI community in El Salvador",
     metaDescription:
-      "Ai Labs is a community in El Salvador centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us. To join, open the WhatsApp link.",
+      "Our community in El Salvador is a WhatsApp group for learning AI: notices of workshops and events, and the Campus Leaders program for students.",
     label: "Community",
     headline: "How do I join the Ai Labs WhatsApp community?",
-    body: "Ai Labs is a community in El Salvador centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us. To join, open the WhatsApp link.",
+    body: "Our community in El Salvador is a WhatsApp group for learning AI: notices of workshops and events, and the Campus Leaders program for students.",
     joinPrompt: "Free to join.",
     joinCta: "Join on WhatsApp",
-    joinHint: "Opens WhatsApp · request may need approval",
+    joinHint: "Opens WhatsApp. Your request may need approval.",
     joinHref: "https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj",
     eventsCta: {
       label: "Ai Labs events in El Salvador",
@@ -624,12 +626,12 @@ export const en: SiteContent = {
       name: "17.webp",
       alt: "Students work on their laptops at an Ai Labs event.",
     },
-    metaTitle: "Campus Leader",
+    metaTitle: "Campus Leader: AI program for students",
     metaDescription:
-      "An Ai Labs Campus Leader is a student, one per university in El Salvador, who brings AI training and teaching to campus, with official recognition and a say in which workshops arrive.",
+      "A Campus Leader is a student, one per university in El Salvador, who brings our AI workshops to campus and chooses which ones arrive.",
     label: "Campus Leader",
     headline: "What is a Campus Leader?",
-    body: "An Ai Labs Campus Leader is a student, one per university in El Salvador, who brings AI training and teaching to campus, with official recognition and a say in which workshops arrive.",
+    body: "A Campus Leader is a student, one per university in El Salvador, who brings our AI workshops to campus and chooses which ones arrive.",
     creditsNote:
       "Accepted leaders get credits for the tools we work with. Amounts stay between us.",
     cohort: "aster",
@@ -656,7 +658,7 @@ export const en: SiteContent = {
       what: {
         label: "The program",
         title: "What is the program?",
-        body: "Ai Labs on campus: one student per university in El Salvador, chosen by cohort, to bring AI training and teaching.",
+        body: "Ai Labs on your campus: we choose one student per university in El Salvador, by cohort, to bring our AI workshops.",
         items: [
           {
             title: "Any career",
@@ -764,7 +766,7 @@ export const en: SiteContent = {
       instagram: {
         label: "Instagram",
         placeholder: "https://instagram.com/yourhandle",
-        helper: "Profile link — how we find you on campus",
+        helper: "Profile link. This is how we find you on campus.",
         skipLabel: "I don’t have Instagram",
       },
       linkedin: {
@@ -880,27 +882,26 @@ export const en: SiteContent = {
   events: {
     metaTitle: "Ai Labs events in El Salvador",
     metaDescription:
-      "These are the Ai Labs events published on Luma for this month. The base is in San Salvador; they are not every event in the country.",
+      "Our AI events in San Salvador published on Luma for this month. These are Ai Labs events, not every event in the country.",
     breadcrumbHome: "Home",
     label: "Events",
     headline: "Ai Labs events in El Salvador",
     intro:
-      "These are the Ai Labs events published on Luma for this month, not every event in the country.",
+      "Our events published on Luma for this month. These are Ai Labs events, not every event in the country.",
     upcomingLabel: "Upcoming",
     pastLabel: "Past",
     hostsLabel: "Hosts",
     lumaLabel: "View on Luma",
     newTabLabel: "Opens in a new tab.",
     photosLabel: "Ai Labs photographs",
-    photosCaption:
-      "Credit: Ai Labs. These photographs are from Ai Labs events in San Salvador.",
+    photosCaption: "Credit: Ai Labs. Photos from our events in San Salvador.",
     cityLine: "in San Salvador",
     closeHeadline: "San Salvador keeps gathering",
     closeSupport: "Walter publishes the full calendar on Luma.",
     communityCta: "Join the community",
     consultingLink: "AI consulting in El Salvador",
     upcomingEmpty: "There is no upcoming event.",
-    monthEmpty: "There are no Ai Labs events published on Luma in {month}.",
+    monthEmpty: "We have no events published on Luma in {month}.",
     calendarLabel: "View calendar",
     previousPhoto: "Previous photo",
     nextPhoto: "Next photo",

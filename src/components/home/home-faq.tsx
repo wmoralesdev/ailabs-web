@@ -9,7 +9,8 @@ type HomeFaqProps = {
 
 /**
  * Answers stay expanded: the same text is the FAQPage JSON-LD and llms.txt.
- * A halftone mark cycles through shapes beside the list on wide screens.
+ * Two columns on wide screens keep the section about half as tall, so the
+ * list reads in one sitting; reading order runs down each column.
  */
 function HomeFaq({ faq }: HomeFaqProps) {
   return (
@@ -20,34 +21,32 @@ function HomeFaq({ faq }: HomeFaqProps) {
       className="section-y bg-background"
     >
       <div className={homeShellClassName}>
-        <h2 id="home-faq-title" data-reveal className={homeHeadingClassName}>
-          {faq.title}
-        </h2>
-        <div className="mt-12 md:mt-20 md:grid md:grid-cols-12 md:gap-x-8">
-          <div aria-hidden="true" className="hidden md:col-span-3 md:block">
-            <HalftoneIcon
-              shape={["chat", "search", "sparkle", "target", "nodes", "book"]}
-              grid={13}
-              motion="morph"
-              className="sticky top-[calc(var(--site-header-height)+2.5rem)] w-full max-w-[14rem] text-purple-ink"
-            />
-          </div>
-          <div className="md:col-span-8 md:col-start-5">
-            {faq.items.map((item) => (
-              <div
-                key={item.question}
-                data-reveal
-                className="border-t border-foreground/15 py-7 first:border-t-0 first:pt-0"
-              >
-                <h3 className="text-[1.1875rem] leading-snug font-semibold md:text-[1.375rem]">
-                  {item.question}
-                </h3>
-                <p className="mt-3 max-w-[60ch] text-body text-muted-foreground">
-                  {item.answer}
-                </p>
-              </div>
-            ))}
-          </div>
+        <div className="flex items-end justify-between gap-8">
+          <h2 id="home-faq-title" data-reveal className={homeHeadingClassName}>
+            {faq.title}
+          </h2>
+          <HalftoneIcon
+            shape={["chat", "search", "sparkle", "target", "nodes", "book"]}
+            grid={13}
+            motion="morph"
+            className="hidden size-24 shrink-0 text-purple-ink md:block"
+          />
+        </div>
+        <div className="mt-12 gap-x-16 md:mt-16 lg:columns-2">
+          {faq.items.map((item) => (
+            <div
+              key={item.question}
+              data-reveal
+              className="break-inside-avoid border-t border-foreground/15 py-6"
+            >
+              <h3 className="text-[1.125rem] leading-snug font-semibold md:text-[1.25rem]">
+                {item.question}
+              </h3>
+              <p className="mt-2.5 max-w-[60ch] text-body text-muted-foreground">
+                {item.answer}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </Reveal>

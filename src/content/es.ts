@@ -6,7 +6,7 @@ import { servicePagesEs } from "./service-pages-es"
 export const es: SiteContent = {
   locale: "es",
   meta: {
-    title: "Ai Labs | Consultoría en IA, automatización y formación práctica",
+    title: "Consultoría en IA, automatización y formación práctica | Ai Labs",
     description:
       "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador.",
   },
@@ -146,7 +146,7 @@ export const es: SiteContent = {
       headline:
         "Consultoría en IA, automatización de procesos y formación práctica.",
       directAnswer:
-        "Ai Labs es una empresa privada en San Salvador, El Salvador: consultoría en IA, automatización y formación práctica.",
+        "Somos Ai Labs, una empresa privada en San Salvador, El Salvador. Ayudamos a equipos comerciales, de gestión y de operaciones a mejorar procesos reales con IA.",
       agencyQuestion:
         "¿Existe una agencia de inteligencia artificial en El Salvador?",
       body: "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador.",
@@ -182,7 +182,7 @@ export const es: SiteContent = {
           brand: "Academy",
           title: "¿Cómo aprendés a aplicar IA en tu trabajo?",
           offerName: "Aprendé a aplicar IA en tu trabajo.",
-          body: "Formación práctica para profesionales y equipos, a partir de las tareas que querés mejorar.",
+          body: "Talleres y capacitaciones para profesionales y equipos, sobre las tareas que querés mejorar.",
           points: [
             "Practicá con trabajo que conocés.",
             "Aprendé cuándo usar IA y cómo revisar sus resultados.",
@@ -236,7 +236,7 @@ export const es: SiteContent = {
     method: {
       label: "Cómo trabajamos",
       title: "¿Por dónde empezamos?",
-      body: "Primero, entendamos el trabajo. En consultoría e implementación, partimos de la necesidad y acordamos un siguiente paso útil. También podés venir directamente a aprender.",
+      body: "Primero entendemos cómo se hace el trabajo hoy. Después acordamos con vos un siguiente paso concreto. Si solo querés aprender, podés venir directo a Academy.",
       steps: [
         {
           title: "Entender",
@@ -259,49 +259,49 @@ export const es: SiteContent = {
         {
           question: "¿Qué hace un consultor de IA?",
           answer:
-            "Un consultor de IA revisa cómo trabaja un equipo, identifica dónde la inteligencia artificial puede ayudar y decide por dónde empezar. En Ai Labs, después de priorizar una oportunidad concreta, preparamos al equipo (Academy) o implementamos el flujo con ustedes (Agentic).",
+            "Revisa cómo trabaja un equipo, encuentra dónde puede ayudar la IA y decide por dónde empezar. En Ai Labs, después de elegir una oportunidad, preparamos al equipo (Academy) o implementamos el flujo con ustedes (Agentic).",
         },
         {
           question:
             "Consultor, asesor, agencia o empresa de IA: ¿cuál es la diferencia?",
           answer:
-            "Ai Labs es una empresa privada de consultoría en IA en San Salvador, El Salvador. Si buscás un consultor, asesor, agencia o empresa de inteligencia artificial, lo que importa es el resultado: entender el proceso, elegir una mejora y prepararse para aplicarla. Ai Labs hace consultoría, automatización de procesos y formación práctica.",
+            "Un consultor o asesor suele trabajar solo y recomendar; una agencia o empresa trabaja en equipo y también implementa. Somos una empresa privada de consultoría en IA en San Salvador y hacemos las dos cosas.",
         },
         {
           question: "¿Cuánto cuesta una consultoría en IA?",
           answer:
-            "Depende del alcance. Ai Labs no publica tarifas de consultoría porque primero revisamos el proceso y acordamos qué conviene mejorar. Los talleres públicos sí muestran su costo en su propia página.",
+            "Depende del alcance. No publicamos tarifas de consultoría porque primero revisamos el proceso y acordamos qué conviene mejorar. Los talleres públicos sí muestran su precio en su página.",
         },
         {
           question: "¿Qué procesos se pueden mejorar o automatizar con IA?",
           answer:
-            "Ai Labs trabaja con equipos comerciales, de gestión y de operaciones: tareas repetitivas, seguimiento, documentos y flujos entre herramientas. Definimos qué asiste la IA, qué se automatiza y qué decisiones siguen en manos de las personas, con revisión humana y documentación.",
+            "Trabajamos con equipos comerciales, de gestión y de operaciones: tareas repetitivas, seguimiento, documentos y flujos entre herramientas. Definimos qué asiste la IA y qué decisiones siguen en manos de las personas.",
         },
         {
           question: "¿Necesito ser empresa para aprender IA con Ai Labs?",
           answer:
-            "No. Ai Labs Academy es formación práctica para profesionales y equipos. Podés venir directamente a aprender, sin una empresa ni una consultoría previa.",
+            "No. Academy es nuestra formación práctica para profesionales y equipos. Podés venir directo a aprender, sin empresa ni una consultoría previa.",
         },
         {
           question: "¿Dónde está Ai Labs?",
           answer:
-            "Ai Labs está en San Salvador, El Salvador. Los talleres públicos que hemos publicado son presenciales en San Salvador. La comunidad está centrada en capacitación y enseñanza, y WhatsApp avisa de las sesiones.",
+            "Estamos en San Salvador, El Salvador. Los talleres públicos son presenciales en San Salvador, y avisamos de cada sesión en nuestra comunidad de WhatsApp.",
         },
         {
           question:
             "¿Ai Labs vende acceso o créditos de OpenAI, Claude u otras herramientas?",
           answer:
-            "No. Ai Labs participa en programas de embajadores de varias herramientas de IA. Esos logos no son una lista de clientes ni una garantía de acceso, créditos o alianzas.",
+            "No. Participamos en programas de embajadores de varias herramientas de IA. Esos logos no son una lista de clientes ni una garantía de acceso, créditos o alianzas.",
         },
         {
           question: "¿Qué es Aperture?",
           answer:
-            "Aperture es la comunidad de Ai Labs. Está centrada en capacitación y enseñanza, incluye el programa Campus Leaders para estudiantes, y con nosotros se puede aprender IA. No es una tercera oferta comercial.",
+            "Aperture es el nombre de nuestra comunidad: talleres, eventos y el programa Campus Leaders para estudiantes. Unirse por WhatsApp es gratis.",
         },
         {
           question: "¿Cómo empiezo a trabajar con Ai Labs?",
           answer:
-            "Escribí a Ai Labs desde «Hablemos» y contanos qué querés mejorar o aprender. La empresa es opcional.",
+            "Escribinos desde «Hablemos» y contanos qué querés mejorar o aprender. No necesitás tener empresa ni llegar con una solución definida.",
         },
       ],
     },
@@ -465,31 +465,33 @@ export const es: SiteContent = {
     },
     metaTitle: "Consultoría de IA en El Salvador",
     metaDescription:
-      "Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador.",
+      "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla.",
     label: "San Salvador, El Salvador",
     headline: "Consultoría de IA en El Salvador",
-    lead: "Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador.",
+    lead: "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla.",
     servicesTitle: "Servicios",
     services: [
       {
         id: "consulting",
         name: "Consultoría en IA",
-        body: "Revisamos cómo trabajás, identificamos dónde puede ayudar la IA y decidimos por dónde empezar. Después te ayudamos a aprender o implementamos el flujo con vos.",
+        body: "Revisamos cómo trabajás, encontramos dónde ayuda la IA y decidimos por dónde empezar.",
       },
       {
         id: "academy",
         name: "Formación práctica",
-        body: "Formación práctica para profesionales y equipos, a partir de las tareas que querés mejorar.",
+        link: "Capacitación en IA en El Salvador",
+        body: "Talleres y capacitaciones para profesionales y equipos, sobre las tareas que querés mejorar.",
       },
       {
         id: "agentic",
         name: "Automatización de procesos",
-        body: "Diseñamos e implementamos flujos para tu operación, conectando tus herramientas y a las personas que las usan.",
+        link: "Automatización con IA en El Salvador",
+        body: "Diseñamos e implementamos flujos que conectan tus herramientas con las personas que las usan.",
       },
     ],
     methodTitle: "Cómo trabajamos",
     methodBody:
-      "Primero, entendamos el trabajo. En consultoría e implementación, partimos de la necesidad y acordamos un siguiente paso útil. También podés venir directamente a aprender.",
+      "Primero entendemos cómo se hace el trabajo hoy. Después acordamos con vos un siguiente paso concreto. Si solo querés aprender, podés venir directo a Academy.",
     steps: [
       {
         title: "Entender",
@@ -509,12 +511,12 @@ export const es: SiteContent = {
         question:
           "¿Existe una agencia de inteligencia artificial en El Salvador?",
         answer:
-          "Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador.",
+          "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla.",
       },
       {
         question: "¿Qué es la consultoría de IA en El Salvador?",
         answer:
-          "Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador. Con equipos comerciales, de gestión y de operaciones revisamos el trabajo, elegimos una oportunidad y después preparamos al equipo (Academy) o implementamos el flujo (Agentic), con revisión humana y documentación. Podés venir directamente a aprender, sin una empresa ni una consultoría previa. Los talleres públicos que hemos publicado son presenciales en San Salvador. Ai Labs no publica tarifas de consultoría porque primero revisamos el proceso y acordamos qué conviene mejorar. Los talleres públicos sí muestran su costo en su propia página. Escribí a Ai Labs desde «Hablemos» y contanos qué querés mejorar o aprender. La empresa es opcional.",
+          "Es revisar con un equipo cómo trabaja hoy, elegir una mejora y aplicarla con IA. En Ai Labs trabajamos con equipos comerciales, de gestión y de operaciones, y después preparamos al equipo (Academy) o implementamos el flujo (Agentic). No publicamos tarifas de consultoría; los talleres públicos sí muestran su precio.",
       },
     ],
     cta: "Hablemos",
@@ -563,8 +565,8 @@ export const es: SiteContent = {
     missingCodeTitle: "Falta el código",
     missingCodeBody: "Abre el enlace completo que incluye ?code=…",
     qrCta: "QR",
-    qrTitle: "Escanea para abrir",
-    qrBody: "Escanea este código para abrir esta página en otro dispositivo.",
+    qrTitle: "Escaneá para abrir",
+    qrBody: "Escaneá este código para abrir esta página en otro dispositivo.",
     poolLabels: {
       CURSOR: "Cursor",
       CODEX: "Codex",
@@ -594,15 +596,15 @@ export const es: SiteContent = {
       name: "9.webp",
       alt: "Participantes de la comunidad de Ai Labs se abrazan y se toman una selfie en un evento.",
     },
-    metaTitle: "Comunidad de WhatsApp",
+    metaTitle: "Comunidad de IA en El Salvador",
     metaDescription:
-      "Ai Labs es una comunidad en El Salvador centrada en capacitación y enseñanza. El programa Campus Leaders es para estudiantes, y con nosotros se puede aprender IA. Para unirte, abre el enlace de WhatsApp.",
+      "Nuestra comunidad en El Salvador es un grupo de WhatsApp para aprender IA: avisos de talleres y eventos, y el programa Campus Leaders para estudiantes.",
     label: "Comunidad",
     headline: "¿Cómo me uno a la comunidad de WhatsApp de Ai Labs?",
-    body: "Ai Labs es una comunidad en El Salvador centrada en capacitación y enseñanza. El programa Campus Leaders es para estudiantes, y con nosotros se puede aprender IA. Para unirte, abre el enlace de WhatsApp.",
+    body: "Nuestra comunidad en El Salvador es un grupo de WhatsApp para aprender IA: avisos de talleres y eventos, y el programa Campus Leaders para estudiantes.",
     joinPrompt: "Unirte es gratis.",
     joinCta: "Unirme en WhatsApp",
-    joinHint: "Abre WhatsApp · puede pedir aprobación",
+    joinHint: "Se abre WhatsApp y puede pedir aprobación.",
     joinHref: "https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj",
     eventsCta: {
       label: "Eventos de Ai Labs en El Salvador",
@@ -614,28 +616,28 @@ export const es: SiteContent = {
     },
     howItWorksLabel: "Cómo funciona",
     steps: [
-      { title: "Abre la invitación", body: "Toca Unirme en WhatsApp" },
+      { title: "Abrí la invitación", body: "Tocá Unirme en WhatsApp" },
       {
-        title: "Solicita unirte",
+        title: "Pedí unirte",
         body: "WhatsApp puede pedir aprobación",
       },
-      { title: "Saluda", body: "Preséntate y sigue la conversación" },
+      { title: "Saludá", body: "Presentate y seguí la conversación" },
     ],
     qrCta: "QR",
-    qrTitle: "Escanea para abrir",
-    qrBody: "Escanea este código para abrir esta página en otro dispositivo.",
+    qrTitle: "Escaneá para abrir",
+    qrBody: "Escaneá este código para abrir esta página en otro dispositivo.",
   },
   campusLeader: {
     heroPhoto: {
       name: "17.webp",
       alt: "Estudiantes trabajan con sus laptops en un evento de Ai Labs.",
     },
-    metaTitle: "Campus Leader",
+    metaTitle: "Campus Leader: programa de IA para estudiantes",
     metaDescription:
-      "Un Campus Leader de Ai Labs es un estudiante, uno por universidad en El Salvador, que lleva capacitación y enseñanza de IA a su campus, con reconocimiento oficial y voz en qué talleres llegan.",
+      "Un Campus Leader es un estudiante, uno por universidad en El Salvador, que lleva nuestros talleres de IA a su campus y elige cuáles llegan.",
     label: "Campus Leader",
     headline: "¿Qué es un Campus Leader?",
-    body: "Un Campus Leader de Ai Labs es un estudiante, uno por universidad en El Salvador, que lleva capacitación y enseñanza de IA a su campus, con reconocimiento oficial y voz en qué talleres llegan.",
+    body: "Un Campus Leader es un estudiante, uno por universidad en El Salvador, que lleva nuestros talleres de IA a su campus y elige cuáles llegan.",
     creditsNote:
       "Los líderes aceptados reciben créditos de las herramientas con las que trabajamos. Los montos quedan entre nosotros.",
     cohort: "aster",
@@ -663,7 +665,7 @@ export const es: SiteContent = {
       what: {
         label: "El programa",
         title: "¿Qué es el programa?",
-        body: "Ai Labs en el campus: un estudiante por universidad en El Salvador, elegido por cohorte, para llevar capacitación y enseñanza de IA.",
+        body: "Ai Labs en tu campus: elegimos un estudiante por universidad en El Salvador, por cohorte, para llevar nuestros talleres de IA.",
         items: [
           {
             title: "Cualquier carrera",
@@ -770,7 +772,7 @@ export const es: SiteContent = {
       instagram: {
         label: "Instagram",
         placeholder: "https://instagram.com/tuusuario",
-        helper: "Link del perfil — así te encontramos en el campus",
+        helper: "Link del perfil. Así te encontramos en el campus.",
         skipLabel: "No tengo Instagram",
       },
       linkedin: {
@@ -887,12 +889,12 @@ export const es: SiteContent = {
   events: {
     metaTitle: "Eventos de Ai Labs en El Salvador",
     metaDescription:
-      "Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país.",
+      "Nuestros eventos de IA en San Salvador publicados en Luma para este mes. Son los de Ai Labs, no todos los eventos del país.",
     breadcrumbHome: "Inicio",
     label: "Eventos",
     headline: "Eventos de Ai Labs en El Salvador",
     intro:
-      "Estos son los eventos de Ai Labs publicados en Luma para este mes, no todos los eventos del país.",
+      "Nuestros eventos publicados en Luma para este mes. Son los de Ai Labs, no todos los eventos del país.",
     upcomingLabel: "Próximos",
     pastLabel: "Anteriores",
     hostsLabel: "Anfitriones",
@@ -900,14 +902,14 @@ export const es: SiteContent = {
     newTabLabel: "Se abre en una pestaña nueva.",
     photosLabel: "Fotografías de Ai Labs",
     photosCaption:
-      "Crédito: Ai Labs. Estas fotografías son de eventos de Ai Labs en San Salvador.",
+      "Crédito: Ai Labs. Fotos de nuestros eventos en San Salvador.",
     cityLine: "en San Salvador",
     closeHeadline: "San Salvador sigue juntándose",
     closeSupport: "Walter publica el calendario completo en Luma.",
     communityCta: "Unirme a la comunidad",
     consultingLink: "Consultoría de IA en El Salvador",
     upcomingEmpty: "No hay un evento próximo.",
-    monthEmpty: "No hay eventos de Ai Labs publicados en Luma en {month}.",
+    monthEmpty: "No publicamos eventos en Luma en {month}.",
     calendarLabel: "Ver calendario",
     previousPhoto: "Foto anterior",
     nextPhoto: "Foto siguiente",

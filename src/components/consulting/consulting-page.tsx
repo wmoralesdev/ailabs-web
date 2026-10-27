@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
@@ -12,11 +13,18 @@ import {
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import type { ShapeName } from "@/lib/halftone-shapes"
+import { SERVICE_PAGE_PATHS } from "@/lib/service-pages"
 
 type ConsultingPageProps = {
   content: ConsultingPageContent
   onTalk: () => void
 }
+
+/** Delivery routes link to their own page; consulting is this page. */
+const servicePagePath = {
+  academy: SERVICE_PAGE_PATHS.training,
+  agentic: SERVICE_PAGE_PATHS.automation,
+} as const
 
 const serviceShapes: ReadonlyArray<ShapeName> = ["sparkle", "book", "nodes"]
 const stepShapes: ReadonlyArray<ShapeName> = ["search", "target", "arrow"]
@@ -90,6 +98,23 @@ function ConsultingPage({ content, onTalk }: ConsultingPageProps) {
                 <p className="mt-3 max-w-[38ch] text-body text-muted-foreground">
                   {service.body}
                 </p>
+                {service.link && service.id in servicePagePath ? (
+                  <Link
+                    to={
+                      servicePagePath[
+                        service.id as keyof typeof servicePagePath
+                      ]
+                    }
+                    className="text-action mt-4"
+                  >
+                    {service.link}
+                    <HugeiconsIcon
+                      icon={ArrowRight01Icon}
+                      strokeWidth={2}
+                      className="size-4"
+                    />
+                  </Link>
+                ) : null}
               </section>
             ))}
           </div>
