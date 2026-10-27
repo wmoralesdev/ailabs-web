@@ -195,10 +195,11 @@ scripts. Do not recreate deleted one-off scripts in this repo.
   photographs; never pre-print a whole photo as dots. No waves or idle loops.
 - Shape rule: surfaces (cards, photos, bento cells, the contact card) are
   rounded (`rounded-2xl`/`rounded-3xl`), inputs and menus small radii, buttons
-  full pills. One button (`.btn`: purple, graphite ink, turns to ink on hover)
+  full pills. One button (`.btn`: indigo, snow ink, turns to ink on hover)
   and one text action (`.text-action`). Display type is Alan Sans 600, tight.
 - Tokens live in `src/styles.css`: themed `paper`, `surface`, `ink`,
-  `purple-ink`, `lilac`; fixed `purple` (the brand field), `on-purple`,
+  `purple-ink`, `lilac`; fixed `purple` (indigo #614afc, shared with wmorales.dev), `on-purple`
+  (snow), `print` (lilac paper under the photo lens),
   `snow`, `night`. Purple is an accent, not a band behind every section.
 - Preserve the established light, dark, and system theme behavior.
 - Use semantic classes and existing CSS variables. Do not create a parallel

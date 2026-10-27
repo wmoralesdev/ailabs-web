@@ -246,7 +246,7 @@ function HalftoneLens({
       ref={wrapRef}
       style={style}
       className={cn(
-        "relative cursor-crosshair overflow-clip bg-surface [--ht-ink:var(--color-on-purple)] [--ht-paper:var(--color-purple)]",
+        "relative cursor-crosshair overflow-clip bg-surface [--ht-ink:var(--color-purple-deep)] [--ht-paper:var(--color-print)]",
         className
       )}
     >

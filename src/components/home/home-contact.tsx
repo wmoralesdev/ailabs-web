@@ -8,7 +8,8 @@ import { homeShellClassName } from "./home-styles"
 
 /**
  * The closing card: the whole tile opens the contact dialog. It is a quiet
- * dot screen on night until the pointer moves, then purple ink follows it.
+ * dot screen on the indigo field until the pointer moves, then lilac ink
+ * follows it.
  */
 export function HomeContact({ contact }: { contact: HomeContactContent }) {
   const { openContact } = useContact()
@@ -21,7 +22,7 @@ export function HomeContact({ contact }: { contact: HomeContactContent }) {
     >
       <div
         data-halftone-surface
-        className="group/contact surface-night relative isolate flex min-h-[22rem] flex-col justify-between gap-16 overflow-clip rounded-3xl p-6 [--ht-accent:var(--color-purple)] [--ht-faint:color-mix(in_srgb,var(--color-snow)_11%,transparent)] [--ht-ink:var(--color-purple)] sm:p-10 md:min-h-[28rem]"
+        className="group/contact relative isolate flex min-h-[22rem] flex-col justify-between gap-16 overflow-clip rounded-3xl bg-purple p-6 text-snow [--ht-accent:var(--color-print)] [--ht-faint:color-mix(in_srgb,var(--color-snow)_16%,transparent)] [--ht-ink:var(--color-print)] sm:p-10 md:min-h-[28rem]"
       >
         <HalftoneCanvas
           cell={12}
@@ -42,14 +43,14 @@ export function HomeContact({ contact }: { contact: HomeContactContent }) {
             >
               {contact.title}
             </h2>
-            <p className="mt-2 text-body leading-snug text-night-soft">
+            <p className="mt-2 text-body leading-snug text-snow/80">
               {contact.lead}
             </p>
           </div>
           <HugeiconsIcon
             icon={ArrowUpRight01Icon}
             strokeWidth={1.6}
-            className="size-9 shrink-0 text-purple transition-transform duration-300 ease-(--ease-out) group-hover/contact:translate-x-1 group-hover/contact:-translate-y-1 md:size-12"
+            className="size-9 shrink-0 text-snow transition-transform duration-300 ease-(--ease-out) group-hover/contact:translate-x-1 group-hover/contact:-translate-y-1 md:size-12"
           />
         </div>
         <p

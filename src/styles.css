@@ -24,7 +24,9 @@
     --color-purple: var(--brand-purple);
     --color-purple-ink: var(--purple-ink);
     --color-purple-deep: var(--brand-purple-deep);
-    --color-on-purple: var(--brand-graphite);
+    --color-on-purple: var(--brand-white);
+    /* Fixed lilac paper under the photo lens. */
+    --color-print: #d6cffd;
     --color-lilac: var(--lilac);
     --color-snow: var(--brand-white);
     --color-night: var(--brand-night);
@@ -99,9 +101,10 @@
 
 :root {
     /* Brand color contract; durable guidance lives in AGENTS.md. */
-    --brand-purple: #a78bfa;
-    --brand-purple-soft: #c4acf6;
-    --brand-purple-deep: #7f63ec;
+    /* Indigo, shared with wmorales.dev. */
+    --brand-purple: #614afc;
+    --brand-purple-soft: #8f7dfd;
+    --brand-purple-deep: #3d27c9;
     --brand-graphite: #16131f;
     --brand-white: #f5f4f8;
     --brand-night: #0f0d17;
@@ -111,8 +114,8 @@
     --paper: var(--brand-white);
     --surface: #e9e6f2;
     --ink: var(--brand-graphite);
-    --purple-ink: #6247d9;
-    --lilac: #ddd4fd;
+    --purple-ink: #614afc;
+    --lilac: #d6cffd;
 
     /* Spacing / layout */
     --space-section-y: 5rem;
@@ -147,7 +150,7 @@
     --popover: var(--paper);
     --popover-foreground: var(--ink);
     --primary: var(--brand-purple);
-    --primary-foreground: var(--brand-graphite);
+    --primary-foreground: var(--brand-white);
     --secondary: var(--surface);
     --secondary-foreground: var(--ink);
     --muted: var(--surface);
@@ -167,7 +170,7 @@
     --sidebar: var(--paper);
     --sidebar-foreground: var(--ink);
     --sidebar-primary: var(--brand-purple);
-    --sidebar-primary-foreground: var(--brand-graphite);
+    --sidebar-primary-foreground: var(--brand-white);
     --sidebar-accent: var(--surface);
     --sidebar-accent-foreground: var(--ink);
     --sidebar-border: var(--border);
@@ -199,11 +202,12 @@
 }
 
 .dark {
+    --brand-purple: #7462ff;
     --paper: #100e17;
     --surface: #1c1928;
     --ink: #eeebf7;
-    --purple-ink: #b9a4ff;
-    --lilac: #2f2754;
+    --purple-ink: #9184ff;
+    --lilac: #2a2160;
 
     --muted-foreground: #a9a3bf;
     --destructive: color-mix(in srgb, #f87171 92%, var(--brand-white));
@@ -242,7 +246,7 @@
     }
     ::selection {
         background: var(--brand-purple);
-        color: var(--brand-graphite);
+        color: var(--brand-white);
     }
     h1,
     h2,
@@ -265,7 +269,7 @@
 
     /*
      * One button shape for the whole site: a flat pill that presses down.
-     * Purple field with graphite ink; hover turns to ink. Override with
+     * Indigo field with snow ink; hover turns to ink. Override with
      * --btn-* vars.
      */
     .btn {
@@ -280,7 +284,7 @@
         font-size: var(--text-small);
         line-height: 1.1;
         background: var(--btn-bg, var(--brand-purple));
-        color: var(--btn-fg, var(--brand-graphite));
+        color: var(--btn-fg, var(--brand-white));
         transition:
             transform 160ms var(--ease-out),
             background-color 180ms ease,
@@ -479,8 +483,8 @@
         --paper: var(--brand-white);
         --surface: #e9e6f2;
         --ink: var(--brand-graphite);
-        --purple-ink: #6247d9;
-        --lilac: #ddd4fd;
+        --purple-ink: #614afc;
+        --lilac: #d6cffd;
         --muted-foreground: #534f66;
         --destructive: #c2410c;
         background-color: var(--brand-white);
@@ -496,8 +500,8 @@
         --paper: var(--brand-night);
         --surface: #1c1928;
         --ink: #eeebf7;
-        --purple-ink: #b9a4ff;
-        --lilac: #2f2754;
+        --purple-ink: #9184ff;
+        --lilac: #2a2160;
         --muted-foreground: var(--brand-night-soft);
         background-color: var(--brand-night);
         color: var(--brand-white);

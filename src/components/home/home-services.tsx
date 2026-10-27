@@ -211,7 +211,7 @@ function PhotoCell({
 
 const printTones = {
   purple:
-    "bg-purple [--ht-accent:var(--color-snow)] [--ht-faint:color-mix(in_srgb,var(--color-on-purple)_14%,transparent)] [--ht-ink:var(--color-on-purple)]",
+    "bg-purple [--ht-accent:var(--color-print)] [--ht-faint:color-mix(in_srgb,var(--color-on-purple)_14%,transparent)] [--ht-ink:var(--color-on-purple)]",
   night:
     "bg-night ring-1 ring-snow/10 ring-inset [--ht-accent:var(--color-snow)] [--ht-faint:color-mix(in_srgb,var(--color-snow)_12%,transparent)] [--ht-ink:var(--color-purple)]",
 } as const
