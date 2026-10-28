@@ -467,7 +467,7 @@ export const es: SiteContent = {
     },
     metaTitle: "Consultoría de IA en El Salvador",
     metaDescription:
-      "En Ai Labs hacemos consultoría de inteligencia artificial en El Salvador, desde San Salvador: revisamos tu proceso y te ayudamos a aplicarla.",
+      "En Ai Labs hacemos consultoría de inteligencia artificial en El Salvador, desde San Salvador: revisamos tu proceso y te ayudamos a aplicar una mejora.",
     label: "San Salvador, El Salvador",
     headline: "Consultoría de IA en El Salvador",
     lead: "En Ai Labs hacemos consultoría de inteligencia artificial en El Salvador, desde San Salvador: tenemos al líder regional de embajadores de SpaceXAI, un cargo que cubre toda Centroamérica, y embajadores de SpaceXAI, ElevenLabs, Mistral, Cognition, Codex y Notion (Notion Builder).",

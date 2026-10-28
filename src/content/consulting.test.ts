@@ -16,7 +16,7 @@ const EN_LEAD =
 const ES_KEPT =
   "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla."
 const ES_META =
-  "En Ai Labs hacemos consultoría de inteligencia artificial en El Salvador, desde San Salvador: revisamos tu proceso y te ayudamos a aplicarla."
+  "En Ai Labs hacemos consultoría de inteligencia artificial en El Salvador, desde San Salvador: revisamos tu proceso y te ayudamos a aplicar una mejora."
 
 describe("consulting page", () => {
   it("uses the published service names and answers, in both languages", () => {
