@@ -93,7 +93,19 @@ describe("public SEO files", () => {
     expect(sitemap).not.toContain("https://www.ailabs.sv/aperture")
     expect(sitemap).toContain("<loc>https://www.ailabs.sv/events</loc>")
     expect(sitemap).toMatch(
-      /<loc>https:\/\/www\.ailabs\.sv\/events<\/loc>\s*<lastmod>2026-10-18<\/lastmod>/
+      /<loc>https:\/\/www\.ailabs\.sv\/<\/loc>\s*<lastmod>2026-10-28<\/lastmod>/
+    )
+    expect(sitemap).toMatch(
+      /<loc>https:\/\/www\.ailabs\.sv\/consultoria-de-ia-el-salvador<\/loc>\s*<lastmod>2026-10-28<\/lastmod>/
+    )
+    expect(sitemap).toMatch(
+      /<loc>https:\/\/www\.ailabs\.sv\/capacitacion-ia-el-salvador<\/loc>\s*<lastmod>2026-10-28<\/lastmod>/
+    )
+    expect(sitemap).toMatch(
+      /<loc>https:\/\/www\.ailabs\.sv\/automatizacion-ia-el-salvador<\/loc>\s*<lastmod>2026-10-28<\/lastmod>/
+    )
+    expect(sitemap).toMatch(
+      /<loc>https:\/\/www\.ailabs\.sv\/events<\/loc>\s*<lastmod>2026-10-28<\/lastmod>/
     )
     expect(sitemap).not.toContain("https://www.ailabs.sv/events/modo-fundador")
     expect(sitemap).not.toContain(
