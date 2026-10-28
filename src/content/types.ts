@@ -300,10 +300,12 @@ export type HomeHeroContent = {
   label: string
   headline: string
   body: string
-  /** Visible company answer on the home page. Same string as the FAQ answer. */
+  /** Opening paragraph. Stays the company sentence already on the home. */
   directAnswer: string
-  /** FAQ question for the visible direct answer. Not a separate route. */
+  /** FAQ question that distinguishes Ai Labs from the national agency. */
   agencyQuestion: string
+  /** Visible answer to `agencyQuestion`. Repeated on the consulting page. */
+  agencyAnswer: string
   primaryCta: NavItem
   secondaryCta: NavItem
   /** Dedicated source for the canvas text spiral. */
@@ -473,8 +475,14 @@ export type ConsultingPageContent = {
   metaDescription: string
   label: string
   headline: string
-  /** First visible paragraph. Same string as `faqs[0].answer`. */
+  /**
+   * First visible paragraph. Spanish answers consultoría de inteligencia
+   * artificial and names the SpaceXAI role. English stays the sentence that
+   * already ranks for “AI consulting El Salvador”.
+   */
   lead: string
+  /** Sentences under the opening. Each one is also a FAQ answer. */
+  claims: ReadonlyArray<string>
   servicesTitle: string
   services: readonly [ConsultingService, ConsultingService, ConsultingService]
   methodTitle: string
@@ -484,7 +492,7 @@ export type ConsultingPageContent = {
     HomeAboutBridgeItem,
     HomeAboutBridgeItem,
   ]
-  faqs: readonly [ConsultingFaq, ConsultingFaq]
+  faqs: ReadonlyArray<ConsultingFaq>
   cta: string
 }
 
@@ -543,6 +551,8 @@ export type ServicePageContent = {
   eyebrow: string
   title: string
   lead: string
+  /** Sentences under the opening. Each one is also a later FAQ answer. */
+  claims: ReadonlyArray<string>
   definitionHeading: string
   /** Self-contained sentence. Repeated verbatim as the first FAQ answer. */
   definition: string

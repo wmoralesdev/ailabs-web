@@ -18,23 +18,23 @@ const fetchedAt = new Date("2026-10-18T12:00:00.000Z")
 
 describe("events index", () => {
   it("uses the Spanish title on the Spanish render and English on the same URL", () => {
-    expect(es.events.headline).toBe("Eventos de Ai Labs en El Salvador")
+    expect(es.events.headline).toBe(
+      "Eventos de IA de Ai Labs en San Salvador, El Salvador"
+    )
     expect(es.events.metaTitle).toBe(es.events.headline)
     expect(es.events.intro).toBe(
-      "Estos son los eventos de Ai Labs publicados en Luma para este mes, no todos los eventos del país."
+      "Publicamos los eventos de IA en El Salvador de Ai Labs en Luma para este mes, en San Salvador; no son todos los eventos del país."
     )
-    expect(es.events.metaDescription).toBe(
-      "Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país."
-    )
+    expect(es.events.metaDescription).toBe(es.events.intro)
     expect(es.events.breadcrumbHome).toBe("Inicio")
-    expect(en.events.headline).toBe("Ai Labs events in El Salvador")
+    expect(en.events.headline).toBe(
+      "AI events from Ai Labs in San Salvador, El Salvador"
+    )
     expect(en.events.metaTitle).toBe(en.events.headline)
     expect(en.events.intro).toBe(
-      "These are the Ai Labs events published on Luma for this month, not every event in the country."
+      "We publish the Ai Labs AI events in El Salvador on Luma for this month, in San Salvador; they are not every event in the country."
     )
-    expect(en.events.metaDescription).toBe(
-      "These are the Ai Labs events published on Luma for this month. The base is in San Salvador; they are not every event in the country."
-    )
+    expect(en.events.metaDescription).toBe(en.events.intro)
     expect(en.events.breadcrumbHome).toBe("Home")
     expect(es.community.eventsCta.href).toBe("/events")
     expect(en.community.eventsCta.href).toBe("/events")
@@ -204,7 +204,7 @@ describe("events index", () => {
     const events = list?.itemListElement?.map((entry) => entry.item) ?? []
     const guatemala = events.find((event) => event?.name?.includes("Guatemala"))
 
-    expect(title).toBe("Eventos de Ai Labs en El Salvador")
+    expect(title).toBe("Eventos de IA de Ai Labs en San Salvador, El Salvador")
     expect(description).toBe(es.events.metaDescription)
     expect(description).toMatch(/San Salvador/)
     expect(description).toMatch(/Luma/)

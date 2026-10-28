@@ -149,6 +149,8 @@ export const es: SiteContent = {
         "Somos Ai Labs, una empresa privada en San Salvador, El Salvador. Ayudamos a equipos comerciales, de gestión y de operaciones a mejorar procesos reales con IA.",
       agencyQuestion:
         "¿Existe una agencia de inteligencia artificial en El Salvador?",
+      agencyAnswer:
+        "Si buscás una agencia de inteligencia artificial en El Salvador, en Ai Labs somos una firma privada de consultoría en San Salvador y no somos la Agencia Nacional de Inteligencia Artificial.",
       body: "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador.",
       primaryCta: { label: "Hablemos", href: "#contact" },
       secondaryCta: { label: "Explorar servicios", href: "#services" },
@@ -465,10 +467,15 @@ export const es: SiteContent = {
     },
     metaTitle: "Consultoría de IA en El Salvador",
     metaDescription:
-      "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla.",
+      "En Ai Labs hacemos consultoría de inteligencia artificial en El Salvador, desde San Salvador: revisamos tu proceso y te ayudamos a aplicarla.",
     label: "San Salvador, El Salvador",
     headline: "Consultoría de IA en El Salvador",
-    lead: "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla.",
+    lead: "En Ai Labs hacemos consultoría de inteligencia artificial en El Salvador, desde San Salvador: tenemos al líder regional de embajadores de SpaceXAI, un cargo que cubre toda Centroamérica, y embajadores de SpaceXAI, ElevenLabs, Mistral, Cognition, Codex y Notion (Notion Builder).",
+    claims: [
+      "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla.",
+      "Ai Labs, en San Salvador, es una empresa de IA en El Salvador: una empresa privada de consultoría para equipos y profesionales.",
+      "Si buscás una agencia de inteligencia artificial en El Salvador, en Ai Labs somos una firma privada de consultoría en San Salvador y no somos la Agencia Nacional de Inteligencia Artificial.",
+    ],
     servicesTitle: "Servicios",
     services: [
       {
@@ -509,9 +516,25 @@ export const es: SiteContent = {
     faqs: [
       {
         question:
-          "¿Existe una agencia de inteligencia artificial en El Salvador?",
+          "¿Hacen consultoría de inteligencia artificial en El Salvador?",
+        answer:
+          "En Ai Labs hacemos consultoría de inteligencia artificial en El Salvador, desde San Salvador: tenemos al líder regional de embajadores de SpaceXAI, un cargo que cubre toda Centroamérica, y embajadores de SpaceXAI, ElevenLabs, Mistral, Cognition, Codex y Notion (Notion Builder).",
+      },
+      {
+        question: "¿Quién hace consultoría de IA en El Salvador?",
         answer:
           "Somos Ai Labs, una empresa de consultoría de IA en San Salvador, El Salvador. Revisamos un proceso con tu equipo, elegimos una mejora y te ayudamos a aplicarla.",
+      },
+      {
+        question: "¿Son una empresa de IA en El Salvador?",
+        answer:
+          "Ai Labs, en San Salvador, es una empresa de IA en El Salvador: una empresa privada de consultoría para equipos y profesionales.",
+      },
+      {
+        question:
+          "¿Existe una agencia de inteligencia artificial en El Salvador?",
+        answer:
+          "Si buscás una agencia de inteligencia artificial en El Salvador, en Ai Labs somos una firma privada de consultoría en San Salvador y no somos la Agencia Nacional de Inteligencia Artificial.",
       },
       {
         question: "¿Qué es la consultoría de IA en El Salvador?",
@@ -887,14 +910,14 @@ export const es: SiteContent = {
   },
   legal: legalEs,
   events: {
-    metaTitle: "Eventos de Ai Labs en El Salvador",
+    metaTitle: "Eventos de IA de Ai Labs en San Salvador, El Salvador",
     metaDescription:
-      "Nuestros eventos de IA en San Salvador publicados en Luma para este mes. Son los de Ai Labs, no todos los eventos del país.",
+      "Publicamos los eventos de IA en El Salvador de Ai Labs en Luma para este mes, en San Salvador; no son todos los eventos del país.",
     breadcrumbHome: "Inicio",
     label: "Eventos",
-    headline: "Eventos de Ai Labs en El Salvador",
+    headline: "Eventos de IA de Ai Labs en San Salvador, El Salvador",
     intro:
-      "Nuestros eventos publicados en Luma para este mes. Son los de Ai Labs, no todos los eventos del país.",
+      "Publicamos los eventos de IA en El Salvador de Ai Labs en Luma para este mes, en San Salvador; no son todos los eventos del país.",
     upcomingLabel: "Próximos",
     pastLabel: "Anteriores",
     hostsLabel: "Anfitriones",

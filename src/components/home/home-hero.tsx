@@ -86,6 +86,14 @@ function HomeHero({
               {hero.directAnswer}
             </p>
           ) : null}
+          {hero.agencyAnswer ? (
+            <p
+              data-home-entrance
+              className="max-w-[46ch] text-body leading-snug text-muted-foreground"
+            >
+              {hero.agencyAnswer}
+            </p>
+          ) : null}
           <div
             data-home-entrance
             className="flex flex-wrap items-center gap-x-6 gap-y-2"

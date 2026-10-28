@@ -431,6 +431,7 @@ function EventsIndex({ locale, content, now }: EventsIndexProps) {
     label: copy.label,
     headline: copy.headline,
     directAnswer: copy.intro,
+    agencyAnswer: "",
     body: "",
     primaryCta: {
       label: copy.calendarLabel,

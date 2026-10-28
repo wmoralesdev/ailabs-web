@@ -147,6 +147,8 @@ export const en: SiteContent = {
       directAnswer:
         "We are Ai Labs, a private company in San Salvador, El Salvador. We help commercial, management, and operations teams improve real processes with AI.",
       agencyQuestion: "Is there an AI agency in El Salvador?",
+      agencyAnswer:
+        "If you are looking for an artificial intelligence agency in El Salvador, at Ai Labs we are a private consulting firm in San Salvador. We are not the National Artificial Intelligence Agency.",
       body: "AI consulting, business automation and practical education for teams and professionals. Crafted in San Salvador, El Salvador.",
       primaryCta: { label: "Let’s talk", href: "#contact" },
       secondaryCta: { label: "Explore services", href: "#services" },
@@ -466,6 +468,11 @@ export const en: SiteContent = {
     label: "San Salvador, El Salvador",
     headline: "AI consulting in El Salvador",
     lead: "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
+    claims: [
+      "We do artificial intelligence consulting in El Salvador, from San Salvador: we have the regional leader of SpaceXAI ambassadors, a role that covers all of Central America, and ambassadors for SpaceXAI, ElevenLabs, Mistral, Cognition, Codex, and Notion (Notion Builder).",
+      "Ai Labs, in San Salvador, is an AI company in El Salvador: a private consulting firm for teams and professionals.",
+      "If you are looking for an artificial intelligence agency in El Salvador, at Ai Labs we are a private consulting firm in San Salvador. We are not the National Artificial Intelligence Agency.",
+    ],
     servicesTitle: "Services",
     services: [
       {
@@ -505,9 +512,25 @@ export const en: SiteContent = {
     ],
     faqs: [
       {
-        question: "Is there an AI agency in El Salvador?",
+        question:
+          "Do you do artificial intelligence consulting in El Salvador?",
+        answer:
+          "We do artificial intelligence consulting in El Salvador, from San Salvador: we have the regional leader of SpaceXAI ambassadors, a role that covers all of Central America, and ambassadors for SpaceXAI, ElevenLabs, Mistral, Cognition, Codex, and Notion (Notion Builder).",
+      },
+      {
+        question: "Who does AI consulting in El Salvador?",
         answer:
           "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work.",
+      },
+      {
+        question: "Are you an AI company in El Salvador?",
+        answer:
+          "Ai Labs, in San Salvador, is an AI company in El Salvador: a private consulting firm for teams and professionals.",
+      },
+      {
+        question: "Is there an AI agency in El Salvador?",
+        answer:
+          "If you are looking for an artificial intelligence agency in El Salvador, at Ai Labs we are a private consulting firm in San Salvador. We are not the National Artificial Intelligence Agency.",
       },
       {
         question: "What is AI consulting in El Salvador?",
@@ -880,14 +903,14 @@ export const en: SiteContent = {
   },
   legal: legalEn,
   events: {
-    metaTitle: "Ai Labs events in El Salvador",
+    metaTitle: "AI events from Ai Labs in San Salvador, El Salvador",
     metaDescription:
-      "Our AI events in San Salvador published on Luma for this month. These are Ai Labs events, not every event in the country.",
+      "We publish the Ai Labs AI events in El Salvador on Luma for this month, in San Salvador; they are not every event in the country.",
     breadcrumbHome: "Home",
     label: "Events",
-    headline: "Ai Labs events in El Salvador",
+    headline: "AI events from Ai Labs in San Salvador, El Salvador",
     intro:
-      "Our events published on Luma for this month. These are Ai Labs events, not every event in the country.",
+      "We publish the Ai Labs AI events in El Salvador on Luma for this month, in San Salvador; they are not every event in the country.",
     upcomingLabel: "Upcoming",
     pastLabel: "Past",
     hostsLabel: "Hosts",

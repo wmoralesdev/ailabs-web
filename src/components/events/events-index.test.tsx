@@ -91,7 +91,7 @@ describe("events index page", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: "Ai Labs events in El Salvador",
+        name: en.events.headline,
       })
     ).toBeInTheDocument()
 
