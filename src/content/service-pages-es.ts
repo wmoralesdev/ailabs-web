@@ -6,6 +6,24 @@ const trainingDefinition =
 const automationDefinition =
   "La automatización de procesos con IA diseña e implementa flujos que conectan herramientas, datos y personas, y define qué asiste la IA, qué se automatiza y qué decisiones siguen en manos del equipo."
 
+const trainingCourses =
+  "Los cursos de IA en El Salvador que damos son prácticos, sobre las tareas reales de tu trabajo, presenciales en San Salvador, y podés venir sin una empresa."
+
+const trainingWorkshops =
+  "Los talleres de inteligencia artificial en San Salvador son presenciales y prácticos: practicás con tu propio trabajo, podés venir sin una empresa, y Campus Leaders es para estudiantes."
+
+const trainingWhere =
+  "En Ai Labs podés aprender IA en El Salvador con talleres prácticos en San Salvador: lideramos una comunidad de capacitación y enseñanza, Campus Leaders es para estudiantes, y Ai Labs se presenta como líder de IA."
+
+const automationCompanies =
+  "Hacemos automatización con IA para empresas en El Salvador: diseñamos el flujo con tu equipo en San Salvador, con revisión humana y documentación."
+
+const automationProcesses =
+  "La automatización de procesos con IA en San Salvador la armamos con tus herramientas, y las decisiones importantes siguen en tus manos."
+
+const automationCompany =
+  "Ai Labs, en San Salvador, El Salvador, automatiza procesos con IA para empresas: diseñamos el flujo con tu equipo, con revisión humana y documentación."
+
 export const servicePagesEs: ServicePagesContent = {
   homeLabel: "Inicio",
   breadcrumbLabel: "Ruta de navegación",
@@ -17,13 +35,14 @@ export const servicePagesEs: ServicePagesContent = {
       name: "3.webp",
       alt: "Participantes siguen una sesión práctica de Ai Labs en un auditorio.",
     },
-    metaTitle: "Capacitación en IA en El Salvador para equipos | Ai Labs",
+    metaTitle: "Cursos de IA en El Salvador, San Salvador | Ai Labs",
     metaDescription:
-      "Capacitación práctica en IA en San Salvador para profesionales y equipos: tareas reales, criterio para revisar resultados y talleres públicos.",
+      "En Ai Labs damos cursos de IA en El Salvador y talleres de inteligencia artificial en San Salvador, prácticos y presenciales.",
     serviceName: "Capacitación en IA en El Salvador",
     eyebrow: "Academy · Formación práctica",
-    title: "Capacitación en IA en El Salvador para profesionales y equipos",
-    lead: "En Ai Labs Academy enseñamos a aplicar IA en el trabajo de todos los días, en lenguaje claro para perfiles de negocio. Podés venir con tu equipo o por tu cuenta.",
+    title: "Cursos de IA en El Salvador, presenciales en San Salvador",
+    lead: trainingCourses,
+    claims: [trainingWorkshops, trainingWhere],
     definitionHeading: "Qué aprendés en una capacitación práctica en IA.",
     definition: trainingDefinition,
     includesHeading: "Cómo es la formación.",
@@ -102,6 +121,19 @@ export const servicePagesEs: ServicePagesContent = {
         answer:
           "Seguí nuestra comunidad de WhatsApp en El Salvador y nuestras redes sociales: ahí avisamos de los próximos talleres públicos.",
       },
+      {
+        question: "¿Qué cursos de IA hay en El Salvador?",
+        answer: trainingCourses,
+      },
+      {
+        question:
+          "¿Dónde son los talleres de inteligencia artificial en San Salvador?",
+        answer: trainingWorkshops,
+      },
+      {
+        question: "¿Dónde puedo aprender IA en El Salvador?",
+        answer: trainingWhere,
+      },
     ],
     ctaHeading: "¿Querés preparar a tu equipo?",
     ctaBody:
@@ -114,14 +146,14 @@ export const servicePagesEs: ServicePagesContent = {
       name: "21.webp",
       alt: "Dos participantes revisan código en sus laptops durante una sesión de Ai Labs.",
     },
-    metaTitle: "Automatización de procesos con IA en El Salvador | Ai Labs",
+    metaTitle: "Automatización con IA para empresas en El Salvador | Ai Labs",
     metaDescription:
-      "Automatización de procesos con IA en San Salvador: flujos con tus herramientas, revisión humana, documentación y transferencia al equipo.",
+      "En Ai Labs hacemos automatización con IA para empresas en El Salvador y automatización de procesos con IA en San Salvador.",
     serviceName: "Automatización de procesos con IA en El Salvador",
     eyebrow: "Agentic · Diseño e implementación",
-    title:
-      "Automatización de procesos con IA en El Salvador, diseñada con tu equipo",
-    lead: "En Ai Labs Agentic diseñamos e implementamos flujos que encajan con la forma actual de trabajar, con las integraciones y la revisión humana que cada proceso necesita.",
+    title: "Automatización con IA para empresas en El Salvador",
+    lead: automationCompanies,
+    claims: [automationProcesses, automationCompany],
     definitionHeading: "Qué hace la automatización con IA por tu operación.",
     definition: automationDefinition,
     includesHeading: "Qué incluye.",
@@ -200,6 +232,18 @@ export const servicePagesEs: ServicePagesContent = {
         question: "¿Qué recibe el equipo al final?",
         answer:
           "El equipo recibe el flujo funcionando, sus integraciones y la documentación necesaria para operarlo y ajustarlo.",
+      },
+      {
+        question: "¿Hay automatización con IA para empresas en El Salvador?",
+        answer: automationCompanies,
+      },
+      {
+        question: "¿Hay automatización de procesos con IA en San Salvador?",
+        answer: automationProcesses,
+      },
+      {
+        question: "¿Qué empresa automatiza procesos con IA en El Salvador?",
+        answer: automationCompany,
       },
     ],
     ctaHeading: "¿Qué proceso querés mejorar?",

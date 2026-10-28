@@ -66,6 +66,11 @@ function ServicePage({ id, pages }: ServicePageProps) {
               {page.title}
             </h1>
             <p className="max-w-[46ch] text-lead leading-snug">{page.lead}</p>
+            {page.claims.map((claim) => (
+              <p key={claim} className="max-w-[46ch] text-body leading-snug">
+                {claim}
+              </p>
+            ))}
             <button
               type="button"
               onClick={() => openContact(page.interest)}

@@ -22,11 +22,12 @@ describe("ConsultingPage", () => {
       screen.getByRole("heading", { level: 1, name: es.consulting.headline })
     ).toBeInTheDocument()
     expect(container.querySelector("article p")?.textContent).toBe(
-      "Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador."
+      es.consulting.lead
     )
     expect(container.querySelector("article header p")?.textContent).toBe(
       es.consulting.lead
     )
+    expect(screen.getAllByText(es.consulting.claims[0] ?? "")).toHaveLength(2)
     expect(
       screen.getByRole("heading", {
         level: 2,
@@ -56,18 +57,16 @@ describe("ConsultingPage", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: en.consulting.headline })
     ).toBeInTheDocument()
+    expect(screen.getAllByText(en.consulting.lead)).toHaveLength(2)
     expect(
-      screen.getAllByText(
-        "Ai Labs is an AI consulting company in San Salvador, El Salvador."
-      )
-    ).toHaveLength(2)
+      screen.getByText(/regional leader of SpaceXAI ambassadors/i)
+    ).toBeInTheDocument()
     expect(
       screen.getByRole("heading", {
         level: 2,
         name: "What is AI consulting in El Salvador?",
       })
     ).toBeInTheDocument()
-    expect(screen.getAllByText(en.consulting.lead)).toHaveLength(2)
     await user.click(screen.getByRole("button", { name: en.consulting.cta }))
     expect(onTalk).toHaveBeenCalledOnce()
   })

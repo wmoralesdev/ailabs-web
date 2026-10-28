@@ -6,6 +6,24 @@ const trainingDefinition =
 const automationDefinition =
   "AI process automation designs and implements workflows that connect tools, data, and people, and defines what AI assists, what gets automated, and which decisions stay with the team."
 
+const trainingCourses =
+  "The AI courses we teach in El Salvador are practical, on the real tasks of your work, in person in San Salvador, and you can come without a company."
+
+const trainingWorkshops =
+  "Our artificial intelligence workshops in San Salvador are in person and practical: you practice on your own work, you can come without a company, and Campus Leaders is for students."
+
+const trainingWhere =
+  "You can learn AI in El Salvador at Ai Labs, in practical workshops in San Salvador: we lead a community centered on training and teaching, Campus Leaders is for students and Ai Labs presents itself as an AI leader."
+
+const automationCompanies =
+  "We do AI automation for companies in El Salvador: we design the workflow with your team in San Salvador, with human review and documentation."
+
+const automationProcesses =
+  "We build process automation with AI in San Salvador with your tools, and the important decisions stay in your hands."
+
+const automationCompany =
+  "Ai Labs, in San Salvador, El Salvador, automates processes with AI for companies: we design the workflow with your team, with human review and documentation."
+
 export const servicePagesEn: ServicePagesContent = {
   homeLabel: "Home",
   breadcrumbLabel: "Breadcrumb",
@@ -17,13 +35,14 @@ export const servicePagesEn: ServicePagesContent = {
       name: "3.webp",
       alt: "Participants follow a hands-on Ai Labs session in an auditorium.",
     },
-    metaTitle: "AI Training in El Salvador for Teams | Ai Labs",
+    metaTitle: "AI courses in El Salvador, San Salvador | Ai Labs",
     metaDescription:
-      "Practical AI training in San Salvador for professionals and teams: real tasks, judgment to review results, and public workshops.",
+      "At Ai Labs we teach AI courses in El Salvador and artificial intelligence workshops in San Salvador, in person and practical.",
     serviceName: "AI training in El Salvador",
     eyebrow: "Academy · Practical education",
-    title: "AI training in El Salvador for professionals and teams",
-    lead: "At Ai Labs Academy we teach how to apply AI to everyday work, in plain language for business roles. Come with your team or on your own.",
+    title: "AI courses in El Salvador, in person in San Salvador",
+    lead: trainingCourses,
+    claims: [trainingWorkshops, trainingWhere],
     definitionHeading: "What you learn in practical AI training.",
     definition: trainingDefinition,
     includesHeading: "How the training works.",
@@ -102,6 +121,19 @@ export const servicePagesEn: ServicePagesContent = {
         answer:
           "Follow our WhatsApp community in El Salvador and our social profiles: that is where we announce upcoming public workshops.",
       },
+      {
+        question: "What AI courses are there in El Salvador?",
+        answer: trainingCourses,
+      },
+      {
+        question:
+          "Where are the artificial intelligence workshops in San Salvador?",
+        answer: trainingWorkshops,
+      },
+      {
+        question: "Where can I learn AI in El Salvador?",
+        answer: trainingWhere,
+      },
     ],
     ctaHeading: "Want to prepare your team?",
     ctaBody:
@@ -114,13 +146,14 @@ export const servicePagesEn: ServicePagesContent = {
       name: "21.webp",
       alt: "Two participants review code on their laptops during an Ai Labs session.",
     },
-    metaTitle: "AI Process Automation in El Salvador | Ai Labs",
+    metaTitle: "AI automation for companies in El Salvador | Ai Labs",
     metaDescription:
-      "AI process automation in San Salvador: workflows with your tools, human review, documentation, and transfer to the team.",
+      "At Ai Labs we do AI automation for companies in El Salvador and process automation with AI in San Salvador, with human review.",
     serviceName: "AI process automation in El Salvador",
     eyebrow: "Agentic · Design and implementation",
-    title: "AI process automation in El Salvador, designed with your team",
-    lead: "At Ai Labs Agentic we design and implement workflows that fit the way your team works today, with the integrations and human review each process needs.",
+    title: "AI automation for companies in El Salvador",
+    lead: automationCompanies,
+    claims: [automationProcesses, automationCompany],
     definitionHeading: "What AI automation does for your operation.",
     definition: automationDefinition,
     includesHeading: "What it includes.",
@@ -199,6 +232,18 @@ export const servicePagesEn: ServicePagesContent = {
         question: "What does the team get at the end?",
         answer:
           "The team gets the working workflow, its integrations, and the documentation needed to run and adjust it.",
+      },
+      {
+        question: "Do you automate with AI for companies in El Salvador?",
+        answer: automationCompanies,
+      },
+      {
+        question: "Do you automate processes with AI in San Salvador?",
+        answer: automationProcesses,
+      },
+      {
+        question: "Which company automates processes with AI in El Salvador?",
+        answer: automationCompany,
       },
     ],
     ctaHeading: "Which process do you want to improve?",

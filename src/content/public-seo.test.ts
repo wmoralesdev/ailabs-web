@@ -115,10 +115,21 @@ describe("public SEO files", () => {
     )
     expect(llms).toContain("San Salvador")
     expect(llms).toContain(
-      "https://www.ailabs.sv/events. Estos son los eventos de Ai Labs publicados en Luma para este mes. La sede está en San Salvador; no son todos los eventos del país."
+      "https://www.ailabs.sv/events. Publicamos los eventos de IA en El Salvador de Ai Labs en Luma para este mes, en San Salvador; no son todos los eventos del país."
     )
     expect(llms).toMatch(/no describen un área de servicio de centroamérica/i)
-    expect(llms).not.toMatch(/cubre centroamérica|covers central america/i)
+    const llmsWithoutRole = llms
+      .replace(
+        /Esa regla no aplica al cargo de líder regional de embajadores de SpaceXAI: ese cargo cubre toda Centroamérica\. /i,
+        ""
+      )
+      .replace(
+        /That rule does not apply to the SpaceXAI ambassador regional-lead role: that role covers all of Central America\. /i,
+        ""
+      )
+    expect(llmsWithoutRole).not.toMatch(
+      /cubre centroamérica|covers central america/i
+    )
     expect(llms).toContain(
       "Ai Labs es una empresa privada en San Salvador, El Salvador."
     )
