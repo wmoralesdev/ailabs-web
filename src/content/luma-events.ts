@@ -1,6 +1,6 @@
 /**
  * Public events hosted on https://luma.com/user/irenehl and
- * https://luma.com/user/wmoralesdev, fetched 2026-10-18.
+ * https://luma.com/user/wmoralesdev, fetched 2026-10-28.
  * The same event on both profiles is listed once. Fields Luma did not
  * publish are omitted.
  */
@@ -27,6 +27,23 @@ export type LumaEvent = {
 }
 
 export const lumaEvents: ReadonlyArray<LumaEvent> = [
+  {
+    id: "evt-IEXcfnMQAjyAcDg",
+    name: "Github Essentials Lab",
+    startAt: "2026-10-28T22:30:00.000Z",
+    timezone: "America/El_Salvador",
+    href: "https://luma.com/7qz86dry",
+    hosts: ["IEEE UEES SB", "Walter Morales", "Daniela Huezo"],
+    endAt: "2026-10-29T00:00:00.000Z",
+    place: {
+      venueEs: "Universidad Evangélica de El Salvador",
+      venueEn: "Evangelical University of El Salvador",
+      cityEs: "San Salvador",
+      countryEs: "El Salvador",
+    },
+    summary:
+      "GitHub Essentials Lab es un lab práctico para aprender lo esencial de GitHub, organizado por la Rama Estudiantil IEEE UEES junto con AiLabs.",
+  },
   {
     id: "evt-FMtRD1aVMzGSzu4",
     name: "DevDay Exchange Community: San Salvador",

@@ -40,7 +40,11 @@ describe("events index page", () => {
       within(upcoming)
         .getAllByRole("link")
         .map((link) => link.getAttribute("href"))
-    ).toEqual(["https://luma.com/q0l9hdwo", "https://luma.com/0vam8okf"])
+    ).toEqual([
+      "https://luma.com/q0l9hdwo",
+      "https://luma.com/0vam8okf",
+      "https://luma.com/7qz86dry",
+    ])
 
     const devday = within(upcoming).getByRole("link", {
       name: /DevDay Exchange Community/,
@@ -147,6 +151,7 @@ describe("events index page", () => {
     const cards = [
       "https://luma.com/q0l9hdwo",
       "https://luma.com/0vam8okf",
+      "https://luma.com/7qz86dry",
       "https://luma.com/spacexai-ikz6",
       "https://luma.com/x36xff8j",
       "https://luma.com/hrf7a7di",

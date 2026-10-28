@@ -41,9 +41,9 @@ describe("events index", () => {
   })
 
   it("lists the public Luma events once, with only published fields", () => {
-    expect(lumaEvents).toHaveLength(54)
-    expect(new Set(lumaEvents.map((event) => event.id)).size).toBe(54)
-    expect(new Set(lumaEvents.map((event) => event.href)).size).toBe(54)
+    expect(lumaEvents).toHaveLength(55)
+    expect(new Set(lumaEvents.map((event) => event.id)).size).toBe(55)
+    expect(new Set(lumaEvents.map((event) => event.href)).size).toBe(55)
     for (const event of lumaEvents) {
       expect(event.href).toMatch(/^https:\/\/luma\.com\/[a-z0-9-]+$/)
       expect(event.hosts.length).toBeGreaterThan(0)
@@ -70,6 +70,22 @@ describe("events index", () => {
       "Tec, Ciudad de Guatemala, Guatemala"
     )
 
+    const githubLab = lumaEvents.find(
+      (event) => event.href === "https://luma.com/7qz86dry"
+    )
+    expect(githubLab?.name).toBe("Github Essentials Lab")
+    expect(githubLab?.hosts).toEqual([
+      "IEEE UEES SB",
+      "Walter Morales",
+      "Daniela Huezo",
+    ])
+    expect(formatLumaPlace(githubLab!, "es")).toBe(
+      "Universidad Evangélica de El Salvador, San Salvador, El Salvador"
+    )
+    expect(formatLumaPlace(githubLab!, "en")).toContain(
+      "Evangelical University of El Salvador"
+    )
+
     const hiddenPlace = lumaEvents.find(
       (event) => event.href === "https://luma.com/uf2mpfis"
     )
@@ -90,6 +106,7 @@ describe("events index", () => {
     expect(upcoming.map((event) => event.href)).toEqual([
       "https://luma.com/q0l9hdwo",
       "https://luma.com/0vam8okf",
+      "https://luma.com/7qz86dry",
     ])
     expect(past[0]?.href).toBe("https://luma.com/spacexai-ikz6")
     expect(past).toHaveLength(52)
@@ -103,6 +120,7 @@ describe("events index", () => {
     expect(october.upcoming.map((event) => event.href)).toEqual([
       "https://luma.com/q0l9hdwo",
       "https://luma.com/0vam8okf",
+      "https://luma.com/7qz86dry",
     ])
     expect(october.past.map((event) => event.href)).toEqual([
       "https://luma.com/spacexai-ikz6",
@@ -114,7 +132,7 @@ describe("events index", () => {
       new Date("2026-11-01T05:30:00.000Z")
     )
     expect(stillOctober.upcoming).toHaveLength(0)
-    expect(stillOctober.past).toHaveLength(5)
+    expect(stillOctober.past).toHaveLength(6)
 
     const november = splitCurrentMonthEvents(
       new Date("2026-11-15T18:00:00.000Z")
@@ -253,6 +271,7 @@ describe("events index", () => {
     expect(events.map((event) => event?.name)).toEqual([
       "ElevenCreative Workshop",
       "DevDay Exchange Community: San Salvador",
+      "Github Essentials Lab",
       "Grok Bot Workshop San Salvador",
       "Grok Bot Meetup San Salvador",
       "Ciudad de Guatemala - Clerk Meetup",
