@@ -3,10 +3,10 @@ import { createFileRoute, redirect } from "@tanstack/react-router"
 import { isLocale } from "@/content"
 import { rememberLocaleFromPrefix } from "@/lib/locale-preference"
 
-/** Legacy `/en/community` → `/community`, etc. */
+/** `/es/community` → `/community`. `/en/…` is a real page. */
 export const Route = createFileRoute("/$locale/$")({
   beforeLoad: async ({ params, location }) => {
-    if (!isLocale(params.locale)) {
+    if (params.locale !== "es" || !isLocale(params.locale)) {
       return
     }
 

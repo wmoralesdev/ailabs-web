@@ -8,6 +8,7 @@ import type { PageHead } from "@/lib/seo"
 import {
   SITE_NAME,
   SITE_URL,
+  absolutePageUrl,
   absoluteUrl,
   buildPageMeta,
 } from "@/lib/seo"
@@ -80,6 +81,7 @@ function eventNode(event: LumaEvent, locale: Locale) {
       : {}),
     timezone: event.timezone,
     ...(location ? { location } : {}),
+    inLanguage: locale,
     organizer: {
       "@type": "Organization",
       name: SITE_NAME,
@@ -116,7 +118,7 @@ export function buildEventsIndexHead(input: {
   })
   const listed = splitCurrentMonthEvents(now)
   const rendered = [...listed.upcoming, ...listed.past]
-  const pageUrl = absoluteUrl(EVENTS_PATH)
+  const pageUrl = absolutePageUrl(EVENTS_PATH, locale)
 
   return {
     ...page,
@@ -133,7 +135,7 @@ export function buildEventsIndexHead(input: {
                   "@type": "ListItem",
                   position: 1,
                   name: events.breadcrumbHome,
-                  item: absoluteUrl("/"),
+                  item: absolutePageUrl("/", locale),
                 },
                 {
                   "@type": "ListItem",

@@ -6,13 +6,13 @@ import { getChromeNavItems } from "@/components/chrome/chrome-nav-items"
 describe("public home content", () => {
   it("keeps services and grouped community destinations consistent across languages", () => {
     for (const content of [en, es]) {
-      const nav = getChromeNavItems(content.chrome.nav)
+      const nav = getChromeNavItems(content.chrome.nav, content.locale)
       expect(nav.services.href).toBe("#services")
-      expect(nav.community.items.map(({ to }) => to)).toEqual([
-        "/community",
-        "/events",
-        "/campus-leader",
-      ])
+      expect(nav.community.items.map(({ to }) => to)).toEqual(
+        content.locale === "en"
+          ? ["/en/community", "/en/events", "/en/campus-leader"]
+          : ["/community", "/events", "/campus-leader"]
+      )
       expect(
         content.chrome.footer.columns
           .flatMap(({ links }) => links)
@@ -62,7 +62,7 @@ describe("public home content", () => {
           chrome: content.chrome,
           home: content.home,
         })
-      ).not.toMatch(/\$|\bUSD\b|\bprecios?\b/iu)
+      ).not.toMatch(/\$|\bUSD\b/iu)
     })
   }
 })

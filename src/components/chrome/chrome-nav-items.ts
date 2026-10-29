@@ -1,8 +1,8 @@
-import type { NavContent } from "@/content"
+import type { Locale, NavContent } from "@/content"
 import { hashFromHref, isInternalHref, routeForHref } from "@/lib/locale-links"
 
 /** One services destination and one community group, shared by both menus. */
-export function getChromeNavItems(nav: NavContent) {
+export function getChromeNavItems(nav: NavContent, locale: Locale) {
   return {
     services: { ...nav.services, hash: hashFromHref(nav.services.href) },
     community: {
@@ -13,7 +13,7 @@ export function getChromeNavItems(nav: NavContent) {
             "Community navigation must point to an internal route"
           )
         }
-        return { ...item, to: routeForHref(item.href) }
+        return { ...item, to: routeForHref(item.href, locale) }
       }),
     },
     contact: nav.contact,

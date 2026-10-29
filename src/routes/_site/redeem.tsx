@@ -6,7 +6,12 @@ import {
   UserButton,
   useUser,
 } from "@clerk/tanstack-react-start"
-import { createFileRoute, useRouterState } from "@tanstack/react-router"
+import {
+  createFileRoute,
+  useLoaderData,
+  useRouterState,
+  useSearch,
+} from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { toast } from "sonner"
@@ -32,6 +37,7 @@ import type {
 } from "@/server/redeem"
 import { ClerkAuth } from "@/components/auth/clerk-auth"
 import { ensureClerkDocument } from "@/lib/clerk-document"
+import { useLocaleContext } from "@/lib/locale-context"
 import { Toaster } from "@/components/ui/sonner"
 
 type RedeemSearch = {
@@ -100,9 +106,11 @@ const skipLinkClassName =
   "bg-background text-foreground focus-visible:ring-ring sr-only rounded-sm px-3 py-2 text-sm font-medium focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:ring-2"
 
 function RedeemPage() {
-  const { locale, content: siteContent } = Route.useRouteContext()
-  const { code } = Route.useSearch()
-  const { event } = Route.useLoaderData()
+  const { locale, content: siteContent } = useLocaleContext()
+  const { code } = useSearch({ strict: false }) as RedeemSearch
+  const { event } = useLoaderData({ strict: false }) as {
+    event: RedeemEventPublic | null
+  }
   const content = siteContent.redeem
   const { microcopy } = siteContent
 

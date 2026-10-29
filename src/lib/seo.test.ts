@@ -89,14 +89,14 @@ describe("buildHomeJsonLd", () => {
       offeredServices.map(({ name, description }) => ({ name, description }))
     ).toEqual(services.map(({ name, description }) => ({ name, description })))
     expect(offeredServices.map((service) => service.url)).toEqual([
-      "https://www.ailabs.sv/consultoria-de-ia-el-salvador",
-      "https://www.ailabs.sv/capacitacion-ia-el-salvador",
-      "https://www.ailabs.sv/automatizacion-ia-el-salvador",
+      "https://www.ailabs.sv/en/consultoria-de-ia-el-salvador",
+      "https://www.ailabs.sv/en/capacitacion-ia-el-salvador",
+      "https://www.ailabs.sv/en/automatizacion-ia-el-salvador",
     ])
     expect(offeredServices.map((service) => service["@id"])).toEqual([
-      "https://www.ailabs.sv/consultoria-de-ia-el-salvador#service",
-      "https://www.ailabs.sv/capacitacion-ia-el-salvador#service",
-      "https://www.ailabs.sv/automatizacion-ia-el-salvador#service",
+      "https://www.ailabs.sv/en/consultoria-de-ia-el-salvador#service",
+      "https://www.ailabs.sv/en/capacitacion-ia-el-salvador#service",
+      "https://www.ailabs.sv/en/automatizacion-ia-el-salvador#service",
     ])
     expect(JSON.stringify(offeredServices)).not.toMatch(/aperture/i)
 
@@ -104,9 +104,13 @@ describe("buildHomeJsonLd", () => {
     expect(serialized).not.toMatch(
       /latinoam[eé]rica|latin america|centroam[eé]rica|central america/i
     )
-    const organization = document["@graph"].find(
-      (node) => node["@type"] === "Organization"
-    ) as
+    const organization = document["@graph"].find((node) => {
+      const type = node["@type"]
+      return (
+        type === "Organization" ||
+        (Array.isArray(type) && type.includes("Organization"))
+      )
+    }) as
       | {
           description?: string
           sameAs?: string[]
@@ -137,8 +141,13 @@ describe("buildHomeJsonLd", () => {
       }).children
     ) as { "@graph": Array<{ "@type": string; description?: string }> }
     expect(
-      fallback["@graph"].find((node) => node["@type"] === "Organization")
-        ?.description
+      fallback["@graph"].find((node) => {
+        const type = node["@type"]
+        return (
+          type === "Organization" ||
+          (Array.isArray(type) && type.includes("Organization"))
+        )
+      })?.description
     ).toBe("Applied AI consulting for business teams.")
   })
 })
@@ -172,7 +181,7 @@ describe("buildPageMeta", () => {
     ])
   })
 
-  it("canonicalizes on www and does not emit hreflang", () => {
+  it("canonicalizes each language and emits reciprocal hreflang", () => {
     const head = buildPageMeta({
       locale: "es",
       path: "/community",
@@ -184,11 +193,33 @@ describe("buildPageMeta", () => {
         rel: "canonical",
         href: "https://www.ailabs.sv/community",
       },
+      {
+        rel: "alternate",
+        href: "https://www.ailabs.sv/community",
+        hrefLang: "es",
+      },
+      {
+        rel: "alternate",
+        href: "https://www.ailabs.sv/en/community",
+        hrefLang: "en",
+      },
+      {
+        rel: "alternate",
+        href: "https://www.ailabs.sv/community",
+        hrefLang: "x-default",
+      },
     ])
-    expect(head.links.some((link) => link.hrefLang)).toBe(false)
     expect(head.meta.find((tag) => tag.property === "og:url")?.content).toBe(
       "https://www.ailabs.sv/community"
     )
+    expect(
+      buildPageMeta({
+        locale: "en",
+        path: "/community",
+        title: "WhatsApp community | Ai Labs",
+        description: "Community in El Salvador.",
+      }).links[0]?.href
+    ).toBe("https://www.ailabs.sv/en/community")
     expect(
       buildPageMeta({
         locale: "es",
@@ -196,6 +227,13 @@ describe("buildPageMeta", () => {
         description: "Ai Labs",
       }).links[0]?.href
     ).toBe("https://www.ailabs.sv/")
+    expect(
+      buildPageMeta({
+        locale: "en",
+        title: "Home",
+        description: "Ai Labs",
+      }).links[0]?.href
+    ).toBe("https://www.ailabs.sv/en")
   })
 
   it("publishes only the questions it is given", () => {
@@ -282,6 +320,7 @@ describe("buildWorkshopEventJsonLd", () => {
     expect(data.startDate).toBe("2026-12-05")
     expect(data.eventStatus).toBe("https://schema.org/EventScheduled")
     expect(data.url).toBe("https://www.ailabs.sv/events/demo")
+    expect(data.organizer.name).toBe("Ai Labs")
     expect(data.location.address.addressLocality).toBe("San Salvador")
     expect(data.offers.price).toBe("25.00")
     expect(data.offers.availability).toBe("https://schema.org/InStock")

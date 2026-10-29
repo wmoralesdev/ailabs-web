@@ -28,7 +28,7 @@ const homeQuietCtaClassName = "text-action"
  */
 function HomeCtaLink({
   cta,
-  locale: _locale,
+  locale,
   variant = "pill",
   className,
 }: HomeCtaLinkProps) {
@@ -58,7 +58,7 @@ function HomeCtaLink({
 
   if (isInternalHref(cta.href)) {
     return (
-      <Link to={routeForHref(cta.href)} className={linkClassName}>
+      <Link to={routeForHref(cta.href, locale) as never} className={linkClassName}>
         {body}
       </Link>
     )

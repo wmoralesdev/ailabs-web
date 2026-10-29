@@ -4,29 +4,13 @@ import {
   createMiddleware,
   createStart,
 } from "@tanstack/react-start"
-import { setResponseHeader } from "@tanstack/react-start/server"
 
 import { needsClerkMiddleware } from "@/lib/clerk-scope"
-import { LOCALE_VARY } from "@/lib/locale-vary"
 import { aliasRedirectHref } from "@/lib/search-aliases"
 
 const csrfMiddleware = createCsrfMiddleware({
   filter: (context) => context.handlerType === "serverFn",
 })
-
-/**
- * Spanish and English share each URL. Tell caches not to reuse one language
- * for a request that asked for the other. `setResponseHeader` (not
- * `setResponseHeaders`) is what applies in global middleware.
- */
-const localeVaryMiddleware = createMiddleware().server(
-  ({ next, handlerType }) => {
-    if (handlerType !== "serverFn") {
-      setResponseHeader("Vary", LOCALE_VARY)
-    }
-    return next()
-  }
-)
 
 /** Same 301 for every client. Aliases are not a second document. */
 const searchAliasMiddleware = createMiddleware().server(
@@ -66,7 +50,6 @@ export const startInstance = createStart(() => {
     // Browser server functions require same-origin requests. API routes such
     // as Wompi webhooks keep their own verification and are not intercepted.
     requestMiddleware: [
-      localeVaryMiddleware,
       searchAliasMiddleware,
       csrfMiddleware,
       scopedClerkMiddleware,

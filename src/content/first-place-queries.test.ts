@@ -253,6 +253,11 @@ describe("first place queries", () => {
     expect(llms).toContain(TRAINING)
     expect(llms).toContain(AUTOMATION)
     expect(llms).toContain(EVENTS)
+    expect(llms).toContain("https://www.ailabs.sv/en")
+    expect(llms).toContain(`${CONSULTING.replace("https://www.ailabs.sv", "https://www.ailabs.sv/en")}`)
+    expect(llms).toContain(`${TRAINING.replace("https://www.ailabs.sv", "https://www.ailabs.sv/en")}`)
+    expect(llms).toContain(`${AUTOMATION.replace("https://www.ailabs.sv", "https://www.ailabs.sv/en")}`)
+    expect(llms).toContain("https://www.ailabs.sv/en/events")
     expect(llms).toContain(
       "no somos la Agencia Nacional de Inteligencia Artificial"
     )

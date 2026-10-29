@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 
 import { LegalDocument } from "@/components/legal/legal-document"
+import { useLocaleContext } from "@/lib/locale-context"
 import { brandedTitle, buildPageMeta } from "@/lib/seo"
 
 export const Route = createFileRoute("/_site/privacy")({
@@ -21,8 +22,8 @@ export const Route = createFileRoute("/_site/privacy")({
   component: PrivacyPage,
 })
 
-function PrivacyPage() {
-  const { locale, content } = Route.useRouteContext()
+export function PrivacyPage() {
+  const { locale, content } = useLocaleContext()
   return (
     <LegalDocument
       legal={content.legal}

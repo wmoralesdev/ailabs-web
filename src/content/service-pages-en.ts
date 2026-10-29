@@ -30,6 +30,7 @@ export const servicePagesEn: ServicePagesContent = {
   relatedLabel: "Other ways to work with Ai Labs",
   consultingLink: "AI consulting in El Salvador",
   communityLink: "AI community in El Salvador",
+  eventsLink: "AI events and workshops in El Salvador",
   training: {
     photo: {
       name: "3.webp",

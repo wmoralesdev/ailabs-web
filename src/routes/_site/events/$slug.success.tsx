@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router"
+import { createFileRoute, notFound, useLoaderData } from "@tanstack/react-router"
 
 import { getWorkshopBySlug } from "@/events/registry"
 import { getRegistrationPaymentStatus } from "@/server/workshop-registration"
@@ -82,7 +82,14 @@ export const Route = createFileRoute("/_site/events/$slug/success")({
 })
 
 function EventSuccessPage() {
-  const { slug, locale, paymentStatus, redirectValid } = Route.useLoaderData()
+  const { slug, locale, paymentStatus, redirectValid } = useLoaderData({
+    strict: false,
+  }) as {
+    slug: string
+    locale: "en" | "es"
+    paymentStatus: string
+    redirectValid: boolean | null
+  }
   const workshop = getWorkshopBySlug(slug)
   if (!workshop) {
     throw notFound()

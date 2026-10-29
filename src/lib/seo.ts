@@ -1,5 +1,6 @@
 import type { Locale } from "@/content"
 import { isWorkshopPast } from "@/events/catalog"
+import { localizedPath } from "@/lib/locale-path"
 
 /** Host that returns the public site. Canonical URLs use www. */
 export const SITE_URL = "https://www.ailabs.sv"
@@ -28,7 +29,7 @@ const OG_LOCALE: Record<Locale, string> = {
   es: "es_SV",
 }
 
-/** Normalize a site path (no locale prefix). */
+/** Normalize a site path (no locale prefix). Empty and `/` become `""`. */
 export function sitePath(path = ""): string {
   if (path === "/" || path === "") {
     return ""
@@ -36,17 +37,31 @@ export function sitePath(path = ""): string {
   return path.startsWith("/") ? path : `/${path}`
 }
 
-/**
- * @deprecated Locale is cookie-based; paths no longer include `/en` or `/es`.
- * Kept as an alias of `sitePath` for call-site compatibility.
- */
-export function localizedPath(_locale: Locale, path = ""): string {
-  return sitePath(path)
-}
+export { localizedPath }
 
+/** Absolute URL for an asset or an unprefixed path. */
 export function absoluteUrl(path = ""): string {
   const normalized = sitePath(path)
   return normalized ? `${SITE_URL}${normalized}` : `${SITE_URL}/`
+}
+
+/** Absolute URL for a public page in one language. */
+export function absolutePageUrl(path = "", locale: Locale = "es"): string {
+  const localized = localizedPath(locale, path)
+  return localized === "/" ? `${SITE_URL}/` : `${SITE_URL}${localized}`
+}
+
+const ORGANIZATION_HOME = `${SITE_URL}/`
+const ORGANIZATION_ID = `${ORGANIZATION_HOME}#organization`
+
+function hreflangLinks(path = ""): HeadLink[] {
+  const esUrl = absolutePageUrl(path, "es")
+  const enUrl = absolutePageUrl(path, "en")
+  return [
+    { rel: "alternate", href: esUrl, hrefLang: "es" },
+    { rel: "alternate", href: enUrl, hrefLang: "en" },
+    { rel: "alternate", href: esUrl, hrefLang: "x-default" },
+  ]
 }
 
 /** Document title with the brand suffix, if the page title does not already have it. */
@@ -110,9 +125,10 @@ export function buildPageMeta({
   noindex = false,
   image,
 }: BuildPageMetaInput): PageHead {
-  const url = absoluteUrl(path)
+  const url = absolutePageUrl(path, locale)
   const imageUrl = image?.url ?? OG_IMAGE_URL
   const imageAlt = image?.alt ?? OG_IMAGE_ALT_BY_LOCALE[locale]
+  const otherLocale = locale === "en" ? "es" : "en"
 
   return {
     meta: [
@@ -125,6 +141,7 @@ export function buildPageMeta({
       { property: "og:description", content: description },
       { property: "og:url", content: url },
       { property: "og:locale", content: OG_LOCALE[locale] },
+      { property: "og:locale:alternate", content: OG_LOCALE[otherLocale] },
       { property: "og:image", content: imageUrl },
       { property: "og:image:alt", content: imageAlt },
       {
@@ -141,7 +158,10 @@ export function buildPageMeta({
       { name: "twitter:image", content: imageUrl },
       { name: "twitter:image:alt", content: imageAlt },
     ],
-    links: [{ rel: "canonical", href: url }],
+    links: [
+      { rel: "canonical", href: url },
+      ...(noindex ? [] : hreflangLinks(path)),
+    ],
     scripts: [],
   }
 }
@@ -182,8 +202,8 @@ export function buildWorkshopEventJsonLd(input: {
   if (!input.endsOn) {
     return null
   }
-  const url = absoluteUrl(input.path)
-  const organizationId = `${absoluteUrl()}#organization`
+  const url = absolutePageUrl(input.path, input.locale)
+  const organizationId = ORGANIZATION_ID
   const completed = isWorkshopPast({ endsOn: input.endsOn }, input.now)
 
   return {
@@ -215,7 +235,7 @@ export function buildWorkshopEventJsonLd(input: {
         "@type": "Organization",
         "@id": organizationId,
         name: SITE_NAME,
-        url: absoluteUrl(),
+        url: ORGANIZATION_HOME,
       },
       offers: {
         "@type": "Offer",
@@ -238,62 +258,81 @@ export function buildServicePageJsonLd(input: {
   description: string
   serviceName: string
   homeLabel: string
+  /** Academy pages also publish a Course node for the practical training. */
+  kind?: "service" | "course"
 }): HeadScript {
-  const url = absoluteUrl(input.path)
-  const home = absoluteUrl()
-  const organizationId = `${home}#organization`
+  const url = absolutePageUrl(input.path, input.locale)
+  const home = absolutePageUrl("/", input.locale)
+  const websiteHome = ORGANIZATION_HOME
+  const organizationId = ORGANIZATION_ID
   const serviceId = `${url}#service`
+  const aboutId = input.kind === "course" ? `${url}#course` : serviceId
+  const provider = {
+    "@type": "Organization",
+    "@id": organizationId,
+    name: SITE_NAME,
+    url: websiteHome,
+  }
+  const graph: Array<Record<string, unknown>> = [
+    {
+      "@type": "WebPage",
+      "@id": `${url}#webpage`,
+      url,
+      name: input.title,
+      description: input.description,
+      inLanguage: input.locale,
+      isPartOf: { "@id": `${websiteHome}#website` },
+      about: { "@id": aboutId },
+      breadcrumb: { "@id": `${url}#breadcrumb` },
+    },
+    {
+      "@type": "Service",
+      "@id": serviceId,
+      name: input.serviceName,
+      description: input.description,
+      url,
+      provider,
+      areaServed: { "@type": "Country", name: "El Salvador" },
+      availableLanguage: ["es", "en"],
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${url}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: input.homeLabel,
+          item: home,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: input.serviceName,
+          item: url,
+        },
+      ],
+    },
+  ]
+
+  if (input.kind === "course") {
+    graph.push({
+      "@type": "Course",
+      "@id": `${url}#course`,
+      name: input.serviceName,
+      description: input.description,
+      url,
+      inLanguage: input.locale,
+      provider,
+      availableLanguage: ["es", "en"],
+    })
+  }
 
   return {
     type: "application/ld+json",
     children: JSON.stringify({
       "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebPage",
-          "@id": `${url}#webpage`,
-          url,
-          name: input.title,
-          description: input.description,
-          inLanguage: input.locale,
-          isPartOf: { "@id": `${home}#website` },
-          about: { "@id": serviceId },
-          breadcrumb: { "@id": `${url}#breadcrumb` },
-        },
-        {
-          "@type": "Service",
-          "@id": serviceId,
-          name: input.serviceName,
-          description: input.description,
-          url,
-          provider: {
-            "@type": "Organization",
-            "@id": organizationId,
-            name: SITE_NAME,
-            url: home,
-          },
-          areaServed: { "@type": "Country", name: "El Salvador" },
-          availableLanguage: ["es", "en"],
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": `${url}#breadcrumb`,
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: input.homeLabel,
-              item: home,
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: input.serviceName,
-              item: url,
-            },
-          ],
-        },
-      ],
+      "@graph": graph,
     }),
   }
 }
@@ -316,14 +355,14 @@ export function buildHomeJsonLd(input: {
   organizationDescription?: string
   services: readonly [JsonLdService, JsonLdService, JsonLdService]
 }): HeadScript {
-  const url = absoluteUrl()
-  const organizationId = `${url}#organization`
+  const url = absolutePageUrl("/", input.locale)
+  const organizationId = ORGANIZATION_ID
   const graph = [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
       "@id": organizationId,
       name: SITE_NAME,
-      url,
+      url: ORGANIZATION_HOME,
       logo: {
         "@type": "ImageObject",
         url: `${SITE_URL}/brand/ailabs-ico.svg`,
@@ -342,8 +381,8 @@ export function buildHomeJsonLd(input: {
     },
     {
       "@type": "WebSite",
-      "@id": `${url}#website`,
-      url,
+      "@id": `${ORGANIZATION_HOME}#website`,
+      url: ORGANIZATION_HOME,
       name: SITE_NAME,
       description: input.description,
       publisher: { "@id": organizationId },
@@ -359,7 +398,7 @@ export function buildHomeJsonLd(input: {
       url,
       name: input.title,
       description: input.description,
-      isPartOf: { "@id": `${url}#website` },
+      isPartOf: { "@id": `${ORGANIZATION_HOME}#website` },
       about: { "@id": organizationId },
       inLanguage: input.locale,
       primaryImageOfPage: {
@@ -372,7 +411,9 @@ export function buildHomeJsonLd(input: {
       "@id": `${url}#offer-catalog`,
       name: "Ai Labs services",
       itemListElement: input.services.map((service, index) => {
-        const serviceUrl = service.path ? absoluteUrl(service.path) : undefined
+        const serviceUrl = service.path
+          ? absolutePageUrl(service.path, input.locale)
+          : undefined
         return {
           "@type": "Offer",
           position: index + 1,

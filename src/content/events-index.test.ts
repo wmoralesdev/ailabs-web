@@ -17,7 +17,7 @@ import { buildEventsIndexHead } from "@/lib/events-index-head"
 const fetchedAt = new Date("2026-10-18T12:00:00.000Z")
 
 describe("events index", () => {
-  it("uses the Spanish title on the Spanish render and English on the same URL", () => {
+  it("uses the Spanish title on the Spanish URL and English on /en/events", () => {
     expect(es.events.headline).toBe(
       "Eventos de IA de Ai Labs en San Salvador, El Salvador"
     )
@@ -152,10 +152,10 @@ describe("events index", () => {
       en.events.photos.map((photo) => photo.alt)
     )
     expect(es.events.photosCaption).toBe(
-      "Crédito: Ai Labs. Estas fotografías son de eventos de Ai Labs en San Salvador."
+      "Crédito: Ai Labs. Fotos de nuestros eventos en San Salvador."
     )
     expect(en.events.photosCaption).toBe(
-      "Credit: Ai Labs. These photographs are from Ai Labs events in San Salvador."
+      "Credit: Ai Labs. Photos from our events in San Salvador."
     )
     for (const photo of es.events.photos) {
       expect(photo.alt.startsWith("Evento de Ai Labs en San Salvador. ")).toBe(
@@ -229,8 +229,22 @@ describe("events index", () => {
     expect(description).toMatch(/este mes/)
     expect(head.links).toEqual([
       { rel: "canonical", href: "https://www.ailabs.sv/events" },
+      {
+        rel: "alternate",
+        href: "https://www.ailabs.sv/events",
+        hrefLang: "es",
+      },
+      {
+        rel: "alternate",
+        href: "https://www.ailabs.sv/en/events",
+        hrefLang: "en",
+      },
+      {
+        rel: "alternate",
+        href: "https://www.ailabs.sv/events",
+        hrefLang: "x-default",
+      },
     ])
-    expect(head.links.some((link) => link.hrefLang)).toBe(false)
     expect(head.meta.find((tag) => tag.property === "og:image")?.content).toBe(
       "https://www.ailabs.sv/events/community/01-group-hall.webp"
     )

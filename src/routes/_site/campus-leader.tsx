@@ -13,6 +13,8 @@ import {
 import { Button } from "@/components/ui/button"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import type { CampusLeaderContent } from "@/content/types"
+import { useLocaleContext } from "@/lib/locale-context"
+import { localizedPath } from "@/lib/locale-path"
 import { buildFaqJsonLd, buildPageMeta, SITE_NAME } from "@/lib/seo"
 import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
 import { cn } from "@/lib/utils"
@@ -72,8 +74,8 @@ export const Route = createFileRoute("/_site/campus-leader")({
   component: CampusLeaderPage,
 })
 
-function CampusLeaderPage() {
-  const { locale, content: siteContent } = Route.useRouteContext()
+export function CampusLeaderPage() {
+  const { locale, content: siteContent } = useLocaleContext()
   const content = siteContent.campusLeader
   const { microcopy } = siteContent
   const [applyOpen, setApplyOpen] = useState(false)
@@ -99,7 +101,10 @@ function CampusLeaderPage() {
           <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
             {content.body}
           </p>
-          <Link to={CONSULTING_PAGE_PATH} className="text-action">
+          <Link
+            to={localizedPath(locale, CONSULTING_PAGE_PATH) as never}
+            className="text-action"
+          >
             {content.consultingCta.label}
           </Link>
           <p className="text-small font-semibold text-muted-foreground">

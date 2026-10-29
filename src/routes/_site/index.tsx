@@ -6,6 +6,7 @@ import { HomeHero } from "@/components/home/home-hero"
 import { HomeMethod } from "@/components/home/home-method"
 import { HomeServices } from "@/components/home/home-services"
 import { HomeTrust } from "@/components/home/home-trust"
+import { useLocaleContext } from "@/lib/locale-context"
 import { buildFaqJsonLd, buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
 import { CONSULTING_PAGE_PATH, SERVICE_PAGE_PATHS } from "@/lib/service-pages"
 
@@ -74,8 +75,8 @@ export const Route = createFileRoute("/_site/")({
   component: HomePage,
 })
 
-function HomePage() {
-  const { locale, content } = Route.useRouteContext()
+export function HomePage() {
+  const { locale, content } = useLocaleContext()
   const { home } = content
 
   return (

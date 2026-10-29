@@ -117,7 +117,16 @@ describe("public SEO files", () => {
     expect(llms).toContain(
       "Taller Get Competitive Quick (mid-agosto 2026; la fecha no se confirmó): https://www.ailabs.sv/events/get-competitive-quick"
     )
-    expect(sitemap).not.toContain("hreflang")
+    expect(sitemap).toContain('hreflang="es"')
+    expect(sitemap).toContain('hreflang="en"')
+    expect(sitemap).toContain('hreflang="x-default"')
+    expect(sitemap).toContain("<loc>https://www.ailabs.sv/en</loc>")
+    expect(sitemap).toContain(
+      "<loc>https://www.ailabs.sv/en/consultoria-de-ia-el-salvador</loc>"
+    )
+    expect(sitemap).toContain(
+      'xmlns:xhtml="http://www.w3.org/1999/xhtml"'
+    )
     expect(sitemap).not.toContain("https://ailabs.sv/")
     expect(llms).toContain("https://www.linkedin.com/company/ai-labs-sv")
     expect(llms).toContain("https://x.com/ailabs_sv")
@@ -126,8 +135,10 @@ describe("public SEO files", () => {
       "https://www.ailabs.sv/consultoria-de-ia-el-salvador"
     )
     expect(llms).toContain("San Salvador")
+    expect(llms).toContain("https://www.ailabs.sv/events")
+    expect(llms).toContain("https://www.ailabs.sv/en/events")
     expect(llms).toContain(
-      "https://www.ailabs.sv/events. Publicamos los eventos de IA en El Salvador de Ai Labs en Luma para este mes, en San Salvador; no son todos los eventos del país."
+      "Publicamos los eventos de IA en El Salvador de Ai Labs en Luma para este mes, en San Salvador; no son todos los eventos del país."
     )
     expect(llms).toMatch(/no describen un área de servicio de centroamérica/i)
     const llmsWithoutRole = llms
@@ -185,10 +196,10 @@ describe("existing page answers", () => {
     expect(es.home.hero.body).toMatch(/San Salvador/)
     expect(en.home.hero.body).toMatch(/San Salvador/)
     expect(es.home.hero.directAnswer).toBe(
-      "Ai Labs es una empresa privada en San Salvador, El Salvador: consultoría en IA, automatización y formación práctica."
+      "Somos Ai Labs, una empresa privada en San Salvador, El Salvador. Ayudamos a equipos comerciales, de gestión y de operaciones a mejorar procesos reales con IA."
     )
     expect(en.home.hero.directAnswer).toBe(
-      "Ai Labs is a private company in San Salvador, El Salvador, for AI consulting, automation, and practical education."
+      "We are Ai Labs, a private company in San Salvador, El Salvador. We help commercial, management, and operations teams improve real processes with AI."
     )
     expect(es.home.hero.agencyQuestion).toBe(
       "¿Existe una agencia de inteligencia artificial en El Salvador?"
@@ -212,14 +223,14 @@ describe("existing page answers", () => {
     expect(homeRoute).toContain("path: SERVICE_PAGE_PATHS.training")
     expect(homeRoute).toContain("path: SERVICE_PAGE_PATHS.automation")
     expect(es.meta.title).toBe(
-      "Ai Labs | Consultoría en IA, automatización y formación práctica"
+      "Consultoría en IA, automatización y formación práctica | Ai Labs"
     )
     expect(es.home.hero.headline).toBe(
       "Consultoría en IA, automatización de procesos y formación práctica."
     )
     expect(es.home.trust.label).toBe("Somos parte de programas de embajadores")
     expect(en.meta.title).toBe(
-      "Ai Labs | AI consulting, automation and practical education"
+      "AI consulting, automation and practical education | Ai Labs"
     )
     expect(en.home.hero.headline).toBe(
       "AI consulting, business automation and practical education."
@@ -251,28 +262,34 @@ describe("home FAQ", () => {
     const llms = readFileSync("public/llms.txt", "utf8")
     expect(llms).toContain("https://www.ailabs.sv/#faq")
     expect(llms).toContain(
-      es.home.faq.items.find((item) =>
-        item.question.startsWith("¿Qué es Aperture")
-      )?.answer
+      "Es el nombre de la comunidad de Ai Labs: talleres, eventos y el programa Campus Leaders para estudiantes. Unirse por WhatsApp es gratis."
     )
-    expect(llms).toContain(es.community.body)
-    expect(llms).toContain(es.campusLeader.body)
-    expect(llms).toContain(en.community.body)
-    expect(llms).toContain(en.campusLeader.body)
+    expect(llms).toContain(
+      "La comunidad de Ai Labs en El Salvador es un grupo de WhatsApp para aprender IA: avisos de talleres y eventos, y el programa Campus Leaders para estudiantes."
+    )
+    expect(llms).toContain(
+      "Un Campus Leader es un estudiante, uno por universidad en El Salvador, que lleva los talleres de IA de Ai Labs a su campus y elige cuáles llegan."
+    )
+    expect(llms).toContain(
+      "The Ai Labs community in El Salvador is a WhatsApp group for learning AI: notices of workshops and events, and the Campus Leaders program for students."
+    )
+    expect(llms).toContain(
+      "A Campus Leader is a student, one per university in El Salvador, who brings Ai Labs AI workshops to campus and chooses which ones arrive."
+    )
   })
 
   it("describes the community as training and teaching, in both languages", () => {
     expect(es.community.body).toBe(
-      "Ai Labs es una comunidad en El Salvador centrada en capacitación y enseñanza. El programa Campus Leaders es para estudiantes, y con nosotros se puede aprender IA. Para unirte, abre el enlace de WhatsApp."
+      "Nuestra comunidad en El Salvador es un grupo de WhatsApp para aprender IA: avisos de talleres y eventos, y el programa Campus Leaders para estudiantes."
     )
     expect(en.community.body).toBe(
-      "Ai Labs is a community in El Salvador centered on training and teaching. The Campus Leaders program is for students, and you can learn AI with us. To join, open the WhatsApp link."
+      "Our community in El Salvador is a WhatsApp group for learning AI: notices of workshops and events, and the Campus Leaders program for students."
     )
     expect(es.campusLeader.body).toBe(
-      "Un Campus Leader de Ai Labs es un estudiante, uno por universidad en El Salvador, que lleva capacitación y enseñanza de IA a su campus, con reconocimiento oficial y voz en qué talleres llegan."
+      "Un Campus Leader es un estudiante, uno por universidad en El Salvador, que lleva nuestros talleres de IA a su campus y elige cuáles llegan."
     )
     expect(en.campusLeader.body).toBe(
-      "An Ai Labs Campus Leader is a student, one per university in El Salvador, who brings AI training and teaching to campus, with official recognition and a say in which workshops arrive."
+      "A Campus Leader is a student, one per university in El Salvador, who brings our AI workshops to campus and chooses which ones arrive."
     )
     const apertureEs = es.home.faq.items.find((item) =>
       item.question.startsWith("¿Qué es Aperture")
@@ -281,10 +298,10 @@ describe("home FAQ", () => {
       item.question.startsWith("What is Aperture")
     )
     expect(apertureEs?.answer).toBe(
-      "Aperture es la comunidad de Ai Labs. Está centrada en capacitación y enseñanza, incluye el programa Campus Leaders para estudiantes, y con nosotros se puede aprender IA. No es una tercera oferta comercial."
+      "Aperture es el nombre de nuestra comunidad: talleres, eventos y el programa Campus Leaders para estudiantes. Unirse por WhatsApp es gratis."
     )
     expect(apertureEn?.answer).toBe(
-      "Aperture is the Ai Labs community. It is centered on training and teaching, it includes the Campus Leaders program for students, and you can learn AI with us. It is not a third commercial offer."
+      "Aperture is the name of our community: workshops, events, and the Campus Leaders program for students. Joining on WhatsApp is free."
     )
     for (const content of [es, en]) {
       const text = [

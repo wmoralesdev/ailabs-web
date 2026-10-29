@@ -112,7 +112,7 @@ describe("events index page", () => {
     )
     expect(
       screen.getByRole("link", { name: /Join the community/ })
-    ).toHaveAttribute("href", "/community")
+    ).toHaveAttribute("href", "/en/community")
     expect(screen.getByRole("link", { name: /View calendar/ })).toHaveAttribute(
       "target",
       "_blank"
@@ -134,7 +134,7 @@ describe("events index page", () => {
 
     expect(
       screen.getByText(
-        "No hay eventos de Ai Labs publicados en Luma en noviembre de 2026."
+        "No publicamos eventos en Luma en noviembre de 2026."
       )
     ).toBeInTheDocument()
     expect(

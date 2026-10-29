@@ -68,11 +68,11 @@ export const es: SiteContent = {
               href: "#services",
             },
             {
-              label: "Formación práctica",
+              label: "Cursos y talleres de IA",
               href: "/capacitacion-ia-el-salvador",
             },
             {
-              label: "Automatización de procesos",
+              label: "Automatización con IA para empresas",
               href: "/automatizacion-ia-el-salvador",
             },
             {
@@ -90,7 +90,7 @@ export const es: SiteContent = {
               href: "/community",
             },
             {
-              label: "Eventos",
+              label: "Eventos de IA en El Salvador",
               href: "/events",
             },
             {

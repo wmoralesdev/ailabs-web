@@ -7,6 +7,8 @@ import { HalftoneCanvas } from "@/components/halftone/halftone-canvas"
 import { HomeCtaLink } from "@/components/home/home-cta-link"
 import type { HomeHeroContent, Locale, NavItem, SiteContent } from "@/content"
 import { useHomeEntrance } from "@/lib/home-motion"
+import { isInternalHref, routeForHref } from "@/lib/locale-links"
+import { localizedPath } from "@/lib/locale-path"
 
 type HomeHeroLinkAction = {
   label: string
@@ -45,10 +47,16 @@ function HomeHero({
   const root = useRef<HTMLElement>(null)
   useHomeEntrance(root, "hero", locale)
   // Hash CTAs belong to the home; from another page they go there.
-  const secondaryHref =
-    hero.secondaryCta.href.startsWith("#") && !samePageCtas
-      ? `/${hero.secondaryCta.href}`
-      : hero.secondaryCta.href
+  const secondaryHref = (() => {
+    const href = hero.secondaryCta.href
+    if (href.startsWith("#") && !samePageCtas) {
+      return `${localizedPath(locale, "/")}${href}`
+    }
+    if (isInternalHref(href)) {
+      return routeForHref(href, locale)
+    }
+    return href
+  })()
 
   return (
     <section

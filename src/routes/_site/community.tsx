@@ -9,6 +9,8 @@ import {
   homePillClassName,
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
+import { useLocaleContext } from "@/lib/locale-context"
+import { localizedPath } from "@/lib/locale-path"
 import { buildFaqJsonLd, buildPageMeta, SITE_NAME } from "@/lib/seo"
 import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
 import { cn } from "@/lib/utils"
@@ -53,8 +55,8 @@ function WhatsAppMark({ className }: { className?: string }) {
   )
 }
 
-function CommunityPage() {
-  const { locale, content: siteContent } = Route.useRouteContext()
+export function CommunityPage() {
+  const { locale, content: siteContent } = useLocaleContext()
   const content = siteContent.community
   const { microcopy } = siteContent
 
@@ -85,10 +87,13 @@ function CommunityPage() {
           <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
             {content.body}
           </p>
-          <Link to="/events" className="text-action">
+          <Link to={localizedPath(locale, "/events") as never} className="text-action">
             {content.eventsCta.label}
           </Link>
-          <Link to={CONSULTING_PAGE_PATH} className="text-action">
+          <Link
+            to={localizedPath(locale, CONSULTING_PAGE_PATH) as never}
+            className="text-action"
+          >
             {content.consultingCta.label}
           </Link>
           <div className="flex flex-col gap-2 pt-1">

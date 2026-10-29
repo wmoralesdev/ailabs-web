@@ -79,6 +79,7 @@ describe("service pages", () => {
       description: es.servicePages.training.metaDescription,
       serviceName: es.servicePages.training.serviceName,
       homeLabel: es.servicePages.homeLabel,
+      kind: "course",
     })
     const graph = JSON.parse(script.children)["@graph"] as Array<{
       "@type": string
@@ -95,5 +96,20 @@ describe("service pages", () => {
     )
     const crumbs = graph.find((node) => node["@type"] === "BreadcrumbList")
     expect(crumbs?.itemListElement).toHaveLength(2)
+    expect(graph.some((node) => node["@type"] === "Course")).toBe(true)
+    const english = JSON.parse(
+      buildServicePageJsonLd({
+        locale: "en",
+        path: SERVICE_PAGE_PATHS.training,
+        title: es.servicePages.training.metaTitle,
+        description: es.servicePages.training.metaDescription,
+        serviceName: es.servicePages.training.serviceName,
+        homeLabel: es.servicePages.homeLabel,
+        kind: "course",
+      }).children
+    )["@graph"] as Array<{ "@type": string; url?: string }>
+    expect(
+      english.find((node) => node["@type"] === "Service")?.url
+    ).toBe("https://www.ailabs.sv/en/capacitacion-ia-el-salvador")
   })
 })

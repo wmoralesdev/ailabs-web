@@ -72,6 +72,10 @@ describe("search aliases", () => {
     expect(searchAliasDestination("/community")).toBeNull()
     expect(searchAliasDestination("/en")).toBeNull()
     expect(searchAliasDestination("/es")).toBeNull()
+    expect(aliasRedirectHref("/en/agencia-ia-el-salvador")).toBe(
+      "/en/consultoria-de-ia-el-salvador"
+    )
+    expect(aliasRedirectHref("/en/ia-el-salvador")).toBe("/en")
   })
 
   it("uses the home, community, and event slugs Daniela named", () => {
@@ -158,7 +162,7 @@ describe("search aliases", () => {
     }
   })
 
-  it("is a server 301 on the existing locale matcher, not a second page", () => {
+  it("is a server 301 on the locale matcher for aliases, not a second page", () => {
     const localeRoute = readFileSync("src/routes/$locale.tsx", "utf8")
     const start = readFileSync("src/start.ts", "utf8")
     const routeTree = readFileSync("src/routeTree.gen.ts", "utf8")

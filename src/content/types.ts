@@ -578,6 +578,7 @@ export type ServicePagesContent = {
   relatedLabel: string
   consultingLink: string
   communityLink: string
+  eventsLink: string
   training: ServicePageContent
   automation: ServicePageContent
 }

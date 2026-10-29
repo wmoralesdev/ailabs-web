@@ -84,11 +84,13 @@ possibly stale value into this file.
   hide the header's. Do not embed theme/locale controls in page heroes. The
   footer is a night block revealed from under the page where it fits in the
   viewport, ending in the "get curious" line.
-- Locale is not in the URL. Prefer the `ailabs-locale` cookie, then
-  `Accept-Language`, then `es` when the header is missing or unrecognized.
-  An explicit English preference still wins. Legacy `/en/*` and `/es/*` permanently
-  redirect to the unprefixed path and set the cookie. Language toggle updates
-  the cookie and reloads route context.
+- Locale is in the URL. Spanish is the default at the current unprefixed
+  paths. English lives under `/en/…` with the same slugs. Unprefixed URLs
+  always return Spanish, including to crawlers; Accept-Language and the
+  `ailabs-locale` cookie do not change document language. `/es/*` still 301s
+  to the unprefixed path. The language switcher is a visible link between
+  the two URLs. Each page publishes reciprocal `hreflang` (`es`, `en`,
+  `x-default` to Spanish) and a self-canonical.
 - The home page (`/`) follows Hero, Ambassador programs, Services, Method, FAQ,
   and Contact, followed by the shared footer. FAQ answers stay visible (never
   collapsed) and are the same text as the home `FAQPage` JSON-LD and the
@@ -104,13 +106,14 @@ possibly stale value into this file.
   `/events` reuses this hero.
 - Services is a bento: per route a text card, two real event photos with the
   halftone lens, and one pure-halftone cell inked by the pointer.
-- `/consultoria-de-ia-el-salvador` is the indexable consulting page. Spanish
-  and English share that URL. Consulting aliases 301 to it. `/ia-el-salvador`,
+- `/consultoria-de-ia-el-salvador` is the indexable consulting page in
+  Spanish. English is `/en/consultoria-de-ia-el-salvador`. Consulting aliases
+  301 to the matching language. `/ia-el-salvador`,
   `/inteligencia-artificial-el-salvador`, and `/ai-el-salvador` still 301 to `/`.
 - Two delivery pages share `src/components/marketing/service-page.tsx` and
   copy in `src/content/service-pages-{es,en}.ts`:
   `/capacitacion-ia-el-salvador` (Academy) and `/automatizacion-ia-el-salvador`
-  (Agentic). Slugs are the Spanish search term; language stays in the cookie.
+  (Agentic). Slugs are the Spanish search term; English is under `/en` + slug.
   Each opens with a self-contained definition sentence that is repeated as its
   first FAQ answer, keeps its FAQ visible and mirrored in `FAQPage` JSON-LD,
   and links to the other page and the consulting page. The footer Services
@@ -156,8 +159,8 @@ possibly stale value into this file.
 Performance invariants for public pages (guarded by
 `src/lib/performance-guards.test.ts`):
 
-- The root `beforeLoad` resolves the locale with `createIsomorphicFn`, so
-  client navigation never waits on a server function.
+- The root `beforeLoad` resolves the locale from the pathname with
+  `createIsomorphicFn`, so client navigation never waits on a server function.
 - Clerk runs only where `src/lib/clerk-scope.ts` says: server functions and
   the auth routes. Those routes wrap their component in `ClerkAuth` and use
   `ensureClerkDocument` in `beforeLoad`. Keep Clerk, toasts, and event page
