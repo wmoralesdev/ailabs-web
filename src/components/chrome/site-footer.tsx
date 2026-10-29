@@ -17,10 +17,12 @@ import { useContact } from "@/components/contact/contact-provider"
 import { listUpcomingWorkshops } from "@/events/catalog"
 import {
   hashFromHref,
+  homePath,
   isHashHref,
   isInternalHref,
   routeForHref,
 } from "@/lib/locale-links"
+import { localizedPath } from "@/lib/locale-path"
 
 type SiteFooterProps = {
   locale: Locale
@@ -32,7 +34,7 @@ type SiteFooterProps = {
 const footerLinkClassName =
   "link-underline inline-flex min-h-9 items-center text-[0.9375rem] text-night-soft transition-colors hover:text-snow"
 
-function FooterLink({ link }: { link: NavItem; locale: Locale }) {
+function FooterLink({ link, locale }: { link: NavItem; locale: Locale }) {
   const { openContact } = useContact()
   if (link.href === "#contact") {
     return (
@@ -62,8 +64,7 @@ function FooterLink({ link }: { link: NavItem; locale: Locale }) {
   if (eventMatch?.[1]) {
     return (
       <Link
-        to="/events/$slug"
-        params={{ slug: eventMatch[1] }}
+        to={localizedPath(locale, `/events/${eventMatch[1]}`) as never}
         className={footerLinkClassName}
       >
         {link.label}
@@ -73,7 +74,10 @@ function FooterLink({ link }: { link: NavItem; locale: Locale }) {
 
   if (isInternalHref(link.href)) {
     return (
-      <Link to={routeForHref(link.href)} className={footerLinkClassName}>
+      <Link
+        to={routeForHref(link.href, locale) as never}
+        className={footerLinkClassName}
+      >
         {link.label}
       </Link>
     )
@@ -82,7 +86,7 @@ function FooterLink({ link }: { link: NavItem; locale: Locale }) {
   if (isHashHref(link.href)) {
     return (
       <Link
-        to="/"
+        to={homePath(locale) as never}
         hash={hashFromHref(link.href)}
         className={footerLinkClassName}
       >

@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
-import type { ConsultingPageContent } from "@/content"
+import type { ConsultingPageContent, Locale } from "@/content"
 import { EVENT_PHOTOS } from "@/content/event-photos"
 import { HalftoneIcon } from "@/components/halftone/halftone-icon"
 import { HalftoneLens } from "@/components/halftone/halftone-lens"
@@ -13,11 +13,13 @@ import {
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import type { ShapeName } from "@/lib/halftone-shapes"
+import { localizedPath } from "@/lib/locale-path"
 import { SERVICE_PAGE_PATHS } from "@/lib/service-pages"
 
 type ConsultingPageProps = {
   content: ConsultingPageContent
   onTalk: () => void
+  locale: Locale
 }
 
 /** Delivery routes link to their own page; consulting is this page. */
@@ -29,7 +31,11 @@ const servicePagePath = {
 const serviceShapes: ReadonlyArray<ShapeName> = ["sparkle", "book", "nodes"]
 const stepShapes: ReadonlyArray<ShapeName> = ["search", "target", "arrow"]
 
-function ConsultingPage({ content, onTalk }: ConsultingPageProps) {
+function ConsultingPage({
+  content,
+  onTalk,
+  locale,
+}: ConsultingPageProps) {
   const photo = EVENT_PHOTOS[content.photo.name]
 
   return (
@@ -106,9 +112,12 @@ function ConsultingPage({ content, onTalk }: ConsultingPageProps) {
                 {service.link && service.id in servicePagePath ? (
                   <Link
                     to={
-                      servicePagePath[
-                        service.id as keyof typeof servicePagePath
-                      ]
+                      localizedPath(
+                        locale,
+                        servicePagePath[
+                          service.id as keyof typeof servicePagePath
+                        ]
+                      ) as never
                     }
                     className="text-action mt-4"
                   >

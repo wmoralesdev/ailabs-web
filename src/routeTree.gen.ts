@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as BgRouteImport } from './routes/bg'
+import { Route as EnRouteImport } from './routes/en'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as LocaleSplatRouteImport } from './routes/$locale/$'
 import { Route as SiteIndexRouteImport } from './routes/_site/index'
@@ -24,14 +25,28 @@ import { Route as SiteLabRouteImport } from './routes/_site/lab'
 import { Route as SitePrivacyRouteImport } from './routes/_site/privacy'
 import { Route as SiteRedeemRouteImport } from './routes/_site/redeem'
 import { Route as SiteTermsRouteImport } from './routes/_site/terms'
+import { Route as EnIndexRouteImport } from './routes/en/index'
+import { Route as EnAutomatizacionIaElSalvadorRouteImport } from './routes/en/automatizacion-ia-el-salvador'
+import { Route as EnCampusLeaderRouteImport } from './routes/en/campus-leader'
+import { Route as EnCapacitacionIaElSalvadorRouteImport } from './routes/en/capacitacion-ia-el-salvador'
+import { Route as EnCommunityRouteImport } from './routes/en/community'
+import { Route as EnConsultoriaDeIaElSalvadorRouteImport } from './routes/en/consultoria-de-ia-el-salvador'
+import { Route as EnLabRouteImport } from './routes/en/lab'
+import { Route as EnPrivacyRouteImport } from './routes/en/privacy'
+import { Route as EnRedeemRouteImport } from './routes/en/redeem'
+import { Route as EnTermsRouteImport } from './routes/en/terms'
 import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
 import { Route as SignUpSplatRouteImport } from './routes/sign-up.$'
 import { Route as SiteEventsIndexRouteImport } from './routes/_site/events/index'
 import { Route as SiteEventsSlugRouteImport } from './routes/_site/events/$slug'
 import { Route as ApiWebhooksClerkRouteImport } from './routes/api/webhooks/clerk'
 import { Route as ApiWebhooksWompiRouteImport } from './routes/api/webhooks/wompi'
+import { Route as EnEventsIndexRouteImport } from './routes/en/events/index'
+import { Route as EnEventsSlugRouteImport } from './routes/en/events/$slug'
 import { Route as SiteEventsSlugIndexRouteImport } from './routes/_site/events/$slug.index'
 import { Route as SiteEventsSlugSuccessRouteImport } from './routes/_site/events/$slug.success'
+import { Route as EnEventsSlugIndexRouteImport } from './routes/en/events/$slug.index'
+import { Route as EnEventsSlugSuccessRouteImport } from './routes/en/events/$slug.success'
 
 const LocaleRoute = LocaleRouteImport.update({
   id: '/$locale',
@@ -45,6 +60,11 @@ const SiteRoute = SiteRouteImport.update({
 const BgRoute = BgRouteImport.update({
   id: '/bg',
   path: '/bg',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnRoute = EnRouteImport.update({
+  id: '/en',
+  path: '/en',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LocaleIndexRoute = LocaleIndexRouteImport.update({
@@ -110,6 +130,59 @@ const SiteTermsRoute = SiteTermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => SiteRoute,
 } as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnAutomatizacionIaElSalvadorRoute =
+  EnAutomatizacionIaElSalvadorRouteImport.update({
+    id: '/automatizacion-ia-el-salvador',
+    path: '/automatizacion-ia-el-salvador',
+    getParentRoute: () => EnRoute,
+  } as any)
+const EnCampusLeaderRoute = EnCampusLeaderRouteImport.update({
+  id: '/campus-leader',
+  path: '/campus-leader',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnCapacitacionIaElSalvadorRoute =
+  EnCapacitacionIaElSalvadorRouteImport.update({
+    id: '/capacitacion-ia-el-salvador',
+    path: '/capacitacion-ia-el-salvador',
+    getParentRoute: () => EnRoute,
+  } as any)
+const EnCommunityRoute = EnCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnConsultoriaDeIaElSalvadorRoute =
+  EnConsultoriaDeIaElSalvadorRouteImport.update({
+    id: '/consultoria-de-ia-el-salvador',
+    path: '/consultoria-de-ia-el-salvador',
+    getParentRoute: () => EnRoute,
+  } as any)
+const EnLabRoute = EnLabRouteImport.update({
+  id: '/lab',
+  path: '/lab',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnPrivacyRoute = EnPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnRedeemRoute = EnRedeemRouteImport.update({
+  id: '/redeem',
+  path: '/redeem',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnTermsRoute = EnTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => EnRoute,
+} as any)
 const SignInSplatRoute = SignInSplatRouteImport.update({
   id: '/sign-in/$',
   path: '/sign-in/$',
@@ -140,6 +213,16 @@ const ApiWebhooksWompiRoute = ApiWebhooksWompiRouteImport.update({
   path: '/api/webhooks/wompi',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnEventsIndexRoute = EnEventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnEventsSlugRoute = EnEventsSlugRouteImport.update({
+  id: '/events/$slug',
+  path: '/events/$slug',
+  getParentRoute: () => EnRoute,
+} as any)
 const SiteEventsSlugIndexRoute = SiteEventsSlugIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -150,11 +233,22 @@ const SiteEventsSlugSuccessRoute = SiteEventsSlugSuccessRouteImport.update({
   path: '/success',
   getParentRoute: () => SiteEventsSlugRoute,
 } as any)
+const EnEventsSlugIndexRoute = EnEventsSlugIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EnEventsSlugRoute,
+} as any)
+const EnEventsSlugSuccessRoute = EnEventsSlugSuccessRouteImport.update({
+  id: '/success',
+  path: '/success',
+  getParentRoute: () => EnEventsSlugRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/$locale': typeof LocaleRouteWithChildren
   '/': typeof SiteIndexRoute
   '/bg': typeof BgRoute
+  '/en': typeof EnRouteWithChildren
   '/$locale/$': typeof LocaleSplatRoute
   '/automatizacion-ia-el-salvador': typeof SiteAutomatizacionIaElSalvadorRoute
   '/campus-leader': typeof SiteCampusLeaderRoute
@@ -165,15 +259,29 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof SitePrivacyRoute
   '/redeem': typeof SiteRedeemRoute
   '/terms': typeof SiteTermsRoute
+  '/en/automatizacion-ia-el-salvador': typeof EnAutomatizacionIaElSalvadorRoute
+  '/en/campus-leader': typeof EnCampusLeaderRoute
+  '/en/capacitacion-ia-el-salvador': typeof EnCapacitacionIaElSalvadorRoute
+  '/en/community': typeof EnCommunityRoute
+  '/en/consultoria-de-ia-el-salvador': typeof EnConsultoriaDeIaElSalvadorRoute
+  '/en/lab': typeof EnLabRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/redeem': typeof EnRedeemRoute
+  '/en/terms': typeof EnTermsRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/en/': typeof EnIndexRoute
   '/events/$slug': typeof SiteEventsSlugRouteWithChildren
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
+  '/en/events/$slug': typeof EnEventsSlugRouteWithChildren
   '/events/': typeof SiteEventsIndexRoute
+  '/en/events/': typeof EnEventsIndexRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
+  '/en/events/$slug/success': typeof EnEventsSlugSuccessRoute
   '/events/$slug/': typeof SiteEventsSlugIndexRoute
+  '/en/events/$slug/': typeof EnEventsSlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/bg': typeof BgRoute
@@ -187,21 +295,35 @@ export interface FileRoutesByTo {
   '/privacy': typeof SitePrivacyRoute
   '/redeem': typeof SiteRedeemRoute
   '/terms': typeof SiteTermsRoute
+  '/en/automatizacion-ia-el-salvador': typeof EnAutomatizacionIaElSalvadorRoute
+  '/en/campus-leader': typeof EnCampusLeaderRoute
+  '/en/capacitacion-ia-el-salvador': typeof EnCapacitacionIaElSalvadorRoute
+  '/en/community': typeof EnCommunityRoute
+  '/en/consultoria-de-ia-el-salvador': typeof EnConsultoriaDeIaElSalvadorRoute
+  '/en/lab': typeof EnLabRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/redeem': typeof EnRedeemRoute
+  '/en/terms': typeof EnTermsRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale': typeof LocaleIndexRoute
   '/': typeof SiteIndexRoute
+  '/en': typeof EnIndexRoute
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
   '/events': typeof SiteEventsIndexRoute
+  '/en/events': typeof EnEventsIndexRoute
   '/events/$slug/success': typeof SiteEventsSlugSuccessRoute
+  '/en/events/$slug/success': typeof EnEventsSlugSuccessRoute
   '/events/$slug': typeof SiteEventsSlugIndexRoute
+  '/en/events/$slug': typeof EnEventsSlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/$locale': typeof LocaleRouteWithChildren
   '/_site': typeof SiteRouteWithChildren
   '/bg': typeof BgRoute
+  '/en': typeof EnRouteWithChildren
   '/$locale/$': typeof LocaleSplatRoute
   '/_site/automatizacion-ia-el-salvador': typeof SiteAutomatizacionIaElSalvadorRoute
   '/_site/campus-leader': typeof SiteCampusLeaderRoute
@@ -212,16 +334,30 @@ export interface FileRoutesById {
   '/_site/privacy': typeof SitePrivacyRoute
   '/_site/redeem': typeof SiteRedeemRoute
   '/_site/terms': typeof SiteTermsRoute
+  '/en/automatizacion-ia-el-salvador': typeof EnAutomatizacionIaElSalvadorRoute
+  '/en/campus-leader': typeof EnCampusLeaderRoute
+  '/en/capacitacion-ia-el-salvador': typeof EnCapacitacionIaElSalvadorRoute
+  '/en/community': typeof EnCommunityRoute
+  '/en/consultoria-de-ia-el-salvador': typeof EnConsultoriaDeIaElSalvadorRoute
+  '/en/lab': typeof EnLabRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/redeem': typeof EnRedeemRoute
+  '/en/terms': typeof EnTermsRoute
   '/sign-in/$': typeof SignInSplatRoute
   '/sign-up/$': typeof SignUpSplatRoute
   '/$locale/': typeof LocaleIndexRoute
   '/_site/': typeof SiteIndexRoute
+  '/en/': typeof EnIndexRoute
   '/_site/events/$slug': typeof SiteEventsSlugRouteWithChildren
   '/api/webhooks/clerk': typeof ApiWebhooksClerkRoute
   '/api/webhooks/wompi': typeof ApiWebhooksWompiRoute
+  '/en/events/$slug': typeof EnEventsSlugRouteWithChildren
   '/_site/events/': typeof SiteEventsIndexRoute
+  '/en/events/': typeof EnEventsIndexRoute
   '/_site/events/$slug/success': typeof SiteEventsSlugSuccessRoute
+  '/en/events/$slug/success': typeof EnEventsSlugSuccessRoute
   '/_site/events/$slug/': typeof SiteEventsSlugIndexRoute
+  '/en/events/$slug/': typeof EnEventsSlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -229,6 +365,7 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/'
     | '/bg'
+    | '/en'
     | '/$locale/$'
     | '/automatizacion-ia-el-salvador'
     | '/campus-leader'
@@ -239,15 +376,29 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/redeem'
     | '/terms'
+    | '/en/automatizacion-ia-el-salvador'
+    | '/en/campus-leader'
+    | '/en/capacitacion-ia-el-salvador'
+    | '/en/community'
+    | '/en/consultoria-de-ia-el-salvador'
+    | '/en/lab'
+    | '/en/privacy'
+    | '/en/redeem'
+    | '/en/terms'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale/'
+    | '/en/'
     | '/events/$slug'
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
+    | '/en/events/$slug'
     | '/events/'
+    | '/en/events/'
     | '/events/$slug/success'
+    | '/en/events/$slug/success'
     | '/events/$slug/'
+    | '/en/events/$slug/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/bg'
@@ -261,20 +412,34 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/redeem'
     | '/terms'
+    | '/en/automatizacion-ia-el-salvador'
+    | '/en/campus-leader'
+    | '/en/capacitacion-ia-el-salvador'
+    | '/en/community'
+    | '/en/consultoria-de-ia-el-salvador'
+    | '/en/lab'
+    | '/en/privacy'
+    | '/en/redeem'
+    | '/en/terms'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale'
     | '/'
+    | '/en'
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
     | '/events'
+    | '/en/events'
     | '/events/$slug/success'
+    | '/en/events/$slug/success'
     | '/events/$slug'
+    | '/en/events/$slug'
   id:
     | '__root__'
     | '/$locale'
     | '/_site'
     | '/bg'
+    | '/en'
     | '/$locale/$'
     | '/_site/automatizacion-ia-el-salvador'
     | '/_site/campus-leader'
@@ -285,22 +450,37 @@ export interface FileRouteTypes {
     | '/_site/privacy'
     | '/_site/redeem'
     | '/_site/terms'
+    | '/en/automatizacion-ia-el-salvador'
+    | '/en/campus-leader'
+    | '/en/capacitacion-ia-el-salvador'
+    | '/en/community'
+    | '/en/consultoria-de-ia-el-salvador'
+    | '/en/lab'
+    | '/en/privacy'
+    | '/en/redeem'
+    | '/en/terms'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/$locale/'
     | '/_site/'
+    | '/en/'
     | '/_site/events/$slug'
     | '/api/webhooks/clerk'
     | '/api/webhooks/wompi'
+    | '/en/events/$slug'
     | '/_site/events/'
+    | '/en/events/'
     | '/_site/events/$slug/success'
+    | '/en/events/$slug/success'
     | '/_site/events/$slug/'
+    | '/en/events/$slug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   LocaleRoute: typeof LocaleRouteWithChildren
   SiteRoute: typeof SiteRouteWithChildren
   BgRoute: typeof BgRoute
+  EnRoute: typeof EnRouteWithChildren
   SignInSplatRoute: typeof SignInSplatRoute
   SignUpSplatRoute: typeof SignUpSplatRoute
   ApiWebhooksClerkRoute: typeof ApiWebhooksClerkRoute
@@ -328,6 +508,13 @@ declare module '@tanstack/react-router' {
       path: '/bg'
       fullPath: '/bg'
       preLoaderRoute: typeof BgRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en': {
+      id: '/en'
+      path: '/en'
+      fullPath: '/en'
+      preLoaderRoute: typeof EnRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$locale/': {
@@ -414,6 +601,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteTermsRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/en/': {
+      id: '/en/'
+      path: '/'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/automatizacion-ia-el-salvador': {
+      id: '/en/automatizacion-ia-el-salvador'
+      path: '/automatizacion-ia-el-salvador'
+      fullPath: '/en/automatizacion-ia-el-salvador'
+      preLoaderRoute: typeof EnAutomatizacionIaElSalvadorRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/campus-leader': {
+      id: '/en/campus-leader'
+      path: '/campus-leader'
+      fullPath: '/en/campus-leader'
+      preLoaderRoute: typeof EnCampusLeaderRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/capacitacion-ia-el-salvador': {
+      id: '/en/capacitacion-ia-el-salvador'
+      path: '/capacitacion-ia-el-salvador'
+      fullPath: '/en/capacitacion-ia-el-salvador'
+      preLoaderRoute: typeof EnCapacitacionIaElSalvadorRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/community': {
+      id: '/en/community'
+      path: '/community'
+      fullPath: '/en/community'
+      preLoaderRoute: typeof EnCommunityRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/consultoria-de-ia-el-salvador': {
+      id: '/en/consultoria-de-ia-el-salvador'
+      path: '/consultoria-de-ia-el-salvador'
+      fullPath: '/en/consultoria-de-ia-el-salvador'
+      preLoaderRoute: typeof EnConsultoriaDeIaElSalvadorRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/lab': {
+      id: '/en/lab'
+      path: '/lab'
+      fullPath: '/en/lab'
+      preLoaderRoute: typeof EnLabRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/privacy': {
+      id: '/en/privacy'
+      path: '/privacy'
+      fullPath: '/en/privacy'
+      preLoaderRoute: typeof EnPrivacyRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/redeem': {
+      id: '/en/redeem'
+      path: '/redeem'
+      fullPath: '/en/redeem'
+      preLoaderRoute: typeof EnRedeemRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/terms': {
+      id: '/en/terms'
+      path: '/terms'
+      fullPath: '/en/terms'
+      preLoaderRoute: typeof EnTermsRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/sign-in/$': {
       id: '/sign-in/$'
       path: '/sign-in/$'
@@ -456,6 +713,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWebhooksWompiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/events/': {
+      id: '/en/events/'
+      path: '/events'
+      fullPath: '/en/events/'
+      preLoaderRoute: typeof EnEventsIndexRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/events/$slug': {
+      id: '/en/events/$slug'
+      path: '/events/$slug'
+      fullPath: '/en/events/$slug'
+      preLoaderRoute: typeof EnEventsSlugRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/_site/events/$slug/': {
       id: '/_site/events/$slug/'
       path: '/'
@@ -469,6 +740,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/events/$slug/success'
       preLoaderRoute: typeof SiteEventsSlugSuccessRouteImport
       parentRoute: typeof SiteEventsSlugRoute
+    }
+    '/en/events/$slug/': {
+      id: '/en/events/$slug/'
+      path: '/'
+      fullPath: '/en/events/$slug/'
+      preLoaderRoute: typeof EnEventsSlugIndexRouteImport
+      parentRoute: typeof EnEventsSlugRoute
+    }
+    '/en/events/$slug/success': {
+      id: '/en/events/$slug/success'
+      path: '/success'
+      fullPath: '/en/events/$slug/success'
+      preLoaderRoute: typeof EnEventsSlugSuccessRouteImport
+      parentRoute: typeof EnEventsSlugRoute
     }
   }
 }
@@ -532,10 +817,57 @@ const SiteRouteChildren: SiteRouteChildren = {
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
+interface EnEventsSlugRouteChildren {
+  EnEventsSlugSuccessRoute: typeof EnEventsSlugSuccessRoute
+  EnEventsSlugIndexRoute: typeof EnEventsSlugIndexRoute
+}
+
+const EnEventsSlugRouteChildren: EnEventsSlugRouteChildren = {
+  EnEventsSlugSuccessRoute: EnEventsSlugSuccessRoute,
+  EnEventsSlugIndexRoute: EnEventsSlugIndexRoute,
+}
+
+const EnEventsSlugRouteWithChildren = EnEventsSlugRoute._addFileChildren(
+  EnEventsSlugRouteChildren,
+)
+
+interface EnRouteChildren {
+  EnAutomatizacionIaElSalvadorRoute: typeof EnAutomatizacionIaElSalvadorRoute
+  EnCampusLeaderRoute: typeof EnCampusLeaderRoute
+  EnCapacitacionIaElSalvadorRoute: typeof EnCapacitacionIaElSalvadorRoute
+  EnCommunityRoute: typeof EnCommunityRoute
+  EnConsultoriaDeIaElSalvadorRoute: typeof EnConsultoriaDeIaElSalvadorRoute
+  EnLabRoute: typeof EnLabRoute
+  EnPrivacyRoute: typeof EnPrivacyRoute
+  EnRedeemRoute: typeof EnRedeemRoute
+  EnTermsRoute: typeof EnTermsRoute
+  EnIndexRoute: typeof EnIndexRoute
+  EnEventsSlugRoute: typeof EnEventsSlugRouteWithChildren
+  EnEventsIndexRoute: typeof EnEventsIndexRoute
+}
+
+const EnRouteChildren: EnRouteChildren = {
+  EnAutomatizacionIaElSalvadorRoute: EnAutomatizacionIaElSalvadorRoute,
+  EnCampusLeaderRoute: EnCampusLeaderRoute,
+  EnCapacitacionIaElSalvadorRoute: EnCapacitacionIaElSalvadorRoute,
+  EnCommunityRoute: EnCommunityRoute,
+  EnConsultoriaDeIaElSalvadorRoute: EnConsultoriaDeIaElSalvadorRoute,
+  EnLabRoute: EnLabRoute,
+  EnPrivacyRoute: EnPrivacyRoute,
+  EnRedeemRoute: EnRedeemRoute,
+  EnTermsRoute: EnTermsRoute,
+  EnIndexRoute: EnIndexRoute,
+  EnEventsSlugRoute: EnEventsSlugRouteWithChildren,
+  EnEventsIndexRoute: EnEventsIndexRoute,
+}
+
+const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   LocaleRoute: LocaleRouteWithChildren,
   SiteRoute: SiteRouteWithChildren,
   BgRoute: BgRoute,
+  EnRoute: EnRouteWithChildren,
   SignInSplatRoute: SignInSplatRoute,
   SignUpSplatRoute: SignUpSplatRoute,
   ApiWebhooksClerkRoute: ApiWebhooksClerkRoute,

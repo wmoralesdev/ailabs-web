@@ -1,3 +1,5 @@
+import { stripLocalePrefix } from "@/lib/locale-path"
+
 /**
  * Routes that render Clerk UI or read the session while server-rendering.
  * Public landing pages stay outside this list so they never authenticate the
@@ -6,8 +8,9 @@
 export const CLERK_ROUTE_PREFIXES = ["/redeem", "/sign-in", "/sign-up"] as const
 
 export function isClerkPath(pathname: string): boolean {
+  const path = stripLocalePrefix(pathname)
   return CLERK_ROUTE_PREFIXES.some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+    (prefix) => path === prefix || path.startsWith(`${prefix}/`)
   )
 }
 

@@ -4,9 +4,9 @@ import { isLocale } from "@/content"
 import { aliasRedirectHref } from "@/lib/search-aliases"
 
 /**
- * Legacy `/en` and `/es` prefixes 301 to the unprefixed URL.
- * Search aliases are the same kind of redirect: one segment in, the real page out.
- * Unknown segments stay a 404. This does not add a page.
+ * `/es` still 301s to the unprefixed Spanish URL. `/en` is a real prefix
+ * handled by `src/routes/en`. Search aliases (one segment in) 301 here when
+ * they are not a locale. Unknown segments stay a 404.
  */
 export const Route = createFileRoute("/$locale")({
   beforeLoad: ({ params, location }) => {

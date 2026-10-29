@@ -7,6 +7,22 @@ import { es } from "@/content/es"
 
 import { ConsultingPage } from "./consulting-page"
 
+vi.mock("@tanstack/react-router", () => ({
+  Link: ({
+    to,
+    children,
+    className,
+  }: {
+    to: string
+    children: React.ReactNode
+    className?: string
+  }) => (
+    <a href={to} className={className}>
+      {children}
+    </a>
+  ),
+}))
+
 afterEach(() => {
   cleanup()
 })
@@ -15,7 +31,7 @@ describe("ConsultingPage", () => {
   it("renders the Spanish title, first paragraph, and the same FAQ answer", () => {
     const onTalk = vi.fn()
     const { container } = render(
-      <ConsultingPage content={es.consulting} onTalk={onTalk} />
+      <ConsultingPage locale="es" content={es.consulting} onTalk={onTalk} />
     )
 
     expect(
@@ -52,15 +68,17 @@ describe("ConsultingPage", () => {
   it("renders the English title on the same component", async () => {
     const onTalk = vi.fn()
     const user = userEvent.setup()
-    render(<ConsultingPage content={en.consulting} onTalk={onTalk} />)
+    render(
+      <ConsultingPage locale="en" content={en.consulting} onTalk={onTalk} />
+    )
 
     expect(
       screen.getByRole("heading", { level: 1, name: en.consulting.headline })
     ).toBeInTheDocument()
     expect(screen.getAllByText(en.consulting.lead)).toHaveLength(2)
     expect(
-      screen.getByText(/regional leader of SpaceXAI ambassadors/i)
-    ).toBeInTheDocument()
+      screen.getAllByText(/regional leader of SpaceXAI ambassadors/i).length
+    ).toBeGreaterThan(0)
     expect(
       screen.getByRole("heading", {
         level: 2,

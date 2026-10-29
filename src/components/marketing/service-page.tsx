@@ -11,6 +11,8 @@ import { Reveal } from "@/components/halftone/reveal"
 import { homeShellClassName } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import type { ShapeName } from "@/lib/halftone-shapes"
+import { useLocaleContext } from "@/lib/locale-context"
+import { localizedPath } from "@/lib/locale-path"
 import {
   CONSULTING_PAGE_PATH,
   SERVICE_PAGE_IDS,
@@ -37,10 +39,12 @@ const stepShapes: ReadonlyArray<ShapeName> = ["search", "nodes", "arrow"]
 
 /** Everything is server-rendered and static: answers must not hide behind JS. */
 function ServicePage({ id, pages }: ServicePageProps) {
+  const { locale } = useLocaleContext()
   const { openContact } = useContact()
   const page = pages[id]
   const related = SERVICE_PAGE_IDS.filter((other) => other !== id)
   const photo = EVENT_PHOTOS[page.photo.name]
+  const to = (path: string) => localizedPath(locale, path) as never
 
   return (
     <article className="bg-background">
@@ -48,7 +52,7 @@ function ServicePage({ id, pages }: ServicePageProps) {
         <nav aria-label={pages.breadcrumbLabel} className="mb-10 text-small">
           <ol className="flex flex-wrap items-center gap-2 text-muted-foreground">
             <li>
-              <Link to="/" className="link-underline hover:text-foreground">
+              <Link to={to("/")} className="link-underline hover:text-foreground">
                 {pages.homeLabel}
               </Link>
             </li>
@@ -292,7 +296,7 @@ function ServicePage({ id, pages }: ServicePageProps) {
               {related.map((other) => (
                 <li key={other}>
                   <Link
-                    to={SERVICE_PAGE_PATHS[other]}
+                    to={to(SERVICE_PAGE_PATHS[other])}
                     className={relatedLinkClassName}
                   >
                     {pages[other].serviceName}
@@ -307,7 +311,7 @@ function ServicePage({ id, pages }: ServicePageProps) {
               ))}
               <li>
                 <Link
-                  to={CONSULTING_PAGE_PATH}
+                  to={to(CONSULTING_PAGE_PATH)}
                   className={relatedLinkClassName}
                 >
                   {pages.consultingLink}
@@ -320,7 +324,18 @@ function ServicePage({ id, pages }: ServicePageProps) {
                 </Link>
               </li>
               <li>
-                <Link to="/community" className={relatedLinkClassName}>
+                <Link to={to("/events")} className={relatedLinkClassName}>
+                  {pages.eventsLink}
+                  <HugeiconsIcon
+                    icon={ArrowRight01Icon}
+                    size={16}
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  />
+                </Link>
+              </li>
+              <li>
+                <Link to={to("/community")} className={relatedLinkClassName}>
                   {pages.communityLink}
                   <HugeiconsIcon
                     icon={ArrowRight01Icon}

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 
 import { ServicePage } from "@/components/marketing/service-page"
+import { useLocaleContext } from "@/lib/locale-context"
 import {
   buildFaqJsonLd,
   buildPageMeta,
@@ -44,7 +45,7 @@ export const Route = createFileRoute("/_site/automatizacion-ia-el-salvador")({
   component: AutomationPage,
 })
 
-function AutomationPage() {
-  const { content } = Route.useRouteContext()
+export function AutomationPage() {
+  const { content } = useLocaleContext()
   return <ServicePage id={ID} pages={content.servicePages} />
 }

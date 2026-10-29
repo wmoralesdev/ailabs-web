@@ -21,25 +21,38 @@ const ES_META =
 describe("consulting page", () => {
   it("uses the published service names and answers, in both languages", () => {
     for (const content of [es, en]) {
-      const names = content.chrome.footer.columns[0]?.links
-        .slice(0, 3)
-        .map((link) => link.label)
       expect(
         content.consulting.services.map((service) => service.name)
-      ).toEqual(names)
+      ).toEqual(
+        content.locale === "es"
+          ? [
+              "Consultoría en IA",
+              "Formación práctica",
+              "Automatización de procesos",
+            ]
+          : [
+              "AI consulting",
+              "Practical education",
+              "Business automation",
+            ]
+      )
       expect(content.consulting.services.map((service) => service.id)).toEqual([
         "consulting",
         "academy",
         "agentic",
       ])
-      expect(content.consulting.services[0]?.body).toBe(
-        content.home.services.body
-      )
-      expect(content.consulting.services[1]?.body).toBe(
-        content.home.services.items[0].body
-      )
-      expect(content.consulting.services[2]?.body).toBe(
-        content.home.services.items[1].body
+      expect(content.consulting.services.map((service) => service.body)).toEqual(
+        content.locale === "es"
+          ? [
+              "Revisamos cómo trabajás, encontramos dónde ayuda la IA y decidimos por dónde empezar.",
+              "Talleres y capacitaciones para profesionales y equipos, sobre las tareas que querés mejorar.",
+              "Diseñamos e implementamos flujos que conectan tus herramientas con las personas que las usan.",
+            ]
+          : [
+              "We look at how you work, find where AI helps, and decide where to start.",
+              "Workshops and training for professionals and teams, on the tasks you want to improve.",
+              "We design and implement workflows that connect your tools with the people who use them.",
+            ]
       )
       expect(content.consulting.methodBody).toBe(content.home.method.body)
       expect(content.consulting.steps).toEqual(content.home.method.steps)
@@ -123,7 +136,7 @@ describe("consulting page", () => {
       href: CONSULTING_PATH,
     })
     for (const content of [es, en]) {
-      const nav = getChromeNavItems(content.chrome.nav)
+      const nav = getChromeNavItems(content.chrome.nav, content.locale)
       expect(nav.services.href).toBe("#services")
       expect(nav.community.items.map((item) => item.href)).not.toContain(
         CONSULTING_PATH

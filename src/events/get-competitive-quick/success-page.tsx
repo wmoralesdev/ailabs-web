@@ -4,6 +4,7 @@ import { SiteLogo } from "@/components/chrome/site-logo"
 import { HomePaperArcs } from "@/components/home/home-paper-arcs"
 import type { Locale } from "@/content"
 import { getGetCompetitiveQuickContent } from "@/events/get-competitive-quick/content"
+import { homePath } from "@/lib/locale-links"
 
 type GetCompetitiveQuickSuccessPageProps = {
   locale: Locale
@@ -30,7 +31,7 @@ function GetCompetitiveQuickSuccessPage({
 
       <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-1 flex-col px-6 pt-[calc(var(--site-header-offset)+1rem)] pb-16 sm:px-10">
         <Link
-          to="/"
+          to={homePath(locale) as never}
           aria-label="Ai Labs"
           className="-my-2 inline-flex w-fit rounded-sm py-2 focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
         >
@@ -69,7 +70,7 @@ function GetCompetitiveQuickSuccessPage({
           </ol>
 
           <Link
-            to="/"
+            to={homePath(locale) as never}
             className="mt-10 inline-flex min-h-11 w-fit items-center justify-center rounded-md bg-primary px-5 text-sm font-semibold tracking-wide text-primary-foreground transition-[background-color,transform] duration-200 hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-foreground/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none active:translate-y-px"
           >
             {content.success.homeCta}

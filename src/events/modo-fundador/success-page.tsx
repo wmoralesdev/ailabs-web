@@ -3,6 +3,8 @@ import { Link } from "@tanstack/react-router"
 import type { Locale } from "@/content"
 import { getModoFundadorContent } from "@/events/modo-fundador/content"
 import { PassLockup } from "@/events/modo-fundador/pass-lockup"
+import { homePath } from "@/lib/locale-links"
+import { localizedPath } from "@/lib/locale-path"
 
 type ModoFundadorSuccessPageProps = {
   locale: Locale
@@ -93,8 +95,7 @@ function ModoFundadorSuccessPage({
           <div className="mt-10 flex flex-wrap items-center gap-3">
             {outcome === "failed" ? (
               <Link
-                to="/events/$slug"
-                params={{ slug: "modo-fundador" }}
+                to={localizedPath(locale, "/events/modo-fundador") as never}
                 hash="register"
                 className="inline-flex min-h-12 w-fit items-center justify-center rounded-xl bg-primary-foreground px-5 text-sm font-semibold tracking-wide text-primary transition-colors hover:bg-primary-foreground/90 focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary focus-visible:outline-none motion-safe:active:translate-y-px"
               >
@@ -102,7 +103,7 @@ function ModoFundadorSuccessPage({
               </Link>
             ) : null}
             <Link
-              to="/"
+              to={homePath(locale) as never}
               className="inline-flex min-h-12 w-fit items-center justify-center rounded-xl text-sm font-semibold tracking-wide text-primary-foreground/85 underline underline-offset-4 transition-colors hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary focus-visible:outline-none"
             >
               {content.success.homeCta}

@@ -11,6 +11,7 @@ import { HomePaperArcs } from "@/components/home/home-paper-arcs"
 import { HomeReveal } from "@/components/home/home-reveal"
 import { CanvasRevealBanner } from "@/components/ui/canvas-reveal-banner"
 import type { Locale } from "@/content"
+import { homePath } from "@/lib/locale-links"
 import { getGetCompetitiveQuickContent } from "@/events/get-competitive-quick/content"
 import {
   breakIcon,
@@ -123,7 +124,7 @@ function GetCompetitiveQuickPage({
           <header className="flex items-start justify-between gap-6">
             <div className="flex flex-col gap-3">
               <Link
-                to="/"
+                to={homePath(locale) as never}
                 aria-label="Ai Labs"
                 className="-my-2 inline-flex w-fit rounded-sm py-2 focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
               >

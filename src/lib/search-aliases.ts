@@ -1,6 +1,9 @@
+import { localeFromPathname, localizedPath, stripLocalePrefix } from "@/lib/locale-path"
+
 /**
  * Search-shaped paths that 301 to a page that already exists.
  * An alias is not a document: sitemap, llms.txt, and hreflang stay on the destination.
+ * `/en/…` aliases keep the English prefix on the destination.
  */
 
 export const PUBLIC_PAGE_PATHS = [
@@ -128,11 +131,13 @@ export function aliasRedirectHref(
   search = "",
   hash = ""
 ): string | null {
-  const destination = searchAliasDestination(pathname)
+  const locale = localeFromPathname(pathname)
+  const destination = searchAliasDestination(stripLocalePrefix(pathname))
   if (!destination) {
     return null
   }
+  const localized = localizedPath(locale, destination)
   const query = search ? (search.startsWith("?") ? search : `?${search}`) : ""
   const fragment = hash ? (hash.startsWith("#") ? hash : `#${hash}`) : ""
-  return `${destination}${query}${fragment}`
+  return `${localized}${query}${fragment}`
 }

@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router"
+import { createFileRoute, notFound, useLoaderData } from "@tanstack/react-router"
 
 import { daysUntilWorkshop } from "@/events/catalog"
 import { getWorkshopBySlug } from "@/events/registry"
@@ -70,7 +70,14 @@ export const Route = createFileRoute("/_site/events/$slug/")({
 
 function EventSlugIndexPage() {
   const { slug, soldOut, seatsLeft, capacity, daysUntil, locale } =
-    Route.useLoaderData()
+    useLoaderData({ strict: false }) as {
+      slug: string
+      soldOut: boolean
+      seatsLeft: number
+      capacity: number
+      daysUntil: number | null
+      locale: "en" | "es"
+    }
   const workshop = getWorkshopBySlug(slug)
   if (!workshop) {
     throw notFound()

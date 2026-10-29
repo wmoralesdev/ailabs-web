@@ -27,7 +27,7 @@ const SITE_DESCRIPTION =
   "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador."
 
 export const Route = createRootRoute({
-  beforeLoad: () => resolveLocaleContext(),
+  beforeLoad: ({ location }) => resolveLocaleContext(location.pathname),
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -106,8 +106,8 @@ function RootNotFound() {
         Esa página no existe. Vuelve a la página de inicio.
       </p>
       <div className="mt-8 flex flex-wrap gap-4">
-        <Link to="/" lang="en" className={rootNotFoundLinkClassName}>
-          Home
+        <Link to="/" lang="es" className={rootNotFoundLinkClassName}>
+          Inicio
         </Link>
       </div>
     </main>

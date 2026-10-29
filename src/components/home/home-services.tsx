@@ -13,6 +13,7 @@ import { Reveal } from "@/components/halftone/reveal"
 import { HomeCtaLink } from "@/components/home/home-cta-link"
 import { homeHeadingClassName, homeShellClassName } from "./home-styles"
 import type { ShapeName } from "@/lib/halftone-shapes"
+import { localizedPath } from "@/lib/locale-path"
 import { SERVICE_PAGE_PATHS } from "@/lib/service-pages"
 import { cn } from "@/lib/utils"
 
@@ -77,6 +78,7 @@ function HomeServices({ services, locale }: HomeServicesProps) {
         <div className="mt-12 grid grid-cols-2 gap-3 md:mt-16 lg:grid-cols-4 lg:grid-rows-[repeat(4,minmax(13.5rem,auto))] lg:gap-4">
           <ServiceCard
             service={academy}
+            locale={locale}
             className="col-span-2 lg:col-start-1 lg:row-span-2 lg:row-start-1"
           />
           <PhotoCell
@@ -95,6 +97,7 @@ function HomeServices({ services, locale }: HomeServicesProps) {
 
           <ServiceCard
             service={agentic}
+            locale={locale}
             className="col-span-2 lg:col-start-3 lg:row-span-2 lg:row-start-3"
           />
           <PhotoCell
@@ -118,9 +121,11 @@ function HomeServices({ services, locale }: HomeServicesProps) {
 
 function ServiceCard({
   service,
+  locale,
   className,
 }: {
   service: HomeServiceItem
+  locale: Locale
   className?: string
 }) {
   const { openContact } = useContact()
@@ -178,7 +183,10 @@ function ServiceCard({
           {service.cta}
           <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
         </button>
-        <Link to={servicePagePath[service.id]} className="text-action">
+        <Link
+          to={localizedPath(locale, servicePagePath[service.id]) as never}
+          className="text-action"
+        >
           {service.learnMore}
         </Link>
       </div>

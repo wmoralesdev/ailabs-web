@@ -1,7 +1,6 @@
 /**
- * Indexable pages per delivery route. Slugs are the Spanish search term
- * because crawlers without a language receive Spanish. Language stays in the
- * cookie, so English readers get English copy at the same URL.
+ * Indexable pages per delivery route. Slugs are the Spanish search term.
+ * Spanish is served at these paths; English is served under `/en` + the same slug.
  */
 export const SERVICE_PAGE_PATHS = {
   training: "/capacitacion-ia-el-salvador",

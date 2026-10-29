@@ -29,7 +29,9 @@ describe("performance guards", () => {
   it("resolves the locale without a server round trip on client navigation", () => {
     const root = readFileSync("src/routes/__root.tsx", "utf8")
     const locale = readFileSync("src/lib/locale-preference.ts", "utf8")
-    expect(root).toContain("beforeLoad: () => resolveLocaleContext()")
+    expect(root).toContain(
+      "beforeLoad: ({ location }) => resolveLocaleContext(location.pathname)"
+    )
     expect(locale).toMatch(/const resolveLocale = createIsomorphicFn\(\)/)
     expect(locale).not.toMatch(/resolveLocaleContext = createServerFn/)
   })
@@ -54,12 +56,19 @@ describe("performance guards", () => {
       "/consultoria-de-ia-el-salvador",
       "/events",
       "/events/modo-fundador",
+      "/en",
+      "/en/community",
       "/media",
       "/redeemable",
     ]) {
       expect(needsClerkMiddleware(path, "router"), path).toBe(false)
     }
-    for (const path of ["/redeem", "/sign-in/factor-one", "/sign-up"]) {
+    for (const path of [
+      "/redeem",
+      "/en/redeem",
+      "/sign-in/factor-one",
+      "/sign-up",
+    ]) {
       expect(isClerkPath(path), path).toBe(true)
     }
     expect(needsClerkMiddleware("/", "serverFn")).toBe(true)

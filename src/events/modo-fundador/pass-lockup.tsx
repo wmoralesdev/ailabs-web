@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router"
 
 import { SiteLogo } from "@/components/chrome/site-logo"
+import { useLocaleContext } from "@/lib/locale-context"
+import { homePath } from "@/lib/locale-links"
 import { cn } from "@/lib/utils"
 
 type PassLockupProps = {
@@ -13,9 +15,10 @@ type PassLockupProps = {
  * chrome rather than a sticker — a white plate would only reach 3.5:1.
  */
 function PassLockup({ className }: PassLockupProps) {
+  const { locale } = useLocaleContext()
   return (
     <Link
-      to="/"
+      to={homePath(locale) as never}
       aria-label="Ai Labs"
       className={cn(
         "inline-flex w-fit items-center rounded-md bg-primary-foreground px-3 py-2 transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary focus-visible:outline-none",

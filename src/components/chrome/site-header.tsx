@@ -1,5 +1,5 @@
-import { useEffect, useState, useTransition } from "react"
-import { Link, useRouter, useRouterState } from "@tanstack/react-router"
+import { useEffect, useState } from "react"
+import { Link, useRouterState } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   ArrowDown01Icon,
@@ -23,7 +23,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { setLocalePreference } from "@/lib/locale-preference"
+import { alternatePath } from "@/lib/locale-path"
+import { homePath } from "@/lib/locale-links"
 import { useScrolled } from "@/lib/use-scrolled"
 import { cn } from "@/lib/utils"
 
@@ -48,17 +49,22 @@ function SiteHeader({
 }: SiteHeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [communityOpen, setCommunityOpen] = useState(false)
-  const [isPending, startTransition] = useTransition()
   const { openContact } = useContact()
-  const router = useRouter()
   const scrolled = useScrolled()
-  const onHome = useRouterState({
-    select: (state) => state.location.pathname === "/",
+  const location = useRouterState({
+    select: (state) => state.location,
   })
+  const onHome =
+    location.pathname === "/" || location.pathname === "/en"
   const otherLocale =
     LOCALES.find((candidate) => candidate !== locale) ?? locale
-  const nav = getChromeNavItems(chrome.nav)
+  const alternate = alternatePath(location.pathname)
+  const languageHref = `${alternate.path}${location.searchStr}${
+    location.hash ? `#${location.hash}` : ""
+  }`
+  const nav = getChromeNavItems(chrome.nav, locale)
   const primaryLabel = microcopy.primaryNavigation
+  const homeTo = homePath(locale)
 
   useEffect(() => {
     const breakpoint = window.matchMedia("(min-width: 1024px)")
@@ -70,19 +76,10 @@ function SiteHeader({
     return () => breakpoint.removeEventListener("change", closeMenus)
   }, [])
 
-  function switchLocale() {
-    setMobileOpen(false)
-    setCommunityOpen(false)
-    startTransition(async () => {
-      await setLocalePreference({ data: { locale: otherLocale } })
-      await router.invalidate()
-    })
-  }
-
   const servicesLink = onHome ? (
     <a href={nav.services.href}>{nav.services.label}</a>
   ) : (
-    <Link to="/" hash={nav.services.hash}>
+    <Link to={homeTo as never} hash={nav.services.hash}>
       {nav.services.label}
     </Link>
   )
@@ -100,7 +97,7 @@ function SiteHeader({
       </a>
       <div className="page-gutter mx-auto flex h-[4.5rem] max-w-content items-center justify-between gap-4">
         {showBrandLink ? (
-          <Link to="/" aria-label="Ai Labs" className="press shrink-0">
+          <Link to={homeTo as never} aria-label="Ai Labs" className="press shrink-0">
             <SiteLogo variant="lockup" className="h-7" />
           </Link>
         ) : (
@@ -118,7 +115,7 @@ function SiteHeader({
               </a>
             ) : (
               <Link
-                to="/"
+                to={homeTo as never}
                 hash={nav.services.hash}
                 className={navLinkClassName}
               >
@@ -160,10 +157,10 @@ function SiteHeader({
             }}
             className={utilityControlClassName}
           />
-          <button
-            type="button"
-            disabled={isPending}
-            onClick={switchLocale}
+          <a
+            href={languageHref}
+            hrefLang={otherLocale}
+            lang={otherLocale}
             aria-label={microcopy.languageSwitch}
             className={cn(
               buttonVariants({ variant: "ghost", size: "sm" }),
@@ -172,7 +169,7 @@ function SiteHeader({
             )}
           >
             {microcopy.languageSwitch}
-          </button>
+          </a>
           <button
             type="button"
             className="btn ml-1 max-sm:hidden"

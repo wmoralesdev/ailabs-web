@@ -1,12 +1,9 @@
 import { createIsomorphicFn, createServerFn } from "@tanstack/react-start"
-import {
-  getCookie,
-  getRequestHeader,
-  setCookie,
-} from "@tanstack/react-start/server"
+import { setCookie } from "@tanstack/react-start/server"
 
-import { getContent, isLocale, localeFromAcceptLanguage } from "@/content"
+import { getContent, isLocale } from "@/content"
 import type { Locale, SiteContent } from "@/content"
+import { localeFromPathname } from "@/lib/locale-path"
 
 export const LOCALE_COOKIE = "ailabs-locale"
 
@@ -25,40 +22,20 @@ function writeLocaleCookie(locale: Locale): void {
   })
 }
 
-function readDocumentLocaleCookie(): string | undefined {
-  const prefix = `${LOCALE_COOKIE}=`
-  return document.cookie
-    .split("; ")
-    .find((entry) => entry.startsWith(prefix))
-    ?.slice(prefix.length)
-}
-
 /**
- * Resolve UI locale: cookie → Accept-Language → `es`.
- * The server persists the resolved locale when the cookie was missing. The
- * browser reads the same cookie locally, so client navigations never wait on
- * a server round trip; the language toggle writes the cookie, then invalidates.
+ * Document locale comes from the URL: `/en` and `/en/…` are English,
+ * everything else is Spanish. Cookie and Accept-Language do not change what
+ * a crawler receives on an unprefixed path.
+ *
+ * `createIsomorphicFn` keeps client navigations off a server round trip; the
+ * pathname is available on both sides.
  */
 const resolveLocale = createIsomorphicFn()
-  .server((): Locale => {
-    const cookieValue = getCookie(LOCALE_COOKIE)
-    if (typeof cookieValue === "string" && isLocale(cookieValue)) {
-      return cookieValue
-    }
-    const locale = localeFromAcceptLanguage(getRequestHeader("accept-language"))
-    writeLocaleCookie(locale)
-    return locale
-  })
-  .client((): Locale => {
-    const cookieValue = readDocumentLocaleCookie()
-    if (cookieValue && isLocale(cookieValue)) {
-      return cookieValue
-    }
-    return localeFromAcceptLanguage(navigator.languages.join(","))
-  })
+  .server((pathname: string): Locale => localeFromPathname(pathname))
+  .client((pathname: string): Locale => localeFromPathname(pathname))
 
-export function resolveLocaleContext(): LocaleContext {
-  const locale = resolveLocale()
+export function resolveLocaleContext(pathname: string): LocaleContext {
+  const locale = resolveLocale(pathname)
   return { locale, content: getContent(locale) }
 }
 
@@ -74,7 +51,7 @@ export const setLocalePreference = createServerFn({ method: "POST" })
     return { locale: data.locale, content: getContent(data.locale) }
   })
 
-/** Used by legacy `/en/*` and `/es/*` redirects so bookmarks keep language. */
+/** Used by `/es/*` redirects so bookmarks keep a Spanish preference. */
 export const rememberLocaleFromPrefix = createServerFn({ method: "POST" })
   .validator((data: { locale: string }) => {
     if (!isLocale(data.locale)) {

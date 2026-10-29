@@ -68,11 +68,11 @@ export const en: SiteContent = {
               href: "#services",
             },
             {
-              label: "Practical education",
+              label: "AI courses and workshops",
               href: "/capacitacion-ia-el-salvador",
             },
             {
-              label: "Business automation",
+              label: "AI automation for companies",
               href: "/automatizacion-ia-el-salvador",
             },
             {
@@ -90,7 +90,7 @@ export const en: SiteContent = {
               href: "/community",
             },
             {
-              label: "Events",
+              label: "AI events in El Salvador",
               href: "/events",
             },
             {

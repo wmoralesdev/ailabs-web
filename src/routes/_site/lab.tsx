@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 
 import { LabHero } from "@/components/lab/lab-hero"
+import { useLocaleContext } from "@/lib/locale-context"
 
 export const Route = createFileRoute("/_site/lab")({
   head: () => ({
@@ -12,8 +13,8 @@ export const Route = createFileRoute("/_site/lab")({
   component: LabPage,
 })
 
-function LabPage() {
-  const { locale, content } = Route.useRouteContext()
+export function LabPage() {
+  const { locale, content } = useLocaleContext()
 
   return (
     <>
