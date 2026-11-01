@@ -79,23 +79,11 @@ function SiteLogo({
   const imgClassName = cn("h-7 w-auto", className)
 
   if (onDark) {
-    return (
-      <img
-        src={LOCKUP.onDark}
-        alt="Ai Labs"
-        className={imgClassName}
-      />
-    )
+    return <img src={LOCKUP.onDark} alt="Ai Labs" className={imgClassName} />
   }
 
   if (onLight) {
-    return (
-      <img
-        src={LOCKUP.onLight}
-        alt="Ai Labs"
-        className={imgClassName}
-      />
-    )
+    return <img src={LOCKUP.onLight} alt="Ai Labs" className={imgClassName} />
   }
 
   return (

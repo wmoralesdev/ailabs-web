@@ -1,10 +1,6 @@
 import { useSyncExternalStore } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
-import {
-  ComputerIcon,
-  Moon02Icon,
-  Sun03Icon,
-} from "@hugeicons/core-free-icons"
+import { ComputerIcon, Moon02Icon, Sun03Icon } from "@hugeicons/core-free-icons"
 
 import { useTheme } from "@/components/theme-provider"
 import type { Theme } from "@/components/theme-provider"
@@ -23,7 +19,11 @@ type ThemeToggleProps = {
   className?: string
 }
 
-const THEME_ORDER = ["light", "dark", "system"] as const satisfies readonly Theme[]
+const THEME_ORDER = [
+  "light",
+  "dark",
+  "system",
+] as const satisfies readonly Theme[]
 
 const THEME_ICON = {
   light: Sun03Icon,
