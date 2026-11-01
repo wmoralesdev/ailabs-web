@@ -70,7 +70,8 @@ attendee emails, or any metric the owner has not confirmed.
 
 ## Brand and content
 
-- The written name is **Ai Labs**. **Ai /abs** is only the visual lockup.
+- The name and the lockup are **Ai Labs**, the wordmark outlined from Plus
+  Jakarta Sans 600. The favicon is the mark alone.
 - No sub-brands. Academy, Agentic and Aperture are retired and must not
   return in copy, code identifiers for new work, or navigation. Format
   names (Learning Day, Build Day, Bootcamp, Masterclass) are allowed because
@@ -128,10 +129,16 @@ attendee emails, or any metric the owner has not confirmed.
   photo marquee, the current month from Luma, the WhatsApp community block
   (`COMMUNITY_WHATSAPP_URL`) and the bridge to the diagnostic.
 - `/agendar` is the booking page: the campaign split hero, three steps, and
-  the cal.com embed from `BOOKING_URL` in `src/content/booking.ts`. While
-  that URL is empty the page shows the pending notice. WhatsApp buttons
-  render only when `WHATSAPP_URL` (a business number) is set. There is no
-  contact form and nothing is stored.
+  the cal.com calendar embedded by `src/components/campaign/booking-embed.tsx`
+  from `BOOKING_CAL_LINK` in `src/content/booking.ts` (one event,
+  `walter-ailabs/diagnostico`, for the three offers). The embed follows the
+  site theme and remounts on a theme switch, because the booker ignores
+  runtime theme updates. Service pages link with `?tema=automatizacion`,
+  `?tema=consultoria` or `?tema=capacitacion`, and `BOOKING_TOPICS` maps those
+  to the option labels of the event's "¿Sobre qué querés hablar?" question;
+  change them together with the event. While the link is empty the page
+  shows the pending notice. WhatsApp buttons render only when `WHATSAPP_URL`
+  (a business number) is set. There is no contact form and nothing is stored.
 - `/terms` and `/privacy` still describe the retired member profiles and
   must be rewritten; the footer hides them while `legal.status` is a draft.
 - Retired routes 301 in `src/lib/search-aliases.ts`: `/community`,
@@ -154,9 +161,10 @@ Performance invariants for public pages (guarded by
   `createIsomorphicFn`, so client navigation never waits on a server
   function. No auth, database or payment client ships at all.
 - No WebGL: live halftone is 2D canvas (`HalftoneCanvas`, `HalftoneLens`,
-  `PrintCell`) that only draws while ink moves and on screen; marks and
-  icons are inline SVG dots; photos are plain lazy `<img>`s. Only the Alan
-  Sans Latin font is preloaded.
+  `PrintCell`) that only draws on screen, while ink or the hero's story
+  moves; marks and
+  icons are inline SVG dots; photos are plain lazy `<img>`s. Only the Plus
+  Jakarta Sans Latin font is preloaded.
 - New ambassador marks go in `assets/logos` as single-colour SVGs and
   `pnpm halftone:logos` regenerates `src/lib/logo-dots.ts`; Cursor and
   Cognition are still missing there. New photos are resized to 1920px on
@@ -187,11 +195,12 @@ Performance invariants for public pages (guarded by
 - Halftone is the accent: the printed mark in the hero, the pure-halftone
   cells of the bento and the service openings, the lens over the few real
   photos, the icons and the ambassador marks. Photos stay real photographs;
-  never pre-print a whole photo as dots. No waves, no idle loops.
+  never pre-print a whole photo as dots. The hero mark is the one place with
+  its own motion and has no resting dot grid.
 - Shape rule: surfaces (cards, cells, photos, the booking tile) are rounded
   (`rounded-2xl`/`rounded-3xl`), inputs and menus small radii, buttons full
   pills. One button (`.btn`) and one text action (`.text-action`). Display
-  type is Alan Sans 600, tight; body and UI type is DM Sans, both local
+  type is Plus Jakarta Sans 600, tight; body and UI type is DM Sans, both local
   through Fontsource.
 - Tokens live in `src/styles.css`: themed `paper`, `surface`, `ink`,
   `purple-ink`, `lilac`; fixed `purple` (#614afc), `on-purple`, `print`,
@@ -217,9 +226,12 @@ Performance invariants for public pages (guarded by
 ## Motion direction
 
 - Motion is editorial and driven by the visitor: the word-by-word hero
-  entrance, the mark's dots growing in once, pointer ink that trails and
+  entrance, pointer ink that trails and
   melts back, the photo lens on a spring, sections that rise in once
-  (`Reveal`), icons and marks that ripple under the pointer. Nothing loops.
+  (`Reveal`), icons and marks that ripple under the pointer. Only the hero mark
+  moves on its own: its scattered dots settle into order once, with the
+  headline, a light gives them volume, then a signal crosses its nodes every
+  few seconds. Off screen it pauses; under reduced motion it stays still.
 - GSAP and `@gsap/react` own coordinated entrances; CSS owns small state
   changes; halftone canvases run their own frame loops. Register
   ScrollTrigger inside hooks, not at import. Never let two engines drive the
@@ -250,8 +262,8 @@ this brief; do not let new files add to them.
 
 ## Open items for the owner
 
-- Paste the cal.com event URL into `BOOKING_URL` and, if a business number
-  exists, `WHATSAPP_URL` in `src/content/booking.ts`.
+- If a business WhatsApp number exists, set `WHATSAPP_URL` in
+  `src/content/booking.ts`.
 - Add the Cursor and Cognition marks to `assets/logos` and run
   `pnpm halftone:logos`, then list them in `home.ambassadors.logos`.
 - Rewrite `/terms` and `/privacy` for a site that stores nothing.

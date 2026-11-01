@@ -12,10 +12,10 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { resolveLocaleContext } from "@/lib/locale-preference"
 import { OG_IMAGE_ALT, OG_IMAGE_URL, SITE_NAME } from "@/lib/seo"
 import appCss from "../styles.css?url"
-// The hero headline (the LCP element) uses Alan Sans. Preloading this one file,
+// The hero headline (the LCP element) uses Plus Jakarta Sans. Preloading this one file,
 // the same hashed asset the CSS references, fetches it alongside the
 // stylesheet. Preloading DM Sans too measured slower: it competes with the CSS.
-import alanSansLatinUrl from "@fontsource-variable/alan-sans/files/alan-sans-latin-wght-normal.woff2?url"
+import jakartaLatinUrl from "@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url"
 
 if (import.meta.env.DEV && !import.meta.env.SSR) {
   void import("react-grab")
@@ -58,7 +58,7 @@ export const Route = createRootRoute({
         rel: "preload",
         as: "font",
         type: "font/woff2",
-        href: alanSansLatinUrl,
+        href: jakartaLatinUrl,
         crossOrigin: "anonymous",
       },
       { rel: "stylesheet", href: appCss },

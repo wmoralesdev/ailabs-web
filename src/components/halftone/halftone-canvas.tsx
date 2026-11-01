@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react"
+import { gsap } from "gsap"
 
 import { shapes } from "@/lib/halftone-shapes"
 import type { ShapeName } from "@/lib/halftone-shapes"
@@ -28,12 +29,65 @@ type HalftoneCanvasProps = {
   density?: number
   /** Radius of the faint resting dots, as a share of the cell. 0 hides them. */
   rest?: number
+  /**
+   * The hero's story: the dots arrive scattered and settle into the shape, a
+   * light turns it into volume, then a signal crosses its nodes every few
+   * seconds. The pointer moves the lamp instead of inking.
+   */
+  story?: boolean
   className?: string
 }
 
 const FULL: Area = { left: 0, top: 0, width: 1, height: 1 }
 /** Pixels whose blue clearly leads red print in the accent ink. */
 const ACCENT_BIAS = 28
+/** Seconds the scattered dots take to settle, after a short beat on load. */
+const SETTLE_SECONDS = 1.9
+/** Share of the settle spent staggering the dots' departures. */
+const SETTLE_STAGGER = 0.45
+/** How far the dots start from home, as a share of the shape's size. */
+const SCATTER = 0.42
+const SETTLE_DELAY_SECONDS = 0.2
+const SIGNAL_SECONDS = 2.6
+const SIGNAL_REST_SECONDS = 6.5
+/** Cells the signal jumps, so it crosses thin links and small gaps. */
+const SIGNAL_REACH = 3
+/** Length of the lit tail, in cells of travel. */
+const SIGNAL_TAIL = 6
+/** Cells of travel the signal's color takes to fade in at its front. */
+const SIGNAL_EDGE = 2
+/** Opacity steps of the color crossfade; one canvas fill per step. */
+const SIGNAL_LEVELS = 10
+/** Tones between accent and ink; two canvas fills per tone. */
+const TONE_LEVELS = 8
+/** Where the lamp rests: above the shape, to its upper left. */
+const LIGHT_REST = { x: -0.6, y: -0.7 }
+const LIGHT_HEIGHT = 0.55
+/** Light that always reaches a dot, so the shadow side never dissolves. */
+const LIGHT_FLOOR = 0.14
+/** How rounded the shape reads; higher turns its sides away from the light. */
+const VOLUME_RELIEF = 2.2
+const LIGHT_SECONDS = 1.6
+/**
+ * Where each `--ht-lit-*` color and the ink sit on paper's ramp. Paper prints
+ * the other way round from the dark theme: light thins the dots out, turning
+ * them lilac, and the shadow side is dense ink.
+ */
+const PAPER_RAMP = [0, 0.2, 0.45, 1]
+
+function rampColor(ramp: Array<string>, at: number) {
+  const channels = (hex: string) =>
+    [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16))
+  const end = PAPER_RAMP.findIndex((position) => at <= position)
+  if (end <= 0) return ramp[0]
+  const mix =
+    (at - PAPER_RAMP[end - 1]) / (PAPER_RAMP[end] - PAPER_RAMP[end - 1])
+  const target = channels(ramp[end])
+  const [r, g, b] = channels(ramp[end - 1]).map((value, i) =>
+    Math.round(value + (target[i] - value) * mix)
+  )
+  return `rgb(${r} ${g} ${b})`
+}
 
 function smoothstep(a: number, b: number, v: number) {
   const t = Math.min(Math.max((v - a) / (b - a), 0), 1)
@@ -49,8 +103,8 @@ function smoothstep(a: number, b: number, v: number) {
  * The pointer surface is the closest `[data-halftone-surface]`, so ink
  * follows the cursor over text too. Inks come from CSS on the element: `--ht-ink` (the shape), `--ht-accent`
  * (accent parts of an image and the pointer's ink) and `--ht-faint` (the
- * resting screen). Decorative. It animates only while ink is moving, only on
- * screen, and prints a still frame under reduced motion.
+ * resting screen). Decorative. It animates only while ink or the `story` is
+ * moving, only on screen, and prints a still frame under reduced motion.
  */
 function HalftoneCanvas({
   src,
@@ -59,6 +113,7 @@ function HalftoneCanvas({
   cell: maxCell = 12,
   density = 0,
   rest = 0.07,
+  story = false,
   className,
 }: HalftoneCanvasProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -91,15 +146,42 @@ function HalftoneCanvas({
     let ink = new Float32Array(0)
     let image: HTMLImageElement | null = null
     let colors = { ink: "", accent: "", faint: "" }
+    let paperRamp: Array<string> | null = null
     let visible = false
     let raf = 0
-    let intro = reduced.matches ? 1 : 0
+    let intro = reduced.matches || story ? 1 : 0
     let introStart = 0
     const pointer = { x: 0, y: 0, active: false }
     const follower = { x: 0, y: 0, ready: false }
+    const settleEase = gsap.parseEase("back.out(1.25)")
+    // Tweened by GSAP, read by the frame loop. settle < 0: not started.
+    const motion = {
+      settle: story && !reduced.matches ? 0 : 1,
+      signal: -1,
+      light: reduced.matches ? 1 : 0,
+      lightX: LIGHT_REST.x,
+      lightY: LIGHT_REST.y,
+    }
+    let normals = new Float32Array(0)
+    let lightTween: gsap.core.Tween | null = null
+    let moveLight: { x: gsap.QuickToFunc; y: gsap.QuickToFunc } | null = null
+    const mark = { x: 0, y: 0, width: 0, height: 0 }
+    let scatter = new Float32Array(0)
+    let signalDistance = new Int32Array(0)
+    let signalLength = 0
+    let settleTween: gsap.core.Tween | null = null
+    let signalTween: gsap.core.Tween | null = null
 
     function readColors() {
       const style = getComputedStyle(wrap as HTMLElement)
+      paperRamp = document.documentElement.classList.contains("dark")
+        ? null
+        : [
+            style.getPropertyValue("--ht-lit-high").trim(),
+            style.getPropertyValue("--ht-lit-mid").trim(),
+            style.getPropertyValue("--ht-lit-low").trim(),
+            style.getPropertyValue("--ht-ink").trim(),
+          ]
       colors = {
         ink: style.getPropertyValue("--ht-ink").trim() || style.color,
         accent: style.getPropertyValue("--ht-accent").trim() || style.color,
@@ -124,6 +206,10 @@ function HalftoneCanvas({
         aw = box.width
         ah = box.height
       }
+      mark.x = ax
+      mark.y = ay
+      mark.width = aw
+      mark.height = ah
 
       if (shape) {
         const sdf = shapes[shape]
@@ -186,6 +272,128 @@ function HalftoneCanvas({
           base[row * cols + col] = (sum / weight) ** 1.4
         }
       }
+      if (story) prepareStory()
+      if (story) prepareVolume()
+    }
+
+    /** Reads the flat shape as a soft relief; what each dot faces is kept. */
+    function prepareVolume() {
+      // Distance to the shape's edge, in two chamfer passes.
+      const depth = new Float32Array(cols * rows)
+      const at = (r: number, c: number) =>
+        r < 0 || r >= rows || c < 0 || c >= cols ? 0 : depth[r * cols + c]
+      for (let i = 0; i < depth.length; i++) {
+        depth[i] = base[i] > 0.25 ? Infinity : 0
+      }
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const i = row * cols + col
+          if (depth[i] === 0) continue
+          depth[i] = Math.min(
+            depth[i],
+            at(row, col - 1) + 1,
+            at(row - 1, col) + 1,
+            at(row - 1, col - 1) + 1.41,
+            at(row - 1, col + 1) + 1.41
+          )
+        }
+      }
+      for (let row = rows - 1; row >= 0; row--) {
+        for (let col = cols - 1; col >= 0; col--) {
+          const i = row * cols + col
+          if (depth[i] === 0) continue
+          depth[i] = Math.min(
+            depth[i],
+            at(row, col + 1) + 1,
+            at(row + 1, col) + 1,
+            at(row + 1, col + 1) + 1.41,
+            at(row + 1, col - 1) + 1.41
+          )
+        }
+      }
+      // A rounded profile, softened so the ridges don't crease the light.
+      let relief = depth.map((d) => Math.sqrt(d))
+      const reliefAt = (source: Float32Array, r: number, c: number) =>
+        r < 0 || r >= rows || c < 0 || c >= cols ? 0 : source[r * cols + c]
+      for (let pass = 0; pass < 2; pass++) {
+        const source = relief
+        relief = source.map((value, i) => {
+          const row = Math.floor(i / cols)
+          const col = i % cols
+          return (
+            (value * 2 +
+              reliefAt(source, row, col - 1) +
+              reliefAt(source, row, col + 1) +
+              reliefAt(source, row - 1, col) +
+              reliefAt(source, row + 1, col)) /
+            6
+          )
+        })
+      }
+      normals = new Float32Array(cols * rows * 3)
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const i = row * cols + col
+          const nx =
+            ((reliefAt(relief, row, col - 1) - reliefAt(relief, row, col + 1)) /
+              2) *
+            VOLUME_RELIEF
+          const ny =
+            ((reliefAt(relief, row - 1, col) - reliefAt(relief, row + 1, col)) /
+              2) *
+            VOLUME_RELIEF
+          const length = Math.hypot(nx, ny, 1)
+          normals[i * 3] = nx / length
+          normals[i * 3 + 1] = ny / length
+          normals[i * 3 + 2] = 1 / length
+        }
+      }
+    }
+
+    /** Where each dot starts its settle, and how far the signal is from it. */
+    function prepareStory() {
+      scatter = new Float32Array(cols * rows * 3)
+      const reach = Math.max(mark.width, mark.height) * SCATTER
+      for (let i = 0; i < cols * rows; i++) {
+        const angle = Math.random() * Math.PI * 2
+        const far = reach * (0.35 + Math.random() * 0.65)
+        scatter[i * 3] = Math.cos(angle) * far
+        scatter[i * 3 + 1] = Math.sin(angle) * far
+        scatter[i * 3 + 2] = Math.random()
+      }
+
+      // Walks the shape from its lowest left dot, so the signal follows it.
+      signalDistance = new Int32Array(cols * rows).fill(-1)
+      signalLength = 0
+      let seed = -1
+      let seedScore = -Infinity
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          if (base[row * cols + col] > 0.3 && row - col > seedScore) {
+            seedScore = row - col
+            seed = row * cols + col
+          }
+        }
+      }
+      if (seed < 0) return
+      const queue = [seed]
+      signalDistance[seed] = 0
+      for (const i of queue) {
+        const row = Math.floor(i / cols)
+        const col = i % cols
+        for (let dy = -SIGNAL_REACH; dy <= SIGNAL_REACH; dy++) {
+          for (let dx = -SIGNAL_REACH; dx <= SIGNAL_REACH; dx++) {
+            const r = row + dy
+            const c = col + dx
+            if (r < 0 || r >= rows || c < 0 || c >= cols) continue
+            const next = r * cols + c
+            if (signalDistance[next] >= 0 || base[next] < 0.03) continue
+            signalDistance[next] = signalDistance[i] + 1
+            signalLength = Math.max(signalLength, signalDistance[next])
+            queue.push(next)
+          }
+        }
+      }
     }
 
     function resize() {
@@ -213,12 +421,35 @@ function HalftoneCanvas({
       const restR = cell * rest
       const grow = intro < 1 ? 1 - (1 - intro) ** 3 : 1
       const paths = [new Path2D(), new Path2D(), new Path2D()]
+      // The signal's color, by ink and opacity step, over the dots' own color.
+      const litPaths = [0, 1].map(() =>
+        Array.from({ length: SIGNAL_LEVELS }, () => new Path2D())
+      )
+      const settling = motion.settle < 1
+      const shading = story && !settling && normals.length === cols * rows * 3
+      const tones = shading
+        ? Array.from({ length: TONE_LEVELS }, () => new Path2D())
+        : []
+      const shadows = new Path2D()
+      const lampLength = Math.hypot(motion.lightX, motion.lightY, LIGHT_HEIGHT)
+      const lampX = motion.lightX / lampLength
+      const lampY = motion.lightY / lampLength
+      const lampZ = LIGHT_HEIGHT / lampLength
+      const front =
+        motion.signal >= 0 ? motion.signal * (signalLength + SIGNAL_TAIL) : -1
       for (let row = 0; row < rows; row++) {
         const y = (row + 0.5) * cell
         for (let col = 0; col < cols; col++) {
           const i = row * cols + col
-          const shapeV = base[i] * grow
-          const v = shapeV + ink[i]
+          const shapeV = settling ? 0 : base[i] * grow
+          // The signal fades in at its front and out along its tail.
+          const behind = front - signalDistance[i]
+          const lit =
+            front >= 0 && signalDistance[i] >= 0
+              ? smoothstep(0, SIGNAL_EDGE, behind) *
+                (1 - smoothstep(SIGNAL_EDGE, SIGNAL_TAIL, behind))
+              : 0
+          const v = shapeV + ink[i] + lit * 0.55
           const r = max * smoothstep(0.08, 0.95, v)
           const x = (col + 0.5) * cell
           let path = 0
@@ -226,10 +457,77 @@ function HalftoneCanvas({
           else if (ink[i] > 0.04) path = 1
           else path = 2
           const radius = Math.max(r, restR)
+          if (shading && base[i] > 0.12) {
+            const facing =
+              normals[i * 3] * lampX +
+              normals[i * 3 + 1] * lampY +
+              normals[i * 3 + 2] * lampZ
+            const shade = Math.min(
+              1,
+              LIGHT_FLOOR +
+                (1 - LIGHT_FLOOR) * smoothstep(0.15, 0.95, facing) +
+                lit * 0.9
+            )
+            // Flat until the light turns on; bright dots are big and inked.
+            const tone = 1 - motion.light * (1 - shade)
+            const home = max * smoothstep(0.08, 0.95, base[i])
+            // On inverted paper, what the light reaches thins out instead.
+            const inkLevel = paperRamp ? 1 - motion.light * shade : tone
+            const dotR =
+              home * (paperRamp ? 0.38 + 0.62 * inkLevel : 0.42 + 0.58 * tone)
+            if (dotR < 0.35) continue
+            const target = accent[i]
+              ? paths[1]
+              : tones[Math.round(inkLevel * (TONE_LEVELS - 1))]
+            target.moveTo(x + dotR, y)
+            target.arc(x, y, dotR, 0, Math.PI * 2)
+            if (motion.light > 0 && base[i] > 0.3) {
+              // The shape's shadow falls away from the lamp.
+              const shadowR = cell * 0.26
+              const shadowX = x - lampX * cell * 1.6
+              const shadowY = y - lampY * cell * 2
+              shadows.moveTo(shadowX + shadowR, shadowY)
+              shadows.arc(shadowX, shadowY, shadowR, 0, Math.PI * 2)
+            }
+            continue
+          }
+          if (settling && base[i] > 0.03) {
+            // Each dot leaves on its own beat, overshoots home and settles.
+            const t = Math.min(
+              Math.max(
+                (motion.settle - scatter[i * 3 + 2] * SETTLE_STAGGER) /
+                  (1 - SETTLE_STAGGER),
+                0
+              ),
+              1
+            )
+            const eased = settleEase(t)
+            const home = max * smoothstep(0.08, 0.95, base[i])
+            const dotR = home * (0.45 + 0.55 * Math.min(t * 1.4, 1))
+            const dot = base[i] > 0.12 ? (accent[i] ? 1 : 0) : 2
+            if (dotR >= 0.35) {
+              const dotX = x + scatter[i * 3] * (1 - eased)
+              const dotY = y + scatter[i * 3 + 1] * (1 - eased)
+              paths[dot].moveTo(dotX + dotR, dotY)
+              paths[dot].arc(dotX, dotY, dotR, 0, Math.PI * 2)
+            }
+          }
           if (radius < 0.35) continue
           paths[path].moveTo(x + radius, y)
           paths[path].arc(x, y, radius, 0, Math.PI * 2)
+          const level = Math.round(lit * SIGNAL_LEVELS) - 1
+          if (level >= 0) {
+            const litPath = litPaths[accent[i] ? 0 : 1][level]
+            litPath.moveTo(x + radius, y)
+            litPath.arc(x, y, radius, 0, Math.PI * 2)
+          }
         }
+      }
+      if (shading && motion.light > 0 && !paperRamp) {
+        ctx.globalAlpha = 0.5 * motion.light
+        ctx.fillStyle = colors.accent
+        ctx.fill(shadows)
+        ctx.globalAlpha = 1
       }
       ctx.fillStyle = colors.faint
       ctx.fill(paths[2])
@@ -237,6 +535,30 @@ function HalftoneCanvas({
       ctx.fill(paths[0])
       ctx.fillStyle = colors.accent
       ctx.fill(paths[1])
+      // Each tone is the accent with the ink printed over it.
+      for (let level = 0; level < tones.length; level++) {
+        if (paperRamp) {
+          ctx.fillStyle = rampColor(paperRamp, level / (TONE_LEVELS - 1))
+          ctx.fill(tones[level])
+          continue
+        }
+        ctx.fillStyle = colors.accent
+        ctx.fill(tones[level])
+        ctx.globalAlpha = level / (TONE_LEVELS - 1)
+        ctx.fillStyle = colors.ink
+        ctx.fill(tones[level])
+        ctx.globalAlpha = 1
+      }
+      if (front >= 0) {
+        for (let level = 0; level < SIGNAL_LEVELS; level++) {
+          ctx.globalAlpha = (level + 1) / SIGNAL_LEVELS
+          ctx.fillStyle = colors.ink
+          ctx.fill(litPaths[0][level])
+          ctx.fillStyle = colors.accent
+          ctx.fill(litPaths[1][level])
+        }
+        ctx.globalAlpha = 1
+      }
     }
 
     /** Adds a soft blob of ink around (px, py), in CSS pixels. */
@@ -269,6 +591,10 @@ function HalftoneCanvas({
         intro = Math.min(1, (now - introStart) / 1100)
         moving = true
       }
+
+      if (motion.settle < 1 && settleTween) moving = true
+      if (motion.signal >= 0) moving = true
+      if (story && gsap.isTweening(motion)) moving = true
 
       if (pointer.active) {
         if (!follower.ready) {
@@ -309,9 +635,24 @@ function HalftoneCanvas({
       return { x: event.clientX - rect.left, y: event.clientY - rect.top }
     }
 
+    /** Points the lamp, relative to the shape's center. */
+    function aimLight(x: number, y: number) {
+      if (!moveLight) return
+      moveLight.x(Math.min(Math.max(x, -1), 1))
+      moveLight.y(Math.min(Math.max(y, -1), 1))
+      wake()
+    }
+
     const onMove = (event: PointerEvent) => {
       if (event.pointerType !== "mouse" || reduced.matches) return
       const p = local(event)
+      if (story) {
+        aimLight(
+          (p.x - mark.x - mark.width / 2) / (mark.width * 0.9),
+          (p.y - mark.y - mark.height / 2) / (mark.height * 0.9)
+        )
+        return
+      }
       pointer.x = p.x
       pointer.y = p.y
       pointer.active = true
@@ -320,12 +661,74 @@ function HalftoneCanvas({
     const onLeave = () => {
       pointer.active = false
       follower.ready = false
+      if (story) aimLight(LIGHT_REST.x, LIGHT_REST.y)
     }
     const onDown = (event: PointerEvent) => {
-      if (reduced.matches) return
+      if (reduced.matches || story) return
       const p = local(event)
       splat(p.x, p.y, 1.1, 3.4)
       wake()
+    }
+
+    function scheduleSignal(delay: number) {
+      signalTween = gsap.fromTo(
+        motion,
+        { signal: 0 },
+        {
+          signal: 1,
+          delay,
+          duration: SIGNAL_SECONDS,
+          ease: "sine.inOut",
+          immediateRender: false,
+          onStart: wake,
+          onComplete() {
+            motion.signal = -1
+            draw()
+            scheduleSignal(SIGNAL_REST_SECONDS)
+          },
+        }
+      )
+      if (!visible) signalTween.pause()
+    }
+
+    /** A light sweeps across the settled shape and leaves it in volume. */
+    function turnOnLight() {
+      lightTween = gsap.fromTo(
+        motion,
+        { light: 0, lightX: 1, lightY: 0.3 },
+        {
+          light: 1,
+          lightX: LIGHT_REST.x,
+          lightY: LIGHT_REST.y,
+          duration: LIGHT_SECONDS,
+          ease: "power2.inOut",
+          onStart: wake,
+          onComplete() {
+            const lamp = { duration: 0.9, ease: "power3.out" }
+            moveLight = {
+              x: gsap.quickTo(motion, "lightX", lamp),
+              y: gsap.quickTo(motion, "lightY", lamp),
+            }
+            scheduleSignal(2)
+          },
+        }
+      )
+      if (!visible) lightTween.pause()
+    }
+
+    function startStory() {
+      if (settleTween || motion.settle >= 1) return
+      settleTween = gsap.to(motion, {
+        settle: 1,
+        delay: SETTLE_DELAY_SECONDS,
+        duration: SETTLE_SECONDS,
+        ease: "none",
+        onStart: wake,
+        onComplete() {
+          draw()
+          turnOnLight()
+        },
+      })
     }
 
     readColors()
@@ -343,9 +746,29 @@ function HalftoneCanvas({
 
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting
-      if (visible) wake()
+      if (visible) {
+        settleTween?.play()
+        lightTween?.play()
+        signalTween?.play()
+        wake()
+      } else {
+        settleTween?.pause()
+        lightTween?.pause()
+        signalTween?.pause()
+      }
     })
     io.observe(wrap)
+    // The story opens when the mark itself is in view, also below the fold.
+    const slot = surface.querySelector("[data-halftone-slot]") ?? wrap
+    const storyIo = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || !story) return
+        storyIo.disconnect()
+        startStory()
+      },
+      { threshold: 0.3 }
+    )
+    if (motion.settle < 1) storyIo.observe(slot)
     const ro = new ResizeObserver(resize)
     ro.observe(wrap)
     const offTheme = onThemeChange(() => {
@@ -358,6 +781,8 @@ function HalftoneCanvas({
 
     return () => {
       cancelAnimationFrame(raf)
+      gsap.killTweensOf(motion)
+      storyIo.disconnect()
       io.disconnect()
       ro.disconnect()
       offTheme()
@@ -365,7 +790,7 @@ function HalftoneCanvas({
       surface.removeEventListener("pointerleave", onLeave)
       surface.removeEventListener("pointerdown", onDown)
     }
-  }, [src, shape, left, top, width, height, maxCell, density, rest])
+  }, [src, shape, left, top, width, height, maxCell, density, rest, story])
 
   return (
     <div

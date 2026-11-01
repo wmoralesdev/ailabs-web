@@ -23,7 +23,7 @@ const homePaperSheetClassName = "relative bg-background text-foreground"
 
 const homeBandPaddingClassName = "section-y"
 
-/** Section heading: Alan Sans display at the shared head size. */
+/** Section heading: Plus Jakarta Sans display at the shared head size. */
 const homeHeadingClassName =
   "display text-[clamp(2.25rem,1.6rem+2.4vw,3.75rem)]"
 

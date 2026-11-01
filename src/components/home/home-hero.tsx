@@ -32,7 +32,9 @@ type HomeHeroProps = {
  * Typographic hero beside the Ai Labs mark printed as a live halftone. The
  * whole section is the pointer surface: the cursor drags ink through the dot
  * screen and it melts into the mark where they meet. One headline, one lead,
- * two actions. No photo and no loop: the dots only move when someone moves.
+ * two actions. The mark tells the headline's story: scattered dots settle into
+ * order, a light gives them volume, and a signal crosses its nodes every few
+ * seconds. No photo.
  */
 function HomeHero({
   locale,
@@ -66,6 +68,8 @@ function HomeHero({
       <HalftoneCanvas
         src="/brand/ailabs-iso-dark.svg"
         cell={11}
+        rest={0}
+        story
         className="absolute inset-0 -z-10"
       />
 
@@ -74,7 +78,7 @@ function HomeHero({
           <Eyebrow data-home-entrance>{hero.label}</Eyebrow>
           <h1
             id="hero-title"
-            className="display max-w-[18ch] text-[clamp(2.5rem,1.5rem+3.6vw,4.75rem)] text-balance"
+            className="display max-w-[18ch] text-[clamp(2.5rem,1.5rem+3.6vw,4.75rem)] text-balance lg:max-w-none lg:text-[min(4.4vw,4rem)]"
           >
             {hero.headline.split(" ").map((word, index) => (
               <Fragment key={`${index}-${word}`}>
