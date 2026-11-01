@@ -29,7 +29,6 @@ export const servicePagesEn: ServicePagesContent = {
   breadcrumbLabel: "Breadcrumb",
   relatedLabel: "Other ways to work with Ai Labs",
   consultingLink: "AI consulting in El Salvador",
-  communityLink: "AI community in El Salvador",
   eventsLink: "AI events and workshops in El Salvador",
   training: {
     photo: {
@@ -140,7 +139,6 @@ export const servicePagesEn: ServicePagesContent = {
     ctaBody:
       "Tell us what your team does and what it wants to improve. You can also write to us if you want to learn on your own.",
     cta: "Prepare my team",
-    interest: "enablement",
   },
   automation: {
     photo: {
@@ -251,6 +249,5 @@ export const servicePagesEn: ServicePagesContent = {
     ctaBody:
       "Tell us how it works today and where it gets stuck. We will review it with you.",
     cta: "I want to improve a process",
-    interest: "implementation",
   },
 }

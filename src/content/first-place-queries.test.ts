@@ -37,8 +37,6 @@ const EVENTS_SENTENCE =
   "Publicamos los eventos de IA en El Salvador de Ai Labs en Luma para este mes, en San Salvador; no son todos los eventos del país."
 const CONSULTOR =
   "Revisa cómo trabaja un equipo, encuentra dónde puede ayudar la IA y decide por dónde empezar. En Ai Labs, después de elegir una oportunidad, preparamos al equipo (Academy) o implementamos el flujo con ustedes (Agentic)."
-const COMMUNITY =
-  "Nuestra comunidad en El Salvador es un grupo de WhatsApp para aprender IA: avisos de talleres y eventos, y el programa Campus Leaders para estudiantes."
 const EN_CONSULTING =
   "We are Ai Labs, an AI consulting company in San Salvador, El Salvador. We review a process with your team, choose one improvement, and help you put it to work."
 
@@ -69,9 +67,6 @@ describe("first place queries", () => {
     expect(en.consulting.headline).toBe("AI consulting in El Salvador")
     expect(en.consulting.lead).toBe(EN_CONSULTING)
     expect(en.consulting.metaDescription).toBe(EN_CONSULTING)
-    expect(es.community.metaTitle).toBe("Comunidad de IA en El Salvador")
-    expect(es.community.body).toBe(COMMUNITY)
-    expect(es.community.metaDescription).toBe(COMMUNITY)
     expect(es.consulting.claims[0]).toBe(KEPT_CONSULTING)
   })
 
@@ -254,9 +249,15 @@ describe("first place queries", () => {
     expect(llms).toContain(AUTOMATION)
     expect(llms).toContain(EVENTS)
     expect(llms).toContain("https://www.ailabs.sv/en")
-    expect(llms).toContain(`${CONSULTING.replace("https://www.ailabs.sv", "https://www.ailabs.sv/en")}`)
-    expect(llms).toContain(`${TRAINING.replace("https://www.ailabs.sv", "https://www.ailabs.sv/en")}`)
-    expect(llms).toContain(`${AUTOMATION.replace("https://www.ailabs.sv", "https://www.ailabs.sv/en")}`)
+    expect(llms).toContain(
+      `${CONSULTING.replace("https://www.ailabs.sv", "https://www.ailabs.sv/en")}`
+    )
+    expect(llms).toContain(
+      `${TRAINING.replace("https://www.ailabs.sv", "https://www.ailabs.sv/en")}`
+    )
+    expect(llms).toContain(
+      `${AUTOMATION.replace("https://www.ailabs.sv", "https://www.ailabs.sv/en")}`
+    )
     expect(llms).toContain("https://www.ailabs.sv/en/events")
     expect(llms).toContain(
       "no somos la Agencia Nacional de Inteligencia Artificial"

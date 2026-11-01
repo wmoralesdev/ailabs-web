@@ -34,17 +34,40 @@ const OTHER_COUNTRY =
 describe("search aliases", () => {
   const entries = Object.entries(SEARCH_ALIASES)
 
-  it("sends the retired Aperture pages to the community", () => {
+  it("sends the retired community pages and workshop microsites to the events index", () => {
     for (const path of [
+      "/community",
+      "/community/",
+      "/campus-leader",
       "/aperture",
       "/aperture/join",
       "/me",
       "/u/walter",
       "/U/Walter/",
+      "/events/modo-fundador",
+      "/events/get-competitive-quick",
+      "/events/get-competitive-quick/success",
     ]) {
-      expect(searchAliasDestination(path), path).toBe("/community")
+      expect(searchAliasDestination(path), path).toBe("/events")
     }
+    expect(aliasRedirectHref("/en/community")).toBe("/en/events")
+    expect(aliasRedirectHref("/en/events/modo-fundador")).toBe("/en/events")
     expect(searchAliasDestination("/use-cases")).toBeNull()
+  })
+
+  it("sends the retired redemption and sign-in flows home", () => {
+    for (const path of [
+      "/redeem",
+      "/redeem/",
+      "/sign-in",
+      "/sign-in/factor-one",
+      "/sign-up",
+    ]) {
+      expect(searchAliasDestination(path), path).toBe("/")
+    }
+    expect(aliasRedirectHref("/redeem", "?code=abc")).toBe("/?code=abc")
+    expect(aliasRedirectHref("/en/redeem")).toBe("/en")
+    expect(searchAliasDestination("/redeemable")).toBeNull()
   })
 
   it("301s each alias to an existing public page and keeps the query", () => {
@@ -69,7 +92,8 @@ describe("search aliases", () => {
     ).toBe(CONSULTING_PAGE)
     expect(searchAliasDestination(CONSULTING_PAGE)).toBeNull()
     expect(searchAliasDestination("/consultores-el-salvador")).toBeNull()
-    expect(searchAliasDestination("/community")).toBeNull()
+    expect(searchAliasDestination("/events")).toBeNull()
+    expect(searchAliasDestination("/agendar")).toBeNull()
     expect(searchAliasDestination("/en")).toBeNull()
     expect(searchAliasDestination("/es")).toBeNull()
     expect(aliasRedirectHref("/en/agencia-ia-el-salvador")).toBe(
@@ -86,8 +110,9 @@ describe("search aliases", () => {
     for (const alias of HOME_ALIASES) {
       expect(SEARCH_ALIASES[alias]).toBe("/")
     }
-    expect(SEARCH_ALIASES["/comunidad-de-ia-el-salvador"]).toBe("/community")
-    expect(SEARCH_ALIASES["/ai-community-el-salvador"]).toBe("/community")
+    expect(SEARCH_ALIASES["/comunidad-de-ia-el-salvador"]).toBe("/events")
+    expect(SEARCH_ALIASES["/ai-community-el-salvador"]).toBe("/events")
+    expect(SEARCH_ALIASES["/campus-leader-el-salvador"]).toBe("/events")
     for (const alias of [
       "/eventos",
       "/eventos-el-salvador",
@@ -98,22 +123,16 @@ describe("search aliases", () => {
     ]) {
       expect(SEARCH_ALIASES[alias]).toBe("/events")
     }
-    expect(SEARCH_ALIASES["/modo-fundador"]).toBe("/events/modo-fundador")
-    expect(SEARCH_ALIASES["/taller-modo-fundador"]).toBe(
-      "/events/modo-fundador"
-    )
-    expect(SEARCH_ALIASES["/taller-fundadores-san-salvador"]).toBe(
-      "/events/modo-fundador"
-    )
-    expect(SEARCH_ALIASES["/get-competitive-quick"]).toBe(
-      "/events/get-competitive-quick"
-    )
-    expect(SEARCH_ALIASES["/taller-get-competitive-quick"]).toBe(
-      "/events/get-competitive-quick"
-    )
-    expect(SEARCH_ALIASES["/taller-primer-empleo-tech"]).toBe(
-      "/events/get-competitive-quick"
-    )
+    for (const alias of [
+      "/modo-fundador",
+      "/taller-modo-fundador",
+      "/taller-fundadores-san-salvador",
+      "/get-competitive-quick",
+      "/taller-get-competitive-quick",
+      "/taller-primer-empleo-tech",
+    ]) {
+      expect(SEARCH_ALIASES[alias], alias).toBe("/events")
+    }
     expect(SEARCH_ALIASES["/consultores-el-salvador"]).toBeUndefined()
   })
 
@@ -132,10 +151,12 @@ describe("search aliases", () => {
       expect(alias).not.toMatch(OTHER_COUNTRY)
       expect(alias).not.toMatch(/consultores/)
     }
-    for (const [alias, destination] of entries) {
-      if (destination === "/events/get-competitive-quick") {
-        expect(alias).not.toMatch(/el-salvador|san-salvador/)
-      }
+    for (const alias of [
+      "/get-competitive-quick",
+      "/taller-get-competitive-quick",
+      "/taller-primer-empleo-tech",
+    ]) {
+      expect(alias).not.toMatch(/el-salvador|san-salvador/)
     }
   })
 
@@ -146,7 +167,7 @@ describe("search aliases", () => {
     const published = `${sitemap}\n${llms}\n${robots}`
     const linked = [es, en].flatMap((content) => [
       content.chrome.nav.services.href,
-      ...content.chrome.nav.community.items.map((item) => item.href),
+      content.chrome.nav.events.href,
       content.chrome.nav.contact.href,
       ...content.chrome.footer.columns.flatMap((column) =>
         column.links.map((link) => link.href)

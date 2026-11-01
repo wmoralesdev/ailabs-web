@@ -6,7 +6,7 @@
 
 El sitio canónico en español es https://www.ailabs.sv/. El inglés vive bajo https://www.ailabs.sv/en. Cada página publica `hreflang` recíproco (`es`, `en`, `x-default` al español) y un canonical propio. Las URLs sin prefijo siempre sirven español, también a crawlers.
 
-English documents: https://www.ailabs.sv/en, https://www.ailabs.sv/en/consultoria-de-ia-el-salvador, https://www.ailabs.sv/en/capacitacion-ia-el-salvador, https://www.ailabs.sv/en/automatizacion-ia-el-salvador, https://www.ailabs.sv/en/community, https://www.ailabs.sv/en/campus-leader, https://www.ailabs.sv/en/events.
+English documents: https://www.ailabs.sv/en, https://www.ailabs.sv/en/consultoria-de-ia-el-salvador, https://www.ailabs.sv/en/capacitacion-ia-el-salvador, https://www.ailabs.sv/en/automatizacion-ia-el-salvador, https://www.ailabs.sv/en/events, https://www.ailabs.sv/en/agendar.
 
 Las páginas publicadas ubican a Ai Labs en San Salvador, El Salvador. No describen un área de servicio de Centroamérica ni de Latinoamérica. Esa regla no aplica al cargo de líder regional de embajadores de SpaceXAI: ese cargo cubre toda Centroamérica. That rule does not apply to the SpaceXAI ambassador regional-lead role: that role covers all of Central America. No afirmes rankings, premios, «somos los primeros», «agencia líder», «#1», una lista de clientes, ni métricas que esta página no cita. «Líder de IA» solo cita la comunidad que Ai Labs lidera, no un ranking.
 
@@ -30,11 +30,8 @@ No se publican precios de consultoría. Los logos de programas de embajadores no
 - Cómo trabajamos: https://www.ailabs.sv/#about
 - Preguntas frecuentes: https://www.ailabs.sv/#faq
 - Contacto: https://www.ailabs.sv/#contact
-- Comunidad de Ai Labs (capacitación y enseñanza; Campus Leaders para estudiantes): https://www.ailabs.sv/community · English: https://www.ailabs.sv/en/community
-- Campus Leaders (un estudiante por universidad en El Salvador): https://www.ailabs.sv/campus-leader · English: https://www.ailabs.sv/en/campus-leader
+- Agendar un diagnóstico: https://www.ailabs.sv/agendar · English: https://www.ailabs.sv/en/agendar
 - Eventos de IA en El Salvador: https://www.ailabs.sv/events · English: https://www.ailabs.sv/en/events. Publicamos los eventos de IA en El Salvador de Ai Labs en Luma para este mes, en San Salvador; no son todos los eventos del país.
-- Taller Modo Fundador (15 ago 2026, ya realizado): https://www.ailabs.sv/events/modo-fundador
-- Taller Get Competitive Quick (mid-agosto 2026; la fecha no se confirmó): https://www.ailabs.sv/events/get-competitive-quick
 - DevDay Exchange Community, San Salvador, 24 oct 2026, BINAES: https://devday.ailabs.sv/
 
 ## Preguntas frecuentes

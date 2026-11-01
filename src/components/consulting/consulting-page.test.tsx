@@ -1,5 +1,4 @@
 import { cleanup, render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
 import { afterEach, describe, expect, it, vi } from "vitest"
 
 import { en } from "@/content/en"
@@ -29,9 +28,8 @@ afterEach(() => {
 
 describe("ConsultingPage", () => {
   it("renders the Spanish title, first paragraph, and the same FAQ answer", () => {
-    const onTalk = vi.fn()
     const { container } = render(
-      <ConsultingPage locale="es" content={es.consulting} onTalk={onTalk} />
+      <ConsultingPage locale="es" content={es.consulting} />
     )
 
     expect(
@@ -60,17 +58,13 @@ describe("ConsultingPage", () => {
       screen.getByText(/equipos comerciales, de gestión y de operaciones/i)
     ).toBeInTheDocument()
     expect(screen.getAllByText(es.consulting.lead)).toHaveLength(2)
-    expect(
-      screen.getByRole("button", { name: es.consulting.cta })
-    ).toBeVisible()
+    const cta = screen.getByRole("link", { name: es.consulting.cta })
+    expect(cta).toBeVisible()
+    expect(cta).toHaveAttribute("href", "/agendar")
   })
 
-  it("renders the English title on the same component", async () => {
-    const onTalk = vi.fn()
-    const user = userEvent.setup()
-    render(
-      <ConsultingPage locale="en" content={en.consulting} onTalk={onTalk} />
-    )
+  it("renders the English title on the same component", () => {
+    render(<ConsultingPage locale="en" content={en.consulting} />)
 
     expect(
       screen.getByRole("heading", { level: 1, name: en.consulting.headline })
@@ -85,7 +79,8 @@ describe("ConsultingPage", () => {
         name: "What is AI consulting in El Salvador?",
       })
     ).toBeInTheDocument()
-    await user.click(screen.getByRole("button", { name: en.consulting.cta }))
-    expect(onTalk).toHaveBeenCalledOnce()
+    expect(
+      screen.getByRole("link", { name: en.consulting.cta })
+    ).toHaveAttribute("href", "/en/agendar")
   })
 })

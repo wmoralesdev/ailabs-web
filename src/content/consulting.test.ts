@@ -30,18 +30,16 @@ describe("consulting page", () => {
               "Formación práctica",
               "Automatización de procesos",
             ]
-          : [
-              "AI consulting",
-              "Practical education",
-              "Business automation",
-            ]
+          : ["AI consulting", "Practical education", "Business automation"]
       )
       expect(content.consulting.services.map((service) => service.id)).toEqual([
         "consulting",
         "academy",
         "agentic",
       ])
-      expect(content.consulting.services.map((service) => service.body)).toEqual(
+      expect(
+        content.consulting.services.map((service) => service.body)
+      ).toEqual(
         content.locale === "es"
           ? [
               "Revisamos cómo trabajás, encontramos dónde ayuda la IA y decidimos por dónde empezar.",
@@ -138,9 +136,7 @@ describe("consulting page", () => {
     for (const content of [es, en]) {
       const nav = getChromeNavItems(content.chrome.nav, content.locale)
       expect(nav.services.href).toBe("#services")
-      expect(nav.community.items.map((item) => item.href)).not.toContain(
-        CONSULTING_PATH
-      )
+      expect([nav.events.href, nav.contact.href]).not.toContain(CONSULTING_PATH)
       expect(
         content.chrome.footer.columns.flatMap((column) =>
           column.links.map((link) => link.href)
@@ -158,28 +154,14 @@ describe("consulting page", () => {
       [es, esAnchor],
       [en, enAnchor],
     ] as const) {
-      expect(content.community.consultingCta).toEqual({
-        label: anchor,
-        href: CONSULTING_PATH,
-      })
-      expect(content.campusLeader.consultingCta).toEqual({
-        label: anchor,
-        href: CONSULTING_PATH,
-      })
       expect(content.events.consultingLink).toBe(anchor)
     }
 
-    const community = readFileSync("src/routes/_site/community.tsx", "utf8")
-    const campus = readFileSync("src/routes/_site/campus-leader.tsx", "utf8")
     const events = readFileSync(
       "src/components/events/events-index.tsx",
       "utf8"
     )
-    for (const source of [community, campus, events]) {
-      expect(source).toContain("CONSULTING_PAGE_PATH")
-    }
-    expect(community).toContain("{content.consultingCta.label}")
-    expect(campus).toContain("{content.consultingCta.label}")
+    expect(events).toContain("CONSULTING_PAGE_PATH")
     expect(events).toContain("copy.consultingLink")
     expect(readFileSync("src/components/home/home-hero.tsx", "utf8")).toContain(
       "textLink?"

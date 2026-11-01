@@ -8,7 +8,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 1,
-  // One worker avoids fighting the shared Vite/WebGL campus-leader page.
+  // One worker keeps the shared Vite dev server predictable.
   workers: 1,
   reporter: process.env.CI ? "github" : "list",
   timeout: 60_000,
@@ -19,7 +19,7 @@ export default defineConfig({
   },
   webServer: {
     command: `pnpm dev --port ${port}`,
-    url: `${baseURL}/campus-leader`,
+    url: `${baseURL}/`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },

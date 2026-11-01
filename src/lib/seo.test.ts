@@ -6,7 +6,6 @@ import {
   buildFaqJsonLd,
   buildHomeJsonLd,
   buildPageMeta,
-  buildWorkshopEventJsonLd,
 } from "@/lib/seo"
 
 type ServiceOffer = {
@@ -184,42 +183,42 @@ describe("buildPageMeta", () => {
   it("canonicalizes each language and emits reciprocal hreflang", () => {
     const head = buildPageMeta({
       locale: "es",
-      path: "/community",
-      title: "Comunidad de WhatsApp | Ai Labs",
-      description: "Comunidad en El Salvador.",
+      path: "/agendar",
+      title: "Agendá un diagnóstico | Ai Labs",
+      description: "Agenda en El Salvador.",
     })
     expect(head.links).toEqual([
       {
         rel: "canonical",
-        href: "https://www.ailabs.sv/community",
+        href: "https://www.ailabs.sv/agendar",
       },
       {
         rel: "alternate",
-        href: "https://www.ailabs.sv/community",
+        href: "https://www.ailabs.sv/agendar",
         hrefLang: "es",
       },
       {
         rel: "alternate",
-        href: "https://www.ailabs.sv/en/community",
+        href: "https://www.ailabs.sv/en/agendar",
         hrefLang: "en",
       },
       {
         rel: "alternate",
-        href: "https://www.ailabs.sv/community",
+        href: "https://www.ailabs.sv/agendar",
         hrefLang: "x-default",
       },
     ])
     expect(head.meta.find((tag) => tag.property === "og:url")?.content).toBe(
-      "https://www.ailabs.sv/community"
+      "https://www.ailabs.sv/agendar"
     )
     expect(
       buildPageMeta({
         locale: "en",
-        path: "/community",
-        title: "WhatsApp community | Ai Labs",
-        description: "Community in El Salvador.",
+        path: "/agendar",
+        title: "Book a diagnostic | Ai Labs",
+        description: "Booking in El Salvador.",
       }).links[0]?.href
-    ).toBe("https://www.ailabs.sv/en/community")
+    ).toBe("https://www.ailabs.sv/en/agendar")
     expect(
       buildPageMeta({
         locale: "es",
@@ -263,16 +262,16 @@ describe("buildPageMeta", () => {
   it("uses a custom share image when provided", () => {
     const meta = buildPageMeta({
       locale: "en",
-      path: "/events/modo-fundador",
+      path: "/events",
       title: "Walter",
       description: "Building",
       image: {
-        url: "https://ailabs.sv/events/modo-fundador/og.png",
-        alt: "Modo Fundador workshop",
+        url: "https://ailabs.sv/events/og.png",
+        alt: "Ai Labs events",
       },
     }).meta
     expect(meta.find((tag) => tag.property === "og:image")?.content).toBe(
-      "https://ailabs.sv/events/modo-fundador/og.png"
+      "https://ailabs.sv/events/og.png"
     )
     expect(meta.find((tag) => tag.property === "og:image:width")?.content).toBe(
       "1200"
@@ -295,56 +294,5 @@ describe("buildPageMeta", () => {
     expect(
       sized.find((tag) => tag.property === "og:image:height")?.content
     ).toBe("676")
-  })
-})
-
-describe("buildWorkshopEventJsonLd", () => {
-  const base = {
-    locale: "es" as const,
-    path: "/events/demo",
-    name: "Demo",
-    description: "Taller de prueba.",
-    priceCents: 2500,
-    currency: "USD",
-    soldOut: false,
-  }
-
-  it("skips workshops without a date", () => {
-    expect(buildWorkshopEventJsonLd({ ...base, endsOn: null })).toBeNull()
-  })
-
-  it("publishes an in-person event in San Salvador with its price", () => {
-    const script = buildWorkshopEventJsonLd({ ...base, endsOn: "2026-12-05" })
-    const data = JSON.parse(script?.children ?? "{}")
-    expect(data["@type"]).toBe("EducationEvent")
-    expect(data.startDate).toBe("2026-12-05")
-    expect(data.eventStatus).toBe("https://schema.org/EventScheduled")
-    expect(data.url).toBe("https://www.ailabs.sv/events/demo")
-    expect(data.organizer.name).toBe("Ai Labs")
-    expect(data.location.address.addressLocality).toBe("San Salvador")
-    expect(data.offers.price).toBe("25.00")
-    expect(data.offers.availability).toBe("https://schema.org/InStock")
-  })
-
-  it("marks a dated workshop as completed after its day in El Salvador", () => {
-    const script = buildWorkshopEventJsonLd({
-      ...base,
-      endsOn: "2026-08-15",
-      now: new Date("2026-10-24T18:00:00.000Z"),
-    })
-    expect(JSON.parse(script?.children ?? "{}").eventStatus).toBe(
-      "https://schema.org/EventCompleted"
-    )
-  })
-
-  it("marks sold-out workshops", () => {
-    const script = buildWorkshopEventJsonLd({
-      ...base,
-      endsOn: "2026-12-05",
-      soldOut: true,
-    })
-    expect(JSON.parse(script?.children ?? "{}").offers.availability).toBe(
-      "https://schema.org/SoldOut"
-    )
   })
 })

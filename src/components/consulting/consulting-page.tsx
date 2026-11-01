@@ -4,6 +4,7 @@ import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
 import type { ConsultingPageContent, Locale } from "@/content"
 import { EVENT_PHOTOS } from "@/content/event-photos"
+import { BOOKING_PAGE_PATH } from "@/content/booking"
 import { HalftoneIcon } from "@/components/halftone/halftone-icon"
 import { HalftoneLens } from "@/components/halftone/halftone-lens"
 import { Reveal } from "@/components/halftone/reveal"
@@ -18,7 +19,6 @@ import { SERVICE_PAGE_PATHS } from "@/lib/service-pages"
 
 type ConsultingPageProps = {
   content: ConsultingPageContent
-  onTalk: () => void
   locale: Locale
 }
 
@@ -31,11 +31,7 @@ const servicePagePath = {
 const serviceShapes: ReadonlyArray<ShapeName> = ["sparkle", "book", "nodes"]
 const stepShapes: ReadonlyArray<ShapeName> = ["search", "target", "arrow"]
 
-function ConsultingPage({
-  content,
-  onTalk,
-  locale,
-}: ConsultingPageProps) {
+function ConsultingPage({ content, locale }: ConsultingPageProps) {
   const photo = EVENT_PHOTOS[content.photo.name]
 
   return (
@@ -54,10 +50,13 @@ function ConsultingPage({
               {claim}
             </p>
           ))}
-          <button type="button" onClick={onTalk} className="btn">
+          <Link
+            to={localizedPath(locale, BOOKING_PAGE_PATH) as never}
+            className="btn"
+          >
             {content.cta}
             <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-          </button>
+          </Link>
         </div>
         <div className="lg:col-span-5">
           <HalftoneLens

@@ -29,7 +29,6 @@ export const servicePagesEs: ServicePagesContent = {
   breadcrumbLabel: "Ruta de navegación",
   relatedLabel: "Otras formas de trabajar con Ai Labs",
   consultingLink: "Consultoría de IA en El Salvador",
-  communityLink: "Comunidad de IA en El Salvador",
   eventsLink: "Eventos y talleres de IA en El Salvador",
   training: {
     photo: {
@@ -140,7 +139,6 @@ export const servicePagesEs: ServicePagesContent = {
     ctaBody:
       "Contanos qué hace tu equipo y qué quiere mejorar. También podés escribirnos si querés aprender por tu cuenta.",
     cta: "Preparar a mi equipo",
-    interest: "enablement",
   },
   automation: {
     photo: {
@@ -251,6 +249,5 @@ export const servicePagesEs: ServicePagesContent = {
     ctaBody:
       "Contanos cómo funciona hoy y dónde se traba. Lo revisamos con vos.",
     cta: "Quiero mejorar un proceso",
-    interest: "implementation",
   },
 }

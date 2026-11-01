@@ -5,7 +5,7 @@ import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import type { HomeServiceItem, HomeServicesContent, Locale } from "@/content"
 import { EVENT_PHOTOS } from "@/content/event-photos"
 import type { EventPhoto } from "@/content/event-photos"
-import { useContact } from "@/components/contact/contact-provider"
+import { BOOKING_PAGE_PATH } from "@/content/booking"
 import { HalftoneCanvas } from "@/components/halftone/halftone-canvas"
 import { HalftoneIcon } from "@/components/halftone/halftone-icon"
 import { HalftoneLens } from "@/components/halftone/halftone-lens"
@@ -128,8 +128,6 @@ function ServiceCard({
   locale: Locale
   className?: string
 }) {
-  const { openContact } = useContact()
-
   return (
     <article
       id={service.id}
@@ -175,14 +173,13 @@ function ServiceCard({
         ))}
       </ul>
       <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-8">
-        <button
-          type="button"
-          onClick={() => openContact(service.interest)}
+        <Link
+          to={localizedPath(locale, BOOKING_PAGE_PATH) as never}
           className="btn"
         >
           {service.cta}
           <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-        </button>
+        </Link>
         <Link
           to={localizedPath(locale, servicePagePath[service.id]) as never}
           className="text-action"

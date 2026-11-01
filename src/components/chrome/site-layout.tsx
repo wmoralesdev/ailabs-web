@@ -1,8 +1,7 @@
-import { Link, Outlet, useRouterState } from "@tanstack/react-router"
+import { Link, Outlet } from "@tanstack/react-router"
 
 import { SiteFooter } from "@/components/chrome/site-footer"
 import { SiteHeader } from "@/components/chrome/site-header"
-import { ContactProvider } from "@/components/contact/contact-provider"
 import { MainCard } from "@/components/chrome/main-card"
 import { useLocaleContext } from "@/lib/locale-context"
 import { homePath } from "@/lib/locale-links"
@@ -11,43 +10,26 @@ const chromeShellClassName = "flex min-h-dvh flex-col"
 // Main sits above the sticky footer so the footer is revealed as it scrolls away.
 const mainClassName = "relative z-10 flex flex-1 flex-col bg-background"
 
-/** Event microsites and the lab print their own lockup. */
-function pageOwnsBrand(routeId: string): boolean {
-  return routeId.endsWith("/lab") || routeId.includes("/events/$slug")
-}
-
 function SiteLayout() {
   const { locale, content } = useLocaleContext()
-  const showBrandLink = useRouterState({
-    select: (state) =>
-      !state.matches.some((match) => pageOwnsBrand(match.routeId)),
-  })
-  const hideChromeFooter = useRouterState({
-    select: (state) =>
-      state.matches.some((match) => match.routeId.endsWith("/lab")),
-  })
 
   return (
-    <ContactProvider contact={content.home.contact} locale={locale}>
-      <div className={chromeShellClassName}>
-        <SiteHeader
-          locale={locale}
-          chrome={content.chrome}
-          microcopy={content.microcopy}
-          showBrandLink={showBrandLink}
-        />
-        <main id="main" tabIndex={-1} className={mainClassName}>
-          <Outlet />
-        </main>
-        {hideChromeFooter ? null : (
-          <SiteFooter
-            locale={locale}
-            footer={content.chrome.footer}
-            legalPublished={content.legal.status === "published"}
-          />
-        )}
-      </div>
-    </ContactProvider>
+    <div className={chromeShellClassName}>
+      <SiteHeader
+        locale={locale}
+        chrome={content.chrome}
+        microcopy={content.microcopy}
+        showBrandLink
+      />
+      <main id="main" tabIndex={-1} className={mainClassName}>
+        <Outlet />
+      </main>
+      <SiteFooter
+        locale={locale}
+        footer={content.chrome.footer}
+        legalPublished={content.legal.status === "published"}
+      />
+    </div>
   )
 }
 

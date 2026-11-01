@@ -88,9 +88,12 @@ describe("public SEO files", () => {
     expect(sitemap).toContain(
       "https://www.ailabs.sv/consultoria-de-ia-el-salvador"
     )
-    expect(sitemap).toContain("https://www.ailabs.sv/community")
-    expect(sitemap).toContain("https://www.ailabs.sv/campus-leader")
+    expect(sitemap).toContain("<loc>https://www.ailabs.sv/agendar</loc>")
+    expect(sitemap).toContain("<loc>https://www.ailabs.sv/en/agendar</loc>")
     expect(sitemap).not.toContain("https://www.ailabs.sv/aperture")
+    expect(sitemap).not.toContain("https://www.ailabs.sv/community")
+    expect(sitemap).not.toContain("https://www.ailabs.sv/campus-leader")
+    expect(sitemap).not.toContain("https://www.ailabs.sv/redeem")
     expect(sitemap).toContain("<loc>https://www.ailabs.sv/events</loc>")
     expect(sitemap).toMatch(
       /<loc>https:\/\/www\.ailabs\.sv\/<\/loc>\s*<lastmod>2026-10-28<\/lastmod>/
@@ -111,12 +114,17 @@ describe("public SEO files", () => {
     expect(sitemap).not.toContain(
       "https://www.ailabs.sv/events/get-competitive-quick"
     )
-    expect(llms).toContain(
-      "Taller Modo Fundador (15 ago 2026, ya realizado): https://www.ailabs.sv/events/modo-fundador"
-    )
-    expect(llms).toContain(
-      "Taller Get Competitive Quick (mid-agosto 2026; la fecha no se confirmó): https://www.ailabs.sv/events/get-competitive-quick"
-    )
+    for (const retired of [
+      "https://www.ailabs.sv/community",
+      "https://www.ailabs.sv/en/community",
+      "https://www.ailabs.sv/campus-leader",
+      "https://www.ailabs.sv/en/campus-leader",
+      "https://www.ailabs.sv/events/modo-fundador",
+      "https://www.ailabs.sv/events/get-competitive-quick",
+      "https://www.ailabs.sv/redeem",
+    ]) {
+      expect(containsPath(llms, retired)).toBe(false)
+    }
     expect(sitemap).toContain('hreflang="es"')
     expect(sitemap).toContain('hreflang="en"')
     expect(sitemap).toContain('hreflang="x-default"')
@@ -124,9 +132,7 @@ describe("public SEO files", () => {
     expect(sitemap).toContain(
       "<loc>https://www.ailabs.sv/en/consultoria-de-ia-el-salvador</loc>"
     )
-    expect(sitemap).toContain(
-      'xmlns:xhtml="http://www.w3.org/1999/xhtml"'
-    )
+    expect(sitemap).toContain('xmlns:xhtml="http://www.w3.org/1999/xhtml"')
     expect(sitemap).not.toContain("https://ailabs.sv/")
     expect(llms).toContain("https://www.linkedin.com/company/ai-labs-sv")
     expect(llms).toContain("https://x.com/ailabs_sv")
@@ -181,17 +187,11 @@ describe("public SEO files", () => {
 })
 
 describe("existing page answers", () => {
-  it("opens the home, community, and campus pages with a direct answer", () => {
+  it("opens the home with a direct answer", () => {
     for (const content of [es, en]) {
       expect(content.home.hero.body.length).toBeGreaterThan(40)
       expect(content.home.services.title).toMatch(/\?$/)
       expect(content.home.method.title).toMatch(/\?$/)
-      expect(content.community.headline).toMatch(/\?$/)
-      expect(content.community.body).toBe(content.community.metaDescription)
-      expect(content.campusLeader.headline).toMatch(/\?$/)
-      expect(content.campusLeader.body).toBe(
-        content.campusLeader.metaDescription
-      )
     }
     expect(es.home.hero.body).toMatch(/San Salvador/)
     expect(en.home.hero.body).toMatch(/San Salvador/)
@@ -279,18 +279,6 @@ describe("home FAQ", () => {
   })
 
   it("describes the community as training and teaching, in both languages", () => {
-    expect(es.community.body).toBe(
-      "Nuestra comunidad en El Salvador es un grupo de WhatsApp para aprender IA: avisos de talleres y eventos, y el programa Campus Leaders para estudiantes."
-    )
-    expect(en.community.body).toBe(
-      "Our community in El Salvador is a WhatsApp group for learning AI: notices of workshops and events, and the Campus Leaders program for students."
-    )
-    expect(es.campusLeader.body).toBe(
-      "Un Campus Leader es un estudiante, uno por universidad en El Salvador, que lleva nuestros talleres de IA a su campus y elige cuáles llegan."
-    )
-    expect(en.campusLeader.body).toBe(
-      "A Campus Leader is a student, one per university in El Salvador, who brings our AI workshops to campus and chooses which ones arrive."
-    )
     const apertureEs = es.home.faq.items.find((item) =>
       item.question.startsWith("¿Qué es Aperture")
     )
@@ -304,11 +292,7 @@ describe("home FAQ", () => {
       "Aperture is the name of our community: workshops, events, and the Campus Leaders program for students. Joining on WhatsApp is free."
     )
     for (const content of [es, en]) {
-      const text = [
-        content.community.body,
-        content.campusLeader.body,
-        ...content.home.faq.items.map((item) => item.answer),
-      ].join("\n")
+      const text = content.home.faq.items.map((item) => item.answer).join("\n")
       expect(text).not.toMatch(/centroam[eé]rica|central america/i)
       expect(text).not.toMatch(/m[aá]s activ|ranking|number one|#1/i)
     }

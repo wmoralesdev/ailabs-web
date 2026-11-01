@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router"
 
 import { ConsultingPage } from "@/components/consulting/consulting-page"
-import { useContact } from "@/components/contact/contact-provider"
 import { useLocaleContext } from "@/lib/locale-context"
 import {
   brandedTitle,
@@ -47,13 +46,6 @@ export const Route = createFileRoute("/_site/consultoria-de-ia-el-salvador")({
 
 export function ConsultingRoute() {
   const { locale, content } = useLocaleContext()
-  const { openContact } = useContact()
 
-  return (
-    <ConsultingPage
-      locale={locale}
-      content={content.consulting}
-      onTalk={() => openContact("discovery")}
-    />
-  )
+  return <ConsultingPage locale={locale} content={content.consulting} />
 }

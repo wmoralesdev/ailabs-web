@@ -16,26 +16,13 @@ export const es: SiteContent = {
         label: "Servicios",
         href: "#services",
       },
-      community: {
-        label: "Comunidad",
-        items: [
-          {
-            label: "Unirme a la comunidad",
-            href: "/community",
-          },
-          {
-            label: "Eventos",
-            href: "/events",
-          },
-          {
-            label: "Campus Leaders",
-            href: "/campus-leader",
-          },
-        ],
+      events: {
+        label: "Eventos",
+        href: "/events",
       },
       contact: {
         label: "Hablemos",
-        href: "#contact",
+        href: "/agendar",
       },
     },
     footer: {
@@ -86,16 +73,8 @@ export const es: SiteContent = {
           title: "Comunidad",
           links: [
             {
-              label: "Unirme a la comunidad",
-              href: "/community",
-            },
-            {
               label: "Eventos de IA en El Salvador",
               href: "/events",
-            },
-            {
-              label: "Campus Leaders",
-              href: "/campus-leader",
             },
           ],
         },
@@ -104,12 +83,7 @@ export const es: SiteContent = {
           links: [
             {
               label: "Hablemos",
-              href: "#contact",
-            },
-            {
-              label: "Explorar una alianza",
-              href: "#contact",
-              contactInterest: "partnership",
+              href: "/agendar",
             },
           ],
         },
@@ -118,7 +92,6 @@ export const es: SiteContent = {
         { label: "Términos", href: "/terms" },
         { label: "Privacidad", href: "/privacy" },
       ],
-      eventsTitle: "Eventos",
       copyright: "© {year} Ai Labs",
       locationLine: "Hecho en San Salvador, El Salvador",
       socialTitle: "Redes",
@@ -131,7 +104,6 @@ export const es: SiteContent = {
     notFoundBody: "Esa página no existe. Vuelve al inicio o háblanos.",
     notFoundCtaHome: "Ir al inicio",
     languageSwitch: "EN",
-    textSpiralAction: "Animar la espiral de texto",
     skipToContent: "Saltar al contenido",
     menuOpen: "Abrir menú",
     menuClose: "Cerrar menú",
@@ -152,18 +124,8 @@ export const es: SiteContent = {
       agencyAnswer:
         "Si buscás una agencia de inteligencia artificial en El Salvador, en Ai Labs somos una firma privada de consultoría en San Salvador y no somos la Agencia Nacional de Inteligencia Artificial.",
       body: "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador.",
-      primaryCta: { label: "Hablemos", href: "#contact" },
+      primaryCta: { label: "Hablemos", href: "/agendar" },
       secondaryCta: { label: "Explorar servicios", href: "#services" },
-      spiralWords: [
-        "Procesos",
-        "Equipos",
-        "Ventas",
-        "Operaciones",
-        "Criterio",
-        "Flujos",
-        "Implementación",
-        "Acompañamiento",
-      ],
       proof: { value: "800+", label: "Builders" },
       slides: [
         { value: "800+", label: "Builders", icon: "builders" },
@@ -191,7 +153,6 @@ export const es: SiteContent = {
             "Desarrollá criterio para aplicarla por tu cuenta.",
           ],
           cta: "Quiero aprender",
-          interest: "enablement",
           learnMore: "Más sobre capacitación en IA",
           photos: [
             {
@@ -216,7 +177,6 @@ export const es: SiteContent = {
             "Recibí documentación y transferencia al equipo.",
           ],
           cta: "Quiero mejorar un proceso",
-          interest: "implementation",
           learnMore: "Más sobre automatización con IA",
           photos: [
             {
@@ -369,7 +329,7 @@ export const es: SiteContent = {
           body: "También abrimos talleres y bootcamps públicos para quienes aprenden por su cuenta.",
         },
       ],
-      cta: { label: "Preparar a mi equipo", href: "#contact" },
+      cta: { label: "Preparar a mi equipo", href: "/agendar" },
       mediaSrcs: homeCarousel.features,
       mediaAlt:
         "Evento de Ai Labs: taller práctico de capacitación y enseñanza.",
@@ -395,7 +355,7 @@ export const es: SiteContent = {
           body: "Entregamos el flujo, las integraciones y la documentación para que el equipo pueda operarlo.",
         },
       ],
-      cta: { label: "Revisar un proceso", href: "#contact" },
+      cta: { label: "Revisar un proceso", href: "/agendar" },
       process: {
         label: "Cómo implementamos un flujo",
         steps: [
@@ -421,42 +381,6 @@ export const es: SiteContent = {
       title: "¿Cómo podemos ayudarte?",
       lead: "Contanos qué querés aprender, mejorar o explorar. No necesitás llegar con una solución definida.",
       cta: "Hablemos",
-      nameLabel: "Nombre",
-      namePlaceholder: "Tu nombre",
-      emailLabel: "Correo electrónico",
-      emailPlaceholder: "vos@ejemplo.com",
-      companyLabel: "Empresa (opcional)",
-      companyPlaceholder: "Tu empresa u organización",
-      interestLabel: "¿Qué te trae por acá?",
-      interestOptions: [
-        {
-          value: "discovery",
-          label: "Encontrar dónde aplicar IA",
-        },
-        {
-          value: "enablement",
-          label: "Aprender o preparar a mi equipo",
-        },
-        {
-          value: "implementation",
-          label: "Mejorar o automatizar un proceso",
-        },
-        {
-          value: "partnership",
-          label: "Explorar una alianza",
-        },
-      ],
-      messageLabel: "Contanos un poco más",
-      messagePlaceholder:
-        "¿Qué te gustaría aprender, cambiar o trabajar en conjunto?",
-      submit: "Enviar consulta",
-      submitting: "Enviando…",
-      success: "Recibimos tu consulta. Nos pondremos en contacto con vos.",
-      error:
-        "No pudimos guardar tu consulta. Tu mensaje sigue aquí; intentá de nuevo.",
-      closeLabel: "Cerrar",
-      rateLimited: "Recibimos varias consultas. Intentá de nuevo en una hora.",
-      invalid: "Revisá los datos e intentá de nuevo.",
     },
   },
   servicePages: servicePagesEs,
@@ -544,369 +468,20 @@ export const es: SiteContent = {
     ],
     cta: "Hablemos",
   },
-  redeem: {
-    heroPhoto: {
-      name: "18.webp",
-      alt: "Participantes posan en grupo durante un evento de Ai Labs.",
-    },
-    metaTitle: "Canjear créditos",
-    eventLabel: "Evento",
-    howItWorksLabel: "Cómo funciona",
-    steps: [
-      { title: "Inicia sesión", body: "Usa el correo de tu evento" },
-      { title: "Verifícate", body: "Revisamos la lista de invitados" },
-      { title: "Copia tu código", body: "Canjea en segundos" },
-    ],
-    poweredBy: "Un evento de Ai Labs",
-    signInPrompt:
-      "Inicia sesión con el mismo correo con el que te registraste al evento.",
-    signInCta: "Iniciar sesión para canjear",
-    claimCta: "Canjear créditos",
-    claiming: "Canjeando…",
-    signedInAs: "Sesión iniciada como {email}",
-    signOutCta: "Cerrar sesión",
-    yourCode: "Tu código",
-    yourCodes: "Tus códigos",
-    alreadyRedeemed: "Ya canjeaste estos créditos para este evento.",
-    copyCode: "Copiar",
-    copied: "Copiado",
-    openCode: "Abrir",
-    invalidTitle: "Enlace no encontrado",
-    invalidBody:
-      "Este enlace de canje no es válido. Revisa la URL del organizador.",
-    inactiveTitle: "Canje cerrado",
-    inactiveBody: "Este evento ya no acepta canjes de créditos.",
-    notEligibleTitle: "Correo no está en la lista",
-    notEligibleBody:
-      "El correo de tu sesión no está registrado en este evento. Usa el de tu registro en Luma.",
-    soldOutTitle: "Códigos agotados",
-    soldOutBody:
-      "Todos los códigos de este evento ya fueron canjeados. Contacta al organizador.",
-    noVerifiedEmailTitle: "Verifica tu correo",
-    noVerifiedEmailBody:
-      "Tu cuenta necesita un correo verificado antes de canjear créditos.",
-    missingCodeTitle: "Falta el código",
-    missingCodeBody: "Abre el enlace completo que incluye ?code=…",
-    qrCta: "QR",
-    qrTitle: "Escaneá para abrir",
-    qrBody: "Escaneá este código para abrir esta página en otro dispositivo.",
-    poolLabels: {
-      CURSOR: "Cursor",
-      CODEX: "Codex",
-      OPENAI: "OpenAI Platform",
-    },
-    products: {
-      cursor: {
-        title: "Créditos de Cursor",
-        blurb: "Canjea tu código de Cursor de este evento de Ai Labs.",
-      },
-      codex: {
-        title: "Créditos de Codex",
-        blurb: "Canjea tu código de Codex de este evento de Ai Labs.",
-      },
-      openai: {
-        title: "Créditos de OpenAI Platform",
-        blurb: "Canjea tu código de OpenAI Platform de este evento de Ai Labs.",
-      },
-      codexOpenai: {
-        title: "Créditos de Codex + OpenAI Platform",
-        blurb: "Canjea tus códigos de Codex y OpenAI Platform de este evento.",
-      },
-    },
-  },
-  community: {
+  booking: {
     heroPhoto: {
       name: "9.webp",
       alt: "Participantes de la comunidad de Ai Labs se abrazan y se toman una selfie en un evento.",
     },
-    metaTitle: "Comunidad de IA en El Salvador",
+    metaTitle: "Agendá un diagnóstico de 30 minutos",
     metaDescription:
-      "Nuestra comunidad en El Salvador es un grupo de WhatsApp para aprender IA: avisos de talleres y eventos, y el programa Campus Leaders para estudiantes.",
-    label: "Comunidad",
-    headline: "¿Cómo me uno a la comunidad de WhatsApp de Ai Labs?",
-    body: "Nuestra comunidad en El Salvador es un grupo de WhatsApp para aprender IA: avisos de talleres y eventos, y el programa Campus Leaders para estudiantes.",
-    joinPrompt: "Unirte es gratis.",
-    joinCta: "Unirme en WhatsApp",
-    joinHint: "Se abre WhatsApp y puede pedir aprobación.",
-    joinHref: "https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj",
-    eventsCta: {
-      label: "Eventos de Ai Labs en El Salvador",
-      href: "/events",
-    },
-    consultingCta: {
-      label: "Consultoría de IA en El Salvador",
-      href: "/consultoria-de-ia-el-salvador",
-    },
-    howItWorksLabel: "Cómo funciona",
-    steps: [
-      { title: "Abrí la invitación", body: "Tocá Unirme en WhatsApp" },
-      {
-        title: "Pedí unirte",
-        body: "WhatsApp puede pedir aprobación",
-      },
-      { title: "Saludá", body: "Presentate y seguí la conversación" },
-    ],
-    qrCta: "QR",
-    qrTitle: "Escaneá para abrir",
-    qrBody: "Escaneá este código para abrir esta página en otro dispositivo.",
-  },
-  campusLeader: {
-    heroPhoto: {
-      name: "17.webp",
-      alt: "Estudiantes trabajan con sus laptops en un evento de Ai Labs.",
-    },
-    metaTitle: "Campus Leader: programa de IA para estudiantes",
-    metaDescription:
-      "Un Campus Leader es un estudiante, uno por universidad en El Salvador, que lleva nuestros talleres de IA a su campus y elige cuáles llegan.",
-    label: "Campus Leader",
-    headline: "¿Qué es un Campus Leader?",
-    body: "Un Campus Leader es un estudiante, uno por universidad en El Salvador, que lleva nuestros talleres de IA a su campus y elige cuáles llegan.",
-    creditsNote:
-      "Los líderes aceptados reciben créditos de las herramientas con las que trabajamos. Los montos quedan entre nosotros.",
-    cohort: "aster",
-    cohortDisplay: "Aster",
-    cohortLabel: "Cohorte",
-    applicationsOpen: true,
-    closedTitle: "La cohorte Aster está cerrada",
-    closedBody: "La próxima cohorte aparece aquí.",
-    applyCta: "Aplicar",
-    learnCta: "Cómo funciona",
-    consultingCta: {
-      label: "Consultoría de IA en El Salvador",
-      href: "/consultoria-de-ia-el-salvador",
-    },
-    media: {
-      whatSrc: homeCarousel.campusLeader[0],
-      whatAlt:
-        "Evento de Ai Labs: estudiantes colaborando en laptops durante una sesión de capacitación.",
-      benefitsSrcs: homeCarousel.campusLeader,
-      benefitsAlt:
-        "Evento de Ai Labs: participante en un escritorio de taller de capacitación.",
-      credit: "Crédito: Ai Labs. Fotografía de un evento de Ai Labs.",
-    },
-    landing: {
-      what: {
-        label: "El programa",
-        title: "¿Qué es el programa?",
-        body: "Ai Labs en tu campus: elegimos un estudiante por universidad en El Salvador, por cohorte, para llevar nuestros talleres de IA.",
-        items: [
-          {
-            title: "Cualquier carrera",
-            body: "Sistemas, Diseño, Marketing, Economía. No es un rol técnico y la carrera no define el cupo.",
-          },
-          {
-            title: "Uno por universidad",
-            body: "Un solo líder por campus. Es el cargo de tu universidad dentro de Ai Labs, no un cupo por facultad.",
-          },
-          {
-            title: "Cohorte Aster",
-            body: "Las aplicaciones abren en ventanas. Revisamos cada una y respondemos por WhatsApp.",
-          },
-        ],
-      },
-      role: {
-        label: "El cargo",
-        title: "¿Qué hace un Campus Leader?",
-        items: [
-          {
-            title: "Representás tu universidad",
-            body: "Sos el punto de contacto entre tu campus y Ai Labs.",
-          },
-          {
-            title: "Elegís qué taller llega",
-            body: "Nos decís qué le sirve a tu campus y cuándo está listo.",
-          },
-          {
-            title: "Abrís la sesión",
-            body: "Presentás frente a tus pares. Nosotros llevamos el contenido; vos operás salón, invitaciones y check-in.",
-          },
-        ],
-      },
-      benefits: {
-        label: "El intercambio",
-        title: "¿Qué recibís?",
-        items: [
-          {
-            title: "Reconocimiento oficial",
-            body: "Nombre, foto, campus y bio en el directorio de líderes de Ai Labs. Lanza con la cohorte.",
-          },
-          {
-            title: "Acceso a eventos cerrados",
-            body: "Una sesión solo para líderes por cohorte, y primer acceso a las sesiones públicas.",
-          },
-          {
-            title: "Herramientas y canales",
-            body: "Créditos de las herramientas que damos y el grupo privado con el equipo y los otros líderes.",
-          },
-          {
-            title: "Voz en la programación",
-            body: "Elegís qué talleres llegan a tu campus: Cursor Labs, talleres Codex, ElevenCreative.",
-          },
-        ],
-      },
-      fit: {
-        label: "Encaje",
-        title: "¿Para quién es?",
-        forTitle: "Sí si",
-        forItems: [
-          "Estudiás en un campus de El Salvador",
-          "Podés representar a toda tu universidad, no solo a tu carrera",
-          "Vas a ayudar a llenar un salón cuando llegue una sesión",
-          "Querés el cargo y la sesión que lo respalda",
-        ],
-        notTitle: "Mejor no si",
-        notItems: [
-          "Tu universidad ya tiene líder en esta cohorte",
-          "Querés la credencial sin operar la sesión",
-          "Necesitás un rol 100% remoto que no podamos visitar",
-        ],
-      },
-      ctaBand: {
-        title: "¿Listo para la cohorte Aster?",
-        body: "Tres pasos. Unos diez minutos si ya sabés la historia de tu campus.",
-        applyCta: "Empezar aplicación",
-      },
-    },
-    formTitle: "Tu aplicación",
-    formStepLabel: "Paso {current} de {total}",
-    formNext: "Continuar",
-    formBack: "Atrás",
-    formClose: "Cerrar",
-    formOptional: "Opcional",
-    formRequired: "Obligatorio",
-    logisticsLabel: "Básicos",
-    logisticsIntro: "Quién sos y dónde representarías a Ai Labs.",
-    deeperLabel: "Quién sos",
-    deeperIntro: "Un poco más allá del CV: cómo te movés con pares e IA.",
-    roomLabel: "Cuando el salón se queda callado",
-    roomIntro: "Cómo llenarías asientos de verdad.",
-    fields: {
-      name: { label: "Nombre", placeholder: "Juan Pérez" },
-      email: {
-        label: "Correo",
-        placeholder: "juan.perez@universidad.edu",
-        helper: "Uno que sí revisás",
-      },
-      whatsapp: {
-        label: "WhatsApp",
-        placeholder: "7845 2310",
-        helper: "8 dígitos, número de El Salvador",
-      },
-      instagram: {
-        label: "Instagram",
-        placeholder: "https://instagram.com/tuusuario",
-        helper: "Link del perfil. Así te encontramos en el campus.",
-        skipLabel: "No tengo Instagram",
-      },
-      linkedin: {
-        label: "LinkedIn",
-        placeholder: "https://linkedin.com/in/tunombre",
-      },
-      x: {
-        label: "X",
-        placeholder: "https://x.com/tuusuario",
-      },
-      campus: {
-        label: "Universidad / campus",
-        placeholder: "UCA, Antiguo Cuscatlán",
-        helper: "Solo El Salvador en la cohorte Aster",
-      },
-      career: {
-        label: "Carrera",
-        placeholder: "Elegí una carrera",
-        helper: "Para conocerte. No define el cupo.",
-      },
-      year: {
-        label: "Año",
-        placeholder: "Elegí el año",
-      },
-      bio: {
-        label: "Bio corta",
-        placeholder:
-          "Llevo el chat del club de diseño y termino organizando todos los trabajos en grupo.",
-        helper: "Puede ir al sitio. Nombre + campus + este texto.",
-      },
-      reach: {
-        label: "¿Dónde te escuchan ya en tu campus?",
-        placeholder:
-          "Escribo cada semana en el grupo de mi clase de ingeniería, somos como 240.",
-        helper:
-          "Chat del club, grupo de clase, laboratorio, o “todavía lo estoy armando”. Cualquiera sirve.",
-      },
-      aiToday: {
-        label:
-          "¿Cuál es tu nivel honesto con IA hoy, y qué querés que tu campus saque de una sesión?",
-        placeholder:
-          "Solo uso ChatGPT para tareas y quiero que mi campus vea para qué más sirve.",
-      },
-      whyLeader: {
-        label: "¿Por qué Campus Leader y no solo estar en la comunidad?",
-        placeholder:
-          "Nadie trae esto a mi universidad y prefiero armarlo yo antes que esperar.",
-      },
-      quietRoom: {
-        label:
-          "La sesión empieza en 10 minutos. La mitad del salón está en el celular. ¿Qué hacés?",
-        placeholder:
-          "Les pido que cierren la laptop y abran la herramienta en el celular.",
-      },
-      inviteMessage: {
-        label:
-          "Escribí el mensaje que mandarías para que gente de tu campus venga a una sesión.",
-        placeholder:
-          "Sábado 9am en el B-12. Traé laptop, en dos horas armamos algo.",
-      },
-      roomPlan: {
-        label:
-          "¿Cómo conseguirías un salón y unas 20 personas de tu campus un sábado?",
-        placeholder:
-          "Le pido el laboratorio al coordinador, escribo en tres grupos de clase y confirmo nombres una semana antes.",
-      },
-      sessionPrefs: {
-        label: "¿A qué sesiones vendría tu campus?",
-      },
-      notes: {
-        label: "¿Algo que debamos saber antes de decir sí o no?",
-        placeholder:
-          "Ya tengo el auditorio reservado dos sábados de septiembre.",
-      },
-    },
-    careerOptions: [
-      { value: "sistemas", label: "Ingeniería / Computación" },
-      { value: "diseno", label: "Diseño" },
-      { value: "marketing", label: "Comunicación / Marketing" },
-      { value: "negocios", label: "Economía / Negocios / Admin" },
-      { value: "sociales", label: "Ciencias sociales / Derecho" },
-      { value: "otra", label: "Otra (especificá en notas)" },
-    ],
-    yearOptions: [
-      { value: "1", label: "1er año" },
-      { value: "2", label: "2do año" },
-      { value: "3", label: "3er año" },
-      { value: "4", label: "4to año" },
-      { value: "5-plus", label: "5to año o más" },
-      { value: "grad", label: "Egresado" },
-    ],
-    sessionPrefOptions: [
-      { value: "cursor-labs", label: "Cursor Labs" },
-      { value: "codex", label: "Talleres Codex" },
-      { value: "elevencreative", label: "ElevenCreative" },
-      { value: "surprise", label: "Sorpréndanos" },
-    ],
-    careerHint:
-      "Si tu universidad ya tiene líder en esta cohorte, te ponemos en lista de espera o lo dejamos para la siguiente.",
-    submit: "Enviar aplicación",
-    submitting: "Enviando…",
-    success: "Listo. Revisamos la cohorte Aster y respondemos por WhatsApp.",
-    error: "Algo falló. Probá de nuevo en un momento.",
-    stepIncomplete:
-      "Completá los campos obligatorios de este paso para seguir.",
-    invalidLink: "Usá un link completo que empiece con https://",
-    formCrashTitle: "El formulario falló",
-    formRetry: "Empezar de nuevo",
-    qrCta: "QR",
-    qrTitle: "Escaneá para abrir",
-    qrBody: "Escaneá este código para abrir esta página en otro dispositivo.",
+      "Agendá un diagnóstico de 30 minutos con nosotros en San Salvador, El Salvador. Elegí un horario y contanos qué proceso querés revisar.",
+    label: "Agenda",
+    headline: "Agendá un diagnóstico de 30 minutos",
+    body: "Elegí un horario y contanos qué proceso querés revisar.",
+    embedTitle: "Agenda de Ai Labs",
+    whatsappCta: "Unirme en WhatsApp",
+    whatsappHint: "Se abre WhatsApp y puede pedir aprobación.",
   },
   legal: legalEs,
   events: {
@@ -929,7 +504,6 @@ export const es: SiteContent = {
     cityLine: "en San Salvador",
     closeHeadline: "San Salvador sigue juntándose",
     closeSupport: "Walter publica el calendario completo en Luma.",
-    communityCta: "Unirme a la comunidad",
     consultingLink: "Consultoría de IA en El Salvador",
     upcomingEmpty: "No hay un evento próximo.",
     monthEmpty: "No publicamos eventos en Luma en {month}.",

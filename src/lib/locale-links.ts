@@ -2,13 +2,12 @@ import type { Locale } from "@/content"
 import { localizedPath } from "@/lib/locale-path"
 
 /**
- * Content modules store locale-agnostic path hrefs ("/community") or home
+ * Content modules store locale-agnostic path hrefs ("/events") or home
  * section hashes ("#academy"). Path hrefs map to route paths; English adds `/en`.
  */
 const INTERNAL_ROUTES = {
   "/consultoria-de-ia-el-salvador": "/consultoria-de-ia-el-salvador",
-  "/community": "/community",
-  "/campus-leader": "/campus-leader",
+  "/agendar": "/agendar",
   "/events": "/events",
   "/terms": "/terms",
   "/privacy": "/privacy",
@@ -40,11 +39,5 @@ function homePath(locale: Locale): string {
   return localizedPath(locale, "/")
 }
 
-export {
-  hashFromHref,
-  homePath,
-  isHashHref,
-  isInternalHref,
-  routeForHref,
-}
+export { hashFromHref, homePath, isHashHref, isInternalHref, routeForHref }
 export type { InternalHref, InternalRoute }

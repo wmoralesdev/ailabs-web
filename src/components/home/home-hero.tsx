@@ -1,8 +1,8 @@
 import { Fragment, useRef } from "react"
+import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
-import { useContact } from "@/components/contact/contact-provider"
 import { HalftoneCanvas } from "@/components/halftone/halftone-canvas"
 import { HomeCtaLink } from "@/components/home/home-cta-link"
 import type { HomeHeroContent, Locale, NavItem, SiteContent } from "@/content"
@@ -22,7 +22,7 @@ type HomeHeroProps = {
   content: SiteContent
   /** Reuse this hero with another page's copy. Omit to use the home hero. */
   hero?: HomeHeroContent
-  /** When set, the primary control is this link instead of the contact dialog. */
+  /** When set, the primary control is this link instead of the booking CTA. */
   primaryAction?: HomeHeroLinkAction
   /** Quiet text link under the hero actions. Omit on the home. */
   textLink?: NavItem
@@ -47,8 +47,7 @@ function HomeHero({
   const root = useRef<HTMLElement>(null)
   useHomeEntrance(root, "hero", locale)
   // Hash CTAs belong to the home; from another page they go there.
-  const secondaryHref = (() => {
-    const href = hero.secondaryCta.href
+  const resolveHref = (href: string) => {
     if (href.startsWith("#") && !samePageCtas) {
       return `${localizedPath(locale, "/")}${href}`
     }
@@ -56,7 +55,9 @@ function HomeHero({
       return routeForHref(href, locale)
     }
     return href
-  })()
+  }
+  const primaryHref = resolveHref(hero.primaryCta.href)
+  const secondaryHref = resolveHref(hero.secondaryCta.href)
 
   return (
     <section
@@ -120,8 +121,16 @@ function HomeHero({
                 ) : null}
                 <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
               </a>
+            ) : isInternalHref(hero.primaryCta.href) ? (
+              <Link to={primaryHref as never} className="btn">
+                {hero.primaryCta.label}
+                <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+              </Link>
             ) : (
-              <HeroContactButton label={hero.primaryCta.label} />
+              <a href={primaryHref} className="btn">
+                {hero.primaryCta.label}
+                <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+              </a>
             )}
             <a href={secondaryHref} className="text-action">
               {hero.secondaryCta.label}
@@ -147,21 +156,6 @@ function HomeHero({
         />
       </div>
     </section>
-  )
-}
-
-function HeroContactButton({ label }: { label: string }) {
-  const { openContact } = useContact()
-
-  return (
-    <button
-      type="button"
-      onClick={() => openContact("discovery")}
-      className="btn"
-    >
-      {label}
-      <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-    </button>
   )
 }
 

@@ -1,21 +1,24 @@
 import type { Locale, NavContent } from "@/content"
 import { hashFromHref, isInternalHref, routeForHref } from "@/lib/locale-links"
 
-/** One services destination and one community group, shared by both menus. */
+function internalRoute(href: string, locale: Locale, name: string): string {
+  if (!isInternalHref(href)) {
+    throw new Error(`${name} navigation must point to an internal route`)
+  }
+  return routeForHref(href, locale)
+}
+
+/** One services destination, the events link and the booking CTA, shared by both menus. */
 export function getChromeNavItems(nav: NavContent, locale: Locale) {
   return {
     services: { ...nav.services, hash: hashFromHref(nav.services.href) },
-    community: {
-      label: nav.community.label,
-      items: nav.community.items.map((item) => {
-        if (!isInternalHref(item.href)) {
-          throw new Error(
-            "Community navigation must point to an internal route"
-          )
-        }
-        return { ...item, to: routeForHref(item.href, locale) }
-      }),
+    events: {
+      ...nav.events,
+      to: internalRoute(nav.events.href, locale, "Events"),
     },
-    contact: nav.contact,
+    contact: {
+      ...nav.contact,
+      to: internalRoute(nav.contact.href, locale, "Contact"),
+    },
   }
 }

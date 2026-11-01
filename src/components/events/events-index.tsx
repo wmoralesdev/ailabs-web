@@ -437,10 +437,6 @@ function EventsIndex({ locale, content, now }: EventsIndexProps) {
       label: copy.calendarLabel,
       href: walterEventsCalendarUrl,
     },
-    secondaryCta: {
-      label: copy.communityCta,
-      href: "/community",
-    },
   }
 
   return (

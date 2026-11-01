@@ -4,7 +4,7 @@ import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
 import type { ServicePagesContent } from "@/content"
 import { EVENT_PHOTOS } from "@/content/event-photos"
-import { useContact } from "@/components/contact/contact-provider"
+import { BOOKING_PAGE_PATH } from "@/content/booking"
 import { HalftoneIcon } from "@/components/halftone/halftone-icon"
 import { HalftoneLens } from "@/components/halftone/halftone-lens"
 import { Reveal } from "@/components/halftone/reveal"
@@ -40,7 +40,6 @@ const stepShapes: ReadonlyArray<ShapeName> = ["search", "nodes", "arrow"]
 /** Everything is server-rendered and static: answers must not hide behind JS. */
 function ServicePage({ id, pages }: ServicePageProps) {
   const { locale } = useLocaleContext()
-  const { openContact } = useContact()
   const page = pages[id]
   const related = SERVICE_PAGE_IDS.filter((other) => other !== id)
   const photo = EVENT_PHOTOS[page.photo.name]
@@ -52,7 +51,10 @@ function ServicePage({ id, pages }: ServicePageProps) {
         <nav aria-label={pages.breadcrumbLabel} className="mb-10 text-small">
           <ol className="flex flex-wrap items-center gap-2 text-muted-foreground">
             <li>
-              <Link to={to("/")} className="link-underline hover:text-foreground">
+              <Link
+                to={to("/")}
+                className="link-underline hover:text-foreground"
+              >
                 {pages.homeLabel}
               </Link>
             </li>
@@ -75,14 +77,10 @@ function ServicePage({ id, pages }: ServicePageProps) {
                 {claim}
               </p>
             ))}
-            <button
-              type="button"
-              onClick={() => openContact(page.interest)}
-              className="btn"
-            >
+            <Link to={to(BOOKING_PAGE_PATH)} className="btn">
               {page.cta}
               <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-            </button>
+            </Link>
           </div>
           <div className="lg:col-span-5">
             <HalftoneLens
@@ -272,14 +270,10 @@ function ServicePage({ id, pages }: ServicePageProps) {
             <p className="max-w-[52ch] text-lead leading-snug text-muted-foreground">
               {page.ctaBody}
             </p>
-            <button
-              type="button"
-              onClick={() => openContact(page.interest)}
-              className="btn"
-            >
+            <Link to={to(BOOKING_PAGE_PATH)} className="btn">
               {page.cta}
               <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-            </button>
+            </Link>
           </div>
 
           <nav
@@ -326,17 +320,6 @@ function ServicePage({ id, pages }: ServicePageProps) {
               <li>
                 <Link to={to("/events")} className={relatedLinkClassName}>
                   {pages.eventsLink}
-                  <HugeiconsIcon
-                    icon={ArrowRight01Icon}
-                    size={16}
-                    strokeWidth={2}
-                    aria-hidden="true"
-                  />
-                </Link>
-              </li>
-              <li>
-                <Link to={to("/community")} className={relatedLinkClassName}>
-                  {pages.communityLink}
                   <HugeiconsIcon
                     icon={ArrowRight01Icon}
                     size={16}

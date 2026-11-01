@@ -11,9 +11,6 @@ Allow: /
 
 User-agent: *
 Allow: /
-Disallow: /sign-in
-Disallow: /sign-up
 Disallow: /bg
-Disallow: /redeem
 
 Sitemap: https://www.ailabs.sv/sitemap.xml

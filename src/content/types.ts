@@ -14,22 +14,12 @@ export type PageMeta = {
 export type NavItem = {
   label: string
   href: string
-  contactInterest?: ContactInterestId
 }
 
 export type NavContent = {
   services: NavItem
-  community: {
-    label: string
-    items: ReadonlyArray<NavItem>
-  }
+  events: NavItem
   contact: NavItem
-}
-
-export type CampaignQrCopy = {
-  qrCta: string
-  qrTitle: string
-  qrBody: string
 }
 
 export type FooterColumn = {
@@ -48,8 +38,6 @@ export type FooterContent = {
   columns: ReadonlyArray<FooterColumn>
   /** Terms and Privacy links; the footer hides them while the text is a draft. */
   legalLinks: ReadonlyArray<NavItem>
-  /** Heading for the dynamic upcoming-events column; omitted when empty. */
-  eventsTitle: string
   copyright: string
   locationLine: string
   /** Heading above the social links. */
@@ -68,7 +56,6 @@ export type MicrocopyContent = {
   notFoundBody: string
   notFoundCtaHome: string
   languageSwitch: string
-  textSpiralAction: string
   skipToContent: string
   menuOpen: string
   menuClose: string
@@ -76,216 +63,6 @@ export type MicrocopyContent = {
   themeToLight: string
   themeToDark: string
   themeToSystem: string
-}
-
-export type RedeemProductCopy = {
-  title: string
-  blurb: string
-}
-
-export type RedeemStep = {
-  title: string
-  body: string
-}
-
-export type RedeemContent = CampaignQrCopy & {
-  /** Event photo printed on the hero panel. */
-  heroPhoto: EventPhoto
-  metaTitle: string
-  eventLabel: string
-  howItWorksLabel: string
-  steps: ReadonlyArray<RedeemStep>
-  poweredBy: string
-  signInPrompt: string
-  signInCta: string
-  claimCta: string
-  claiming: string
-  signedInAs: string
-  signOutCta: string
-  yourCode: string
-  yourCodes: string
-  alreadyRedeemed: string
-  copyCode: string
-  copied: string
-  openCode: string
-  invalidTitle: string
-  invalidBody: string
-  inactiveTitle: string
-  inactiveBody: string
-  notEligibleTitle: string
-  notEligibleBody: string
-  soldOutTitle: string
-  soldOutBody: string
-  noVerifiedEmailTitle: string
-  noVerifiedEmailBody: string
-  missingCodeTitle: string
-  missingCodeBody: string
-  /** Shown after codes when the signed-in visitor is not yet a member. */
-  poolLabels: {
-    CURSOR: string
-    CODEX: string
-    OPENAI: string
-  }
-  products: {
-    cursor: RedeemProductCopy
-    codex: RedeemProductCopy
-    openai: RedeemProductCopy
-    codexOpenai: RedeemProductCopy
-  }
-}
-
-export type CommunityStep = {
-  title: string
-  body: string
-}
-
-export type CommunityContent = CampaignQrCopy & {
-  /** Event photo printed on the hero panel. */
-  heroPhoto: EventPhoto
-  metaTitle: string
-  metaDescription: string
-  label: string
-  headline: string
-  body: string
-  joinPrompt: string
-  joinCta: string
-  joinHint: string
-  joinHref: string
-  /** Plain link to the events index. The body stays text for meta and FAQ. */
-  eventsCta: NavItem
-  /** Plain link to the consulting page. The anchor is the search query. */
-  consultingCta: NavItem
-  howItWorksLabel: string
-  steps: ReadonlyArray<CommunityStep>
-}
-
-export type CampusLeaderFieldOption = {
-  value: string
-  label: string
-}
-
-export type CampusLeaderFieldCopy = {
-  label: string
-  placeholder?: string
-  helper?: string
-}
-
-export type CampusLeaderPoint = {
-  title: string
-  body: string
-}
-
-export type CampusLeaderLandingSection = {
-  label: string
-  title: string
-  body?: string
-  items: ReadonlyArray<CampusLeaderPoint>
-}
-
-export type CampusLeaderFitSection = {
-  label: string
-  title: string
-  forTitle: string
-  forItems: ReadonlyArray<string>
-  notTitle: string
-  notItems: ReadonlyArray<string>
-}
-
-export type CampusLeaderMedia = {
-  whatSrc: string
-  whatAlt: string
-  benefitsSrcs: ReadonlyArray<string>
-  benefitsAlt: string
-  /** Visible credit for the campus photographs. */
-  credit: string
-}
-
-export type CampusLeaderContent = CampaignQrCopy & {
-  /** Event photo printed on the hero panel. */
-  heroPhoto: EventPhoto
-  metaTitle: string
-  metaDescription: string
-  label: string
-  headline: string
-  body: string
-  creditsNote: string
-  /** Stored slug, e.g. "aster". */
-  cohort: string
-  /** Flower display name, e.g. "Aster". Same proper noun in EN and ES. */
-  cohortDisplay: string
-  /** Localized word before the flower name, e.g. "Cohort" / "Cohorte". */
-  cohortLabel: string
-  applicationsOpen: boolean
-  closedTitle: string
-  closedBody: string
-  applyCta: string
-  learnCta: string
-  /** Plain link to the consulting page. The anchor is the search query. */
-  consultingCta: NavItem
-  media: CampusLeaderMedia
-  landing: {
-    what: CampusLeaderLandingSection
-    role: CampusLeaderLandingSection
-    benefits: CampusLeaderLandingSection
-    fit: CampusLeaderFitSection
-    ctaBand: {
-      title: string
-      body: string
-      applyCta: string
-    }
-  }
-  formTitle: string
-  formStepLabel: string
-  formNext: string
-  formBack: string
-  formClose: string
-  /** Shown on the fewer side of required vs optional fields. */
-  formOptional: string
-  formRequired: string
-  logisticsLabel: string
-  logisticsIntro: string
-  deeperLabel: string
-  deeperIntro: string
-  roomLabel: string
-  roomIntro: string
-  fields: {
-    name: CampusLeaderFieldCopy
-    email: CampusLeaderFieldCopy
-    whatsapp: CampusLeaderFieldCopy
-    linkedin: CampusLeaderFieldCopy
-    instagram: CampusLeaderFieldCopy & {
-      /** Checkbox label to skip Instagram when they have no account. */
-      skipLabel: string
-    }
-    x: CampusLeaderFieldCopy
-    campus: CampusLeaderFieldCopy
-    career: CampusLeaderFieldCopy
-    year: CampusLeaderFieldCopy
-    bio: CampusLeaderFieldCopy
-    reach: CampusLeaderFieldCopy
-    aiToday: CampusLeaderFieldCopy
-    whyLeader: CampusLeaderFieldCopy
-    quietRoom: CampusLeaderFieldCopy
-    inviteMessage: CampusLeaderFieldCopy
-    roomPlan: CampusLeaderFieldCopy
-    sessionPrefs: CampusLeaderFieldCopy
-    notes: CampusLeaderFieldCopy
-  }
-  careerOptions: ReadonlyArray<CampusLeaderFieldOption>
-  /** Values stay language-neutral so exports read the same in EN and ES. */
-  yearOptions: ReadonlyArray<CampusLeaderFieldOption>
-  sessionPrefOptions: ReadonlyArray<CampusLeaderFieldOption>
-  careerHint: string
-  submit: string
-  submitting: string
-  success: string
-  error: string
-  stepIncomplete: string
-  /** Shown when a social field is filled but is not an http(s) URL. */
-  invalidLink: string
-  /** Render-crash fallback title inside the apply dialog. */
-  formCrashTitle: string
-  formRetry: string
 }
 
 export type HomeStatIcon = "builders" | "events" | "partners"
@@ -308,8 +85,6 @@ export type HomeHeroContent = {
   agencyAnswer: string
   primaryCta: NavItem
   secondaryCta: NavItem
-  /** Dedicated source for the canvas text spiral. */
-  spiralWords: ReadonlyArray<string>
   proof: HomeStat
   slides: ReadonlyArray<HomeStat>
   mediaSrcs: ReadonlyArray<string>
@@ -390,37 +165,11 @@ export type HomePartnerVoice = {
   role: string
 }
 
-/** Contact routing follows the consultive outcome or relationship requested. */
-export type ContactInterestId =
-  "discovery" | "enablement" | "implementation" | "partnership"
-
-export type HomeContactInterest = {
-  value: ContactInterestId
-  label: string
-}
-
+/** Closing home tile. The whole tile links to the booking page. */
 export type HomeContactContent = {
   title: string
   lead: string
-  /** Banner CTA that opens the contact form modal. */
   cta: string
-  nameLabel: string
-  namePlaceholder: string
-  emailLabel: string
-  emailPlaceholder: string
-  companyLabel: string
-  companyPlaceholder: string
-  interestLabel: string
-  interestOptions: ReadonlyArray<HomeContactInterest>
-  messageLabel: string
-  messagePlaceholder: string
-  submit: string
-  submitting: string
-  success: string
-  error: string
-  closeLabel: string
-  rateLimited: string
-  invalid: string
 }
 
 export type HomeServiceItem = {
@@ -433,7 +182,6 @@ export type HomeServiceItem = {
   body: string
   points: ReadonlyArray<string>
   cta: string
-  interest: ContactInterestId
   /** Text link to the matching service page. */
   learnMore: string
   /** Two real event photos for the service's cells in the bento. */
@@ -569,7 +317,6 @@ export type ServicePageContent = {
   ctaHeading: string
   ctaBody: string
   cta: string
-  interest: ContactInterestId
 }
 
 export type ServicePagesContent = {
@@ -577,7 +324,6 @@ export type ServicePagesContent = {
   breadcrumbLabel: string
   relatedLabel: string
   consultingLink: string
-  communityLink: string
   eventsLink: string
   training: ServicePageContent
   automation: ServicePageContent
@@ -652,7 +398,6 @@ export type EventsIndexContent = {
   cityLine: string
   closeHeadline: string
   closeSupport: string
-  communityCta: string
   /** Visible label for the consulting page. The anchor is the search query. */
   consultingLink: string
   upcomingEmpty: string
@@ -666,6 +411,24 @@ export type EventsIndexContent = {
   photos: ReadonlyArray<EventsIndexPhoto>
 }
 
+/**
+ * Booking page (`/agendar`). Placeholder copy until the copy PR lands; the
+ * scheduler URL and WhatsApp link live in `src/content/booking.ts`.
+ */
+export type BookingContent = {
+  /** Event photo printed on the hero panel. */
+  heroPhoto: EventPhoto
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  body: string
+  /** Accessible title of the scheduler embed. */
+  embedTitle: string
+  whatsappCta: string
+  whatsappHint: string
+}
+
 export type SiteContent = {
   locale: Locale
   meta: PageMeta
@@ -674,9 +437,7 @@ export type SiteContent = {
   home: HomeContent
   servicePages: ServicePagesContent
   consulting: ConsultingPageContent
-  redeem: RedeemContent
-  community: CommunityContent
-  campusLeader: CampusLeaderContent
+  booking: BookingContent
   legal: LegalContent
   events: EventsIndexContent
 }
