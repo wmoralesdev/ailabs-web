@@ -21,7 +21,7 @@ const homeQuietCtaClassName = "text-action"
 
 /**
  * CTA for home sections. Resolves the locale-agnostic hrefs stored in content
- * so section CTAs can point at routes (`/community`) and not just hashes.
+ * so section CTAs can point at routes (`/events`) and not just hashes.
  *
  * Hash hrefs stay plain anchors: home sections only ever render on the home
  * route, and routing them through `Link` would mark them `aria-current="page"`.
@@ -58,7 +58,10 @@ function HomeCtaLink({
 
   if (isInternalHref(cta.href)) {
     return (
-      <Link to={routeForHref(cta.href, locale) as never} className={linkClassName}>
+      <Link
+        to={routeForHref(cta.href, locale) as never}
+        className={linkClassName}
+      >
         {body}
       </Link>
     )

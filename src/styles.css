@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@clerk/ui/themes/shadcn.css";
 @import "@fontsource-variable/alan-sans";
 @import "@fontsource-variable/dm-sans";
 
@@ -578,18 +577,13 @@
 }
 
 /* Interruptible surface motion. Base UI owns focus, presence and placement. */
-.site-community-menu,
-.contact-dialog,
-.contact-overlay {
+.site-community-menu {
     animation: none;
     opacity: 1;
-    transition-property: opacity, scale;
-    transition-timing-function: var(--ease-out);
-}
-
-.site-community-menu {
     scale: 1;
     transform-origin: var(--transform-origin);
+    transition-property: opacity, scale;
+    transition-timing-function: var(--ease-out);
     transition-duration: var(--motion-menu-enter);
 }
 
@@ -603,35 +597,8 @@
     transition-duration: var(--motion-menu-exit);
 }
 
-.contact-dialog {
-    scale: 1;
-    transform-origin: center;
-    transition-duration: var(--motion-dialog-enter);
-}
-
-.contact-overlay {
-    transition-duration: var(--motion-dialog-enter);
-}
-
-.contact-dialog[data-starting-style],
-.contact-dialog[data-ending-style] {
-    opacity: 0;
-    scale: 0.98;
-}
-
-.contact-overlay[data-starting-style],
-.contact-overlay[data-ending-style] {
-    opacity: 0;
-}
-
-.contact-dialog[data-ending-style],
-.contact-overlay[data-ending-style] {
-    transition-duration: var(--motion-dialog-exit);
-}
-
 @media (prefers-reduced-motion: reduce) {
-    .site-community-menu,
-    .contact-dialog {
+    .site-community-menu {
         scale: 1 !important;
     }
 }

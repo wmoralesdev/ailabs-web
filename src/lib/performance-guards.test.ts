@@ -3,12 +3,6 @@ import { join } from "node:path"
 
 import { describe, expect, it } from "vitest"
 
-import {
-  CLERK_ROUTE_PREFIXES,
-  isClerkPath,
-  needsClerkMiddleware,
-} from "@/lib/clerk-scope"
-
 function walk(dir: string): string[] {
   return readdirSync(dir).flatMap((entry) => {
     const path = join(dir, entry)
@@ -17,15 +11,6 @@ function walk(dir: string): string[] {
 }
 
 describe("performance guards", () => {
-  it("keeps server-only modules out of the router chunk every request boots", () => {
-    // API route files are bundled into the router. A static import of a
-    // `.server` module (satori, resvg, Prisma) loads it on every page request.
-    for (const path of walk("src/routes/api")) {
-      const source = readFileSync(path, "utf8")
-      expect(source, path).not.toMatch(/^import .* from "[^"]+\.server"/m)
-    }
-  })
-
   it("resolves the locale without a server round trip on client navigation", () => {
     const root = readFileSync("src/routes/__root.tsx", "utf8")
     const locale = readFileSync("src/lib/locale-preference.ts", "utf8")
@@ -48,62 +33,23 @@ describe("performance guards", () => {
     expect(pkg.dependencies.three).toBeUndefined()
   })
 
-  it("runs Clerk only for server functions and auth routes", () => {
-    for (const path of [
-      "/",
-      "/community",
-      "/campus-leader",
-      "/consultoria-de-ia-el-salvador",
-      "/events",
-      "/events/modo-fundador",
-      "/en",
-      "/en/community",
-      "/media",
-      "/redeemable",
-    ]) {
-      expect(needsClerkMiddleware(path, "router"), path).toBe(false)
+  it("ships a static services site: no auth, database or payment client", () => {
+    const pkg = JSON.parse(readFileSync("package.json", "utf8")) as {
+      dependencies: Record<string, string>
+      devDependencies: Record<string, string>
+      scripts: Record<string, string>
     }
-    for (const path of [
-      "/redeem",
-      "/en/redeem",
-      "/sign-in/factor-one",
-      "/sign-up",
-    ]) {
-      expect(isClerkPath(path), path).toBe(true)
-    }
-    expect(needsClerkMiddleware("/", "serverFn")).toBe(true)
-
+    const names = Object.keys({ ...pkg.dependencies, ...pkg.devDependencies })
+    expect(names.filter((name) => /clerk|prisma|neon|^pg$/.test(name))).toEqual(
+      []
+    )
+    expect(pkg.scripts.build).toBe("vite build")
+    expect(pkg.scripts.postinstall).toBeUndefined()
     const root = readFileSync("src/routes/__root.tsx", "utf8")
     expect(root).not.toContain("ClerkProvider")
     expect(root).not.toContain("Toaster")
-    for (const prefix of CLERK_ROUTE_PREFIXES) {
-      const file = {
-        "/redeem": "src/routes/_site/redeem.tsx",
-        "/sign-in": "src/routes/sign-in.$.tsx",
-        "/sign-up": "src/routes/sign-up.$.tsx",
-      }[prefix]
-      const source = readFileSync(file, "utf8")
-      expect(source, file).toContain("beforeLoad: ensureClerkDocument")
-      expect(source, file).toContain("<ClerkAuth>")
-    }
-  })
-
-  it("keeps event pages, toasts, and Clerk out of entry-bundle code paths", () => {
-    // Footer and route loaders ship in the entry bundle.
-    const footer = readFileSync("src/components/chrome/site-footer.tsx", "utf8")
-    expect(footer).toContain('from "@/events/catalog"')
-    expect(footer).not.toContain("@/events/registry")
-    const guard = readFileSync("src/lib/clerk-document.ts", "utf8")
-    expect(guard).not.toMatch(/@clerk/)
-    for (const path of [
-      "src/routes/_site/events/$slug.index.tsx",
-      "src/routes/_site/events/$slug.success.tsx",
-    ]) {
-      const source = readFileSync(path, "utf8")
-      expect(source, path).toMatch(
-        /await import\(\s*"@\/events\/registry"\s*\)/
-      )
-    }
+    const start = readFileSync("src/start.ts", "utf8")
+    expect(start).not.toMatch(/clerk/i)
   })
 
   it("loads carousel photos one slide ahead and prints logos without images", () => {

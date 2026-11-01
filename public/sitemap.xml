@@ -74,42 +74,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/automatizacion-ia-el-salvador" />
   </url>
   <url>
-    <loc>https://www.ailabs.sv/community</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/community" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/community" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/community" />
-  </url>
-  <url>
-    <loc>https://www.ailabs.sv/en/community</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/community" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/community" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/community" />
-  </url>
-  <url>
-    <loc>https://www.ailabs.sv/campus-leader</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/campus-leader" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/campus-leader" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/campus-leader" />
-  </url>
-  <url>
-    <loc>https://www.ailabs.sv/en/campus-leader</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/campus-leader" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/campus-leader" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/campus-leader" />
-  </url>
-  <url>
     <loc>https://www.ailabs.sv/events</loc>
     <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
@@ -126,5 +90,23 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/events" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/events" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/events" />
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/agendar</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/agendar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/agendar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/agendar" />
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/en/agendar</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/agendar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/agendar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/agendar" />
   </url>
 </urlset>

@@ -15,7 +15,7 @@ export const Route = createFileRoute("/bg")({
 
 function BackgroundPage() {
   return (
-    <main className="bg-background text-foreground relative flex h-dvh w-screen items-center justify-center overflow-hidden">
+    <main className="relative flex h-dvh w-screen items-center justify-center overflow-hidden bg-background text-foreground">
       <BgStipple />
 
       <img

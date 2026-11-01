@@ -72,8 +72,11 @@ describe("events index page", () => {
       screen.getByRole("link", { name: /Ver calendario/ })
     ).toHaveAttribute("href", "https://luma.com/user/wmoralesdev")
     expect(
-      screen.getByRole("link", { name: /Unirme a la comunidad/ })
-    ).toHaveAttribute("href", "/community")
+      screen.getByRole("link", { name: /Explorar servicios/ })
+    ).toHaveAttribute("href", "/#services")
+    expect(
+      screen.queryByRole("link", { name: /Unirme a la comunidad/ })
+    ).not.toBeInTheDocument()
     expect(screen.queryByText(es.events.closeHeadline)).not.toBeInTheDocument()
 
     expect(screen.getAllByRole("img")).toHaveLength(es.events.photos.length)
@@ -111,8 +114,8 @@ describe("events index page", () => {
       "https://luma.com/user/wmoralesdev"
     )
     expect(
-      screen.getByRole("link", { name: /Join the community/ })
-    ).toHaveAttribute("href", "/en/community")
+      screen.getByRole("link", { name: /Explore services/ })
+    ).toHaveAttribute("href", "/en#services")
     expect(screen.getByRole("link", { name: /View calendar/ })).toHaveAttribute(
       "target",
       "_blank"
@@ -133,9 +136,7 @@ describe("events index page", () => {
     )
 
     expect(
-      screen.getByText(
-        "No publicamos eventos en Luma en noviembre de 2026."
-      )
+      screen.getByText("No publicamos eventos en Luma en noviembre de 2026.")
     ).toBeInTheDocument()
     expect(
       screen.queryByRole("region", { name: "Próximos" })

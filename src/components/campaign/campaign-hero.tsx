@@ -1,15 +1,11 @@
 import { HalftoneLens } from "@/components/halftone/halftone-lens"
-import { RedeemQrModal } from "@/components/redeem/redeem-qr-modal"
-import type { CampaignQrCopy, Locale } from "@/content/types"
 import { EVENT_PHOTOS } from "@/content/event-photos"
 import type { EventPhoto } from "@/content/event-photos"
 import { cn } from "@/lib/utils"
 
 type CampaignHeroProps = {
-  locale: Locale
   /** Real event photo printed as halftone on the purple panel. */
   photo: EventPhoto
-  qrContent?: CampaignQrCopy
   /** Static heroes fill one viewport (like home); dynamic flows grow. */
   fluid?: boolean
   footer?: React.ReactNode
@@ -17,13 +13,12 @@ type CampaignHeroProps = {
 }
 
 /**
- * Shared split hero for the campaign routes (community, campus leader,
- * redeem): copy on paper at the left, a real event photo at the right with
- * the halftone lens under the pointer.
+ * Shared split hero for campaign-style routes (today the booking page):
+ * copy on paper at the left, a real event photo at the right with the
+ * halftone lens under the pointer.
  */
 function CampaignHero({
   photo,
-  qrContent,
   fluid = false,
   footer,
   children,
@@ -61,11 +56,6 @@ function CampaignHero({
             priority
             className="absolute inset-0 size-full rounded-3xl"
           />
-          {qrContent ? (
-            <div className="absolute top-3 right-3 z-10 rounded-full bg-background sm:top-4 sm:right-4">
-              <RedeemQrModal content={qrContent} onDark={false} />
-            </div>
-          ) : null}
         </div>
       </div>
     </section>

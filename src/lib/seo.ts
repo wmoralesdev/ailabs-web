@@ -1,5 +1,4 @@
 import type { Locale } from "@/content"
-import { isWorkshopPast } from "@/events/catalog"
 import { localizedPath } from "@/lib/locale-path"
 
 /** Host that returns the public site. Canonical URLs use www. */
@@ -180,72 +179,6 @@ export function buildFaqJsonLd(items: readonly FaqItem[]): HeadScript {
           text: item.answer,
         },
       })),
-    }),
-  }
-}
-
-/**
- * Event for a dated, in-person workshop in San Salvador. Returns null while the
- * date is TBD: search engines reject an Event without `startDate`.
- */
-export function buildWorkshopEventJsonLd(input: {
-  locale: Locale
-  path: string
-  name: string
-  description: string
-  endsOn: string | null
-  priceCents: number
-  currency: string
-  soldOut: boolean
-  now?: Date
-}): HeadScript | null {
-  if (!input.endsOn) {
-    return null
-  }
-  const url = absolutePageUrl(input.path, input.locale)
-  const organizationId = ORGANIZATION_ID
-  const completed = isWorkshopPast({ endsOn: input.endsOn }, input.now)
-
-  return {
-    type: "application/ld+json",
-    children: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "EducationEvent",
-      name: input.name,
-      description: input.description,
-      url,
-      inLanguage: input.locale,
-      startDate: input.endsOn,
-      endDate: input.endsOn,
-      eventStatus: completed
-        ? "https://schema.org/EventCompleted"
-        : "https://schema.org/EventScheduled",
-      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      image: [OG_IMAGE_URL],
-      location: {
-        "@type": "Place",
-        name: "San Salvador",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "San Salvador",
-          addressCountry: "SV",
-        },
-      },
-      organizer: {
-        "@type": "Organization",
-        "@id": organizationId,
-        name: SITE_NAME,
-        url: ORGANIZATION_HOME,
-      },
-      offers: {
-        "@type": "Offer",
-        url,
-        price: (input.priceCents / 100).toFixed(2),
-        priceCurrency: input.currency,
-        availability: input.soldOut
-          ? "https://schema.org/SoldOut"
-          : "https://schema.org/InStock",
-      },
     }),
   }
 }

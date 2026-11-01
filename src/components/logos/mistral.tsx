@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
 export interface MistralLogoProps extends React.SVGProps<SVGSVGElement> {}
 
@@ -53,5 +53,5 @@ export function MistralLogo({ className, ...props }: MistralLogoProps) {
         d="M209.45454 186.18182h46.54545v46.54545h-46.54545zM23.27273 186.18182h46.54545v46.54545H23.27273z"
       />
     </svg>
-  );
+  )
 }

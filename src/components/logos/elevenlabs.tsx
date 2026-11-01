@@ -1,20 +1,20 @@
 interface LogoProps {
-  className?: string;
-  variant?: "icon" | "wordmark";
-  mode?: "dark" | "light";
+  className?: string
+  variant?: "icon" | "wordmark"
+  mode?: "dark" | "light"
 }
 
 const COLORS = {
   dark: "#FFFFFF",
   light: "#000000",
-};
+}
 
 export function ElevenlabsLogo({
   className,
   variant = "icon",
   mode = "dark",
 }: LogoProps) {
-  const color = COLORS[mode];
+  const color = COLORS[mode]
 
   if (variant === "wordmark") {
     return (
@@ -70,7 +70,7 @@ export function ElevenlabsLogo({
           fill={color}
         />
       </svg>
-    );
+    )
   }
 
   return (
@@ -85,5 +85,5 @@ export function ElevenlabsLogo({
       <path d="M0 0H18.413V88.5124H0V0Z" fill={color} />
       <path d="M36.5788 0H54.9917V88.5124H36.5788V0Z" fill={color} />
     </svg>
-  );
+  )
 }

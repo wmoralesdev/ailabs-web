@@ -1,4 +1,8 @@
-import { localeFromPathname, localizedPath, stripLocalePrefix } from "@/lib/locale-path"
+import {
+  localeFromPathname,
+  localizedPath,
+  stripLocalePrefix,
+} from "@/lib/locale-path"
 
 /**
  * Search-shaped paths that 301 to a page that already exists.
@@ -9,24 +13,17 @@ import { localeFromPathname, localizedPath, stripLocalePrefix } from "@/lib/loca
 export const PUBLIC_PAGE_PATHS = [
   "/",
   "/consultoria-de-ia-el-salvador",
-  "/community",
-  "/campus-leader",
   "/events",
-  "/events/modo-fundador",
-  "/events/get-competitive-quick",
   "/capacitacion-ia-el-salvador",
   "/automatizacion-ia-el-salvador",
+  "/agendar",
 ] as const
 
 export type PublicPagePath = (typeof PUBLIC_PAGE_PATHS)[number]
 
 const HOME = "/"
 const CONSULTING = "/consultoria-de-ia-el-salvador"
-const COMMUNITY = "/community"
-const CAMPUS_LEADER = "/campus-leader"
 const EVENTS = "/events"
-const MODO_FUNDADOR = "/events/modo-fundador"
-const GET_COMPETITIVE_QUICK = "/events/get-competitive-quick"
 const TRAINING = "/capacitacion-ia-el-salvador"
 const AUTOMATION = "/automatizacion-ia-el-salvador"
 
@@ -60,27 +57,30 @@ export const SEARCH_ALIASES: Readonly<Record<string, PublicPagePath>> = {
   "/automatizacion-con-ia-el-salvador": AUTOMATION,
   "/ai-automation-el-salvador": AUTOMATION,
 
-  // WhatsApp community in El Salvador.
-  "/comunidad-ia-el-salvador": COMMUNITY,
-  "/comunidad-de-ia-el-salvador": COMMUNITY,
-  "/comunidad-whatsapp-el-salvador": COMMUNITY,
-  "/ai-community-el-salvador": COMMUNITY,
-  "/whatsapp-ai-community-el-salvador": COMMUNITY,
+  // The retired WhatsApp community page now lands on the events index.
+  "/comunidad-ia-el-salvador": EVENTS,
+  "/comunidad-de-ia-el-salvador": EVENTS,
+  "/comunidad-whatsapp-el-salvador": EVENTS,
+  "/ai-community-el-salvador": EVENTS,
+  "/whatsapp-ai-community-el-salvador": EVENTS,
 
-  // One campus leader per university in El Salvador.
-  "/campus-leader-el-salvador": CAMPUS_LEADER,
-  "/lider-campus-el-salvador": CAMPUS_LEADER,
-  "/ai-campus-leader-el-salvador": CAMPUS_LEADER,
+  // The retired Campus Leader program.
+  "/campus-leader-el-salvador": EVENTS,
+  "/lider-campus-el-salvador": EVENTS,
+  "/ai-campus-leader-el-salvador": EVENTS,
 
   // Searches for the retired Aperture member directory.
-  "/miembros-aperture": COMMUNITY,
-  "/miembros-de-aperture": COMMUNITY,
-  "/aperture-members": COMMUNITY,
+  "/miembros-aperture": EVENTS,
+  "/miembros-de-aperture": EVENTS,
+  "/aperture-members": EVENTS,
 
-  // Modo Fundador is the in-person workshop in San Salvador.
-  "/modo-fundador": MODO_FUNDADOR,
-  "/taller-modo-fundador": MODO_FUNDADOR,
-  "/taller-fundadores-san-salvador": MODO_FUNDADOR,
+  // Retired workshop microsites: Modo Fundador and Get Competitive Quick.
+  "/modo-fundador": EVENTS,
+  "/taller-modo-fundador": EVENTS,
+  "/taller-fundadores-san-salvador": EVENTS,
+  "/get-competitive-quick": EVENTS,
+  "/taller-get-competitive-quick": EVENTS,
+  "/taller-primer-empleo-tech": EVENTS,
 
   // The events index, not one workshop. Same 301 for every client.
   "/eventos": EVENTS,
@@ -89,19 +89,24 @@ export const SEARCH_ALIASES: Readonly<Record<string, PublicPagePath>> = {
   "/eventos-de-ia-el-salvador": EVENTS,
   "/tech-events-el-salvador": EVENTS,
   "/ai-events-el-salvador": EVENTS,
-
-  // Get Competitive Quick does not name a country or city.
-  "/get-competitive-quick": GET_COMPETITIVE_QUICK,
-  "/taller-get-competitive-quick": GET_COMPETITIVE_QUICK,
-  "/taller-primer-empleo-tech": GET_COMPETITIVE_QUICK,
 }
 
 /**
- * Aperture member pages that no longer exist: the directory, the join flow,
- * the member dashboard, and public profiles under /u/. They 301 to the
- * community so old links and indexed URLs still land somewhere useful.
+ * Pages that no longer exist. Community pages (the WhatsApp landing, the
+ * Campus Leader application, the Aperture directory, join flow, dashboard and
+ * `/u/` profiles) and the two workshop microsites 301 to the events index.
+ * The credit redemption and sign-in flows 301 home.
  */
-const RETIRED_PATHS = new Set(["/aperture", "/aperture/join", "/me"])
+const RETIRED_TO_EVENTS = new Set([
+  "/community",
+  "/campus-leader",
+  "/aperture",
+  "/aperture/join",
+  "/me",
+  "/events/modo-fundador",
+  "/events/get-competitive-quick",
+])
+const RETIRED_TO_HOME = new Set(["/redeem", "/sign-in", "/sign-up"])
 
 /** Lowercase path without a trailing slash. `/` stays `/`. */
 export function normalizeAliasPath(pathname: string): string {
@@ -115,13 +120,25 @@ export function normalizeAliasPath(pathname: string): string {
   return (stripped.length === 0 ? "/" : stripped).toLowerCase()
 }
 
+function underAny(path: string, prefixes: Iterable<string>): boolean {
+  for (const prefix of prefixes) {
+    if (path === prefix || path.startsWith(`${prefix}/`)) {
+      return true
+    }
+  }
+  return false
+}
+
 /** Destination path when `pathname` is an alias. Otherwise null. */
 export function searchAliasDestination(
   pathname: string
 ): PublicPagePath | null {
   const path = normalizeAliasPath(pathname)
-  if (RETIRED_PATHS.has(path) || path.startsWith("/u/")) {
-    return COMMUNITY
+  if (underAny(path, RETIRED_TO_EVENTS) || path.startsWith("/u/")) {
+    return EVENTS
+  }
+  if (underAny(path, RETIRED_TO_HOME)) {
+    return HOME
   }
   return SEARCH_ALIASES[path] ?? null
 }

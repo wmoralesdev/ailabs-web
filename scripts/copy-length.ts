@@ -43,8 +43,7 @@ function collect(content: SiteContent): {
   }
   const group = (path: string, texts: string[]) => groups.push({ path, texts })
 
-  const { home, consulting, community, campusLeader, servicePages, meta } =
-    content
+  const { home, consulting, servicePages, meta } = content
 
   add("meta.title", meta.title, 64)
   add("meta.description", meta.description, 160, 110)
@@ -106,11 +105,6 @@ function collect(content: SiteContent): {
   consulting.faqs.forEach((faq, i) =>
     add(`consulting.faqs[${i}].answer`, faq.answer, 320)
   )
-
-  add("community.metaTitle", community.metaTitle + BRAND, 60)
-  add("community.body", community.body, 160, 110)
-  add("campusLeader.metaTitle", campusLeader.metaTitle + BRAND, 60)
-  add("campusLeader.body", campusLeader.body, 160, 110)
 
   for (const id of ["training", "automation"] as const) {
     const page = servicePages[id]

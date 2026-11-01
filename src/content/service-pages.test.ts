@@ -26,7 +26,6 @@ describe("service pages", () => {
       expect(pageEs.faq.length).toBe(pageEn.faq.length)
       expect(pageEs.includes.length).toBe(pageEn.includes.length)
       expect(pageEs.steps.length).toBe(pageEn.steps.length)
-      expect(pageEs.interest).toBe(pageEn.interest)
     }
   })
 
@@ -108,8 +107,8 @@ describe("service pages", () => {
         kind: "course",
       }).children
     )["@graph"] as Array<{ "@type": string; url?: string }>
-    expect(
-      english.find((node) => node["@type"] === "Service")?.url
-    ).toBe("https://www.ailabs.sv/en/capacitacion-ia-el-salvador")
+    expect(english.find((node) => node["@type"] === "Service")?.url).toBe(
+      "https://www.ailabs.sv/en/capacitacion-ia-el-salvador"
+    )
   })
 })

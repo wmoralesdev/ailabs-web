@@ -133,7 +133,10 @@ function BgStipple() {
       const seconds = elapsed / 1000
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       for (const dot of dots) {
-        const appear = Math.min(1, Math.max(0, (elapsed - dot.delay) / APPEAR_MS))
+        const appear = Math.min(
+          1,
+          Math.max(0, (elapsed - dot.delay) / APPEAR_MS)
+        )
         if (appear <= 0) {
           continue
         }

@@ -86,7 +86,7 @@ export function HomePage() {
       <HomeServices services={home.services} locale={locale} />
       <HomeMethod method={home.method} locale={locale} />
       <HomeFaq faq={home.faq} />
-      <HomeContact contact={home.contact} />
+      <HomeContact contact={home.contact} locale={locale} />
     </div>
   )
 }

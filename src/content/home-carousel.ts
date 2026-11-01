@@ -31,12 +31,4 @@ export const homeCarousel = {
     "/carousel/25.webp",
     "/carousel/27.webp",
   ],
-  /** Campus Leader landing — student organizers, campus energy, peer leadership. */
-  campusLeader: [
-    "/carousel/4.webp",
-    "/carousel/17.webp",
-    "/carousel/6.webp",
-    "/carousel/7.webp",
-    "/carousel/26.webp",
-  ],
 } as const satisfies Record<string, ReadonlyArray<string>>

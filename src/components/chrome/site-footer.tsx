@@ -13,8 +13,6 @@ import type { FooterContent, FooterSocial, Locale, NavItem } from "@/content"
 import { formatCopyright } from "@/content"
 import { cn } from "@/lib/utils"
 import { SiteLogo } from "@/components/chrome/site-logo"
-import { useContact } from "@/components/contact/contact-provider"
-import { listUpcomingWorkshops } from "@/events/catalog"
 import {
   hashFromHref,
   homePath,
@@ -22,7 +20,6 @@ import {
   isInternalHref,
   routeForHref,
 } from "@/lib/locale-links"
-import { localizedPath } from "@/lib/locale-path"
 
 type SiteFooterProps = {
   locale: Locale
@@ -35,18 +32,6 @@ const footerLinkClassName =
   "link-underline inline-flex min-h-9 items-center text-[0.9375rem] text-night-soft transition-colors hover:text-snow"
 
 function FooterLink({ link, locale }: { link: NavItem; locale: Locale }) {
-  const { openContact } = useContact()
-  if (link.href === "#contact") {
-    return (
-      <button
-        type="button"
-        className={footerLinkClassName}
-        onClick={() => openContact(link.contactInterest)}
-      >
-        {link.label}
-      </button>
-    )
-  }
   if (link.href.startsWith("http")) {
     return (
       <a
@@ -57,18 +42,6 @@ function FooterLink({ link, locale }: { link: NavItem; locale: Locale }) {
       >
         {link.label}
       </a>
-    )
-  }
-
-  const eventMatch = /^\/events\/([^/]+)$/.exec(link.href)
-  if (eventMatch?.[1]) {
-    return (
-      <Link
-        to={localizedPath(locale, `/events/${eventMatch[1]}`) as never}
-        className={footerLinkClassName}
-      >
-        {link.label}
-      </Link>
     )
   }
 
@@ -132,24 +105,7 @@ function SocialLink({ social }: { social: FooterSocial }) {
 const FOOTER_WATERMARK = "get curious"
 
 function SiteFooter({ locale, footer, legalPublished }: SiteFooterProps) {
-  // Promote only events with a confirmed date. TBD event pages stay accessible.
-  const upcoming = listUpcomingWorkshops().filter(
-    (workshop) => workshop.endsOn !== null
-  )
-  const columns = [
-    ...footer.columns,
-    ...(upcoming.length > 0
-      ? [
-          {
-            title: footer.eventsTitle,
-            links: upcoming.map((workshop) => ({
-              label: workshop.title,
-              href: `/events/${workshop.slug}`,
-            })),
-          },
-        ]
-      : []),
-  ].filter((column) => column.links.length > 0)
+  const columns = footer.columns.filter((column) => column.links.length > 0)
 
   return (
     // Revealed from under the page where it fits in the viewport; a taller
@@ -166,10 +122,7 @@ function SiteFooter({ locale, footer, legalPublished }: SiteFooterProps) {
 
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 lg:col-span-8">
             {columns.map((column) => (
-              <div
-                key={column.title}
-                id={"id" in column ? column.id : undefined}
-              >
+              <div key={column.title} id={column.id}>
                 <h2 className="text-[0.9375rem] font-semibold text-snow">
                   {column.title}
                 </h2>

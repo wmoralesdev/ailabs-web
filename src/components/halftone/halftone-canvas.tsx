@@ -79,8 +79,7 @@ function HalftoneCanvas({
     }
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const surface =
-      wrap.closest<HTMLElement>("[data-halftone-surface]") ?? wrap
+    const surface = wrap.closest<HTMLElement>("[data-halftone-surface]") ?? wrap
 
     let cell = maxCell
     let cols = 0

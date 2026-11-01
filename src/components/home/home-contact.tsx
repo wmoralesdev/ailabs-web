@@ -1,19 +1,25 @@
+import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons"
 
-import type { HomeContactContent } from "@/content"
-import { useContact } from "@/components/contact/contact-provider"
+import type { HomeContactContent, Locale } from "@/content"
+import { BOOKING_PAGE_PATH } from "@/content/booking"
 import { HalftoneCanvas } from "@/components/halftone/halftone-canvas"
+import { localizedPath } from "@/lib/locale-path"
 import { homeShellClassName } from "./home-styles"
 
 /**
- * The closing card: the whole tile opens the contact dialog. It is a quiet
+ * The closing card: the whole tile leads to the booking page. It is a quiet
  * dot screen on the indigo field until the pointer moves, then lilac ink
  * follows it.
  */
-export function HomeContact({ contact }: { contact: HomeContactContent }) {
-  const { openContact } = useContact()
-
+export function HomeContact({
+  contact,
+  locale,
+}: {
+  contact: HomeContactContent
+  locale: Locale
+}) {
   return (
     <section
       id="contact"
@@ -29,9 +35,8 @@ export function HomeContact({ contact }: { contact: HomeContactContent }) {
           rest={0.08}
           className="absolute inset-0 -z-10"
         />
-        <button
-          type="button"
-          onClick={() => openContact()}
+        <Link
+          to={localizedPath(locale, BOOKING_PAGE_PATH) as never}
           aria-label={contact.cta}
           className="absolute inset-0 z-10 cursor-pointer rounded-3xl outline-offset-[-6px]"
         />
