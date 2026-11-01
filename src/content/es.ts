@@ -246,7 +246,7 @@ export const es: SiteContent = {
       },
       {
         title: "Contanos tu proceso",
-        body: "Dos preguntas al reservar: tu empresa y qué querés revisar.",
+        body: "Dos preguntas al reservar: de qué querés hablar y tu empresa.",
       },
       {
         title: "Nos vemos",

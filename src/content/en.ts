@@ -242,7 +242,7 @@ export const en: SiteContent = {
       },
       {
         title: "Tell us about your process",
-        body: "Two questions when you book: your company and what you want to review.",
+        body: "Two questions when you book: what you want to talk about and your company.",
       },
       {
         title: "See you there",

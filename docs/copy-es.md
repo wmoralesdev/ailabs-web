@@ -343,12 +343,12 @@ El plan de cada formato, con público, duración y orden de lanzamiento, está e
 - Paso 1, título: "Elegí fecha y hora"
 - Paso 1, cuerpo: "Treinta minutos por videollamada, en el horario que te quede mejor."
 - Paso 2, título: "Contanos tu proceso"
-- Paso 2, cuerpo: "Dos preguntas al reservar: tu empresa y qué querés revisar."
+- Paso 2, cuerpo: "Dos preguntas al reservar: de qué querés hablar y tu empresa."
 - Paso 3, título: "Nos vemos"
 - Paso 3, cuerpo: "Te mandamos la invitación al correo con el enlace."
 - Alternativa, título: "¿Preferís escribir?"
 - Alternativa, CTA: "Escribinos por WhatsApp" `[opcional: solo si hay número de negocio]`
-- Embed: `BOOKING_URL` de cal.com `[crear la cuenta y pegar la URL]`
+- Embed: cal.com `walter-ailabs/diagnostico` (`BOOKING_CAL_LINK`), un solo evento para las tres ofertas. Pregunta de tema "¿Sobre qué querés hablar?" con opciones Automatizar un proceso o construir software / Consultoría: saber por dónde empezar con IA / Capacitar a mi equipo / Todavía no sé; `?tema=automatizacion|consultoria|capacitacion` desde cada página de servicio la deja elegida.
 
 ## Legal
 

@@ -343,12 +343,12 @@ The plan for each format, with audience, duration and launch order, is in
 - Paso 1, título: "Pick a date and time"
 - Paso 1, cuerpo: "Thirty minutes by video call, at the time that works best for you."
 - Paso 2, título: "Tell us about your process"
-- Paso 2, cuerpo: "Two questions when you book: your company and what you want to review."
+- Paso 2, cuerpo: "Two questions when you book: what you want to talk about and your company."
 - Paso 3, título: "See you there"
 - Paso 3, cuerpo: "We send the invitation to your email with the link."
 - Alternativa, título: "Prefer to message us?"
 - Alternativa, CTA: "Message us on WhatsApp" `[optional: only if there is a business number]`
-- Embed: `BOOKING_URL` from cal.com `[create the account and paste the URL]`
+- Embed: cal.com `walter-ailabs/diagnostico` (`BOOKING_CAL_LINK`), one event for the three offers. The booking form is Spanish on both locales; `?tema=automatizacion|consultoria|capacitacion` from each service page preselects the topic question.
 
 ## Legal
 

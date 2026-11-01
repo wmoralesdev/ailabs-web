@@ -4,7 +4,7 @@ import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
 import type { ServicePagesContent } from "@/content"
 import { EVENT_PHOTOS } from "@/content/event-photos"
-import { BOOKING_PAGE_PATH } from "@/content/booking"
+import { BOOKING_PAGE_PATH, SERVICE_BOOKING_TOPIC } from "@/content/booking"
 import { HalftoneIcon } from "@/components/halftone/halftone-icon"
 import { HalftoneLens } from "@/components/halftone/halftone-lens"
 import { Reveal } from "@/components/halftone/reveal"
@@ -78,7 +78,11 @@ function ServicePage({ id, pages }: ServicePageProps) {
             <p className="max-w-[46ch] text-lead leading-snug text-muted-foreground">
               {page.lead}
             </p>
-            <Link to={to(BOOKING_PAGE_PATH)} className="btn">
+            <Link
+              to={to(BOOKING_PAGE_PATH)}
+              search={{ tema: SERVICE_BOOKING_TOPIC[id] } as never}
+              className="btn"
+            >
               {page.cta}
               <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
             </Link>
@@ -294,7 +298,11 @@ function ServicePage({ id, pages }: ServicePageProps) {
             <p className="max-w-[52ch] text-lead leading-snug text-muted-foreground">
               {page.ctaBody}
             </p>
-            <Link to={to(BOOKING_PAGE_PATH)} className="btn">
+            <Link
+              to={to(BOOKING_PAGE_PATH)}
+              search={{ tema: SERVICE_BOOKING_TOPIC[id] } as never}
+              className="btn"
+            >
               {page.ctaLabel}
               <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
             </Link>

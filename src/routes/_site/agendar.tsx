@@ -1,7 +1,8 @@
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, useSearch } from "@tanstack/react-router"
 
+import { BookingEmbed } from "@/components/campaign/booking-embed"
 import { CampaignFactRow } from "@/components/campaign/campaign-fact-row"
 import { CampaignHero } from "@/components/campaign/campaign-hero"
 import {
@@ -9,13 +10,24 @@ import {
   homePillClassName,
 } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
-import { BOOKING_PAGE_PATH, BOOKING_URL, WHATSAPP_URL } from "@/content/booking"
+import {
+  BOOKING_CAL_LINK,
+  BOOKING_PAGE_PATH,
+  WHATSAPP_URL,
+  isBookingTopic,
+} from "@/content/booking"
+import type { BookingTopic } from "@/content/booking"
 import { useLocaleContext } from "@/lib/locale-context"
 import { brandedTitle, buildPageMeta } from "@/lib/seo"
 import { cn } from "@/lib/utils"
 
+/** `?tema=` names the service page the visitor came from; anything else is dropped. */
+type BookingSearch = { tema?: BookingTopic }
+
 export const Route = createFileRoute("/_site/agendar")({
   loader: ({ context }) => context,
+  validateSearch: (search: Record<string, unknown>): BookingSearch =>
+    isBookingTopic(search.tema) ? { tema: search.tema } : {},
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {}
@@ -46,18 +58,20 @@ function WhatsAppMark({ className }: { className?: string }) {
 }
 
 /**
- * Booking page: the diagnostic in three steps and the scheduler embed. While
- * `BOOKING_URL` is empty the page says the scheduler is about to open, and
- * the WhatsApp button appears only once a business number exists.
+ * Booking page: the diagnostic in three steps and the cal.com calendar. A
+ * service page arrives with `?tema=` and the topic question comes prefilled.
+ * While `BOOKING_CAL_LINK` is empty the page says the calendar is about to
+ * open, and the WhatsApp button appears only once a business number exists.
  */
 export function BookingPage() {
   const { content } = useLocaleContext()
   const { booking } = content
+  const { tema } = useSearch({ strict: false })
 
   return (
     <CampaignHero
       photo={booking.heroPhoto}
-      fluid={BOOKING_URL.length > 0}
+      fluid={BOOKING_CAL_LINK.length > 0}
       footer={
         <CampaignFactRow label={booking.stepsLabel} steps={booking.steps} />
       }
@@ -69,12 +83,11 @@ export function BookingPage() {
       <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
         {booking.body}
       </p>
-      {BOOKING_URL ? (
-        <iframe
-          src={BOOKING_URL}
+      {BOOKING_CAL_LINK ? (
+        <BookingEmbed
+          calLink={BOOKING_CAL_LINK}
+          topic={tema}
           title={booking.embedTitle}
-          loading="lazy"
-          className="min-h-[40rem] w-full rounded-2xl border border-border bg-background"
         />
       ) : (
         <p className="rounded-2xl border border-border bg-surface px-5 py-4 text-small text-muted-foreground">

@@ -60,16 +60,16 @@ Reglas de redacción que se mantienen aunque AGENTS.md cambie:
 
 ### Queda
 
-| Ruta | Rol | Lector |
-| --- | --- | --- |
-| `/` | Home: promesa, ofertas, método, prueba, agenda | Compradora |
-| `/automatizacion-ia-el-salvador` | Automatización y software a medida | Compradora |
-| `/consultoria-de-ia-el-salvador` | Diagnóstico de IA (la puerta de entrada) | Compradora |
-| `/capacitacion-ia-el-salvador` | Capacitación en IA para equipos | Compradora |
-| `/events` | Talleres y eventos, el embudo, con WhatsApp | Audiencia |
-| `/agendar` | Reserva del diagnóstico embebida más WhatsApp | Todos |
-| `/privacy`, `/terms` | Legal, reescrito sin base de datos ni cuentas | Todos |
-| `/en/*` | Mismas páginas en inglés, se traducen al final | Todos |
+| Ruta                             | Rol                                            | Lector     |
+| -------------------------------- | ---------------------------------------------- | ---------- |
+| `/`                              | Home: promesa, ofertas, método, prueba, agenda | Compradora |
+| `/automatizacion-ia-el-salvador` | Automatización y software a medida             | Compradora |
+| `/consultoria-de-ia-el-salvador` | Diagnóstico de IA (la puerta de entrada)       | Compradora |
+| `/capacitacion-ia-el-salvador`   | Capacitación en IA para equipos                | Compradora |
+| `/events`                        | Talleres y eventos, el embudo, con WhatsApp    | Audiencia  |
+| `/agendar`                       | Reserva del diagnóstico embebida más WhatsApp  | Todos      |
+| `/privacy`, `/terms`             | Legal, reescrito sin base de datos ni cuentas  | Todos      |
+| `/en/*`                          | Mismas páginas en inglés, se traducen al final | Todos      |
 
 ### Se va
 
@@ -79,13 +79,13 @@ webhooks de Clerk y Wompi, y todo `src/server` menos lo que necesite la agenda.
 
 ### Redirecciones 301
 
-| De | A |
-| --- | --- |
+| De                                                         | A         |
+| ---------------------------------------------------------- | --------- |
 | `/community`, `/aperture`, `/aperture/join`, `/me`, `/u/*` | `/events` |
-| `/campus-leader` | `/events` |
-| `/events/modo-fundador`, `/events/get-competitive-quick` | `/events` |
-| `/redeem`, `/sign-in`, `/sign-up` | `/` |
-| alias de consultoría y país | como hoy |
+| `/campus-leader`                                           | `/events` |
+| `/events/modo-fundador`, `/events/get-competitive-quick`   | `/events` |
+| `/redeem`, `/sign-in`, `/sign-up`                          | `/`       |
+| alias de consultoría y país                                | como hoy  |
 
 ## 4. Home, sección por sección
 
@@ -132,11 +132,11 @@ de fotos. Una línea de intro arriba, "Todas empiezan por un diagnóstico de 30
 minutos", y la primera tarjeta lleva una fila de ejemplos de procesos
 `[confirmar]` para que lo concreto viva ahí y no en una sección aparte.
 
-| Tarjeta | Línea | Link |
-| --- | --- | --- |
-| Automatización y software a medida | Conectamos tus herramientas, automatizamos lo repetitivo y construimos lo que falta. | `/automatizacion-ia-el-salvador` |
-| Diagnóstico de IA | En una sesión revisamos tu proceso y elegimos por dónde empezar. | `/consultoria-de-ia-el-salvador` |
-| Capacitación para equipos | De un Learning Day de cuatro horas a un bootcamp de varios días, sobre el trabajo real del equipo. | `/capacitacion-ia-el-salvador` |
+| Tarjeta                            | Línea                                                                                              | Link                             |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------- |
+| Automatización y software a medida | Conectamos tus herramientas, automatizamos lo repetitivo y construimos lo que falta.               | `/automatizacion-ia-el-salvador` |
+| Diagnóstico de IA                  | En una sesión revisamos tu proceso y elegimos por dónde empezar.                                   | `/consultoria-de-ia-el-salvador` |
+| Capacitación para equipos          | De un Learning Day de cuatro horas a un bootcamp de varios días, sobre el trabajo real del equipo. | `/capacitacion-ia-el-salvador`   |
 
 ### 4.4 Cómo trabajamos
 
@@ -170,11 +170,11 @@ Plantilla compartida, en este orden: hero, para quién es y no es, qué incluye,
 cómo se hace, un ejemplo, preguntas, agenda. Desaparecen los párrafos "claims"
 y la banda morada de definición; la definición pasa a ser la primera pregunta.
 
-| Página | H1 | Lead | Primera pregunta (SEO) |
-| --- | --- | --- | --- |
+| Página         | H1                                          | Lead                                                                                                                                    | Primera pregunta (SEO)                          |
+| -------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
 | Automatización | "Automatización con IA y software a medida" | "Conectamos tus herramientas, automatizamos lo repetitivo y construimos el software que te falta. Con revisión humana y documentación." | "¿Qué es la automatización de procesos con IA?" |
-| Consultoría | "Consultoría de IA en El Salvador" | "Un diagnóstico de 30 minutos y después una revisión de tu proceso con tu equipo, para elegir una mejora que valga la pena." | "¿Qué hace un consultor de IA?" |
-| Capacitación | "Capacitación en IA para equipos" | "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo." | "¿Qué es una capacitación práctica en IA?" |
+| Consultoría    | "Consultoría de IA en El Salvador"          | "Un diagnóstico de 30 minutos y después una revisión de tu proceso con tu equipo, para elegir una mejora que valga la pena."            | "¿Qué hace un consultor de IA?"                 |
+| Capacitación   | "Capacitación en IA para equipos"           | "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo."             | "¿Qué es una capacitación práctica en IA?"      |
 
 ### Plan de formatos de capacitación
 
@@ -183,12 +183,12 @@ otros proveedores (`docs/formatos-referencia.md`). La escalera para la
 compradora: aprender en cuatro horas, prototipar en un día, dejarlo
 funcionando en dos o más.
 
-| Formato | Para quién | Duración | Salida | Cómo se cobra |
-| --- | --- | --- | --- | --- |
-| Learning Day | Un equipo de ventas, operaciones o administración, 8 a 20 personas, con su jefe directo | 4 horas, in-company | Plantillas y criterios que usan al día siguiente | Por sesión |
-| Build Day | Cohorte abierta multiempresa, de 1 a 3 dueños de proceso por empresa | 1 día: descubrir dos horas, construir cuatro, demo | Un prototipo y un caso de negocio por equipo | Por cupo |
-| Bootcamp | Un solo equipo, 8 a 20 personas | 2 días o más, in-company | El prototipo funcionando, integrado y documentado, y el equipo operándolo | Por sesión |
-| Talleres públicos | Profesionales por su cuenta | 2 a 3 horas | La puerta de entrada; ya corren en Luma | Por cupo, en Luma |
+| Formato           | Para quién                                                                              | Duración                                           | Salida                                                                    | Cómo se cobra     |
+| ----------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------- | ----------------- |
+| Learning Day      | Un equipo de ventas, operaciones o administración, 8 a 20 personas, con su jefe directo | 4 horas, in-company                                | Plantillas y criterios que usan al día siguiente                          | Por sesión        |
+| Build Day         | Cohorte abierta multiempresa, de 1 a 3 dueños de proceso por empresa                    | 1 día: descubrir dos horas, construir cuatro, demo | Un prototipo y un caso de negocio por equipo                              | Por cupo          |
+| Bootcamp          | Un solo equipo, 8 a 20 personas                                                         | 2 días o más, in-company                           | El prototipo funcionando, integrado y documentado, y el equipo operándolo | Por sesión        |
+| Talleres públicos | Profesionales por su cuenta                                                             | 2 a 3 horas                                        | La puerta de entrada; ya corren en Luma                                   | Por cupo, en Luma |
 
 Descartados a propósito: Semana de IA (una hora al día por cinco días),
 Seguimiento de cuatro semanas y Referentes internos. Si un cliente pide un
@@ -249,13 +249,13 @@ propias tareas, porque es quien sostiene el cambio.
 Cada página tiene cuatro ranuras para SEO: title, meta, H1 y la primera
 pregunta. Todo lo demás se escribe para la compradora.
 
-| Página | Title | Query que conserva |
-| --- | --- | --- |
-| Home | "Ai Labs · Automatización, software e IA para empresas" | marca |
+| Página         | Title                                                           | Query que conserva                                 |
+| -------------- | --------------------------------------------------------------- | -------------------------------------------------- |
+| Home           | "Ai Labs · Automatización, software e IA para empresas"         | marca                                              |
 | Automatización | "Automatización con IA para empresas en El Salvador \| Ai Labs" | automatización con IA para empresas en El Salvador |
-| Consultoría | "Consultoría de IA en El Salvador \| Ai Labs" | consultoría de IA en El Salvador |
-| Capacitación | "Capacitación en IA para equipos en El Salvador \| Ai Labs" | cursos de IA en El Salvador |
-| Eventos | "Talleres y eventos de IA en San Salvador \| Ai Labs" | eventos de IA en El Salvador |
+| Consultoría    | "Consultoría de IA en El Salvador \| Ai Labs"                   | consultoría de IA en El Salvador                   |
+| Capacitación   | "Capacitación en IA para equipos en El Salvador \| Ai Labs"     | cursos de IA en El Salvador                        |
+| Eventos        | "Talleres y eventos de IA en San Salvador \| Ai Labs"           | eventos de IA en El Salvador                       |
 
 - El home deja de competir con consultoría: su title pasa a marca más ofertas.
 - Se suelta a propósito la query "agencia de inteligencia artificial en El
@@ -268,14 +268,14 @@ pregunta. Todo lo demás se escribe para la compradora.
 
 ## 9. Presupuestos de longitud
 
-| Elemento | Máximo |
-| --- | --- |
-| H1 | 55 caracteres |
-| Lead | 160 caracteres |
-| Título de sección | 40 caracteres, sin punto final |
-| Línea de tarjeta | 120 caracteres |
-| Respuesta de FAQ | 220 caracteres |
-| Preguntas por página | 5 |
+| Elemento             | Máximo                         |
+| -------------------- | ------------------------------ |
+| H1                   | 55 caracteres                  |
+| Lead                 | 160 caracteres                 |
+| Título de sección    | 40 caracteres, sin punto final |
+| Línea de tarjeta     | 120 caracteres                 |
+| Respuesta de FAQ     | 220 caracteres                 |
+| Preguntas por página | 5                              |
 
 `scripts/copy-length.ts` se ajusta a esta tabla y mantiene la paridad entre
 hermanos.
@@ -283,8 +283,14 @@ hermanos.
 ## 10. Contacto y agenda
 
 - Reserva con cal.com embebido: gratis, sincroniza con Google Calendar y admite
-  preguntas al reservar. Walter crea la cuenta y pega la URL en `BOOKING_URL`.
-- Dos preguntas en la reserva: empresa y tamaño, qué proceso querés revisar.
+  preguntas al reservar. Un solo evento, `walter-ailabs/diagnostico`
+  (`BOOKING_CAL_LINK`), para las tres ofertas; el embed sigue el tema claro u
+  oscuro del sitio y el morado.
+- Preguntas en la reserva: nombre, correo, "¿Sobre qué querés hablar?"
+  (automatizar o construir software, consultoría, capacitar al equipo, todavía
+  no sé), empresa, y una nota opcional sobre el proceso. Cada página de
+  servicio manda `?tema=automatizacion|consultoria|capacitacion` y la pregunta
+  llega elegida.
 - El diagnóstico es por videollamada, o presencial si la ubicación lo permite.
 - WhatsApp como segundo canal solo si existe un número de negocio; el botón es
   opcional y no se muestra sin número.
@@ -304,7 +310,6 @@ Siguen abiertos:
   Build Day por cupo, para cotizar.
 - Marcas de Cursor y Cognition en `assets/logos`, en un solo color.
 - Si existe un número de WhatsApp de negocio para el botón secundario.
-- Cuenta de cal.com y su URL.
 - El caso real de antes y después para la página de automatización.
 - Las fotos, si las hay, para capacitación y eventos.
 
