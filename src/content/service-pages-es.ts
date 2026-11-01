@@ -1,161 +1,118 @@
 import type { ServicePagesContent } from "./types"
 
-const trainingDefinition =
-  "Una capacitación práctica en IA enseña a usar la inteligencia artificial en las tareas reales de cada persona o equipo, con criterio para saber cuándo usarla, cómo revisar el resultado y cómo operarla."
-
-const automationDefinition =
-  "La automatización de procesos con IA diseña e implementa flujos que conectan herramientas, datos y personas, y define qué asiste la IA, qué se automatiza y qué decisiones siguen en manos del equipo."
-
-const trainingCourses =
-  "Los cursos de IA en El Salvador que damos son prácticos, sobre las tareas reales de tu trabajo, presenciales en San Salvador, y podés venir sin una empresa."
-
-const trainingWorkshops =
-  "Los talleres de inteligencia artificial en San Salvador son presenciales y prácticos: practicás con tu propio trabajo, podés venir sin una empresa, y Campus Leaders es para estudiantes."
-
-const trainingWhere =
-  "En Ai Labs podés aprender IA en El Salvador con talleres prácticos en San Salvador: lideramos una comunidad de capacitación y enseñanza, Campus Leaders es para estudiantes, y Ai Labs se presenta como líder de IA."
-
-const automationCompanies =
-  "Hacemos automatización con IA para empresas en El Salvador: diseñamos el flujo con tu equipo en San Salvador, con revisión humana y documentación."
-
-const automationProcesses =
-  "La automatización de procesos con IA en San Salvador la armamos con tus herramientas, y las decisiones importantes siguen en tus manos."
-
-const automationCompany =
-  "Ai Labs, en San Salvador, El Salvador, automatiza procesos con IA para empresas: diseñamos el flujo con tu equipo, con revisión humana y documentación."
-
 export const servicePagesEs: ServicePagesContent = {
   homeLabel: "Inicio",
   breadcrumbLabel: "Ruta de navegación",
-  relatedLabel: "Otras formas de trabajar con Ai Labs",
-  consultingLink: "Consultoría de IA en El Salvador",
-  eventsLink: "Eventos y talleres de IA en El Salvador",
-  training: {
-    photo: {
-      name: "3.webp",
-      alt: "Participantes siguen una sesión práctica de Ai Labs en un auditorio.",
-    },
-    metaTitle: "Cursos de IA en El Salvador, San Salvador | Ai Labs",
+  relatedLabel: "Otras formas de trabajar con nosotros",
+  eventsLink: "Talleres y eventos de IA en San Salvador",
+  consulting: {
+    metaTitle: "Consultoría de IA en El Salvador | Ai Labs",
     metaDescription:
-      "En Ai Labs damos cursos de IA en El Salvador y talleres de inteligencia artificial en San Salvador, prácticos y presenciales.",
-    serviceName: "Capacitación en IA en El Salvador",
-    eyebrow: "Academy · Formación práctica",
-    title: "Cursos de IA en El Salvador, presenciales en San Salvador",
-    lead: trainingCourses,
-    claims: [trainingWorkshops, trainingWhere],
-    definitionHeading: "Qué aprendés en una capacitación práctica en IA.",
-    definition: trainingDefinition,
-    includesHeading: "Cómo es la formación.",
+      "Consultoría de IA en El Salvador: un diagnóstico de 30 minutos y una revisión de tu proceso con tu equipo para elegir una mejora que valga la pena.",
+    serviceName: "Consultoría de IA en El Salvador",
+    eyebrow: "Diagnóstico de IA",
+    title: "Consultoría de IA en El Salvador",
+    lead: "Un diagnóstico de 30 minutos y después una revisión de tu proceso con tu equipo, para elegir una mejora que valga la pena.",
+    cta: "Agendá un diagnóstico de 30 minutos",
+    fitHeading: "Para quién es",
+    fit: [
+      "Dueños y gerentes que quieren usar IA y no saben por dónde empezar.",
+      "Equipos con un proceso que duele y varias ideas de cómo arreglarlo.",
+      "Empresas que ya probaron herramientas de IA y no les cambió nada.",
+    ],
+    notFitHeading: "Para quién no es",
+    notFit: [
+      "Si ya sabés exactamente qué construir, andá directo a automatización.",
+      "Si querés una charla general sobre IA, mirá nuestros talleres.",
+    ],
+    includesHeading: "Qué incluye",
     includes: [
       {
-        title: "Sobre tus tareas",
-        body: "La práctica parte de las tareas, decisiones y fricciones que enfrentás cada día, no de ejemplos genéricos.",
+        title: "Diagnóstico de 30 minutos",
+        body: "Una videollamada sin costo, o una visita si estás cerca, para entender tu operación y decidir si tiene sentido seguir.",
       },
       {
-        title: "Criterio para usarla",
-        body: "Aprendés cuándo usar la IA, cómo revisar lo que produce y cuándo conviene mantener una tarea humana.",
+        title: "Revisión del proceso",
+        body: "Una sesión con el equipo que hace el trabajo: mapeamos pasos, herramientas y dónde se traba.",
       },
       {
-        title: "Para equipos",
-        body: "Después de priorizar un proceso, trabajamos con los casos reales del equipo hasta que pueda aplicar y operar la mejora.",
+        title: "Priorización",
+        body: "Elegimos una mejora que valga la pena, definimos el alcance y te damos la cotización antes de empezar.",
       },
       {
-        title: "Para profesionales",
-        body: "Talleres y bootcamps públicos para quienes aprenden por su cuenta, sin una empresa ni una consultoría previa.",
+        title: "Plan",
+        body: "Un documento corto con el proceso, la mejora elegida y los pasos para implementarla o capacitar al equipo.",
       },
     ],
-    stepsHeading: "Cómo se arma una capacitación para equipos.",
+    stepsHeading: "Cómo lo hacemos",
     steps: [
       {
         title: "Entender",
-        body: "Revisamos qué hace el equipo, con qué herramientas y dónde pierde tiempo.",
+        body: "Revisamos cómo se hace el trabajo hoy, quién participa y dónde se traba.",
       },
       {
-        title: "Practicar",
-        body: "Trabajamos sobre casos reales del equipo, con ejercicios que se pueden repetir al día siguiente.",
+        title: "Priorizar",
+        body: "Elegimos una mejora que valga la pena y acordamos el alcance.",
       },
       {
-        title: "Operar",
-        body: "Dejamos criterios de revisión y documentación para que la mejora se sostenga.",
+        title: "Implementar",
+        body: "Construimos el flujo o preparamos al equipo, con la documentación que necesita.",
       },
     ],
-    fitHeading: "Para quién es.",
-    fit: [
-      "Profesionales que quieren aplicar IA en su trabajo con criterio.",
-      "Equipos comerciales, de gestión y de operaciones que necesitan una base común.",
-      "Personas que prefieren aprender en persona, con práctica guiada.",
-    ],
-    notFitHeading: "Para quién no es.",
-    notFit: [
-      "Si buscás un curso teórico de programación o investigación en IA.",
-      "Si buscás un certificado sin práctica sobre tu propio trabajo.",
-    ],
-    faqHeading: "Preguntas sobre capacitación en IA.",
+    faqHeading: "Preguntas sobre consultoría",
     faq: [
       {
-        question: "¿Qué es una capacitación práctica en IA?",
-        answer: trainingDefinition,
-      },
-      {
-        question: "Curso, taller o capacitación en IA: ¿cuál es la diferencia?",
+        question: "¿Qué hace un consultor de IA?",
         answer:
-          "Un curso cubre un tema en varias sesiones, un taller es una sesión práctica y una capacitación se arma para un equipo y sus tareas. En Academy damos talleres públicos y capacitaciones, siempre sobre tareas reales.",
+          "Revisa cómo trabaja un equipo, encuentra dónde puede ayudar la IA y decide por dónde empezar. Después implementa la mejora o prepara al equipo para operarla.",
       },
       {
-        question: "¿Necesito una empresa para aprender IA con Ai Labs?",
+        question: "¿Cuánto cuesta una consultoría en IA?",
         answer:
-          "No. En Academy recibimos a profesionales y equipos. Podés venir directo a aprender, sin empresa ni una consultoría previa.",
+          "El diagnóstico de 30 minutos no tiene costo. La revisión y el plan dependen del tamaño del proceso y los cotizamos antes de empezar.",
       },
       {
-        question: "¿Necesito saber programar?",
+        question: "¿Necesito tener claro qué quiero?",
         answer:
-          "No. Pensamos la formación para perfiles de negocio y usamos lenguaje claro. Nos enfocamos en aplicar IA a tareas reales con criterio.",
+          "No. Para eso es el diagnóstico. Alcanza con saber qué parte del trabajo te quita más tiempo o te da más problemas.",
       },
       {
-        question: "¿Cuánto cuesta una capacitación en IA?",
+        question: "¿Qué recibo al final?",
         answer:
-          "Cada taller público muestra su precio en su página. Las capacitaciones para equipos dependen del alcance y las acordamos después de revisar el proceso.",
+          "Un documento corto con el proceso mapeado, la mejora elegida, el alcance y la cotización. Es tuyo, lo implementes con nosotros o no.",
       },
       {
-        question: "¿Cómo me entero de los próximos talleres?",
+        question: "¿Trabajan solo en San Salvador?",
         answer:
-          "Seguí nuestra comunidad de WhatsApp en El Salvador y nuestras redes sociales: ahí avisamos de los próximos talleres públicos.",
-      },
-      {
-        question: "¿Qué cursos de IA hay en El Salvador?",
-        answer: trainingCourses,
-      },
-      {
-        question:
-          "¿Dónde son los talleres de inteligencia artificial en San Salvador?",
-        answer: trainingWorkshops,
-      },
-      {
-        question: "¿Dónde puedo aprender IA en El Salvador?",
-        answer: trainingWhere,
+          "No. Trabajamos con empresas de todo El Salvador y también fuera del país. El diagnóstico es por videollamada y las revisiones pueden ser presenciales si estás cerca.",
       },
     ],
-    ctaHeading: "¿Querés preparar a tu equipo?",
+    ctaHeading: "Empezá por el diagnóstico",
     ctaBody:
-      "Contanos qué hace tu equipo y qué quiere mejorar. También podés escribirnos si querés aprender por tu cuenta.",
-    cta: "Preparar a mi equipo",
+      "Treinta minutos, sin costo. Salís con una recomendación concreta, la contrates o no.",
+    ctaLabel: "Elegir fecha y hora",
   },
   automation: {
-    photo: {
-      name: "21.webp",
-      alt: "Dos participantes revisan código en sus laptops durante una sesión de Ai Labs.",
-    },
     metaTitle: "Automatización con IA para empresas en El Salvador | Ai Labs",
     metaDescription:
-      "En Ai Labs hacemos automatización con IA para empresas en El Salvador y automatización de procesos con IA en San Salvador.",
-    serviceName: "Automatización de procesos con IA en El Salvador",
-    eyebrow: "Agentic · Diseño e implementación",
-    title: "Automatización con IA para empresas en El Salvador",
-    lead: automationCompanies,
-    claims: [automationProcesses, automationCompany],
-    definitionHeading: "Qué hace la automatización con IA por tu operación.",
-    definition: automationDefinition,
-    includesHeading: "Qué incluye.",
+      "Automatización de procesos con IA y software a medida para empresas en El Salvador. Conectamos tus herramientas y construimos lo que falta, con revisión humana.",
+    serviceName: "Automatización con IA para empresas en El Salvador",
+    eyebrow: "Automatización y software a medida",
+    title: "Automatización con IA y software a medida",
+    lead: "Conectamos tus herramientas, automatizamos lo repetitivo y construimos el software que te falta. Con revisión humana y documentación.",
+    cta: "Agendá un diagnóstico de 30 minutos",
+    fitHeading: "Para quién es",
+    fit: [
+      "Equipos que copian información entre sistemas a mano.",
+      "Operaciones que necesitan velocidad sin perder control de las decisiones.",
+      "Empresas que quieren un sistema propio en vez de otra suscripción.",
+    ],
+    notFitHeading: "Para quién no es",
+    notFit: [
+      "Si buscás reemplazar al equipo en vez de mejorar cómo trabaja.",
+      "Si el proceso todavía no está claro. Ahí conviene empezar por el diagnóstico.",
+    ],
+    includesHeading: "Qué incluye",
     includes: [
       {
         title: "Encaje con el proceso",
@@ -170,11 +127,11 @@ export const servicePagesEs: ServicePagesContent = {
         body: "Definimos dónde la IA asiste, qué se automatiza y qué decisiones siguen en manos del equipo.",
       },
       {
-        title: "Transferencia operativa",
+        title: "Entrega y transferencia",
         body: "Entregamos el flujo, las integraciones y la documentación para que el equipo pueda operarlo.",
       },
     ],
-    stepsHeading: "Cómo implementamos un flujo.",
+    stepsHeading: "Cómo lo hacemos",
     steps: [
       {
         title: "Entender el proceso",
@@ -182,35 +139,24 @@ export const servicePagesEs: ServicePagesContent = {
       },
       {
         title: "Diseñar la intervención",
-        body: "Definimos qué asistir, automatizar o mantener humano.",
+        body: "Definimos qué asistir, qué automatizar y qué mantener humano.",
       },
       {
         title: "Implementar y transferir",
         body: "Integramos, documentamos y dejamos al equipo listo para operar.",
       },
     ],
-    fitHeading: "Para quién es.",
-    fit: [
-      "Equipos con tareas repetitivas: seguimiento, documentos, reportes o datos entre herramientas.",
-      "Operaciones que necesitan velocidad sin perder control sobre las decisiones importantes.",
-      "Empresas que quieren que el equipo pueda operar el flujo sin depender de un proveedor.",
-    ],
-    notFitHeading: "Para quién no es.",
-    notFit: [
-      "Si buscás reemplazar al equipo en vez de mejorar cómo trabaja.",
-      "Si el proceso todavía no está claro: ahí conviene empezar por la consultoría.",
-    ],
-    faqHeading: "Preguntas sobre automatización con IA.",
+    faqHeading: "Preguntas sobre automatización",
     faq: [
       {
         question: "¿Qué es la automatización de procesos con IA?",
-        answer: automationDefinition,
+        answer:
+          "Es diseñar e implementar flujos que conectan herramientas, datos y personas, y definir qué asiste la IA, qué se automatiza y qué decisiones siguen en manos del equipo.",
       },
       {
-        question:
-          "Automatización, agente de IA o flujo agéntico: ¿cuál es la diferencia?",
+        question: "¿Automatización o software a medida?",
         answer:
-          "Una automatización ejecuta pasos fijos; un agente de IA también interpreta información y propone acciones. En los dos casos definimos qué decide la IA, qué revisa una persona y qué queda documentado.",
+          "Si tus herramientas ya tienen lo que necesitás y solo falta conectarlas, es automatización. Si falta una pieza que ninguna herramienta te da, la construimos.",
       },
       {
         question: "¿La IA reemplaza al equipo?",
@@ -220,34 +166,109 @@ export const servicePagesEs: ServicePagesContent = {
       {
         question: "¿Con qué herramientas se integra?",
         answer:
-          "Partimos de las herramientas que el equipo ya usa. Definimos las integraciones después de entender el proceso, no antes.",
+          "Partimos de las herramientas que el equipo ya usa. Definimos las integraciones después de entender el proceso.",
       },
       {
-        question: "¿Cuánto cuesta automatizar un proceso con IA?",
+        question: "¿Cuánto cuesta automatizar un proceso?",
         answer:
-          "Depende del proceso y de las integraciones. No publicamos tarifas: primero revisamos el proceso y acordamos el alcance con el equipo.",
-      },
-      {
-        question: "¿Qué recibe el equipo al final?",
-        answer:
-          "El equipo recibe el flujo funcionando, sus integraciones y la documentación necesaria para operarlo y ajustarlo.",
-      },
-      {
-        question: "¿Hay automatización con IA para empresas en El Salvador?",
-        answer: automationCompanies,
-      },
-      {
-        question: "¿Hay automatización de procesos con IA en San Salvador?",
-        answer: automationProcesses,
-      },
-      {
-        question: "¿Qué empresa automatiza procesos con IA en El Salvador?",
-        answer: automationCompany,
+          "Depende del proceso y de las integraciones. Después del diagnóstico te damos el alcance y la cotización antes de empezar.",
       },
     ],
     ctaHeading: "¿Qué proceso querés mejorar?",
     ctaBody:
-      "Contanos cómo funciona hoy y dónde se traba. Lo revisamos con vos.",
-    cta: "Quiero mejorar un proceso",
+      "Contanos cómo funciona hoy y dónde se traba. Lo revisamos con vos en 30 minutos.",
+    ctaLabel: "Agendá un diagnóstico",
+  },
+  training: {
+    photo: {
+      name: "3.webp",
+      alt: "Participantes siguen una sesión práctica de Ai Labs en un auditorio.",
+    },
+    metaTitle: "Capacitación en IA para equipos en El Salvador | Ai Labs",
+    metaDescription:
+      "Capacitación en IA para equipos en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo.",
+    serviceName: "Capacitación en IA para equipos en El Salvador",
+    eyebrow: "Capacitación para equipos",
+    title: "Capacitación en IA para equipos",
+    lead: "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo.",
+    cta: "Agendá una llamada",
+    fitHeading: "Para quién es",
+    fit: [
+      "Gerentes y equipos comerciales que quieren usar IA en su trabajo con criterio.",
+      "Equipos de operaciones y administración que necesitan una base común.",
+      "Direcciones que quieren decidir con información antes de invertir en IA.",
+    ],
+    notFitHeading: "Para quién no es",
+    notFit: [
+      "Si buscás un curso de programación o de investigación en IA.",
+      "Si buscás un certificado sin práctica sobre tu propio trabajo.",
+    ],
+    includesHeading: "Formatos",
+    includes: [
+      {
+        title: "Learning Day",
+        body: "Cuatro horas con tu equipo, sobre sus tareas reales. Se van con plantillas que usan al día siguiente.",
+      },
+      {
+        title: "Build Day",
+        body: "Un día en cohorte abierta con otras empresas: llegás con un proceso y salís con un prototipo y un caso de negocio.",
+      },
+      {
+        title: "Bootcamp",
+        body: "Dos días o más con tu equipo: el prototipo queda funcionando, integrado y documentado, y el equipo listo para operarlo.",
+      },
+      {
+        title: "Talleres públicos",
+        body: "Sesiones abiertas en San Salvador para cualquier profesional. Son la forma más fácil de conocernos.",
+        link: { label: "Ver próximos talleres", href: "/events" },
+      },
+    ],
+    stepsHeading: "Cómo se arma",
+    steps: [
+      {
+        title: "Entender",
+        body: "Revisamos qué hace el equipo, con qué herramientas y dónde pierde tiempo.",
+      },
+      {
+        title: "Practicar",
+        body: "Trabajamos sobre casos reales del equipo, con ejercicios que se pueden repetir al día siguiente.",
+      },
+      {
+        title: "Operar",
+        body: "Dejamos criterios de revisión y documentación para que la mejora se sostenga.",
+      },
+    ],
+    faqHeading: "Preguntas sobre capacitación",
+    faq: [
+      {
+        question: "¿Qué es una capacitación práctica en IA?",
+        answer:
+          "Enseña a usar la inteligencia artificial en las tareas reales de cada persona o equipo, con criterio para saber cuándo usarla, cómo revisar el resultado y cómo operarla.",
+      },
+      {
+        question: "¿Necesito saber programar?",
+        answer:
+          "No. Pensamos la formación para perfiles de negocio y usamos lenguaje claro. Nos enfocamos en aplicar IA a tareas reales con criterio.",
+      },
+      {
+        question: "¿Sirve si mi equipo no es técnico?",
+        answer:
+          "Sí. La mayoría de los equipos con los que trabajamos son de ventas, operaciones y administración. Practican con sus propias tareas.",
+      },
+      {
+        question: "¿Cuánto cuesta?",
+        answer:
+          "Los talleres públicos muestran su precio en cada evento. Las capacitaciones para equipos dependen del formato y las cotizamos después de una llamada.",
+      },
+      {
+        question: "¿Puedo venir por mi cuenta, sin empresa?",
+        answer:
+          "Sí. Los talleres públicos son para cualquier profesional. Los próximos están en Eventos y los avisamos por WhatsApp.",
+      },
+    ],
+    ctaHeading: "¿Querés preparar a tu equipo?",
+    ctaBody:
+      "Contanos qué hace tu equipo y qué quiere mejorar. Lo vemos en una llamada de 30 minutos.",
+    ctaLabel: "Agendá una llamada",
   },
 }

@@ -1,14 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router"
 
-import { ConsultingPage } from "@/components/consulting/consulting-page"
+import { ServicePage } from "@/components/marketing/service-page"
 import { useLocaleContext } from "@/lib/locale-context"
 import {
-  brandedTitle,
   buildFaqJsonLd,
   buildPageMeta,
   buildServicePageJsonLd,
 } from "@/lib/seo"
-import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
+import { SERVICE_PAGE_PATHS } from "@/lib/service-pages"
+
+const ID = "consulting"
+const PATH = SERVICE_PAGE_PATHS[ID]
 
 export const Route = createFileRoute("/_site/consultoria-de-ia-el-salvador")({
   loader: ({ context }) => context,
@@ -17,27 +19,26 @@ export const Route = createFileRoute("/_site/consultoria-de-ia-el-salvador")({
       return {}
     }
     const { locale, content } = loaderData
-    const page = content.consulting
-    const title = brandedTitle(page.metaTitle)
+    const pages = content.servicePages
+    const page = pages[ID]
     const meta = buildPageMeta({
       locale,
-      path: CONSULTING_PAGE_PATH,
-      title,
+      path: PATH,
+      title: page.metaTitle,
       description: page.metaDescription,
     })
-
     return {
       ...meta,
       scripts: [
         buildServicePageJsonLd({
           locale,
-          path: CONSULTING_PAGE_PATH,
-          title,
+          path: PATH,
+          title: page.metaTitle,
           description: page.metaDescription,
-          serviceName: page.headline,
-          homeLabel: content.servicePages.homeLabel,
+          serviceName: page.serviceName,
+          homeLabel: pages.homeLabel,
         }),
-        buildFaqJsonLd(page.faqs),
+        buildFaqJsonLd(page.faq),
       ],
     }
   },
@@ -45,7 +46,6 @@ export const Route = createFileRoute("/_site/consultoria-de-ia-el-salvador")({
 })
 
 export function ConsultingRoute() {
-  const { locale, content } = useLocaleContext()
-
-  return <ConsultingPage locale={locale} content={content.consulting} />
+  const { content } = useLocaleContext()
+  return <ServicePage id={ID} pages={content.servicePages} />
 }

@@ -2,6 +2,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { createFileRoute } from "@tanstack/react-router"
 
+import { CampaignFactRow } from "@/components/campaign/campaign-fact-row"
 import { CampaignHero } from "@/components/campaign/campaign-hero"
 import {
   homeDisplayClassName,
@@ -45,18 +46,24 @@ function WhatsAppMark({ className }: { className?: string }) {
 }
 
 /**
- * Booking page. Placeholder copy until the copy PR; the scheduler embed
- * renders only once `BOOKING_URL` is set, and the WhatsApp invite stays as
- * the direct line meanwhile.
+ * Booking page: the diagnostic in three steps and the scheduler embed. While
+ * `BOOKING_URL` is empty the page says the scheduler is about to open, and
+ * the WhatsApp button appears only once a business number exists.
  */
 export function BookingPage() {
   const { content } = useLocaleContext()
   const { booking } = content
 
   return (
-    <CampaignHero photo={booking.heroPhoto} fluid={BOOKING_URL.length > 0}>
+    <CampaignHero
+      photo={booking.heroPhoto}
+      fluid={BOOKING_URL.length > 0}
+      footer={
+        <CampaignFactRow label={booking.stepsLabel} steps={booking.steps} />
+      }
+    >
       <Eyebrow>{booking.label}</Eyebrow>
-      <h1 className={cn(homeDisplayClassName, "leading-[0.95]")}>
+      <h1 className={cn(homeDisplayClassName, "leading-[0.95] text-balance")}>
         {booking.headline}
       </h1>
       <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
@@ -69,26 +76,35 @@ export function BookingPage() {
           loading="lazy"
           className="min-h-[40rem] w-full rounded-2xl border border-border bg-background"
         />
-      ) : null}
-      <div className="flex flex-col gap-2 pt-1">
-        <a
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(homePillClassName, "w-fit gap-2.5")}
-        >
-          <WhatsAppMark className="size-5 shrink-0" />
-          {booking.whatsappCta}
-          <HugeiconsIcon
-            icon={ArrowRight01Icon}
-            strokeWidth={2}
-            className="size-4 shrink-0 opacity-80"
-          />
-        </a>
-        <p className="text-small text-muted-foreground">
-          {booking.whatsappHint}
+      ) : (
+        <p className="rounded-2xl border border-border bg-surface px-5 py-4 text-small text-muted-foreground">
+          {booking.embedPending}
         </p>
-      </div>
+      )}
+      {WHATSAPP_URL ? (
+        <div className="flex flex-col gap-3 pt-2">
+          <p className="text-small font-semibold text-muted-foreground">
+            {booking.altTitle}
+          </p>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(homePillClassName, "w-fit gap-2.5")}
+          >
+            <WhatsAppMark className="size-5 shrink-0" />
+            {booking.whatsappCta}
+            <HugeiconsIcon
+              icon={ArrowRight01Icon}
+              strokeWidth={2}
+              className="size-4 shrink-0 opacity-80"
+            />
+          </a>
+          <p className="text-small text-muted-foreground">
+            {booking.whatsappHint}
+          </p>
+        </div>
+      ) : null}
     </CampaignHero>
   )
 }

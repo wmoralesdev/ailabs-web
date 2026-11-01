@@ -4,8 +4,8 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
 import { HalftoneCanvas } from "@/components/halftone/halftone-canvas"
-import { HomeCtaLink } from "@/components/home/home-cta-link"
-import type { HomeHeroContent, Locale, NavItem, SiteContent } from "@/content"
+import { Eyebrow } from "@/components/ui/eyebrow"
+import type { HomeHeroContent, Locale, SiteContent } from "@/content"
 import { useHomeEntrance } from "@/lib/home-motion"
 import { isInternalHref, routeForHref } from "@/lib/locale-links"
 import { localizedPath } from "@/lib/locale-path"
@@ -24,8 +24,6 @@ type HomeHeroProps = {
   hero?: HomeHeroContent
   /** When set, the primary control is this link instead of the booking CTA. */
   primaryAction?: HomeHeroLinkAction
-  /** Quiet text link under the hero actions. Omit on the home. */
-  textLink?: NavItem
   /** On the home, hash CTAs stay on the page; elsewhere they lead home. */
   samePageCtas?: boolean
 }
@@ -33,15 +31,14 @@ type HomeHeroProps = {
 /**
  * Typographic hero beside the Ai Labs mark printed as a live halftone. The
  * whole section is the pointer surface: the cursor drags ink through the dot
- * screen and it melts into the mark where they meet. No photo and no loop:
- * the dots only move when someone moves.
+ * screen and it melts into the mark where they meet. One headline, one lead,
+ * two actions. No photo and no loop: the dots only move when someone moves.
  */
 function HomeHero({
   locale,
   content,
   hero = content.home.hero,
   primaryAction,
-  textLink,
   samePageCtas = true,
 }: HomeHeroProps) {
   const root = useRef<HTMLElement>(null)
@@ -72,11 +69,12 @@ function HomeHero({
         className="absolute inset-0 -z-10"
       />
 
-      <div className="page-gutter mx-auto grid w-full max-w-content gap-10 pt-12 pb-16 sm:pt-16 lg:min-h-[min(52rem,calc(100svh-var(--site-header-height)))] lg:grid-cols-12 lg:items-center lg:gap-8 lg:py-16">
+      <div className="page-gutter mx-auto grid w-full max-w-content gap-10 pt-12 pb-16 sm:pt-16 lg:min-h-[min(48rem,calc(100svh-var(--site-header-height)))] lg:grid-cols-12 lg:items-center lg:gap-8 lg:py-16">
         <div className="flex flex-col items-start gap-7 lg:col-span-7">
+          <Eyebrow data-home-entrance>{hero.label}</Eyebrow>
           <h1
             id="hero-title"
-            className="display max-w-[21ch] text-[clamp(2.375rem,1.5rem+3.2vw,4.25rem)] text-balance"
+            className="display max-w-[18ch] text-[clamp(2.5rem,1.5rem+3.6vw,4.75rem)] text-balance"
           >
             {hero.headline.split(" ").map((word, index) => (
               <Fragment key={`${index}-${word}`}>
@@ -87,25 +85,15 @@ function HomeHero({
               </Fragment>
             ))}
           </h1>
-          {hero.directAnswer ? (
-            <p
-              data-home-entrance
-              className="max-w-[40ch] text-lead leading-snug text-muted-foreground"
-            >
-              {hero.directAnswer}
-            </p>
-          ) : null}
-          {hero.agencyAnswer ? (
-            <p
-              data-home-entrance
-              className="max-w-[46ch] text-body leading-snug text-muted-foreground"
-            >
-              {hero.agencyAnswer}
-            </p>
-          ) : null}
+          <p
+            data-home-entrance
+            className="max-w-[44ch] text-lead leading-snug text-muted-foreground"
+          >
+            {hero.lead}
+          </p>
           <div
             data-home-entrance
-            className="flex flex-wrap items-center gap-x-6 gap-y-2"
+            className="flex flex-wrap items-center gap-x-6 gap-y-3"
           >
             {primaryAction ? (
               <a
@@ -132,20 +120,26 @@ function HomeHero({
                 <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
               </a>
             )}
-            <a href={secondaryHref} className="text-action">
-              {hero.secondaryCta.label}
-              <HugeiconsIcon
-                icon={ArrowRight01Icon}
-                strokeWidth={2}
-                className="size-4"
-              />
-            </a>
+            {isInternalHref(hero.secondaryCta.href) ? (
+              <Link to={secondaryHref as never} className="text-action">
+                {hero.secondaryCta.label}
+                <HugeiconsIcon
+                  icon={ArrowRight01Icon}
+                  strokeWidth={2}
+                  className="size-4"
+                />
+              </Link>
+            ) : (
+              <a href={secondaryHref} className="text-action">
+                {hero.secondaryCta.label}
+                <HugeiconsIcon
+                  icon={ArrowRight01Icon}
+                  strokeWidth={2}
+                  className="size-4"
+                />
+              </a>
+            )}
           </div>
-          {textLink ? (
-            <div data-home-entrance>
-              <HomeCtaLink cta={textLink} locale={locale} variant="quiet" />
-            </div>
-          ) : null}
         </div>
 
         {/* Where the printed mark sits; the canvas reads this box. */}

@@ -1,15 +1,23 @@
 import { useEffect, useRef, useState } from "react"
 import type { CSSProperties } from "react"
+import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
+  ArrowRight01Icon,
   ArrowUpRight01Icon,
   PauseIcon,
   PlayIcon,
 } from "@hugeicons/core-free-icons"
 
+import { HalftoneIcon } from "@/components/halftone/halftone-icon"
 import { HomeHero } from "@/components/home/home-hero"
-import { homeShellClassName } from "@/components/home/home-styles"
+import {
+  homeHeadingClassName,
+  homePillClassName,
+  homeShellClassName,
+} from "@/components/home/home-styles"
 import { Button } from "@/components/ui/button"
+import { BOOKING_PAGE_PATH, COMMUNITY_WHATSAPP_URL } from "@/content/booking"
 import {
   formatCurrentMonth,
   formatLumaPlace,
@@ -21,13 +29,17 @@ import type { LumaEvent } from "@/content/luma-events"
 import type {
   EventsIndexContent,
   EventsIndexPhoto,
+  HomeHeroContent,
   Locale,
   SiteContent,
 } from "@/content/types"
-import { CONSULTING_PAGE_PATH } from "@/lib/service-pages"
+import type { ShapeName } from "@/lib/halftone-shapes"
+import { localizedPath } from "@/lib/locale-path"
 import { cn } from "@/lib/utils"
 
 import "./events-index.css"
+
+const trackShapes: ReadonlyArray<ShapeName> = ["target", "nodes"]
 
 type EventsIndexProps = {
   locale: Locale
@@ -426,16 +438,17 @@ function EventsIndex({ locale, content, now }: EventsIndexProps) {
   const monthInSentence =
     locale === "es" ? monthLabel.toLocaleLowerCase("es-SV") : monthLabel
   const monthIsEmpty = upcoming.length === 0 && past.length === 0
-  const hero = {
-    ...content.home.hero,
+  const hero: HomeHeroContent = {
     label: copy.label,
     headline: copy.headline,
-    directAnswer: copy.intro,
-    agencyAnswer: "",
-    body: "",
+    lead: copy.intro,
     primaryCta: {
       label: copy.calendarLabel,
       href: walterEventsCalendarUrl,
+    },
+    secondaryCta: {
+      label: copy.communityCta,
+      href: "#comunidad",
     },
   }
 
@@ -445,18 +458,40 @@ function EventsIndex({ locale, content, now }: EventsIndexProps) {
         locale={locale}
         content={content}
         hero={hero}
-        samePageCtas={false}
         primaryAction={{
           label: copy.calendarLabel,
           href: walterEventsCalendarUrl,
           external: true,
           newTabLabel: copy.newTabLabel,
         }}
-        textLink={{
-          label: copy.consultingLink,
-          href: CONSULTING_PAGE_PATH,
-        }}
       />
+
+      <section
+        aria-label={copy.label}
+        className="border-y border-border bg-background py-10 md:py-14"
+      >
+        <ul className={cn(homeShellClassName, "grid gap-8 md:grid-cols-2")}>
+          {copy.tracks.map((track, index) => (
+            <li
+              key={track.title}
+              data-icon-hover
+              className="grid grid-cols-[3.5rem_1fr] gap-x-5"
+            >
+              <HalftoneIcon
+                shape={trackShapes[index] ?? "dot"}
+                motion="hover"
+                className="size-12 text-purple-ink"
+              />
+              <div>
+                <h2 className="display text-[1.75rem]">{track.title}</h2>
+                <p className="mt-2 max-w-[44ch] text-body text-muted-foreground">
+                  {track.body}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {copy.photos.length > 0 ? (
         <section
@@ -518,6 +553,57 @@ function EventsIndex({ locale, content, now }: EventsIndexProps) {
               ) : null}
             </div>
           )}
+        </div>
+      </section>
+
+      <section
+        id="comunidad"
+        aria-labelledby="events-community"
+        className="section-y bg-surface"
+      >
+        <div
+          className={cn(
+            homeShellClassName,
+            "grid gap-10 lg:grid-cols-12 lg:items-end"
+          )}
+        >
+          <div className="flex flex-col items-start gap-5 lg:col-span-7">
+            <h2 id="events-community" className={homeHeadingClassName}>
+              {copy.communityTitle}
+            </h2>
+            <p className="max-w-[52ch] text-lead leading-snug text-muted-foreground">
+              {copy.communityBody}
+            </p>
+            <a
+              href={COMMUNITY_WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(homePillClassName, "w-fit")}
+            >
+              {copy.communityCta}
+              <span className="sr-only"> {copy.newTabLabel}</span>
+              <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+            </a>
+            <p className="text-small text-muted-foreground">
+              {copy.communityHint}
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-4 border-t border-foreground/15 pt-8 lg:col-span-4 lg:col-start-9 lg:border-t-0 lg:pt-0">
+            <h2 className="display text-[clamp(1.5rem,1.2rem+1vw,2rem)]">
+              {copy.bridgeTitle}
+            </h2>
+            <Link
+              to={localizedPath(locale, BOOKING_PAGE_PATH) as never}
+              className="text-action"
+            >
+              {copy.bridgeCta}
+              <HugeiconsIcon
+                icon={ArrowRight01Icon}
+                strokeWidth={2}
+                className="size-4"
+              />
+            </Link>
+          </div>
         </div>
       </section>
     </article>

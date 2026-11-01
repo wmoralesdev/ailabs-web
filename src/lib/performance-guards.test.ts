@@ -52,16 +52,19 @@ describe("performance guards", () => {
     expect(start).not.toMatch(/clerk/i)
   })
 
-  it("loads carousel photos one slide ahead and prints logos without images", () => {
-    const carousel = readFileSync(
-      "src/components/home/home-media-carousel.tsx",
+  it("prints the ambassador marks and the offer cells without images", () => {
+    // Ambassador marks are inline halftone dots: no image requests at all.
+    const ambassadors = readFileSync(
+      "src/components/home/home-ambassadors.tsx",
       "utf8"
     )
-    expect(carousel).toContain("slideIndex <= loadedThrough")
-    // Ambassador marks are inline halftone dots: no image requests at all.
-    const trust = readFileSync("src/components/home/home-trust.tsx", "utf8")
-    expect(trust).toContain("<HalftoneLogo")
-    expect(trust).not.toContain("<img")
+    expect(ambassadors).toContain("<HalftoneLogo")
+    expect(ambassadors).not.toContain("<img")
+    // The offers bento has no photos: its cells are live halftone prints.
+    const offers = readFileSync("src/components/home/home-offers.tsx", "utf8")
+    expect(offers).toContain("<PrintCell")
+    expect(offers).not.toContain("<img")
+    expect(offers).not.toContain("HalftoneLens")
   })
 
   it("lazy-loads event photos below the hero", () => {

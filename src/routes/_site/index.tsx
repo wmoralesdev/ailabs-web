@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router"
 
-import { HomeContact } from "@/components/home/home-contact"
+import { HomeAmbassadors } from "@/components/home/home-ambassadors"
+import { HomeBooking } from "@/components/home/home-booking"
 import { HomeFaq } from "@/components/home/home-faq"
 import { HomeHero } from "@/components/home/home-hero"
 import { HomeMethod } from "@/components/home/home-method"
-import { HomeServices } from "@/components/home/home-services"
-import { HomeTrust } from "@/components/home/home-trust"
+import { HomeOffers } from "@/components/home/home-offers"
 import { useLocaleContext } from "@/lib/locale-context"
 import { buildFaqJsonLd, buildHomeJsonLd, buildPageMeta } from "@/lib/seo"
-import { CONSULTING_PAGE_PATH, SERVICE_PAGE_PATHS } from "@/lib/service-pages"
+import { SERVICE_PAGE_PATHS } from "@/lib/service-pages"
 
 export const Route = createFileRoute("/_site/")({
   loader: ({ context }) => context,
@@ -23,6 +23,7 @@ export const Route = createFileRoute("/_site/")({
       title: meta.title,
       description: meta.description,
     })
+    const [automation, consulting, training] = home.offers.items
 
     return {
       meta: page.meta,
@@ -32,49 +33,33 @@ export const Route = createFileRoute("/_site/")({
           locale,
           title: meta.title,
           description: meta.description,
-          organizationDescription: home.hero.directAnswer,
+          organizationDescription: home.hero.lead,
           services: [
             {
-              name: home.services.offerName,
-              description: home.services.body,
-              path: CONSULTING_PAGE_PATH,
-            },
-            {
-              name: home.services.items[0].offerName,
-              description: home.services.items[0].body,
-              path: SERVICE_PAGE_PATHS.training,
-            },
-            {
-              name: home.services.items[1].offerName,
-              description: home.services.items[1].body,
+              name: automation.title,
+              description: automation.body,
               path: SERVICE_PAGE_PATHS.automation,
+            },
+            {
+              name: consulting.title,
+              description: consulting.body,
+              path: SERVICE_PAGE_PATHS.consulting,
+            },
+            {
+              name: training.title,
+              description: training.body,
+              path: SERVICE_PAGE_PATHS.training,
             },
           ],
         }),
-        buildFaqJsonLd([
-          {
-            question: home.hero.agencyQuestion,
-            answer: home.hero.agencyAnswer,
-          },
-          { question: home.services.title, answer: home.services.body },
-          {
-            question: home.services.items[0].title,
-            answer: home.services.items[0].body,
-          },
-          {
-            question: home.services.items[1].title,
-            answer: home.services.items[1].body,
-          },
-          { question: home.method.title, answer: home.method.body },
-          ...home.faq.items,
-          { question: home.contact.title, answer: home.contact.lead },
-        ]),
+        buildFaqJsonLd([...home.faq.items]),
       ],
     }
   },
   component: HomePage,
 })
 
+/** Six sections: hero, ambassadors, offers, method, FAQ, booking. */
 export function HomePage() {
   const { locale, content } = useLocaleContext()
   const { home } = content
@@ -82,11 +67,11 @@ export function HomePage() {
   return (
     <div>
       <HomeHero locale={locale} content={content} />
-      <HomeTrust trust={home.trust} />
-      <HomeServices services={home.services} locale={locale} />
+      <HomeAmbassadors ambassadors={home.ambassadors} />
+      <HomeOffers offers={home.offers} locale={locale} />
       <HomeMethod method={home.method} locale={locale} />
       <HomeFaq faq={home.faq} />
-      <HomeContact contact={home.contact} locale={locale} />
+      <HomeBooking booking={home.booking} locale={locale} />
     </div>
   )
 }

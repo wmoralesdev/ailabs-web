@@ -1,253 +1,274 @@
 import type { ServicePagesContent } from "./types"
 
-const trainingDefinition =
-  "Practical AI training teaches people to use artificial intelligence in their real tasks, with the judgment to know when to use it, how to review the result, and how to run it."
-
-const automationDefinition =
-  "AI process automation designs and implements workflows that connect tools, data, and people, and defines what AI assists, what gets automated, and which decisions stay with the team."
-
-const trainingCourses =
-  "The AI courses we teach in El Salvador are practical, on the real tasks of your work, in person in San Salvador, and you can come without a company."
-
-const trainingWorkshops =
-  "Our artificial intelligence workshops in San Salvador are in person and practical: you practice on your own work, you can come without a company, and Campus Leaders is for students."
-
-const trainingWhere =
-  "You can learn AI in El Salvador at Ai Labs, in practical workshops in San Salvador: we lead a community centered on training and teaching, Campus Leaders is for students and Ai Labs presents itself as an AI leader."
-
-const automationCompanies =
-  "We do AI automation for companies in El Salvador: we design the workflow with your team in San Salvador, with human review and documentation."
-
-const automationProcesses =
-  "We build process automation with AI in San Salvador with your tools, and the important decisions stay in your hands."
-
-const automationCompany =
-  "Ai Labs, in San Salvador, El Salvador, automates processes with AI for companies: we design the workflow with your team, with human review and documentation."
-
 export const servicePagesEn: ServicePagesContent = {
   homeLabel: "Home",
   breadcrumbLabel: "Breadcrumb",
-  relatedLabel: "Other ways to work with Ai Labs",
-  consultingLink: "AI consulting in El Salvador",
-  eventsLink: "AI events and workshops in El Salvador",
+  relatedLabel: "Other ways to work with us",
+  eventsLink: "AI workshops and events in San Salvador",
+  consulting: {
+    metaTitle: "AI consulting in El Salvador | Ai Labs",
+    metaDescription:
+      "AI consulting in El Salvador: a 30-minute diagnostic and a review of your process with your team to pick one improvement worth making.",
+    serviceName: "AI consulting in El Salvador",
+    eyebrow: "AI diagnostic",
+    title: "AI consulting in El Salvador",
+    lead: "A 30-minute diagnostic and then a review of your process with your team, to pick one improvement worth making.",
+    cta: "Book a 30-minute diagnostic",
+    fitHeading: "Who it's for",
+    fit: [
+      "Owners and managers who want to use AI and don't know where to start.",
+      "Teams with a process that hurts and several ideas for how to fix it.",
+      "Companies that already tried AI tools and nothing changed.",
+    ],
+    notFitHeading: "Who it's not for",
+    notFit: [
+      "If you already know exactly what to build, go straight to automation.",
+      "If you want a general talk about AI, check out our workshops.",
+    ],
+    includesHeading: "What's included",
+    includes: [
+      {
+        title: "30-minute diagnostic",
+        body: "A free video call, or a visit if you're nearby, to understand your operation and decide if it makes sense to continue.",
+      },
+      {
+        title: "Process review",
+        body: "A session with the team that does the work: we map steps, tools and where it gets stuck.",
+      },
+      {
+        title: "Prioritization",
+        body: "We pick one improvement worth making, define the scope and give you the quote before starting.",
+      },
+      {
+        title: "Plan",
+        body: "A short document with the process, the chosen improvement and the steps to implement it or train the team.",
+      },
+    ],
+    stepsHeading: "How we do it",
+    steps: [
+      {
+        title: "Understand",
+        body: "We review how the work gets done today, who is involved and where it gets stuck.",
+      },
+      {
+        title: "Prioritize",
+        body: "We pick one improvement worth making and agree on the scope.",
+      },
+      {
+        title: "Implement",
+        body: "We build the workflow or prepare the team, with the documentation it needs.",
+      },
+    ],
+    faqHeading: "Questions about consulting",
+    faq: [
+      {
+        question: "What does an AI consultant do?",
+        answer:
+          "They review how a team works, find where AI can help and decide where to start. Then they implement the improvement or prepare the team to run it.",
+      },
+      {
+        question: "How much does AI consulting cost?",
+        answer:
+          "The 30-minute diagnostic is free. The review and the plan depend on the size of the process, and we quote them before starting.",
+      },
+      {
+        question: "Do I need to know what I want?",
+        answer:
+          "No. That's what the diagnostic is for. It's enough to know which part of the work costs you the most time or gives you the most trouble.",
+      },
+      {
+        question: "What do I get at the end?",
+        answer:
+          "A short document with the mapped process, the chosen improvement, the scope and the quote. It's yours, whether you implement it with us or not.",
+      },
+      {
+        question: "Do you only work in San Salvador?",
+        answer:
+          "No. We work with companies across El Salvador and outside the country too. The diagnostic is a video call, and the reviews can be in person if you're nearby.",
+      },
+    ],
+    ctaHeading: "Start with the diagnostic",
+    ctaBody:
+      "Thirty minutes, at no cost. You leave with a concrete recommendation, whether you hire us or not.",
+    ctaLabel: "Pick a date and time",
+  },
+  automation: {
+    metaTitle: "AI automation for companies in El Salvador | Ai Labs",
+    metaDescription:
+      "AI process automation and custom software for companies in El Salvador. We connect your tools and build what's missing, with human review.",
+    serviceName: "AI automation for companies in El Salvador",
+    eyebrow: "Automation and custom software",
+    title: "AI automation and custom software",
+    lead: "We connect your tools, automate the repetitive work and build the software you're missing. With human review and documentation.",
+    cta: "Book a 30-minute diagnostic",
+    fitHeading: "Who it's for",
+    fit: [
+      "Teams that copy information between systems by hand.",
+      "Operations that need speed without losing control over decisions.",
+      "Companies that want a system of their own instead of another subscription.",
+    ],
+    notFitHeading: "Who it's not for",
+    notFit: [
+      "If you want to replace the team instead of improving how it works.",
+      "If the process isn't clear yet. In that case, start with the diagnostic.",
+    ],
+    includesHeading: "What's included",
+    includes: [
+      {
+        title: "Fit with the process",
+        body: "The workflow respects the tools, data and responsibilities that already exist.",
+      },
+      {
+        title: "Integrations",
+        body: "We connect the tools the team already uses so information doesn't get copied by hand.",
+      },
+      {
+        title: "Human review",
+        body: "We define where AI assists, what gets automated and which decisions stay in the team's hands.",
+      },
+      {
+        title: "Delivery and handoff",
+        body: "We deliver the workflow, the integrations and the documentation so the team can run it.",
+      },
+    ],
+    stepsHeading: "How we do it",
+    steps: [
+      {
+        title: "Understand the process",
+        body: "We map inputs, decisions, friction and the expected outcome.",
+      },
+      {
+        title: "Design the intervention",
+        body: "We define what to assist, what to automate and what to keep human.",
+      },
+      {
+        title: "Implement and hand off",
+        body: "We integrate, document and leave the team ready to operate.",
+      },
+    ],
+    faqHeading: "Questions about automation",
+    faq: [
+      {
+        question: "What is AI process automation?",
+        answer:
+          "It's designing and implementing workflows that connect tools, data and people, and defining what AI assists, what gets automated and which decisions stay with the team.",
+      },
+      {
+        question: "Automation or custom software?",
+        answer:
+          "If your tools already have what you need and just have to be connected, that's automation. If a piece is missing that no tool gives you, we build it.",
+      },
+      {
+        question: "Does AI replace the team?",
+        answer:
+          "No. We design every workflow with human review where it's needed. AI assists or automates steps, and the important decisions stay in the team's hands.",
+      },
+      {
+        question: "Which tools does it integrate with?",
+        answer:
+          "We start from the tools the team already uses, and we define the integrations after we understand the process.",
+      },
+      {
+        question: "How much does it cost to automate a process?",
+        answer:
+          "It depends on the process and the integrations. After the diagnostic we give you the scope and the quote before starting.",
+      },
+    ],
+    ctaHeading: "Which process do you want to improve?",
+    ctaBody:
+      "Tell us how it works today and where it gets stuck. We review it with you in 30 minutes.",
+    ctaLabel: "Book a diagnostic",
+  },
   training: {
     photo: {
       name: "3.webp",
       alt: "Participants follow a hands-on Ai Labs session in an auditorium.",
     },
-    metaTitle: "AI courses in El Salvador, San Salvador | Ai Labs",
+    metaTitle: "AI training for teams in El Salvador | Ai Labs",
     metaDescription:
-      "At Ai Labs we teach AI courses in El Salvador and artificial intelligence workshops in San Salvador, in person and practical.",
-    serviceName: "AI training in El Salvador",
-    eyebrow: "Academy · Practical education",
-    title: "AI courses in El Salvador, in person in San Salvador",
-    lead: trainingCourses,
-    claims: [trainingWorkshops, trainingWhere],
-    definitionHeading: "What you learn in practical AI training.",
-    definition: trainingDefinition,
-    includesHeading: "How the training works.",
+      "AI training for teams in El Salvador: Learning Day, Build Day and bootcamp for managers and sales teams, built on their own work.",
+    serviceName: "AI training for teams in El Salvador",
+    eyebrow: "Training for teams",
+    title: "AI training for teams",
+    lead: "Learning Day, Build Day and bootcamp so that managers and sales teams use AI with good judgment, on their own work.",
+    cta: "Book a call",
+    fitHeading: "Who it's for",
+    fit: [
+      "Managers and sales teams who want to use AI in their work with good judgment.",
+      "Operations and administrative teams that need a common foundation.",
+      "Leadership teams that want to decide with information before investing in AI.",
+    ],
+    notFitHeading: "Who it's not for",
+    notFit: [
+      "If you're looking for a programming or AI research course.",
+      "If you're looking for a certificate without practicing on your own work.",
+    ],
+    includesHeading: "Formats",
     includes: [
       {
-        title: "Built on your tasks",
-        body: "Practice starts from the tasks, decisions, and friction you face every day, not generic examples.",
+        title: "Learning Day",
+        body: "Four hours with your team, on their real tasks. They leave with templates they use the next day.",
       },
       {
-        title: "Judgment to use it",
-        body: "You learn when to use AI, how to review what it produces, and when a task should stay human.",
+        title: "Build Day",
+        body: "A day in an open cohort with other companies: you bring a process and leave with a prototype and a business case.",
       },
       {
-        title: "For teams",
-        body: "After prioritizing a process, we work on the team's real cases until it can apply and run the improvement.",
+        title: "Bootcamp",
+        body: "Two or more days with your team: the prototype ends up working, integrated and documented, and the team ready to run it.",
       },
       {
-        title: "For professionals",
-        body: "Public workshops and bootcamps for people learning on their own, with no company or prior consulting required.",
+        title: "Public workshops",
+        body: "Open sessions in San Salvador for any professional. They are the easiest way to get to know us.",
+        link: { label: "See upcoming workshops", href: "/events" },
       },
     ],
-    stepsHeading: "How team training comes together.",
+    stepsHeading: "How we put it together",
     steps: [
       {
         title: "Understand",
-        body: "We look at what the team does, with which tools, and where it loses time.",
+        body: "We review what the team does, with which tools and where it loses time.",
       },
       {
         title: "Practice",
         body: "We work on the team's real cases, with exercises they can repeat the next day.",
       },
       {
-        title: "Run it",
+        title: "Operate",
         body: "We leave review criteria and documentation so the improvement lasts.",
       },
     ],
-    fitHeading: "Who it is for.",
-    fit: [
-      "Professionals who want to apply AI to their work with judgment.",
-      "Commercial, management, and operations teams that need a shared foundation.",
-      "People who prefer to learn in person, with guided practice.",
-    ],
-    notFitHeading: "Who it is not for.",
-    notFit: [
-      "If you want a theoretical programming or AI research course.",
-      "If you want a certificate without practice on your own work.",
-    ],
-    faqHeading: "Questions about AI training.",
+    faqHeading: "Questions about training",
     faq: [
       {
         question: "What is practical AI training?",
-        answer: trainingDefinition,
-      },
-      {
-        question: "AI course, workshop, or training: what is the difference?",
         answer:
-          "A course covers a topic over several sessions, a workshop is one hands-on session, and a training is built for one team and its tasks. At Academy we run public workshops and team training, always on real tasks.",
-      },
-      {
-        question: "Do I need a company to learn AI with Ai Labs?",
-        answer:
-          "No. At Academy we welcome professionals and teams. You can come straight to learn, with no company or prior consulting.",
+          "It teaches how to use artificial intelligence in the real tasks of each person or team, with the judgment to know when to use it, how to review the result and how to run it.",
       },
       {
         question: "Do I need to know how to code?",
         answer:
-          "No. We design the training for business roles and use plain language. We focus on applying AI to real tasks with judgment.",
+          "No. We design the training for business roles and use plain language. We focus on applying AI to real tasks with good judgment.",
       },
       {
-        question: "How much does AI training cost?",
+        question: "Does it work if my team isn't technical?",
         answer:
-          "Each public workshop shows its price on its page. Team training depends on scope, and we agree on it after reviewing the process.",
+          "Yes. Most of the teams we work with are in sales, operations and administration. They practice with their own tasks.",
       },
       {
-        question: "How do I hear about upcoming workshops?",
+        question: "How much does it cost?",
         answer:
-          "Follow our WhatsApp community in El Salvador and our social profiles: that is where we announce upcoming public workshops.",
+          "Public workshops show their price on each event. Training for teams depends on the format, and we quote it after a call.",
       },
       {
-        question: "What AI courses are there in El Salvador?",
-        answer: trainingCourses,
-      },
-      {
-        question:
-          "Where are the artificial intelligence workshops in San Salvador?",
-        answer: trainingWorkshops,
-      },
-      {
-        question: "Where can I learn AI in El Salvador?",
-        answer: trainingWhere,
+        question: "Can I come on my own, without a company?",
+        answer:
+          "Yes. Public workshops are for any professional. The upcoming ones are listed under Events, and we announce them on WhatsApp.",
       },
     ],
     ctaHeading: "Want to prepare your team?",
     ctaBody:
-      "Tell us what your team does and what it wants to improve. You can also write to us if you want to learn on your own.",
-    cta: "Prepare my team",
-  },
-  automation: {
-    photo: {
-      name: "21.webp",
-      alt: "Two participants review code on their laptops during an Ai Labs session.",
-    },
-    metaTitle: "AI automation for companies in El Salvador | Ai Labs",
-    metaDescription:
-      "At Ai Labs we do AI automation for companies in El Salvador and process automation with AI in San Salvador, with human review.",
-    serviceName: "AI process automation in El Salvador",
-    eyebrow: "Agentic · Design and implementation",
-    title: "AI automation for companies in El Salvador",
-    lead: automationCompanies,
-    claims: [automationProcesses, automationCompany],
-    definitionHeading: "What AI automation does for your operation.",
-    definition: automationDefinition,
-    includesHeading: "What it includes.",
-    includes: [
-      {
-        title: "Fits the process",
-        body: "The workflow respects the tools, data, and responsibilities that already exist.",
-      },
-      {
-        title: "Integrations",
-        body: "We connect the tools the team already uses so information is not copied by hand.",
-      },
-      {
-        title: "Human review",
-        body: "We define where AI assists, what gets automated, and which decisions stay with the team.",
-      },
-      {
-        title: "Operational handoff",
-        body: "We deliver the workflow, integrations, and documentation so the team can run it.",
-      },
-    ],
-    stepsHeading: "How we implement a workflow.",
-    steps: [
-      {
-        title: "Understand the process",
-        body: "We map inputs, decisions, friction, and the expected outcome.",
-      },
-      {
-        title: "Design the intervention",
-        body: "We define what to assist, automate, or keep human.",
-      },
-      {
-        title: "Implement and transfer",
-        body: "We integrate, document, and leave the team ready to operate.",
-      },
-    ],
-    fitHeading: "Who it is for.",
-    fit: [
-      "Teams with repetitive processes: follow-up, documents, reports, or data moving between tools.",
-      "Operations that need speed without losing control over important decisions.",
-      "Companies that want the team to run the workflow without depending on a vendor.",
-    ],
-    notFitHeading: "Who it is not for.",
-    notFit: [
-      "If you want to replace the team instead of improving how it works.",
-      "If the process is not clear yet: start with consulting instead.",
-    ],
-    faqHeading: "Questions about AI automation.",
-    faq: [
-      {
-        question: "What is AI process automation?",
-        answer: automationDefinition,
-      },
-      {
-        question:
-          "Automation, AI agent, or agentic workflow: what is the difference?",
-        answer:
-          "An automation runs fixed steps; an AI agent also interprets information and proposes actions. Either way, we define what AI decides, what a person reviews, and what gets documented.",
-      },
-      {
-        question: "Does AI replace the team?",
-        answer:
-          "No. We design each workflow with human review where it is needed. AI assists or automates steps, and important decisions stay with the team.",
-      },
-      {
-        question: "Which tools does it integrate with?",
-        answer:
-          "We start from the tools the team already uses. We define integrations after understanding the process, not before.",
-      },
-      {
-        question: "How much does it cost to automate a process with AI?",
-        answer:
-          "It depends on the process and the integrations. We do not publish rates: we first review the process and agree on scope with the team.",
-      },
-      {
-        question: "What does the team get at the end?",
-        answer:
-          "The team gets the working workflow, its integrations, and the documentation needed to run and adjust it.",
-      },
-      {
-        question: "Do you automate with AI for companies in El Salvador?",
-        answer: automationCompanies,
-      },
-      {
-        question: "Do you automate processes with AI in San Salvador?",
-        answer: automationProcesses,
-      },
-      {
-        question: "Which company automates processes with AI in El Salvador?",
-        answer: automationCompany,
-      },
-    ],
-    ctaHeading: "Which process do you want to improve?",
-    ctaBody:
-      "Tell us how it works today and where it gets stuck. We will review it with you.",
-    cta: "I want to improve a process",
+      "Tell us what your team does and what it wants to improve. We go over it in a 30-minute call.",
+    ctaLabel: "Book a call",
   },
 }

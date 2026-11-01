@@ -71,13 +71,18 @@ describe("events index page", () => {
     expect(
       screen.getByRole("link", { name: /Ver calendario/ })
     ).toHaveAttribute("href", "https://luma.com/user/wmoralesdev")
+    const whatsapp = screen.getAllByRole("link", { name: /Unirme en WhatsApp/ })
+    expect(whatsapp).toHaveLength(2)
+    expect(whatsapp[0]).toHaveAttribute("href", "#comunidad")
+    expect(whatsapp[1]).toHaveAttribute(
+      "href",
+      "https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj"
+    )
+    expect(screen.getByText(es.events.tracks[0].title)).toBeInTheDocument()
+    expect(screen.getByText(es.events.bridgeTitle)).toBeInTheDocument()
     expect(
-      screen.getByRole("link", { name: /Explorar servicios/ })
-    ).toHaveAttribute("href", "/#services")
-    expect(
-      screen.queryByRole("link", { name: /Unirme a la comunidad/ })
-    ).not.toBeInTheDocument()
-    expect(screen.queryByText(es.events.closeHeadline)).not.toBeInTheDocument()
+      screen.getByRole("link", { name: es.events.bridgeCta })
+    ).toHaveAttribute("href", "/agendar")
 
     expect(screen.getAllByRole("img")).toHaveLength(es.events.photos.length)
     expect(screen.getByText(es.events.photosCaption)).toBeInTheDocument()
@@ -109,18 +114,16 @@ describe("events index page", () => {
     expect(devday).toHaveTextContent("National Library of El Salvador")
     expect(devday).toHaveTextContent("View on Luma")
     expect(devday).not.toHaveTextContent("Hosts")
-    expect(screen.getByRole("link", { name: /View calendar/ })).toHaveAttribute(
-      "href",
-      "https://luma.com/user/wmoralesdev"
-    )
     expect(
-      screen.getByRole("link", { name: /Explore services/ })
-    ).toHaveAttribute("href", "/en#services")
-    expect(screen.getByRole("link", { name: /View calendar/ })).toHaveAttribute(
-      "target",
-      "_blank"
-    )
-    expect(screen.queryByText(en.events.closeHeadline)).not.toBeInTheDocument()
+      screen.getByRole("link", { name: /See the calendar/ })
+    ).toHaveAttribute("href", "https://luma.com/user/wmoralesdev")
+    expect(
+      screen.getByRole("link", { name: /See the calendar/ })
+    ).toHaveAttribute("target", "_blank")
+    expect(screen.getByText(en.events.tracks[1].title)).toBeInTheDocument()
+    expect(
+      screen.getByRole("link", { name: en.events.bridgeCta })
+    ).toHaveAttribute("href", "/en/agendar")
     expect(
       screen.getByRole("img", { name: en.events.photos[0].alt })
     ).toBeInTheDocument()

@@ -1,5 +1,5 @@
 import type { Locale, NavContent } from "@/content"
-import { hashFromHref, isInternalHref, routeForHref } from "@/lib/locale-links"
+import { isInternalHref, routeForHref } from "@/lib/locale-links"
 
 function internalRoute(href: string, locale: Locale, name: string): string {
   if (!isInternalHref(href)) {
@@ -8,10 +8,16 @@ function internalRoute(href: string, locale: Locale, name: string): string {
   return routeForHref(href, locale)
 }
 
-/** One services destination, the events link and the booking CTA, shared by both menus. */
+/** The services menu, the events link and the booking CTA, shared by both menus. */
 export function getChromeNavItems(nav: NavContent, locale: Locale) {
   return {
-    services: { ...nav.services, hash: hashFromHref(nav.services.href) },
+    services: {
+      label: nav.services.label,
+      items: nav.services.items.map((item) => ({
+        ...item,
+        to: internalRoute(item.href, locale, "Services"),
+      })),
+    },
     events: {
       ...nav.events,
       to: internalRoute(nav.events.href, locale, "Events"),

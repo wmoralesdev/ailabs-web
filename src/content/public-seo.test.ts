@@ -27,6 +27,17 @@ const REMOVED_PATHS = [
   "/enlaces",
 ]
 
+const RETIRED_PAGES = [
+  "https://www.ailabs.sv/community",
+  "https://www.ailabs.sv/en/community",
+  "https://www.ailabs.sv/campus-leader",
+  "https://www.ailabs.sv/en/campus-leader",
+  "https://www.ailabs.sv/events/modo-fundador",
+  "https://www.ailabs.sv/events/get-competitive-quick",
+  "https://www.ailabs.sv/redeem",
+  "https://www.ailabs.sv/aperture",
+]
+
 const ANSWER_ENGINE_BOTS = [
   "GPTBot",
   "OAI-SearchBot",
@@ -83,94 +94,56 @@ describe("public SEO files", () => {
     }
   })
 
-  it("lists only real pages on the www host", () => {
-    expect(sitemap).toContain("https://www.ailabs.sv/")
-    expect(sitemap).toContain(
-      "https://www.ailabs.sv/consultoria-de-ia-el-salvador"
-    )
-    expect(sitemap).toContain("<loc>https://www.ailabs.sv/agendar</loc>")
-    expect(sitemap).toContain("<loc>https://www.ailabs.sv/en/agendar</loc>")
-    expect(sitemap).not.toContain("https://www.ailabs.sv/aperture")
-    expect(sitemap).not.toContain("https://www.ailabs.sv/community")
-    expect(sitemap).not.toContain("https://www.ailabs.sv/campus-leader")
-    expect(sitemap).not.toContain("https://www.ailabs.sv/redeem")
-    expect(sitemap).toContain("<loc>https://www.ailabs.sv/events</loc>")
-    expect(sitemap).toMatch(
-      /<loc>https:\/\/www\.ailabs\.sv\/<\/loc>\s*<lastmod>2026-10-28<\/lastmod>/
-    )
-    expect(sitemap).toMatch(
-      /<loc>https:\/\/www\.ailabs\.sv\/consultoria-de-ia-el-salvador<\/loc>\s*<lastmod>2026-10-28<\/lastmod>/
-    )
-    expect(sitemap).toMatch(
-      /<loc>https:\/\/www\.ailabs\.sv\/capacitacion-ia-el-salvador<\/loc>\s*<lastmod>2026-10-28<\/lastmod>/
-    )
-    expect(sitemap).toMatch(
-      /<loc>https:\/\/www\.ailabs\.sv\/automatizacion-ia-el-salvador<\/loc>\s*<lastmod>2026-10-28<\/lastmod>/
-    )
-    expect(sitemap).toMatch(
-      /<loc>https:\/\/www\.ailabs\.sv\/events<\/loc>\s*<lastmod>2026-10-28<\/lastmod>/
-    )
-    expect(sitemap).not.toContain("https://www.ailabs.sv/events/modo-fundador")
-    expect(sitemap).not.toContain(
-      "https://www.ailabs.sv/events/get-competitive-quick"
-    )
-    for (const retired of [
-      "https://www.ailabs.sv/community",
-      "https://www.ailabs.sv/en/community",
-      "https://www.ailabs.sv/campus-leader",
-      "https://www.ailabs.sv/en/campus-leader",
-      "https://www.ailabs.sv/events/modo-fundador",
-      "https://www.ailabs.sv/events/get-competitive-quick",
-      "https://www.ailabs.sv/redeem",
-    ]) {
-      expect(containsPath(llms, retired)).toBe(false)
+  it("lists only real pages on the www host, in both languages", () => {
+    const pages = [
+      "",
+      "/consultoria-de-ia-el-salvador",
+      "/capacitacion-ia-el-salvador",
+      "/automatizacion-ia-el-salvador",
+      "/events",
+      "/agendar",
+    ]
+    for (const path of pages) {
+      expect(sitemap).toContain(
+        `<loc>https://www.ailabs.sv${path || "/"}</loc>`
+      )
+      expect(sitemap).toContain(`<loc>https://www.ailabs.sv/en${path}</loc>`)
     }
+    expect(sitemap).toMatch(
+      /<loc>https:\/\/www\.ailabs\.sv\/<\/loc>\s*<lastmod>2026-11-01<\/lastmod>/
+    )
     expect(sitemap).toContain('hreflang="es"')
     expect(sitemap).toContain('hreflang="en"')
     expect(sitemap).toContain('hreflang="x-default"')
-    expect(sitemap).toContain("<loc>https://www.ailabs.sv/en</loc>")
-    expect(sitemap).toContain(
-      "<loc>https://www.ailabs.sv/en/consultoria-de-ia-el-salvador</loc>"
-    )
     expect(sitemap).toContain('xmlns:xhtml="http://www.w3.org/1999/xhtml"')
     expect(sitemap).not.toContain("https://ailabs.sv/")
-    expect(llms).toContain("https://www.linkedin.com/company/ai-labs-sv")
-    expect(llms).toContain("https://x.com/ailabs_sv")
-    expect(llms).toContain("https://www.instagram.com/ailabs_sv/")
-    expect(llms).toContain(
-      "https://www.ailabs.sv/consultoria-de-ia-el-salvador"
-    )
-    expect(llms).toContain("San Salvador")
-    expect(llms).toContain("https://www.ailabs.sv/events")
-    expect(llms).toContain("https://www.ailabs.sv/en/events")
-    expect(llms).toContain(
-      "Publicamos los eventos de IA en El Salvador de Ai Labs en Luma para este mes, en San Salvador; no son todos los eventos del país."
-    )
-    expect(llms).toMatch(/no describen un área de servicio de centroamérica/i)
-    const llmsWithoutRole = llms
-      .replace(
-        /Esa regla no aplica al cargo de líder regional de embajadores de SpaceXAI: ese cargo cubre toda Centroamérica\. /i,
-        ""
-      )
-      .replace(
-        /That rule does not apply to the SpaceXAI ambassador regional-lead role: that role covers all of Central America\. /i,
-        ""
-      )
-    expect(llmsWithoutRole).not.toMatch(
-      /cubre centroamérica|covers central america/i
-    )
+    for (const retired of RETIRED_PAGES) {
+      expect(containsPath(sitemap, retired)).toBe(false)
+      expect(containsPath(llms, retired)).toBe(false)
+    }
+  })
+
+  it("describes the company for machines in the third person, without hype", () => {
     expect(llms).toContain(
       "Ai Labs es una empresa privada en San Salvador, El Salvador."
     )
     expect(llms).toContain(
       "Ai Labs is a private company in San Salvador, El Salvador."
     )
-    expect(llms).toContain(
-      "Ai Labs es una empresa de consultoría de IA en San Salvador, El Salvador."
+    expect(llms).toContain("https://www.linkedin.com/company/ai-labs-sv")
+    expect(llms).toContain("https://x.com/ailabs_sv")
+    expect(llms).toContain("https://www.instagram.com/ailabs_sv/")
+    expect(llms).toContain("https://www.ailabs.sv/#faq")
+    expect(llms).toContain("https://www.ailabs.sv/#metodo")
+    expect(llms).toContain("No publica precios")
+    expect(llms).not.toMatch(
+      /agencia nacional|campus leader|aperture|academy|agentic/i
     )
-    expect(llms).toContain(
-      "Ai Labs is an AI consulting company in San Salvador, El Salvador."
-    )
+    expect(llms).not.toMatch(/\bsomos\b|\bwe are\b/i)
+    expect(llms).not.toMatch(/[–—]/)
+    expect(llms).toContain("## Preguntas frecuentes")
+    expect(llms).toContain("¿Cuánto cuesta?")
+    expect(llms).toContain("¿Qué hace un consultor de IA?")
   })
 
   it("lets answer-engine crawlers fetch the public site", () => {
@@ -186,115 +159,50 @@ describe("public SEO files", () => {
   })
 })
 
-describe("existing page answers", () => {
-  it("opens the home with a direct answer", () => {
+describe("home copy", () => {
+  it("speaks to the buyer in one headline and one lead, with no disclaimers", () => {
     for (const content of [es, en]) {
-      expect(content.home.hero.body.length).toBeGreaterThan(40)
-      expect(content.home.services.title).toMatch(/\?$/)
-      expect(content.home.method.title).toMatch(/\?$/)
+      const { hero } = content.home
+      expect(hero.headline.length).toBeLessThanOrEqual(55)
+      expect(hero.lead.length).toBeLessThanOrEqual(160)
+      expect(hero.lead).toMatch(/El Salvador/)
+      expect(JSON.stringify(content.home)).not.toMatch(
+        /agencia nacional|national agency|gobierno|government|centroam[eé]rica|central america/i
+      )
+      expect(content.meta.title.length).toBeLessThanOrEqual(60)
+      expect(content.meta.description.length).toBeGreaterThanOrEqual(110)
+      expect(content.meta.description.length).toBeLessThanOrEqual(160)
     }
-    expect(es.home.hero.body).toMatch(/San Salvador/)
-    expect(en.home.hero.body).toMatch(/San Salvador/)
-    expect(es.home.hero.directAnswer).toBe(
-      "Somos Ai Labs, una empresa privada en San Salvador, El Salvador. Ayudamos a equipos comerciales, de gestión y de operaciones a mejorar procesos reales con IA."
-    )
-    expect(en.home.hero.directAnswer).toBe(
-      "We are Ai Labs, a private company in San Salvador, El Salvador. We help commercial, management, and operations teams improve real processes with AI."
-    )
-    expect(es.home.hero.agencyQuestion).toBe(
-      "¿Existe una agencia de inteligencia artificial en El Salvador?"
-    )
-    expect(es.home.hero.directAnswer).not.toMatch(
-      /agencia nacional|gobierno|única agencia|only agency/i
-    )
-    expect(en.home.hero.directAnswer).not.toMatch(
-      /national agency|government|only agency/i
-    )
-    expect(JSON.stringify(es.home)).not.toMatch(/centroam[eé]rica/i)
-    expect(JSON.stringify(en.home)).not.toMatch(/central america/i)
-    const homeRoute = readFileSync("src/routes/_site/index.tsx", "utf8")
-    const hero = readFileSync("src/components/home/home-hero.tsx", "utf8")
-    expect(homeRoute).toContain("home.hero.agencyQuestion")
-    expect(homeRoute).toContain("home.hero.directAnswer")
-    expect(homeRoute).toContain(
-      "organizationDescription: home.hero.directAnswer"
-    )
-    expect(homeRoute).toContain("path: CONSULTING_PAGE_PATH")
-    expect(homeRoute).toContain("path: SERVICE_PAGE_PATHS.training")
-    expect(homeRoute).toContain("path: SERVICE_PAGE_PATHS.automation")
     expect(es.meta.title).toBe(
-      "Consultoría en IA, automatización y formación práctica | Ai Labs"
+      "Ai Labs · Automatización, software e IA para empresas"
     )
     expect(es.home.hero.headline).toBe(
-      "Consultoría en IA, automatización de procesos y formación práctica."
-    )
-    expect(es.home.trust.label).toBe("Somos parte de programas de embajadores")
-    expect(en.meta.title).toBe(
-      "AI consulting, automation and practical education | Ai Labs"
+      "Menos trabajo manual en tu empresa. Más control."
     )
     expect(en.home.hero.headline).toBe(
-      "AI consulting, business automation and practical education."
+      "Less manual work in your company. More control."
     )
-    expect(en.home.trust.label).toBe("Part of ambassador programs")
-    expect(hero).toContain("{hero.directAnswer}")
+    const hero = readFileSync("src/components/home/home-hero.tsx", "utf8")
+    expect(hero).toContain("{hero.lead}")
     expect(hero).toContain("hero.headline")
+    expect(hero).not.toContain("agencyAnswer")
   })
-})
 
-describe("home FAQ", () => {
-  it("keeps both languages in parity and quotable on their own", () => {
+  it("keeps the FAQ to five visible answers, mirrored in JSON-LD and llms.txt", () => {
     expect(es.home.faq.items.length).toBe(en.home.faq.items.length)
+    expect(es.home.faq.items.length).toBeLessThanOrEqual(5)
     for (const content of [es, en]) {
       for (const item of content.home.faq.items) {
         expect(item.question).toMatch(/\?$/)
-        expect(item.answer.split(/\s+/).length).toBeLessThanOrEqual(70)
+        expect(item.answer.length).toBeLessThanOrEqual(220)
         expect(item.answer).not.toMatch(/US\$|USD|\$\d/)
       }
-      const text = JSON.stringify(content.home.faq)
-      expect(text).not.toMatch(/centroam[eé]rica|central america/i)
     }
-  })
-
-  it("renders the FAQ visibly and mirrors it in the JSON-LD and llms.txt", () => {
     const homeRoute = readFileSync("src/routes/_site/index.tsx", "utf8")
     expect(homeRoute).toContain("<HomeFaq faq={home.faq} />")
-    expect(homeRoute).toContain("...home.faq.items")
-    const llms = readFileSync("public/llms.txt", "utf8")
-    expect(llms).toContain("https://www.ailabs.sv/#faq")
-    expect(llms).toContain(
-      "Es el nombre de la comunidad de Ai Labs: talleres, eventos y el programa Campus Leaders para estudiantes. Unirse por WhatsApp es gratis."
-    )
-    expect(llms).toContain(
-      "La comunidad de Ai Labs en El Salvador es un grupo de WhatsApp para aprender IA: avisos de talleres y eventos, y el programa Campus Leaders para estudiantes."
-    )
-    expect(llms).toContain(
-      "Un Campus Leader es un estudiante, uno por universidad en El Salvador, que lleva los talleres de IA de Ai Labs a su campus y elige cuáles llegan."
-    )
-    expect(llms).toContain(
-      "The Ai Labs community in El Salvador is a WhatsApp group for learning AI: notices of workshops and events, and the Campus Leaders program for students."
-    )
-    expect(llms).toContain(
-      "A Campus Leader is a student, one per university in El Salvador, who brings Ai Labs AI workshops to campus and chooses which ones arrive."
-    )
-  })
-
-  it("describes the community as training and teaching, in both languages", () => {
-    const apertureEs = es.home.faq.items.find((item) =>
-      item.question.startsWith("¿Qué es Aperture")
-    )
-    const apertureEn = en.home.faq.items.find((item) =>
-      item.question.startsWith("What is Aperture")
-    )
-    expect(apertureEs?.answer).toBe(
-      "Aperture es el nombre de nuestra comunidad: talleres, eventos y el programa Campus Leaders para estudiantes. Unirse por WhatsApp es gratis."
-    )
-    expect(apertureEn?.answer).toBe(
-      "Aperture is the name of our community: workshops, events, and the Campus Leaders program for students. Joining on WhatsApp is free."
-    )
-    for (const content of [es, en]) {
-      const text = content.home.faq.items.map((item) => item.answer).join("\n")
-      expect(text).not.toMatch(/centroam[eé]rica|central america/i)
-      expect(text).not.toMatch(/m[aá]s activ|ranking|number one|#1/i)
-    }
+    expect(homeRoute).toContain("buildFaqJsonLd([...home.faq.items])")
+    const faq = readFileSync("src/components/home/home-faq.tsx", "utf8")
+    expect(faq).toContain("{item.answer}")
+    expect(faq).not.toMatch(/<details|aria-expanded/)
   })
 })
