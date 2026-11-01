@@ -3,8 +3,10 @@ import { Link, Outlet } from "@tanstack/react-router"
 import { SiteFooter } from "@/components/chrome/site-footer"
 import { SiteHeader } from "@/components/chrome/site-header"
 import { MainCard } from "@/components/chrome/main-card"
+import { BOOKING_PAGE_PATH } from "@/content/booking"
 import { useLocaleContext } from "@/lib/locale-context"
 import { homePath } from "@/lib/locale-links"
+import { localizedPath } from "@/lib/locale-path"
 
 const chromeShellClassName = "flex min-h-dvh flex-col"
 // Main sits above the sticky footer so the footer is revealed as it scrolls away.
@@ -51,12 +53,17 @@ function SiteNotFound() {
         <p className="mt-4 max-w-prose text-lg text-muted-foreground">
           {microcopy.notFoundBody}
         </p>
-        <Link
-          to={homePath(locale) as never}
-          className="mt-8 inline-flex h-11 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:brightness-95 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
-        >
-          {microcopy.notFoundCtaHome}
-        </Link>
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Link to={homePath(locale) as never} className="btn">
+            {microcopy.notFoundCtaHome}
+          </Link>
+          <Link
+            to={localizedPath(locale, BOOKING_PAGE_PATH) as never}
+            className="text-action"
+          >
+            {microcopy.notFoundCtaBooking}
+          </Link>
+        </div>
       </section>
     </MainCard>
   )

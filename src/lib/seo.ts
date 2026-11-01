@@ -16,8 +16,8 @@ export const ORGANIZATION_SAME_AS = [
 ] as const
 
 const OG_IMAGE_ALT_BY_LOCALE: Record<Locale, string> = {
-  en: "Ai Labs: AI consulting, business automation and practical education.",
-  es: "Ai Labs: consultoría en IA, automatización y formación práctica.",
+  en: "Ai Labs: automation, custom software and AI training for companies.",
+  es: "Ai Labs: automatización, software a medida y capacitación en IA para empresas.",
 }
 
 /** Fallback alt for the document shell. Crawlers without a language get Spanish. */

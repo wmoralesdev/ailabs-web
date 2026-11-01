@@ -16,13 +16,18 @@ function HomeMethod({ method }: HomeMethodProps) {
   return (
     <Reveal
       as="section"
-      id="method"
+      id="metodo"
       aria-labelledby="home-method-title"
       className="section-y relative bg-background"
     >
-      <span id="about" aria-hidden className="absolute top-0" />
       <div className={homeShellClassName}>
         <div className="flex max-w-3xl flex-col gap-5">
+          <p
+            data-reveal
+            className="text-small font-semibold text-muted-foreground"
+          >
+            {method.label}
+          </p>
           <h2
             id="home-method-title"
             data-reveal

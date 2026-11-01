@@ -6,6 +6,14 @@
     "prettier.config.js",
     "vite.config.ts"
   ],
+  "exclude": [
+    "node_modules",
+    ".output",
+    ".claude",
+    "tmp",
+    "ds-bundle",
+    ".ds-sync"
+  ],
   "compilerOptions": {
     "target": "ES2022",
     "jsx": "react-jsx",

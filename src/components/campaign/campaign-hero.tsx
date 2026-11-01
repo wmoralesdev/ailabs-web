@@ -1,11 +1,12 @@
 import { HalftoneLens } from "@/components/halftone/halftone-lens"
+import { PrintCell } from "@/components/home/print-cell"
 import { EVENT_PHOTOS } from "@/content/event-photos"
 import type { EventPhoto } from "@/content/event-photos"
 import { cn } from "@/lib/utils"
 
 type CampaignHeroProps = {
-  /** Real event photo printed as halftone on the purple panel. */
-  photo: EventPhoto
+  /** Real event photo at the right. Omit to print the Ai Labs mark instead. */
+  photo?: EventPhoto
   /** Static heroes fill one viewport (like home); dynamic flows grow. */
   fluid?: boolean
   footer?: React.ReactNode
@@ -14,8 +15,9 @@ type CampaignHeroProps = {
 
 /**
  * Shared split hero for campaign-style routes (today the booking page):
- * copy on paper at the left, a real event photo at the right with the
- * halftone lens under the pointer.
+ * copy on paper at the left; at the right a real event photo with the
+ * halftone lens under the pointer, or the mark printed as dots when no photo
+ * belongs there.
  */
 function CampaignHero({
   photo,
@@ -23,7 +25,7 @@ function CampaignHero({
   footer,
   children,
 }: CampaignHeroProps) {
-  const size = EVENT_PHOTOS[photo.name]
+  const size = photo ? EVENT_PHOTOS[photo.name] : undefined
 
   return (
     <section
@@ -47,15 +49,23 @@ function CampaignHero({
 
       <div className="page-gutter pb-[var(--space-gutter)] lg:col-span-5 lg:py-[var(--space-gutter)] lg:pl-0">
         <div className="relative aspect-[4/3] h-full w-full lg:aspect-auto">
-          <HalftoneLens
-            src={`/carousel/${photo.name}`}
-            alt={photo.alt}
-            width={size.width}
-            height={size.height}
-            sizes="(min-width: 1024px) 42vw, 100vw"
-            priority
-            className="absolute inset-0 size-full rounded-3xl"
-          />
+          {photo && size ? (
+            <HalftoneLens
+              src={`/carousel/${photo.name}`}
+              alt={photo.alt}
+              width={size.width}
+              height={size.height}
+              sizes="(min-width: 1024px) 42vw, 100vw"
+              priority
+              className="absolute inset-0 size-full rounded-3xl"
+            />
+          ) : (
+            <PrintCell
+              src="/brand/ailabs-iso-dark.svg"
+              tone="night"
+              className="absolute inset-0 size-full rounded-3xl"
+            />
+          )}
         </div>
       </div>
     </section>

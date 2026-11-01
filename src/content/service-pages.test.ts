@@ -14,6 +14,7 @@ describe("service pages", () => {
     for (const id of SERVICE_PAGE_IDS) {
       const path = SERVICE_PAGE_PATHS[id]
       expect(existsSync(`src/routes/_site${path}.tsx`)).toBe(true)
+      expect(existsSync(`src/routes/en${path}.tsx`)).toBe(true)
       expect(sitemap).toContain(`https://www.ailabs.sv${path}</loc>`)
       expect(llms).toContain(`https://www.ailabs.sv${path}`)
     }
@@ -26,48 +27,56 @@ describe("service pages", () => {
       expect(pageEs.faq.length).toBe(pageEn.faq.length)
       expect(pageEs.includes.length).toBe(pageEn.includes.length)
       expect(pageEs.steps.length).toBe(pageEn.steps.length)
+      expect(pageEs.fit.length).toBe(pageEn.fit.length)
+      expect(pageEs.notFit.length).toBe(pageEn.notFit.length)
+      expect(Boolean(pageEs.photo)).toBe(Boolean(pageEn.photo))
+      expect(Boolean(pageEs.example)).toBe(Boolean(pageEn.example))
     }
   })
 
-  it("follows the search template without prices, metrics, or other countries", () => {
+  it("follows the template without prices, metrics, hype, or other countries", () => {
     for (const content of [es, en]) {
       for (const id of SERVICE_PAGE_IDS) {
         const page = content.servicePages[id]
-        expect(page.metaTitle.length).toBeLessThanOrEqual(72)
+        expect(page.metaTitle.length).toBeLessThanOrEqual(60)
         expect(page.metaTitle).toMatch(/El Salvador/)
         expect(page.metaTitle).toMatch(/\| Ai Labs$/)
         expect(page.metaDescription.length).toBeGreaterThanOrEqual(110)
         expect(page.metaDescription.length).toBeLessThanOrEqual(160)
-        expect(page.title).toMatch(/El Salvador/)
-        expect(page.faq[0]?.answer).toBe(page.definition)
+        expect(page.faq.length).toBeLessThanOrEqual(5)
+        expect(page.faq.length).toBeGreaterThanOrEqual(3)
         for (const item of page.faq) {
           expect(item.question).toMatch(/\?$/)
-          expect(item.answer.split(/\s+/).length).toBeLessThanOrEqual(70)
+          expect(item.answer.length).toBeLessThanOrEqual(220)
         }
+        expect(page.steps).toHaveLength(3)
         const text = JSON.stringify(page)
         expect(text).not.toMatch(/\$|\bUSD\b|\d+\+/)
         expect(text).not.toMatch(
           /centroam[eé]rica|central america|latinoam|latin america/i
         )
         expect(text).not.toMatch(/revolucion|revolutionary|empower|unlock/i)
+        expect(text).not.toMatch(/[–—]/)
       }
     }
   })
 
-  it("is linked from the footer and the home services section", () => {
+  it("is linked from the header menu, the footer and the home offers", () => {
     for (const content of [es, en]) {
+      const menu = content.chrome.nav.services.items.map((item) => item.href)
       const footer = content.chrome.footer.columns.flatMap((column) =>
         column.links.map((link) => link.href)
       )
       for (const path of Object.values(SERVICE_PAGE_PATHS)) {
+        expect(menu).toContain(path)
         expect(footer).toContain(path)
       }
+      expect(content.home.offers.items.map((item) => item.id).sort()).toEqual(
+        [...SERVICE_PAGE_IDS].sort()
+      )
     }
-    const services = readFileSync(
-      "src/components/home/home-services.tsx",
-      "utf8"
-    )
-    expect(services).toContain("servicePagePath[service.id]")
+    const offers = readFileSync("src/components/home/home-offers.tsx", "utf8")
+    expect(offers).toContain("SERVICE_PAGE_PATHS[offer.id]")
   })
 
   it("publishes Service and breadcrumb JSON-LD on the canonical URL", () => {
@@ -99,16 +108,16 @@ describe("service pages", () => {
     const english = JSON.parse(
       buildServicePageJsonLd({
         locale: "en",
-        path: SERVICE_PAGE_PATHS.training,
-        title: es.servicePages.training.metaTitle,
-        description: es.servicePages.training.metaDescription,
-        serviceName: es.servicePages.training.serviceName,
-        homeLabel: es.servicePages.homeLabel,
-        kind: "course",
+        path: SERVICE_PAGE_PATHS.consulting,
+        title: en.servicePages.consulting.metaTitle,
+        description: en.servicePages.consulting.metaDescription,
+        serviceName: en.servicePages.consulting.serviceName,
+        homeLabel: en.servicePages.homeLabel,
       }).children
     )["@graph"] as Array<{ "@type": string; url?: string }>
     expect(english.find((node) => node["@type"] === "Service")?.url).toBe(
-      "https://www.ailabs.sv/en/capacitacion-ia-el-salvador"
+      "https://www.ailabs.sv/en/consultoria-de-ia-el-salvador"
     )
+    expect(english.some((node) => node["@type"] === "Course")).toBe(false)
   })
 })

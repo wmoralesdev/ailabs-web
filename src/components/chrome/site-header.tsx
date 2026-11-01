@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react"
 import { Link, useRouterState } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons"
+import {
+  ArrowDown01Icon,
+  Cancel01Icon,
+  Menu01Icon,
+} from "@hugeicons/core-free-icons"
 
 import type { ChromeContent, Locale, MicrocopyContent } from "@/content"
 import { LOCALES } from "@/content"
@@ -34,6 +38,10 @@ const utilityControlClassName =
   "min-h-11 min-w-11 rounded-full text-foreground hover:bg-surface hover:text-foreground"
 const menuItemClassName = "min-h-11 cursor-pointer px-3 text-sm"
 
+/**
+ * Flat sticky bar: lockup, a Services menu with the three service pages,
+ * Events, theme, language, and the booking CTA.
+ */
 function SiteHeader({
   locale,
   chrome,
@@ -41,11 +49,11 @@ function SiteHeader({
   showBrandLink = false,
 }: SiteHeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
   const scrolled = useScrolled()
   const location = useRouterState({
     select: (state) => state.location,
   })
-  const onHome = location.pathname === "/" || location.pathname === "/en"
   const otherLocale =
     LOCALES.find((candidate) => candidate !== locale) ?? locale
   const alternate = alternatePath(location.pathname)
@@ -62,14 +70,6 @@ function SiteHeader({
     breakpoint.addEventListener("change", closeMenu)
     return () => breakpoint.removeEventListener("change", closeMenu)
   }, [])
-
-  const servicesLink = onHome ? (
-    <a href={nav.services.href}>{nav.services.label}</a>
-  ) : (
-    <Link to={homeTo as never} hash={nav.services.hash}>
-      {nav.services.label}
-    </Link>
-  )
 
   return (
     <header
@@ -100,19 +100,37 @@ function SiteHeader({
             className="mr-4 hidden items-center gap-7 lg:flex"
             aria-label={primaryLabel}
           >
-            {onHome ? (
-              <a href={nav.services.href} className={navLinkClassName}>
-                {nav.services.label}
-              </a>
-            ) : (
-              <Link
-                to={homeTo as never}
-                hash={nav.services.hash}
-                className={navLinkClassName}
+            <DropdownMenu open={servicesOpen} onOpenChange={setServicesOpen}>
+              <DropdownMenuTrigger
+                render={<button type="button" className={navLinkClassName} />}
               >
                 {nav.services.label}
-              </Link>
-            )}
+                <HugeiconsIcon
+                  icon={ArrowDown01Icon}
+                  strokeWidth={2}
+                  className={cn(
+                    "size-4 transition-transform duration-200",
+                    servicesOpen && "rotate-180"
+                  )}
+                  aria-hidden="true"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                className="site-community-menu w-64 p-2"
+                align="start"
+                sideOffset={14}
+              >
+                {nav.services.items.map((item) => (
+                  <DropdownMenuItem
+                    key={item.href}
+                    className={menuItemClassName}
+                    render={<Link to={item.to as never} />}
+                  >
+                    {item.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             <Link to={nav.events.to as never} className={navLinkClassName}>
               {nav.events.label}
             </Link>
@@ -166,12 +184,15 @@ function SiteHeader({
               sideOffset={14}
               aria-label={primaryLabel}
             >
-              <DropdownMenuItem
-                className={menuItemClassName}
-                render={servicesLink}
-              >
-                {nav.services.label}
-              </DropdownMenuItem>
+              {nav.services.items.map((item) => (
+                <DropdownMenuItem
+                  key={item.href}
+                  className={menuItemClassName}
+                  render={<Link to={item.to as never} />}
+                >
+                  {item.label}
+                </DropdownMenuItem>
+              ))}
               <DropdownMenuItem
                 className={menuItemClassName}
                 render={<Link to={nav.events.to as never} />}

@@ -166,7 +166,7 @@ describe("search aliases", () => {
     const robots = readFileSync("public/robots.txt", "utf8")
     const published = `${sitemap}\n${llms}\n${robots}`
     const linked = [es, en].flatMap((content) => [
-      content.chrome.nav.services.href,
+      ...content.chrome.nav.services.items.map((item) => item.href),
       content.chrome.nav.events.href,
       content.chrome.nav.contact.href,
       ...content.chrome.footer.columns.flatMap((column) =>
