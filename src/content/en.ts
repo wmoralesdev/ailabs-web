@@ -337,4 +337,15 @@ export const en: SiteContent = {
     bridgeTitle: "Want this inside your company?",
     bridgeCta: "Book a 30-minute diagnostic",
   },
+  community: {
+    metaTitle: "AI community on WhatsApp",
+    metaDescription:
+      "Our AI community in El Salvador is a WhatsApp group. We announce workshops and meetups there before we post them on social media, and joining is free.",
+    label: "Community",
+    headline: "Learn AI with the Ai Labs community",
+    lead: "A WhatsApp group where we announce workshops and meetups before we post them on social media. Joining is free.",
+    joinCta: "Join on WhatsApp",
+    joinHint: "WhatsApp opens and may ask for approval.",
+    eventsCta: "See events",
+  },
 }

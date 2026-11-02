@@ -67,21 +67,22 @@ Reglas de redacción que se mantienen aunque AGENTS.md cambie:
 | `/consultoria-de-ia-el-salvador` | Diagnóstico de IA (la puerta de entrada)       | Compradora |
 | `/capacitacion-ia-el-salvador`   | Capacitación en IA para equipos                | Compradora |
 | `/events`                        | Talleres y eventos, el embudo, con WhatsApp    | Audiencia  |
+| `/community`                     | Hero del home con el grupo de WhatsApp         | Audiencia  |
 | `/agendar`                       | Reserva del diagnóstico embebida más WhatsApp  | Todos      |
 | `/privacy`, `/terms`             | Legal, reescrito sin base de datos ni cuentas  | Todos      |
 | `/en/*`                          | Mismas páginas en inglés, se traducen al final | Todos      |
 
 ### Se va
 
-`/redeem`, `/campus-leader`, `/community`, `/lab`, `/sign-in`, `/sign-up`, los
-microsites `/events/modo-fundador` y `/events/get-competitive-quick`, los
-webhooks de Clerk y Wompi, y todo `src/server` menos lo que necesite la agenda.
+`/redeem`, `/campus-leader`, `/lab`, `/sign-in`, `/sign-up`, los microsites
+`/events/modo-fundador` y `/events/get-competitive-quick`, los webhooks de
+Clerk y Wompi, y todo `src/server` menos lo que necesite la agenda.
 
 ### Redirecciones 301
 
 | De                                                         | A         |
 | ---------------------------------------------------------- | --------- |
-| `/community`, `/aperture`, `/aperture/join`, `/me`, `/u/*` | `/events` |
+| `/aperture`, `/aperture/join`, `/me`, `/u/*`               | `/events` |
 | `/campus-leader`                                           | `/events` |
 | `/events/modo-fundador`, `/events/get-competitive-quick`   | `/events` |
 | `/redeem`, `/sign-in`, `/sign-up`                          | `/`       |
@@ -303,6 +304,8 @@ Resueltos el 1 nov 2026: diagnóstico gratis por videollamada o presencial;
 sin precio cerrado ni rangos de tiempo públicos; soporte a la medida; ocho
 programas de embajadores confirmados y qué implican; más de 60 eventos; sin
 límite geográfico; cal.com; `/community` redirige a `/events`; sin analíticas.
+El 2 nov 2026 `/community` vuelve como el hero del home con el grupo de
+WhatsApp, y los alias de comunidad llevan ahí.
 
 Siguen abiertos:
 

@@ -17,6 +17,7 @@ export const PUBLIC_PAGE_PATHS = [
   "/capacitacion-ia-el-salvador",
   "/automatizacion-ia-el-salvador",
   "/agendar",
+  "/community",
 ] as const
 
 export type PublicPagePath = (typeof PUBLIC_PAGE_PATHS)[number]
@@ -26,6 +27,7 @@ const CONSULTING = "/consultoria-de-ia-el-salvador"
 const EVENTS = "/events"
 const TRAINING = "/capacitacion-ia-el-salvador"
 const AUTOMATION = "/automatizacion-ia-el-salvador"
+const COMMUNITY = "/community"
 
 /**
  * One segment each, so the existing `/$locale` matcher can 301 before 404.
@@ -57,12 +59,12 @@ export const SEARCH_ALIASES: Readonly<Record<string, PublicPagePath>> = {
   "/automatizacion-con-ia-el-salvador": AUTOMATION,
   "/ai-automation-el-salvador": AUTOMATION,
 
-  // The retired WhatsApp community page now lands on the events index.
-  "/comunidad-ia-el-salvador": EVENTS,
-  "/comunidad-de-ia-el-salvador": EVENTS,
-  "/comunidad-whatsapp-el-salvador": EVENTS,
-  "/ai-community-el-salvador": EVENTS,
-  "/whatsapp-ai-community-el-salvador": EVENTS,
+  // The WhatsApp community page.
+  "/comunidad-ia-el-salvador": COMMUNITY,
+  "/comunidad-de-ia-el-salvador": COMMUNITY,
+  "/comunidad-whatsapp-el-salvador": COMMUNITY,
+  "/ai-community-el-salvador": COMMUNITY,
+  "/whatsapp-ai-community-el-salvador": COMMUNITY,
 
   // The retired Campus Leader program.
   "/campus-leader-el-salvador": EVENTS,
@@ -92,13 +94,12 @@ export const SEARCH_ALIASES: Readonly<Record<string, PublicPagePath>> = {
 }
 
 /**
- * Pages that no longer exist. Community pages (the WhatsApp landing, the
- * Campus Leader application, the Aperture directory, join flow, dashboard and
- * `/u/` profiles) and the two workshop microsites 301 to the events index.
+ * Pages that no longer exist. Community pages (the Campus Leader
+ * application, the Aperture directory, join flow, dashboard and `/u/`
+ * profiles) and the two workshop microsites 301 to the events index.
  * The credit redemption and sign-in flows 301 home.
  */
 const RETIRED_TO_EVENTS = new Set([
-  "/community",
   "/campus-leader",
   "/aperture",
   "/aperture/join",

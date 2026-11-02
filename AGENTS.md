@@ -36,7 +36,7 @@ their own work. It works with companies across El Salvador and abroad.
 **The buyer** is the person who decides in a company of roughly 20 to 300
 people: owner, general manager, operations, sales or finance manager. Their
 processes live in WhatsApp, Excel, email and systems that do not talk to each
-other. Every page speaks to that person, except `/events`.
+other. Every page speaks to that person, except `/events` and `/community`.
 
 **Three offers for that buyer:**
 
@@ -54,9 +54,9 @@ other. Every page speaks to that person, except `/events`.
 **Events are the funnel, not the target.** `/events` lists the Luma
 calendar with two tracks: leaders (desayuno ejecutivo, masterclass, demo
 day) and builders (labs, meetups, hackathons). The WhatsApp community lives
-there. Students and builders are the audience of the events, not the reader
-of the site. A career bootcamp for developers is a future product with its
-own landing; it does not appear on the site.
+there and on `/community`. Students and builders are the audience of the
+events, not the reader of the site. A career bootcamp for developers is a
+future product with its own landing; it does not appear on the site.
 
 **Facts the owner confirmed on 2026-11-01.** The diagnostic is free. No
 prices, no "precio cerrado" and no time ranges are published: copy says
@@ -121,14 +121,20 @@ attendee emails, or any metric the owner has not confirmed.
   (three steps, `#metodo`), FAQ (five visible answers), Booking tile
   (`/agendar`). No problem section, no team block, no photo bands.
 - The three service pages share `src/components/marketing/service-page.tsx`
-  and the `servicePages` content: opening (eyebrow, H1, lead, CTA, optional
-  photo or the printed mark), who it is for and not for, what it includes
+  and the `servicePages` content: an opening built like the home hero
+  (breadcrumb, eyebrow, H1 entering word by word, lead, CTA; beside them the
+  real photo on training, the live halftone mark with its story on the other
+  two), who it is for and not for, what it includes
   (the formats on training), how it works in three steps, an optional real
   example, five FAQs whose first answer is the definition, booking and the
   two related pages plus events. Paths and ids are `src/lib/service-pages.ts`.
 - `/events` reuses the home hero with its own copy, then the two tracks, the
   photo marquee, the current month from Luma, the WhatsApp community block
   (`COMMUNITY_WHATSAPP_URL`) and the bridge to the diagnostic.
+- `/community` is the home hero with its own copy: the WhatsApp group
+  (`COMMUNITY_WHATSAPP_URL`) as the primary button, "Ver eventos" beside it
+  and the approval note under them. Nothing else on the page, and it is not
+  in the header. The community search aliases 301 there.
 - `/agendar` is the booking page, a recreation of cal.com's own: one section
   at least a full viewport tall with our booker centred in it, in cal.com's
   three-column layout (event, month of square days, times). The event column
@@ -151,8 +157,7 @@ attendee emails, or any metric the owner has not confirmed.
   nothing is stored.
 - `/terms` and `/privacy` still describe the retired member profiles and
   must be rewritten; the footer hides them while `legal.status` is a draft.
-- Retired routes 301 in `src/lib/search-aliases.ts`: `/community`,
-  `/aperture*`, `/me`, `/u/*`, `/campus-leader` and the old event microsites
+- Retired routes 301 in `src/lib/search-aliases.ts`: `/aperture*`, `/me`, `/u/*`, `/campus-leader` and the old event microsites
   go to `/events`; `/redeem`, `/sign-in`, `/sign-up` go to `/`. Do not
   rebuild them.
 - The site persists nothing: no database, no auth, no payments, no
@@ -202,8 +207,8 @@ Performance invariants for public pages (guarded by
 
 ## UI implementation rules
 
-- Halftone is the accent: the printed mark in the hero, the pure-halftone
-  cells of the bento and the service openings, the lens over the few real
+- Halftone is the accent: the live mark in the heroes, the pure-halftone
+  cells of the bento, the lens over the few real
   photos, the icons and the ambassador marks. Photos stay real photographs;
   never pre-print a whole photo as dots. The hero mark is the one place with
   its own motion and has no resting dot grid.
@@ -218,9 +223,13 @@ Performance invariants for public pages (guarded by
   Use semantic classes and existing variables; no parallel palette.
 - Preserve light, dark and system theme behavior.
 - Use Hugeicons for interface icons; never emoji as icons.
+- Every hero (the home hero and its reuses, the service openings,
+  `/agendar`) is at least one screen tall under the sticky header: the
+  `.hero-screen` utility, `calc(100svh - var(--site-header-height))`, with
+  its content centred. Never cap it, or the footer shows up under the fold.
 - Keep responsive behavior deliberate: below `lg` the home hero stacks copy
-  over the mark; from `lg` it is a split up to one viewport tall. Mobile
-  text and zoom grow naturally.
+  over the mark; from `lg` it is a split. Mobile text and zoom grow
+  naturally.
 - Keep effects restrained: transform and opacity for motion, nothing that
   competes with the copy.
 

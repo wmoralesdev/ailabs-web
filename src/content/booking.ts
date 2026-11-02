@@ -56,8 +56,10 @@ export function isBookingTopic(value: unknown): value is BookingTopic {
  */
 export const WHATSAPP_URL = "" as string
 
-/** Invite to the community group, published on the events page. */
+/** Invite to the community group, on `/community` and the events page. */
 export const COMMUNITY_WHATSAPP_URL =
   "https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj"
+
+export const COMMUNITY_PAGE_PATH = "/community"
 
 export const BOOKING_PAGE_PATH = "/agendar"

@@ -36,8 +36,6 @@ describe("search aliases", () => {
 
   it("sends the retired community pages and workshop microsites to the events index", () => {
     for (const path of [
-      "/community",
-      "/community/",
       "/campus-leader",
       "/aperture",
       "/aperture/join",
@@ -50,7 +48,8 @@ describe("search aliases", () => {
     ]) {
       expect(searchAliasDestination(path), path).toBe("/events")
     }
-    expect(aliasRedirectHref("/en/community")).toBe("/en/events")
+    expect(searchAliasDestination("/community")).toBeNull()
+    expect(aliasRedirectHref("/en/community")).toBeNull()
     expect(aliasRedirectHref("/en/events/modo-fundador")).toBe("/en/events")
     expect(searchAliasDestination("/use-cases")).toBeNull()
   })
@@ -110,8 +109,11 @@ describe("search aliases", () => {
     for (const alias of HOME_ALIASES) {
       expect(SEARCH_ALIASES[alias]).toBe("/")
     }
-    expect(SEARCH_ALIASES["/comunidad-de-ia-el-salvador"]).toBe("/events")
-    expect(SEARCH_ALIASES["/ai-community-el-salvador"]).toBe("/events")
+    expect(SEARCH_ALIASES["/comunidad-de-ia-el-salvador"]).toBe("/community")
+    expect(SEARCH_ALIASES["/ai-community-el-salvador"]).toBe("/community")
+    expect(aliasRedirectHref("/en/comunidad-whatsapp-el-salvador")).toBe(
+      "/en/community"
+    )
     expect(SEARCH_ALIASES["/campus-leader-el-salvador"]).toBe("/events")
     for (const alias of [
       "/eventos",

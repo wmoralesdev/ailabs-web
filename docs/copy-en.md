@@ -333,6 +333,20 @@ The plan for each format, with audience, duration and launch order, is in
 - Puente, CTA: "Book a 30-minute diagnostic"
 - Fotos, crédito: "Photos from our events in San Salvador."
 
+## Comunidad `/community`
+
+The home hero with its own copy. The WhatsApp group is the primary action
+(`COMMUNITY_WHATSAPP_URL`); it is not in the header.
+
+- Meta title: "AI community on WhatsApp | Ai Labs"
+- Meta description: "Our AI community in El Salvador is a WhatsApp group. We announce workshops and meetups there before we post them on social media, and joining is free."
+- Label: "Community"
+- H1: "Learn AI with the Ai Labs community"
+- Lead: "A WhatsApp group where we announce workshops and meetups before we post them on social media. Joining is free."
+- CTA: "Join on WhatsApp"
+- Link: "See events" → `/events`
+- Nota: "WhatsApp opens and may ask for approval."
+
 ## Agendar `/agendar`
 
 - Meta title: "Book a 30-minute diagnostic | Ai Labs"

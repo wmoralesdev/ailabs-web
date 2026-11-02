@@ -24,6 +24,8 @@ type HomeHeroProps = {
   hero?: HomeHeroContent
   /** When set, the primary control is this link instead of the booking CTA. */
   primaryAction?: HomeHeroLinkAction
+  /** A short line under the actions, such as what happens when they open. */
+  note?: string
   /** On the home, hash CTAs stay on the page; elsewhere they lead home. */
   samePageCtas?: boolean
 }
@@ -41,6 +43,7 @@ function HomeHero({
   content,
   hero = content.home.hero,
   primaryAction,
+  note,
   samePageCtas = true,
 }: HomeHeroProps) {
   const root = useRef<HTMLElement>(null)
@@ -73,7 +76,7 @@ function HomeHero({
         className="absolute inset-0 -z-10"
       />
 
-      <div className="page-gutter mx-auto grid w-full max-w-content gap-10 pt-12 pb-16 sm:pt-16 lg:min-h-[min(48rem,calc(100svh-var(--site-header-height)))] lg:grid-cols-12 lg:items-center lg:gap-8 lg:py-16">
+      <div className="page-gutter hero-screen mx-auto grid w-full max-w-content content-center gap-10 pt-12 pb-16 sm:pt-16 lg:grid-cols-12 lg:items-center lg:gap-8 lg:py-16">
         <div className="flex flex-col items-start gap-7 lg:col-span-7">
           <Eyebrow data-home-entrance>{hero.label}</Eyebrow>
           <h1
@@ -144,6 +147,14 @@ function HomeHero({
               </a>
             )}
           </div>
+          {note ? (
+            <p
+              data-home-entrance
+              className="-mt-3 text-small text-muted-foreground"
+            >
+              {note}
+            </p>
+          ) : null}
         </div>
 
         {/* Where the printed mark sits; the canvas reads this box. */}

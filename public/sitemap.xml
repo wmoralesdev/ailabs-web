@@ -92,6 +92,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/events" />
   </url>
   <url>
+    <loc>https://www.ailabs.sv/community</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/community" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/community" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/community" />
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/en/community</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/community" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/community" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/community" />
+  </url>
+  <url>
     <loc>https://www.ailabs.sv/agendar</loc>
     <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>

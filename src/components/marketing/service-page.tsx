@@ -1,3 +1,4 @@
+import { Fragment, useRef } from "react"
 import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
@@ -5,13 +6,14 @@ import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import type { ServicePagesContent } from "@/content"
 import { EVENT_PHOTOS } from "@/content/event-photos"
 import { BOOKING_PAGE_PATH, SERVICE_BOOKING_TOPIC } from "@/content/booking"
+import { HalftoneCanvas } from "@/components/halftone/halftone-canvas"
 import { HalftoneIcon } from "@/components/halftone/halftone-icon"
 import { HalftoneLens } from "@/components/halftone/halftone-lens"
 import { Reveal } from "@/components/halftone/reveal"
 import { homeShellClassName } from "@/components/home/home-styles"
-import { PrintCell } from "@/components/home/print-cell"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import type { ShapeName } from "@/lib/halftone-shapes"
+import { useHomeEntrance } from "@/lib/home-motion"
 import { useLocaleContext } from "@/lib/locale-context"
 import { isInternalHref, routeForHref } from "@/lib/locale-links"
 import { localizedPath } from "@/lib/locale-path"
@@ -39,8 +41,9 @@ const stepShapes: ReadonlyArray<ShapeName> = ["search", "nodes", "arrow"]
  * One template for the three service pages: opening, who it is for, what it
  * includes, how it works, an optional real example, five questions, and the
  * booking call. Everything is server-rendered and static: answers never hide
- * behind JS. The opening prints a real photo when one belongs there, and the
- * Ai Labs mark as halftone when none does.
+ * behind JS. The opening is the home hero's: the headline enters word by word,
+ * and beside it sits a real photo when one belongs there, or else the live
+ * Ai Labs mark with its story, the whole opening its pointer surface.
  */
 function ServicePage({ id, pages }: ServicePageProps) {
   const { locale } = useLocaleContext()
@@ -48,66 +51,97 @@ function ServicePage({ id, pages }: ServicePageProps) {
   const related = SERVICE_PAGE_IDS.filter((other) => other !== id)
   const photo = page.photo ? EVENT_PHOTOS[page.photo.name] : undefined
   const to = (path: string) => localizedPath(locale, path) as never
+  const opening = useRef<HTMLDivElement>(null)
+  useHomeEntrance(opening, "hero", `${locale}-${id}`)
 
   return (
     <article className="bg-background">
-      <div className={`${homeShellClassName} pt-8 pb-16 sm:pt-10 md:pb-24`}>
-        <nav aria-label={pages.breadcrumbLabel} className="mb-10 text-small">
-          <ol className="flex flex-wrap items-center gap-2 text-muted-foreground">
-            <li>
-              <Link
-                to={to("/")}
-                className="link-underline hover:text-foreground"
-              >
-                {pages.homeLabel}
-              </Link>
-            </li>
-            <li aria-hidden>/</li>
-            <li aria-current="page" className="text-foreground">
-              {page.serviceName}
-            </li>
-          </ol>
-        </nav>
+      <div
+        ref={opening}
+        {...(photo ? {} : { "data-halftone-surface": true })}
+        className="relative isolate overflow-clip [--ht-accent:var(--color-purple-ink)] [--ht-faint:color-mix(in_srgb,var(--color-ink)_10%,transparent)] [--ht-ink:var(--color-ink)]"
+      >
+        {photo ? null : (
+          <HalftoneCanvas
+            src="/brand/ailabs-iso-dark.svg"
+            cell={11}
+            rest={0}
+            story
+            className="absolute inset-0 -z-10"
+          />
+        )}
+        <div
+          className={`${homeShellClassName} hero-screen flex flex-col pt-8 pb-16 sm:pt-10 md:pb-24`}
+        >
+          <nav aria-label={pages.breadcrumbLabel} className="mb-10 text-small">
+            <ol className="flex flex-wrap items-center gap-2 text-muted-foreground">
+              <li>
+                <Link
+                  to={to("/")}
+                  className="link-underline hover:text-foreground"
+                >
+                  {pages.homeLabel}
+                </Link>
+              </li>
+              <li aria-hidden>/</li>
+              <li aria-current="page" className="text-foreground">
+                {page.serviceName}
+              </li>
+            </ol>
+          </nav>
 
-        <header className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
-          <div className="flex flex-col items-start gap-6 lg:col-span-7">
-            <Eyebrow>{page.eyebrow}</Eyebrow>
-            <h1 className="display max-w-[16ch] text-[clamp(2.5rem,1.4rem+3.6vw,4.75rem)] text-balance">
-              {page.title}
-            </h1>
-            <p className="max-w-[46ch] text-lead leading-snug text-muted-foreground">
-              {page.lead}
-            </p>
-            <Link
-              to={to(BOOKING_PAGE_PATH)}
-              search={{ tema: SERVICE_BOOKING_TOPIC[id] } as never}
-              className="btn"
-            >
-              {page.cta}
-              <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-            </Link>
-          </div>
-          <div className="lg:col-span-5">
+          <header className="grid flex-1 content-center items-center gap-10 lg:grid-cols-12 lg:gap-8">
+            <div className="flex flex-col items-start gap-6 lg:col-span-7">
+              <Eyebrow data-home-entrance>{page.eyebrow}</Eyebrow>
+              <h1 className="display max-w-[16ch] text-[clamp(2.5rem,1.4rem+3.6vw,4.75rem)] text-balance">
+                {page.title.split(" ").map((word, index) => (
+                  <Fragment key={`${index}-${word}`}>
+                    {index > 0 ? " " : null}
+                    <span data-home-word className="inline-block">
+                      {word}
+                    </span>
+                  </Fragment>
+                ))}
+              </h1>
+              <p
+                data-home-entrance
+                className="max-w-[46ch] text-lead leading-snug text-muted-foreground"
+              >
+                {page.lead}
+              </p>
+              <Link
+                to={to(BOOKING_PAGE_PATH)}
+                search={{ tema: SERVICE_BOOKING_TOPIC[id] } as never}
+                data-home-entrance
+                className="btn"
+              >
+                {page.cta}
+                <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+              </Link>
+            </div>
             {page.photo && photo ? (
-              <HalftoneLens
-                src={`/carousel/${page.photo.name}`}
-                alt={page.photo.alt}
-                width={photo.width}
-                height={photo.height}
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                priority
-                className="rounded-3xl"
-                style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
-              />
+              <div className="lg:col-span-5">
+                <HalftoneLens
+                  src={`/carousel/${page.photo.name}`}
+                  alt={page.photo.alt}
+                  width={photo.width}
+                  height={photo.height}
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  priority
+                  className="rounded-3xl"
+                  style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
+                />
+              </div>
             ) : (
-              <PrintCell
-                src="/brand/ailabs-iso-dark.svg"
-                tone="night"
-                className="aspect-[4/3] rounded-3xl lg:aspect-[4/3]"
+              /* Where the printed mark sits; the canvas reads this box. */
+              <div
+                data-halftone-slot
+                aria-hidden="true"
+                className="mx-auto aspect-[278/324] w-[min(72vw,22rem)] lg:col-span-5 lg:w-full lg:max-w-[28rem]"
               />
             )}
-          </div>
-        </header>
+          </header>
+        </div>
       </div>
 
       <Reveal as="div" className="section-y bg-surface">

@@ -28,8 +28,6 @@ const REMOVED_PATHS = [
 ]
 
 const RETIRED_PAGES = [
-  "https://www.ailabs.sv/community",
-  "https://www.ailabs.sv/en/community",
   "https://www.ailabs.sv/campus-leader",
   "https://www.ailabs.sv/en/campus-leader",
   "https://www.ailabs.sv/events/modo-fundador",
@@ -102,6 +100,7 @@ describe("public SEO files", () => {
       "/automatizacion-ia-el-salvador",
       "/events",
       "/agendar",
+      "/community",
     ]
     for (const path of pages) {
       expect(sitemap).toContain(
