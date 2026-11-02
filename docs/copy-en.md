@@ -245,7 +245,7 @@ ambassadorship: it goes separately, as a tool we work with.
 ## Capacitación `/capacitacion-ia-el-salvador`
 
 - Meta title: "AI training for teams in El Salvador | Ai Labs"
-- Meta description: "AI training for teams in El Salvador: Learning Day, Build Day and bootcamp for managers and sales teams, built on their own work."
+- Meta description: "AI training and courses for teams in El Salvador: Learning Day, Build Day and bootcamp for managers and sales teams, built on their own work."
 - Eyebrow: "Training for teams"
 - H1: "AI training for teams"
 - Lead: "Learning Day, Build Day and bootcamp so that managers and sales teams use AI with good judgment, on their own work."
@@ -277,7 +277,7 @@ The plan for each format, with audience, duration and launch order, is in
 ### Para quién no es
 
 - Título: "Who it's not for"
-- Línea: "If you're looking for a programming or AI research course."
+- Línea: "If you are looking for programming or AI research training."
 - Línea: "If you're looking for a certificate without practicing on your own work."
 
 ### Cómo se arma
@@ -301,7 +301,7 @@ The plan for each format, with audience, duration and launch order, is in
 - R3: "Yes. Most of the teams we work with are in sales, operations and administration. They practice with their own tasks."
 - P4: "How much does it cost?"
 - R4: "Public workshops show their price on each event. Training for teams depends on the format, and we quote it after a call."
-- P5: "Can I come on my own, without a company?"
+- P5: "Do you run open AI courses, without a company?"
 - R5: "Yes. Public workshops are for any professional. The upcoming ones are listed under Events, and we announce them on WhatsApp."
 
 ### Agenda

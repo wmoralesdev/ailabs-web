@@ -186,7 +186,7 @@ export const servicePagesEs: ServicePagesContent = {
     },
     metaTitle: "Capacitación en IA para equipos en El Salvador | Ai Labs",
     metaDescription:
-      "Capacitación en IA para equipos en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo.",
+      "Capacitación y cursos de IA para equipos en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo.",
     serviceName: "Capacitación en IA para equipos en El Salvador",
     eyebrow: "Capacitación para equipos",
     title: "Capacitación en IA para equipos",
@@ -200,7 +200,7 @@ export const servicePagesEs: ServicePagesContent = {
     ],
     notFitHeading: "Para quién no es",
     notFit: [
-      "Si buscás un curso de programación o de investigación en IA.",
+      "Si buscás formación en programación o investigación en IA.",
       "Si buscás un certificado sin práctica sobre tu propio trabajo.",
     ],
     includesHeading: "Formatos",
@@ -261,7 +261,7 @@ export const servicePagesEs: ServicePagesContent = {
           "Los talleres públicos muestran su precio en cada evento. Las capacitaciones para equipos dependen del formato y las cotizamos después de una llamada.",
       },
       {
-        question: "¿Puedo venir por mi cuenta, sin empresa?",
+        question: "¿Tienen cursos de IA abiertos, sin empresa?",
         answer:
           "Sí. Los talleres públicos son para cualquier profesional. Los próximos están en Eventos y los avisamos por WhatsApp.",
       },
