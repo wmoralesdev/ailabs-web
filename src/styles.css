@@ -461,6 +461,11 @@
     padding-block: var(--space-section-y);
   }
 
+  /* Every hero fills the first screen under the sticky header. */
+  .hero-screen {
+    min-height: calc(100svh - var(--site-header-height));
+  }
+
   .page-gutter {
     padding-inline: var(--space-gutter);
   }

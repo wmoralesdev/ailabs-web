@@ -67,7 +67,7 @@ function collect(content: SiteContent): {
   }
   const group = (path: string, texts: string[]) => groups.push({ path, texts })
 
-  const { home, servicePages, meta, events, booking } = content
+  const { home, servicePages, meta, events, booking, community } = content
 
   add("meta.title", meta.title, BUDGET.metaTitle)
   add("meta.description", meta.description, BUDGET.metaDescription)
@@ -169,6 +169,15 @@ function collect(content: SiteContent): {
     events.tracks.map((track) => track.body)
   )
   add("events.communityBody", events.communityBody, BUDGET.cardLine)
+
+  add("community.metaTitle", community.metaTitle, BUDGET.metaTitle)
+  add(
+    "community.metaDescription",
+    community.metaDescription,
+    BUDGET.metaDescription
+  )
+  add("community.headline", community.headline, BUDGET.h1)
+  add("community.lead", community.lead, BUDGET.lead)
 
   add(
     "booking.metaDescription",

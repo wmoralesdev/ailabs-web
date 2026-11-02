@@ -68,7 +68,7 @@ export function BookingPage() {
   const { tema } = useSearch({ strict: false })
 
   return (
-    <section className="flex min-h-[calc(100dvh-var(--site-header-height))] flex-col bg-background text-foreground">
+    <section className="hero-screen flex flex-col bg-background text-foreground">
       <div className="page-gutter mx-auto flex w-full max-w-[65rem] flex-1 flex-col gap-8 py-8 lg:py-10">
         <div className="my-auto flex flex-col gap-8">
           {BOOKING_CAL_LINK ? (

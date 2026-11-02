@@ -14,6 +14,7 @@ Ai Labs está en San Salvador y trabaja con empresas de todo El Salvador y tambi
 - [Consultoría de IA en El Salvador](https://www.ailabs.sv/consultoria-de-ia-el-salvador): un diagnóstico de 30 minutos sin costo, por videollamada o presencial, y después una revisión del proceso con el equipo para elegir una mejora, definir el alcance y cotizarla. El cliente recibe un documento corto con el proceso mapeado, la mejora elegida, el alcance y la cotización.
 - [Capacitación en IA para equipos](https://www.ailabs.sv/capacitacion-ia-el-salvador): Learning Day (cuatro horas con un equipo sobre sus tareas reales), Build Day (un día en cohorte abierta con otras empresas, con prototipo y caso de negocio), Bootcamp (dos días o más con un equipo hasta dejar el prototipo funcionando) y talleres públicos en San Salvador para cualquier profesional.
 - [Talleres y eventos de IA en San Salvador](https://www.ailabs.sv/events): desde 2025 Ai Labs organiza talleres, cafés y meetups de IA, publicados en Luma. Más de 60 eventos desde 2025. Dos pistas: para equipos y líderes (desayunos ejecutivos, masterclasses, demo days) y para builders (labs, meetups, hackathons). La comunidad de WhatsApp es gratis.
+- [Comunidad de IA en WhatsApp](https://www.ailabs.sv/community): un grupo de WhatsApp gratuito donde Ai Labs avisa los talleres y meetups antes de publicarlos en redes.
 
 Ai Labs es parte de los programas de embajadores de SpaceXAI, OpenAI, Codex, Cognition, Cursor, Mistral, ElevenLabs y Notion, y trabaja con Claude. Ser embajadores le da línea directa con esos equipos, formación de su parte y acceso temprano a las herramientas.
 
@@ -24,6 +25,7 @@ Ai Labs es parte de los programas de embajadores de SpaceXAI, OpenAI, Codex, Cog
 - Consultoría de IA en El Salvador: https://www.ailabs.sv/consultoria-de-ia-el-salvador · English: https://www.ailabs.sv/en/consultoria-de-ia-el-salvador
 - Capacitación en IA: https://www.ailabs.sv/capacitacion-ia-el-salvador · English: https://www.ailabs.sv/en/capacitacion-ia-el-salvador
 - Talleres y eventos: https://www.ailabs.sv/events · English: https://www.ailabs.sv/en/events
+- Comunidad de WhatsApp: https://www.ailabs.sv/community · English: https://www.ailabs.sv/en/community
 - Agendar un diagnóstico: https://www.ailabs.sv/agendar · English: https://www.ailabs.sv/en/agendar
 - Cómo trabajamos: https://www.ailabs.sv/#metodo
 - Preguntas frecuentes: https://www.ailabs.sv/#faq

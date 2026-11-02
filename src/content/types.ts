@@ -305,6 +305,23 @@ export type EventsIndexContent = {
   bridgeCta: string
 }
 
+/**
+ * WhatsApp community page (`/community`): the home hero with its own copy and
+ * the group invite as the primary action. The invite URL lives in
+ * `src/content/booking.ts`.
+ */
+export type CommunityContent = {
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  lead: string
+  joinCta: string
+  /** Under the actions: what happens when the invite opens. */
+  joinHint: string
+  eventsCta: string
+}
+
 export type BookingStep = {
   title: string
   body: string
@@ -393,4 +410,5 @@ export type SiteContent = {
   booking: BookingContent
   legal: LegalContent
   events: EventsIndexContent
+  community: CommunityContent
 }
