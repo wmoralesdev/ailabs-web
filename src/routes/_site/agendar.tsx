@@ -2,13 +2,9 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { createFileRoute, useSearch } from "@tanstack/react-router"
 
-import { BookingEmbed } from "@/components/campaign/booking-embed"
+import { Booker } from "@/components/campaign/booker"
 import { CampaignFactRow } from "@/components/campaign/campaign-fact-row"
-import { CampaignHero } from "@/components/campaign/campaign-hero"
-import {
-  homeDisplayClassName,
-  homePillClassName,
-} from "@/components/home/home-styles"
+import { homePillClassName } from "@/components/home/home-styles"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import {
   BOOKING_CAL_LINK,
@@ -58,66 +54,78 @@ function WhatsAppMark({ className }: { className?: string }) {
 }
 
 /**
- * Booking page: the diagnostic in three steps and the cal.com calendar. A
- * service page arrives with `?tema=` and the topic question comes prefilled.
- * While `BOOKING_CAL_LINK` is empty the page says the calendar is about to
- * open, and the WhatsApp button appears only once a business number exists.
+ * Booking page, cal.com's own page recreated: one viewport with the booker
+ * centred in it, carrying the page's H1 in its event column like cal.com's
+ * title, and the three steps at the foot.
+ * Our booker sits over the cal.com event. A service page arrives with
+ * `?tema=` and the topic question comes preselected. While `BOOKING_CAL_LINK`
+ * is empty the page says the calendar is about to open, and the WhatsApp
+ * button appears only once a business number exists.
  */
 export function BookingPage() {
-  const { content } = useLocaleContext()
+  const { locale, content } = useLocaleContext()
   const { booking } = content
   const { tema } = useSearch({ strict: false })
 
   return (
-    <CampaignHero
-      photo={booking.heroPhoto}
-      fluid={BOOKING_CAL_LINK.length > 0}
-      footer={
-        <CampaignFactRow label={booking.stepsLabel} steps={booking.steps} />
-      }
-    >
-      <Eyebrow>{booking.label}</Eyebrow>
-      <h1 className={cn(homeDisplayClassName, "leading-[0.95] text-balance")}>
-        {booking.headline}
-      </h1>
-      <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
-        {booking.body}
-      </p>
-      {BOOKING_CAL_LINK ? (
-        <BookingEmbed
-          calLink={BOOKING_CAL_LINK}
-          topic={tema}
-          title={booking.embedTitle}
-        />
-      ) : (
-        <p className="rounded-2xl border border-border bg-surface px-5 py-4 text-small text-muted-foreground">
-          {booking.embedPending}
-        </p>
-      )}
-      {WHATSAPP_URL ? (
-        <div className="flex flex-col gap-3 pt-2">
-          <p className="text-small font-semibold text-muted-foreground">
-            {booking.altTitle}
-          </p>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(homePillClassName, "w-fit gap-2.5")}
-          >
-            <WhatsAppMark className="size-5 shrink-0" />
-            {booking.whatsappCta}
-            <HugeiconsIcon
-              icon={ArrowRight01Icon}
-              strokeWidth={2}
-              className="size-4 shrink-0 opacity-80"
+    <section className="flex min-h-[calc(100dvh-var(--site-header-height))] flex-col bg-background text-foreground">
+      <div className="page-gutter mx-auto flex w-full max-w-[65rem] flex-1 flex-col gap-8 py-8 lg:py-10">
+        <div className="my-auto flex flex-col gap-8">
+          {BOOKING_CAL_LINK ? (
+            <Booker
+              calLink={BOOKING_CAL_LINK}
+              topic={tema}
+              locale={locale}
+              copy={booking.booker}
+              title={booking.embedTitle}
+              headline={booking.headline}
+              lead={booking.body}
             />
-          </a>
-          <p className="text-small text-muted-foreground">
-            {booking.whatsappHint}
-          </p>
+          ) : (
+            <>
+              <header className="flex flex-col items-start gap-3">
+                <Eyebrow>{booking.label}</Eyebrow>
+                <h1 className="display text-3xl text-balance sm:text-4xl md:text-5xl">
+                  {booking.headline}
+                </h1>
+                <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+                  {booking.body}
+                </p>
+              </header>
+              <p className="rounded-2xl border border-border bg-surface px-5 py-4 text-small text-muted-foreground">
+                {booking.embedPending}
+              </p>
+            </>
+          )}
+
+          {WHATSAPP_URL ? (
+            <div className="flex flex-col gap-3">
+              <p className="text-small font-semibold text-muted-foreground">
+                {booking.altTitle}
+              </p>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(homePillClassName, "w-fit gap-2.5")}
+              >
+                <WhatsAppMark className="size-5 shrink-0" />
+                {booking.whatsappCta}
+                <HugeiconsIcon
+                  icon={ArrowRight01Icon}
+                  strokeWidth={2}
+                  className="size-4 shrink-0 opacity-80"
+                />
+              </a>
+              <p className="text-small text-muted-foreground">
+                {booking.whatsappHint}
+              </p>
+            </div>
+          ) : null}
         </div>
-      ) : null}
-    </CampaignHero>
+
+        <CampaignFactRow label={booking.stepsLabel} steps={booking.steps} />
+      </div>
+    </section>
   )
 }

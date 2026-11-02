@@ -27,7 +27,7 @@ type SiteFooterProps = {
   legalPublished: boolean
 }
 
-/** Always-night footer: night field + snow ink, the same in both themes. */
+/** Always-dark footer sheet + snow ink, the same in both themes. */
 const footerLinkClassName =
   "link-underline inline-flex min-h-9 items-center text-[0.9375rem] text-night-soft transition-colors hover:text-snow"
 
@@ -110,7 +110,7 @@ function SiteFooter({ locale, footer, legalPublished }: SiteFooterProps) {
   return (
     // Revealed from under the page where it fits in the viewport; a taller
     // footer pinned to the bottom would poke out above the page instead.
-    <footer className="surface-night relative z-0 overflow-clip pb-[env(safe-area-inset-bottom)] [@media(min-width:768px)_and_(min-height:54rem)]:sticky [@media(min-width:768px)_and_(min-height:54rem)]:bottom-0">
+    <footer className="surface-night surface-sheet relative z-0 overflow-clip rounded-t-3xl border-t border-snow/10 pb-[env(safe-area-inset-bottom)] md:rounded-t-[2.5rem] [@media(min-width:768px)_and_(min-height:54rem)]:sticky [@media(min-width:768px)_and_(min-height:54rem)]:bottom-0">
       <div className="page-gutter mx-auto max-w-content pt-14 md:pt-20">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="flex flex-col items-start gap-5 lg:col-span-4">
@@ -178,7 +178,7 @@ function SiteFooter({ locale, footer, legalPublished }: SiteFooterProps) {
       </div>
       <p
         aria-hidden="true"
-        className="display mt-6 -mb-[0.12em] px-[var(--space-gutter)] text-[17.5vw] leading-[0.82] whitespace-nowrap text-snow select-none lg:text-[min(17.5vw,16rem)]"
+        className="display mt-6 -mb-[0.12em] px-[var(--space-gutter)] text-[17.5vw] leading-[0.82] whitespace-nowrap text-snow/15 select-none lg:text-[min(17.5vw,16rem)]"
       >
         {FOOTER_WATERMARK}
       </p>
