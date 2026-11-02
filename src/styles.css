@@ -113,6 +113,8 @@
   --brand-white: #f5f4f8;
   --brand-night: #0f0d17;
   --brand-night-soft: #b7b2c8;
+  /* The footer sheet: neutral, so it stands off both the light and dark paper. */
+  --brand-sheet: #1e1e22;
   --brand-border-dark: #3a3648;
 
   --paper: var(--brand-white);
@@ -515,6 +517,12 @@
     background-color: var(--brand-night);
     color: var(--brand-white);
     color-scheme: dark;
+  }
+
+  /* The footer: the night island on its own sheet colour. */
+  .surface-sheet {
+    --paper: var(--brand-sheet);
+    background-color: var(--brand-sheet);
   }
 
   /* Full-viewport presentation background stipple. */

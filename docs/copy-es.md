@@ -348,7 +348,13 @@ El plan de cada formato, con público, duración y orden de lanzamiento, está e
 - Paso 3, cuerpo: "Te mandamos la invitación al correo con el enlace."
 - Alternativa, título: "¿Preferís escribir?"
 - Alternativa, CTA: "Escribinos por WhatsApp" `[opcional: solo si hay número de negocio]`
-- Embed: cal.com `walter-ailabs/diagnostico` (`BOOKING_CAL_LINK`), un solo evento para las tres ofertas. Pregunta de tema "¿Sobre qué querés hablar?" con opciones Automatizar un proceso o construir software / Consultoría: saber por dónde empezar con IA / Capacitar a mi equipo / Todavía no sé; `?tema=automatizacion|consultoria|capacitacion` desde cada página de servicio la deja elegida.
+- Agenda propia sobre cal.com `walter-ailabs/diagnostico` (`BOOKING_CAL_LINK`), un solo evento para las tres ofertas: los horarios salen de la API pública de cal.com y la reserva vuelve a ella, que manda la invitación. No hay iframe ni se guarda nada en el sitio. Pregunta de tema "¿Sobre qué querés hablar?" con opciones Automatizar un proceso o construir software / Consultoría: saber por dónde empezar con IA / Capacitar a mi equipo / Todavía no sé (cal.com guarda el texto en español); `?tema=automatizacion|consultoria|capacitacion` desde cada página de servicio la deja elegida.
+- Agenda, columna del evento: "Diagnóstico de IA", "30 minutos", "Google Meet" y la zona horaria del visitante ("El Salvador (GMT-6)"); al elegir horario suma la fecha y la hora elegidas.
+- Agenda, calendario: "Mes anterior", "Mes siguiente", "Horarios disponibles" (hasta elegir un día), "Elegí un día para ver los horarios.", "No hay horarios este mes. Probá con el siguiente.", selector "12 h" / "24 h"
+- Agenda, estados: "Cargando horarios", "No pudimos cargar la agenda." con "Intentar de nuevo"
+- Agenda, formulario: "Cambiar horario", "Tu nombre", "Tu correo", "Tu empresa", "¿Sobre qué querés hablar?", "¿Qué proceso te quita tiempo? (opcional)", "Dos líneas alcanzan."
+- Agenda, envío: "Confirmar diagnóstico", "Reservando"; errores "Ese horario ya no está disponible. Elegí otro." y "No pudimos reservar. Probá de nuevo en un momento."
+- Agenda, confirmación: "Listo, te esperamos", "Te mandamos la invitación con el enlace de la videollamada a {correo}.", "Ver o cambiar la reserva"
 
 ## Legal
 

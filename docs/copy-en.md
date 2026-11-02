@@ -348,7 +348,13 @@ The plan for each format, with audience, duration and launch order, is in
 - Paso 3, cuerpo: "We send the invitation to your email with the link."
 - Alternativa, título: "Prefer to message us?"
 - Alternativa, CTA: "Message us on WhatsApp" `[optional: only if there is a business number]`
-- Embed: cal.com `walter-ailabs/diagnostico` (`BOOKING_CAL_LINK`), one event for the three offers. The booking form is Spanish on both locales; `?tema=automatizacion|consultoria|capacitacion` from each service page preselects the topic question.
+- Own booker over cal.com `walter-ailabs/diagnostico` (`BOOKING_CAL_LINK`), one event for the three offers: times come from the public cal.com API and the booking goes back to it, which sends the invitation. No iframe, nothing stored on the site. Topic question "¿Sobre qué querés hablar?" with the options Automatizar un proceso o construir software / Consultoría: saber por dónde empezar con IA / Capacitar a mi equipo / Todavía no sé (cal.com stores the Spanish text); `?tema=automatizacion|consultoria|capacitacion` from each service page preselects it.
+- Booker, event column: "AI diagnostic", "30 minutes", "Google Meet" and the visitor's time zone ("El Salvador (GMT-6)"); once a time is picked it adds the chosen date and time.
+- Booker, calendar: "Previous month", "Next month", "Available times" (until a day is picked), "Pick a day to see the times.", "No times this month. Try the next one.", "12 h" / "24 h" switch
+- Booker, states: "Loading times", "We could not load the calendar." with "Try again"
+- Booker, form: "Change time", "Your name", "Your email", "Your company", "What would you like to talk about?", "Which process takes up your time? (optional)", "Two lines are enough."
+- Booker, submit: "Confirm diagnostic", "Booking"; errors "That time is no longer available. Pick another." and "We could not book it. Try again in a moment."
+- Booker, confirmation: "All set, see you there", "We sent the invitation with the video call link to {email}.", "View or change the booking"
 
 ## Legal
 

@@ -310,13 +310,62 @@ export type BookingStep = {
   body: string
 }
 
+/** Labels of the booker: calendar, times, the short form and its outcomes. */
+export type BookerContent = {
+  previousMonth: string
+  nextMonth: string
+  /** Event name on the info column. */
+  eventTitle: string
+  durationLabel: string
+  locationLabel: string
+  /** Heading of the times column before a day is picked. */
+  timesTitle: string
+  /** Accessible name of the 12 h / 24 h switch. */
+  hourFormatLabel: string
+  hour12Label: string
+  hour24Label: string
+  loading: string
+  /** The visitor has not picked a day yet. */
+  pickDay: string
+  noTimes: string
+  /** Label before the visitor's time zone, e.g. "Horarios en". */
+  timeZoneLabel: string
+  loadError: string
+  retry: string
+  /** Back from the form to the calendar. */
+  changeTime: string
+  nameLabel: string
+  namePlaceholder: string
+  emailLabel: string
+  emailPlaceholder: string
+  companyLabel: string
+  companyPlaceholder: string
+  topicLabel: string
+  /** Display labels; the values sent are the event's own option labels. */
+  topics: {
+    automatizacion: string
+    consultoria: string
+    capacitacion: string
+    indeciso: string
+  }
+  notesLabel: string
+  notesPlaceholder: string
+  submit: string
+  submitting: string
+  /** The slot was taken or the request was refused. */
+  rejected: string
+  /** Network or server failure. */
+  failed: string
+  confirmedTitle: string
+  confirmedBody: string
+  manage: string
+}
+
 /**
  * Booking page (`/agendar`). The scheduler URL and WhatsApp links live in
  * `src/content/booking.ts`.
  */
 export type BookingContent = {
-  /** Real event photo on the hero panel. Omit to print the mark instead. */
-  heroPhoto?: EventPhoto
   metaTitle: string
   metaDescription: string
   label: string
@@ -324,8 +373,9 @@ export type BookingContent = {
   body: string
   stepsLabel: string
   steps: readonly [BookingStep, BookingStep, BookingStep]
-  /** Accessible title of the scheduler embed. */
+  /** Accessible name of the booker region. */
   embedTitle: string
+  booker: BookerContent
   /** Shown while `BOOKING_URL` is empty. */
   embedPending: string
   altTitle: string

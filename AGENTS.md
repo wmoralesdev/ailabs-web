@@ -105,8 +105,9 @@ attendee emails, or any metric the owner has not confirmed.
 
 - Shared chrome is a flat sticky header (`SiteHeader`): lockup, a Services
   menu with the three service pages, Eventos, theme, locale and one
-  "Agendar diagnóstico" button to `/agendar`. The footer is the night block
-  revealed from under the page, ending in the "get curious" line. The 404
+  "Agendar diagnóstico" button to `/agendar`. The footer is a rounded sheet in
+  the fixed `--brand-sheet` dark grey, the same in both themes, revealed from
+  under the page and ending in the translucent "get curious" line. The 404
   offers home and booking.
 - Locale is in the URL. Spanish is the default at the unprefixed paths;
   English lives under `/en/…` with the same slugs. Unprefixed URLs always
@@ -128,17 +129,26 @@ attendee emails, or any metric the owner has not confirmed.
 - `/events` reuses the home hero with its own copy, then the two tracks, the
   photo marquee, the current month from Luma, the WhatsApp community block
   (`COMMUNITY_WHATSAPP_URL`) and the bridge to the diagnostic.
-- `/agendar` is the booking page: the campaign split hero, three steps, and
-  the cal.com calendar embedded by `src/components/campaign/booking-embed.tsx`
-  from `BOOKING_CAL_LINK` in `src/content/booking.ts` (one event,
-  `walter-ailabs/diagnostico`, for the three offers). The embed follows the
-  site theme and remounts on a theme switch, because the booker ignores
-  runtime theme updates. Service pages link with `?tema=automatizacion`,
-  `?tema=consultoria` or `?tema=capacitacion`, and `BOOKING_TOPICS` maps those
-  to the option labels of the event's "¿Sobre qué querés hablar?" question;
-  change them together with the event. While the link is empty the page
-  shows the pending notice. WhatsApp buttons render only when `WHATSAPP_URL`
-  (a business number) is set. There is no contact form and nothing is stored.
+- `/agendar` is the booking page, a recreation of cal.com's own: one section
+  at least a full viewport tall with our booker centred in it, in cal.com's
+  three-column layout (event, month of square days, times). The event column
+  carries the page's H1 and lead, like cal.com's title, with the home hero's
+  live halftone mark in its empty foot (`lg` and up only); the form step
+  narrows the card to the event and the form. The three steps sit at the foot
+  of the section. The booker (`src/components/campaign/booker.tsx`) sits over
+  the cal.com event `BOOKING_CAL_LINK` in `src/content/booking.ts` (one event,
+  `walter-ailabs/diagnostico`, for the three offers). There is no iframe: the
+  month of days, the times and the short form are ours, and
+  `src/lib/cal-booking.ts` reads slots from and posts the booking to cal.com's
+  public API v2 (no key, nothing stored here); cal.com sends the invitation.
+  Service pages link with `?tema=automatizacion`, `?tema=consultoria` or
+  `?tema=capacitacion`, and `BOOKING_TOPICS` maps those to the option labels
+  of the event's "¿Sobre qué querés hablar?" question, whose values cal.com
+  stores in Spanish; change them together with the event (the booking fields
+  `empresa`, `tema` and `notes` are the event's slugs too). While the link is
+  empty the page shows the pending notice. WhatsApp buttons render only when
+  `WHATSAPP_URL` (a business number) is set. There is no contact form and
+  nothing is stored.
 - `/terms` and `/privacy` still describe the retired member profiles and
   must be rewritten; the footer hides them while `legal.status` is a draft.
 - Retired routes 301 in `src/lib/search-aliases.ts`: `/community`,

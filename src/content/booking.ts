@@ -3,11 +3,11 @@ import type { ServicePageId } from "@/lib/service-pages"
 /**
  * The cal.com event behind `/agendar`: one 30-minute diagnostic that serves
  * the three offers. `<username>/<event-slug>`; while it is empty the page
- * shows `embedPending` instead of the calendar.
+ * shows `embedPending` instead of the booker.
  */
 export const BOOKING_CAL_LINK = "walter-ailabs/diagnostico" as string
 
-/** Direct link to the same event, for places that cannot embed it. */
+/** Direct link to the same event on cal.com. */
 export const BOOKING_URL = BOOKING_CAL_LINK
   ? `https://cal.com/${BOOKING_CAL_LINK}`
   : ""
@@ -25,6 +25,17 @@ export const BOOKING_TOPICS = {
 } as const
 
 export type BookingTopic = keyof typeof BOOKING_TOPICS
+
+/** The event's fourth option, which no service page sends. */
+export const BOOKING_TOPIC_UNSURE = "Todavía no sé"
+
+/** Every option of the topic question, in the event's order. */
+export const BOOKING_TOPIC_OPTIONS = [
+  { key: "automatizacion", value: BOOKING_TOPICS.automatizacion },
+  { key: "consultoria", value: BOOKING_TOPICS.consultoria },
+  { key: "capacitacion", value: BOOKING_TOPICS.capacitacion },
+  { key: "indeciso", value: BOOKING_TOPIC_UNSURE },
+] as const
 
 /** Query parameter on `/agendar` and booking-field slug on cal.com. */
 export const BOOKING_TOPIC_FIELD = "tema"
