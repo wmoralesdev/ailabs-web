@@ -15,8 +15,8 @@ sistema que no habla con otro.
   sistema, "lo hacemos a mano". Nunca "flujos agénticos" ni "IA generativa".
 - **Sus objeciones:** cuánto cuesta, mi equipo no lo va a usar, quedo atado al
   proveedor, la IA es humo, qué pasa con mis datos.
-- **Lo que la convence:** ver que somos embajadores de las herramientas que
-  usamos, una sesión de diagnóstico sin compromiso, un antes y después visible
+- **Lo que la convence:** ver que somos miembros de los programas de comunidad de
+  las herramientas que usamos, una sesión de diagnóstico sin compromiso, un antes y después visible
   de un proceso, lenguaje llano y una cotización antes de empezar. Conocer a
   las personas detrás pesa poco.
 - **Tres necesidades, una compradora:** automatización y software a medida,
@@ -90,8 +90,8 @@ Clerk y Wompi, y todo `src/server` menos lo que necesite la agenda.
 
 ## 4. Home, sección por sección
 
-Seis secciones: hero, embajadores, ofertas, cómo trabajamos, preguntas y
-agenda. La prueba principal son los programas de embajadores y va justo bajo
+Seis secciones: hero, programas de comunidad, ofertas, cómo trabajamos, preguntas y
+agenda. La prueba principal son los programas de comunidad y va justo bajo
 el hero, como hoy, con copy corregido. No hay sección de problema ni bloque de
 equipo: la situación de la compradora se resuelve en el H1 y en los ejemplos
 de la primera tarjeta.
@@ -113,14 +113,14 @@ de la primera tarjeta.
 - **CTA secundario:** "Ver cómo trabajamos" → `#metodo`.
 - **Visual:** la marca en halftone como hoy. Sin descargo, sin tercer párrafo.
 
-### 4.2 Embajadores
+### 4.2 Programas de comunidad
 
 La franja de marcas en halftone que ya existe, con tres cambios: el label dice
-"Embajadores de" y lista los ocho programas vigentes: SpaceXAI, OpenAI, Codex,
+"Somos miembros de los programas de comunidad de" y lista los ocho programas vigentes: SpaceXAI, OpenAI, Codex,
 Cognition, Cursor, Mistral, ElevenLabs y Notion (Cursor y Cognition necesitan
 marca nueva en `assets/logos`); Claude va separado tras "y trabajamos con",
-porque no somos embajadores de Claude; y debajo una sola oración de qué nos da
-ser embajadores (línea directa con sus equipos, formación, acceso temprano y
+porque Claude no es uno de esos programas; y debajo una sola oración de qué nos
+da ser miembros (línea directa con sus equipos, formación, acceso temprano y
 más criterio para guiar) más una sola cifra: más de 60 eventos desde 2025, que
 es la única honesta. No se publica "personas formadas", porque
 muchos eventos son charlas o networking, ni "empresas representadas", porque
@@ -302,7 +302,7 @@ hermanos.
 
 Resueltos el 1 nov 2026: diagnóstico gratis por videollamada o presencial;
 sin precio cerrado ni rangos de tiempo públicos; soporte a la medida; ocho
-programas de embajadores confirmados y qué implican; más de 60 eventos; sin
+programas de comunidad confirmados y qué implican; más de 60 eventos; sin
 límite geográfico; cal.com; `/community` redirige a `/events`; sin analíticas.
 El 2 nov 2026 `/community` vuelve como el hero del home con el grupo de
 WhatsApp, y los alias de comunidad llevan ahí.

@@ -132,7 +132,7 @@ export const es: SiteContent = {
       secondaryCta: { label: "Ver cómo trabajamos", href: "#metodo" },
     },
     ambassadors: {
-      label: "Embajadores de",
+      label: "Somos miembros de los programas de comunidad de",
       logos: [
         { id: "spacexai", name: "SpaceXAI" },
         { id: "openai", name: "OpenAI" },
@@ -143,7 +143,7 @@ export const es: SiteContent = {
       ],
       partnersLabel: "y trabajamos con",
       partners: [{ id: "claude", name: "Claude" }],
-      body: "Ser embajadores nos da línea directa con sus equipos, formación de su parte, acceso temprano a lo que viene y más criterio para guiar a quien las usa.",
+      body: "Ser miembros nos da línea directa con sus equipos, formación de su parte, acceso temprano a lo que viene y más criterio para guiar a quien las usa.",
       stat: { value: "Más de 60", label: "eventos de IA desde 2025" },
     },
     offers: {

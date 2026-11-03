@@ -61,9 +61,10 @@ future product with its own landing; it does not appear on the site.
 **Facts the owner confirmed on 2026-11-01.** The diagnostic is free. No
 prices, no "precio cerrado" and no time ranges are published: copy says
 "alcance y cotización antes de empezar". Post-delivery support is negotiated
-per tool. Client data stays in the client's accounts. The ambassador
-programs are SpaceXAI, OpenAI, Codex, Cognition, Cursor, Mistral, ElevenLabs
-and Notion; Claude is a tool we work with, not an ambassadorship. The only
+per tool. Client data stays in the client's accounts. The community
+programs (copy: "somos miembros de los programas de comunidad", never
+"embajadores") are SpaceXAI, OpenAI, Codex, Cognition, Cursor, Mistral, ElevenLabs
+and Notion; Claude is a tool we work with, not one of those programs. The only
 public number is "más de 60 eventos de IA desde 2025". Never publish
 "personas formadas", "empresas representadas", client names taken from
 attendee emails, or any metric the owner has not confirmed.

@@ -48,16 +48,16 @@ línea de tarjeta 120, respuesta 220, cinco preguntas por página.
 - CTA primario: "Agendá un diagnóstico de 30 minutos" → `/agendar`
 - CTA secundario: "Ver cómo trabajamos" → `#metodo`
 
-### Embajadores
+### Programas de comunidad
 
 Franja justo bajo el hero, con las marcas en halftone que ya existen. Es la
-prueba principal del sitio y por eso va primero. Claude no es embajada: va
+prueba principal del sitio y por eso va primero. Claude no es uno de esos programas: va
 separado, como herramienta con la que trabajamos.
 
-- Label: "Embajadores de"
+- Label: "Somos miembros de los programas de comunidad de"
 - Marcas: SpaceXAI, OpenAI, Codex, Cognition, Cursor, Mistral, ElevenLabs, Notion. Cursor y Cognition necesitan marca nueva en `assets/logos` y `pnpm halftone:logos`.
 - Separador: "y trabajamos con" + marca de Claude
-- Cuerpo: "Ser embajadores nos da línea directa con sus equipos, formación de su parte, acceso temprano a lo que viene y más criterio para guiar a quien las usa."
+- Cuerpo: "Ser miembros nos da línea directa con sus equipos, formación de su parte, acceso temprano a lo que viene y más criterio para guiar a quien las usa."
 - Cifra, única: "Más de 60" / "eventos de IA desde 2025"
 
 ### Ofertas

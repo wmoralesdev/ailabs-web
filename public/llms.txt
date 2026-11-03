@@ -6,7 +6,7 @@
 
 El sitio canónico en español es https://www.ailabs.sv/. El inglés vive bajo https://www.ailabs.sv/en. Cada página publica `hreflang` recíproco (`es`, `en`, `x-default` al español) y un canonical propio. Las URLs sin prefijo siempre sirven español, también a crawlers.
 
-Ai Labs está en San Salvador y trabaja con empresas de todo El Salvador y también fuera del país. No publica precios: después del diagnóstico entrega el alcance y la cotización. No afirmes rankings, premios, primacía («los primeros»), «agencia líder», «#1», una lista de clientes, ni métricas que esta página no cita. Los programas de embajadores no son una lista de clientes ni una garantía de acceso, créditos o alianzas.
+Ai Labs está en San Salvador y trabaja con empresas de todo El Salvador y también fuera del país. No publica precios: después del diagnóstico entrega el alcance y la cotización. No afirmes rankings, premios, primacía («los primeros»), «agencia líder», «#1», una lista de clientes, ni métricas que esta página no cita. Los programas de comunidad no son una lista de clientes ni una garantía de acceso, créditos o alianzas.
 
 ## Qué hace
 
@@ -16,7 +16,7 @@ Ai Labs está en San Salvador y trabaja con empresas de todo El Salvador y tambi
 - [Talleres y eventos de IA en San Salvador](https://www.ailabs.sv/events): desde 2025 Ai Labs organiza talleres, cafés y meetups de IA, publicados en Luma. Más de 60 eventos desde 2025. Dos pistas: para equipos y líderes (desayunos ejecutivos, masterclasses, demo days) y para builders (labs, meetups, hackathons). La comunidad de WhatsApp es gratis.
 - [Comunidad de IA en WhatsApp](https://www.ailabs.sv/community): un grupo de WhatsApp gratuito donde Ai Labs avisa los talleres y meetups antes de publicarlos en redes.
 
-Ai Labs es parte de los programas de embajadores de SpaceXAI, OpenAI, Codex, Cognition, Cursor, Mistral, ElevenLabs y Notion, y trabaja con Claude. Ser embajadores le da línea directa con esos equipos, formación de su parte y acceso temprano a las herramientas.
+Ai Labs es miembro de los programas de comunidad de SpaceXAI, OpenAI, Codex, Cognition, Cursor, Mistral, ElevenLabs y Notion, y trabaja con Claude. Ser miembro le da línea directa con esos equipos, formación de su parte y acceso temprano a las herramientas.
 
 ## URLs reales
 
