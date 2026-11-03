@@ -97,7 +97,7 @@ export const servicePagesEs: ServicePagesContent = {
       "Automatización de procesos con IA y software a medida para empresas en El Salvador. Conectamos tus herramientas y construimos lo que falta, con revisión humana.",
     serviceName: "Automatización con IA para empresas en El Salvador",
     eyebrow: "Automatización y software a medida",
-    title: "Automatización con IA y software a medida",
+    title: "Automatización de procesos y software a medida",
     lead: "Conectamos tus herramientas, automatizamos lo repetitivo y construimos el software que te falta. Con revisión humana y documentación.",
     cta: "Agendá un diagnóstico de 30 minutos",
     fitHeading: "Para quién es",

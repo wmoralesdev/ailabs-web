@@ -4,7 +4,7 @@ import { HomeHero } from "@/components/home/home-hero"
 import type { HomeHeroContent } from "@/content"
 import { COMMUNITY_PAGE_PATH, COMMUNITY_WHATSAPP_URL } from "@/content/booking"
 import { useLocaleContext } from "@/lib/locale-context"
-import { brandedTitle, buildPageMeta } from "@/lib/seo"
+import { brandedTitle, buildPageMeta, buildWebPageJsonLd } from "@/lib/seo"
 
 export const Route = createFileRoute("/_site/community")({
   loader: ({ context }) => context,
@@ -14,12 +14,24 @@ export const Route = createFileRoute("/_site/community")({
     }
     const { locale, content } = loaderData
     const { community } = content
-    return buildPageMeta({
+    const title = brandedTitle(community.metaTitle)
+    const meta = buildPageMeta({
       locale,
       path: COMMUNITY_PAGE_PATH,
-      title: brandedTitle(community.metaTitle),
+      title,
       description: community.metaDescription,
     })
+    return {
+      ...meta,
+      scripts: [
+        buildWebPageJsonLd({
+          locale,
+          path: COMMUNITY_PAGE_PATH,
+          title,
+          description: community.metaDescription,
+        }),
+      ],
+    }
   },
   component: CommunityPage,
 })

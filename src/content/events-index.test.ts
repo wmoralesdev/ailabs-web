@@ -192,30 +192,30 @@ describe("events index", () => {
     const document = JSON.parse(head.scripts[0]?.children ?? "{}") as {
       "@graph": Array<{
         "@type": string
+        "@id"?: string
         name?: string
         description?: string
+        startDate?: string
+        url?: string
         areaServed?: { "@type": string; name?: string }
+        organizer?: { "@type"?: string; name?: string; url?: string }
+        location?: {
+          name?: string
+          address?: { addressLocality?: string; addressCountry?: string }
+        }
         itemListElement?: Array<{
           name?: string
-          item?: {
-            "@type": string
-            name?: string
-            startDate?: string
-            timezone?: string
-            url?: string
-            organizer?: { "@type"?: string; name?: string; url?: string }
-            location?: {
-              name?: string
-              address?: { addressLocality?: string; addressCountry?: string }
-            }
-          }
+          url?: string
+          item?: { "@id"?: string; "@type"?: string; name?: string }
         }>
       }>
     }
     const types = document["@graph"].map((node) => node["@type"])
     const list = document["@graph"].find((node) => node["@type"] === "ItemList")
-    const events = list?.itemListElement?.map((entry) => entry.item) ?? []
-    const guatemala = events.find((event) => event?.name?.includes("Guatemala"))
+    const events = document["@graph"].filter(
+      (node) => node["@type"] === "Event"
+    )
+    const guatemala = events.find((event) => event.name?.includes("Guatemala"))
 
     expect(title).toBe(es.events.metaTitle)
     expect(description).toBe(es.events.metaDescription)
@@ -245,7 +245,12 @@ describe("events index", () => {
     expect(head.meta.find((tag) => tag.name === "twitter:card")?.content).toBe(
       "summary_large_image"
     )
-    expect(types).toEqual(["BreadcrumbList", "ItemList", "ImageGallery"])
+    expect(types.filter((type) => type !== "Event")).toEqual([
+      "BreadcrumbList",
+      "ItemList",
+      "ImageGallery",
+    ])
+    expect(types.filter((type) => type === "Event")).toHaveLength(6)
     const gallery = document["@graph"].find(
       (node) => node["@type"] === "ImageGallery"
     ) as {
@@ -276,7 +281,7 @@ describe("events index", () => {
       "@type": "Country",
       name: "El Salvador",
     })
-    expect(events.map((event) => event?.name)).toEqual([
+    expect(events.map((event) => event.name)).toEqual([
       "ElevenCreative Workshop",
       "DevDay Exchange Community: San Salvador",
       "Github Essentials Lab",
@@ -284,10 +289,11 @@ describe("events index", () => {
       "Grok Bot Meetup San Salvador",
       "Ciudad de Guatemala - Clerk Meetup",
     ])
+    expect(list?.itemListElement?.map((entry) => entry.item?.["@id"])).toEqual(
+      events.map((event) => event["@id"])
+    )
     expect(events[0]?.startDate).toBe("2026-10-23T14:00:00-06:00")
-    expect(events[0]?.timezone).toBe("America/El_Salvador")
     expect(guatemala?.startDate).toBe("2026-10-09T14:00:00-06:00")
-    expect(guatemala?.timezone).toBe("America/Guatemala")
     expect(guatemala?.location).toMatchObject({
       name: "Tec",
       address: {
@@ -297,13 +303,36 @@ describe("events index", () => {
     })
     expect(guatemala?.organizer).toEqual({
       "@type": "Organization",
+      "@id": "https://www.ailabs.sv/#organization",
       name: "Ai Labs",
       url: "https://www.ailabs.sv",
     })
     expect(guatemala?.url).toBe("https://luma.com/hrf7a7di")
     expect(JSON.stringify(guatemala)).not.toMatch(/El Salvador/)
     expect(JSON.stringify(document)).not.toMatch(
-      /latinoam[eé]rica|latin america|centroam[eé]rica|central america|attendeeCount|eventAttendance/i
+      /latinoam[eé]rica|latin america|centroam[eé]rica|central america|attendeeCount|eventAttendance|eventStatus/i
     )
+  })
+
+  it("publishes no Event nodes when the current month lists none", () => {
+    const head = buildEventsIndexHead({
+      locale: "es",
+      events: es.events,
+      now: new Date("2026-11-15T18:00:00.000Z"),
+    })
+    const document = JSON.parse(head.scripts[0]?.children ?? "{}") as {
+      "@graph": Array<{
+        "@type": string
+        numberOfItems?: number
+        startDate?: string
+      }>
+    }
+    const events = document["@graph"].filter(
+      (node) => node["@type"] === "Event"
+    )
+    const list = document["@graph"].find((node) => node["@type"] === "ItemList")
+    expect(events).toEqual([])
+    expect(list?.numberOfItems).toBe(0)
+    expect(JSON.stringify(document)).not.toMatch(/2026-12-|2027-/)
   })
 })
