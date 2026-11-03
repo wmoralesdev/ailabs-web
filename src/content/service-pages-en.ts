@@ -186,7 +186,7 @@ export const servicePagesEn: ServicePagesContent = {
     },
     metaTitle: "AI training for teams in El Salvador | Ai Labs",
     metaDescription:
-      "AI training for teams in El Salvador: Learning Day, Build Day and bootcamp for managers and sales teams, built on their own work.",
+      "AI training and courses for teams in El Salvador: Learning Day, Build Day and bootcamp for managers and sales teams, built on their own work.",
     serviceName: "AI training for teams in El Salvador",
     eyebrow: "Training for teams",
     title: "AI training for teams",
@@ -200,7 +200,7 @@ export const servicePagesEn: ServicePagesContent = {
     ],
     notFitHeading: "Who it's not for",
     notFit: [
-      "If you're looking for a programming or AI research course.",
+      "If you are looking for programming or AI research training.",
       "If you're looking for a certificate without practicing on your own work.",
     ],
     includesHeading: "Formats",
@@ -261,7 +261,7 @@ export const servicePagesEn: ServicePagesContent = {
           "Public workshops show their price on each event. Training for teams depends on the format, and we quote it after a call.",
       },
       {
-        question: "Can I come on my own, without a company?",
+        question: "Do you run open AI courses, without a company?",
         answer:
           "Yes. Public workshops are for any professional. The upcoming ones are listed under Events, and we announce them on WhatsApp.",
       },

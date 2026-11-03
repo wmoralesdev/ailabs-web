@@ -245,7 +245,7 @@ separado, como herramienta con la que trabajamos.
 ## Capacitación `/capacitacion-ia-el-salvador`
 
 - Meta title: "Capacitación en IA para equipos en El Salvador | Ai Labs"
-- Meta description: "Capacitación en IA para equipos en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo."
+- Meta description: "Capacitación y cursos de IA para equipos en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo."
 - Eyebrow: "Capacitación para equipos"
 - H1: "Capacitación en IA para equipos"
 - Lead: "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo."
@@ -277,7 +277,7 @@ El plan de cada formato, con público, duración y orden de lanzamiento, está e
 ### Para quién no es
 
 - Título: "Para quién no es"
-- Línea: "Si buscás un curso de programación o de investigación en IA."
+- Línea: "Si buscás formación en programación o investigación en IA."
 - Línea: "Si buscás un certificado sin práctica sobre tu propio trabajo."
 
 ### Cómo se arma
@@ -301,7 +301,7 @@ El plan de cada formato, con público, duración y orden de lanzamiento, está e
 - R3: "Sí. La mayoría de los equipos con los que trabajamos son de ventas, operaciones y administración. Practican con sus propias tareas."
 - P4: "¿Cuánto cuesta?"
 - R4: "Los talleres públicos muestran su precio en cada evento. Las capacitaciones para equipos dependen del formato y las cotizamos después de una llamada."
-- P5: "¿Puedo venir por mi cuenta, sin empresa?"
+- P5: "¿Tienen cursos de IA abiertos, sin empresa?"
 - R5: "Sí. Los talleres públicos son para cualquier profesional. Los próximos están en Eventos y los avisamos por WhatsApp."
 
 ### Agenda
