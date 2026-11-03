@@ -2,7 +2,6 @@ import type { ServicePagesContent } from "./types"
 
 export const servicePagesEn: ServicePagesContent = {
   homeLabel: "Home",
-  breadcrumbLabel: "Breadcrumb",
   relatedLabel: "Other ways to work with us",
   eventsLink: "AI workshops and events in San Salvador",
   consulting: {

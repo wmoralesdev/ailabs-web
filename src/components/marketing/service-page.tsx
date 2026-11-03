@@ -71,25 +71,8 @@ function ServicePage({ id, pages }: ServicePageProps) {
           />
         )}
         <div
-          className={`${homeShellClassName} hero-screen flex flex-col pt-8 pb-16 sm:pt-10 md:pb-24`}
+          className={`${homeShellClassName} hero-screen flex flex-col pt-12 pb-16 sm:pt-16 lg:py-16`}
         >
-          <nav aria-label={pages.breadcrumbLabel} className="mb-10 text-small">
-            <ol className="flex flex-wrap items-center gap-2 text-muted-foreground">
-              <li>
-                <Link
-                  to={to("/")}
-                  className="link-underline hover:text-foreground"
-                >
-                  {pages.homeLabel}
-                </Link>
-              </li>
-              <li aria-hidden>/</li>
-              <li aria-current="page" className="text-foreground">
-                {page.serviceName}
-              </li>
-            </ol>
-          </nav>
-
           <header className="grid flex-1 content-center items-center gap-10 lg:grid-cols-12 lg:gap-8">
             <div className="flex flex-col items-start gap-6 lg:col-span-7">
               <Eyebrow data-home-entrance>{page.eyebrow}</Eyebrow>

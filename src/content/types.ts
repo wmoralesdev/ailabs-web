@@ -198,7 +198,7 @@ export type ServicePageContent = {
   metaTitle: string
   /** 110–160 characters. */
   metaDescription: string
-  /** Service name in JSON-LD, breadcrumbs, and related links. */
+  /** Service name in JSON-LD (breadcrumb included) and related links. */
   serviceName: string
   eyebrow: string
   title: string
@@ -222,8 +222,8 @@ export type ServicePageContent = {
 }
 
 export type ServicePagesContent = {
+  /** First crumb in the JSON-LD breadcrumb. Not rendered on the page. */
   homeLabel: string
-  breadcrumbLabel: string
   relatedLabel: string
   eventsLink: string
   consulting: ServicePageContent
