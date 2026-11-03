@@ -129,7 +129,7 @@ export const en: SiteContent = {
       secondaryCta: { label: "See how we work", href: "#metodo" },
     },
     ambassadors: {
-      label: "Ambassadors for",
+      label: "We are members of the community programs of",
       logos: [
         { id: "spacexai", name: "SpaceXAI" },
         { id: "openai", name: "OpenAI" },
@@ -140,7 +140,7 @@ export const en: SiteContent = {
       ],
       partnersLabel: "and we work with",
       partners: [{ id: "claude", name: "Claude" }],
-      body: "Being ambassadors gives us a direct line to their teams, training from them, early access to what's next, and better judgment to guide those who use them.",
+      body: "Being members gives us a direct line to their teams, training from them, early access to what's next, and better judgment to guide those who use them.",
       stat: { value: "Over 60", label: "AI events since 2025" },
     },
     offers: {

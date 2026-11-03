@@ -48,16 +48,16 @@ card line 120, answer 220, five questions per page.
 - CTA primario: "Book a 30-minute diagnostic" → `/agendar`
 - CTA secundario: "See how we work" → `#metodo`
 
-### Embajadores
+### Programas de comunidad
 
 A strip right under the hero, with the halftone marks that already exist. It is
-the site's main proof, which is why it goes first. Claude is not an
-ambassadorship: it goes separately, as a tool we work with.
+the site's main proof, which is why it goes first. Claude is not one of those
+programs: it goes separately, as a tool we work with.
 
-- Label: "Ambassadors for"
+- Label: "We are members of the community programs of"
 - Marcas: SpaceXAI, OpenAI, Codex, Cognition, Cursor, Mistral, ElevenLabs, Notion. Cursor and Cognition need a new mark in `assets/logos` and `pnpm halftone:logos`.
 - Separador: "and we work with" + Claude mark
-- Cuerpo: "Being ambassadors gives us a direct line to their teams, training from them, early access to what's next, and better judgment to guide those who use them."
+- Cuerpo: "Being members gives us a direct line to their teams, training from them, early access to what's next, and better judgment to guide those who use them."
 - Cifra, única: "Over 60" / "AI events since 2025"
 
 ### Ofertas
