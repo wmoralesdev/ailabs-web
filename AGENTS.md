@@ -122,7 +122,7 @@ attendee emails, or any metric the owner has not confirmed.
   (`/agendar`). No problem section, no team block, no photo bands.
 - The three service pages share `src/components/marketing/service-page.tsx`
   and the `servicePages` content: an opening built like the home hero
-  (breadcrumb, eyebrow, H1 entering word by word, lead, CTA; beside them the
+  (eyebrow, H1 entering word by word, lead, CTA; beside them the
   real photo on training, the live halftone mark with its story on the other
   two), who it is for and not for, what it includes
   (the formats on training), how it works in three steps, an optional real

@@ -2,7 +2,6 @@ import type { ServicePagesContent } from "./types"
 
 export const servicePagesEs: ServicePagesContent = {
   homeLabel: "Inicio",
-  breadcrumbLabel: "Ruta de navegación",
   relatedLabel: "Otras formas de trabajar con nosotros",
   eventsLink: "Talleres y eventos de IA en San Salvador",
   consulting: {
