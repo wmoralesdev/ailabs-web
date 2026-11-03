@@ -31,7 +31,7 @@ function Mark({ logo }: { logo: HomeTrustLogo }) {
 function HomeAmbassadors({ ambassadors }: HomeAmbassadorsProps) {
   return (
     <section
-      id="embajadores"
+      id="programas"
       aria-labelledby="home-ambassadors-title"
       className="border-y border-border bg-background py-10 md:py-14"
     >
