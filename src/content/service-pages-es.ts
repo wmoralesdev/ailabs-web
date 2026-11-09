@@ -71,9 +71,9 @@ export const servicePagesEs: ServicePagesContent = {
           "El diagnóstico de 30 minutos no tiene costo. La revisión y el plan dependen del tamaño del proceso y los cotizamos antes de empezar.",
       },
       {
-        question: "¿Necesito tener claro qué quiero?",
+        question: "¿Nos ayudan a elegir ChatGPT, Claude u otra herramienta?",
         answer:
-          "No. Para eso es el diagnóstico. Alcanza con saber qué parte del trabajo te quita más tiempo o te da más problemas.",
+          "Sí. Elegimos la herramienta según tu proceso y tus datos, sea ChatGPT, Claude, Grok, Codex u otra, y te ayudamos a implementarla en el equipo.",
       },
       {
         question: "¿Qué recibo al final?",
@@ -119,7 +119,7 @@ export const servicePagesEs: ServicePagesContent = {
       },
       {
         title: "Integraciones",
-        body: "Conectamos las herramientas que el equipo ya usa para que la información no se copie a mano.",
+        body: "Conectamos lo que el equipo ya usa, del Excel y el correo a WhatsApp Business, para no copiar información a mano.",
       },
       {
         title: "Revisión humana",
@@ -150,7 +150,7 @@ export const servicePagesEs: ServicePagesContent = {
       {
         question: "¿Qué es la automatización de procesos con IA?",
         answer:
-          "Es diseñar e implementar flujos que conectan herramientas, datos y personas, y definir qué asiste la IA, qué se automatiza y qué decisiones siguen en manos del equipo.",
+          "Es diseñar e implementar flujos y agentes de IA que conectan herramientas, datos y personas, y definir qué asiste la IA, qué se automatiza y qué decisiones siguen en manos del equipo.",
       },
       {
         question: "¿Automatización o software a medida?",
@@ -165,7 +165,7 @@ export const servicePagesEs: ServicePagesContent = {
       {
         question: "¿Con qué herramientas se integra?",
         answer:
-          "Partimos de las herramientas que el equipo ya usa. Definimos las integraciones después de entender el proceso.",
+          "Partimos de lo que el equipo ya usa, como Excel, el correo, WhatsApp Business o sus sistemas. Definimos las integraciones después de entender el proceso.",
       },
       {
         question: "¿Cuánto cuesta automatizar un proceso?",
@@ -183,12 +183,12 @@ export const servicePagesEs: ServicePagesContent = {
       name: "3.webp",
       alt: "Participantes siguen una sesión práctica de Ai Labs en un auditorio.",
     },
-    metaTitle: "Capacitación en IA para equipos en El Salvador | Ai Labs",
+    metaTitle: "Capacitación en IA para empresas en El Salvador | Ai Labs",
     metaDescription:
-      "Capacitación y cursos de IA para equipos en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo.",
-    serviceName: "Capacitación en IA para equipos en El Salvador",
+      "Capacitación y cursos de IA para empresas en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo.",
+    serviceName: "Capacitación en IA para empresas en El Salvador",
     eyebrow: "Capacitación para equipos",
-    title: "Capacitación en IA para equipos",
+    title: "Capacitación en IA para empresas",
     lead: "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo.",
     cta: "Agendá una llamada",
     fitHeading: "Para quién es",

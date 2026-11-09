@@ -137,7 +137,7 @@ programs: it goes separately, as a tool we work with.
 - Ítem 1, título: "Fit with the process"
 - Ítem 1, cuerpo: "The workflow respects the tools, data and responsibilities that already exist."
 - Ítem 2, título: "Integrations"
-- Ítem 2, cuerpo: "We connect the tools the team already uses so information doesn't get copied by hand."
+- Ítem 2, cuerpo: "We connect what the team already uses, from Excel and email to WhatsApp Business, so nothing gets copied by hand."
 - Ítem 3, título: "Human review"
 - Ítem 3, cuerpo: "We define where AI assists, what gets automated and which decisions stay in the team's hands."
 - Ítem 4, título: "Delivery and handoff"
@@ -162,13 +162,13 @@ programs: it goes separately, as a tool we work with.
 
 - Título: "Questions about automation"
 - P1: "What is AI process automation?"
-- R1: "It's designing and implementing workflows that connect tools, data and people, and defining what AI assists, what gets automated and which decisions stay with the team."
+- R1: "It's designing and implementing workflows and AI agents that connect tools, data and people, and defining what AI assists, what gets automated and which decisions stay with the team."
 - P2: "Automation or custom software?"
 - R2: "If your tools already have what you need and just have to be connected, that's automation. If a piece is missing that no tool gives you, we build it."
 - P3: "Does AI replace the team?"
 - R3: "No. We design every workflow with human review where it's needed. AI assists or automates steps, and the important decisions stay in the team's hands."
 - P4: "Which tools does it integrate with?"
-- R4: "We start from the tools the team already uses, and we define the integrations after we understand the process."
+- R4: "We start from what the team already uses, like Excel, email, WhatsApp Business or its own systems, and we define the integrations after we understand the process."
 - P5: "How much does it cost to automate a process?"
 - R5: "It depends on the process and the integrations. After the diagnostic we give you the scope and the quote before starting."
 
@@ -229,8 +229,8 @@ programs: it goes separately, as a tool we work with.
 - R1: "They review how a team works, find where AI can help and decide where to start. Then they implement the improvement or prepare the team to run it."
 - P2: "How much does AI consulting cost?"
 - R2: "The 30-minute diagnostic is free. The review and the plan depend on the size of the process, and we quote them before starting."
-- P3: "Do I need to know what I want?"
-- R3: "No. That's what the diagnostic is for. It's enough to know which part of the work costs you the most time or gives you the most trouble."
+- P3: "Do you help us choose ChatGPT, Claude or another tool?"
+- R3: "Yes. We pick the tool that fits your process and your data, whether it's ChatGPT, Claude, Grok, Codex or another, and help you roll it out to the team."
 - P4: "What do I get at the end?"
 - R4: "A short document with the mapped process, the chosen improvement, the scope and the quote. It's yours, whether you implement it with us or not."
 - P5: "Do you only work in San Salvador?"
@@ -244,10 +244,10 @@ programs: it goes separately, as a tool we work with.
 
 ## Capacitación `/capacitacion-ia-el-salvador`
 
-- Meta title: "AI training for teams in El Salvador | Ai Labs"
-- Meta description: "AI training and courses for teams in El Salvador: Learning Day, Build Day and bootcamp for managers and sales teams, built on their own work."
+- Meta title: "AI training for companies in El Salvador | Ai Labs"
+- Meta description: "AI training and courses for companies in El Salvador: Learning Day, Build Day and bootcamp for managers and sales teams, built on their own work."
 - Eyebrow: "Training for teams"
-- H1: "AI training for teams"
+- H1: "AI training for companies"
 - Lead: "Learning Day, Build Day and bootcamp so that managers and sales teams use AI with good judgment, on their own work."
 - CTA: "Book a call"
 

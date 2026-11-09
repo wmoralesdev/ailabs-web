@@ -71,9 +71,9 @@ export const servicePagesEn: ServicePagesContent = {
           "The 30-minute diagnostic is free. The review and the plan depend on the size of the process, and we quote them before starting.",
       },
       {
-        question: "Do I need to know what I want?",
+        question: "Do you help us choose ChatGPT, Claude or another tool?",
         answer:
-          "No. That's what the diagnostic is for. It's enough to know which part of the work costs you the most time or gives you the most trouble.",
+          "Yes. We pick the tool that fits your process and your data, whether it's ChatGPT, Claude, Grok, Codex or another, and help you roll it out to the team.",
       },
       {
         question: "What do I get at the end?",
@@ -119,7 +119,7 @@ export const servicePagesEn: ServicePagesContent = {
       },
       {
         title: "Integrations",
-        body: "We connect the tools the team already uses so information doesn't get copied by hand.",
+        body: "We connect what the team already uses, from Excel and email to WhatsApp Business, so nothing gets copied by hand.",
       },
       {
         title: "Human review",
@@ -150,7 +150,7 @@ export const servicePagesEn: ServicePagesContent = {
       {
         question: "What is AI process automation?",
         answer:
-          "It's designing and implementing workflows that connect tools, data and people, and defining what AI assists, what gets automated and which decisions stay with the team.",
+          "It's designing and implementing workflows and AI agents that connect tools, data and people, and defining what AI assists, what gets automated and which decisions stay with the team.",
       },
       {
         question: "Automation or custom software?",
@@ -165,7 +165,7 @@ export const servicePagesEn: ServicePagesContent = {
       {
         question: "Which tools does it integrate with?",
         answer:
-          "We start from the tools the team already uses, and we define the integrations after we understand the process.",
+          "We start from what the team already uses, like Excel, email, WhatsApp Business or its own systems, and we define the integrations after we understand the process.",
       },
       {
         question: "How much does it cost to automate a process?",
@@ -183,12 +183,12 @@ export const servicePagesEn: ServicePagesContent = {
       name: "3.webp",
       alt: "Participants follow a hands-on Ai Labs session in an auditorium.",
     },
-    metaTitle: "AI training for teams in El Salvador | Ai Labs",
+    metaTitle: "AI training for companies in El Salvador | Ai Labs",
     metaDescription:
-      "AI training and courses for teams in El Salvador: Learning Day, Build Day and bootcamp for managers and sales teams, built on their own work.",
-    serviceName: "AI training for teams in El Salvador",
+      "AI training and courses for companies in El Salvador: Learning Day, Build Day and bootcamp for managers and sales teams, built on their own work.",
+    serviceName: "AI training for companies in El Salvador",
     eyebrow: "Training for teams",
-    title: "AI training for teams",
+    title: "AI training for companies",
     lead: "Learning Day, Build Day and bootcamp so that managers and sales teams use AI with good judgment, on their own work.",
     cta: "Book a call",
     fitHeading: "Who it's for",

@@ -137,7 +137,7 @@ separado, como herramienta con la que trabajamos.
 - Ítem 1, título: "Encaje con el proceso"
 - Ítem 1, cuerpo: "El flujo respeta las herramientas, los datos y las responsabilidades que ya existen."
 - Ítem 2, título: "Integraciones"
-- Ítem 2, cuerpo: "Conectamos las herramientas que el equipo ya usa para que la información no se copie a mano."
+- Ítem 2, cuerpo: "Conectamos lo que el equipo ya usa, del Excel y el correo a WhatsApp Business, para no copiar información a mano."
 - Ítem 3, título: "Revisión humana"
 - Ítem 3, cuerpo: "Definimos dónde la IA asiste, qué se automatiza y qué decisiones siguen en manos del equipo."
 - Ítem 4, título: "Entrega y transferencia"
@@ -162,13 +162,13 @@ separado, como herramienta con la que trabajamos.
 
 - Título: "Preguntas sobre automatización"
 - P1: "¿Qué es la automatización de procesos con IA?"
-- R1: "Es diseñar e implementar flujos que conectan herramientas, datos y personas, y definir qué asiste la IA, qué se automatiza y qué decisiones siguen en manos del equipo."
+- R1: "Es diseñar e implementar flujos y agentes de IA que conectan herramientas, datos y personas, y definir qué asiste la IA, qué se automatiza y qué decisiones siguen en manos del equipo."
 - P2: "¿Automatización o software a medida?"
 - R2: "Si tus herramientas ya tienen lo que necesitás y solo falta conectarlas, es automatización. Si falta una pieza que ninguna herramienta te da, la construimos."
 - P3: "¿La IA reemplaza al equipo?"
 - R3: "No. Diseñamos cada flujo con revisión humana donde hace falta. La IA asiste o automatiza pasos, y las decisiones importantes siguen en manos del equipo."
 - P4: "¿Con qué herramientas se integra?"
-- R4: "Partimos de las herramientas que el equipo ya usa. Definimos las integraciones después de entender el proceso."
+- R4: "Partimos de lo que el equipo ya usa, como Excel, el correo, WhatsApp Business o sus sistemas. Definimos las integraciones después de entender el proceso."
 - P5: "¿Cuánto cuesta automatizar un proceso?"
 - R5: "Depende del proceso y de las integraciones. Después del diagnóstico te damos el alcance y la cotización antes de empezar."
 
@@ -229,8 +229,8 @@ separado, como herramienta con la que trabajamos.
 - R1: "Revisa cómo trabaja un equipo, encuentra dónde puede ayudar la IA y decide por dónde empezar. Después implementa la mejora o prepara al equipo para operarla."
 - P2: "¿Cuánto cuesta una consultoría en IA?"
 - R2: "El diagnóstico de 30 minutos no tiene costo. La revisión y el plan dependen del tamaño del proceso y los cotizamos antes de empezar."
-- P3: "¿Necesito tener claro qué quiero?"
-- R3: "No. Para eso es el diagnóstico. Alcanza con saber qué parte del trabajo te quita más tiempo o te da más problemas."
+- P3: "¿Nos ayudan a elegir ChatGPT, Claude u otra herramienta?"
+- R3: "Sí. Elegimos la herramienta según tu proceso y tus datos, sea ChatGPT, Claude, Grok, Codex u otra, y te ayudamos a implementarla en el equipo."
 - P4: "¿Qué recibo al final?"
 - R4: "Un documento corto con el proceso mapeado, la mejora elegida, el alcance y la cotización. Es tuyo, lo implementes con nosotros o no."
 - P5: "¿Trabajan solo en San Salvador?"
@@ -244,10 +244,10 @@ separado, como herramienta con la que trabajamos.
 
 ## Capacitación `/capacitacion-ia-el-salvador`
 
-- Meta title: "Capacitación en IA para equipos en El Salvador | Ai Labs"
-- Meta description: "Capacitación y cursos de IA para equipos en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo."
+- Meta title: "Capacitación en IA para empresas en El Salvador | Ai Labs"
+- Meta description: "Capacitación y cursos de IA para empresas en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo."
 - Eyebrow: "Capacitación para equipos"
-- H1: "Capacitación en IA para equipos"
+- H1: "Capacitación en IA para empresas"
 - Lead: "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo."
 - CTA: "Agendá una llamada"
 

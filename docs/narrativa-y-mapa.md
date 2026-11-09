@@ -65,7 +65,7 @@ Reglas de redacción que se mantienen aunque AGENTS.md cambie:
 | `/`                              | Home: promesa, ofertas, método, prueba, agenda | Compradora |
 | `/automatizacion-ia-el-salvador` | Automatización y software a medida             | Compradora |
 | `/consultoria-de-ia-el-salvador` | Diagnóstico de IA (la puerta de entrada)       | Compradora |
-| `/capacitacion-ia-el-salvador`   | Capacitación en IA para equipos                | Compradora |
+| `/capacitacion-ia-el-salvador`   | Capacitación en IA para empresas               | Compradora |
 | `/events`                        | Talleres y eventos, el embudo, con WhatsApp    | Audiencia  |
 | `/community`                     | Hero del home con el grupo de WhatsApp         | Audiencia  |
 | `/agendar`                       | Reserva del diagnóstico embebida más WhatsApp  | Todos      |
@@ -175,7 +175,7 @@ y la banda morada de definición; la definición pasa a ser la primera pregunta.
 | -------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
 | Automatización | "Automatización con IA y software a medida" | "Conectamos tus herramientas, automatizamos lo repetitivo y construimos el software que te falta. Con revisión humana y documentación." | "¿Qué es la automatización de procesos con IA?" |
 | Consultoría    | "Consultoría de IA en El Salvador"          | "Un diagnóstico de 30 minutos y después una revisión de tu proceso con tu equipo, para elegir una mejora que valga la pena."            | "¿Qué hace un consultor de IA?"                 |
-| Capacitación   | "Capacitación en IA para equipos"           | "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo."             | "¿Qué es una capacitación práctica en IA?"      |
+| Capacitación   | "Capacitación en IA para empresas"          | "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo."             | "¿Qué es una capacitación práctica en IA?"      |
 
 ### Plan de formatos de capacitación
 
@@ -255,7 +255,7 @@ pregunta. Todo lo demás se escribe para la compradora.
 | Home           | "Ai Labs · Automatización, software e IA para empresas"         | marca                                              |
 | Automatización | "Automatización con IA para empresas en El Salvador \| Ai Labs" | automatización con IA para empresas en El Salvador |
 | Consultoría    | "Consultoría de IA en El Salvador \| Ai Labs"                   | consultoría de IA en El Salvador                   |
-| Capacitación   | "Capacitación en IA para equipos en El Salvador \| Ai Labs"     | cursos de IA en El Salvador                        |
+| Capacitación   | "Capacitación en IA para empresas en El Salvador \| Ai Labs"     | cursos de IA en El Salvador                        |
 | Eventos        | "Talleres y eventos de IA en San Salvador \| Ai Labs"           | eventos de IA en El Salvador                       |
 
 - El home deja de competir con consultoría: su title pasa a marca más ofertas.
