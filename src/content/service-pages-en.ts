@@ -250,9 +250,9 @@ export const servicePagesEn: ServicePagesContent = {
           "No. We design the training for business roles and use plain language. We focus on applying AI to real tasks with good judgment.",
       },
       {
-        question: "Does it work if my team isn't technical?",
+        question: "Do you teach how to use ChatGPT at work?",
         answer:
-          "Yes. Most of the teams we work with are in sales, operations and administration. They practice with their own tasks.",
+          "Yes. We practice with ChatGPT, Claude and the tools your team already uses, on real sales, operations and administration tasks. The team does not need to be technical.",
       },
       {
         question: "How much does it cost?",

@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest"
 
 import { en } from "@/content/en"
 import { es } from "@/content/es"
-import { buildServicePageJsonLd } from "@/lib/seo"
+import { buildServicePageJsonLd, buildSimplePageJsonLd } from "@/lib/seo"
 import { SERVICE_PAGE_IDS, SERVICE_PAGE_PATHS } from "@/lib/service-pages"
 
 describe("service pages", () => {
@@ -88,12 +88,16 @@ describe("service pages", () => {
       serviceName: es.servicePages.training.serviceName,
       homeLabel: es.servicePages.homeLabel,
       kind: "course",
+      service: "training",
     })
     const graph = JSON.parse(script.children)["@graph"] as Array<{
       "@type": string
       url?: string
       provider?: { "@id": string }
       itemListElement?: unknown[]
+      serviceType?: string
+      offers?: { price: string; url: string }
+      potentialAction?: { target: string }
     }>
     const service = graph.find((node) => node["@type"] === "Service")
     expect(service?.url).toBe(
@@ -102,6 +106,26 @@ describe("service pages", () => {
     expect(service?.provider?.["@id"]).toBe(
       "https://www.ailabs.sv/#organization"
     )
+    // The free diagnostic is the only price, and booking it is the action.
+    expect(service?.serviceType).toBe("Capacitación en IA para equipos")
+    expect(service?.offers).toMatchObject({
+      price: "0",
+      url: "https://www.ailabs.sv/agendar",
+    })
+    expect(service?.potentialAction?.target).toBe(
+      "https://www.ailabs.sv/agendar?tema=capacitacion"
+    )
+    const page = buildSimplePageJsonLd({
+      locale: "es",
+      path: "/agendar",
+      title: es.booking.metaTitle,
+      description: es.booking.metaDescription,
+      homeLabel: es.servicePages.homeLabel,
+      label: es.booking.label,
+      reserve: true,
+    }).children
+    expect(page).toContain('"ReserveAction"')
+    expect(page).toContain("https://www.ailabs.sv/agendar#breadcrumb")
     const crumbs = graph.find((node) => node["@type"] === "BreadcrumbList")
     expect(crumbs?.itemListElement).toHaveLength(2)
     expect(graph.some((node) => node["@type"] === "Course")).toBe(true)

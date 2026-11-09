@@ -11,7 +11,9 @@ planning documents.
   copy decks `docs/copy-es.md` and `docs/copy-en.md` are the reviewable
   mirror of the content modules, and `docs/formatos-referencia.md` is the
   research behind the training formats. Change the deck and the module
-  together.
+  together. `docs/seo-aeo-geo.md` holds what lives outside the code: the
+  audit of the published site, the monthly answer-engine measurement, the
+  one brand text for profiles and directories, and where to be listed.
 - Customer-facing copy lives in `src/content/es.ts`, `src/content/en.ts`,
   `src/content/service-pages-{es,en}.ts`; the shared contract is
   `src/content/types.ts`. Length budgets and voice are enforced by

@@ -37,6 +37,7 @@ export const Route = createFileRoute("/_site/automatizacion-ia-el-salvador")({
           description: page.metaDescription,
           serviceName: page.serviceName,
           homeLabel: pages.homeLabel,
+          service: ID,
         }),
         buildFaqJsonLd(page.faq),
       ],

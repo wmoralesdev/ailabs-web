@@ -1,4 +1,10 @@
 import type { Locale } from "@/content"
+import {
+  BOOKING_PAGE_PATH,
+  BOOKING_TOPIC_FIELD,
+  SERVICE_BOOKING_TOPIC,
+} from "@/content/booking"
+import type { ServicePageId } from "@/lib/service-pages"
 import { localizedPath } from "@/lib/locale-path"
 
 /** Host that returns the public site. Canonical URLs use www. */
@@ -22,6 +28,77 @@ const OG_IMAGE_ALT_BY_LOCALE: Record<Locale, string> = {
 
 /** Fallback alt for the document shell. Crawlers without a language get Spanish. */
 export const OG_IMAGE_ALT = OG_IMAGE_ALT_BY_LOCALE.es
+
+/** Other spellings people and engines use for the same company. */
+const ORGANIZATION_ALTERNATE_NAMES = [
+  "AI Labs",
+  "Ai Labs El Salvador",
+  "ailabs.sv",
+] as const
+
+/**
+ * One line that tells this company apart from others with a similar name.
+ * Third person, like `llms.txt`: it is read by machines, not shown on a page.
+ */
+const ORGANIZATION_DISAMBIGUATION: Record<Locale, string> = {
+  en: "Private company in San Salvador, El Salvador, that builds AI automations and custom software for companies and trains their teams.",
+  es: "Empresa privada de San Salvador, El Salvador, que construye automatizaciones con IA y software a medida para empresas y capacita a sus equipos.",
+}
+
+/** What the three service pages are about, in the words people search with. */
+const ORGANIZATION_KNOWS_ABOUT: Record<Locale, ReadonlyArray<string>> = {
+  en: [
+    "Artificial intelligence (AI)",
+    "AI consulting",
+    "Process automation with AI",
+    "AI agents",
+    "Custom software",
+    "AI training for teams",
+    "ChatGPT",
+    "Claude",
+    "Codex",
+  ],
+  es: [
+    "Inteligencia artificial (IA)",
+    "Consultoría de IA",
+    "Automatización de procesos con IA",
+    "Agentes de IA",
+    "Software a medida",
+    "Capacitación en IA para equipos",
+    "ChatGPT",
+    "Claude",
+    "Codex",
+  ],
+}
+
+const SERVICE_TYPE: Record<ServicePageId, Record<Locale, string>> = {
+  automation: {
+    en: "AI automation and custom software",
+    es: "Automatización con IA y software a medida",
+  },
+  consulting: { en: "AI consulting", es: "Consultoría de IA" },
+  training: {
+    en: "AI training for teams",
+    es: "Capacitación en IA para equipos",
+  },
+}
+
+const DIAGNOSTIC_OFFER_NAME: Record<Locale, string> = {
+  en: "Free 30-minute diagnostic",
+  es: "Diagnóstico de 30 minutos sin costo",
+}
+
+/** Booking the free diagnostic: the one action every page leads to. */
+function reserveAction(locale: Locale, service?: ServicePageId) {
+  const page = absolutePageUrl(BOOKING_PAGE_PATH, locale)
+  return {
+    "@type": "ReserveAction",
+    name: DIAGNOSTIC_OFFER_NAME[locale],
+    target: service
+      ? `${page}?${BOOKING_TOPIC_FIELD}=${SERVICE_BOOKING_TOPIC[service]}`
+      : page,
+  }
+}
 
 const OG_LOCALE: Record<Locale, string> = {
   en: "en_US",
@@ -193,6 +270,8 @@ export function buildServicePageJsonLd(input: {
   homeLabel: string
   /** Academy pages also publish a Course node for the practical training. */
   kind?: "service" | "course"
+  /** Which offer this page is: names the service type and the booking topic. */
+  service?: ServicePageId
 }): HeadScript {
   const url = absolutePageUrl(input.path, input.locale)
   const home = absolutePageUrl("/", input.locale)
@@ -227,6 +306,20 @@ export function buildServicePageJsonLd(input: {
       provider,
       areaServed: { "@type": "Country", name: "El Salvador" },
       availableLanguage: ["es", "en"],
+      ...(input.service
+        ? {
+            serviceType: SERVICE_TYPE[input.service][input.locale],
+            // The only published price: the diagnostic that opens every engagement.
+            offers: {
+              "@type": "Offer",
+              name: DIAGNOSTIC_OFFER_NAME[input.locale],
+              price: "0",
+              priceCurrency: "USD",
+              url: absolutePageUrl(BOOKING_PAGE_PATH, input.locale),
+            },
+            potentialAction: reserveAction(input.locale, input.service),
+          }
+        : {}),
     },
     {
       "@type": "BreadcrumbList",
@@ -295,12 +388,19 @@ export function buildHomeJsonLd(input: {
       "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
       "@id": organizationId,
       name: SITE_NAME,
+      alternateName: [...ORGANIZATION_ALTERNATE_NAMES],
       url: ORGANIZATION_HOME,
       logo: {
         "@type": "ImageObject",
         url: `${SITE_URL}/brand/ailabs-ico.svg`,
       },
+      image: OG_IMAGE_URL,
       description: input.organizationDescription ?? input.description,
+      disambiguatingDescription: ORGANIZATION_DISAMBIGUATION[input.locale],
+      knowsAbout: [...ORGANIZATION_KNOWS_ABOUT[input.locale]],
+      knowsLanguage: ["es", "en"],
+      hasOfferCatalog: { "@id": `${url}#offer-catalog` },
+      potentialAction: reserveAction(input.locale),
       sameAs: [...ORGANIZATION_SAME_AS],
       areaServed: {
         "@type": "Country",
@@ -373,6 +473,69 @@ export function buildHomeJsonLd(input: {
     children: JSON.stringify({
       "@context": "https://schema.org",
       "@graph": graph,
+    }),
+  }
+}
+
+/**
+ * WebPage and breadcrumb for a page that is neither the home nor a service:
+ * the booking page and the community page. `reserve` marks the page where the
+ * diagnostic is booked.
+ */
+export function buildSimplePageJsonLd(input: {
+  locale: Locale
+  path: string
+  title: string
+  description: string
+  homeLabel: string
+  /** Second crumb. */
+  label: string
+  reserve?: boolean
+}): HeadScript {
+  const url = absolutePageUrl(input.path, input.locale)
+  return {
+    type: "application/ld+json",
+    children: JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": `${url}#webpage`,
+          url,
+          name: input.title,
+          description: input.description,
+          inLanguage: input.locale,
+          isPartOf: { "@id": `${ORGANIZATION_HOME}#website` },
+          about: { "@id": ORGANIZATION_ID },
+          breadcrumb: { "@id": `${url}#breadcrumb` },
+          ...(input.reserve
+            ? {
+                potentialAction: {
+                  ...reserveAction(input.locale),
+                  provider: { "@id": ORGANIZATION_ID },
+                },
+              }
+            : {}),
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `${url}#breadcrumb`,
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: input.homeLabel,
+              item: absolutePageUrl("/", input.locale),
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: input.label,
+              item: url,
+            },
+          ],
+        },
+      ],
     }),
   }
 }

@@ -250,9 +250,9 @@ export const servicePagesEs: ServicePagesContent = {
           "No. Pensamos la formación para perfiles de negocio y usamos lenguaje claro. Nos enfocamos en aplicar IA a tareas reales con criterio.",
       },
       {
-        question: "¿Sirve si mi equipo no es técnico?",
+        question: "¿Enseñan a usar ChatGPT en el trabajo?",
         answer:
-          "Sí. La mayoría de los equipos con los que trabajamos son de ventas, operaciones y administración. Practican con sus propias tareas.",
+          "Sí. Practicamos con ChatGPT, Claude y las herramientas que tu equipo ya usa, sobre tareas reales de ventas, operaciones y administración. El equipo no necesita ser técnico.",
       },
       {
         question: "¿Cuánto cuesta?",

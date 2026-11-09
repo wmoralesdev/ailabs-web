@@ -21,10 +21,10 @@ if (import.meta.env.DEV && !import.meta.env.SSR) {
   void import("react-grab")
 }
 
-const SITE_TITLE =
-  "Consultoría en IA, automatización y formación práctica | Ai Labs"
+// Fallback for documents without their own head (the 404). Same as the home.
+const SITE_TITLE = "Ai Labs · Automatización, software e IA para empresas"
 const SITE_DESCRIPTION =
-  "Consultoría en IA, automatización de procesos y formación práctica para equipos y profesionales. Hecho en San Salvador, El Salvador."
+  "Automatizaciones y software a medida con IA para empresas en El Salvador, y capacitación para los equipos que los operan. Agendá un diagnóstico de 30 minutos."
 
 export const Route = createRootRoute({
   beforeLoad: ({ location }) => resolveLocaleContext(location.pathname),

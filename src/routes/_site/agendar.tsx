@@ -14,7 +14,7 @@ import {
 } from "@/content/booking"
 import type { BookingTopic } from "@/content/booking"
 import { useLocaleContext } from "@/lib/locale-context"
-import { brandedTitle, buildPageMeta } from "@/lib/seo"
+import { brandedTitle, buildPageMeta, buildSimplePageJsonLd } from "@/lib/seo"
 import { cn } from "@/lib/utils"
 
 /** `?tema=` names the service page the visitor came from; anything else is dropped. */
@@ -30,12 +30,27 @@ export const Route = createFileRoute("/_site/agendar")({
     }
     const { locale, content } = loaderData
     const { booking } = content
-    return buildPageMeta({
+    const title = brandedTitle(booking.metaTitle)
+    const meta = buildPageMeta({
       locale,
       path: BOOKING_PAGE_PATH,
-      title: brandedTitle(booking.metaTitle),
+      title,
       description: booking.metaDescription,
     })
+    return {
+      ...meta,
+      scripts: [
+        buildSimplePageJsonLd({
+          locale,
+          path: BOOKING_PAGE_PATH,
+          title,
+          description: booking.metaDescription,
+          homeLabel: content.servicePages.homeLabel,
+          label: booking.label,
+          reserve: true,
+        }),
+      ],
+    }
   },
   component: BookingPage,
 })

@@ -125,6 +125,23 @@ describe("buildHomeJsonLd", () => {
       "Applied AI consulting for business teams."
     )
     expect(organization?.sameAs).toEqual([...ORGANIZATION_SAME_AS])
+    // Entity signals: other spellings, what tells it apart, what it knows.
+    const entity = organization as {
+      alternateName?: string[]
+      disambiguatingDescription?: string
+      knowsAbout?: string[]
+      potentialAction?: { "@type": string; target: string }
+    }
+    expect(entity.alternateName).toContain("AI Labs")
+    expect(entity.disambiguatingDescription).toMatch(/^Private company/)
+    expect(entity.knowsAbout).toEqual(
+      expect.arrayContaining(["AI agents", "ChatGPT"])
+    )
+    expect(entity.potentialAction).toEqual({
+      "@type": "ReserveAction",
+      name: "Free 30-minute diagnostic",
+      target: "https://www.ailabs.sv/en/agendar",
+    })
     expect(organization?.areaServed?.name).toBe("El Salvador")
     expect(organization?.address).toMatchObject({
       addressLocality: "San Salvador",

@@ -41,7 +41,11 @@ const ANSWER_ENGINE_BOTS = [
   "OAI-SearchBot",
   "ChatGPT-User",
   "PerplexityBot",
+  "Perplexity-User",
   "ClaudeBot",
+  "Claude-SearchBot",
+  "Claude-User",
+  "Bingbot",
   "Google-Extended",
   "Googlebot",
 ]
