@@ -29,9 +29,9 @@ const QUERIES = {
     firstQuestion: "¿Qué es la automatización de procesos con IA?",
   },
   training: {
-    query: "capacitación y cursos de IA para empresas en El Salvador",
-    title: "Capacitación en IA para empresas en El Salvador | Ai Labs",
-    h1: "Capacitación en IA para empresas",
+    query: "capacitación y cursos de IA para equipos en El Salvador",
+    title: "Capacitación en IA para equipos en El Salvador | Ai Labs",
+    h1: "Capacitación en IA para equipos",
     firstQuestion: "¿Qué es una capacitación práctica en IA?",
   },
 } as const

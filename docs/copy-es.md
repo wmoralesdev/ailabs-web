@@ -244,10 +244,10 @@ separado, como herramienta con la que trabajamos.
 
 ## Capacitación `/capacitacion-ia-el-salvador`
 
-- Meta title: "Capacitación en IA para empresas en El Salvador | Ai Labs"
-- Meta description: "Capacitación y cursos de IA para empresas en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo."
+- Meta title: "Capacitación en IA para equipos en El Salvador | Ai Labs"
+- Meta description: "Capacitación y cursos de IA para equipos en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo."
 - Eyebrow: "Capacitación para equipos"
-- H1: "Capacitación en IA para empresas"
+- H1: "Capacitación en IA para equipos"
 - Lead: "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo."
 - CTA: "Agendá una llamada"
 
