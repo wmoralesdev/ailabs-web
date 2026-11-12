@@ -153,9 +153,9 @@ export const servicePagesEn: ServicePagesContent = {
           "It's designing and implementing workflows that connect tools, data and people, and defining what AI assists, what gets automated and which decisions stay with the team.",
       },
       {
-        question: "Automation or custom software?",
+        question: "Do you build custom software for companies?",
         answer:
-          "If your tools already have what you need and just have to be connected, that's automation. If a piece is missing that no tool gives you, we build it.",
+          "Yes. If your tools already have what you need and just have to be connected, that's automation. If a piece is missing that no tool gives you, we build it to fit.",
       },
       {
         question: "Does AI replace the team?",
@@ -245,9 +245,9 @@ export const servicePagesEn: ServicePagesContent = {
           "It teaches how to use artificial intelligence in the real tasks of each person or team, with the judgment to know when to use it, how to review the result and how to run it.",
       },
       {
-        question: "Do I need to know how to code?",
+        question: "Can I start from scratch, without knowing how to code?",
         answer:
-          "No. We design the training for business roles and use plain language. We focus on applying AI to real tasks with good judgment.",
+          "Yes. We design the training for business roles and use plain language. We focus on applying AI to real tasks with good judgment.",
       },
       {
         question: "Does it work if my team isn't technical?",

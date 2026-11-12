@@ -153,9 +153,9 @@ export const servicePagesEs: ServicePagesContent = {
           "Es diseñar e implementar flujos que conectan herramientas, datos y personas, y definir qué asiste la IA, qué se automatiza y qué decisiones siguen en manos del equipo.",
       },
       {
-        question: "¿Automatización o software a medida?",
+        question: "¿Hacen software a medida para empresas?",
         answer:
-          "Si tus herramientas ya tienen lo que necesitás y solo falta conectarlas, es automatización. Si falta una pieza que ninguna herramienta te da, la construimos.",
+          "Sí. Si tus herramientas ya tienen lo que necesitás y solo falta conectarlas, es automatización. Si falta una pieza que ninguna herramienta te da, la construimos a la medida.",
       },
       {
         question: "¿La IA reemplaza al equipo?",
@@ -245,9 +245,9 @@ export const servicePagesEs: ServicePagesContent = {
           "Enseña a usar la inteligencia artificial en las tareas reales de cada persona o equipo, con criterio para saber cuándo usarla, cómo revisar el resultado y cómo operarla.",
       },
       {
-        question: "¿Necesito saber programar?",
+        question: "¿Puedo empezar desde cero, sin saber programar?",
         answer:
-          "No. Pensamos la formación para perfiles de negocio y usamos lenguaje claro. Nos enfocamos en aplicar IA a tareas reales con criterio.",
+          "Sí. Pensamos la formación para perfiles de negocio y usamos lenguaje claro. Nos enfocamos en aplicar IA a tareas reales con criterio.",
       },
       {
         question: "¿Sirve si mi equipo no es técnico?",
