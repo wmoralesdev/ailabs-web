@@ -97,7 +97,7 @@ export const servicePagesEn: ServicePagesContent = {
       "AI process automation and custom software for companies in El Salvador. We connect your tools and build what's missing, with human review.",
     serviceName: "AI automation for companies in El Salvador",
     eyebrow: "Automation and custom software",
-    title: "AI automation and custom software",
+    title: "AI process automation and custom software",
     lead: "We connect your tools, automate the repetitive work and build the software you're missing. With human review and documentation.",
     cta: "Book a 30-minute diagnostic",
     fitHeading: "Who it's for",

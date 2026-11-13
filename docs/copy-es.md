@@ -114,7 +114,7 @@ separado, como herramienta con la que trabajamos.
 - Meta title: "Automatización con IA para empresas en El Salvador | Ai Labs"
 - Meta description: "Automatización de procesos con IA y software a medida para empresas en El Salvador. Conectamos tus herramientas y construimos lo que falta, con revisión humana."
 - Eyebrow: "Automatización y software a medida"
-- H1: "Automatización con IA y software a medida"
+- H1: "Automatización de procesos y software a medida"
 - Lead: "Conectamos tus herramientas, automatizamos lo repetitivo y construimos el software que te falta. Con revisión humana y documentación."
 - CTA: "Agendá un diagnóstico de 30 minutos"
 

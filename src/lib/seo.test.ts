@@ -6,6 +6,7 @@ import {
   buildFaqJsonLd,
   buildHomeJsonLd,
   buildPageMeta,
+  buildWebPageJsonLd,
 } from "@/lib/seo"
 
 type ServiceOffer = {
@@ -294,5 +295,41 @@ describe("buildPageMeta", () => {
     expect(
       sized.find((tag) => tag.property === "og:image:height")?.content
     ).toBe("676")
+  })
+})
+
+describe("buildWebPageJsonLd", () => {
+  it("publishes Organization and WebPage for the community path", () => {
+    const script = buildWebPageJsonLd({
+      locale: "es",
+      path: "/community",
+      title: "Comunidad de IA en WhatsApp | Ai Labs",
+      description:
+        "Nuestra comunidad de IA en El Salvador es un grupo de WhatsApp.",
+    })
+    const document = JSON.parse(script.children) as {
+      "@graph": Array<{
+        "@type": string
+        "@id"?: string
+        name?: string
+        url?: string
+        about?: { "@id"?: string }
+      }>
+    }
+    const types = document["@graph"].map((node) => node["@type"])
+    const organization = document["@graph"].find(
+      (node) => node["@type"] === "Organization"
+    )
+    const page = document["@graph"].find((node) => node["@type"] === "WebPage")
+
+    expect(script.type).toBe("application/ld+json")
+    expect(types).toEqual(["Organization", "WebPage"])
+    expect(organization?.["@id"]).toBe("https://www.ailabs.sv/#organization")
+    expect(organization?.name).toBe("Ai Labs")
+    expect(page?.url).toBe("https://www.ailabs.sv/community")
+    expect(page?.about?.["@id"]).toBe("https://www.ailabs.sv/#organization")
+    expect(JSON.stringify(document)).not.toMatch(
+      /embajador|ambassador|attendeeCount|\$|\bUSD\b/i
+    )
   })
 })

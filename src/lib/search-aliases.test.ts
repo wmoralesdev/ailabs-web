@@ -71,7 +71,7 @@ describe("search aliases", () => {
 
   it("301s each alias to an existing public page and keeps the query", () => {
     expect(entries.length).toBeGreaterThan(0)
-    expect(entries.length).toBeLessThanOrEqual(40)
+    expect(entries.length).toBeLessThanOrEqual(45)
     for (const [alias, destination] of entries) {
       expect(alias).toMatch(/^\/[a-z0-9-]+$/)
       expect(PUBLIC_PAGE_PATHS).toContain(destination)
@@ -143,8 +143,22 @@ describe("search aliases", () => {
     expect(SEARCH_ALIASES["/cursos-ia-el-salvador"]).toBe(
       "/capacitacion-ia-el-salvador"
     )
+    expect(SEARCH_ALIASES["/academy"]).toBe("/capacitacion-ia-el-salvador")
+    expect(SEARCH_ALIASES["/capacitacion"]).toBe("/capacitacion-ia-el-salvador")
+    expect(SEARCH_ALIASES["/automatizacion"]).toBe(
+      "/automatizacion-ia-el-salvador"
+    )
     expect(SEARCH_ALIASES["/ai-automation-el-salvador"]).toBe(
       "/automatizacion-ia-el-salvador"
+    )
+    expect(aliasRedirectHref("/en/academy")).toBe(
+      "/en/capacitacion-ia-el-salvador"
+    )
+    expect(aliasRedirectHref("/en/capacitacion")).toBe(
+      "/en/capacitacion-ia-el-salvador"
+    )
+    expect(aliasRedirectHref("/en/automatizacion")).toBe(
+      "/en/automatizacion-ia-el-salvador"
     )
   })
 

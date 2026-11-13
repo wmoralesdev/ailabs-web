@@ -25,7 +25,7 @@ const QUERIES = {
   automation: {
     query: "software a medida para empresas en El Salvador",
     title: "Automatización con IA para empresas en El Salvador | Ai Labs",
-    h1: "Automatización con IA y software a medida",
+    h1: "Automatización de procesos y software a medida",
     firstQuestion: "¿Qué es la automatización de procesos con IA?",
   },
   training: {
@@ -59,6 +59,9 @@ describe("search queries, one per page", () => {
     expect(es.events.metaDescription).toContain("San Salvador")
     expect(en.servicePages.consulting.title).toBe(
       "AI consulting in El Salvador"
+    )
+    expect(en.servicePages.automation.title).toBe(
+      "AI process automation and custom software"
     )
   })
 

@@ -49,12 +49,15 @@ export const SEARCH_ALIASES: Readonly<Record<string, PublicPagePath>> = {
   "/ai-el-salvador": HOME,
 
   // Training page (Academy).
+  "/academy": TRAINING,
+  "/capacitacion": TRAINING,
   "/capacitacion-de-ia-el-salvador": TRAINING,
   "/curso-ia-el-salvador": TRAINING,
   "/cursos-ia-el-salvador": TRAINING,
   "/ai-training-el-salvador": TRAINING,
 
   // Automation page (Agentic).
+  "/automatizacion": AUTOMATION,
   "/automatizacion-de-procesos-el-salvador": AUTOMATION,
   "/automatizacion-con-ia-el-salvador": AUTOMATION,
   "/ai-automation-el-salvador": AUTOMATION,

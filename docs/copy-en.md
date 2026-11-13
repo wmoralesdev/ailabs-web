@@ -114,7 +114,7 @@ programs: it goes separately, as a tool we work with.
 - Meta title: "AI automation for companies in El Salvador | Ai Labs"
 - Meta description: "AI process automation and custom software for companies in El Salvador. We connect your tools and build what's missing, with human review."
 - Eyebrow: "Automation and custom software"
-- H1: "AI automation and custom software"
+- H1: "AI process automation and custom software"
 - Lead: "We connect your tools, automate the repetitive work and build the software you're missing. With human review and documentation."
 - CTA: "Book a 30-minute diagnostic"
 

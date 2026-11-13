@@ -173,7 +173,7 @@ y la banda morada de definición; la definición pasa a ser la primera pregunta.
 
 | Página         | H1                                          | Lead                                                                                                                                    | Primera pregunta (SEO)                          |
 | -------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| Automatización | "Automatización con IA y software a medida" | "Conectamos tus herramientas, automatizamos lo repetitivo y construimos el software que te falta. Con revisión humana y documentación." | "¿Qué es la automatización de procesos con IA?" |
+| Automatización | "Automatización de procesos y software a medida" | "Conectamos tus herramientas, automatizamos lo repetitivo y construimos el software que te falta. Con revisión humana y documentación." | "¿Qué es la automatización de procesos con IA?" |
 | Consultoría    | "Consultoría de IA en El Salvador"          | "Un diagnóstico de 30 minutos y después una revisión de tu proceso con tu equipo, para elegir una mejora que valga la pena."            | "¿Qué hace un consultor de IA?"                 |
 | Capacitación   | "Capacitación en IA para equipos"           | "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo."             | "¿Qué es una capacitación práctica en IA?"      |
 
