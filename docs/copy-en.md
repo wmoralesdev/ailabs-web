@@ -336,16 +336,21 @@ The plan for each format, with audience, duration and launch order, is in
 ## Comunidad `/community`
 
 The home hero with its own copy. The WhatsApp group is the primary action
-(`COMMUNITY_WHATSAPP_URL`); it is not in the header.
+(`COMMUNITY_WHATSAPP_URL`), the announcements channel sits beside it
+(`COMMUNITY_CHANNEL_URL`, channel.ailabs.sv) and "Show QR" is a floating button
+that opens only the code of this page, large. It is not in the header.
 
 - Meta title: "AI community on WhatsApp | Ai Labs"
 - Meta description: "Our AI community in El Salvador is a WhatsApp group. We announce workshops and meetups there before we post them on social media, and joining is free."
 - Label: "Community"
 - H1: "Learn AI with the Ai Labs community"
-- Lead: "A WhatsApp group where we announce workshops and meetups before we post them on social media. Joining is free."
-- CTA: "Join on WhatsApp"
+- Lead: "A WhatsApp group to talk and a channel where we announce workshops and meetups before we post them on social media. Joining is free."
+- CTA: "Join the community"
+- CTA 2: "Join the announcements channel" → channel.ailabs.sv
 - Link: "See events" → `/events`
-- Nota: "WhatsApp opens and may ask for approval."
+- QR, button: "Show QR"
+- QR, accessible name (not shown): "Scan to join"
+- Nota: "WhatsApp opens. The group may ask for approval."
 
 ## Agendar `/agendar`
 

@@ -1,4 +1,5 @@
 import { Fragment, useRef } from "react"
+import type { ReactNode } from "react"
 import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
@@ -24,6 +25,8 @@ type HomeHeroProps = {
   hero?: HomeHeroContent
   /** When set, the primary control is this link instead of the booking CTA. */
   primaryAction?: HomeHeroLinkAction
+  /** Extra controls after the primary one, such as a second button. */
+  extraActions?: ReactNode
   /** A short line under the actions, such as what happens when they open. */
   note?: string
   /** On the home, hash CTAs stay on the page; elsewhere they lead home. */
@@ -43,6 +46,7 @@ function HomeHero({
   content,
   hero = content.home.hero,
   primaryAction,
+  extraActions,
   note,
   samePageCtas = true,
 }: HomeHeroProps) {
@@ -127,6 +131,7 @@ function HomeHero({
                 <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
               </a>
             )}
+            {extraActions}
             {isInternalHref(hero.secondaryCta.href) ? (
               <Link to={secondaryHref as never} className="text-action">
                 {hero.secondaryCta.label}

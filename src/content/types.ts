@@ -306,9 +306,9 @@ export type EventsIndexContent = {
 }
 
 /**
- * WhatsApp community page (`/community`): the home hero with its own copy and
- * the group invite as the primary action. The invite URL lives in
- * `src/content/booking.ts`.
+ * WhatsApp community page (`/community`): the home hero with its own copy, the
+ * group invite as the primary action, the announcements channel beside it and
+ * a QR of the page. The URLs live in `src/content/booking.ts`.
  */
 export type CommunityContent = {
   metaTitle: string
@@ -317,9 +317,15 @@ export type CommunityContent = {
   headline: string
   lead: string
   joinCta: string
+  /** The WhatsApp announcements channel (`COMMUNITY_CHANNEL_URL`). */
+  channelCta: string
   /** Under the actions: what happens when the invite opens. */
   joinHint: string
   eventsCta: string
+  /** Opens a dialog with a QR code of this page. */
+  qrCta: string
+  /** Accessible name of the QR dialog; not shown. */
+  qrTitle: string
 }
 
 export type BookingStep = {

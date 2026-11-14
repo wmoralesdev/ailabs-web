@@ -336,16 +336,21 @@ El plan de cada formato, con público, duración y orden de lanzamiento, está e
 ## Comunidad `/community`
 
 El hero del home con su propio copy. El grupo de WhatsApp es la acción
-principal (`COMMUNITY_WHATSAPP_URL`); no aparece en el header.
+principal (`COMMUNITY_WHATSAPP_URL`), el canal de avisos va al lado
+(`COMMUNITY_CHANNEL_URL`, channel.ailabs.sv) y "Mostrar QR" es un botón flotante
+que abre solo el código de esta página, grande. No aparece en el header.
 
 - Meta title: "Comunidad de IA en WhatsApp | Ai Labs"
 - Meta description: "Nuestra comunidad de IA en El Salvador es un grupo de WhatsApp. Ahí avisamos los talleres y meetups antes de publicarlos en redes, y entrar es gratis."
 - Label: "Comunidad"
 - H1: "Aprendé IA con la comunidad de Ai Labs"
-- Lead: "Un grupo de WhatsApp donde avisamos los talleres y meetups antes de publicarlos en redes. Entrar es gratis."
-- CTA: "Unirme en WhatsApp"
+- Lead: "Un grupo de WhatsApp para conversar y un canal donde avisamos los talleres y meetups antes de publicarlos en redes. Entrar es gratis."
+- CTA: "Unirme a la comunidad"
+- CTA 2: "Unirme al canal de avisos" → channel.ailabs.sv
 - Link: "Ver eventos" → `/events`
-- Nota: "Se abre WhatsApp y puede pedir aprobación."
+- QR, botón: "Mostrar QR"
+- QR, nombre accesible (no visible): "Escaneá para unirte"
+- Nota: "Se abre WhatsApp. El grupo puede pedir aprobación."
 
 ## Agendar `/agendar`
 
