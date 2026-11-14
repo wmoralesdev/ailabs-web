@@ -5,8 +5,6 @@ import {
   createRootRoute,
   useRouterState,
 } from "@tanstack/react-router"
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
-import { TanStackDevtools } from "@tanstack/react-devtools"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { resolveLocaleContext } from "@/lib/locale-preference"
@@ -134,19 +132,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <ThemeProvider defaultTheme="system" storageKey="ailabs-theme">
           {children}
-          {import.meta.env.DEV ? (
-            <TanStackDevtools
-              config={{
-                position: "bottom-right",
-              }}
-              plugins={[
-                {
-                  name: "Tanstack Router",
-                  render: <TanStackRouterDevtoolsPanel />,
-                },
-              ]}
-            />
-          ) : null}
         </ThemeProvider>
         <Scripts />
       </body>
