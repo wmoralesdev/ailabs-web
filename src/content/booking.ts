@@ -60,6 +60,9 @@ export const WHATSAPP_URL = "" as string
 export const COMMUNITY_WHATSAPP_URL =
   "https://chat.whatsapp.com/Ga8mG1fqDM9C0ryxAw1eIj"
 
+/** The WhatsApp announcements channel; the subdomain redirects to it. */
+export const COMMUNITY_CHANNEL_URL = "https://channel.ailabs.sv"
+
 export const COMMUNITY_PAGE_PATH = "/community"
 
 export const BOOKING_PAGE_PATH = "/agendar"
