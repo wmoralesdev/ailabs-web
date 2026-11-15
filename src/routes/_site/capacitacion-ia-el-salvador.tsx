@@ -38,6 +38,10 @@ export const Route = createFileRoute("/_site/capacitacion-ia-el-salvador")({
           serviceName: page.serviceName,
           homeLabel: pages.homeLabel,
           kind: "course",
+          courses: page.includes.map((item) => ({
+            name: item.title,
+            description: item.body,
+          })),
         }),
         buildFaqJsonLd(page.faq),
       ],

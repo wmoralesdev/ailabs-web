@@ -183,6 +183,11 @@ export function buildFaqJsonLd(items: readonly FaqItem[]): HeadScript {
   }
 }
 
+export type JsonLdCourse = {
+  name: string
+  description: string
+}
+
 /** WebPage, Service, and breadcrumb for one consulting route. */
 export function buildServicePageJsonLd(input: {
   locale: Locale
@@ -191,15 +196,23 @@ export function buildServicePageJsonLd(input: {
   description: string
   serviceName: string
   homeLabel: string
-  /** Academy pages also publish a Course node for the practical training. */
+  /** Training pages also publish Course nodes for the named formats. */
   kind?: "service" | "course"
+  /** Named courses already on the page. Each becomes a Course in an ItemList. */
+  courses?: readonly JsonLdCourse[]
 }): HeadScript {
   const url = absolutePageUrl(input.path, input.locale)
   const home = absolutePageUrl("/", input.locale)
   const websiteHome = ORGANIZATION_HOME
   const organizationId = ORGANIZATION_ID
   const serviceId = `${url}#service`
-  const aboutId = input.kind === "course" ? `${url}#course` : serviceId
+  const courses = input.courses ?? []
+  const hasCourseList = input.kind === "course" && courses.length > 0
+  const aboutId = hasCourseList
+    ? `${url}#courses`
+    : input.kind === "course"
+      ? `${url}#course`
+      : serviceId
   const provider = {
     "@type": "Organization",
     "@id": organizationId,
@@ -248,7 +261,30 @@ export function buildServicePageJsonLd(input: {
     },
   ]
 
-  if (input.kind === "course") {
+  if (hasCourseList) {
+    graph.push({
+      "@type": "ItemList",
+      "@id": `${url}#courses`,
+      name: input.serviceName,
+      url,
+      numberOfItems: courses.length,
+      inLanguage: input.locale,
+      itemListElement: courses.map((course, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Course",
+          "@id": `${url}#course-${index + 1}`,
+          name: course.name,
+          description: course.description,
+          url,
+          inLanguage: input.locale,
+          provider,
+          availableLanguage: ["es", "en"],
+        },
+      })),
+    })
+  } else if (input.kind === "course") {
     graph.push({
       "@type": "Course",
       "@id": `${url}#course`,
@@ -266,6 +302,42 @@ export function buildServicePageJsonLd(input: {
     children: JSON.stringify({
       "@context": "https://schema.org",
       "@graph": graph,
+    }),
+  }
+}
+
+/** Organization and WebPage for a thin public page such as /community. */
+export function buildWebPageJsonLd(input: {
+  locale: Locale
+  path: string
+  title: string
+  description: string
+}): HeadScript {
+  const url = absolutePageUrl(input.path, input.locale)
+  const organizationId = ORGANIZATION_ID
+
+  return {
+    type: "application/ld+json",
+    children: JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": organizationId,
+          name: SITE_NAME,
+          url: ORGANIZATION_HOME,
+        },
+        {
+          "@type": "WebPage",
+          "@id": `${url}#webpage`,
+          url,
+          name: input.title,
+          description: input.description,
+          inLanguage: input.locale,
+          isPartOf: { "@id": `${ORGANIZATION_HOME}#website` },
+          about: { "@id": organizationId },
+        },
+      ],
     }),
   }
 }

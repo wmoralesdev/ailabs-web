@@ -8,7 +8,7 @@ export const es: SiteContent = {
   meta: {
     title: "Ai Labs · Automatización, software e IA para empresas",
     description:
-      "Automatizaciones y software a medida con IA para empresas en El Salvador, y capacitación para los equipos que los operan. Agendá un diagnóstico de 30 minutos.",
+      "Somos una empresa de IA en El Salvador. Automatizamos procesos, hacemos software a medida y capacitamos equipos. Agendá un diagnóstico de 30 minutos.",
   },
   chrome: {
     nav: {
@@ -157,19 +157,19 @@ export const es: SiteContent = {
           body: "Conectamos tus herramientas, automatizamos lo repetitivo y construimos lo que falta.",
           examples:
             "Reportes, seguimiento comercial, cotizaciones, facturación, inventario.",
-          link: "Ver cómo funciona",
+          link: "Ver automatización",
         },
         {
           id: "consulting",
           title: "Diagnóstico de IA",
           body: "En una sesión revisamos tu proceso y elegimos por dónde empezar.",
-          link: "Ver cómo funciona",
+          link: "Ver diagnóstico",
         },
         {
           id: "training",
           title: "Capacitación para equipos",
           body: "De un Learning Day de cuatro horas a un bootcamp de varios días, sobre el trabajo real del equipo.",
-          link: "Ver cómo funciona",
+          link: "Ver capacitación",
         },
       ],
     },
@@ -305,12 +305,12 @@ export const es: SiteContent = {
   events: {
     metaTitle: "Talleres y eventos de IA en San Salvador | Ai Labs",
     metaDescription:
-      "Talleres, cafés y meetups de IA en San Salvador organizados por Ai Labs. Publicamos los próximos en Luma y los avisamos en nuestra comunidad de WhatsApp.",
+      "Talleres y eventos para aprender IA en El Salvador, organizados por Ai Labs desde 2025. Publicamos los próximos en Luma y los avisamos por WhatsApp.",
     breadcrumbHome: "Inicio",
     label: "Eventos",
     headline: "Talleres y eventos de IA en San Salvador",
     intro:
-      "Desde 2025 organizamos talleres, cafés y meetups de IA. Los próximos están en Luma y los avisamos por WhatsApp.",
+      "Talleres, cafés y meetups para aprender IA, desde 2025. Las fechas salen en Luma, pero en WhatsApp te enterás antes.",
     calendarLabel: "Ver calendario",
     tracks: [
       {
@@ -327,7 +327,7 @@ export const es: SiteContent = {
     lumaLabel: "Ver en Luma",
     newTabLabel: "Se abre en una pestaña nueva.",
     upcomingEmpty:
-      "No hay un evento próximo. Avisamos el siguiente por WhatsApp.",
+      "Todavía no hay fecha para el próximo. Cuando la tengamos, sale primero en el grupo de WhatsApp.",
     monthEmpty: "No publicamos eventos en Luma en {month}.",
     photosLabel: "Fotos de nuestros eventos",
     photosCaption:
@@ -337,16 +337,16 @@ export const es: SiteContent = {
     photos: eventsPhotosEs,
     communityTitle: "Comunidad de WhatsApp",
     communityBody:
-      "Ahí avisamos cada taller antes que en redes. Entrar es gratis.",
+      "Avisamos ahí cada taller antes que en redes, y entrar es gratis.",
     communityCta: "Unirme en WhatsApp",
     communityHint: "Se abre WhatsApp y puede pedir aprobación.",
-    bridgeTitle: "¿Querés esto adentro de tu empresa?",
+    bridgeTitle: "¿Querés un taller así con tu equipo?",
     bridgeCta: "Agendá un diagnóstico de 30 minutos",
   },
   community: {
-    metaTitle: "Comunidad de IA en WhatsApp",
+    metaTitle: "Comunidad de IA en El Salvador",
     metaDescription:
-      "Nuestra comunidad de IA en El Salvador es un grupo de WhatsApp. Ahí avisamos los talleres y meetups antes de publicarlos en redes, y entrar es gratis.",
+      "Aprendé IA en El Salvador con nuestra comunidad: un grupo de WhatsApp gratis donde avisamos talleres y meetups antes de publicarlos en redes.",
     label: "Comunidad",
     headline: "Aprendé IA con la comunidad de Ai Labs",
     lead: "Un grupo de WhatsApp para conversar y un canal donde avisamos los talleres y meetups antes de publicarlos en redes. Entrar es gratis.",

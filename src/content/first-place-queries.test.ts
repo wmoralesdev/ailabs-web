@@ -25,12 +25,12 @@ const QUERIES = {
   automation: {
     query: "software a medida para empresas en El Salvador",
     title: "Automatización con IA para empresas en El Salvador | Ai Labs",
-    h1: "Automatización con IA y software a medida",
+    h1: "Automatización de procesos con IA y software a medida",
     firstQuestion: "¿Qué es la automatización de procesos con IA?",
   },
   training: {
-    query: "capacitación y cursos de IA para equipos en El Salvador",
-    title: "Capacitación en IA para equipos en El Salvador | Ai Labs",
+    query: "capacitación y cursos de IA para empresas en El Salvador",
+    title: "Capacitación en IA para empresas en El Salvador | Ai Labs",
     h1: "Capacitación en IA para equipos",
     firstQuestion: "¿Qué es una capacitación práctica en IA?",
   },
@@ -56,9 +56,12 @@ describe("search queries, one per page", () => {
       expect(page.faq.length).toBeLessThanOrEqual(5)
     }
     expect(es.events.metaTitle).toBe(EVENTS_TITLE)
-    expect(es.events.metaDescription).toContain("San Salvador")
+    expect(es.events.metaDescription).toContain("aprender IA en El Salvador")
     expect(en.servicePages.consulting.title).toBe(
       "AI consulting in El Salvador"
+    )
+    expect(en.servicePages.automation.title).toBe(
+      "AI process automation and custom software"
     )
   })
 

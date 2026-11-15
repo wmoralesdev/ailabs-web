@@ -37,7 +37,7 @@ card line 120, answer 220, five questions per page.
 ## Home `/`
 
 - Meta title: "Ai Labs · Automation, software and AI for companies"
-- Meta description: "AI automation and custom software for companies in El Salvador, and training for the teams that run them. Book a 30-minute diagnostic."
+- Meta description: "We are an AI company in El Salvador. We automate processes, build custom software and train teams. Book a 30-minute diagnostic."
 
 ### Hero
 
@@ -68,13 +68,13 @@ programs: it goes separately, as a tool we work with.
 - Tarjeta 1, título: "Automation and custom software"
 - Tarjeta 1, línea: "We connect your tools, automate the repetitive work and build what's missing."
 - Tarjeta 1, ejemplos: "Reports, sales follow-up, quotes, invoicing, inventory."
-- Tarjeta 1, link: "See how it works" → `/automatizacion-ia-el-salvador`
+- Tarjeta 1, link: "See automation" → `/automatizacion-ia-el-salvador`
 - Tarjeta 2, título: "AI diagnostic"
 - Tarjeta 2, línea: "In one session we review your process and pick where to start."
-- Tarjeta 2, link: "See how it works" → `/consultoria-de-ia-el-salvador`
+- Tarjeta 2, link: "See the diagnostic" → `/consultoria-de-ia-el-salvador`
 - Tarjeta 3, título: "Training for teams"
 - Tarjeta 3, línea: "From a four-hour Learning Day to a multi-day bootcamp, built on the team's real work."
-- Tarjeta 3, link: "See how it works" → `/capacitacion-ia-el-salvador`
+- Tarjeta 3, link: "See training" → `/capacitacion-ia-el-salvador`
 
 ### Cómo trabajamos `#metodo`
 
@@ -112,9 +112,9 @@ programs: it goes separately, as a tool we work with.
 ## Automatización `/automatizacion-ia-el-salvador`
 
 - Meta title: "AI automation for companies in El Salvador | Ai Labs"
-- Meta description: "AI process automation and custom software for companies in El Salvador. We connect your tools and build what's missing, with human review."
+- Meta description: "AI process automation and custom software for companies in El Salvador, for the work that lives today in WhatsApp, Excel and email."
 - Eyebrow: "Automation and custom software"
-- H1: "AI automation and custom software"
+- H1: "AI process automation and custom software"
 - Lead: "We connect your tools, automate the repetitive work and build the software you're missing. With human review and documentation."
 - CTA: "Book a 30-minute diagnostic"
 
@@ -162,7 +162,7 @@ programs: it goes separately, as a tool we work with.
 
 - Título: "Questions about automation"
 - P1: "What is AI process automation?"
-- R1: "It's designing and implementing workflows that connect tools, data and people, and defining what AI assists, what gets automated and which decisions stay with the team."
+- R1: "It's designing workflows that connect tools, data and people, such as reports, quotes or sales follow-up, and defining what AI does and what the team decides."
 - P2: "Automation or custom software?"
 - R2: "If your tools already have what you need and just have to be connected, that's automation. If a piece is missing that no tool gives you, we build it."
 - P3: "Does AI replace the team?"
@@ -181,7 +181,7 @@ programs: it goes separately, as a tool we work with.
 ## Consultoría `/consultoria-de-ia-el-salvador`
 
 - Meta title: "AI consulting in El Salvador | Ai Labs"
-- Meta description: "AI consulting in El Salvador: a 30-minute diagnostic and a review of your process with your team to pick one improvement worth making."
+- Meta description: "AI consulting in El Salvador for companies: a free 30-minute diagnostic and a review of your process with your team to choose one improvement."
 - Eyebrow: "AI diagnostic"
 - H1: "AI consulting in El Salvador"
 - Lead: "A 30-minute diagnostic and then a review of your process with your team, to pick one improvement worth making."
@@ -226,7 +226,7 @@ programs: it goes separately, as a tool we work with.
 
 - Título: "Questions about consulting"
 - P1: "What does an AI consultant do?"
-- R1: "They review how a team works, find where AI can help and decide where to start. Then they implement the improvement or prepare the team to run it."
+- R1: "An artificial intelligence consultant reviews how your company works, finds where AI helps and decides where to start. Then they implement the improvement or train the team."
 - P2: "How much does AI consulting cost?"
 - R2: "The 30-minute diagnostic is free. The review and the plan depend on the size of the process, and we quote them before starting."
 - P3: "Do I need to know what I want?"
@@ -244,8 +244,8 @@ programs: it goes separately, as a tool we work with.
 
 ## Capacitación `/capacitacion-ia-el-salvador`
 
-- Meta title: "AI training for teams in El Salvador | Ai Labs"
-- Meta description: "AI training and courses for teams in El Salvador: Learning Day, Build Day and bootcamp for managers and sales teams, built on their own work."
+- Meta title: "AI training for companies in El Salvador | Ai Labs"
+- Meta description: "AI training and courses for companies in El Salvador: Learning Day, Build Day and bootcamp so your teams use AI on their own work."
 - Eyebrow: "Training for teams"
 - H1: "AI training for teams"
 - Lead: "Learning Day, Build Day and bootcamp so that managers and sales teams use AI with good judgment, on their own work."
@@ -313,23 +313,23 @@ The plan for each format, with audience, duration and launch order, is in
 ## Eventos `/events`
 
 - Meta title: "AI workshops and events in San Salvador | Ai Labs"
-- Meta description: "AI workshops, coffee chats and meetups in San Salvador organized by Ai Labs. We publish upcoming ones on Luma and announce them in our WhatsApp community."
+- Meta description: "Workshops and events to learn AI in El Salvador, organized by Ai Labs since 2025. We publish upcoming ones on Luma and announce them on WhatsApp."
 - Label: "Events"
 - H1: "AI workshops and events in San Salvador"
-- Intro: "Since 2025 we've organized AI workshops, coffee chats and meetups. The upcoming ones are on Luma and we announce them on WhatsApp."
+- Intro: "Workshops, coffee chats and meetups to learn AI, since 2025. Dates go up on Luma, but you hear about them first on WhatsApp."
 - Pista 1, título: "For teams and leaders"
 - Pista 1, cuerpo: "Executive breakfasts, masterclasses and demo days where you see automations working."
 - Pista 2, título: "For builders"
 - Pista 2, cuerpo: "Labs, meetups and hackathons with the tools we use every day."
 - Próximos: "Upcoming"
 - Anteriores: "Past"
-- Vacío: "No upcoming event yet. We announce the next one on WhatsApp."
+- Vacío: "No date yet for the next one. When we have it, it goes to the WhatsApp group first."
 - Luma: "View on Luma"
 - Comunidad, título: "WhatsApp community"
-- Comunidad, cuerpo: "That's where we announce every workshop before social media. Joining is free."
+- Comunidad, cuerpo: "We announce every workshop there before social media, and joining is free."
 - Comunidad, CTA: "Join on WhatsApp"
 - Comunidad, nota: "WhatsApp opens and may ask for approval."
-- Puente, título: "Want this inside your company?"
+- Puente, título: "Want a workshop like this with your team?"
 - Puente, CTA: "Book a 30-minute diagnostic"
 - Fotos, crédito: "Photos from our events in San Salvador."
 
@@ -340,8 +340,8 @@ The home hero with its own copy. The WhatsApp group is the primary action
 (`COMMUNITY_CHANNEL_URL`, channel.ailabs.sv) and "Show QR" is a floating button
 that opens only the code of this page, large. It is not in the header.
 
-- Meta title: "AI community on WhatsApp | Ai Labs"
-- Meta description: "Our AI community in El Salvador is a WhatsApp group. We announce workshops and meetups there before we post them on social media, and joining is free."
+- Meta title: "AI community in El Salvador | Ai Labs"
+- Meta description: "Learn AI in El Salvador with our community: a free WhatsApp group where we announce workshops and meetups before we post them on social media."
 - Label: "Community"
 - H1: "Learn AI with the Ai Labs community"
 - Lead: "A WhatsApp group to talk and a channel where we announce workshops and meetups before we post them on social media. Joining is free."

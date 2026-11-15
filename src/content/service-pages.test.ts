@@ -80,20 +80,28 @@ describe("service pages", () => {
   })
 
   it("publishes Service and breadcrumb JSON-LD on the canonical URL", () => {
+    const training = es.servicePages.training
     const script = buildServicePageJsonLd({
       locale: "es",
       path: SERVICE_PAGE_PATHS.training,
-      title: es.servicePages.training.metaTitle,
-      description: es.servicePages.training.metaDescription,
-      serviceName: es.servicePages.training.serviceName,
+      title: training.metaTitle,
+      description: training.metaDescription,
+      serviceName: training.serviceName,
       homeLabel: es.servicePages.homeLabel,
       kind: "course",
+      courses: training.includes.map((item) => ({
+        name: item.title,
+        description: item.body,
+      })),
     })
     const graph = JSON.parse(script.children)["@graph"] as Array<{
       "@type": string
       url?: string
+      name?: string
       provider?: { "@id": string }
-      itemListElement?: unknown[]
+      itemListElement?: Array<{
+        item?: { "@type"?: string; name?: string; description?: string }
+      }>
     }>
     const service = graph.find((node) => node["@type"] === "Service")
     expect(service?.url).toBe(
@@ -104,7 +112,17 @@ describe("service pages", () => {
     )
     const crumbs = graph.find((node) => node["@type"] === "BreadcrumbList")
     expect(crumbs?.itemListElement).toHaveLength(2)
-    expect(graph.some((node) => node["@type"] === "Course")).toBe(true)
+    const courses = graph.find((node) => node["@type"] === "ItemList")
+    expect(courses?.itemListElement).toHaveLength(training.includes.length)
+    expect(courses?.itemListElement?.map((entry) => entry.item?.name)).toEqual(
+      training.includes.map((item) => item.title)
+    )
+    expect(
+      courses?.itemListElement?.every(
+        (entry) => entry.item?.["@type"] === "Course"
+      )
+    ).toBe(true)
+    expect(JSON.stringify(courses)).not.toMatch(/\$|\bUSD\b|precio cerrado/)
     const english = JSON.parse(
       buildServicePageJsonLd({
         locale: "en",

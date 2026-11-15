@@ -37,7 +37,7 @@ línea de tarjeta 120, respuesta 220, cinco preguntas por página.
 ## Home `/`
 
 - Meta title: "Ai Labs · Automatización, software e IA para empresas"
-- Meta description: "Automatizaciones y software a medida con IA para empresas en El Salvador, y capacitación para los equipos que los operan. Agendá un diagnóstico de 30 minutos."
+- Meta description: "Somos una empresa de IA en El Salvador. Automatizamos procesos, hacemos software a medida y capacitamos equipos. Agendá un diagnóstico de 30 minutos."
 
 ### Hero
 
@@ -68,13 +68,13 @@ separado, como herramienta con la que trabajamos.
 - Tarjeta 1, título: "Automatización y software a medida"
 - Tarjeta 1, línea: "Conectamos tus herramientas, automatizamos lo repetitivo y construimos lo que falta."
 - Tarjeta 1, ejemplos: "Reportes, seguimiento comercial, cotizaciones, facturación, inventario."
-- Tarjeta 1, link: "Ver cómo funciona" → `/automatizacion-ia-el-salvador`
+- Tarjeta 1, link: "Ver automatización" → `/automatizacion-ia-el-salvador`
 - Tarjeta 2, título: "Diagnóstico de IA"
 - Tarjeta 2, línea: "En una sesión revisamos tu proceso y elegimos por dónde empezar."
-- Tarjeta 2, link: "Ver cómo funciona" → `/consultoria-de-ia-el-salvador`
+- Tarjeta 2, link: "Ver diagnóstico" → `/consultoria-de-ia-el-salvador`
 - Tarjeta 3, título: "Capacitación para equipos"
 - Tarjeta 3, línea: "De un Learning Day de cuatro horas a un bootcamp de varios días, sobre el trabajo real del equipo."
-- Tarjeta 3, link: "Ver cómo funciona" → `/capacitacion-ia-el-salvador`
+- Tarjeta 3, link: "Ver capacitación" → `/capacitacion-ia-el-salvador`
 
 ### Cómo trabajamos `#metodo`
 
@@ -112,9 +112,9 @@ separado, como herramienta con la que trabajamos.
 ## Automatización `/automatizacion-ia-el-salvador`
 
 - Meta title: "Automatización con IA para empresas en El Salvador | Ai Labs"
-- Meta description: "Automatización de procesos con IA y software a medida para empresas en El Salvador. Conectamos tus herramientas y construimos lo que falta, con revisión humana."
+- Meta description: "Automatización de procesos con IA y software a medida para empresas en El Salvador, para el trabajo que hoy vive en WhatsApp, Excel y correo."
 - Eyebrow: "Automatización y software a medida"
-- H1: "Automatización con IA y software a medida"
+- H1: "Automatización de procesos con IA y software a medida"
 - Lead: "Conectamos tus herramientas, automatizamos lo repetitivo y construimos el software que te falta. Con revisión humana y documentación."
 - CTA: "Agendá un diagnóstico de 30 minutos"
 
@@ -162,7 +162,7 @@ separado, como herramienta con la que trabajamos.
 
 - Título: "Preguntas sobre automatización"
 - P1: "¿Qué es la automatización de procesos con IA?"
-- R1: "Es diseñar e implementar flujos que conectan herramientas, datos y personas, y definir qué asiste la IA, qué se automatiza y qué decisiones siguen en manos del equipo."
+- R1: "Es diseñar flujos que conectan herramientas, datos y personas, como reportes, cotizaciones o seguimiento comercial, y definir qué hace la IA y qué decide el equipo."
 - P2: "¿Automatización o software a medida?"
 - R2: "Si tus herramientas ya tienen lo que necesitás y solo falta conectarlas, es automatización. Si falta una pieza que ninguna herramienta te da, la construimos."
 - P3: "¿La IA reemplaza al equipo?"
@@ -181,7 +181,7 @@ separado, como herramienta con la que trabajamos.
 ## Consultoría `/consultoria-de-ia-el-salvador`
 
 - Meta title: "Consultoría de IA en El Salvador | Ai Labs"
-- Meta description: "Consultoría de IA en El Salvador: un diagnóstico de 30 minutos y una revisión de tu proceso con tu equipo para elegir una mejora que valga la pena."
+- Meta description: "Consultoría de IA en El Salvador para empresas: un diagnóstico de 30 minutos sin costo y una revisión de tu proceso con tu equipo para elegir una mejora."
 - Eyebrow: "Diagnóstico de IA"
 - H1: "Consultoría de IA en El Salvador"
 - Lead: "Un diagnóstico de 30 minutos y después una revisión de tu proceso con tu equipo, para elegir una mejora que valga la pena."
@@ -226,7 +226,7 @@ separado, como herramienta con la que trabajamos.
 
 - Título: "Preguntas sobre consultoría"
 - P1: "¿Qué hace un consultor de IA?"
-- R1: "Revisa cómo trabaja un equipo, encuentra dónde puede ayudar la IA y decide por dónde empezar. Después implementa la mejora o prepara al equipo para operarla."
+- R1: "Un consultor de inteligencia artificial revisa cómo trabaja tu empresa, encuentra dónde ayuda la IA y decide por dónde empezar. Después implementa la mejora o capacita al equipo."
 - P2: "¿Cuánto cuesta una consultoría en IA?"
 - R2: "El diagnóstico de 30 minutos no tiene costo. La revisión y el plan dependen del tamaño del proceso y los cotizamos antes de empezar."
 - P3: "¿Necesito tener claro qué quiero?"
@@ -244,8 +244,8 @@ separado, como herramienta con la que trabajamos.
 
 ## Capacitación `/capacitacion-ia-el-salvador`
 
-- Meta title: "Capacitación en IA para equipos en El Salvador | Ai Labs"
-- Meta description: "Capacitación y cursos de IA para equipos en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo."
+- Meta title: "Capacitación en IA para empresas en El Salvador | Ai Labs"
+- Meta description: "Capacitación y cursos de IA para empresas en El Salvador: Learning Day, Build Day y bootcamp para que tus equipos usen IA sobre su propio trabajo."
 - Eyebrow: "Capacitación para equipos"
 - H1: "Capacitación en IA para equipos"
 - Lead: "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo."
@@ -313,23 +313,23 @@ El plan de cada formato, con público, duración y orden de lanzamiento, está e
 ## Eventos `/events`
 
 - Meta title: "Talleres y eventos de IA en San Salvador | Ai Labs"
-- Meta description: "Talleres, cafés y meetups de IA en San Salvador organizados por Ai Labs. Publicamos los próximos en Luma y los avisamos en nuestra comunidad de WhatsApp."
+- Meta description: "Talleres y eventos para aprender IA en El Salvador, organizados por Ai Labs desde 2025. Publicamos los próximos en Luma y los avisamos por WhatsApp."
 - Label: "Eventos"
 - H1: "Talleres y eventos de IA en San Salvador"
-- Intro: "Desde 2025 organizamos talleres, cafés y meetups de IA. Los próximos están en Luma y los avisamos por WhatsApp."
+- Intro: "Talleres, cafés y meetups para aprender IA, desde 2025. Las fechas salen en Luma, pero en WhatsApp te enterás antes."
 - Pista 1, título: "Para equipos y líderes"
 - Pista 1, cuerpo: "Desayunos ejecutivos, masterclasses y demo days donde ves automatizaciones funcionando."
 - Pista 2, título: "Para builders"
 - Pista 2, cuerpo: "Labs, meetups y hackathons con las herramientas que usamos a diario."
 - Próximos: "Próximos"
 - Anteriores: "Anteriores"
-- Vacío: "No hay un evento próximo. Avisamos el siguiente por WhatsApp."
+- Vacío: "Todavía no hay fecha para el próximo. Cuando la tengamos, sale primero en el grupo de WhatsApp."
 - Luma: "Ver en Luma"
 - Comunidad, título: "Comunidad de WhatsApp"
-- Comunidad, cuerpo: "Ahí avisamos cada taller antes que en redes. Entrar es gratis."
+- Comunidad, cuerpo: "Avisamos ahí cada taller antes que en redes, y entrar es gratis."
 - Comunidad, CTA: "Unirme en WhatsApp"
 - Comunidad, nota: "Se abre WhatsApp y puede pedir aprobación."
-- Puente, título: "¿Querés esto adentro de tu empresa?"
+- Puente, título: "¿Querés un taller así con tu equipo?"
 - Puente, CTA: "Agendá un diagnóstico de 30 minutos"
 - Fotos, crédito: "Fotos de nuestros eventos en San Salvador."
 
@@ -340,8 +340,8 @@ principal (`COMMUNITY_WHATSAPP_URL`), el canal de avisos va al lado
 (`COMMUNITY_CHANNEL_URL`, channel.ailabs.sv) y "Mostrar QR" es un botón flotante
 que abre solo el código de esta página, grande. No aparece en el header.
 
-- Meta title: "Comunidad de IA en WhatsApp | Ai Labs"
-- Meta description: "Nuestra comunidad de IA en El Salvador es un grupo de WhatsApp. Ahí avisamos los talleres y meetups antes de publicarlos en redes, y entrar es gratis."
+- Meta title: "Comunidad de IA en El Salvador | Ai Labs"
+- Meta description: "Aprendé IA en El Salvador con nuestra comunidad: un grupo de WhatsApp gratis donde avisamos talleres y meetups antes de publicarlos en redes."
 - Label: "Comunidad"
 - H1: "Aprendé IA con la comunidad de Ai Labs"
 - Lead: "Un grupo de WhatsApp para conversar y un canal donde avisamos los talleres y meetups antes de publicarlos en redes. Entrar es gratis."

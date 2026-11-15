@@ -69,21 +69,26 @@ function eventLocation(event: LumaEvent, locale: Locale) {
   }
 }
 
-function eventNode(event: LumaEvent, locale: Locale) {
+function eventId(pageUrl: string, event: LumaEvent): string {
+  return `${pageUrl}#${event.id}`
+}
+
+function eventNode(event: LumaEvent, locale: Locale, pageUrl: string) {
   const location = eventLocation(event, locale)
 
   return {
     "@type": "Event",
+    "@id": eventId(pageUrl, event),
     name: event.name,
     startDate: isoInTimeZone(event.startAt, event.timezone),
     ...(event.endAt
       ? { endDate: isoInTimeZone(event.endAt, event.timezone) }
       : {}),
-    timezone: event.timezone,
     ...(location ? { location } : {}),
     inLanguage: locale,
     organizer: {
       "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
       name: SITE_NAME,
       url: SITE_URL,
     },
@@ -159,17 +164,19 @@ export function buildEventsIndexHead(input: {
               itemListElement: rendered.map((event, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
-                item: eventNode(event, locale),
+                url: event.href,
+                item: { "@id": eventId(pageUrl, event) },
               })),
             },
+            ...rendered.map((event) => eventNode(event, locale, pageUrl)),
             {
               "@type": "ImageGallery",
               name: events.photosLabel,
               description: events.photosCaption,
-              image: events.photos.map((photo) => ({
+              image: events.photos.map((eventPhoto) => ({
                 "@type": "ImageObject",
-                contentUrl: absoluteUrl(photo.src),
-                caption: photo.alt,
+                contentUrl: absoluteUrl(eventPhoto.src),
+                caption: eventPhoto.alt,
                 creditText: SITE_NAME,
                 creator: {
                   "@type": "Organization",
