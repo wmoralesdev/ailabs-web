@@ -8,7 +8,7 @@ export const en: SiteContent = {
   meta: {
     title: "Ai Labs · Automation, software and AI for companies",
     description:
-      "AI automation and custom software for companies in El Salvador, and training for the teams that run them. Book a 30-minute diagnostic.",
+      "We are an AI company in El Salvador. We automate processes, build custom software and train teams. Book a 30-minute diagnostic.",
   },
   chrome: {
     nav: {
@@ -153,19 +153,19 @@ export const en: SiteContent = {
           title: "Automation and custom software",
           body: "We connect your tools, automate the repetitive work and build what's missing.",
           examples: "Reports, sales follow-up, quotes, invoicing, inventory.",
-          link: "See how it works",
+          link: "See automation",
         },
         {
           id: "consulting",
           title: "AI diagnostic",
           body: "In one session we review your process and pick where to start.",
-          link: "See how it works",
+          link: "See the diagnostic",
         },
         {
           id: "training",
           title: "Training for teams",
           body: "From a four-hour Learning Day to a multi-day bootcamp, built on the team's real work.",
-          link: "See how it works",
+          link: "See training",
         },
       ],
     },
@@ -300,12 +300,12 @@ export const en: SiteContent = {
   events: {
     metaTitle: "AI workshops and events in San Salvador | Ai Labs",
     metaDescription:
-      "AI workshops, coffee chats and meetups in San Salvador organized by Ai Labs. We publish upcoming ones on Luma and announce them in our WhatsApp community.",
+      "Workshops and events to learn AI in El Salvador, organized by Ai Labs since 2025. We publish upcoming ones on Luma and announce them on WhatsApp.",
     breadcrumbHome: "Home",
     label: "Events",
     headline: "AI workshops and events in San Salvador",
     intro:
-      "Since 2025 we've organized AI workshops, coffee chats and meetups. The upcoming ones are on Luma and we announce them on WhatsApp.",
+      "Workshops, coffee chats and meetups to learn AI, since 2025. Dates go up on Luma, but you hear about them first on WhatsApp.",
     calendarLabel: "See the calendar",
     tracks: [
       {
@@ -322,7 +322,7 @@ export const en: SiteContent = {
     lumaLabel: "View on Luma",
     newTabLabel: "Opens in a new tab.",
     upcomingEmpty:
-      "No upcoming event yet. We announce the next one on WhatsApp.",
+      "No date yet for the next one. When we have it, it goes to the WhatsApp group first.",
     monthEmpty: "We did not publish any events on Luma in {month}.",
     photosLabel: "Photos from our events",
     photosCaption: "Credit: Ai Labs. Photos from our events in San Salvador.",
@@ -331,16 +331,16 @@ export const en: SiteContent = {
     photos: eventsPhotosEn,
     communityTitle: "WhatsApp community",
     communityBody:
-      "That's where we announce every workshop before social media. Joining is free.",
+      "We announce every workshop there before social media, and joining is free.",
     communityCta: "Join on WhatsApp",
     communityHint: "WhatsApp opens and may ask for approval.",
-    bridgeTitle: "Want this inside your company?",
+    bridgeTitle: "Want a workshop like this with your team?",
     bridgeCta: "Book a 30-minute diagnostic",
   },
   community: {
-    metaTitle: "AI community on WhatsApp",
+    metaTitle: "AI community in El Salvador",
     metaDescription:
-      "Our AI community in El Salvador is a WhatsApp group. We announce workshops and meetups there before we post them on social media, and joining is free.",
+      "Learn AI in El Salvador with our community: a free WhatsApp group where we announce workshops and meetups before we post them on social media.",
     label: "Community",
     headline: "Learn AI with the Ai Labs community",
     lead: "A WhatsApp group to talk and a channel where we announce workshops and meetups before we post them on social media. Joining is free.",

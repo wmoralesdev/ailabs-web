@@ -124,10 +124,10 @@ describe("public SEO files", () => {
 
   it("describes the company for machines in the third person, without hype", () => {
     expect(llms).toContain(
-      "Ai Labs es una empresa privada en San Salvador, El Salvador."
+      "Ai Labs es una empresa privada de IA en San Salvador, El Salvador."
     )
     expect(llms).toContain(
-      "Ai Labs is a private company in San Salvador, El Salvador."
+      "Ai Labs is a private AI company in San Salvador, El Salvador."
     )
     expect(llms).toContain("https://www.linkedin.com/company/ai-labs-sv")
     expect(llms).toContain("https://x.com/ailabs_sv")

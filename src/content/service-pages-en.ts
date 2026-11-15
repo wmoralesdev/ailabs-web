@@ -7,7 +7,7 @@ export const servicePagesEn: ServicePagesContent = {
   consulting: {
     metaTitle: "AI consulting in El Salvador | Ai Labs",
     metaDescription:
-      "AI consulting in El Salvador: a 30-minute diagnostic and a review of your process with your team to pick one improvement worth making.",
+      "AI consulting in El Salvador for companies: a free 30-minute diagnostic and a review of your process with your team to choose one improvement.",
     serviceName: "AI consulting in El Salvador",
     eyebrow: "AI diagnostic",
     title: "AI consulting in El Salvador",
@@ -63,7 +63,7 @@ export const servicePagesEn: ServicePagesContent = {
       {
         question: "What does an AI consultant do?",
         answer:
-          "They review how a team works, find where AI can help and decide where to start. Then they implement the improvement or prepare the team to run it.",
+          "An artificial intelligence consultant reviews how your company works, finds where AI helps and decides where to start. Then they implement the improvement or train the team.",
       },
       {
         question: "How much does AI consulting cost?",
@@ -94,10 +94,10 @@ export const servicePagesEn: ServicePagesContent = {
   automation: {
     metaTitle: "AI automation for companies in El Salvador | Ai Labs",
     metaDescription:
-      "AI process automation and custom software for companies in El Salvador. We connect your tools and build what's missing, with human review.",
+      "AI process automation and custom software for companies in El Salvador, for the work that lives today in WhatsApp, Excel and email.",
     serviceName: "AI automation for companies in El Salvador",
     eyebrow: "Automation and custom software",
-    title: "AI automation and custom software",
+    title: "AI process automation and custom software",
     lead: "We connect your tools, automate the repetitive work and build the software you're missing. With human review and documentation.",
     cta: "Book a 30-minute diagnostic",
     fitHeading: "Who it's for",
@@ -150,7 +150,7 @@ export const servicePagesEn: ServicePagesContent = {
       {
         question: "What is AI process automation?",
         answer:
-          "It's designing and implementing workflows that connect tools, data and people, and defining what AI assists, what gets automated and which decisions stay with the team.",
+          "It's designing workflows that connect tools, data and people, such as reports, quotes or sales follow-up, and defining what AI does and what the team decides.",
       },
       {
         question: "Automation or custom software?",
@@ -183,10 +183,10 @@ export const servicePagesEn: ServicePagesContent = {
       name: "3.webp",
       alt: "Participants follow a hands-on Ai Labs session in an auditorium.",
     },
-    metaTitle: "AI training for teams in El Salvador | Ai Labs",
+    metaTitle: "AI training for companies in El Salvador | Ai Labs",
     metaDescription:
-      "AI training and courses for teams in El Salvador: Learning Day, Build Day and bootcamp for managers and sales teams, built on their own work.",
-    serviceName: "AI training for teams in El Salvador",
+      "AI training and courses for companies in El Salvador: Learning Day, Build Day and bootcamp so your teams use AI on their own work.",
+    serviceName: "AI training for companies in El Salvador",
     eyebrow: "Training for teams",
     title: "AI training for teams",
     lead: "Learning Day, Build Day and bootcamp so that managers and sales teams use AI with good judgment, on their own work.",

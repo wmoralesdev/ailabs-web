@@ -173,7 +173,7 @@ y la banda morada de definición; la definición pasa a ser la primera pregunta.
 
 | Página         | H1                                          | Lead                                                                                                                                    | Primera pregunta (SEO)                          |
 | -------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| Automatización | "Automatización con IA y software a medida" | "Conectamos tus herramientas, automatizamos lo repetitivo y construimos el software que te falta. Con revisión humana y documentación." | "¿Qué es la automatización de procesos con IA?" |
+| Automatización | "Automatización de procesos con IA y software a medida" | "Conectamos tus herramientas, automatizamos lo repetitivo y construimos el software que te falta. Con revisión humana y documentación." | "¿Qué es la automatización de procesos con IA?" |
 | Consultoría    | "Consultoría de IA en El Salvador"          | "Un diagnóstico de 30 minutos y después una revisión de tu proceso con tu equipo, para elegir una mejora que valga la pena."            | "¿Qué hace un consultor de IA?"                 |
 | Capacitación   | "Capacitación en IA para equipos"           | "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo."             | "¿Qué es una capacitación práctica en IA?"      |
 
@@ -250,22 +250,31 @@ propias tareas, porque es quien sostiene el cambio.
 Cada página tiene cuatro ranuras para SEO: title, meta, H1 y la primera
 pregunta. Todo lo demás se escribe para la compradora.
 
-| Página         | Title                                                           | Query que conserva                                 |
-| -------------- | --------------------------------------------------------------- | -------------------------------------------------- |
-| Home           | "Ai Labs · Automatización, software e IA para empresas"         | marca                                              |
-| Automatización | "Automatización con IA para empresas en El Salvador \| Ai Labs" | automatización con IA para empresas en El Salvador |
-| Consultoría    | "Consultoría de IA en El Salvador \| Ai Labs"                   | consultoría de IA en El Salvador                   |
-| Capacitación   | "Capacitación en IA para equipos en El Salvador \| Ai Labs"     | cursos de IA en El Salvador                        |
-| Eventos        | "Talleres y eventos de IA en San Salvador \| Ai Labs"           | eventos de IA en El Salvador                       |
+| Página         | Title                                                           | Queries que atiende                                                              |
+| -------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Home           | "Ai Labs · Automatización, software e IA para empresas"         | marca, empresa de IA en El Salvador, ia para empresas                            |
+| Automatización | "Automatización con IA para empresas en El Salvador \| Ai Labs" | automatización con IA para empresas, automatización de procesos, software a medida |
+| Consultoría    | "Consultoría de IA en El Salvador \| Ai Labs"                   | consultoría de IA en El Salvador, consultor de inteligencia artificial            |
+| Capacitación   | "Capacitación en IA para empresas en El Salvador \| Ai Labs"    | capacitación y cursos de IA para empresas en El Salvador                          |
+| Eventos        | "Talleres y eventos de IA en San Salvador \| Ai Labs"           | talleres y eventos de IA, dónde aprender IA en El Salvador                        |
+| Comunidad      | "Comunidad de IA en El Salvador \| Ai Labs"                     | comunidad de IA en El Salvador, aprender IA                                       |
 
 - El home deja de competir con consultoría: su title pasa a marca más ofertas.
+  "Empresa de IA" vive en su meta description, no en el hero.
+- Las búsquedas de aprendizaje ("dónde aprender IA") las atienden solo
+  eventos y comunidad. Las páginas de servicio siguen hablándole a la
+  compradora.
+- Las palabras de la compradora (WhatsApp, Excel, correo, reportes,
+  cotizaciones) van en la meta y la primera pregunta de automatización. No se
+  promete una integración o un chatbot que no esté confirmado.
+- Los links de las ofertas del home nombran su página ("Ver automatización"),
+  no repiten "Ver cómo funciona".
 - Se suelta a propósito la query "agencia de inteligencia artificial en El
   Salvador": apunta a la entidad pública y costaba el hero.
 - Las preguntas con forma de búsqueda se reducen a la primera de cada página.
-- `src/content/first-place-queries.test.ts` y los otros cinco tests de copy se
-  reescriben con estas ranuras. El riesgo se evalúa página por página al
-  tocarla, como pidió Walter.
-- `public/llms.txt` se reescribe en tercera persona, corto, desde este mapa.
+- `src/content/first-place-queries.test.ts` fija estas ranuras. El riesgo se
+  evalúa página por página al tocarla, como pidió Walter.
+- `public/llms.txt` se escribe en tercera persona, corto, desde este mapa.
 
 ## 9. Presupuestos de longitud
 

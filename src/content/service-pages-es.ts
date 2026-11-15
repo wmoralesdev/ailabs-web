@@ -7,7 +7,7 @@ export const servicePagesEs: ServicePagesContent = {
   consulting: {
     metaTitle: "Consultoría de IA en El Salvador | Ai Labs",
     metaDescription:
-      "Consultoría de IA en El Salvador: un diagnóstico de 30 minutos y una revisión de tu proceso con tu equipo para elegir una mejora que valga la pena.",
+      "Consultoría de IA en El Salvador para empresas: un diagnóstico de 30 minutos sin costo y una revisión de tu proceso con tu equipo para elegir una mejora.",
     serviceName: "Consultoría de IA en El Salvador",
     eyebrow: "Diagnóstico de IA",
     title: "Consultoría de IA en El Salvador",
@@ -63,7 +63,7 @@ export const servicePagesEs: ServicePagesContent = {
       {
         question: "¿Qué hace un consultor de IA?",
         answer:
-          "Revisa cómo trabaja un equipo, encuentra dónde puede ayudar la IA y decide por dónde empezar. Después implementa la mejora o prepara al equipo para operarla.",
+          "Un consultor de inteligencia artificial revisa cómo trabaja tu empresa, encuentra dónde ayuda la IA y decide por dónde empezar. Después implementa la mejora o capacita al equipo.",
       },
       {
         question: "¿Cuánto cuesta una consultoría en IA?",
@@ -94,10 +94,10 @@ export const servicePagesEs: ServicePagesContent = {
   automation: {
     metaTitle: "Automatización con IA para empresas en El Salvador | Ai Labs",
     metaDescription:
-      "Automatización de procesos con IA y software a medida para empresas en El Salvador. Conectamos tus herramientas y construimos lo que falta, con revisión humana.",
+      "Automatización de procesos con IA y software a medida para empresas en El Salvador, para el trabajo que hoy vive en WhatsApp, Excel y correo.",
     serviceName: "Automatización con IA para empresas en El Salvador",
     eyebrow: "Automatización y software a medida",
-    title: "Automatización con IA y software a medida",
+    title: "Automatización de procesos con IA y software a medida",
     lead: "Conectamos tus herramientas, automatizamos lo repetitivo y construimos el software que te falta. Con revisión humana y documentación.",
     cta: "Agendá un diagnóstico de 30 minutos",
     fitHeading: "Para quién es",
@@ -150,7 +150,7 @@ export const servicePagesEs: ServicePagesContent = {
       {
         question: "¿Qué es la automatización de procesos con IA?",
         answer:
-          "Es diseñar e implementar flujos que conectan herramientas, datos y personas, y definir qué asiste la IA, qué se automatiza y qué decisiones siguen en manos del equipo.",
+          "Es diseñar flujos que conectan herramientas, datos y personas, como reportes, cotizaciones o seguimiento comercial, y definir qué hace la IA y qué decide el equipo.",
       },
       {
         question: "¿Automatización o software a medida?",
@@ -183,10 +183,10 @@ export const servicePagesEs: ServicePagesContent = {
       name: "3.webp",
       alt: "Participantes siguen una sesión práctica de Ai Labs en un auditorio.",
     },
-    metaTitle: "Capacitación en IA para equipos en El Salvador | Ai Labs",
+    metaTitle: "Capacitación en IA para empresas en El Salvador | Ai Labs",
     metaDescription:
-      "Capacitación y cursos de IA para equipos en El Salvador: Learning Day, Build Day y bootcamp para gerentes y equipos comerciales, sobre su propio trabajo.",
-    serviceName: "Capacitación en IA para equipos en El Salvador",
+      "Capacitación y cursos de IA para empresas en El Salvador: Learning Day, Build Day y bootcamp para que tus equipos usen IA sobre su propio trabajo.",
+    serviceName: "Capacitación en IA para empresas en El Salvador",
     eyebrow: "Capacitación para equipos",
     title: "Capacitación en IA para equipos",
     lead: "Learning Day, Build Day y bootcamp para que gerentes y equipos comerciales usen IA con criterio, sobre su propio trabajo.",
