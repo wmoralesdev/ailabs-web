@@ -92,6 +92,10 @@ export const es: SiteContent = {
               label: "Agendar un diagnóstico",
               href: "/agendar",
             },
+            {
+              label: "Guía de marca",
+              href: "/brand",
+            },
           ],
         },
       ],
@@ -356,5 +360,192 @@ export const es: SiteContent = {
     eventsCta: "Ver eventos",
     qrCta: "Mostrar QR",
     qrTitle: "Escaneá para unirte",
+  },
+  brand: {
+    metaTitle: "Guía de marca y logo",
+    metaDescription:
+      "Descargá el logo de Ai Labs en SVG y conocé nuestros colores, tipografías y reglas para mostrar y escribir la marca bien.",
+    label: "Marca",
+    headline: "Guía de marca de Ai Labs",
+    lead: "El logo, los colores, las tipografías y cómo escribimos. Lo que necesitás para mostrar Ai Labs en una nota, una presentación o un evento.",
+    kitCta: "Descargar el kit",
+    kitNote: "Un ZIP con el logotipo, el símbolo y el ícono en SVG.",
+    logoCta: "Ver el logo",
+    logo: {
+      title: "Logo",
+      body: "Usá siempre los archivos originales. El logotipo va por defecto; el símbolo solo, cuando el espacio es chico.",
+      lockup: {
+        name: "Logotipo",
+        body: "El símbolo y el nombre juntos. Es la versión que va por defecto.",
+      },
+      mark: {
+        name: "Símbolo",
+        body: "Para el favicon, avatares y espacios chicos cerca del nombre.",
+      },
+      icon: {
+        name: "Ícono de app",
+        body: "El símbolo sobre su placa. Para perfiles y apps.",
+      },
+      backgroundLabel: "Fondo",
+      onLight: "Fondo claro",
+      onDark: "Fondo oscuro",
+      download: "Descargar SVG",
+      copy: "Copiar SVG",
+      copied: "SVG copiado",
+      copyFailed: "No se pudo copiar",
+    },
+    misuse: {
+      title: "Cómo no usar el logo",
+      body: "El logo funciona tal como viene. Estos son los cambios que más vemos y que lo rompen.",
+      items: [
+        "No lo estires ni lo aplastes",
+        "No lo rotes",
+        "No le cambies los colores",
+        "No le agregues sombras",
+        "No lo pongas sobre poco contraste",
+        "No lo recortes",
+      ],
+    },
+    color: {
+      title: "Color",
+      body: "Violeta para acentuar, grafito y nieve para leer. Son los valores del sitio en su tema claro.",
+      swatches: [
+        {
+          name: "Violeta",
+          hex: "#614AFC",
+          role: "Botones, enlaces y acentos. No va de fondo en cada sección.",
+        },
+        {
+          name: "Grafito",
+          hex: "#16131F",
+          role: "Texto sobre fondos claros.",
+        },
+        {
+          name: "Nieve",
+          hex: "#F5F4F8",
+          role: "Papel del tema claro y texto sobre oscuro.",
+        },
+        {
+          name: "Noche",
+          hex: "#0F0D17",
+          role: "Bandas oscuras que no cambian con el tema.",
+        },
+        {
+          name: "Lila",
+          hex: "#D6CFFD",
+          role: "Papel suave bajo las fotos y en detalles.",
+        },
+        {
+          name: "Hoja",
+          hex: "#1E1E22",
+          role: "El pie de página, igual en los dos temas.",
+        },
+      ],
+      logoTitle: "Las tintas del logo",
+      logoBody:
+        "El logotipo y el símbolo llevan tintas propias, distintas de las del sitio. Usá el archivo tal como viene.",
+      logoInks: [
+        {
+          name: "Violeta del logo",
+          hex: "#8B7BC7",
+          role: "El punto y «Ai», sobre cualquier fondo.",
+        },
+        {
+          name: "Gris del logo",
+          hex: "#303030",
+          role: "El resto, sobre fondo claro.",
+        },
+        {
+          name: "Claro del logo",
+          hex: "#EDEDED",
+          role: "El resto, sobre fondo oscuro.",
+        },
+      ],
+      copy: "Copiar",
+      copied: "Copiado",
+      copyFailed: "No se pudo copiar",
+    },
+    type: {
+      title: "Tipografía",
+      body: "Dos familias libres de Google Fonts: Plus Jakarta Sans para titulares y DM Sans para todo lo demás.",
+      fonts: [
+        {
+          name: "Plus Jakarta Sans",
+          role: "Titulares. Peso 600, interletra cerrada.",
+          sample: "Automatizamos el trabajo que se repite",
+          href: "https://fonts.google.com/specimen/Plus+Jakarta+Sans",
+        },
+        {
+          name: "DM Sans",
+          role: "Texto, botones e interfaz. Pesos 400 y 600.",
+          sample:
+            "Agendá un diagnóstico de 30 minutos y contanos cómo trabaja tu equipo hoy.",
+          href: "https://fonts.google.com/specimen/DM+Sans",
+        },
+      ],
+      linkLabel: "Ver en Google Fonts",
+    },
+    halftone: {
+      title: "Semitono",
+      body: "El punto es nuestra firma. Imprimimos el símbolo, los íconos y las marcas de los programas como trama de puntos.",
+      rules: [
+        "Es un acento: un elemento por bloque, nunca un fondo para todo.",
+        "Las fotos quedan como fotos. Nunca las pasamos a puntos.",
+        "Se mueve cuando lo tocás. Solo el símbolo de apertura se mueve solo.",
+      ],
+    },
+    imagery: {
+      title: "Fotografía",
+      body: "Fotos reales de Ai Labs, solo donde las personas son el punto: talleres, eventos y equipos trabajando.",
+      useLabel: "Usamos",
+      avoidLabel: "Evitamos",
+      use: [
+        "Fotos reales de nuestros talleres y eventos",
+        "Personas trabajando con sus herramientas",
+        "Luz natural y encuadres sin pose",
+      ],
+      avoid: [
+        "Robots, cerebros de neón o salas de servidores",
+        "Degradados que dicen «IA» sin mostrar nada",
+        "Fotos de stock con gente posando",
+      ],
+    },
+    voice: {
+      title: "Cómo escribimos",
+      body: "En primera persona del plural y con voseo. Directo, concreto y sin promesas que no podemos mostrar.",
+      writeLabel: "Escribimos",
+      avoidLabel: "Evitamos",
+      rows: [
+        { write: "Ai Labs", avoid: "AI Labs, AiLabs, Ailabs, AI-Labs" },
+        {
+          write: "Somos, hacemos, agendá, contanos",
+          avoid: "«Ai Labs hace», usted, agende",
+        },
+        {
+          write: "Miembros de los programas de comunidad",
+          avoid: "Embajadores, partners oficiales",
+        },
+        {
+          write: "Alcance y cotización antes de empezar",
+          avoid: "Precios, «precio cerrado», plazos fijos",
+        },
+        {
+          write: "Más de 60 eventos de IA desde 2025",
+          avoid: "Métricas sin confirmar, «líderes», «#1»",
+        },
+        {
+          write: "Una idea por oración, con punto",
+          avoid: "Rayas largas como conectores",
+        },
+      ],
+    },
+    usage: {
+      title: "Uso de la marca",
+      items: [
+        "Podés usar el logo para hablar de Ai Labs, de un evento nuestro o de un trabajo que hicimos juntos.",
+        "No lo uses para sugerir que te respaldamos o que somos socios si no lo somos.",
+        "No lo unas con otro logo en un solo signo ni lo pongas en productos a la venta.",
+      ],
+    },
   },
 }

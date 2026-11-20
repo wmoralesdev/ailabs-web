@@ -18,6 +18,7 @@ export const PUBLIC_PAGE_PATHS = [
   "/automatizacion-ia-el-salvador",
   "/agendar",
   "/community",
+  "/brand",
 ] as const
 
 export type PublicPagePath = (typeof PUBLIC_PAGE_PATHS)[number]

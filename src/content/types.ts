@@ -406,6 +406,107 @@ export type BookingContent = {
   whatsappHint: string
 }
 
+export type BrandAsset = {
+  name: string
+  body: string
+}
+
+export type BrandSwatch = {
+  name: string
+  hex: string
+  role: string
+}
+
+export type BrandFont = {
+  name: string
+  role: string
+  sample: string
+  href: string
+}
+
+export type BrandVoiceRow = {
+  write: string
+  avoid: string
+}
+
+/**
+ * Brand guidelines page (`/brand`). The files it offers live in
+ * `public/brand`; the kit is rebuilt with `pnpm brand:kit`.
+ */
+export type BrandContent = {
+  metaTitle: string
+  metaDescription: string
+  label: string
+  headline: string
+  lead: string
+  kitCta: string
+  /** What the zip holds, under the hero actions. */
+  kitNote: string
+  logoCta: string
+  logo: {
+    title: string
+    body: string
+    lockup: BrandAsset
+    mark: BrandAsset
+    icon: BrandAsset
+    /** Accessible name of the background switch on each tile. */
+    backgroundLabel: string
+    onLight: string
+    onDark: string
+    download: string
+    copy: string
+    copied: string
+    /** The clipboard refused or the file did not load. */
+    copyFailed: string
+  }
+  misuse: {
+    title: string
+    body: string
+    items: readonly [string, string, string, string, string, string]
+  }
+  color: {
+    title: string
+    body: string
+    swatches: ReadonlyArray<BrandSwatch>
+    logoTitle: string
+    logoBody: string
+    logoInks: ReadonlyArray<BrandSwatch>
+    copy: string
+    copied: string
+    copyFailed: string
+  }
+  type: {
+    title: string
+    body: string
+    fonts: readonly [BrandFont, BrandFont]
+    linkLabel: string
+  }
+  halftone: {
+    title: string
+    body: string
+    rules: readonly [string, string, string]
+  }
+  imagery: {
+    title: string
+    body: string
+    use: ReadonlyArray<string>
+    avoid: ReadonlyArray<string>
+    useLabel: string
+    avoidLabel: string
+  }
+  voice: {
+    title: string
+    body: string
+    writeLabel: string
+    avoidLabel: string
+    rows: ReadonlyArray<BrandVoiceRow>
+  }
+  usage: {
+    title: string
+    items: ReadonlyArray<string>
+  }
+}
+
 export type SiteContent = {
   locale: Locale
   meta: PageMeta
@@ -417,4 +518,5 @@ export type SiteContent = {
   legal: LegalContent
   events: EventsIndexContent
   community: CommunityContent
+  brand: BrandContent
 }

@@ -127,4 +127,22 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/agendar" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/agendar" />
   </url>
+  <url>
+    <loc>https://www.ailabs.sv/brand</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/brand" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/brand" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/brand" />
+  </url>
+  <url>
+    <loc>https://www.ailabs.sv/en/brand</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.ailabs.sv/brand" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ailabs.sv/en/brand" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ailabs.sv/brand" />
+  </url>
 </urlset>

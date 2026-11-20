@@ -67,7 +67,8 @@ function collect(content: SiteContent): {
   }
   const group = (path: string, texts: string[]) => groups.push({ path, texts })
 
-  const { home, servicePages, meta, events, booking, community } = content
+  const { home, servicePages, meta, events, booking, community, brand } =
+    content
 
   add("meta.title", meta.title, BUDGET.metaTitle)
   add("meta.description", meta.description, BUDGET.metaDescription)
@@ -193,6 +194,69 @@ function collect(content: SiteContent): {
     "booking.steps[].body",
     booking.steps.map((step) => step.body)
   )
+
+  add("brand.metaTitle", brand.metaTitle, BUDGET.metaTitle)
+  add("brand.metaDescription", brand.metaDescription, BUDGET.metaDescription)
+  add("brand.headline", brand.headline, BUDGET.h1)
+  add("brand.lead", brand.lead, BUDGET.lead)
+  add("brand.kitNote", brand.kitNote, BUDGET.cardLine)
+  const brandSections = [
+    brand.logo,
+    brand.misuse,
+    brand.color,
+    brand.type,
+    brand.halftone,
+    brand.imagery,
+    brand.voice,
+  ] as const
+  for (const [i, section] of brandSections.entries()) {
+    add(`brand.sections[${i}].title`, section.title, BUDGET.sectionTitle)
+    add(`brand.sections[${i}].body`, section.body, BUDGET.lead)
+  }
+  add("brand.usage.title", brand.usage.title, BUDGET.sectionTitle)
+  const logoAssets = [brand.logo.lockup, brand.logo.mark, brand.logo.icon]
+  logoAssets.forEach((asset, i) =>
+    add(`brand.logo.assets[${i}].body`, asset.body, BUDGET.cardLine)
+  )
+  group(
+    "brand.logo.assets[].body",
+    logoAssets.map((asset) => asset.body)
+  )
+  brand.misuse.items.forEach((line, i) =>
+    add(`brand.misuse.items[${i}]`, line, BUDGET.listLine)
+  )
+  add("brand.color.logoBody", brand.color.logoBody, BUDGET.lead)
+  for (const swatch of [...brand.color.swatches, ...brand.color.logoInks]) {
+    add(`brand.color.${swatch.name}.role`, swatch.role, BUDGET.cardLine)
+  }
+  brand.type.fonts.forEach((font, i) => {
+    add(`brand.type.fonts[${i}].role`, font.role, BUDGET.cardLine)
+    add(`brand.type.fonts[${i}].sample`, font.sample, BUDGET.cardLine)
+  })
+  brand.halftone.rules.forEach((rule, i) =>
+    add(`brand.halftone.rules[${i}]`, rule, BUDGET.listLine)
+  )
+  group("brand.halftone.rules[]", [...brand.halftone.rules])
+  for (const line of [...brand.imagery.use, ...brand.imagery.avoid]) {
+    add("brand.imagery.lines", line, BUDGET.listLine)
+  }
+  brand.usage.items.forEach((item, i) =>
+    add(`brand.usage.items[${i}]`, item, BUDGET.cardLine)
+  )
+  group("brand.usage.items[]", [...brand.usage.items])
+  // Voice rows name what we avoid, so they skip the voice check.
+  brand.voice.rows.forEach((row, i) => {
+    checks.push({
+      path: `brand.voice.rows[${i}].write`,
+      text: row.write,
+      max: BUDGET.listLine,
+    })
+    checks.push({
+      path: `brand.voice.rows[${i}].avoid`,
+      text: row.avoid,
+      max: BUDGET.listLine,
+    })
+  })
 
   return { checks, groups, voice }
 }

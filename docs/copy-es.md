@@ -23,7 +23,7 @@ línea de tarjeta 120, respuesta 220, cinco preguntas por página.
 - Columna Servicios: "Automatización y software", "Diagnóstico de IA",
   "Capacitación para equipos", "Cómo trabajamos"
 - Columna Ai Labs: "Talleres y eventos", "Agendar un diagnóstico",
-  "Escribinos por WhatsApp" `[opcional: solo si hay número de negocio]`
+  "Guía de marca" → `/brand`, "Escribinos por WhatsApp" `[opcional: solo si hay número de negocio]`
 - Legal: "Términos", "Privacidad"
 - Ubicación: "Hecho en San Salvador, El Salvador"
 - Redes: LinkedIn, Instagram, TikTok, X (sin cambios)
@@ -374,6 +374,91 @@ que abre solo el código de esta página, grande. No aparece en el header.
 - Agenda, formulario: "Cambiar horario", "Tu nombre", "Tu correo", "Tu empresa", "¿Sobre qué querés hablar?", "¿Qué proceso te quita tiempo? (opcional)", "Dos líneas alcanzan."
 - Agenda, envío: "Confirmar diagnóstico", "Reservando"; errores "Ese horario ya no está disponible. Elegí otro." y "No pudimos reservar. Probá de nuevo en un momento."
 - Agenda, confirmación: "Listo, te esperamos", "Te mandamos la invitación con el enlace de la videollamada a {correo}.", "Ver o cambiar la reserva"
+
+## Marca `/brand`
+
+El hero del home con su propio copy y la descarga del kit (`/brand/ailabs-brand-kit.zip`, se rehace con `pnpm brand:kit`). Después, en este orden: logo, usos incorrectos, color, tipografía, semitono, fotografía, cómo escribimos y uso de la marca. No aparece en el header; el footer la enlaza. Sin contacto hasta que haya un correo de marca.
+
+- Meta title: "Guía de marca y logo | Ai Labs"
+- Meta description: "Descargá el logo de Ai Labs en SVG y conocé nuestros colores, tipografías y reglas para mostrar y escribir la marca bien."
+- Label: "Marca"
+- H1: "Guía de marca de Ai Labs"
+- Lead: "El logo, los colores, las tipografías y cómo escribimos. Lo que necesitás para mostrar Ai Labs en una nota, una presentación o un evento."
+- CTA: "Descargar el kit"
+- Link: "Ver el logo"
+- Nota: "Un ZIP con el logotipo, el símbolo y el ícono en SVG."
+
+### Logo
+
+- Cuerpo: "Usá siempre los archivos originales. El logotipo va por defecto; el símbolo solo, cuando el espacio es chico."
+- Logotipo: "El símbolo y el nombre juntos. Es la versión que va por defecto."
+- Símbolo: "Para el favicon, avatares y espacios chicos cerca del nombre."
+- Ícono de app: "El símbolo sobre su placa. Para perfiles y apps."
+- Controles: "Fondo claro", "Fondo oscuro", "Descargar SVG", "Copiar SVG", "SVG copiado", "No se pudo copiar"
+
+### Cómo no usar el logo
+
+- Cuerpo: "El logo funciona tal como viene. Estos son los cambios que más vemos y que lo rompen."
+- "No lo estires ni lo aplastes"
+- "No lo rotes"
+- "No le cambies los colores"
+- "No le agregues sombras"
+- "No lo pongas sobre poco contraste"
+- "No lo recortes"
+
+### Color
+
+- Cuerpo: "Violeta para acentuar, grafito y nieve para leer. Son los valores del sitio en su tema claro."
+- Violeta `#614AFC`: "Botones, enlaces y acentos. No va de fondo en cada sección."
+- Grafito `#16131F`: "Texto sobre fondos claros."
+- Nieve `#F5F4F8`: "Papel del tema claro y texto sobre oscuro."
+- Noche `#0F0D17`: "Bandas oscuras que no cambian con el tema."
+- Lila `#D6CFFD`: "Papel suave bajo las fotos y en detalles."
+- Hoja `#1E1E22`: "El pie de página, igual en los dos temas."
+- Subtítulo: "Las tintas del logo"
+- Cuerpo: "El logotipo y el símbolo llevan tintas propias, distintas de las del sitio. Usá el archivo tal como viene."
+- Violeta del logo `#8B7BC7`: "El punto y «Ai», sobre cualquier fondo."
+- Gris del logo `#303030`: "El resto, sobre fondo claro."
+- Claro del logo `#EDEDED`: "El resto, sobre fondo oscuro."
+
+### Tipografía
+
+- Cuerpo: "Dos familias libres de Google Fonts: Plus Jakarta Sans para titulares y DM Sans para todo lo demás."
+- Plus Jakarta Sans: "Titulares. Peso 600, interletra cerrada." Muestra: "Automatizamos el trabajo que se repite"
+- DM Sans: "Texto, botones e interfaz. Pesos 400 y 600." Muestra: "Agendá un diagnóstico de 30 minutos y contanos cómo trabaja tu equipo hoy."
+- Link: "Ver en Google Fonts"
+
+### Semitono
+
+- Cuerpo: "El punto es nuestra firma. Imprimimos el símbolo, los íconos y las marcas de los programas como trama de puntos."
+- "Es un acento: un elemento por bloque, nunca un fondo para todo."
+- "Las fotos quedan como fotos. Nunca las pasamos a puntos."
+- "Se mueve cuando lo tocás. Solo el símbolo de apertura se mueve solo."
+
+### Fotografía
+
+- Cuerpo: "Fotos reales de Ai Labs, solo donde las personas son el punto: talleres, eventos y equipos trabajando."
+- Usamos: "Fotos reales de nuestros talleres y eventos", "Personas trabajando con sus herramientas", "Luz natural y encuadres sin pose"
+- Evitamos: "Robots, cerebros de neón o salas de servidores", "Degradados que dicen «IA» sin mostrar nada", "Fotos de stock con gente posando"
+
+### Cómo escribimos
+
+- Cuerpo: "En primera persona del plural y con voseo. Directo, concreto y sin promesas que no podemos mostrar."
+
+| Escribimos | Evitamos |
+| --- | --- |
+| Ai Labs | AI Labs, AiLabs, Ailabs, AI-Labs |
+| Somos, hacemos, agendá, contanos | «Ai Labs hace», usted, agende |
+| Miembros de los programas de comunidad | Embajadores, partners oficiales |
+| Alcance y cotización antes de empezar | Precios, «precio cerrado», plazos fijos |
+| Más de 60 eventos de IA desde 2025 | Métricas sin confirmar, «líderes», «#1» |
+| Una idea por oración, con punto | Rayas largas como conectores |
+
+### Uso de la marca
+
+- "Podés usar el logo para hablar de Ai Labs, de un evento nuestro o de un trabajo que hicimos juntos."
+- "No lo uses para sugerir que te respaldamos o que somos socios si no lo somos."
+- "No lo unas con otro logo en un solo signo ni lo pongas en productos a la venta."
 
 ## Legal
 

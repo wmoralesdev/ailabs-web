@@ -156,6 +156,15 @@ attendee emails, or any metric the owner has not confirmed.
   empty the page shows the pending notice. WhatsApp buttons render only when
   `WHATSAPP_URL` (a business number) is set. There is no contact form and
   nothing is stored.
+- `/brand` is the brand guidelines page, linked from the footer and not the
+  header: the home hero with its own copy and the kit download, then logo
+  tiles with a light/dark background switch that also picks the file,
+  misuse, color (site tokens and, apart, the logo's own inks `#8B7BC7`,
+  `#303030`, `#EDEDED`), type, halftone, photography, voice and usage. Copy
+  is `brand` in the content modules; files are `src/content/brand-assets.ts`.
+  The kit `public/brand/ailabs-brand-kit.zip` holds only Ai Labs artwork and
+  is rebuilt with `pnpm brand:kit` whenever a logo file changes. No clear
+  space, minimum size or brand contact until the owner sets them.
 - `/terms` and `/privacy` still describe the retired member profiles and
   must be rewritten; the footer hides them while `legal.status` is a draft.
 - Retired routes 301 in `src/lib/search-aliases.ts`: `/aperture*`, `/me`, `/u/*`, `/campus-leader` and the old event microsites

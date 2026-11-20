@@ -35,6 +35,12 @@ type HalftoneCanvasProps = {
    * seconds. The pointer moves the lamp instead of inking.
    */
   story?: boolean
+  /**
+   * The story's lit volume without its entrance or signal: the shape is
+   * printed in light and shade from the start, and the pointer moves the
+   * lamp. `story` implies it.
+   */
+  volume?: boolean
   className?: string
 }
 
@@ -103,7 +109,8 @@ function smoothstep(a: number, b: number, v: number) {
  * The pointer surface is the closest `[data-halftone-surface]`, so ink
  * follows the cursor over text too. Inks come from CSS on the element: `--ht-ink` (the shape), `--ht-accent`
  * (accent parts of an image and the pointer's ink) and `--ht-faint` (the
- * resting screen). Decorative. It animates only while ink or the `story` is
+ * resting screen). Light paper shades with the `--ht-lit-*` ramp unless the
+ * element sets `--ht-ramp: off`, as dark or coloured cells do. Decorative. It animates only while ink or the `story` is
  * moving, only on screen, and prints a still frame under reduced motion.
  */
 function HalftoneCanvas({
@@ -114,8 +121,10 @@ function HalftoneCanvas({
   density = 0,
   rest = 0.07,
   story = false,
+  volume = false,
   className,
 }: HalftoneCanvasProps) {
+  const shaded = story || volume
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const { left, top, width, height } = area
@@ -158,7 +167,7 @@ function HalftoneCanvas({
     const motion = {
       settle: story && !reduced.matches ? 0 : 1,
       signal: -1,
-      light: reduced.matches ? 1 : 0,
+      light: reduced.matches || !story ? 1 : 0,
       lightX: LIGHT_REST.x,
       lightY: LIGHT_REST.y,
     }
@@ -174,14 +183,16 @@ function HalftoneCanvas({
 
     function readColors() {
       const style = getComputedStyle(wrap as HTMLElement)
-      paperRamp = document.documentElement.classList.contains("dark")
-        ? null
-        : [
-            style.getPropertyValue("--ht-lit-high").trim(),
-            style.getPropertyValue("--ht-lit-mid").trim(),
-            style.getPropertyValue("--ht-lit-low").trim(),
-            style.getPropertyValue("--ht-ink").trim(),
-          ]
+      paperRamp =
+        document.documentElement.classList.contains("dark") ||
+        style.getPropertyValue("--ht-ramp").trim() === "off"
+          ? null
+          : [
+              style.getPropertyValue("--ht-lit-high").trim(),
+              style.getPropertyValue("--ht-lit-mid").trim(),
+              style.getPropertyValue("--ht-lit-low").trim(),
+              style.getPropertyValue("--ht-ink").trim(),
+            ]
       colors = {
         ink: style.getPropertyValue("--ht-ink").trim() || style.color,
         accent: style.getPropertyValue("--ht-accent").trim() || style.color,
@@ -273,7 +284,7 @@ function HalftoneCanvas({
         }
       }
       if (story) prepareStory()
-      if (story) prepareVolume()
+      if (shaded) prepareVolume()
     }
 
     /** Reads the flat shape as a soft relief; what each dot faces is kept. */
@@ -426,7 +437,7 @@ function HalftoneCanvas({
         Array.from({ length: SIGNAL_LEVELS }, () => new Path2D())
       )
       const settling = motion.settle < 1
-      const shading = story && !settling && normals.length === cols * rows * 3
+      const shading = shaded && !settling && normals.length === cols * rows * 3
       const tones = shading
         ? Array.from({ length: TONE_LEVELS }, () => new Path2D())
         : []
@@ -594,7 +605,7 @@ function HalftoneCanvas({
 
       if (motion.settle < 1 && settleTween) moving = true
       if (motion.signal >= 0) moving = true
-      if (story && gsap.isTweening(motion)) moving = true
+      if (shaded && gsap.isTweening(motion)) moving = true
 
       if (pointer.active) {
         if (!follower.ready) {
@@ -646,7 +657,7 @@ function HalftoneCanvas({
     const onMove = (event: PointerEvent) => {
       if (event.pointerType !== "mouse" || reduced.matches) return
       const p = local(event)
-      if (story) {
+      if (shaded) {
         aimLight(
           (p.x - mark.x - mark.width / 2) / (mark.width * 0.9),
           (p.y - mark.y - mark.height / 2) / (mark.height * 0.9)
@@ -661,10 +672,10 @@ function HalftoneCanvas({
     const onLeave = () => {
       pointer.active = false
       follower.ready = false
-      if (story) aimLight(LIGHT_REST.x, LIGHT_REST.y)
+      if (shaded) aimLight(LIGHT_REST.x, LIGHT_REST.y)
     }
     const onDown = (event: PointerEvent) => {
-      if (reduced.matches || story) return
+      if (reduced.matches || shaded) return
       const p = local(event)
       splat(p.x, p.y, 1.1, 3.4)
       wake()
@@ -704,11 +715,7 @@ function HalftoneCanvas({
           ease: "power2.inOut",
           onStart: wake,
           onComplete() {
-            const lamp = { duration: 0.9, ease: "power3.out" }
-            moveLight = {
-              x: gsap.quickTo(motion, "lightX", lamp),
-              y: gsap.quickTo(motion, "lightY", lamp),
-            }
+            freeLight()
             scheduleSignal(2)
           },
         }
@@ -731,8 +738,19 @@ function HalftoneCanvas({
       })
     }
 
+    /** Hands the lamp to the pointer, eased so it trails a little. */
+    function freeLight() {
+      const lamp = { duration: 0.9, ease: "power3.out" }
+      moveLight = {
+        x: gsap.quickTo(motion, "lightX", lamp),
+        y: gsap.quickTo(motion, "lightY", lamp),
+      }
+    }
+
     readColors()
     resize()
+    // Without the story, the light is already on and the lamp is free.
+    if (volume && !story) freeLight()
 
     if (src) {
       image = new Image()
@@ -790,7 +808,20 @@ function HalftoneCanvas({
       surface.removeEventListener("pointerleave", onLeave)
       surface.removeEventListener("pointerdown", onDown)
     }
-  }, [src, shape, left, top, width, height, maxCell, density, rest, story])
+  }, [
+    src,
+    shape,
+    left,
+    top,
+    width,
+    height,
+    maxCell,
+    density,
+    rest,
+    story,
+    volume,
+    shaded,
+  ])
 
   return (
     <div

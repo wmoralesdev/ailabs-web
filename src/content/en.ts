@@ -92,6 +92,10 @@ export const en: SiteContent = {
               label: "Book a diagnostic",
               href: "/agendar",
             },
+            {
+              label: "Brand guidelines",
+              href: "/brand",
+            },
           ],
         },
       ],
@@ -350,5 +354,192 @@ export const en: SiteContent = {
     eventsCta: "See events",
     qrCta: "Show QR",
     qrTitle: "Scan to join",
+  },
+  brand: {
+    metaTitle: "Brand guidelines and logo",
+    metaDescription:
+      "Download the Ai Labs logo as SVG and learn our colors, typefaces and the rules for showing and writing the brand the right way.",
+    label: "Brand",
+    headline: "Ai Labs brand guidelines",
+    lead: "The logo, the colors, the typefaces and how we write. What you need to show Ai Labs in an article, a presentation or an event.",
+    kitCta: "Download the kit",
+    kitNote: "A ZIP with the logotype, the symbol and the icon as SVG.",
+    logoCta: "See the logo",
+    logo: {
+      title: "Logo",
+      body: "Always use the original files. The logotype is the default; the symbol alone, when space is tight.",
+      lockup: {
+        name: "Logotype",
+        body: "The symbol and the name together. It is the default version.",
+      },
+      mark: {
+        name: "Symbol",
+        body: "For the favicon, avatars and small spaces near the name.",
+      },
+      icon: {
+        name: "App icon",
+        body: "The symbol on its tile. For profiles and apps.",
+      },
+      backgroundLabel: "Background",
+      onLight: "Light background",
+      onDark: "Dark background",
+      download: "Download SVG",
+      copy: "Copy SVG",
+      copied: "SVG copied",
+      copyFailed: "Could not copy",
+    },
+    misuse: {
+      title: "How not to use the logo",
+      body: "The logo works as it comes. These are the changes we see most, and they break it.",
+      items: [
+        "Do not stretch or squash it",
+        "Do not rotate it",
+        "Do not change its colors",
+        "Do not add shadows",
+        "Do not place it on low contrast",
+        "Do not crop it",
+      ],
+    },
+    color: {
+      title: "Color",
+      body: "Violet to accent, graphite and snow to read. These are the site values in its light theme.",
+      swatches: [
+        {
+          name: "Violet",
+          hex: "#614AFC",
+          role: "Buttons, links and accents. Never the background of every section.",
+        },
+        {
+          name: "Graphite",
+          hex: "#16131F",
+          role: "Text on light backgrounds.",
+        },
+        {
+          name: "Snow",
+          hex: "#F5F4F8",
+          role: "Light theme paper and text on dark.",
+        },
+        {
+          name: "Night",
+          hex: "#0F0D17",
+          role: "Dark bands that do not change with the theme.",
+        },
+        {
+          name: "Lilac",
+          hex: "#D6CFFD",
+          role: "Soft paper under photos and in details.",
+        },
+        {
+          name: "Sheet",
+          hex: "#1E1E22",
+          role: "The footer, the same in both themes.",
+        },
+      ],
+      logoTitle: "The logo inks",
+      logoBody:
+        "The logotype and the symbol carry their own inks, different from the site's. Use the file as it comes.",
+      logoInks: [
+        {
+          name: "Logo violet",
+          hex: "#8B7BC7",
+          role: "The dot and “Ai”, on any background.",
+        },
+        {
+          name: "Logo grey",
+          hex: "#303030",
+          role: "The rest, on a light background.",
+        },
+        {
+          name: "Logo light",
+          hex: "#EDEDED",
+          role: "The rest, on a dark background.",
+        },
+      ],
+      copy: "Copy",
+      copied: "Copied",
+      copyFailed: "Could not copy",
+    },
+    type: {
+      title: "Typography",
+      body: "Two free families from Google Fonts: Plus Jakarta Sans for headlines and DM Sans for everything else.",
+      fonts: [
+        {
+          name: "Plus Jakarta Sans",
+          role: "Headlines. Weight 600, tight tracking.",
+          sample: "We automate the work that repeats",
+          href: "https://fonts.google.com/specimen/Plus+Jakarta+Sans",
+        },
+        {
+          name: "DM Sans",
+          role: "Text, buttons and interface. Weights 400 and 600.",
+          sample:
+            "Book a 30-minute diagnostic and tell us how your team works today.",
+          href: "https://fonts.google.com/specimen/DM+Sans",
+        },
+      ],
+      linkLabel: "See on Google Fonts",
+    },
+    halftone: {
+      title: "Halftone",
+      body: "The dot is our signature. We print the symbol, the icons and the program marks as a dot screen.",
+      rules: [
+        "It is an accent: one element per block, never a background for everything.",
+        "Photos stay photos. We never turn them into dots.",
+        "It moves when you touch it. Only the opening symbol moves on its own.",
+      ],
+    },
+    imagery: {
+      title: "Photography",
+      body: "Real Ai Labs photos, only where people are the point: workshops, events and teams at work.",
+      useLabel: "We use",
+      avoidLabel: "We avoid",
+      use: [
+        "Real photos of our workshops and events",
+        "People working with their own tools",
+        "Natural light and unposed framing",
+      ],
+      avoid: [
+        "Robots, neon brains or server rooms",
+        "Gradients that say “AI” without showing anything",
+        "Stock photos of people posing",
+      ],
+    },
+    voice: {
+      title: "How we write",
+      body: "In the first person plural. Direct, concrete and with no promises we cannot show.",
+      writeLabel: "We write",
+      avoidLabel: "We avoid",
+      rows: [
+        { write: "Ai Labs", avoid: "AI Labs, AiLabs, Ailabs, AI-Labs" },
+        {
+          write: "We are, we build, book, tell us",
+          avoid: "“Ai Labs does”, the company",
+        },
+        {
+          write: "Members of the community programs",
+          avoid: "Ambassadors, official partners",
+        },
+        {
+          write: "Scope and quote before we start",
+          avoid: "Prices, “fixed price”, fixed timelines",
+        },
+        {
+          write: "More than 60 AI events since 2025",
+          avoid: "Unconfirmed metrics, “leaders”, “#1”",
+        },
+        {
+          write: "One idea per sentence, with a period",
+          avoid: "Long dashes as connectors",
+        },
+      ],
+    },
+    usage: {
+      title: "Using the brand",
+      items: [
+        "You can use the logo to talk about Ai Labs, one of our events or work we did together.",
+        "Do not use it to suggest that we endorse you or that we are partners when we are not.",
+        "Do not merge it with another logo into one sign or put it on products for sale.",
+      ],
+    },
   },
 }
