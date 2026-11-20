@@ -14,6 +14,7 @@
     "check": "prettier --check \"**/*.{ts,tsx,js,jsx}\"",
     "typecheck": "tsc --noEmit",
     "halftone:logos": "node scripts/logo-dots.mjs",
+    "brand:kit": "tsx scripts/brand-kit.ts",
     "copy:check": "tsx scripts/copy-length.ts"
   },
   "dependencies": {

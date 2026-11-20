@@ -101,6 +101,7 @@ describe("public SEO files", () => {
       "/events",
       "/agendar",
       "/community",
+      "/brand",
     ]
     for (const path of pages) {
       expect(sitemap).toContain(

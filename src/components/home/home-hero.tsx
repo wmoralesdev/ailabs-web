@@ -2,7 +2,7 @@ import { Fragment, useRef } from "react"
 import type { ReactNode } from "react"
 import { Link } from "@tanstack/react-router"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
+import { ArrowRight01Icon, Download04Icon } from "@hugeicons/core-free-icons"
 
 import { HalftoneCanvas } from "@/components/halftone/halftone-canvas"
 import { Eyebrow } from "@/components/ui/eyebrow"
@@ -16,6 +16,8 @@ type HomeHeroLinkAction = {
   href: string
   external?: boolean
   newTabLabel?: string
+  /** Download the file instead of opening it, such as the brand kit. */
+  download?: boolean
 }
 
 type HomeHeroProps = {
@@ -112,13 +114,19 @@ function HomeHero({
                 {...(primaryAction.external
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
+                {...(primaryAction.download ? { download: true } : {})}
                 className="btn"
               >
                 {primaryAction.label}
                 {primaryAction.newTabLabel ? (
                   <span className="sr-only"> {primaryAction.newTabLabel}</span>
                 ) : null}
-                <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+                <HugeiconsIcon
+                  icon={
+                    primaryAction.download ? Download04Icon : ArrowRight01Icon
+                  }
+                  strokeWidth={2}
+                />
               </a>
             ) : isInternalHref(hero.primaryCta.href) ? (
               <Link to={primaryHref as never} className="btn">

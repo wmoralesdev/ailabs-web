@@ -23,7 +23,7 @@ card line 120, answer 220, five questions per page.
 - Columna Servicios: "Automation and software", "AI diagnostic",
   "Training for teams", "How we work"
 - Columna Ai Labs: "Workshops and events", "Book a diagnostic",
-  "Message us on WhatsApp" `[optional: only if there is a business number]`
+  "Brand guidelines" → `/brand`, "Message us on WhatsApp" `[optional: only if there is a business number]`
 - Legal: "Terms", "Privacy"
 - Ubicación: "Made in San Salvador, El Salvador"
 - Redes: LinkedIn, Instagram, TikTok, X (unchanged)
@@ -374,6 +374,91 @@ that opens only the code of this page, large. It is not in the header.
 - Booker, form: "Change time", "Your name", "Your email", "Your company", "What would you like to talk about?", "Which process takes up your time? (optional)", "Two lines are enough."
 - Booker, submit: "Confirm diagnostic", "Booking"; errors "That time is no longer available. Pick another." and "We could not book it. Try again in a moment."
 - Booker, confirmation: "All set, see you there", "We sent the invitation with the video call link to {email}.", "View or change the booking"
+
+## Brand `/brand`
+
+The home hero with its own copy and the kit download (`/brand/ailabs-brand-kit.zip`, rebuilt with `pnpm brand:kit`). Then, in this order: logo, misuse, color, typography, halftone, photography, how we write and brand usage. Not in the header; the footer links it. No contact until there is a brand email.
+
+- Meta title: "Brand guidelines and logo | Ai Labs"
+- Meta description: "Download the Ai Labs logo as SVG and learn our colors, typefaces and the rules for showing and writing the brand the right way."
+- Label: "Brand"
+- H1: "Ai Labs brand guidelines"
+- Lead: "The logo, the colors, the typefaces and how we write. What you need to show Ai Labs in an article, a presentation or an event."
+- CTA: "Download the kit"
+- Link: "See the logo"
+- Note: "A ZIP with the logotype, the symbol and the icon as SVG."
+
+### Logo
+
+- Body: "Always use the original files. The logotype is the default; the symbol alone, when space is tight."
+- Logotype: "The symbol and the name together. It is the default version."
+- Symbol: "For the favicon, avatars and small spaces near the name."
+- App icon: "The symbol on its tile. For profiles and apps."
+- Controls: "Light background", "Dark background", "Download SVG", "Copy SVG", "SVG copied", "Could not copy"
+
+### How not to use the logo
+
+- Body: "The logo works as it comes. These are the changes we see most, and they break it."
+- "Do not stretch or squash it"
+- "Do not rotate it"
+- "Do not change its colors"
+- "Do not add shadows"
+- "Do not place it on low contrast"
+- "Do not crop it"
+
+### Color
+
+- Body: "Violet to accent, graphite and snow to read. These are the site values in its light theme."
+- Violet `#614AFC`: "Buttons, links and accents. Never the background of every section."
+- Graphite `#16131F`: "Text on light backgrounds."
+- Snow `#F5F4F8`: "Light theme paper and text on dark."
+- Night `#0F0D17`: "Dark bands that do not change with the theme."
+- Lilac `#D6CFFD`: "Soft paper under photos and in details."
+- Sheet `#1E1E22`: "The footer, the same in both themes."
+- Subtitle: "The logo inks"
+- Body: "The logotype and the symbol carry their own inks, different from the site's. Use the file as it comes."
+- Logo violet `#8B7BC7`: "The dot and “Ai”, on any background."
+- Logo grey `#303030`: "The rest, on a light background."
+- Logo light `#EDEDED`: "The rest, on a dark background."
+
+### Typography
+
+- Body: "Two free families from Google Fonts: Plus Jakarta Sans for headlines and DM Sans for everything else."
+- Plus Jakarta Sans: "Headlines. Weight 600, tight tracking." Sample: "We automate the work that repeats"
+- DM Sans: "Text, buttons and interface. Weights 400 and 600." Sample: "Book a 30-minute diagnostic and tell us how your team works today."
+- Link: "See on Google Fonts"
+
+### Halftone
+
+- Body: "The dot is our signature. We print the symbol, the icons and the program marks as a dot screen."
+- "It is an accent: one element per block, never a background for everything."
+- "Photos stay photos. We never turn them into dots."
+- "It moves when you touch it. Only the opening symbol moves on its own."
+
+### Photography
+
+- Body: "Real Ai Labs photos, only where people are the point: workshops, events and teams at work."
+- We use: "Real photos of our workshops and events", "People working with their own tools", "Natural light and unposed framing"
+- We avoid: "Robots, neon brains or server rooms", "Gradients that say “AI” without showing anything", "Stock photos of people posing"
+
+### How we write
+
+- Body: "In the first person plural. Direct, concrete and with no promises we cannot show."
+
+| We write | We avoid |
+| --- | --- |
+| Ai Labs | AI Labs, AiLabs, Ailabs, AI-Labs |
+| We are, we build, book, tell us | “Ai Labs does”, the company |
+| Members of the community programs | Ambassadors, official partners |
+| Scope and quote before we start | Prices, “fixed price”, fixed timelines |
+| More than 60 AI events since 2025 | Unconfirmed metrics, “leaders”, “#1” |
+| One idea per sentence, with a period | Long dashes as connectors |
+
+### Using the brand
+
+- "You can use the logo to talk about Ai Labs, one of our events or work we did together."
+- "Do not use it to suggest that we endorse you or that we are partners when we are not."
+- "Do not merge it with another logo into one sign or put it on products for sale."
 
 ## Legal
 

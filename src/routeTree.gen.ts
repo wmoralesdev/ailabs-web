@@ -18,6 +18,7 @@ import { Route as LocaleSplatRouteImport } from './routes/$locale/$'
 import { Route as SiteIndexRouteImport } from './routes/_site/index'
 import { Route as SiteAgendarRouteImport } from './routes/_site/agendar'
 import { Route as SiteAutomatizacionIaElSalvadorRouteImport } from './routes/_site/automatizacion-ia-el-salvador'
+import { Route as SiteBrandRouteImport } from './routes/_site/brand'
 import { Route as SiteCapacitacionIaElSalvadorRouteImport } from './routes/_site/capacitacion-ia-el-salvador'
 import { Route as SiteCommunityRouteImport } from './routes/_site/community'
 import { Route as SiteConsultoriaDeIaElSalvadorRouteImport } from './routes/_site/consultoria-de-ia-el-salvador'
@@ -26,6 +27,7 @@ import { Route as SiteTermsRouteImport } from './routes/_site/terms'
 import { Route as EnIndexRouteImport } from './routes/en/index'
 import { Route as EnAgendarRouteImport } from './routes/en/agendar'
 import { Route as EnAutomatizacionIaElSalvadorRouteImport } from './routes/en/automatizacion-ia-el-salvador'
+import { Route as EnBrandRouteImport } from './routes/en/brand'
 import { Route as EnCapacitacionIaElSalvadorRouteImport } from './routes/en/capacitacion-ia-el-salvador'
 import { Route as EnCommunityRouteImport } from './routes/en/community'
 import { Route as EnConsultoriaDeIaElSalvadorRouteImport } from './routes/en/consultoria-de-ia-el-salvador'
@@ -79,6 +81,11 @@ const SiteAutomatizacionIaElSalvadorRoute =
     path: '/automatizacion-ia-el-salvador',
     getParentRoute: () => SiteRoute,
   } as any)
+const SiteBrandRoute = SiteBrandRouteImport.update({
+  id: '/brand',
+  path: '/brand',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteCapacitacionIaElSalvadorRoute =
   SiteCapacitacionIaElSalvadorRouteImport.update({
     id: '/capacitacion-ia-el-salvador',
@@ -122,6 +129,11 @@ const EnAutomatizacionIaElSalvadorRoute =
     path: '/automatizacion-ia-el-salvador',
     getParentRoute: () => EnRoute,
   } as any)
+const EnBrandRoute = EnBrandRouteImport.update({
+  id: '/brand',
+  path: '/brand',
+  getParentRoute: () => EnRoute,
+} as any)
 const EnCapacitacionIaElSalvadorRoute =
   EnCapacitacionIaElSalvadorRouteImport.update({
     id: '/capacitacion-ia-el-salvador',
@@ -168,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/$locale/$': typeof LocaleSplatRoute
   '/agendar': typeof SiteAgendarRoute
   '/automatizacion-ia-el-salvador': typeof SiteAutomatizacionIaElSalvadorRoute
+  '/brand': typeof SiteBrandRoute
   '/capacitacion-ia-el-salvador': typeof SiteCapacitacionIaElSalvadorRoute
   '/community': typeof SiteCommunityRoute
   '/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
@@ -175,6 +188,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof SiteTermsRoute
   '/en/agendar': typeof EnAgendarRoute
   '/en/automatizacion-ia-el-salvador': typeof EnAutomatizacionIaElSalvadorRoute
+  '/en/brand': typeof EnBrandRoute
   '/en/capacitacion-ia-el-salvador': typeof EnCapacitacionIaElSalvadorRoute
   '/en/community': typeof EnCommunityRoute
   '/en/consultoria-de-ia-el-salvador': typeof EnConsultoriaDeIaElSalvadorRoute
@@ -190,6 +204,7 @@ export interface FileRoutesByTo {
   '/$locale/$': typeof LocaleSplatRoute
   '/agendar': typeof SiteAgendarRoute
   '/automatizacion-ia-el-salvador': typeof SiteAutomatizacionIaElSalvadorRoute
+  '/brand': typeof SiteBrandRoute
   '/capacitacion-ia-el-salvador': typeof SiteCapacitacionIaElSalvadorRoute
   '/community': typeof SiteCommunityRoute
   '/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
@@ -197,6 +212,7 @@ export interface FileRoutesByTo {
   '/terms': typeof SiteTermsRoute
   '/en/agendar': typeof EnAgendarRoute
   '/en/automatizacion-ia-el-salvador': typeof EnAutomatizacionIaElSalvadorRoute
+  '/en/brand': typeof EnBrandRoute
   '/en/capacitacion-ia-el-salvador': typeof EnCapacitacionIaElSalvadorRoute
   '/en/community': typeof EnCommunityRoute
   '/en/consultoria-de-ia-el-salvador': typeof EnConsultoriaDeIaElSalvadorRoute
@@ -217,6 +233,7 @@ export interface FileRoutesById {
   '/$locale/$': typeof LocaleSplatRoute
   '/_site/agendar': typeof SiteAgendarRoute
   '/_site/automatizacion-ia-el-salvador': typeof SiteAutomatizacionIaElSalvadorRoute
+  '/_site/brand': typeof SiteBrandRoute
   '/_site/capacitacion-ia-el-salvador': typeof SiteCapacitacionIaElSalvadorRoute
   '/_site/community': typeof SiteCommunityRoute
   '/_site/consultoria-de-ia-el-salvador': typeof SiteConsultoriaDeIaElSalvadorRoute
@@ -224,6 +241,7 @@ export interface FileRoutesById {
   '/_site/terms': typeof SiteTermsRoute
   '/en/agendar': typeof EnAgendarRoute
   '/en/automatizacion-ia-el-salvador': typeof EnAutomatizacionIaElSalvadorRoute
+  '/en/brand': typeof EnBrandRoute
   '/en/capacitacion-ia-el-salvador': typeof EnCapacitacionIaElSalvadorRoute
   '/en/community': typeof EnCommunityRoute
   '/en/consultoria-de-ia-el-salvador': typeof EnConsultoriaDeIaElSalvadorRoute
@@ -245,6 +263,7 @@ export interface FileRouteTypes {
     | '/$locale/$'
     | '/agendar'
     | '/automatizacion-ia-el-salvador'
+    | '/brand'
     | '/capacitacion-ia-el-salvador'
     | '/community'
     | '/consultoria-de-ia-el-salvador'
@@ -252,6 +271,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/en/agendar'
     | '/en/automatizacion-ia-el-salvador'
+    | '/en/brand'
     | '/en/capacitacion-ia-el-salvador'
     | '/en/community'
     | '/en/consultoria-de-ia-el-salvador'
@@ -267,6 +287,7 @@ export interface FileRouteTypes {
     | '/$locale/$'
     | '/agendar'
     | '/automatizacion-ia-el-salvador'
+    | '/brand'
     | '/capacitacion-ia-el-salvador'
     | '/community'
     | '/consultoria-de-ia-el-salvador'
@@ -274,6 +295,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/en/agendar'
     | '/en/automatizacion-ia-el-salvador'
+    | '/en/brand'
     | '/en/capacitacion-ia-el-salvador'
     | '/en/community'
     | '/en/consultoria-de-ia-el-salvador'
@@ -293,6 +315,7 @@ export interface FileRouteTypes {
     | '/$locale/$'
     | '/_site/agendar'
     | '/_site/automatizacion-ia-el-salvador'
+    | '/_site/brand'
     | '/_site/capacitacion-ia-el-salvador'
     | '/_site/community'
     | '/_site/consultoria-de-ia-el-salvador'
@@ -300,6 +323,7 @@ export interface FileRouteTypes {
     | '/_site/terms'
     | '/en/agendar'
     | '/en/automatizacion-ia-el-salvador'
+    | '/en/brand'
     | '/en/capacitacion-ia-el-salvador'
     | '/en/community'
     | '/en/consultoria-de-ia-el-salvador'
@@ -384,6 +408,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteAutomatizacionIaElSalvadorRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/brand': {
+      id: '/_site/brand'
+      path: '/brand'
+      fullPath: '/brand'
+      preLoaderRoute: typeof SiteBrandRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/capacitacion-ia-el-salvador': {
       id: '/_site/capacitacion-ia-el-salvador'
       path: '/capacitacion-ia-el-salvador'
@@ -438,6 +469,13 @@ declare module '@tanstack/react-router' {
       path: '/automatizacion-ia-el-salvador'
       fullPath: '/en/automatizacion-ia-el-salvador'
       preLoaderRoute: typeof EnAutomatizacionIaElSalvadorRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/brand': {
+      id: '/en/brand'
+      path: '/brand'
+      fullPath: '/en/brand'
+      preLoaderRoute: typeof EnBrandRouteImport
       parentRoute: typeof EnRoute
     }
     '/en/capacitacion-ia-el-salvador': {
@@ -508,6 +546,7 @@ const LocaleRouteWithChildren =
 interface SiteRouteChildren {
   SiteAgendarRoute: typeof SiteAgendarRoute
   SiteAutomatizacionIaElSalvadorRoute: typeof SiteAutomatizacionIaElSalvadorRoute
+  SiteBrandRoute: typeof SiteBrandRoute
   SiteCapacitacionIaElSalvadorRoute: typeof SiteCapacitacionIaElSalvadorRoute
   SiteCommunityRoute: typeof SiteCommunityRoute
   SiteConsultoriaDeIaElSalvadorRoute: typeof SiteConsultoriaDeIaElSalvadorRoute
@@ -520,6 +559,7 @@ interface SiteRouteChildren {
 const SiteRouteChildren: SiteRouteChildren = {
   SiteAgendarRoute: SiteAgendarRoute,
   SiteAutomatizacionIaElSalvadorRoute: SiteAutomatizacionIaElSalvadorRoute,
+  SiteBrandRoute: SiteBrandRoute,
   SiteCapacitacionIaElSalvadorRoute: SiteCapacitacionIaElSalvadorRoute,
   SiteCommunityRoute: SiteCommunityRoute,
   SiteConsultoriaDeIaElSalvadorRoute: SiteConsultoriaDeIaElSalvadorRoute,
@@ -534,6 +574,7 @@ const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 interface EnRouteChildren {
   EnAgendarRoute: typeof EnAgendarRoute
   EnAutomatizacionIaElSalvadorRoute: typeof EnAutomatizacionIaElSalvadorRoute
+  EnBrandRoute: typeof EnBrandRoute
   EnCapacitacionIaElSalvadorRoute: typeof EnCapacitacionIaElSalvadorRoute
   EnCommunityRoute: typeof EnCommunityRoute
   EnConsultoriaDeIaElSalvadorRoute: typeof EnConsultoriaDeIaElSalvadorRoute
@@ -546,6 +587,7 @@ interface EnRouteChildren {
 const EnRouteChildren: EnRouteChildren = {
   EnAgendarRoute: EnAgendarRoute,
   EnAutomatizacionIaElSalvadorRoute: EnAutomatizacionIaElSalvadorRoute,
+  EnBrandRoute: EnBrandRoute,
   EnCapacitacionIaElSalvadorRoute: EnCapacitacionIaElSalvadorRoute,
   EnCommunityRoute: EnCommunityRoute,
   EnConsultoriaDeIaElSalvadorRoute: EnConsultoriaDeIaElSalvadorRoute,
